@@ -104,7 +104,7 @@ const BOYA = (() => {
   }
 
   function bulutCiz(G, x, y, w, h, o = {}) { const g = G.g, q = rng(o.seed || 3), n = o.n || Math.round(w / h * 5), dr = o.drift || 0, bl = o.blur ?? h * .12;
-      g.save(); g.filter = `blur(${bl}px)`;
+      g.save(); if (!G.yumusakYok) g.filter = `blur(${bl}px)`;
       // gövde (alt, koyu) sonra ışık (üst, açık): iki katman, düzensiz dağılım
       for (const [kat, v, dy, k] of [[0, o.govde ?? .58, .12, 1], [1, o.isik ?? .9, -.12, .72]]) {
         g.fillStyle = gri(v);
@@ -112,7 +112,7 @@ const BOYA = (() => {
           g.beginPath(); g.ellipse(cx, cy, rr * (1.3 + q() * .8), rr * .75, 0, 0, TAU); g.fill(); }
       }
       g.restore(); }
-  const BULUT_ON = {}, GRI_ON = new Map();
+  const BULUT_ON = {}, GRI_ON = new Map(); let YUM = null;
   // gri + kontrast süzgeci her karede pahalı: görüntü başına bir kez uygulanır
   function griOn(im, k, b) { const key = (im.src || '') + '|' + k + '|' + b; let c = GRI_ON.get(key); if (c) return c;
     c = document.createElement('canvas'); c.width = im.naturalWidth || im.width; c.height = im.naturalHeight || im.height; const x = c.getContext('2d'); x.filter = `grayscale(1) contrast(${k}) brightness(${b})`; x.drawImage(im, 0, 0); GRI_ON.set(key, c); return c; }
@@ -133,13 +133,14 @@ const BOYA = (() => {
 
     // bulut örtüsü: ufka doğru incelen katmanlar. Bulanıklaştırma pahalı (yazılımsal çizim): katman bir kez önbelleğe çizilir, sonra kaydırılır
     G.bulutlar = (y0, y1, o = {}) => { const key = JSON.stringify([y0, y1, { ...o, drift: 0 }]); let c = BULUT_ON[key];
-      if (!c) { c = document.createElement('canvas'); c.width = 3200; c.height = 1300; const g2 = c.getContext('2d'); g2.translate(900, 300);
-        const G2 = { ...G, g: g2 }; const k = o.n ?? 5;
+      if (!c) { const K = 6; c = document.createElement('canvas'); c.width = 3200 / K; c.height = 1300 / K; const g2 = c.getContext('2d'); g2.scale(1 / K, 1 / K); g2.translate(900, 300);
+        const G2 = { ...G, g: g2, yumusakYok: true }; const k = o.n ?? 5;
         for (let i = 0; i < k; i++) { const u = i / Math.max(1, k - 1), yy = lerp(y0, y1, u), hh = lerp(o.h0 ?? 170, o.h1 ?? 50, u), q = rng((o.seed || 1) * 31 + i);
           bulutCiz(G2, 720 + (q() - .5) * 900, yy, lerp(o.w0 ?? 1500, o.w1 ?? 2200, u), hh, { seed: (o.seed || 1) * 7 + i, govde: lerp(o.govde ?? .55, o.ufukV ?? .82, u), isik: lerp(o.isik ?? .9, .95, u) }); }
         BULUT_ON[key] = c; }
-      g.drawImage(c, -900 + ((o.drift || 0) % 600), -300); };
+      g.save(); g.imageSmoothingQuality = 'high'; g.drawImage(c, -900 + ((o.drift || 0) % 600), -300, 3200, 1300); g.restore(); };
     G.bulut = (x, y, w, h, o = {}) => bulutCiz(G, x, y, w, h, o);
+    G.kirmiziT = (P, a = 1) => { G.renkVar = true; r.save(); r.setTransform(g.getTransform()); r.globalAlpha = a; r.fillStyle = 'rgb(176,22,30)'; r.fill(P); r.restore(); };   // yol g'nin o anki dönüşümünde
     G.kirmiziCiz = fn => { G.renkVar = true; r.save(); r.fillStyle = r.strokeStyle = 'rgb(176,22,30)'; fn(r); r.restore(); };
     // deniz: ufuktan öne koyulaşan yüzey + hareketli dalga çizgileri (Redraw onları tarama yapar)
     G.deniz = (y0, y1, o = {}) => { const t = o.t || 0, gr = g.createLinearGradient(0, y0, 0, y1); gr.addColorStop(0, gri(o.ufuk ?? .78)); gr.addColorStop(1, gri(o.on ?? .35)); g.fillStyle = gr; g.fillRect(-2000, y0, 6000, y1 - y0 + 2000);
@@ -188,6 +189,10 @@ const BOYA = (() => {
       const P = pathOf(pts, true, .8); g.fillStyle = gri(.62); g.fill(P); g.strokeStyle = gri(.3); g.lineWidth = rr * .07; g.beginPath(); g.arc(x, y, rr * .6, .3, TAU - .5); g.stroke();
       if (o.renk !== false) G.kirmizi(o.acil != null ? (() => { const Q = new Path2D(); Q.arc(x, y, rr * 1.3 * o.acil, 0, TAU); const R2 = new Path2D(); R2.addPath(P); return R2; })() : P, o.acil ?? 1); return P; };
     G.figur = o => figur(G, o);
+    // yumuşak(k, fn): fn düşük çözünürlüklü tuvale çizilir (1/k), sonra büyütülerek bulanık gölge gibi görünür
+    G.yumusak = (k, fn, a = 1) => { const W = 1440 / k, H = 1080 / k; if (!YUM || YUM.width !== W) { YUM = document.createElement('canvas'); YUM.width = W; YUM.height = H; } const y = YUM.getContext('2d');
+      y.setTransform(1, 0, 0, 1, 0, 0); y.clearRect(0, 0, W, H); const m = g.getTransform(); y.setTransform(m.a / k, m.b / k, m.c / k, m.d / k, m.e / k, m.f / k); fn({ ...G, g: y });
+      g.save(); g.setTransform(1, 0, 0, 1, 0, 0); g.globalAlpha = a; g.imageSmoothingQuality = 'high'; g.drawImage(YUM, 0, 0, 1440, 1080); g.restore(); };
     return G;
   }
   return { ctx, figur, gri, rng, pathOf, griOn, golge };

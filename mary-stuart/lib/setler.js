@@ -276,3 +276,110 @@ function kale(G, X, Y, s, parcalar, o = {}) {
     if (p.pen) { const q = G.rng(Math.round(p.x * 100) + 7); for (let i = 0; i < p.pen; i++) { const px = x + w * (.2 + q() * .6), py = y0 + h * (.25 + q() * .6); dik(px, py, .014, .03, o.gece ? (q() < .5 ? .85 : .1) : .08); } }
   }
 }
+
+// ── el: tüy kalemle yazan el (yandan), manşet: 'dantel' | 'kirmizi' (Mary) | 'koyu'. a: bilek açısı ──
+function el(G, x, y, s, o = {}) {
+  const g = G.g; g.save(); g.translate(x, y); g.rotate(o.a ?? .15); g.scale(s * (o.f || 1), s);
+  if (o.kalem !== false) { g.save(); g.translate(.02, -.02); g.rotate(-.75 + (o.kalemA || 0)); g.fillStyle = G.gri(.86); g.fill(G.pathOf([[0, 0], [.02, -.15], [.06, -.55], [.1, -1.05], [.04, -1.18], [-.02, -1.0], [-.04, -.55], [-.02, -.15]], true, .6)); g.strokeStyle = G.gri(.35); g.lineWidth = .012; g.beginPath(); g.moveTo(0, 0); g.lineTo(.045, -1.1); g.stroke(); g.restore(); }
+  const ten = G.gri(o.ten ?? .78);
+  g.fillStyle = ten; g.fill(G.pathOf([[-.02, .02], [.08, -.04], [.16, -.1], [.24, -.12], [.32, -.08], [.42, -.06], [.5, .0], [.46, .08], [.3, .12], [.14, .1], [.04, .08]], true, .6));    // el sırtı ve parmaklar
+  g.fillStyle = G.gri((o.ten ?? .78) - .14); g.fill(G.pathOf([[.0, .02], [.05, -.01], [.08, .03], [.04, .06]], true, .6));
+  for (const [px, py, l] of [[.12, .06, .12], [.2, .08, .13], [.28, .09, .12]]) { g.fillStyle = G.gri((o.ten ?? .78) - .08); g.fill(G.pathOf([[px, py], [px + .02, py + l], [px - .02, py + l + .02], [px - .04, py + .01]], true, .6)); }
+  g.fillStyle = ten; g.fillRect(.42, -.07, .5, .16);    // bilek ve kol
+  if (o.manset === 'kirmizi') { g.fillStyle = G.gri(.14); g.fillRect(.66, -.17, .5, .35); const P = G.pathOf([[.5, -.13], [.66, -.15], [.66, .17], [.5, .15]], true, .3); g.fillStyle = G.gri(.45); g.fill(P); G.kirmiziT(P, .85); }
+  else { g.fillStyle = G.gri(o.manset === 'koyu' ? .14 : .2); g.fillRect(.56, -.17, .5, .35); }
+  if (o.manset !== 'koyu') { g.fillStyle = G.gri(.92); for (let i = 0; i < 6; i++) g.fill(G.ell([.5 + (i % 2) * .02, -.15 + i * .06], .05, .04)); }
+  g.restore();
+}
+// yazı yazan masa: kâğıt + el yazısı satırları (ilerler) + mum + el
+function yazMasa(G, st, o = {}) {
+  const g = G.g; G.kamera(...(o.cam || [720, 560, 1])); G.zemin(.12);
+  const L = o.isik || [1160, 420]; const lg = g.createRadialGradient(L[0], L[1], 30, L[0], L[1], 1200); lg.addColorStop(0, G.gri(1, .55)); lg.addColorStop(1, G.gri(0, 0)); g.fillStyle = lg; g.fillRect(-500, -500, 2500, 2100);
+  g.fillStyle = G.gri(.28); g.fillRect(-500, 640, 2500, 900);
+  if (o.mum !== false) G.mum(L[0], 700, 260, st.t, { r: 10 });
+  const pr = clamp(o.prog ?? 1); G.mektup(o.kx ?? 640, o.ky ?? 760, 900, 640, o.rot ?? -.06, { px: o.px || 40, lh: o.lh || 58, yazi: o.yazi || [], prog: pr, v: .93 });
+  // el, yazının ucunda
+  const n = (o.yazi || []).length, k = pr * n, i = Math.min(n - 1, Math.floor(k)), f = k - i, ux = (o.kx ?? 640) - 450 + 70 + 760 * f, uy = (o.ky ?? 760) - 320 + 110 + i * (o.lh || 58) - 10;
+  if (o.el !== false) el(G, ux, uy, o.elS ?? 360, { manset: o.manset || 'dantel', kalemA: Math.sin(st.t * 9) * .03 });
+}
+// ── yüzük: kalp kesimli elmas, altın halka; kırmızı kadife yastık (Mary'nin) ──
+function yuzuk(G, x, y, s, o = {}) {
+  const g = G.g;
+  if (o.yastik !== false) { const P = G.pathOf([[x - s * 1.6, y + s * .5], [x - s * 1.2, y + s * .05], [x, y - s * .05], [x + s * 1.2, y + s * .05], [x + s * 1.6, y + s * .5], [x + s * 1.2, y + s * .95], [x, y + s * 1.05], [x - s * 1.2, y + s * .95]], true, .7);
+    const gr = g.createRadialGradient(x - s * .4, y + s * .2, s * .2, x, y + s * .5, s * 1.8); gr.addColorStop(0, G.gri(.5)); gr.addColorStop(1, G.gri(.2)); g.fillStyle = gr; g.fill(P); if (o.kirmizi !== false) G.kirmizi(P, .7); g.strokeStyle = G.gri(.15); g.lineWidth = s * .02; for (const d of [-.8, .8]) { g.beginPath(); g.moveTo(x + d * s, y + s * .2); g.quadraticCurveTo(x + d * s * .9, y + s * .5, x + d * s, y + s * .85); g.stroke(); } }
+  g.lineWidth = s * .13; g.strokeStyle = G.gri(.55); g.beginPath(); g.ellipse(x, y + s * .25, s * .62, s * .3, 0, 0, TAU); g.stroke();
+  g.lineWidth = s * .05; g.strokeStyle = G.gri(.85); g.beginPath(); g.ellipse(x, y + s * .22, s * .62, s * .3, 0, Math.PI * 1.1, Math.PI * 1.9); g.stroke();
+  // kalp elmas (yüzeyler)
+  const hx = x, hy = y - s * .18, h = s * .42, kalp = G.pathOf([[hx, hy + h * .55], [hx - h * .62, hy - h * .05], [hx - h * .55, hy - h * .45], [hx - h * .25, hy - h * .55], [hx, hy - h * .3], [hx + h * .25, hy - h * .55], [hx + h * .55, hy - h * .45], [hx + h * .62, hy - h * .05]], true, .55);
+  g.fillStyle = G.gri(.7); g.fill(kalp); g.strokeStyle = G.gri(.3); g.lineWidth = s * .025; g.stroke(kalp);
+  g.fillStyle = G.gri(.97); g.fill(G.polyP([[hx - h * .4, hy - h * .35], [hx - h * .1, hy - h * .2], [hx - h * .25, hy + h * .1]])); g.fillStyle = G.gri(.45); g.fill(G.polyP([[hx + h * .1, hy - h * .2], [hx + h * .45, hy - h * .3], [hx + h * .2, hy + h * .25]]));
+  const sp = o.parilti ?? 1; if (sp > 0) { g.save(); g.translate(hx - h * .3, hy - h * .35); g.fillStyle = G.gri(1, sp); for (let i = 0; i < 4; i++) { g.rotate(Math.PI / 2); g.beginPath(); g.moveTo(0, 0); g.lineTo(s * .03, s * .03); g.lineTo(0, s * (.35 + .1 * Math.sin((o.t || 0) * 3))); g.lineTo(-s * .03, s * .03); g.fill(); } g.restore(); }
+}
+// ── satranç: perspektif tahta, taşlar (torna profili) ──
+const TAS = { piyon: [[.3, 0], [.3, .06], [.22, .1], [.12, .14], [.1, .4], [.17, .46], [.08, .5], [.14, .6], [.15, .7], [.1, .8], [0, .83]],
+  sah: [[.34, 0], [.34, .06], [.24, .1], [.14, .16], [.11, .62], [.2, .68], [.12, .72], [.16, .86], [.06, .9], [.06, .95], [.13, .95], [.13, 1.0], [.06, 1.0], [.06, 1.08], [0, 1.08]],
+  vezir: [[.34, 0], [.34, .06], [.24, .1], [.14, .16], [.1, .6], [.2, .66], [.12, .7], [.22, .9], [.15, .86], [.12, .93], [.06, .87], [.05, .96], [0, .99]],
+  fil: [[.32, 0], [.32, .06], [.22, .1], [.12, .16], [.1, .5], [.18, .56], [.1, .6], [.16, .75], [.1, .88], [.04, .93], [.06, .96], [0, .99]],
+  at: [[-.3, 0], [.3, 0], [.3, .06], [.2, .1], [.2, .2], [.24, .4], [.3, .6], [.22, .8], [.08, .95], [-.05, .98], [-.2, .85], [-.32, .7], [-.3, .62], [-.15, .62], [-.05, .55], [-.2, .4], [-.22, .2], [-.2, .1], [-.3, .06]] };
+function tahtaNokta(u, v) { const t = v / 8, y = 1000 - 480 * (t * 1.25 / (1 + t * .25)), w = lerp(1040, 560, (1000 - y) / 480); return [720 + (u / 8 - .5) * w, y, w / 1040]; }
+function satranc(G, st, o = {}) {
+  const g = G.g; G.kamera(...(o.cam || [720, 600, 1])); G.zemin(.14);
+  isikHalka(G, 720, 300, 1100, .35);
+  g.fillStyle = G.gri(.22); g.fill(G.polyP([[140, 1040], [1300, 1040], [1040, 500], [400, 500]]));
+  for (let i = 0; i < 8; i++) for (let j = 0; j < 8; j++) { const a = tahtaNokta(i, j), b = tahtaNokta(i + 1, j), c = tahtaNokta(i + 1, j + 1), d = tahtaNokta(i, j + 1);
+    g.fillStyle = G.gri((i + j) % 2 ? .82 : .38); g.fill(G.polyP([[a[0], a[1]], [b[0], b[1]], [c[0], c[1]], [d[0], d[1]]])); }
+  const tas = (o.taslar || []).slice().sort((p, q) => q.v - p.v);
+  for (const p of tas) { const [x, y, k] = tahtaNokta(p.u + .5, p.v + .5), h = (p.h ?? 150) * k * (p.tip === 'sah' ? 1.1 : 1), pr = TAS[p.tip];
+    const pts = p.tip === 'at' ? pr.map(([a, b]) => [x + a * h * (p.f || 1), y - b * h]) : [...pr.map(([a, b]) => [x + a * h, y - b * h]), ...pr.slice().reverse().map(([a, b]) => [x - a * h, y - b * h])];
+    const P = G.pathOf(pts, true, .4);
+    if (p.dus) { g.save(); g.translate(x, y); g.rotate(p.dus * 1.4); g.translate(-x, -y); }
+    g.fillStyle = G.gri(0, .35); g.beginPath(); g.ellipse(x + 10 * k, y + 4 * k, h * .38, h * .1, 0, 0, TAU); g.fill();
+    const gr = g.createLinearGradient(x - h * .35, 0, x + h * .35, 0), v = p.renk === 'beyaz' ? .9 : p.renk === 'kirmizi' ? .5 : .14;
+    gr.addColorStop(0, G.gri(Math.min(1, v + .12))); gr.addColorStop(1, G.gri(v * .55)); g.fillStyle = gr; g.fill(P);
+    if (p.renk === 'kirmizi') G.kirmiziT(P, 1);
+    if (p.dus) g.restore();
+  }
+}
+// ── asker siluetleri, ordu (uzak) ve sancaklar ──
+function ordu(G, st, o) { const g = G.g, q = G.rng(o.seed || 41), n = o.n || 40;
+  for (let i = 0; i < n; i++) { const x = lerp(o.x0, o.x1, (i + q() * .8) / n), y = o.y + (q() - .5) * (o.dy ?? 20), s = o.s * (.85 + q() * .3), v = o.v ?? .15, sw = Math.sin(st.t * 1.5 + i) * (o.dalga ?? 0);
+    g.fillStyle = G.gri(v); g.fill(G.polyP([[x - s * .09, y], [x + s * .09, y], [x + s * .07, y - s * .55], [x - s * .07, y - s * .55]])); g.beginPath(); g.arc(x, y - s * .64, s * .075, 0, TAU); g.fill();
+    g.beginPath(); g.ellipse(x, y - s * .69, s * .11, s * .035, 0, 0, TAU); g.fill();
+    if (q() < (o.mizrak ?? .6)) { g.strokeStyle = G.gri(v); g.lineWidth = Math.max(1, s * .025); g.beginPath(); g.moveTo(x + s * .1, y - s * .2); g.lineTo(x + s * .14 + sw, y - s * (1.6 + q() * .3)); g.stroke(); } }
+  for (const b of (o.sancak || [])) { const x = b.x, y = o.y, h = o.s * 2.4, up = b.up ?? 1, dw = b.dus ?? 0; g.save(); g.translate(x, y); g.rotate(dw * 1.2); g.strokeStyle = G.gri(.12); g.lineWidth = Math.max(2, o.s * .04); g.beginPath(); g.moveTo(0, 0); g.lineTo(0, -h * up); g.stroke();
+    const wv = k => Math.sin(st.t * 2.4 + k * 2.5 + x) * o.s * .1 * k; g.fillStyle = G.gri(b.v ?? .35); g.fill(G.pathOf([[0, -h * up], [o.s * .9 + wv(1), -h * up + o.s * .1], [o.s * .85 + wv(1), -h * up + o.s * .45], [0, -h * up + o.s * .5]], true, .5)); g.restore(); } }
+// sis katmanları (önde, kayan)
+function sis(G, st, y0, y1, a = .5, o = {}) { const g = G.g, q = G.rng(o.seed || 61);
+  for (let i = 0; i < (o.n || 8); i++) { const y = lerp(y0, y1, q()), w = 700 + q() * 900, x = ((q() * 2600 + st.t * (12 + q() * 18)) % 2600) - 600, h = 60 + q() * 120;
+    const gr = g.createRadialGradient(x, y, 10, x, y, w * .5); gr.addColorStop(0, G.gri(o.v ?? .9, a)); gr.addColorStop(1, G.gri(o.v ?? .9, 0)); g.save(); g.translate(x, y); g.scale(1, h / (w * .5)); g.translate(-x, -y); g.fillStyle = gr; g.fillRect(x - w * .5, y - w * .5, w, w); g.restore(); } }
+// ── gümüş sandık (1567 mektupları) ──
+function sandik(G, x, y, s, ac = 0, o = {}) { const g = G.g; const yan = g.createLinearGradient(x - s * .6, 0, x + s * .6, 0); yan.addColorStop(0, G.gri(.62)); yan.addColorStop(.4, G.gri(.85)); yan.addColorStop(1, G.gri(.22));
+  BOYA.golge(g, x - s * .62, y - s * .08, s * 1.3, s * .16, .5);
+  g.fillStyle = yan; g.fillRect(x - s * .6, y - s * .5, s * 1.2, s * .5); g.fillStyle = G.gri(.25); for (const k of [-.45, .45]) g.fillRect(x + k * s - s * .03, y - s * .5, s * .06, s * .5);
+  for (let i = 0; i < 9; i++) { g.fillStyle = G.gri(.3); g.beginPath(); g.arc(x - s * .5 + i * s * .125, y - s * .25, s * .035, 0, TAU); g.fill(); } g.strokeStyle = G.gri(.12); g.lineWidth = s * .012; g.strokeRect(x - s * .6, y - s * .5, s * 1.2, s * .5); g.fillStyle = G.gri(.12); g.fillRect(x - s * .04, y - s * .44, s * .08, s * .1);
+  if (o.mektup) { g.fillStyle = G.gri(.92); for (let i = 0; i < 5; i++) g.fill(G.polyP([[x - s * .45 + i * s * .05, y - s * .5], [x + s * .2 + i * s * .05, y - s * .5], [x + s * .22 + i * s * .05, y - s * (.5 + .12 * ac + i * .01)], [x - s * .43 + i * s * .05, y - s * (.5 + .1 * ac)]])); }
+  g.save(); g.translate(x, y - s * .5); g.scale(1, Math.cos(ac * 1.9)); g.fillStyle = G.gri(ac > .5 ? .4 : .7); g.fill(G.pathOf([[-s * .62, 0], [s * .62, 0], [s * .6, -s * .14], [s * .4, -s * .24], [-s * .4, -s * .24], [-s * .6, -s * .14]], true, .4)); g.restore(); }
+// ── terazi (iki kefe), denge açısı a ──
+function terazi(G, x, y, s, a, sol, sag) { const g = G.g; g.fillStyle = G.gri(.25); g.fillRect(x - s * .02, y - s * .9, s * .04, s * .9); g.fill(G.polyP([[x - s * .25, y], [x + s * .25, y], [x + s * .12, y - s * .06], [x - s * .12, y - s * .06]]));
+  const L = s * .7, c = Math.cos(a), sn = Math.sin(a), ax = x, ay = y - s * .9; g.strokeStyle = G.gri(.22); g.lineWidth = s * .025; g.beginPath(); g.moveTo(ax - L * c, ay - L * sn); g.lineTo(ax + L * c, ay + L * sn); g.stroke();
+  for (const [d, txt] of [[-1, sol], [1, sag]]) { const px = ax + d * L * c, py = ay + d * L * sn; g.lineWidth = s * .006; g.beginPath(); g.moveTo(px, py); g.lineTo(px - s * .18, py + s * .45); g.moveTo(px, py); g.lineTo(px + s * .18, py + s * .45); g.stroke();
+    g.fillStyle = G.gri(.4); g.fill(G.pathOf([[px - s * .24, py + s * .45], [px + s * .24, py + s * .45], [px + s * .16, py + s * .53], [px - s * .16, py + s * .53]], true, .5));
+    if (txt) { g.fillStyle = G.gri(.92); g.fillRect(px - s * .17, py + s * .3, s * .34, s * .15); g.fillStyle = G.gri(.15); g.font = `italic 600 ${s * .055}px "Cormorant Garamond"`; g.textAlign = 'center'; g.textBaseline = 'middle'; g.fillText(txt, px, py + s * .375); } } }
+// ── kum saati; d: devrilme (0..1), k: kumun akan kesri ──
+function kumSaati(G, x, y, s, k, d = 0) { const g = G.g; g.save(); g.translate(x, y); g.rotate(d * Math.PI / 2); g.translate(-x, -y);
+  g.fillStyle = G.gri(.2); g.fillRect(x - s * .4, y - s * .62, s * .8, s * .08); g.fillRect(x - s * .4, y + s * .54, s * .8, s * .08); for (const dx of [-.35, .35]) g.fillRect(x + dx * s - s * .025, y - s * .56, s * .05, s * 1.12);
+  const cam = G.pathOf([[x - s * .28, y - s * .54], [x + s * .28, y - s * .54], [x + s * .26, y - s * .3], [x + s * .04, y - s * .03], [x + s * .04, y + s * .03], [x + s * .26, y + s * .3], [x + s * .28, y + s * .54], [x - s * .28, y + s * .54], [x - s * .26, y + s * .3], [x - s * .04, y + s * .03], [x - s * .04, y - s * .03], [x - s * .26, y - s * .3]], true, .4);
+  g.fillStyle = G.gri(.93); g.fill(cam); g.save(); g.clip(cam); g.fillStyle = G.gri(.2);
+  const ust = (1 - k) * s * .45; g.fillRect(x - s * .3, y - ust - s * .02, s * .6, ust); const alt = k * s * .3; g.beginPath(); g.moveTo(x - s * .3, y + s * .54); g.lineTo(x + s * .3, y + s * .54); g.lineTo(x + s * .3, y + s * .54 - alt * .6); g.lineTo(x, y + s * .54 - alt * 1.6); g.lineTo(x - s * .3, y + s * .54 - alt * .6); g.fill();
+  if (d < .05 && k < 1) g.fillRect(x - s * .008, y, s * .016, s * .5); g.restore(); g.strokeStyle = G.gri(.15); g.lineWidth = s * .012; g.stroke(cam); g.restore(); }
+// ── kitap (açık), sayfa çevirme ──
+function kitap(G, x, y, s, o = {}) { const g = G.g; BOYA.golge(g, x - s * .62, y - s * .02, s * 1.24, s * .12, .6);
+  for (const d of [-1, 1]) { g.fillStyle = G.gri(d < 0 ? .9 : .82); g.fill(G.pathOf([[x, y - s * .02], [x + d * s * .3, y - s * .06], [x + d * s * .6, y - s * .03], [x + d * s * .6, y - s * .78], [x + d * s * .3, y - s * .82], [x, y - s * .76]], true, .3));
+    const q = G.rng(d + 5); g.fillStyle = G.gri(.35, .8); for (let i = 0; i < 14; i++) { let xx = d < 0 ? x - s * .55 : x + s * .06; const end = xx + s * .48; while (xx < end) { const w = s * (.03 + q() * .07); g.fillRect(xx, y - s * .7 + i * s * .045 + (d < 0 ? 0 : 0), Math.min(w, end - xx), s * .006); xx += w + s * .015; } } }
+  if (o.baslik) { g.fillStyle = G.gri(.15); g.font = `600 ${s * .05}px "Cinzel"`; g.textAlign = 'center'; g.fillText(o.baslik, x - s * .3, y - s * .74); }
+  if (o.cevir > 0 && o.cevir < 1) { const a = o.cevir * Math.PI, w = Math.cos(a) * s * .6; g.fillStyle = G.gri(.95); g.fill(G.pathOf([[x, y - s * .02], [x + w, y - s * .06 - Math.sin(a) * s * .1], [x + w, y - s * .8 - Math.sin(a) * s * .1], [x, y - s * .76]], true, .3)); } }
+// ── kilit ve anahtar (dönen) ──
+function kilit(G, x, y, s, don) { const g = G.g; g.fillStyle = G.gri(.32); g.fillRect(x - s * .5, y - s * .7, s, s * 1.4); g.fillStyle = G.gri(.5); g.fillRect(x - s * .5, y - s * .7, s * .2, s * 1.4);
+  for (const [a, b] of [[-.38, -.58], [.38, -.58], [-.38, .58], [.38, .58]]) { g.fillStyle = G.gri(.18); g.beginPath(); g.arc(x + a * s, y + b * s, s * .05, 0, TAU); g.fill(); }
+  g.fillStyle = G.gri(.06); g.beginPath(); g.arc(x, y - s * .05, s * .09, 0, TAU); g.fill(); g.fillRect(x - s * .04, y - s * .05, s * .08, s * .22);
+  g.save(); g.translate(x, y - s * .02); g.rotate(don * Math.PI / 2); g.fillStyle = G.gri(.58); g.fillRect(-s * .035, -s * .9, s * .07, s * .9); g.beginPath(); g.ellipse(0, -s * 1.05, s * .2, s * .17, 0, 0, TAU); g.fill(); g.fillStyle = G.gri(.32); g.beginPath(); g.ellipse(0, -s * 1.05, s * .1, s * .08, 0, 0, TAU); g.fill(); g.restore(); }
