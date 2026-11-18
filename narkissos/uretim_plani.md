@@ -173,7 +173,7 @@ Reddedilen ~35 üslubun gerekçeleri ham raporlarda. Başlıcaları:
 | **Ten (dönüş)** (~3:30–5:00) | **"Iste ego sum: o benim, anladım; hayalim beni kandırmıyor"** (463). Bilmek yetmiyor: "sahip olduğum şey beni yoksul kıldı" (466, *copia* Eko'ya söylediği sözle döner); "keşke bedenimden ayrılabilsem" (467). Gözyaşı suyu bulandırır, hayal kaçar: "kalsın, hiç değilse bakayım" (474–479). Narkissos'un son sözü bir elvedadır, onu geri veren Eko'dur (501); Eko ağıtlara da yankıyla katılır (507). Erir; boğulmaz (487–490). Yerinde safran göbekli, ak yapraklı çiçek (509–510); Styks'te bile kendine bakar (504–505) | III 463–510 | E01–E14 |
 | **Ketsu (birleştirme)** (~5:00–7:00) | Mit çiçeği ona bağlar (Ovidius çiçeğe ad vermez; "mit böyle anlatır" diye çerçevelenir), sonra bir davranışa ad olur. Ad zinciri: Callot'un gravürüyle 1646'da basılan bir manastır kitabında "öz-sevginin aşırılığı yıkımının sebebidir" (yazı Callot'un değil, baskının) → Ellis 1898 "Narcissus-like tendency" → Näcke 1899, Ellis'i anarak "Narcismus" → Freud 1914 (terimi Näcke'ye verir, 1920'de Ellis'e düzeltir). **Başlığın cevabı** Freud'dan (doğrulandı, `kaynak/DOGRULAMA.md`): her insanın birincil bir narsisizmi vardır (s.13), yani kendini sevmek gelişimin olağan, erken bir parçasıdır ("ilk evre" denmez, s.4). Sorun öz-sevginin varlığı değil, libidonun dünyadan çekilip ego'da birikmesidir (s.2, 10–11): "sonunda sevmeye başlamak gerekir, hastalanmamak için" (s.11). Seven kişi narsisizminden bir parça verir ve onu ancak sevilerek geri alır (s.21). Freud Narkissos mitini anmaz: mitle bağ anlatıcının yorumudur, Freud'a mal edilmez. Bu, Eko'yu duyamayan Narkissos'tur. Teşhis yok, tavsiye yok. Su → ekran: genç yine camda. Son soru izleyiciye: "Biliyorsun. Peki yetiyor mu?" Abone çağrısı bu son anın içinde, ardından yorum uzatılmaz | Freud 1914; Ellis 1898; Met 419135 | F01–F12 |
 
-\* Cümle kimlikleri bölüm harfi + sıra. Senaryo kesinleşince bu tablo gerçek numaralarla güncellenir (Kafka'daki numara kayması dersi). Çıkarılan cümlenin numarası boş bırakılır.
+\* **Bu tablodaki aralıklar rev0'a aittir; geçerli eşleme §10'da.** Cümle kimlikleri bölüm harfi + sıra. Senaryo kesinleşince bu tablo gerçek numaralarla güncellenir (Kafka'daki numara kayması dersi). Çıkarılan cümlenin numarası boş bırakılır.
 
 **Açık merak döngüleri (soru → cevap):**
 1. "Sonunda anladı; o hâlde neden gitmedi?" (A) → E (463–467): bilmek sevgiyi geri döndürmeye yetmedi.
@@ -255,3 +255,41 @@ Dört bağımsız mercek: kaynak (8/10), hassasiyet (7,5), Türkçe seslendirme 
 
 **Başlık:** 1. aday kalır ("Kendini Sevmek Ne Zaman Narsisizme Döner? | Narkissos'un Hikâyesi"). Test ve karşılaştır'da ikinci vaat 2. aday değil, **4. aday** ("Kendine Bakmaktan Vazgeçebilir misin? | Narsisizm ve Narkissos"); senaryonun son sorusuyla aynı. Bunu Fable önerdi, başkan kabul etti. 2. aday bağlamsız okununca bağımlılık vaadi gibi duruyor.
 **Kapak B yazısı:** "BİLİYORDU" kullanılmaz (425, 430'da bilmiyor). 4–6 kelimelik deneme: "ANLADI. YİNE DE KALKAMADI."
+
+## 10. Senaryo rev2: gerileme kontrolü ve onay (18 Kasım 2026)
+- **Kaynak (veto):** 9/10, şartlı onay; engelleyici bulgu yok. **Fable 5.2:** 8,5/10, şartlı; "üç düzeltme uygulanırsa 9, yeni tur gerekmez".
+- Uygulananlar:
+  - C07/E08: "Ancak ben ölünce bana sahip olursun." Ret kesinleşti, yankı yine son sözlerde.
+  - F09: "O ise gözünü sudan ayıramadı." 440–441'de başını kaldırıp ormana seslendiği için "başını kaldıramadı" kaynakla çelişiyordu; "hep yakınındaydı" da kalktı.
+  - E09: 468, Narkissos'un kendi sözü olarak tırnak içinde.
+  - C02: ceza nedeni "kandırdığı için" (366).
+  - B01, B03, B04: kaynağa yakın.
+  - F02–F05 (Fable D1): ahlak dersi → tıbbın konusu → Freud dönüşü açık kuruldu. Ellis ve Näcke'nin adları sesten ekran künyesine indi (Medici ad yükü dersi).
+  - F11 (D2): "Peki bilmek, gözünü ayırmaya yeter mi?" Somut soru F09'a ve 4. başlık adayına bağlanıyor.
+  - A03 (D3): "anladı"nın nesnesi eklendi.
+  - Fable'ın önerileri: "ne demişti" kalıbının üçlenmesi kırıldı (E10 "Kâhinin şartını hatırla"); E05'te "bilmek" sözü E10'a saklandı; C09 "Sahibine geri dönecek"; F09 "Freud miti anmaz; bağı biz kuralım"; D01 listesi kısaldı.
+- **Başkanın kararı:** senaryo rev2 **ONAY**. Kaynak 9 ve Fable'ın şartları karşılandı. Kalan tek açık kulak sorusu: C07'nin red olarak duyulması. Seslendirmeden sonra kullanıcının kulağına bırakılır.
+- **Reddedilen:** Fable O5 ("Cevabını yorumlara yaz" sesten çıksın). Kanalın amacı etkileşim (CLAUDE.md "kanal yönü"); soru somutlaştığı için seste kalıyor.
+
+**İskelet → rev2 cümle eşlemesi** (63 cümle, 896 kelime, tahmini ~7:40–8:30):
+
+| Adım | Cümleler |
+|---|---|
+| 0. Kanca | A01–A05 |
+| Ki (giriş) | B01–B06 |
+| Shō (gelişme) | C01–C12 (Eko), D01–D11 (havuz) |
+| Ten (dönüş) | E01–E17 |
+| Ketsu (birleştirme) | F01–F12 |
+
+| Döngü | Açılış → kapanış |
+|---|---|
+| L1 | A04 → E05 → F09–F10 |
+| L2 | B02–B03 → E10 |
+| L3 | C08–C09 → E07–E08 |
+| L4 (başlık) | A05 → F07–F08 |
+| Çerçeve | A01 → F11 |
+| Bölüm soruları | D07, F01 |
+
+**Sıradaki:**
+1. Seslendirme için kredi hesabı (karakter × çekim) kullanıcıya bildirilir ve açık onay alınır.
+2. Plan listesi rev2'ye göre yazılır.

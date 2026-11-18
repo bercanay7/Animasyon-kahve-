@@ -1,6 +1,6 @@
 {
  "voice": "Emrullah (ElevenLabs; voice_id creative_list_voices ile bulunur)",
- "revizyon": "rev1 (18 Kasım 2026): kaynak, hassasiyet, Türkçe seslendirme ve Fable 5.2 denetimi (çürütme süzgecinden geçen bulgular) uygulandı; ayrıntı uretim_plani.md §9. Kimlikler yeniden numaralandı; plan listesi bu sürüme göre yazılacak.",
+ "revizyon": "rev2 (18 Kasım 2026): rev1 gerileme kontrolü (kaynak 9/10 şartlı onay, Fable 8,5 şartlı) bulguları uygulandı; ayrıntı uretim_plani.md §10.",
  "not": "Kaynak: Ovidius, Metamorphoses III 339–512, kaynak/ovidius_met3_336-512.txt (Magnus 1892; satırlar TLL ve Loeb ile doğrulandı, kaynak/DOGRULAMA.md). Çeviriler bizim. İskelet: Kişōtenketsu (uretim_plani.md §7). Freud, Ellis, Näcke ve Callot alıntıları kaynak/DOGRULAMA.md'de birincil kaynaktan doğrulandı.",
  "segments": [
   {
@@ -20,8 +20,8 @@
   {
    "id": "A03",
    "bolum": "Cam",
-   "tts": "[curious] Kendine âşık olduğunu herkes bilir. Unutulan şu: sonunda anladı. Kendi ağzıyla söyledi: “O benim.”",
-   "alt": "Kendine âşık olduğunu herkes bilir. Unutulan şu: sonunda anladı. Kendi ağzıyla söyledi: “O benim.”",
+   "tts": "[curious] Kendine âşık olduğunu herkes bilir. Unutulan şu: sudaki yüzün kendisi olduğunu sonunda anladı. Kendi ağzıyla söyledi: “O benim.”",
+   "alt": "Kendine âşık olduğunu herkes bilir. Unutulan şu: sudaki yüzün kendisi olduğunu sonunda anladı. Kendi ağzıyla söyledi: “O benim.”",
    "kaynak": "III 463; kapak sözü ilk 15 sn'de. 'Baştan biliyordu' denmez (425, 430). L1 açılır"
   },
   {
@@ -41,9 +41,9 @@
   {
    "id": "B01",
    "bolum": "Kehanet",
-   "tts": "[calmly] Narkissos daha bebekken herkesi hayran bırakır. Annesi, kör kâhin Tiresias'a sorar: Oğlum uzun yaşayacak mı?",
-   "alt": "Narkissos daha bebekken herkesi hayran bırakır. Annesi, kör kâhin Tiresias'a sorar: Oğlum uzun yaşayacak mı?",
-   "kaynak": "III 336–347 (Tiresias'ın körlüğü 336–338)"
+   "tts": "[calmly] Narkissos daha bebekken bile perilerin gönlünü çekecek kadar güzeldir. Annesi, kör kâhin Tiresias'a sorar: Oğlum uzun yaşayacak mı?",
+   "alt": "Narkissos daha bebekken bile perilerin gönlünü çekecek kadar güzeldir. Annesi, kör kâhin Tiresias'a sorar: Oğlum uzun yaşayacak mı?",
+   "kaynak": "III 322–347 (Tiresias adı 323, körlüğü 335–338; bebek 345)"
   },
   {
    "id": "B02",
@@ -55,15 +55,15 @@
   {
    "id": "B03",
    "bolum": "Kehanet",
-   "tts": "[curious] Antik Yunan'ın en ünlü öğüdü şuydu: “Kendini tanı.” Bu kehanet o öğüdü tersine çeviriyor. Kendini tanımak nasıl ölüm olabilir?",
-   "alt": "Antik Yunan'ın en ünlü öğüdü şuydu: “Kendini tanı.” Bu kehanet o öğüdü tersine çeviriyor. Kendini tanımak nasıl ölüm olabilir?",
+   "tts": "[curious] Delfi'deki Apollon tapınağında yazılı ünlü öğüt şuydu: “Kendini tanı.” Bu kehanet o öğüdü tersine çeviriyor. Kendini tanımak nasıl ölüm olabilir?",
+   "alt": "Delfi'deki Apollon tapınağında yazılı ünlü öğüt şuydu: “Kendini tanı.” Bu kehanet o öğüdü tersine çeviriyor. Kendini tanımak nasıl ölüm olabilir?",
    "kaynak": "Delfi Apollon tapınağı yazıtı: Platon, Protagoras 343b; Pausanias 10.24.1. L2 sorusu"
   },
   {
    "id": "B04",
    "bolum": "Kehanet",
-   "tts": "[calmly] Uzun süre kimse bu sözü ciddiye almaz. Narkissos on altısına gelir; gençler de kızlar da ona gönül verir.",
-   "alt": "Uzun süre kimse bu sözü ciddiye almaz. Narkissos on altısına gelir; gençler de kızlar da ona gönül verir.",
+   "tts": "[calmly] Uzun süre kimse bu sözü ciddiye almaz. Narkissos on altısına gelir; delikanlılar da kızlar da ona gönül verir.",
+   "alt": "Uzun süre kimse bu sözü ciddiye almaz. Narkissos on altısına gelir; delikanlılar da kızlar da ona gönül verir.",
    "kaynak": "III 349, 351–353 (3×5+1=16)"
   },
   {
@@ -90,9 +90,9 @@
   {
    "id": "C02",
    "bolum": "Yankı",
-   "tts": "[calmly] Eskiden çok konuşurdu. Tanrıça Juno'yu uzun sohbetlerle oyaladığı için cezalandırıldı: o günden beri yalnız duyduğu son sözleri geri verebilir.",
-   "alt": "Eskiden çok konuşurdu. Tanrıça Juno'yu uzun sohbetlerle oyaladığı için cezalandırıldı: o günden beri yalnız duyduğu son sözleri geri verebilir.",
-   "kaynak": "III 359–369 (Jüpiter ve periler anlatımdan çıkarıldı; ad yükü)"
+   "tts": "[calmly] Eskiden çok konuşurdu. Tanrıça Juno'yu uzun sohbetlerle oyalayıp kandırdığı için cezalandırıldı: o günden beri yalnız duyduğu son sözleri geri verebilir.",
+   "alt": "Eskiden çok konuşurdu. Tanrıça Juno'yu uzun sohbetlerle oyalayıp kandırdığı için cezalandırıldı: o günden beri yalnız duyduğu son sözleri geri verebilir.",
+   "kaynak": "III 359–369 (366 'qua sum delusa'); Jüpiter anlatımdan çıkarıldı"
   },
   {
    "id": "C03",
@@ -125,9 +125,9 @@
   {
    "id": "C07",
    "bolum": "Yankı",
-   "tts": "[tense] Narkissos kaçar: “Çek ellerini! Önce ölürüm, sonra bana sahip olursun.”",
-   "alt": "Narkissos kaçar: “Çek ellerini! Önce ölürüm, sonra bana sahip olursun.”",
-   "kaynak": "III 390–391 'ante emoriar, quam sit tibi copia nostri' (söz dizimi Latinceye yakın; yankılanan kısım sonda)"
+   "tts": "[tense] Narkissos kaçar: “Çek ellerini! Ancak ben ölünce bana sahip olursun.”",
+   "alt": "Narkissos kaçar: “Çek ellerini! Ancak ben ölünce bana sahip olursun.”",
+   "kaynak": "III 390–391 'ante emoriar, quam sit tibi copia nostri' (ante…quam: ölmeden olmaz; yankılanan kısım sonda)"
   },
   {
    "id": "C08",
@@ -139,8 +139,8 @@
   {
    "id": "C09",
    "bolum": "Yankı",
-   "tts": "[quietly] Bu sözü aklında tut. Sana geri dönecek.",
-   "alt": "Bu sözü aklında tut. Sana geri dönecek.",
+   "tts": "[quietly] Bu sözü aklında tut. Sahibine geri dönecek.",
+   "alt": "Bu sözü aklında tut. Sahibine geri dönecek.",
    "kaynak": "L3; cevap E07–E08"
   },
   {
@@ -167,8 +167,8 @@
   {
    "id": "D01",
    "bolum": "Havuz",
-   "tts": "[calmly] Dua bir suda karşılık bulur. Ormanda bir kaynak vardır, gümüş gibi parlak. Ona ne çoban dokunmuştur, ne keçi, ne kuş, ne yabani bir hayvan, ne de ağaçtan düşen bir dal.",
-   "alt": "Dua bir suda karşılık bulur. Ormanda bir kaynak vardır, gümüş gibi parlak. Ona ne çoban dokunmuştur, ne keçi, ne kuş, ne yabani bir hayvan, ne de ağaçtan düşen bir dal.",
+   "tts": "[calmly] Dua bir suda karşılık bulur. Ormanda bir kaynak vardır, gümüş gibi parlak. Ona ne çoban dokunmuştur, ne bir hayvan, ne de ağaçtan düşen bir dal.",
+   "alt": "Dua bir suda karşılık bulur. Ormanda bir kaynak vardır, gümüş gibi parlak. Ona ne çoban dokunmuştur, ne bir hayvan, ne de ağaçtan düşen bir dal.",
    "kaynak": "III 407–410 (ABT köprüsü: bu yüzden)"
   },
   {
@@ -272,8 +272,8 @@
   {
    "id": "E05",
    "bolum": "O benim",
-   "tts": "[thoughtful] İşte unutulan an. Artık yanılmıyor; biliyor. Ama yine de gidemiyor.",
-   "alt": "İşte unutulan an. Artık yanılmıyor; biliyor. Ama yine de gidemiyor.",
+   "tts": "[thoughtful] İşte unutulan an. Artık yanılmıyor. Ama yine de gidemiyor.",
+   "alt": "İşte unutulan an. Artık yanılmıyor. Ama yine de gidemiyor.",
    "kaynak": "L1'in yarısı; D07'nin cevabı"
   },
   {
@@ -293,22 +293,22 @@
   {
    "id": "E08",
    "bolum": "O benim",
-   "tts": "[thoughtful] Eko'ya ne demişti? “Önce ölürüm, sonra bana sahip olursun.” Söz ona geri döndü.",
-   "alt": "Eko'ya ne demişti? “Önce ölürüm, sonra bana sahip olursun.” Söz ona geri döndü.",
+   "tts": "[thoughtful] Eko'ya ne demişti? “Ancak ben ölünce bana sahip olursun.” Söz ona geri döndü.",
+   "alt": "Eko'ya ne demişti? “Ancak ben ölünce bana sahip olursun.” Söz ona geri döndü.",
    "kaynak": "III 391 ve 466 ('copia'). Anlatıcının okuması; 'Ovidius bilerek yaptı' denmez. Ekran yazısı: copia · III 391 / 466. L3 kapanır"
   },
   {
    "id": "E09",
    "bolum": "O benim",
-   "tts": "[quietly] “Keşke bedenimden ayrılabilsem.” Bir âşık için tuhaf bir dilek: sevdiği ondan uzak olsun.",
-   "alt": "“Keşke bedenimden ayrılabilsem.” Bir âşık için tuhaf bir dilek: sevdiği ondan uzak olsun.",
-   "kaynak": "III 467–468"
+   "tts": "[quietly] “Keşke bedenimden ayrılabilsem. Bir âşık için ne tuhaf dilek: sevdiğim benden uzak olsun.”",
+   "alt": "“Keşke bedenimden ayrılabilsem. Bir âşık için ne tuhaf dilek: sevdiğim benden uzak olsun.”",
+   "kaynak": "III 467–468 (468 Narkissos'un kendi sözü: 'votum in amante novum')"
   },
   {
    "id": "E10",
    "bolum": "O benim",
-   "tts": "[slowly] Kâhin ne demişti? “Kendini tanımazsa.” Şimdi tanıdı. Ve bilmek onu kurtarmadı.",
-   "alt": "Kâhin ne demişti? “Kendini tanımazsa.” Şimdi tanıdı. Ve bilmek onu kurtarmadı.",
+   "tts": "[slowly] Kâhinin şartını hatırla: “Kendini tanımazsa.” Şimdi tanıdı. Ve bilmek onu kurtarmadı.",
+   "alt": "Kâhinin şartını hatırla: “Kendini tanımazsa.” Şimdi tanıdı. Ve bilmek onu kurtarmadı.",
    "kaynak": "III 348–350; L2 kapanır; omurga"
   },
   {
@@ -370,16 +370,16 @@
   {
    "id": "F02",
    "bolum": "Ad",
-   "tts": "[calmly] Yüzyıllarca kendini beğenmenin simgesi oldu. Bin altı yüz kırk altıda basılan bir öğüt kitabında, Narkissos gravürünün üstünde şu yazar: “Aşırı öz-sevgi, kendi yıkımının sebebidir.”",
-   "alt": "Yüzyıllarca kendini beğenmenin simgesi oldu. 1646'da basılan bir öğüt kitabında, Narkissos gravürünün üstünde şu yazar: “Aşırı öz-sevgi, kendi yıkımının sebebidir.”",
-   "kaynak": "Met 419135: Callot gravürü; yazı 1646 baskısının (Langlois) tipo metni, Callot'un değil. Simge daha eski: Alciato, Emblemata 1550 'Philautia'"
+   "tts": "[calmly] Yüzyıllarca bir ahlak dersi oldu. Bin altı yüz kırk altıda basılan bir öğüt kitabında, Narkissos gravürünün üstünde şu yazar: “Aşırı öz-sevgi, kendi yıkımının sebebidir.”",
+   "alt": "Yüzyıllarca bir ahlak dersi oldu. 1646'da basılan bir öğüt kitabında, Narkissos gravürünün üstünde şu yazar: “Aşırı öz-sevgi, kendi yıkımının sebebidir.”",
+   "kaynak": "Met 419135: Callot gravürü; yazı 1646 baskısının (Langlois) tipo metni, Callot'un değil. Simge daha eski: Alciato, Emblemata 'Philautia' (en geç 1550 Lyon; ilk baskı büyük olasılıkla 1546 Venedik, ikincil)"
   },
   {
    "id": "F03",
    "bolum": "Ad",
-   "tts": "[calmly] Bin sekiz yüz doksan sekizde İngiliz hekim Hevlok Elis, insanın kendine hayranlığa kapılmasını “Narkissos benzeri” bir eğilim diye anlatır. Bir yıl sonra Alman psikiyatr Paul Nekke ona bir ad koyar: narsisizm.",
-   "alt": "1898'de İngiliz hekim Havelock Ellis, insanın kendine hayranlığa kapılmasını “Narkissos benzeri” bir eğilim diye anlatır. Bir yıl sonra Alman psikiyatr Paul Näcke ona bir ad koyar: narsisizm.",
-   "kaynak": "Ellis 1898 (Alienist and Neurologist 19, s.280; ekranda yalnız 'This Narcissus-like tendency … self-admiration'); Näcke 1899 (Archiv f. Psychiatrie 32, s.375). Tanımları anlatılmaz"
+   "tts": "[calmly] Ama on dokuzuncu yüzyılın sonunda ahlak dersi tıbbın konusu olur. Bin sekiz yüz doksan sekizde bir İngiliz hekim bu hayranlığa “Narkissos benzeri” bir eğilim der. Bir yıl sonra bir Alman psikiyatr adını koyar: narsisizm.",
+   "alt": "Ama on dokuzuncu yüzyılın sonunda ahlak dersi tıbbın konusu olur. 1898'de bir İngiliz hekim bu hayranlığa “Narkissos benzeri” bir eğilim der. Bir yıl sonra bir Alman psikiyatr adını koyar: narsisizm.",
+   "kaynak": "Ekran künyesi (y<880): Havelock Ellis 1898 · Paul Näcke 1899. Ellis, Alienist and Neurologist 19 s.280 ('This Narcissus-like tendency … self-admiration' kırpması); Näcke, Archiv f. Psychiatrie 32 s.375. Adlar sesten künyeye indi (Medici ad yükü dersi)"
   },
   {
    "id": "F04",
@@ -391,8 +391,8 @@
   {
    "id": "F05",
    "bolum": "Ad",
-   "tts": "[curious] Bin dokuz yüz on dörtte Sigmund Froyd, başta sorduğumuz soruya bir cevap yazar.",
-   "alt": "1914'te Sigmund Freud, başta sorduğumuz soruya bir cevap yazar.",
+   "tts": "[curious] Bin dokuz yüz on dörtte Sigmund Froyd ise başta sorduğumuz soruya kendi cevabını verir.",
+   "alt": "1914'te Sigmund Freud ise başta sorduğumuz soruya kendi cevabını verir.",
    "kaynak": "Freud, Zur Einführung des Narzißmus, Jahrbuch VI (1914)"
   },
   {
@@ -405,8 +405,8 @@
   {
    "id": "F07",
    "bolum": "Ad",
-   "tts": "[thoughtful] Peki ne zaman soruna döner? Froyd'a göre bu sevgi belli bir ölçüyü aşıp dışarıya, başkalarına akamadığında. Şöyle yazar:",
-   "alt": "Peki ne zaman soruna döner? Freud'a göre bu sevgi belli bir ölçüyü aşıp dışarıya, başkalarına akamadığında. Şöyle yazar:",
+   "tts": "[thoughtful] Peki ne zaman soruna döner? Ona göre bu sevgi belli bir ölçüyü aşıp dışarıya, başkalarına akamadığında. Şöyle yazar:",
+   "alt": "Peki ne zaman soruna döner? Ona göre bu sevgi belli bir ölçüyü aşıp dışarıya, başkalarına akamadığında. Şöyle yazar:",
    "kaynak": "Freud 1914 s.10–11 ('ein gewisses Maß überschritten'); başlığın cevabı (L4). Freud'un cevabı bir 'deneme'dir; 1914 kuramı olarak sunulur"
   },
   {
@@ -414,14 +414,14 @@
    "bolum": "Ad",
    "tts": "[slowly] “Güçlü bir benlik sevgisi insanı hastalığa karşı korur. Ama sonunda, hastalanmamak için sevmeye başlamak gerekir. Engellendiği için sevemeyen hastalanır.”",
    "alt": "“Güçlü bir benlik sevgisi insanı hastalığa karşı korur. Ama sonunda, hastalanmamak için sevmeye başlamak gerekir. Engellendiği için sevemeyen hastalanır.”",
-   "kaynak": "Freud 1914 s.11 'Ein starker Egoismus schützt vor Erkrankung, aber endlich muß man beginnen zu lieben, um nicht krank zu werden, und muß erkranken, wenn man infolge von Versagung nicht lieben kann' (çevirimiz)"
+   "kaynak": "Freud 1914 s.11 'Ein starker Egoismus schützt vor Erkrankung, aber endlich muß man beginnen zu lieben, um nicht krank zu werden, und muß erkranken, wenn man infolge von Versagung nicht lieben kann' (çevirimiz). 'Egoismus' → 'benlik sevgisi' çevirimiz: Freud s.1'de Egoismus ile Narzißmus'u ayırır, s.11'de bağlam ben-libidosudur"
   },
   {
    "id": "F09",
    "bolum": "Ad",
-   "tts": "[thoughtful] Froyd bu satırlarda miti anmaz. Ama hikâyeye dönünce: Narkissos'un eksiği bilgi değildi. Onu seven bir ses hep yakınındaydı; her “ah”ına karşılık verdi. O ise başını sudan kaldıramadı.",
-   "alt": "Freud bu satırlarda miti anmaz. Ama hikâyeye dönünce: Narkissos'un eksiği bilgi değildi. Onu seven bir ses hep yakınındaydı; her “ah”ına karşılık verdi. O ise başını sudan kaldıramadı.",
-   "kaynak": "Anlatıcının okuması; Freud'a mal edilmez. Eko omurgaya bağlanır (§6). L1'in 'neden'i"
+   "tts": "[thoughtful] Froyd miti anmaz; bağı biz kuralım. Narkissos'un eksiği bilgi değildi. Onu seven bir ses yakınındaydı; her “ah”ına karşılık verdi. O ise gözünü sudan ayıramadı.",
+   "alt": "Freud miti anmaz; bağı biz kuralım. Narkissos'un eksiği bilgi değildi. Onu seven bir ses yakınındaydı; her “ah”ına karşılık verdi. O ise gözünü sudan ayıramadı.",
+   "kaynak": "Anlatıcının okuması, açıkça işaretli. III 439–440 ('spectat inexpleto lumine', 'perque oculos perit'), 494–496 (eheu). L1'in 'neden'i"
   },
   {
    "id": "F10",
@@ -433,9 +433,9 @@
   {
    "id": "F11",
    "bolum": "Ad",
-   "tts": "[slowly] Sen de her gün bir camda kendine bakıyorsun. Orada kimi gördüğünü biliyorsun. Peki sence bilmek yeter mi? Cevabını yorumlara yaz.",
-   "alt": "Sen de her gün bir camda kendine bakıyorsun. Orada kimi gördüğünü biliyorsun. Peki sence bilmek yeter mi? Cevabını yorumlara yaz.",
-   "kaynak": "Çerçeve kapanır (A01); görüntü: cam. Suçlama tonu yok"
+   "tts": "[slowly] Yarın yine bir camda kendini göreceksin. Orada kimi gördüğünü biliyorsun. Peki bilmek, gözünü ayırmaya yeter mi? Cevabını yorumlara yaz.",
+   "alt": "Yarın yine bir camda kendini göreceksin. Orada kimi gördüğünü biliyorsun. Peki bilmek, gözünü ayırmaya yeter mi? Cevabını yorumlara yaz.",
+   "kaynak": "Çerçeve kapanır (A01); F09'a bağlanır; 4. başlık adayıyla örtüşür. Suçlama tonu yok"
   },
   {
    "id": "F12",
