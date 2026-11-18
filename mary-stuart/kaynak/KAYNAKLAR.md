@@ -28,7 +28,7 @@ Zweig'in Almanca metni (1935) yalnız çalışma alanında okundu; ABD'de 2030 s
 | K19 | 2 Mayıs 1568 Lochleven'den kaçış; 13 Mayıs Langside yenilgisi | standart | | B |
 | K20 | Mary, Elizabeth'ten "karşılıklı dostluk nişanı" olarak aldığı elması gönderip İngiltere'ye geleceğini bildirdi; Elizabeth sevgi ve yardım vaat etti; Mary dostlarının ısrarına rağmen Workington'a geçti | Camden 1688, 1568 | `camden_1568_solway_elmas.txt` | A |
 | K21 | 16 Mayıs 1568: küçük bir balıkçı teknesiyle Solway'i geçti, Workington'a çıktı (Camden varışı 17 Mayıs yazar) | standart; Zweig 18. bölüm | | B |
-| K22 | 17 Mayıs 1568 Workington'dan Elizabeth'e kendi eliyle Fransızca mektup | Labanoff II; Camden | `marie_elizabeth_workington_17mai1568_labanoff.txt` | A |
+| K22 | 17 Mayıs 1568 Workington'dan Elizabeth'e kendi eliyle Fransızca mektup: "beni bir an önce çağırın, acınacak hâldeyim... kaçtığım hâlimle kendimden başka hiçbir şeyim yok"; imza "sadık ve sevgi dolu iyi kız kardeşiniz, kuzeniniz ve kaçmış tutsak, Marie R." | Labanoff II; Camden | `marie_elizabeth_workington_17mai1568_labanoff.txt` | A |
 | K23 | 21 Haziran 1568 Carlisle'dan Lorraine Kardinali'ne: "hakaret, iftira, hapis, açlık, soğuk, sıcak, nereye gittiğimi bilmeden kaçış; durmadan doksan iki mil; çıplak yerde yatmak, ekşi süt, ekmeksiz yulaf; baykuşlar gibi üç gece... ödül olarak bir tutsaktan pek farkım yok" | Labanoff II, s. 117–118 | `marie_lorraine_carlisle_21haziran1568_labanoff.txt` | A |
 | K24 | Casket mektupları 1568 York/Westminster konferanslarında sunuldu; konferans karar vermedi; asılları 1584'ten sonra kayboldu, yalnız kopya ve çevirileri kaldı; gerçekliği tartışmalı (Fraser 1969, Guy 2004 sahte ya da değiştirilmiş sayar) | ikincil | `.../dl/casket_wp.txt` (çalışma alanı) | B |
 | K25 | "En ma fin est mon commencement" (Sonumda başlangıcım): Tutbury 1569, Nicholas White Cecil'e: taht örtüsünde işlenmiş, "anlamadığım bir bilmece"; söz annesi Mary of Guise'in ateşteki anka kuşu amblemindendi | Palliser 1870 (White'ın mektubundan) | `palliser_en_ma_fin.txt` 40–50 | B |
@@ -46,6 +46,7 @@ Zweig'in Almanca metni (1935) yalnız çalışma alanında okundu; ABD'de 2030 s
 | K37 | 24 Mart 1603 Elizabeth öldü; Mary'nin oğlu VI. James, I. James olarak İngiltere tahtına çıktı | standart | | B |
 | K38 | Mary önce Peterborough'ya gömüldü (1587); 1612'de oğlu James onu Westminster Abbey'e taşıttı; iki kraliçe aynı şapelin (VII. Henry Şapeli) iki yan nefinde yatıyor | Westminster Abbey | | B |
 | K39 | Elizabeth 44 yıl hüküm sürdü (1558–1603), hiç evlenmedi | standart | | B |
+| K41 | Ağustos 1561 Calais: limanda bir gemi battı, Mary "Tanrım, bu yolculuk için ne kötü bir işaret!" dedi; kıça yaslanıp beş saat ağladı: "Elveda Fransa, elveda Fransa"; "seni bir daha görmeyeceğim"; Dido'nun tersini yaptığını söyledi (o denize, kendisi karaya baktı) | Brantôme, *Book of the Ladies* (1899 çeviri), Mary Stuart | `brantome_adieu_france_1561.txt` | A |
 | K40 | Kırmızı, Katolik kilisesinde şehitlerin litürjik rengidir; birçok tarihçi Mary'nin kırmızısını bilinçli bir şehitlik işareti sayar | litürji (standart); Fraser, Guy | | B |
 
 ## Zweig'in okuması (*Maria Stuart*, 1935)
