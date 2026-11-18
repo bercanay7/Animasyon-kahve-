@@ -44,7 +44,7 @@ function martilar(G, st, x0, y0, n, o = {}) { const g = G.g, q = G.rng(o.seed ||
 // Finden gravürünün sol altındaki ek resim idam anını (balta, kütük) gösterir: hiçbir planda görünmez
 const ORT_IDAM = [[.226, .528, .372, .672]];
 const SIYAH_ETEK = [[.405, .51], [.45, .525], [.5, .545], [.55, .525], [.585, .51], [.574, .57], [.565, .63], [.63, .642], [.655, .69], [.672, .758], [.5, .762], [.36, .758], [.372, .69], [.385, .62], [.395, .56]];
-const SIYAH_CIKAR = [[[.535, .565], [.645, .56], [.655, .655], [.535, .66]]];   // kitap ve el: kırmızı değmez (kan gibi okunur)
+const SIYAH_CIKAR = [[[.519, .6105], [.556, .5765], [.59, .581], [.652, .572], [.652, .63], [.59, .629], [.5645, .638], [.551, .638], [.519, .6165]]];   // kitap ve parmaklar sıkı sınırla (dikdörtgen kesik gri kutu gibi okunuyordu)   // kitap ve el: kırmızı değmez (kan gibi okunur)
 P('A01', 0, fotoP('mary_siyah_hacli_tamboy', [.545, .41, .36], [.535, .6, .4], {
   klip: [.232, .242, .765, .762], ort: ORT_IDAM, kontrast: 1.45, parlak: .93, renkTon: 'brightness(2.6) contrast(.95)', u: st => ss((st.t - 1.3) / 4.2),
   kirmizi: { poly: SIYAH_ETEK, cikar: SIYAH_CIKAR, yum: 12, sil: st => ss((st.t - AT('A01@altından')) / 1.8) }, karart: st => 1 - clamp(st.t / .9),
@@ -871,13 +871,13 @@ P('M03', 'M03', (G, st) => { const g = G.g, im = IMG.elizabeth_madalya_16yy, k =
 P('M04', 'M04', fotoP('james_dejode_1603', [.5, .45, .55], [.5, .42, .4], { kunye: 'VI. James, 1603\'te I. James · P. de Jode · The Met (CC0)' }), 'Y');
 P('M05', 'M05', (G, st) => { G.kamera(720, 540, lerp(1.1, 1, st.p)); G.zemin(.2); isikHalka(G, 720, 420, 700, .35); arma(G, 720, 580, 520, 640, { ing: 1, ingKirmizi: 1, tac: 1 }); return { look: { sepia: .24, strength: .3 } }; }, 'O');
 P('M05b', 'M05@ama', fotoP('james_unite_sikke_1613', [.5, .5, .62], [.5, .5, .5], { kunye: '"Unite" sikkesi, I. James, 1613 · The Met (CC0)', parlak: .95, zemin: .15 }), 'Y');
-// M06: soy çizgisi: Tudor dalı Elizabeth'te biter; Stuart dalı bugüne iner
+// M06: soy çizgisi: Tudor dalı Elizabeth'te biter; Stuart dalı bugüne iner (çizgi adların arasında kesilir, adların üstünden geçmez)
 P('M06', 'M06', (G, st) => { const g = G.g; G.kamera(720, lerp(500, 640, eio(st.p)), 1); G.zemin(.88); const k = acS(st, 'M06@bugün', 4), t2 = acS(st, 'M06@tudor', 1.5);
   g.fillStyle = G.gri(.2); g.textAlign = 'center'; g.font = '600 38px "Cinzel"';
   g.fillText('TUDOR', 400, 170); g.fillText('MARY\'NİN SOYU', 1040, 170);
   g.strokeStyle = G.gri(.2); g.lineWidth = 6; g.beginPath(); g.moveTo(400, 200); g.lineTo(400, 520); g.stroke(); g.font = 'italic 600 40px "Cormorant Garamond"'; g.fillText('I. Elizabeth', 400, 570);
   if (t2 > 0) { g.lineWidth = 8; g.beginPath(); g.moveTo(340, 620); g.lineTo(460, 620); g.stroke(); g.fillText('1603', 400, 670); }
-  g.lineWidth = 6; g.beginPath(); g.moveTo(1040, 200); g.lineTo(1040, 200 + 900 * k); g.stroke(); g.fillText('Mary Stuart', 1040, 250); if (k > .25) g.fillText('VI. ve I. James', 1040, 420); if (k > .55) g.fillText('…', 1040, 640); if (k > .85) g.fillText('bugünkü kraliyet ailesi', 1040, 1060);
+  const son = 200 + 900 * k; g.lineWidth = 6; g.beginPath(); for (const [a, b] of [[270, 382], [442, 612], [656, 1022]]) if (son > a) { g.moveTo(1040, a); g.lineTo(1040, Math.min(b, son)); } g.stroke(); g.fillText('Mary Stuart', 1040, 250); if (k > .25) g.fillText('VI. ve I. James', 1040, 420); if (k > .55) g.fillText('…', 1040, 640); if (k > .85) g.fillText('bugünkü kraliyet ailesi', 1040, 1060);
   G.kirmiziCiz(r => { r.beginPath(); r.arc(1040, 200, 14, 0, TAU); r.fill(); });
   return { look: { sepia: .3, strength: .26 } }; }, 'A');
 P('M07', 'M07', (G, st) => { isleme(G, st, { cam: [720, 760, lerp(1.6, 1.45, st.p)], yazi: 'En ma fin est mon commencement', yaziP: 1 }); return { look: { sepia: .32, strength: .26 } }; }, 'Y');

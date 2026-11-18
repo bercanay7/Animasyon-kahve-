@@ -54,5 +54,5 @@ function kapakCiz() {
 }
 window.GORSEL = { siyah: 'kaynak/gorsel/mary_siyah_hacli_tamboy.jpg', madalya: 'kaynak/gorsel/elizabeth_madalya_16yy.jpg' };
 const SIYAH_ETEK = [[.405, .51], [.45, .525], [.5, .545], [.55, .525], [.585, .51], [.574, .57], [.565, .63], [.63, .642], [.655, .69], [.672, .758], [.5, .762], [.36, .758], [.372, .69], [.385, .62], [.395, .56]];
-const SIYAH_CIKAR = [[[.535, .565], [.645, .56], [.655, .655], [.535, .66]]];
+const SIYAH_CIKAR = [[[.519, .6105], [.556, .5765], [.59, .581], [.652, .572], [.652, .63], [.59, .629], [.5645, .638], [.551, .638], [.519, .6165]]];   // sahneler.js ile aynı: kitap ve parmaklar sıkı sınırla
 (async () => { await document.fonts.load('400 300px "Bebas Neue"', 'RAKİBNESIĞDMZYGabc'); await document.fonts.ready; if (!document.fonts.check('400 300px "Bebas Neue"', 'RAKİBİNE')) console.log('HATA Bebas yüklenmedi'); await document.fonts.load('600 40px Cinzel'); await Promise.all(Object.entries(GORSEL).map(([k, v]) => loadImg(k, v))); kapakCiz(); })();

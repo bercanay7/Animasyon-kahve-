@@ -63,3 +63,10 @@ Kullanıcı ajanlara izin verdi, sonra yükü fazla bularak hafiflettirdi: dört
 - **Kayda geçen, değiştirilmeyen (seslendirme yenilenmeden düzeltilemez):** F02 "10 Şubat gecesi" (patlama 10 Şubat sabaha karşı; F03 etiketi doğru); L17 "haykırdı" (kaynak "dedi"); L20 "başıma gelen" (kaynak "başa gelen"); M13 "bir imparator daha" (Mary gönüllü bırakmadı); M10 "kazandı" (Zweig "kazanır"). Bölüm adı "On Dokuz Yıl" yuvarlama olarak kaldı (18 yıl 9 ay; Mary'nin kendisi "yirmi yıla yakın" der). Bir sonraki seslendirmede bu kalıplara dikkat.
 - **Başkanın bulduğu teknik hata:** mektup yazısı hizayı kendisi kurmuyordu; önceki planın "ortala" ayarı sızınca metin kadrajdan taşıyordu (işçiler arası belirlenimciliği de bozabilirdi) → çizim durumu her karede sıfırlanıyor.
 - Bulguların tamamı: oturumun çalışma alanında (`bulgular.txt`); burada özet.
+
+## Son render tam boy kare kontrolü (18 Kasım; başkan)
+Usta kopyadan 13 plan tam boy çekildi (A01, B02, F05, H13b, H15, I11, J04, K07, L13, L14, L20b, M06, M07). Metin denetimi düzeltmelerinin hepsi kareye geçmiş.
+- **Düzeltildi, M06:** soy çizgisi adların üstünden geçiyordu ("VI. ve I. James" içindeki "I." çizginin altında kalıyor, "ı. James" okunuyordu) → çizgi adların arasında kesik.
+- **Düzeltildi, A01 / L07b / L13 ve kapak B:** kitap ve eli kırmızıdan çıkaran dikdörtgen, kırmızı eteğin içinde köşeleri yuvarlak gri bir kutu gibi okunuyordu ("yapıştırılmış kâğıt") → çıkarma alanı kitabın ve parmakların çevresine sıkı çizildi. Kırmızı kitabın kenarına kadar geliyor, elde ve kitapta kırmızı yok (Fable'ın kan bulgusu korunuyor). Kapak B yeniden üretildi; odak ölçümü: 1. odak yine "KIRMIZI" yazısı, ikinci tepe kitap ve el; test seti yenilendi.
+- **Doğrulandı, değişmedi:** I11, I12 ve M07'de "En ma fin est mon commencement" (Mary'nin Tutbury sayvanı, White), I13'te "git" (annesinin ankası, Drummond): ikisi de kaynakla uyumlu. J04 ve L14'teki dikey ak çizgi FilmPost'un film çiziği; M06'daki küçük nokta karede yer değiştiren toz.
+- Yeniden üretilen parçalar: 0, 42, 43, 44, 48, 49 (`ONLY=`).
