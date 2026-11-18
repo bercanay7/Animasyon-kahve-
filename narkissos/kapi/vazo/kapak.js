@@ -1,0 +1,1 @@
+function renderKapak(ctx, v) {}
