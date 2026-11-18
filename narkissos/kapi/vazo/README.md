@@ -24,9 +24,18 @@ node kare.js <klasör> dikey_D=dikey:14.9,4               # 1080×1920
 WORKERS=3 MB=4 node render.js <çıktı.mp4>                # 19,5 sn, 30 fps, H.264 CRF 18, BT.709, sessiz
 ```
 
-## Tanıma hamlesi ('benim', 14,6 sn)
-'benim'e kadar yansıma kendi zamanından 0,3 sn geride çizilir (başka biri gibi geç cevap verir) ve seyreltik sırla soluktur (saydamlık 0,44). 'Sonra anladı'da genç suya doğru eğilir, yansıma bu eğilmeye geç uyar. 'benim'de:
-- gecikme sıfırlanır (birebir kilit);
-- genç irkilip başını geri çeker, kaşlar kalkar, ağız aralanır;
-- yansıma bedenin kiline yaklaşır (0,44 → 0,84);
-- iki göz arasında kısa bir noktalı kil çizgi belirip söner.
+## Tanıma hamlesi ('benim', 14,6 sn) — tur 1
+- Su çizgisi kaya üstünden 40 birim aşağıda (`D_WY`, `D_GAP`); el kıyıdan açık suya iner.
+- `dReach(t)`: 'Sonra'da (13,49) yakın el kayadan kalkar (hazırlık), yükselir, işaret parmağı 14,30'da suya değer (küçük halka).
+- Yansıma kendi zamanından 0,3 sn geride çizilir; yansımanın parmağı tam 'benim'de (14,60) gelir ve iki parmak aynı karede buluşur. Gecikme sıfırlanır (birebir kilit), yansıma soluktan bedenin kiline döner (0,44 → 0,84).
+- Genç irkilir: baş geri çekilir, kaşlar kalkar, ağız aralanır; el 15,05'e kadar suda kalır, sonra çekilir.
+- Noktalı göz çizgisi kaldırıldı.
+
+## Tur 1 değişiklikleri (FABLE_KAPI.md düzeltmeleri)
+- `lib/figure.js`: efeb başı (`HAIR_EF`, `lk.efeb`: kısa bukleli saç, kulak açık, kenarda bukle tümsekleri; `lk.jaw`: köşeli çene), khiton (`lk.khiton`: seyreltik sır rengi, sık kıvrım, koyu sır etek kenarı; nokta deseni, kemer, omuz kası kavisi yok), `lk.headS` (genç oranı), `f.jointsOnly` (çizimsiz eklem hesabı).
+- D: yumruk yok (eller açık), halka yansımayı yatay şeritlere böler (`R.shear`; 120 px'te kırık leke), karşı kıyı + nergisler + belirgin su çizgisi.
+- C: eller kıyıyı kavrar, 'âşık'ta yalnız yakın el suya iner; karşı kıyıda nergis.
+- A/E: telefonu tutan el (`phoneHand`), başparmak 0,35/1,05/1,75'te kaydırır, ekran ışığı kıpırdar; baş büyük, göz iri.
+- Halka çizgileri: merkezdeki küçük elips söner (hale okunmasın).
+- Kapak: kil kenar çizgisi, ortalama parlaklık ~52, el kadraj dışında, karşı kıyı yok; yazı suya yansımaz.
+- Hız: sönmüş halka piksel kaydırmaz, kaydırma yalnız yansıma bölgesinde (`warpBox`).

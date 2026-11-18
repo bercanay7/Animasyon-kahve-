@@ -219,3 +219,39 @@ Ayrıntı: `kapi/FABLE_KAPI.md`. Kodlar `kapi/vazo/`, `kapi/riso/`; kareler ve m
 - suya yansımayan kapak yazısı.
 
 **Başkanın notu:** §5'teki "vazo 0,35–0,50 sn/kare" prototipe aitti; kapı sahnesinde vazo mb=4 ile ortalama 1,0 sn (p90 1,82). Render planı 4 işçiyle ölçülen değere (9 dk ≈ 1,3 saat) göre yapılır.
+
+## 9. Senaryo denetimi ve rev1 (18 Kasım 2026)
+Dört bağımsız mercek: kaynak (8/10), hassasiyet (7,5), Türkçe seslendirme (7) ve Fable 5.2 dramaturji (7). "Engelleyici" ve "düzeltilmeli" bulguların her birini ikinci bir ajan çürütmeye çalıştı. rev1 süzgeçten geçen bulgularla yazıldı: 63 cümle, 893 kelime (rev0: 70 cümle). Kimlikler yeniden numaralandı; plan listesi rev1'e göre yazılacak (Kafka numara kayması dersi).
+
+**Uygulananlar:**
+- **Kanca:** A01 soru oldu ("Bugün bir camda kendine kaç kez baktın?"). Kapak sözü "O benim" ilk 15 saniyede duyuluyor (A03). Liriope adı ve Jüpiter anlatımdan çıktı (ad yükü). "Herkes bilir" tekrarı kalktı.
+- **Yankı Türkçede yankı oldu:** "Kim var burada?" / "Burada!". Copia cümlesinde yankılanan kısım sonda: "Önce ölürüm, sonra bana sahip olursun." / "Bana sahip olursun." (III 391–392). E08'de söz kendiliğinden dönüyor; filoloji notu ekran yazısına gitti.
+- **Hitap:** baştan sona "sen".
+- **Merak döngüleri:**
+  - L2 (kehanet) E10'da anlatımda kapanıyor;
+  - D07'ye bölümün küçük sorusu eklendi ("Bilse, kalkıp gider miydi?");
+  - F01'e bölümün sorusu eklendi;
+  - L1'in "neden"i F09'da veriliyor (Eko'nun sesi hep yakınındaydı, o başını sudan kaldıramadı).
+- **Kaynak düzeltmeleri:**
+  - D05 çeviri hatası ("seven de o, sevilen de");
+  - E06 "kendime duyduğum aşk";
+  - D01 "ağaçtan düşen dal";
+  - D02–D03 notları (415 ve 417'yi Magnus sahte sayar, TLL ve Loeb tutar);
+  - F02 simge cümlesi (Alciato 1550 notu);
+  - F06–F08 Freud: "birincil", "sorun ne zaman" çerçevesi, alıntı koşuluyla birlikte ("engellendiği için sevemeyen").
+- **Ad bölümü** (Callot, Ellis, Näcke) tek hamlede ve bir soruyla. Teşhis çekincesi kelimenin doğduğu yere (F04) taşındı; doruğun ortasından çıktı.
+- **Son:**
+  - F10: Ovidius'a yalnız bir dönüş ("Narkissos'u bitiren yalnız kendini sevmesi değildi"; III 354'teki gurur yok sayılmıyor).
+  - F11: neyin bilindiği adlandırıldı.
+  - F12: Camus atfı soruya döndü ("Peki Sisifos'a yetti mi?"); doğrulanmamış "özgürleştirdi" kalktı.
+- **Seslendirme:** tts'de adlar ve yıllar okunuşla yazıldı (Froyd, Hevlok Elis, Nekke, Stiks, Narkissus, yıllar yazıyla). Altyazıda doğru yazım.
+
+**Reddedilenler (gerekçesiyle):**
+- **A01'i çoğul yapmak** ("kendimize bakıyoruz"; hassasiyet): süzgeç reddetti. Soru biçimi suçlama tonunu zaten kaldırıyor; tekil hitap çerçevenin kendisi.
+- **A05'e baştan teşhis uyarısı:** reddedildi. Kancayı keser; uyarı F04'te anlatımda, açıklamada ve sabit yorumda var.
+- **E04'ü "Bu benim, ta kendim!" yapmak** (ses): reddedildi. Kapak sözü "O BENİM" ile birebir aynı kalmalı; "iste" yakını işaret etse de Türkçede "o benim" doğal.
+- **D02–D03'ü "katı yol"la değiştirmek:** reddedildi. TLL ve Loeb iki dizeyi de tutuyor; not doğru yazıldı.
+- **Başlığı değiştirmek** (hassasiyet "vaat" bulgusu): süzgeç reddetti. Cevap F06–F07'de sorunun kendi kelimeleriyle veriliyor ("ne zaman soruna döner").
+
+**Başlık:** 1. aday kalır ("Kendini Sevmek Ne Zaman Narsisizme Döner? | Narkissos'un Hikâyesi"). Test ve karşılaştır'da ikinci vaat 2. aday değil, **4. aday** ("Kendine Bakmaktan Vazgeçebilir misin? | Narsisizm ve Narkissos"); senaryonun son sorusuyla aynı. Bunu Fable önerdi, başkan kabul etti. 2. aday bağlamsız okununca bağımlılık vaadi gibi duruyor.
+**Kapak B yazısı:** "BİLİYORDU" kullanılmaz (425, 430'da bilmiyor). 4–6 kelimelik deneme: "ANLADI. YİNE DE KALKAMADI."

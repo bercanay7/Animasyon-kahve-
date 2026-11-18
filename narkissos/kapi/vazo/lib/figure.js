@@ -92,6 +92,22 @@ const HAIR_RF_N = [[5.0, -10.1], [5.9, -11.0], [5.0, -12.1], [3.2, -13.7], [.6, 
   [-8.3, -2.6], [-8.0, .6], [-7.3, 2.6], [-6.4, 1.7], [-5.6, 3.2], [-4.6, 2.0], [-3.7, 2.7], [-3.0, 1.1], [-1.9, .0], [-.7, -2.6], [.1, -5.6], [.7, -8.1], [2.6, -9.7]];
 // Narkissos kapısı: bugünün genci için kısa saç (kulak açıkta, alında hafif kabarık)
 const HAIR_MOD = [[5.0, -10.0], [6.0, -11.3], [5.6, -12.5], [3.6, -14.0], [.6, -14.7], [-2.8, -14.3], [-5.6, -12.4], [-7.0, -9.4], [-7.3, -6.0], [-6.8, -3.4], [-5.2, -3.0], [-3.6, -3.9], [-2.5, -5.6], [-2.0, -8.3], [-.6, -8.9], [.3, -6.9], [.9, -8.6], [2.6, -9.9]];
+// Narkissos kapısı tur 1: efeb başı (risograf denemesinden): kısa, bukleli saç; kulak açıkta, önünde kısa favori
+const HAIR_EF = [[4.8, -10.0], [5.5, -10.6], [5.3, -11.6], [4.2, -13.1], [2.1, -14.2], [-.8, -14.4], [-3.7, -13.9], [-5.9, -12.3], [-6.9, -9.8], [-7.0, -7.0], [-6.6, -4.7],
+  [-5.9, -3.5], [-4.7, -3.7], [-3.6, -4.5], [-3.0, -6.0], [-2.9, -7.6], [-2.2, -8.5], [-.8, -8.7], [.3, -8.2], [.6, -6.4], [1.1, -6.3], [1.3, -8.4], [2.4, -9.5], [3.6, -9.9]];
+// saçın dış kenarı boyunca bukle tümsekleri (kabartma kenar): HAIR_EF'in 1..10 noktaları arasında eşit aralıklı
+function efebCurls() {
+  const P = HAIR_EF.slice(1, 11), L = [0];
+  for (let i = 1; i < P.length; i++) L.push(L[i - 1] + Math.hypot(P[i][0] - P[i - 1][0], P[i][1] - P[i - 1][1]));
+  const out = [], n = 19;
+  for (let k = 0; k <= n; k++) {
+    const sv = L[L.length - 1] * k / n; let j = 0; while (j < P.length - 2 && L[j + 1] < sv) j++;
+    const u = (sv - L[j]) / (L[j + 1] - L[j]), x = P[j][0] + (P[j + 1][0] - P[j][0]) * u, y = P[j][1] + (P[j + 1][1] - P[j][1]) * u;
+    const nx = -(P[j + 1][1] - P[j][1]), ny = P[j + 1][0] - P[j][0], nl = Math.hypot(nx, ny) || 1; // dışa normal (saat yönünün tersi sırada sol)
+    out.push([x - nx / nl * .35, y - ny / nl * .35, .64 + .1 * Math.sin(k * 2.3)]);
+  }
+  return out;
+}
 const BEARD_RF = [[5.95, -3.55], [4.6, -3.75], [2.4, -4.15], [.1, -4.7], [-.6, -2.2], [.2, .2], [1.4, 1.2], [2.4, 2.6], [3.5, 3.6], [4.7, 4.9],
   [6.1, 6.3], [6.9, 3.4], [6.6, .2], [6.15, -2.6]];
 const HAIR_F = [[5.3, -10.3], [4.6, -12.1], [2.8, -13.7], [0, -14.5], [-3.3, -14.1], [-5.8, -12.4], [-8.3, -12.9], [-10.3, -10.7],
@@ -171,6 +187,7 @@ function figure(ctx, f) {
   const neckT = add(neckB, rot([0, -BL.neck], neckA));
   const J = { pelvis: [0, 0], neckB, neckT, shoulder, hip: hipJ, LN, LF, AN, AF, T, headA };
   if (f.onJoints) f.onJoints(J, M);
+  if (f.jointsOnly) return J; // yalnız eklemler (çizim yok)
 
   // ekran sınır kutusu
   const pts = [[0, 0], neckT, LN.ank, LF.ank, AN.wr, AF.wr, LN.knee, LF.knee];
@@ -286,7 +303,14 @@ function drawBody(G, f, J, tor, tP) {
     ];
     if (hs === 'open' || hs === 'flat' || hs === 'press') shapes.unshift([A.wr, -A.haA, c => spline(c, THUMB)]);
     limb(shapes, lk.fem ? skin : {});
-    if (near && !lk.fem && lk.rf) G.at(J.shoulder, -A.upA, () => G.part(c => c.ellipse(0, .2, 4.2, 4.0, 0, 0, TAU), { cut: false, fill: lk.sleeveCol }));
+    if (near && !lk.fem && lk.rf) G.at(J.shoulder, -A.upA, () => G.part(c => c.ellipse(0, .2, 4.2, 4.0, 0, 0, TAU), { cut: false, fill: lk.khiton && lk.khiton.sleeve !== false ? lk.khiton.col : lk.sleeveCol }));
+    if (lk.khiton && lk.khiton.sleeve !== false) { // khiton kısa kolu: omuzdan üst kolun ortasına, ucu koyu sır kenar
+      const SL = BL.up * .5, pr = PROF.up.filter(q => q[0] <= .5).concat([[.5, 3.3, 3.2]]), k = thin * 1.07;
+      const sp = pr.map(([u, a]) => [a * k, u * BL.up]).concat(pr.slice().reverse().map(([u, , b]) => [-b * k, u * BL.up]));
+      G.at(J.shoulder, -A.upA, () => { G.part(c => poly(c, sp), { fill: lk.khiton.col, cutW: .3 });
+        G.paint(c => { c.moveTo(3.3 * k, SL); c.lineTo(-3.2 * k, SL); }, sty.line, .55, false);
+        det(c => { c.moveTo(1.6, 1.2); c.quadraticCurveTo(2.4, SL * .5, 1.4, SL - .6); c.moveTo(-1.4, 1.6); c.quadraticCurveTo(-.6, SL * .55, -1.8, SL - .4); }, .24); });
+    }
     if (lk.sleeveCol) { // Narkissos kapısı: bugünün giysisi, uzun kollu (seyreltik sır)
       G.at(J.shoulder, -A.upA, () => G.part(c => spline(c, limbPts(PROF.up, BL.up + 1, thin * 1.06)), { fill: lk.sleeveCol, cut: false }));
       G.at(A.elb, 0, () => G.part(c => c.arc(0, 0, 2.6 * thin, 0, TAU), { fill: lk.sleeveCol, cut: false }));
@@ -299,7 +323,7 @@ function drawBody(G, f, J, tor, tP) {
       if (!lk.fem && hs === 'press') det(c => { c.moveTo(.9, 3.4); c.lineTo(.6, 6.0); }, .24);
       if (lk.fem && (hs === 'open' || hs === 'flat')) G.paint(c => { c.moveTo(1.4, 3.2); c.lineTo(.2, 6.4); }, sty.line, .2, false);
     });
-    if (!lk.fem && near && lk.rf) {
+    if (!lk.fem && near && lk.rf && !lk.khiton) {
       // kesiksiz üst kolun dış hatları (dirseğe doğru) ve deltoid kavisi: omuz zırh levhası gibi okunmasın
       G.at(J.shoulder, -A.upA, () => { det(c => { c.moveTo(3.4, BL.up * .35); c.quadraticCurveTo(3.3, BL.up * .7, 2.6, BL.up); c.moveTo(-3.2, BL.up * .4); c.quadraticCurveTo(-3.0, BL.up * .72, -2.5, BL.up); }, .36);
         det(c => { c.moveTo(-3.4, -.5); c.quadraticCurveTo(1.5, -1.6, 3.6, 3.2); c.quadraticCurveTo(2.0, 6.5, -.6, 7.2); }, .3); });
@@ -358,17 +382,22 @@ function drawGarment(G, f, J, tP, det) {
     const pts = gm === 'short'
       ? [tP([3.6, -31.0]), tP([9.9, -24.2]), tP([7.0, -15.0]), tP([7.6, -9]), add(fr, [6.2, 1.2]), add(lerp2(fr, bk, .5), [0, 2.4]), add(bk, [-6.4, .8]), tP([-8.8, -5]), tP([-7.0, -15]), tP([-7.8, -24]), tP([-3.0, -31.2])]
       : [tP([7.0, -8]), add(fr, [6.0, 1]), add(lerp2(fr, bk, .5), [0, 2]), add(bk, [-6.2, .6]), tP([-8.6, -6])];
-    G.part(c => spline(c, pts, true, .9), {});
+    const KH = lk.khiton;
+    G.part(c => spline(c, pts, true, .9), KH ? { fill: KH.col } : {});
     // kemer (kırmızı) ve kıvrımlar
-    if (gm === 'short') G.paint(c => { c.moveTo(...tP([7.2, -14.6])); c.lineTo(...tP([-6.6, -14.8])); }, sty.red, 1.5, false);
+    if (KH && gm === 'short') { // khiton: kıvrımlar sık, yaka ve etek kenarı koyu sır bant (çıplak beden gibi okunmasın)
+      for (let i = 0; i < 9; i++) { const u = (i + .5) / 9, st = tP([lerp(-6.4, 7.2, u), -28 + Math.abs(u - .5) * 4]), en = add(lerp2(bk, fr, u), [lerp(-5, 5, u), 0]);
+        det(c => { c.moveTo(st[0], st[1]); c.quadraticCurveTo(lerp(st[0], en[0], .5) + (i % 2 ? .9 : -.6), lerp(st[1], en[1], .5), en[0], en[1]); }, i % 2 ? .22 : .3); }
+      G.paint(c => { const a2 = add(fr, [5.6, .9]), m2 = add(lerp2(fr, bk, .5), [0, 2.0]), b2 = add(bk, [-5.9, .6]); c.moveTo(...a2); c.quadraticCurveTo(...m2, ...b2); }, sty.line, KH.edge || 1.3, false);
+    } else if (gm === 'short' && !lk.noBelt) G.paint(c => { c.moveTo(...tP([7.2, -14.6])); c.lineTo(...tP([-6.6, -14.8])); }, sty.red, 1.5, false);
     else G.paint(c => { c.moveTo(...tP([7.0, -6.6])); c.lineTo(...tP([-8.4, -6.8])); }, sty.red, 1.3, false); // peştamal: kemer bel hizasında
-    for (let i = 0; i < 5; i++) {
+    if (!KH) for (let i = 0; i < 5; i++) {
       const u = (i + .5) / 5;
       const st = tP([lerp(-6, 6.4, u), gm === 'short' ? -13.4 : -5.6]);
       const en = add(lerp2(bk, fr, u), [lerp(-5, 5, u), 0]);
       det(c => { c.moveTo(st[0], st[1]); c.quadraticCurveTo(lerp(st[0], en[0], .5) + .6, lerp(st[1], en[1], .5), en[0], en[1]); }, .32);
     }
-    if (gm === 'short') {
+    if (gm === 'short' && !KH) {
       det(c => { const q = tP([3.4, -30.6]), r = tP([-2.6, -30.2]); c.moveTo(q[0], q[1]); c.quadraticCurveTo(...tP([.6, -27.4]), r[0], r[1]); }, .4);
       // nokta deseni
       for (let i = 0; i < 6; i++) { const q = tP([lerp(-4, 6, (i * .37) % 1), lerp(-26, -17, (i * .61) % 1)]); G.cut(c => { c.arc(q[0], q[1], .55, 0, TAU); }, .3); }
@@ -447,6 +476,7 @@ function drawHead(G, f, J, det) {
   const lk = f.lk || {}, p = f.p || {}, sty = G.sty;
   G.at(J.neckT, J.headA, () => {
     const g = G.g;
+    if (lk.headS) g.scale(lk.headS, lk.headS); // genç oranı: baş gövdeye göre büyük
     // geriye bakış: gövde bir yöne giderken baş ters yöne döner (vazo uylaşımı; "bile bile" geriye bakan Titan)
     if (p.headBack) { g.scale(-1, 1); g.rotate(p.headBackA ?? .15); }
     if (lk.fem && lk.headgear !== 'helmet') {
@@ -495,9 +525,19 @@ function drawHead(G, f, J, det) {
       const wd = p.wind || 0, ft = window.FIG_T || 0;
       const blow = (P, y0, k) => wd ? P.map(([x, y], i) => { const u = clamp((y - y0) / 8); return [x - wd * k * u + .9 * wd * u * Math.sin(ft * 3.1 + i * .7) + .35 * wd * u * Math.sin(ft * 5.3 + i * 1.3), y - wd * .2 * u + .25 * wd * u * Math.sin(ft * 2.2 + i)]; }) : P;
       const jut = p.beardJut ?? lk.beardJut ?? 0, BRD = jut ? BEARD_RF.map(([x, y]) => [x + jut * clamp((y + 1) / 6.9), y]) : BEARD_RF;
+      const CU = lk.efeb ? efebCurls() : null;
       for (const P of [blow(lk.hairPts || (lk.hair === 'nape' ? HAIR_RF_N : HAIR_RF), -4, 1.1), lk.beard ? blow(BRD, 0, .7) : null]) if (P) {
         G.paint(c => spline(c, P, true, .9), sty.fill, .55, false);
+        if (CU) for (const [x, y, r] of CU) G.paint(c => c.arc(x, y, r + .27, 0, TAU), sty.fill);
         G.paint(c => spline(c, P, true, .9), sty.line);
+        if (CU) for (const [x, y, r] of CU) G.paint(c => c.arc(x, y, r, 0, TAU), sty.line);
+      }
+      // efeb: iç bukleler kısa kil virgüller (sıra sıra, kenara paralel)
+      if (lk.efeb) for (let row = 0; row < 3; row++) for (let i = 0; i < 6 - row; i++) {
+        const u = (i + .5 + row * .3) / 6, a = lerp(-.35, 2.3, u) + PI / 2, rr = 5.6 - row * 1.55;
+        const x = -1.3 + Math.cos(a) * rr * 1.08, y = -9.4 - Math.sin(a) * rr * .92;
+        if (y > -4.6 || (x > -3.2 && y > -8.9)) continue; // kulağın ve favorinin üstünde kalmasın
+        G.paint(c => { c.moveTo(x + .45, y - .35); c.quadraticCurveTo(x - .55, y - .15, x - .15, y + .55); }, sty.fill, .17, false);
       }
       // boncuklu ense saçı (arkaik): siyah saçın üstünde kil noktalar sıra sıra
       if (lk.beadHair) for (let i = 0; i < 3; i++) { const x = -6.8 + i * 1.3, P0 = [x + .5, -6.4], P1 = [x - 1.4, -3.4], P2 = [x + 1.4, -.8], P3 = [x - .2, 1.2];
@@ -505,7 +545,7 @@ function drawHead(G, f, J, det) {
           G.paint(c => c.arc(bx, by, .3, 0, TAU), sty.fill); } }
       // iç bukleler: kil rengi ince S eğrileri
       const hl = lk.hair === 'nape' ? 1.2 : 2.6;
-      if (!lk.modern) for (let i = 0; i < 3; i++) G.paint(c => { const x = -6.8 + i * 1.3, sw = wd * 1.2 + .3 * wd * Math.sin(ft * 3.1 + i); c.moveTo(x + .5, -6.4); c.bezierCurveTo(x - 1.4, -3.4, x + 1.4, -.8, x - .2 - sw, hl); }, sty.fill, .2, false);
+      if (!lk.modern && !lk.efeb) for (let i = 0; i < 3; i++) G.paint(c => { const x = -6.8 + i * 1.3, sw = wd * 1.2 + .3 * wd * Math.sin(ft * 3.1 + i); c.moveTo(x + .5, -6.4); c.bezierCurveTo(x - 1.4, -3.4, x + 1.4, -.8, x - .2 - sw, hl); }, sty.fill, .2, false);
       if (lk.beard) for (let i = 0; i < 3; i++) G.paint(c => { const u = i / 2, x0 = lerp(1.0, 4.6, u), y0 = -2.2, x1 = lerp(2.6, 6.0, u) + jut * .5 - wd * .5 * u, y1 = lerp(1.6, 5.0, u); c.moveTo(x0, y0); c.bezierCurveTo(x0 + 1.2, lerp(y0, y1, .33), x1 - 1.0, lerp(y0, y1, .66), x1, y1); }, sty.fill, .2, false);
       // ağız: bıyık ile sakal arasında kil çizgi
       const mo = p.mouthOpen || 0;
@@ -547,6 +587,8 @@ function drawHead(G, f, J, det) {
     if (sc > .3) det(c => { c.moveTo(5.6, -8.6 + br * .45 + sc * .75); c.lineTo(6.0, -7.5); }, .26 * FW);
     // kulak
     if (!lk.earHidden) det(c => { c.moveTo(-.4, -7.8); c.bezierCurveTo(-2.4, -7.6, -2.4, -4.6, -.6, -4.6); c.moveTo(-1.0, -6.8); c.quadraticCurveTo(-1.6, -6, -1.0, -5.4); }, .32);
+    // efeb: köşeli çene (çene ucundan kulak memesine ince kazıma)
+    if (lk.jaw) det(c => { c.moveTo(4.2, -1.55); c.quadraticCurveTo(1.6, -1.9, .1, -3.2); c.lineTo(-.4, -4.4); }, .22 * FW);
     // ağız
     const sm = p.smile || 0;
     if (!rf || !lk.beard) { // siyah sakallı kırmızı figürde ağız ve sakal yukarıda boyandı (sakalsız kırmızı figürde ağız kazıma çizgi)

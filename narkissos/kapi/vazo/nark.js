@@ -44,15 +44,16 @@ function ringEnv(R, r, age) {
 }
 function ringOm(R) { return 2 * PI / R.lam * R.v * .8; }
 // yansımayı halkalarla piksel piksel kaydırır (yalnız halkanın etkin sınır kutusunda)
-function warpRings(cv, rings, t, T) {
+function warpRings(cv, rings, t, T, box) {
   const S = T.a; // mantıksal → cihaz ölçeği
-  const act = rings.filter(R => t - R.t0 > 0 && t - R.t0 < (R.life || 4));
+  const act = rings.filter(R => t - R.t0 > 0 && t - R.t0 < (R.life || 4) && R.A * Math.exp(-R.k * (t - R.t0)) * T.a > 2.5); // sönmüş halka piksel kaydırmaz (süre)
   if (!act.length) return;
   let x0 = 1e9, y0 = 1e9, x1 = -1e9, y1 = -1e9;
   for (const R of act) {
     const rr = (R.v * (t - R.t0) + R.lam) * S, cx = R.x * S + T.e, cy = R.y * S + T.f;
     x0 = Math.min(x0, cx - rr); x1 = Math.max(x1, cx + rr); y0 = Math.min(y0, cy - rr * R.sq); y1 = Math.max(y1, cy + rr * R.sq);
   }
+  if (box) { x0 = Math.max(x0, box[0] * S + T.e); y0 = Math.max(y0, box[1] * S + T.f); x1 = Math.min(x1, box[2] * S + T.e); y1 = Math.min(y1, box[3] * S + T.f); } // yalnız yansımanın bulunduğu bölge (boş suyu kaydırmak boşa)
   x0 = Math.max(0, Math.floor(x0)); y0 = Math.max(0, Math.floor(y0)); x1 = Math.min(cv.width, Math.ceil(x1)); y1 = Math.min(cv.height, Math.ceil(y1));
   const bw = x1 - x0, bh = y1 - y0; if (bw <= 2 || bh <= 2) return;
   const cx2 = cv.getContext('2d');
@@ -81,7 +82,7 @@ function ringLines(ctx, rings, t, o = {}) {
     const kap = 2 * PI / R.lam, om = ringOm(R);
     for (let n = 0; n < 12; n++) {
       const r = (om * age - PI / 2 - 2 * PI * n) / kap; if (r <= 2) break;
-      const e = ringEnv(R, r, age) / R.A; if (e < .03) continue;
+      const e = ringEnv(R, r, age) / R.A * clamp((r - R.lam * .5) / (R.lam * 1.5)); if (e < .03) continue; // merkezdeki küçük elips söner (hale okunmasın)
       ctx.strokeStyle = o.col || `rgba(226,150,96,${clamp(.95 * e * (o.a ?? 1))})`;
       ctx.lineWidth = (o.w || 3.2) * (.5 + .5 * e);
       ctx.beginPath(); ctx.ellipse(R.x, R.y, r, r * R.sq, 0, .12, PI - .12); ctx.stroke(); // ön yarı (izleyiciye yakın)
@@ -100,10 +101,16 @@ function mirror(ctx, drawFn, wy, clipFn, t, o = {}) {
   if (wyD > 0) wx.drawImage(LY.refl, 0, 0, CW, wyD, 0, 0, CW, wyD);
   for (let y = Math.max(0, wyD); y < CH; y += step) {
     const d = (y - wyD) / S;
-    const dx = calm * (Math.sin(d * .19 + t * 1.25) * .7 + Math.sin(d * .053 - t * .8) * .5) * clamp(d / 30);
+    let dx = calm * (Math.sin(d * .19 + t * 1.25) * .7 + Math.sin(d * .053 - t * .8) * .5) * clamp(d / 30);
+    // kırılma (R.shear): halka geçerken yansıma yatay şeritlere bölünüp kayar; yüz 120 px'te de görünen kırık bir lekeye dağılır
+    if (o.rings) for (const R of o.rings) if (R.shear) {
+      const age = t - R.t0; if (age <= 0 || age > (R.life || 4)) continue;
+      const yl = (y - T.f) / S, dr = Math.abs(yl - R.y) / R.sq, env = ringEnv(R, dr, age) / R.A;
+      if (env > .01) { const band = Math.floor(dr / 17); dx += S * R.A * R.shear * env * Math.exp(-1.6 * age) * Math.sin(band * 2.17 + age * 7.5) * (.6 + .4 * Math.sin(band * 1.31)); }
+    }
     wx.drawImage(LY.refl, 0, y, CW, step, dx, y, CW, step);
   }
-  if (o.rings) warpRings(LY.warp, o.rings, t, T);
+  if (o.rings) warpRings(LY.warp, o.rings, t, T, o.warpBox);
   ctx.save(); ctx.beginPath(); clipFn(ctx); ctx.clip();
   ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.globalAlpha = o.a ?? .5;
   ctx.drawImage(LY.warp, 0, 0);
@@ -144,7 +151,7 @@ function litFigure(ctx, f, light) {
   return J;
 }
 // figür eklemleri (çizmeden)
-function joints(ctx, f) { let J = null, M = null; figure(ctx, { ...f, alpha: 0, onJoints: (j, m) => { J = j; M = m; } }); return { J, M }; }
+function joints(ctx, f) { let J = null, M = null; figure(ctx, { ...f, alpha: 0, jointsOnly: true, onJoints: (j, m) => { J = j; M = m; } }); return { J, M }; }
 function headPt(ctx, J, M, q) { return jointPt(ctx, M, add(J.neckT, rot(q, J.headA))); }
 function placeNeck(ctx, f, target) {
   const { J, M } = joints(ctx, f); const q = jointPt(ctx, M, J.neckT), dx = target[0] - q[0], dy = target[1] - q[1];
@@ -172,15 +179,17 @@ function ellipsePts(cx, cy, rx, ry) { const P = []; for (let i = 0; i < 64; i++)
 function morphPts(A, B, m) { const n = 120, a = resample(A, n), b = resample(B, n); return a.map((p, i) => lerp2(p, b[i], m)); }
 
 // ================= PLAN A ve E: bugünün genci, siyah telefon camı ↔ havuz =================
-const LK_MOD = { modern: true, rf: true, hairPts: HAIR_MOD, garment: 'coat', coatCol: '#6E331B', sleeveCol: '#6E331B', earHidden: false };
-const LK_NK = { hair: 'nape', rf: true, garment: 'short', noCurls: true };
+const LK_MOD = { modern: true, rf: true, hairPts: HAIR_MOD, garment: 'coat', coatCol: '#6E331B', sleeveCol: '#6E331B', earHidden: false, headS: 1.24, eyeS: 1.12 }; // tur 1: daha genç (büyük baş, iri göz)
+// tur 1: efeb başı (kısa bukleli saç, kulak açık, köşeli çene) ve görünür khiton (seyreltik sır, koyu sır yaka/etek/kol kenarı; nokta deseni ve kemer yok)
+const KHITON = { col: '#93492A', edge: 1.3, sleeve: false };
+const LK_NK = { hair: 'short', rf: true, garment: 'short', noCurls: true, efeb: true, hairPts: HAIR_EF, jaw: true, khiton: KHITON, noBelt: true };
 function phoneScene(ctx, t, o) {
   const m = o.m; // 0 telefon camı, 1 havuz
   baseView(ctx);
   glaze(ctx, 1100, 820, 1100, `rgba(${lerp(80, 120, m) | 0},${lerp(42, 48, m) | 0},${lerp(28, 22, m) | 0},.45)`);
   const p = { torso: .3, neck: .42, head: .55 + (o.headNod || 0), shN: .38, elN: .5, shF: .32, elF: .55, handN: 'fist', handF: 'fist', smile: 0, brow: .15, mouthOpen: 0, blink: o.blink };
   let f = { x: 0, y: 0, s: 24, dir: 1, sty: STY.red, lk: LK_MOD, seed: 31, idle: .6, p, faceW: 1.35, stripe: .35 };
-  f = placeNeck(ctx, f, o.neck || [560, 250]);
+  f = placeNeck(ctx, f, o.neck || [640, 370]);
   const { J: J0, M: M0 } = joints(ctx, f), e = headPt(ctx, J0, M0, [3.7, -6.75]);
   // küçük telefon camı (yüzün iki katı kadar), eğik tutulduğu için yansıma camın ortasına kayar (dxR)
   const wy = 600, pcx = e[0] + 330, pw = 270;
@@ -212,6 +221,7 @@ function phoneScene(ctx, t, o) {
   ctx.save(); ctx.beginPath(); poly(ctx, shape); ctx.lineWidth = lerp(4.5, 6, m); ctx.strokeStyle = mixCol('#B9653A', '#C9703F', m); ctx.lineJoin = 'round'; ctx.stroke(); ctx.restore();
   if (o.light > 0) { ctx.save(); ctx.globalCompositeOperation = 'lighter'; glow(ctx, pcx - 120, wy, 420, `rgba(255,220,170,${.14 * o.light})`); ctx.restore(); }
   litFigure(ctx, f, { x: e[0] + 120, y: wy + 20, r: 430, c: 'rgba(255,226,186,A)', a: .34 * o.light, dark: .25 + .25 * o.light });
+  if (ph > .02) phoneHand(ctx, pcx - pw, wy, t, ph, o.thumb || 0, o.light);
   return f;
 }
 const SCENES_N = {};
@@ -220,8 +230,11 @@ SCENES_N.A = (ctx, t) => {
   const m = ramp(t, Wd('S1', 'içinden').t0 - .05, 3.45, E.io2);
   const z = kf(t, [[0, 1.0], [2.8, 1.07, E.io2], [3.5, 1.24, E.in2]]);
   const fy = lerp(540, 700, ramp(t, 2.8, 3.5, E.in2));
+  // başparmak üç kez kaydırır; her kaydırmada ekran ışığı kısa bir an değişir (yeni içerik)
+  const flicks = [.35, 1.05, 1.75], th = flicks.reduce((v, f0) => Math.max(v, ramp(t, f0, f0 + .18, E.out2) * (1 - ramp(t, f0 + .22, f0 + .5, E.io2))), 0);
+  const fl = flicks.reduce((v, f0, i) => v + (t > f0 + .15 ? [.12, -.1, .08][i] : 0), 0) * (1 - ramp(t, 2.4, 2.9, E.io2));
   phoneScene(ctx, t, {
-    m, cam: [960, fy, z], light: lerp(.75, .35, m), refA: .42,
+    m, thumb: th, cam: [960, fy, z], light: lerp(.75 + fl, .35, m), refA: .42,
     headNod: .04 * Math.sin(t * 1.1) - .05 * ramp(t, Wd('S1', 'kendine').t0, Wd('S1', 'bakıyorsun').t1, E.io2) + .06 * ramp(t, tc - .2, tc + .3, E.io2),
     rings: (cx, wy) => [{ x: cx + 20, y: wy + 190, t0: tc, A: 9, sq: .32, v: 330, lam: 44, k: .9, reach: 1200, life: 4 }],
   });
@@ -238,6 +251,30 @@ SCENES_N.E = (ctx, t) => {
   });
 };
 
+// telefonu tutan el: avuç camın sol kenarının arkasında, başparmak camın önünde (kaydırır); kol yeni giysinin seyreltik sırrı
+function phoneHand(ctx0, X0, wy, t, a, th, light) {
+  const T = ctx0.getTransform(), ctx = layer('hand'); ctx.setTransform(T);
+  ctx.save(); ctx.lineJoin = 'round'; ctx.lineCap = 'round';
+  const y0 = wy + 190;
+  // kol (ceket kolu) alttan sola
+  ctx.beginPath(); ctx.moveTo(X0 - 330, y0 + 520); ctx.quadraticCurveTo(X0 - 230, y0 + 230, X0 - 105, y0 + 140); ctx.lineTo(X0 - 10, y0 + 230); ctx.quadraticCurveTo(X0 - 110, y0 + 330, X0 - 150, y0 + 560); ctx.closePath();
+  ctx.fillStyle = '#6E331B'; ctx.fill(); ctx.strokeStyle = C.ink; ctx.lineWidth = 4; ctx.stroke();
+  // avuç ve parmaklar camın kenarını sarar
+  ctx.beginPath(); ctx.moveTo(X0 - 112, y0 + 150); ctx.quadraticCurveTo(X0 - 60, y0 + 40, X0 + 4, y0 + 10); ctx.lineTo(X0 + 20, y0 + 60); ctx.lineTo(X0 + 22, y0 + 120); ctx.lineTo(X0 + 18, y0 + 180); ctx.quadraticCurveTo(X0 - 20, y0 + 230, X0 - 12, y0 + 232); ctx.closePath();
+  ctx.fillStyle = '#C9703F'; ctx.fill(); ctx.stroke();
+  for (const yy of [70, 125, 178]) { ctx.beginPath(); ctx.moveTo(X0 - 6, y0 + yy); ctx.lineTo(X0 + 20, y0 + yy - 4); ctx.lineWidth = 2.6; ctx.stroke(); }
+  // başparmak: camın önünde, ucu kaydırma hareketiyle oynar (th: 0..1)
+  const tip = [X0 + 118 + 10 * th, y0 - 20 - 46 * th];
+  ctx.beginPath(); ctx.moveTo(X0 - 70, y0 + 60); ctx.quadraticCurveTo(X0 + 10, y0 + 4 - 20 * th, tip[0] - 18, tip[1] - 4); ctx.quadraticCurveTo(tip[0] + 14, tip[1] + 6, tip[0] - 4, tip[1] + 30); ctx.quadraticCurveTo(X0 + 30, y0 + 70 - 10 * th, X0 - 50, y0 + 120); ctx.closePath();
+  ctx.fillStyle = '#C9703F'; ctx.fill(); ctx.lineWidth = 4; ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(tip[0] - 26, tip[1] + 2); ctx.quadraticCurveTo(tip[0] - 14, tip[1] + 14, tip[0] - 12, tip[1] + 24); ctx.lineWidth = 2.2; ctx.stroke(); // tırnak
+  // ekran ışığı elin üstünde
+  ctx.globalCompositeOperation = 'source-atop';
+  const g = ctx.createRadialGradient(X0 + 120, y0 - 60, 0, X0 + 120, y0 - 60, 360); g.addColorStop(0, `rgba(255,226,186,${.3 * light})`); g.addColorStop(1, 'rgba(255,226,186,0)');
+  ctx.fillStyle = g; ctx.fillRect(X0 - 600, y0 - 400, 1200, 1200);
+  ctx.restore();
+  ctx0.save(); ctx0.setTransform(1, 0, 0, 1, 0, 0); ctx0.globalAlpha = a; ctx0.drawImage(LY.hand, 0, 0); ctx0.restore();
+}
 // ================= PLAN B: orman kenarında pınar (geniş) =================
 // vazo ağacı: ince gövde, kıvrık dallar, dal boyunca çift sıra zeytin yaprağı (kil dolgu, siyah kontur)
 function vaseTree(ctx, x, y, s, seed, t, o = {}) {
@@ -306,11 +343,13 @@ SCENES_N.B = (ctx, t) => {
   for (let i = 0; i < 9; i++) grass(ctx, 80 + i * 230 + (i % 2) * 70, gy + 2, 1.5, t, i + 3);
   ctx.save(); ctx.beginPath(); pool(ctx); ctx.fillStyle = '#050302'; ctx.fill(); ctx.restore();
   waterBody(ctx, pool, pc[1] - pry, t, { a: .22, seed: 9, span: [pc[0] - prx, pc[0] + prx - 120], n: 12, depth: pry * 1.6 });
-  mirror(ctx, c => { trees(c); walker(c); }, gy, pool, t, { a: .4, calm: .8 });
+  const nerg = c => { for (const [x, sd, h] of [[1560, 5, 58], [1610, 8, 46], [1655, 2, 54], [975, 11, 50]]) narcissus(c, x, gy, 1.35, t, sd, { dir: x > 1300 ? -1 : 1, h }); }; // pınar kıyısında nergisler
+  mirror(ctx, c => { trees(c); nerg(c); walker(c); }, gy, pool, t, { a: .4, calm: .8 });
   ctx.save(); ctx.beginPath(); pool(ctx); ctx.lineWidth = 4; ctx.strokeStyle = PC.clayR; ctx.stroke(); ctx.restore();
   // kıyı kayası (C'deki oturma yeri)
   crag(ctx, [[pc[0] - prx - 70, gy + 4], [pc[0] - prx + 10, gy - 34], [pc[0] - prx + 80, gy - 30], [pc[0] - prx + 120, gy + 8]], { fill: '#5A2C16', seed: 4, wob: 4, strata: 2, lobes: 1 });
   trees(ctx);
+  nerg(ctx);
   walker(ctx);
   spear(ctx, jointPt(ctx, M, J.AF.wr), -1.2, 62 * s, s * .9);
   ctx.save(); baseView(ctx); meander(ctx, -400, 2400, 0, 36, PC.clayR, PC.glaze); ctx.restore();
@@ -340,67 +379,137 @@ SCENES_N.C = (ctx, t) => {
   const wy = 640, gy = 618, xe = 980, s = 6.0, px = xe - 30 * s;
   const ly = Wd('S3', 'yüze'), la = Wd('S3', 'âşık');
   const look = ramp(t, ly.t0 - .2, ly.t1 + .3, E.io2), reach = ramp(t, la.t0 - .1, Wd('S3', 'oldu').t1, E.io2);
-  const hN = [lerp(px + 33 * s, xe + 70, reach), lerp(gy - 1.2 * s, wy - 30, reach)];
-  const f = proneFig(px, gy, s, pPose({ head: .08 * look, neck: .04 * look, handN: reach > .3 ? 'open' : 'flat', smile: .25 * reach }), { hN });
+  // tur 1: eller kıyıyı kavrar (parmaklar kenardan aşağı), 'âşık'ta yalnız yakın el suya uzanır (avuç yukarı, yakarış okuması yok)
+  const grip = [xe - 12, gy - .6];
+  const hN = [lerp(grip[0] + 4, xe + 40, reach), lerp(grip[1], wy - 34, reach)], aN = lerp(.12, .42, reach);
+  let f = proneFig(px, gy, s, pPose({ head: .08 * look, neck: .04 * look, handN: reach > .3 ? 'open' : 'flat', smile: .25 * reach }), { hN, hF: [grip[0] - 9, grip[1]] });
+  const { J } = joints(ctx, f);
+  f.p = { ...f.p, wrN: aN - J.AN.foA, wrF: .12 - J.AF.foA };
   const water = c => c.rect(xe - 10, wy, 4000, 2000);
   waterBody(ctx, water, wy, t, { a: .2, seed: 5, span: [xe, 2300], n: 28, depth: 380 });
   const spr = c => spear(c, [px - 150, gy - 40], -.18, 330, 4.4);
+  const bank = c => { for (const [x, sd, h] of [[1290, 5, 60], [1318, 8, 48], [1350, 2, 56]]) narcissus(c, x, wy - 14, .62, t, sd, { dir: -1, h }); };
+  mirror(ctx, bank, wy, c => c.rect(1150, wy, 4000, 2000), t, { a: .45, calm: 1.1 });
   mirror(ctx, c => figure(c, f), wy, water, t, { a: .42, calm: 1.1 });
-  ctx.save(); ctx.strokeStyle = 'rgba(201,112,63,.55)'; ctx.lineWidth = 3; ctx.beginPath(); ctx.moveTo(xe - 10, wy); ctx.lineTo(2600, wy); ctx.stroke(); ctx.restore();
+  farBank(ctx, 1180, 2600, wy, t, 17, { h: 22, grass: 7, fill: '#3A1B0D' }); bank(ctx);
   ledge(ctx, xe, gy, wy);
   for (let i = 0; i < 5; i++) grass(ctx, 120 + i * 160, gy + 2, 1.6, t, i + 11);
   spr(ctx);
   litFigure(ctx, f, { x: xe + 80, y: wy + 40, r: 520, c: 'rgba(255,205,150,A)', a: .3 });
+  shoreLine(ctx, xe - 10, wy, { w: 2.6 });
   ctx.save(); baseView(ctx); meander(ctx, -400, 2400, 0, 36, PC.clayR, PC.glaze); ctx.restore();
 };
 
-const D_WY = 590;
+const D_WY = 630, D_GAP = 40; // su çizgisi kaya üstünden 40 birim aşağıda: el kıyıdan suya iner, buluşma noktası açık suda
+// ---- nergis (Narcissus poeticus): beyaz, düzensiz oval taç yapraklar (yandan, basık: altı köşeli yıldız okunmasın), safran göbek, kırmızı kenarlı kadeh ----
+// (x, y): sapın dibi; s ölçek; yön suya doğru eğik (nod); belirlenimci (seed)
+function narcissus(ctx, x, y, s, t, seed, o = {}) {
+  const r = rng(seed), dir = o.dir ?? 1, H = (o.h || 70) * (.85 + r() * .3), sway = Math.sin(t * .9 + seed * 1.7) * .035;
+  ctx.save(); ctx.translate(x, y); ctx.scale(s * dir, s); ctx.rotate(sway);
+  ctx.lineCap = 'round'; ctx.lineJoin = 'round';
+  // iki şerit yaprak
+  for (const [a, L] of [[-.32, H * .62], [.22, H * .5]]) {
+    ctx.beginPath(); ctx.moveTo(0, 0); ctx.quadraticCurveTo(Math.sin(a) * L * .5 - 2, -L * .6, Math.sin(a) * L * 1.1, -L);
+    ctx.strokeStyle = C.ink; ctx.lineWidth = 4.2; ctx.stroke(); ctx.strokeStyle = PC.clayR; ctx.lineWidth = 2.2; ctx.stroke();
+  }
+  // sap: yukarı çıkar, tepede suya doğru eğilir
+  const top = [7, -H], head = [16, -H + 8];
+  ctx.beginPath(); ctx.moveTo(0, 0); ctx.quadraticCurveTo(-2, -H * .6, top[0], top[1]); ctx.quadraticCurveTo(13, -H - 2, head[0], head[1]);
+  ctx.strokeStyle = C.ink; ctx.lineWidth = 3.4; ctx.stroke(); ctx.strokeStyle = PC.clayR; ctx.lineWidth = 1.5; ctx.stroke();
+  // çiçek başı: yüzü suya dönük (yandan basık)
+  ctx.translate(head[0] + 3, head[1] + 2); ctx.rotate(.55 + (o.tilt || 0));
+  ctx.scale(.52, 1);
+  const n = 6, a0 = r() * TAU;
+  for (let i = 0; i < n; i++) {
+    const a = a0 + i * TAU / n + (r() - .5) * .45, L = 11 * (.8 + r() * .35), w = L * (.42 + r() * .12);
+    ctx.save(); ctx.rotate(a); ctx.beginPath(); ctx.ellipse(0, -L * .55, w * .5, L * .55, (r() - .5) * .3, 0, TAU);
+    ctx.fillStyle = C.white; ctx.fill(); ctx.strokeStyle = C.ink; ctx.lineWidth = 1.6; ctx.stroke(); ctx.restore();
+  }
+  ctx.beginPath(); ctx.ellipse(0, 0, 4.2, 4.2, 0, 0, TAU); ctx.fillStyle = '#E2A33A'; ctx.fill(); ctx.strokeStyle = '#8E2F1F'; ctx.lineWidth = 1.6; ctx.stroke();
+  ctx.beginPath(); ctx.arc(0, 0, 1.6, 0, TAU); ctx.fillStyle = '#6E4A12'; ctx.fill();
+  ctx.restore();
+}
+// karşı kıyı: suyun ufkunda alçak, seyreltik sır şerit + ot; ufuk çizgisi belirgin (yan görünüşte suyu okutur)
+function farBank(ctx, x0, x1, wy, t, seed, o = {}) {
+  const r = rng(seed), h = o.h || 46;
+  ctx.save();
+  ctx.beginPath(); ctx.moveTo(x0, wy);
+  for (let x = x0; x <= x1 + 40; x += 40) ctx.lineTo(x, wy - h * (.55 + .45 * noise1(x * .004, seed)));
+  ctx.lineTo(x1 + 40, wy); ctx.closePath(); ctx.fillStyle = o.fill || '#2A130A'; ctx.fill();
+  ctx.strokeStyle = 'rgba(201,112,63,.35)'; ctx.lineWidth = 2; ctx.stroke();
+  for (let i = 0; i < (o.grass ?? 10); i++) grass(ctx, x0 + 30 + r() * (x1 - x0 - 60), wy - h * .55 + 4, 1.2, t, seed + i);
+  ctx.restore();
+}
+// kıyı ve ufuk çizgisi: suyun yüzeyi açık kil, kalın (yan görünüşte suyu okutan çizgi)
+function shoreLine(ctx, x0, wy, o = {}) {
+  ctx.save(); ctx.strokeStyle = o.col || 'rgba(232,160,104,.92)'; ctx.lineWidth = o.w || 3.6; ctx.lineCap = 'round';
+  ctx.beginPath(); ctx.moveTo(x0, wy); ctx.lineTo(o.x1 || 6000, wy); ctx.stroke(); ctx.restore();
+}
+// ---- tanıma hamlesi: el suya uzanır, yansımanın eli 0,3 sn geç gelir; 'benim'de aynı karede buluşur ----
+// el bileği yolu (sahne koordinatı) ve elin yönü (ileri-açı: dirF(a) = [sin a, cos a]); 'open' el, parmak ucu bilekten ~7 birim
+const D_TOUCH = { tip: [800, 630] };
+const D_REST = { w: [300, 590], a: 1.62, hand: 'flat' };
+function dReach(t) {
+  const son = Wd('S4', 'sonra').t0, ben = Wd('S4', 'benim').t0, tTouch = ben - .3, tBack = ben + .45;
+  const rest = D_REST, lift = { w: [470, 455], a: .55, hand: 'point' }, touch = { w: [600, 520], a: 1.068, hand: 'point' };
+  const mix = (A, B, u) => ({ w: lerp2(A.w, B.w, u), a: lerp(A.a, B.a, u), hand: u < .5 ? A.hand : B.hand });
+  if (t < son) return { ...rest, k: 0 };
+  if (t < son + .46) return { ...mix(rest, lift, anticip(t, son, son + .46, .12)), k: 1 };
+  if (t < tTouch) return { ...mix(lift, touch, E.io2(clamp((t - son - .46) / (tTouch - son - .46)))), k: 2 };
+  if (t < tBack) return { ...touch, k: 3 };
+  if (t < tBack + .35) return { ...mix(touch, lift, E.out3(clamp((t - tBack) / .35))), k: 4 };
+  return { ...mix(lift, rest, E.io2(clamp((t - tBack - .35) / .9))), k: 5 };
+}
 function dPoseO(t) {
   const tear = Wd('S4', 'düştü').t0, son = Wd('S4', 'sonra').t0, ben = Wd('S4', 'benim').t0;
   const lean0 = ramp(t, 10.5, 11.3, E.io2) * .04;
   const flinch = settle(t, tear + .05, .05, 1.2, 2.2);
-  const leanIn = ramp(t, son, ben - .05, E.io2) * .1 * (1 - ramp(t, ben, ben + .35, E.out3));
-  const recoil = ramp(t, ben, ben + .35, E.out3) * .1;
-  const sad = ramp(t, ben + .45, 16, E.io2);
+  const leanIn = ramp(t, son, ben - .05, E.io2) * .05 * (1 - ramp(t, ben, ben + .35, E.out3));
+  const recoil = ramp(t, ben, ben + .3, E.out3) * .13;   // irkilme: baş geri çekilir
+  const sad = ramp(t, ben + .6, 16, E.io2);
   return { neck: lean0 + leanIn * .5 - recoil * .6, head: lean0 + flinch + leanIn - recoil * .5,
-    smile: -.2 - .3 * sad, brow: .3 + .7 * ramp(t, ben, ben + .25, E.out3) - .35 * sad, mouthOpen: .5 * ramp(t, ben, ben + .3, E.out3) * (1 - .6 * sad), blink: t > ben - .02 && t < ben + .12 ? 0 : undefined };
+    smile: -.2 - .3 * sad, brow: .3 + .8 * ramp(t, ben, ben + .2, E.out3) - .35 * sad, mouthOpen: .55 * ramp(t, ben, ben + .25, E.out3) * (1 - .6 * sad), blink: t > ben - .02 && t < ben + .12 ? 0 : undefined };
 }
 const D_S = 26, D_XE = 640;
-function dFig(ctx, t, NT, s = D_S) { // NT: [kaya kenarı x, su çizgisi y]
-  const gy = NT[1] + .2 * s, px = NT[0] - 30 * s;
+function dFig(ctx, t, NT, s = D_S, o = {}) { // NT: [kaya kenarı x, su çizgisi y]
+  const gy = NT[1] - D_GAP + .2 * s, px = NT[0] - 30 * s;
   const q = dPoseO(t), pp = pPose(q);
-  pp.neck = 1.0 + q.neck; pp.head = -.9 + q.head; pp.handN = pp.handF = 'fist'; // boyun kenardan aşağı sarkar, yüz suya bakar (öpüşme ekseni)
-  return proneFig(px, gy, s, pp, { idle: .3, faceW: 1.5, stripe: .3, hN: [px + 21 * s, gy - 1 * s], hF: [px + 23 * s, gy - 1.5 * s] });
+  pp.neck = 1.0 + q.neck; pp.head = -.9 + q.head; // boyun kenardan aşağı sarkar, yüz suya bakar (öpüşme ekseni)
+  const R = o.handOff ? { w: [140, 600], a: 1.62, hand: 'flat' } : o.rest ? D_REST : dReach(t); // handOff: el kadraj dışında (kapak)
+  pp.handN = R.hand; pp.handF = 'flat';
+  const hN = [R.w[0] + (NT[0] - D_XE), R.w[1] + (NT[1] - D_WY)];
+  const f = proneFig(px, gy, s, pp, { idle: .3, faceW: 1.5, stripe: .3, hN, hF: o.handOff ? [px + 12 * s, gy - .2 * s] : [px + 17 * s, gy - .4 * s] });
+  const { J } = joints(ctx, f);
+  f.p = { ...f.p, wrN: R.a - J.AN.foA, wrF: 1.62 - J.AF.foA }; // el yönü (bileği kır): dinlenirken avuç kayada, uzanırken parmaklar suya
+  return f;
 }
 function dScene(ctx, t, o = {}) {
   const wy0 = o.wy || D_WY, NT = [o.xe ?? D_XE, wy0];
   const tTear = Wd('S4', 'gözyaşı').t0, tHit = Wd('S4', 'düştü').t0, ben = Wd('S4', 'benim').t0;
   const wy = o.wy || D_WY;
-  const f = dFig(ctx, t, NT);
+  const f = dFig(ctx, t, NT, D_S, o);
   const { J, M } = joints(ctx, f);
   const eye = headPt(ctx, J, M, [3.7, -6.75]);
-  // tanıma hamlesi: 'benim'e kadar yansıma kendi zamanında 0,3 sn geride (başka biri gibi geç cevap verir) ve seyreltik sırla soluk;
-  // 'benim'de gecikme sıfırlanır (birebir kilit), yansıma bedenin kiline yaklaşır: "o benim"
-  const lag = o.lag ?? (.3 * (1 - ramp(t, ben - .05, ben + .12, E.io2)));
-  const fR = lag ? dFig(ctx, t - lag, NT) : f;
+  // 'benim'e kadar yansıma kendi zamanında 0,3 sn geride (başka biri gibi geç cevap verir) ve seyreltik sırla soluk;
+  // el suya 0,3 sn önce değer, yansımanın eli tam 'benim'de gelir; gecikme sıfırlanır (birebir kilit), yansıma bedenin kiline yaklaşır
+  const lag = o.lag ?? (.3 * (1 - ramp(t, ben - .02, ben + .1, E.io2)));
+  const fR = lag ? dFig(ctx, t - lag, NT, D_S, o) : f;
   const lock = ramp(t, ben, ben + .45, E.out3);
-  const refA = o.refA ?? lerp(.44, .84, lock);
+  const brk = ramp(t, tHit, tHit + .15, E.out2) * (1 - ramp(t, tHit + .7, tHit + 1.6, E.io2));
+  const refA = o.refA ?? (lerp(.44, .84, lock) + .26 * brk);
   const tx = eye[0] + 4;
   if (o.rings && o.ringFix) for (const R of o.rings) { R.x = tx; R.y = wy + 4; }
-  const rings = o.rings || [{ x: tx, y: wy + 4, t0: tHit, A: 50, sq: .62, v: 520, lam: 80, k: 1.2, reach: 1800, life: 4.5 }];
+  const rings = o.rings || [{ x: tx, y: wy + 4, t0: tHit, A: 80, sq: .62, v: 820, lam: 150, k: 1.4, reach: 1800, life: 4.5, shear: 3.2 },
+    { x: D_TOUCH.tip[0] + (NT[0] - D_XE), y: wy + 3, t0: ben - .3, A: 5, sq: .62, v: 260, lam: 34, k: 1.6, reach: 500, life: 2.2 }];
   const water = c => c.rect(NT[0] - 10, wy, 9000, 3000);
   waterBody(ctx, water, wy, t, { a: .16, seed: 3, n: 30, depth: 420 });
-  mirror(ctx, c => figure(c, fR), wy, water, t, { a: refA, rings, calm: 1.0 });
-  // göz-göz ekseni: 'benim'de iki göz aynı dikey hatta noktalı kil çizgiyle bağlanır (vazo ressamının kabartma çizgisi), sonra söner
-  const ax = o.axis ?? (ramp(t, ben, ben + .2, E.out2) * (1 - ramp(t, ben + .6, ben + 1.4, E.io2)));
-  const ry = 2 * wy - eye[1];
-  if (ax > .01) {
-    ctx.save(); ctx.strokeStyle = `rgba(239,200,150,${.6 * ax})`; ctx.lineWidth = 2.4; ctx.setLineDash([2, 10]); ctx.lineCap = 'round';
-    ctx.beginPath(); ctx.moveTo(eye[0], eye[1] + 20); ctx.lineTo(eye[0], ry - 20); ctx.stroke(); ctx.restore();
-  }
-  ledge(ctx, NT[0], wy + .2 * D_S, wy);
+  const bank = c => { if (!o.noBank) { for (const [x, sd, h] of [[1290, 5, 64], [1350, 8, 52], [1420, 2, 60]]) narcissus(c, x, wy - 44, 2.3, t, sd, { dir: -1, h }); } };
+  if (!o.noBank) { ctx.save(); ctx.beginPath(); ctx.rect(1100, wy, 9000, 3000); ctx.clip(); ctx.globalAlpha = .45; ctx.translate(0, 2 * wy); ctx.scale(1, -1); bank(ctx); ctx.restore(); } // karşı kıyının yansıması (ucuz: dalgasız, halkanın kırılmasından ayrı)
+  mirror(ctx, c => figure(c, fR), wy, water, t, { a: refA, rings, calm: 1.0, ringStyle: o.ringStyle, warpBox: [NT[0] - 10, wy, 1180 + (NT[0] - D_XE), wy + 720] });
+  if (!o.noBank) { farBank(ctx, 1120, 2600, wy, t, 12, { h: 74, grass: 9, fill: '#3A1B0D' }); bank(ctx); }
+  ledge(ctx, NT[0], wy - D_GAP + .2 * D_S, wy);
   litFigure(ctx, f, { x: eye[0] + 30, y: wy + 30, r: 440, c: 'rgba(255,214,160,A)', a: .32, dark: .3 });
-  ctx.save(); ctx.strokeStyle = 'rgba(201,112,63,.5)'; ctx.lineWidth = 2.5; ctx.beginPath(); ctx.moveTo(NT[0], wy); ctx.lineTo(6000, wy); ctx.stroke(); ctx.restore();
+  shoreLine(ctx, NT[0], wy);
   // gözyaşı: 'gözyaşı'nda göz pınarında belirir, 'düştü'de suya değer
   if (!o.noTear && t > tTear && t < tHit) {
     const form = ramp(t, tTear, tTear + .2, E.out2), fall = clamp((t - (tTear + .14)) / (tHit - tTear - .14));
@@ -408,13 +517,13 @@ function dScene(ctx, t, o = {}) {
     ctx.save(); ctx.fillStyle = '#F2E6CE'; ctx.strokeStyle = C.ink; ctx.lineWidth = 1.8;
     ctx.beginPath(); ctx.moveTo(tx, y - r * 2.2); ctx.quadraticCurveTo(tx + r * 1.1, y - r * .2, tx, y + r); ctx.quadraticCurveTo(tx - r * 1.1, y - r * .2, tx, y - r * 2.2); ctx.fill(); ctx.stroke(); ctx.restore();
   }
-  return { f, eye, reye: [eye[0], ry], J, M };
+  return { f, eye, reye: [eye[0], 2 * wy - eye[1]], J, M };
 }
 SCENES_N.D = (ctx, t) => {
   baseView(ctx);
   glaze(ctx, 900, 800, 1100, 'rgba(140,56,26,.55)');
   const z = kf(t, [[10.5, .92], [16, 1.0, E.lin]]);
-  camAt(ctx, D_XE + 330, D_WY + 10, z);
+  camAt(ctx, D_XE + 330, D_WY - 22, z);
   dScene(ctx, t);
 };
 
