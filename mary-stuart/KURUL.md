@@ -44,3 +44,22 @@ Puanlar: başlık 7; kapak A 6,5; kapak B 7,5. Başkan her bulguyu kapak kareler
 - **Başlık (kısmen kabul):** "I. Elizabeth" kapısı öne alındı ("… | I. Elizabeth ve Mary Stuart"). "Kalbini mi Dinlersin, Mantığını mı?" alınmadı: başlık filmin kendi sorusunu tekrar etmeli.
 - **Kayda geçen uyarı:** iki kapak iki vaat, ama yalnız B aranan kelimeyi ("idam") taşıyor; B kazanırsa sebebin "kırmızı" mı "idam" mı olduğu ayrılamaz.
 - Sonrası: odak ölçümü A 5 odak (1. odak Mary, %50/%62), B 4 odak (1. odak yazı); akış taklitlerinde ikisi de 168 px'te okunuyor (`kapak/test/`).
+
+## Yayın öncesi metin denetimi (18 Kasım; dört bulucu ajan, başkan doğrulaması)
+Kullanıcı ajanlara izin verdi, sonra yükü fazla bularak hafiflettirdi: dört bulucu (A–E, F–I, J–M, yayın metinleri) 448 ekran yazısı ve iddiayı birinci el dosyalarla karşılaştırdı ve 61 bulgu getirdi. Planlanan iki şüpheci aşaması ve görsel denetim (hassasiyet taraması ve sessiz okuma) durduruldu; şüpheci yerine başkan şüpheli satırları kaynak dosyalarda kendisi doğruladı (Labanoff Workington ve 8 Şubat mektupları, Palliser, Paulet, Strickland).
+- **Engelleyici, uygulandı:** ekranda "özgün belge" gibi duran ama uydurma ya da harfiyen olmayan yabancı dilde satırlar:
+  - F05 (Elizabeth'in mektubunun Fransızcası depoda yok) ve F16 (Casket mektupları) → okunmaz karalama + "canlandırma" künyesi;
+  - L14 (kaynakta olmayan "foy catholique" satırı) → Labanoff'tan harfiyen;
+  - K07 (iki cümleden birleştirilmiş İngilizce) → Paulet mektubundan harfiyen, alt çizgi doğru satırda.
+- **Önemli, uygulandı:**
+  - H13b, H15, L03, L20b → kaynakla harfiyen ("eschappée prisonière");
+  - H08, J04, J05, J08a, J10, L02 → karalama ya da şifre ("copie déchiffrée" etiketi kalktı);
+  - künyeler: Clouet'nin 1561 portresinden kopya, NGS; "(?)" tarihler; Huys'a atfedilir; Currier & Ives 1868–70; Camden'ın aktarımı; Mumby'nin İngilizce özeti; "canlandırma";
+  - "Paulet'e"; A06 kaynak satırı "Zweig'ın anlattığı hikâye";
+  - B02 "Solway Moss savaşı · 24 Kasım 1542"; I08 "1568–69"; I09 Bolton eklendi, Chartley kale değil;
+  - I13 annenin sözü "git"; I11 ve M07 sayvanda anka yok; E08/G05b haziran-temmuzda kar yok; M06 "Mary'nin soyu" ve "bugünkü kraliyet ailesi";
+  - Shorts'ta L15 çıkarıldı (L14 olmadan Mary'nin bakışı kaynaksız kalıyordu);
+  - açıklamada "on sekizine üç gün kala dul", "neredeyse on dokuz yıl", alıntıların hangi baskıdan çevrildiği, "Zweig'a göre" çerçevesi, kaynakça künyeleri, sabit yorumda "Zweig'a göre".
+- **Kayda geçen, değiştirilmeyen (seslendirme yenilenmeden düzeltilemez):** F02 "10 Şubat gecesi" (patlama 10 Şubat sabaha karşı; F03 etiketi doğru); L17 "haykırdı" (kaynak "dedi"); L20 "başıma gelen" (kaynak "başa gelen"); M13 "bir imparator daha" (Mary gönüllü bırakmadı); M10 "kazandı" (Zweig "kazanır"). Bölüm adı "On Dokuz Yıl" yuvarlama olarak kaldı (18 yıl 9 ay; Mary'nin kendisi "yirmi yıla yakın" der). Bir sonraki seslendirmede bu kalıplara dikkat.
+- **Başkanın bulduğu teknik hata:** mektup yazısı hizayı kendisi kurmuyordu; önceki planın "ortala" ayarı sızınca metin kadrajdan taşıyordu (işçiler arası belirlenimciliği de bozabilirdi) → çizim durumu her karede sıfırlanıyor.
+- Bulguların tamamı: oturumun çalışma alanında (`bulgular.txt`); burada özet.
