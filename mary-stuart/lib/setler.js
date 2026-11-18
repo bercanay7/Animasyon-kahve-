@@ -301,9 +301,9 @@ function yazMasa(G, st, o = {}) {
   const L = o.isik || [1160, 420]; const lg = g.createRadialGradient(L[0], L[1], 30, L[0], L[1], 1200); lg.addColorStop(0, G.gri(1, .55)); lg.addColorStop(1, G.gri(0, 0)); g.fillStyle = lg; g.fillRect(-500, -500, 2500, 2100);
   g.fillStyle = G.gri(.28); g.fillRect(-500, 640, 2500, 900);
   if (o.mum !== false) G.mum(L[0], 700, 260, st.t, { r: 10 });
-  const pr = clamp(o.prog ?? 1); G.mektup(o.kx ?? 640, o.ky ?? 760, 900, 640, o.rot ?? -.06, { px: o.px || 40, lh: o.lh || 58, yazi: o.yazi || [], prog: pr, v: .93 });
+  const pr = clamp(o.prog ?? 1); G.mektup(o.kx ?? 640, o.ky ?? 760, 900, 640, o.rot ?? -.06, { px: o.px || 40, lh: o.lh || 58, yazi: o.yazi || [], karalama: o.karalama, prog: pr, v: .93 });
   // el, yazının ucunda
-  const n = (o.yazi || []).length, k = pr * n, i = Math.min(n - 1, Math.floor(k)), f = k - i, ux = (o.kx ?? 640) - 450 + 70 + 760 * f, uy = (o.ky ?? 760) - 320 + 110 + i * (o.lh || 58) - 10;
+  const n = o.karalama || (o.yazi || []).length, k = pr * n, i = Math.min(n - 1, Math.floor(k)), f = k - i, ux = (o.kx ?? 640) - 450 + 70 + 760 * f, uy = (o.ky ?? 760) - 320 + 110 + i * (o.lh || 58) - 10;
   if (o.el !== false) el(G, ux, uy, o.elS ?? 360, { manset: o.manset || 'dantel', kalemA: Math.sin(st.t * 9) * .03 });
 }
 // ── yüzük: kalp kesimli elmas, altın halka; kırmızı kadife yastık (Mary'nin) ──

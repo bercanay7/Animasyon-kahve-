@@ -1,7 +1,7 @@
 # Kaynak dizini (K = birinci el ya da tarih bilgisi; Z = Zweig'in okuması)
 
 Güven: **A** birinci el metinde görüldü (dosya ve satır); **B** güvenilir ikincil ya da standart başvuru (Britannica, ODNB, Westminster Abbey); **C** doğrulanamadı, anlatımda kullanılmaz.
-Metin dosyaları `metin/` altında (OCR ham; satır numarası `nl` ile). Kamu malı baskılar: Melville 1827, Labanoff 1844, Strickland 1843, Camden 1688, Knox (Laing baskısı), Mumby 1914/1921, Pollen 1922, Poulet 1874, Palliser 1870, Tanner 1922.
+Metin dosyaları `metin/` altında (OCR ham; satır numarası `nl` ile). Kamu malı baskılar: Melville 1827, Labanoff 1844, Strickland 1843, Camden 1688, Knox (Guthrie baskısı (1905; depodaki dosya)), Mumby 1914/1921, Pollen 1922, Poulet 1874, Palliser 1870, Tanner 1922.
 Zweig'in Almanca metni (1935) yalnız çalışma alanında okundu; ABD'de 2030 sonuna kadar telifli olabileceği için depoya konmadı. Anlatımda Zweig kendi cümlelerimizle aktarılır; kısa alıntı künyeyle.
 
 ## Tarih ve olaylar
@@ -24,7 +24,7 @@ Zweig'in Almanca metni (1935) yalnız çalışma alanında okundu; ABD'de 2030 s
 | K15 | 10 Şubat 1567: Darnley Kirk o'Field'da öldürüldü | standart | | B |
 | K16 | 24 Şubat 1567: Elizabeth'in Mary'ye mektubu: "Kulaklarım öyle sağır oldu, yüreğim öyle korktu ki... Sizin için ondan daha çok üzülüyorum"; Mary'yi onurunu korumaya çağırır | Mumby 1921 (Fransızca özgünden çeviri) | `elizabeth_mary_24_subat_1567_mumby.txt` 20–42 | B (Mumby'nin takvim özeti, birebir çeviri değil; "astounded" = sersemledi) |
 | K17 | 24 Nisan 1567: Bothwell, Mary'nin yolunu kesip Dunbar'a götürdü; Melville yanındaydı. Yüzbaşı "kraliçenin rızasıyla" dedi; Melville'e göre "kraliçe onunla evlenmekten başka yol bulamadı, çünkü onu zorla alıp iradesi dışında onunla yatmıştı" | Melville, s. 177 | `melville_1567_dunbar.txt` 55–75 | A |
-| K18 | 15 Mayıs 1567 Bothwell'le evlilik; 15 Haziran Carberry; Lochleven; 24 Temmuz 1567 tahttan feragat | standart | | B |
+| K18 | 15 Mayıs 1567 Bothwell'le evlilik (saat sabah 4: Drury'den Cecil'e, 16 Mayıs 1567, CSP Foreign VIII no. 1209; İspanyol elçi, 24 Mayıs 1567); 15 Haziran Carberry; Lochleven; 24 Temmuz 1567 tahttan feragat | standart | | B |
 | K19 | 2 Mayıs 1568 Lochleven'den kaçış; 13 Mayıs Langside yenilgisi | standart | | B |
 | K20 | Mary, Elizabeth'ten "karşılıklı dostluk nişanı" olarak aldığı elması gönderip İngiltere'ye geleceğini bildirdi; Elizabeth sevgi ve yardım vaat etti; Mary dostlarının ısrarına rağmen Workington'a geçti | Camden 1688, 1568 | `camden_1568_solway_elmas.txt` | A |
 | K21 | 16 Mayıs 1568: küçük bir balıkçı teknesiyle Solway'i geçti, Workington'a çıktı (Camden varışı 17 Mayıs yazar) | standart; Zweig 18. bölüm | | B |

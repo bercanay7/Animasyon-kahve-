@@ -179,7 +179,9 @@ const BOYA = (() => {
       return ac; };
     // mektup kâğıdı + el yazısı satırları (okunur metin)
     G.mektup = (x, y, w, h, ang, o = {}) => { g.save(); g.translate(x, y); g.rotate(ang); g.fillStyle = gri(o.v ?? .96); g.fillRect(-w / 2, -h / 2, w, h);
-      g.fillStyle = gri(.12); g.font = `italic 500 ${o.px || 44}px "Cormorant Garamond"`; g.textBaseline = 'alphabetic';
+      g.fillStyle = gri(.12); g.font = `italic 500 ${o.px || 44}px "Cormorant Garamond"`; g.textBaseline = 'alphabetic'; g.textAlign = 'left';
+      if (o.karalama) { const q = rng(o.seed || 17), n = o.karalama; for (let i = 0; i < n; i++) { const k = clamp((o.prog ?? 1) * n - i); if (k <= 0) break; let xx = -w / 2 + 70; const end = -w / 2 + 70 + (w - 140) * k, y = -h / 2 + 100 + i * (o.lh || 62);
+        while (xx < end) { const ww = Math.min(end - xx, 20 + q() * 70); g.strokeStyle = gri(.22, .85); g.lineWidth = 3; g.beginPath(); g.moveTo(xx, y); for (let s = 0; s <= ww; s += 6) g.lineTo(xx + s, y + Math.sin((xx + s) * .35 + i) * 4 - (q() < .15 ? 8 : 0)); g.stroke(); xx += ww + 10 + q() * 8; } } }
       (o.yazi || []).forEach((l, i) => { const k = clamp((o.prog ?? 1) * o.yazi.length - i); if (k <= 0) return; g.save(); g.beginPath(); g.rect(-w / 2, -h / 2, 70 + (w - 90) * k, h); g.clip(); g.fillText(l, -w / 2 + 70, -h / 2 + 110 + i * (o.lh || 62)); g.restore(); });
       g.restore(); };
     G.mum = (x, y, h, t, o = {}) => { const w = o.w ?? h * .17, rr = o.r || 700, lg = g.createRadialGradient(x, y - h - 40, 0, x, y - h - 40, rr); lg.addColorStop(0, gri(1, .55)); lg.addColorStop(1, gri(1, 0)); g.fillStyle = lg; g.fillRect(x - rr, y - h - 40 - rr, rr * 2, rr * 2);

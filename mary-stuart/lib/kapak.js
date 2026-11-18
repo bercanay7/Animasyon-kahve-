@@ -1,5 +1,5 @@
 // Kapaklar (Mary Stuart): filmin motoruyla 16:9 tam kadraj (perde yok). kapak.html?v=A | B
-// A: karar (Çatışma + hareket oku): gece denizi, teknede Mary (kırmızı astar), karşı kıyıda taçlı dev siluet; "RAKİBİNE SIĞINDI"
+// A: karar (Çatışma + hareket oku): gece denizi, teknede Mary (kırmızı etek, uzanan el), gökte I. Elizabeth'in 16. yy madalya profili (The Met 855474) ona bakıyor; "RAKİBİNE SIĞINDI"
 // B: son (ortadan başlamak, tek renk): filmin ilk karesindeki gravür, siyahın altından kırmızı; "İDAMINA KIRMIZI GİYDİ"
 // Kurallar: Bebas Neue, büyük harf ≥ %18 (font ≥ 290 px), sağ alt rozet (x 1440–1874, y 829–1034) boş, tek odak, kan/balta/kütük yok.
 'use strict';

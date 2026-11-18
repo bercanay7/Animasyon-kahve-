@@ -50,7 +50,8 @@ function renderFrameTo(g, t) {
   const i = shotAt(t), st = shotState(i, t), sh = SHOTS[i];
   const fps = sh.fps || LOOK0.fps, ta = Math.floor(t * fps + 1e-6) / fps, frame = Math.floor(t * 24 + 1e-6);
   const sta = shotState(i, Math.max(sh.at, ta));
-  for (const c of [tg, rg]) { c.setTransform(1, 0, 0, 1, 0, 0); c.globalAlpha = 1; c.globalCompositeOperation = 'source-over'; c.filter = 'none'; }
+  // çizim durumu her karede sıfırlanır (önceki planın yazı hizası, çizgi kalınlığı vb. sızmasın; işçiler arası belirlenimcilik)
+  for (const c of [tg, rg]) { c.setTransform(1, 0, 0, 1, 0, 0); c.globalAlpha = 1; c.globalCompositeOperation = 'source-over'; c.filter = 'none'; c.textAlign = 'left'; c.textBaseline = 'alphabetic'; c.lineWidth = 1; c.lineCap = 'butt'; c.lineJoin = 'miter'; c.setLineDash([]); c.letterSpacing = '0px'; c.shadowBlur = 0; c.imageSmoothingQuality = 'low'; }
   tg.fillStyle = '#fff'; tg.fillRect(0, 0, FW, FH); rg.clearRect(0, 0, FW, FH);
   const G = BOYA.ctx(tg, rg, sta);
   let o = {};

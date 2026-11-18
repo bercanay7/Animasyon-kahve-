@@ -25,6 +25,7 @@ window.renderShortFrame = t => {
     sg.drawImage(fc, 240 + 315, 0, 810, 1080, 0, 330, 1080, 1440);
     const vg = sg.createLinearGradient(0, 330, 0, 1770); vg.addColorStop(0, 'rgba(11,10,9,.9)'); vg.addColorStop(.12, 'rgba(11,10,9,0)'); vg.addColorStop(.85, 'rgba(11,10,9,0)'); vg.addColorStop(1, 'rgba(11,10,9,.95)'); sg.fillStyle = vg; sg.fillRect(0, 330, 1080, 1440);
     shortsYazi(t, k);
+    if (/^(A01|L13)/.test(k.id)) { sg.font = 'italic 500 30px "Cormorant Garamond"'; sg.textAlign = 'center'; sg.fillStyle = 'rgba(236,229,213,.8)'; sg.fillText('E. F. Finden, 19. yy gravürü (The Met, CC0) · sonraki yüzyılın hayali', 540, 372); }
   } else {
     const u = clamp((t - EDL.son.t0) / .6); sg.globalAlpha = u; sg.textAlign = 'center'; sg.textBaseline = 'middle';
     sg.fillStyle = '#ece5d5'; sg.font = '400 120px "Bebas Neue"'; sg.fillText('KALBİNLE Mİ,', 540, 820); sg.fillText('AKLINLA MI?', 540, 950);

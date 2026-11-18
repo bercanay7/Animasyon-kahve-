@@ -1,5 +1,5 @@
 {
- "not": "Shorts kurgusu: ilk saniye kırmızı (A01 sonu, en güçlü kare), sonra A01 baştan; L12, L13, L15; sonda kanal kartı",
+ "not": "Shorts kurgusu: ilk saniye kırmızı (A01 sonu), A01, L12 (Zweig), L13 (tarihçiler); L15 çıkarıldı (L14 olmadan Mary'nin bakışı kaynaksız kalıyordu); sonda kanal kartı",
  "kesit": [
   {
    "id": "A01k",
@@ -24,17 +24,11 @@
    "src0": 1066.13,
    "src1": 1073.5,
    "t0": 15.14
-  },
-  {
-   "id": "L15",
-   "src0": 1082.82,
-   "src1": 1088.62,
-   "t0": 22.51
   }
  ],
  "son": {
-  "t0": 28.31,
+  "t0": 22.51,
   "d": 2.6
  },
- "DUR": 30.91
+ "DUR": 25.11
 }
