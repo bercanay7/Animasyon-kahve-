@@ -1,0 +1,1383 @@
+{
+ "voice": "Emrullah (ElevenLabs; voice_id creative_list_voices ile bulunur)",
+ "revizyon": "rev1 (18 Kasım 2026): Fable danışman denetimi uygulandı (25 bulgu); kurul yok (kullanıcının kararı)",
+ "segments": [
+  {
+   "id": "A01",
+   "bolum": "Kırmızı ve deniz",
+   "soru": null,
+   "tts": "[softly] Bir kraliçe idam edilmek üzere. Siyah elbisesini çıkarıyorlar. Altından kırmızı çıkıyor.",
+   "alt": "Bir kraliçe idam edilmek üzere. Siyah elbisesini çıkarıyorlar. Altından kırmızı çıkıyor.",
+   "kaynak": "K34 (kırmızı iç etek: tutanak + Fransız anlatıları, B); kapak B vaadi 0:00; L1 açılır"
+  },
+  {
+   "id": "A02",
+   "bolum": "Kırmızı ve deniz",
+   "soru": null,
+   "tts": "İskoçya Kraliçesi Meri Stüart. sekiz Şubat bin beş yüz seksen yedi.",
+   "alt": "İskoçya Kraliçesi Mary Stuart. 8 Şubat 1587.",
+   "kaynak": "K34"
+  },
+  {
+   "id": "A03",
+   "bolum": "Kırmızı ve deniz",
+   "soru": null,
+   "tts": "Onu buraya, neredeyse on dokuz yıl önce verdiği tek bir karar getirdi: küçük bir balıkçı teknesine binip rakibi Elizabeth'in ülkesine geçmek.",
+   "alt": "Onu buraya, neredeyse on dokuz yıl önce verdiği tek bir karar getirdi: küçük bir balıkçı teknesine binip rakibi Elizabeth'in ülkesine geçmek.",
+   "kaynak": "K21, K26; kapak A vaadi ~0:10"
+  },
+  {
+   "id": "A04",
+   "bolum": "Kırmızı ve deniz",
+   "soru": null,
+   "tts": "Dostları \"Fransa'ya git\" dedi. Meri rakibine sığındı.",
+   "alt": "Dostları \"Fransa'ya git\" dedi. Mary rakibine sığındı.",
+   "kaynak": "K20; L2 açılır (cevap H)"
+  },
+  {
+   "id": "A05",
+   "bolum": "Kırmızı ve deniz",
+   "soru": null,
+   "tts": "Ve iki kraliçe bir kez bile yüz yüze gelmedi.",
+   "alt": "Ve iki kraliçe bir kez bile yüz yüze gelmedi.",
+   "kaynak": "K09"
+  },
+  {
+   "id": "A06",
+   "bolum": "Kırmızı ve deniz",
+   "soru": null,
+   "tts": "[curious] Ştefan Tsvayg'ın anlattığı bu hikâyede biri kalbiyle yaşar, öteki aklıyla. Sen hangisisin?",
+   "alt": "Stefan Zweig'ın anlattığı bu hikâyede biri kalbiyle yaşar, öteki aklıyla. Sen hangisisin?",
+   "kaynak": "Z02 (Zweig: romantik ve gerçekçi; bizim dilimizle kalp ve akıl); L4 açılır (cevap M)"
+  },
+  {
+   "id": "A07",
+   "bolum": "Kırmızı ve deniz",
+   "soru": null,
+   "tts": "Hikâye bir beşikte başlıyor.",
+   "alt": "Hikâye bir beşikte başlıyor.",
+   "kaynak": "geçiş; hikâye ~0:42"
+  },
+  {
+   "id": "B01",
+   "bolum": "Altı günlük kraliçe",
+   "soru": "Bir arma, iki kuzeni nasıl düşman yaptı?",
+   "tts": "Bu düşmanlık, Meri daha beşikteyken başladı.",
+   "alt": "Bu düşmanlık, Mary daha beşikteyken başladı.",
+   "kaynak": "köprü"
+  },
+  {
+   "id": "B02",
+   "bolum": "Altı günlük kraliçe",
+   "soru": null,
+   "tts": "Aralık bin beş yüz kırk iki. İskoçya, İngiltere'ye karşı bir savaşı kaybetmiş; kral yatağa düşmüş.",
+   "alt": "Aralık 1542. İskoçya, İngiltere'ye karşı bir savaşı kaybetmiş; kral yatağa düşmüş.",
+   "kaynak": "Solway Moss, 24 Kasım 1542; K01"
+  },
+  {
+   "id": "B03",
+   "bolum": "Altı günlük kraliçe",
+   "soru": null,
+   "tts": "Kızı doğduktan altı gün sonra ölür. Meri, altı günlükken kraliçe olur.",
+   "alt": "Kızı doğduktan altı gün sonra ölür. Mary, altı günlükken kraliçe olur.",
+   "kaynak": "K01"
+  },
+  {
+   "id": "B04",
+   "bolum": "Altı günlük kraliçe",
+   "soru": null,
+   "tts": "Beş yaşında Fransa'ya gönderilir; sarayda, şiir ve dans arasında büyür.",
+   "alt": "Beş yaşında Fransa'ya gönderilir; sarayda, şiir ve dans arasında büyür.",
+   "kaynak": "K02"
+  },
+  {
+   "id": "B05",
+   "bolum": "Altı günlük kraliçe",
+   "soru": null,
+   "tts": "On beşinde veliahtla evlenir, on altısında Fransa kraliçesi olur.",
+   "alt": "On beşinde veliahtla evlenir, on altısında Fransa kraliçesi olur.",
+   "kaynak": "K03"
+  },
+  {
+   "id": "B06",
+   "bolum": "Altı günlük kraliçe",
+   "soru": null,
+   "tts": "O yıl kayınpederi Kral Henri'nin isteğiyle, Meri'nin armasına İngiltere'nin kraliyet arması da eklenir. Anlamı açık: İngiltere'nin gerçek kraliçesi o.",
+   "alt": "O yıl kayınpederi Kral Henri'nin isteğiyle, Mary'nin armasına İngiltere'nin kraliyet arması da eklenir. Anlamı açık: İngiltere'nin gerçek kraliçesi o.",
+   "kaynak": "K04 (karar II. Henri'nin)"
+  },
+  {
+   "id": "B07",
+   "bolum": "Altı günlük kraliçe",
+   "soru": null,
+   "tts": "Çünkü Katoliklerin gözünde, İngiltere tahtındaki Protestan Elizabeth meşru değildi.",
+   "alt": "Çünkü Katoliklerin gözünde, İngiltere tahtındaki Protestan Elizabeth meşru değildi.",
+   "kaynak": "K04"
+  },
+  {
+   "id": "B08",
+   "bolum": "Altı günlük kraliçe",
+   "soru": null,
+   "tts": "Elizabeth yıllarca tek bir şey istedi: Meri bu armadan vazgeçtiğini imzalasın. Meri hiç imzalamadı. Bedelini o ödeyecekti.",
+   "alt": "Elizabeth yıllarca tek bir şey istedi: Mary bu armadan vazgeçtiğini imzalasın. Mary hiç imzalamadı. Bedelini o ödeyecekti.",
+   "kaynak": "K04 (Edinburgh Antlaşması 1560); L3 açılır"
+  },
+  {
+   "id": "B09",
+   "bolum": "Altı günlük kraliçe",
+   "soru": null,
+   "tts": "On sekizine üç gün kala genç kocası öldü.",
+   "alt": "On sekizine üç gün kala genç kocası öldü.",
+   "kaynak": "K05"
+  },
+  {
+   "id": "B10",
+   "bolum": "Altı günlük kraliçe",
+   "soru": null,
+   "tts": "Ağustos bin beş yüz altmış birde Kale limanından bir kadırgaya bindi. Yanındaki saraylı Brantom, gözlerinin önünde bir geminin battığını ve Meri'nin \"Tanrım, ne kötü bir işaret\" dediğini yazar.",
+   "alt": "Ağustos 1561'de Calais limanından bir kadırgaya bindi. Yanındaki saraylı Brantôme, gözlerinin önünde bir geminin battığını ve Mary'nin \"Tanrım, ne kötü bir işaret\" dediğini yazar.",
+   "kaynak": "K41 (Brantôme, görgü tanığı)"
+  },
+  {
+   "id": "B11",
+   "bolum": "Altı günlük kraliçe",
+   "soru": null,
+   "tts": "[sad] Sonra kıça yaslanıp beş saate yakın kıyıya bakarak ağladı: \"Elveda Fransa. Seni bir daha göremeyeceğim.\"",
+   "alt": "Sonra kıça yaslanıp beş saate yakın kıyıya bakarak ağladı: \"Elveda Fransa. Seni bir daha göremeyeceğim.\"",
+   "kaynak": "K41 (\"nearly five hours\"; iki söz birleştirildi)"
+  },
+  {
+   "id": "B12",
+   "bolum": "Altı günlük kraliçe",
+   "soru": null,
+   "tts": "Göremedi.",
+   "alt": "Göremedi.",
+   "kaynak": "K41; K33 (Fransa'ya gömülme isteği de reddedildi)"
+  },
+  {
+   "id": "C01",
+   "bolum": "Siste dönüş",
+   "soru": "Ona inanmayan bir ülkede kraliçe olmak nasıl bir şeydi?",
+   "tts": "On dokuz Ağustos bin beş yüz altmış bir. Meri, hiç tanımadığı ülkesine, İskoçya'ya vardı.",
+   "alt": "19 Ağustos 1561. Mary, hiç tanımadığı ülkesine, İskoçya'ya vardı.",
+   "kaynak": "K06"
+  },
+  {
+   "id": "C02",
+   "bolum": "Siste dönüş",
+   "soru": null,
+   "tts": "Ülkenin en sert vaizi Con Noks, o günü sonradan şöyle yazacaktı: gökyüzü bile bu ülkeye ne getirildiğini söylüyordu; keder, acı ve karanlık.",
+   "alt": "Ülkenin en sert vaizi John Knox, o günü sonradan şöyle yazacaktı: gökyüzü bile bu ülkeye ne getirildiğini söylüyordu; keder, acı ve karanlık.",
+   "kaynak": "K06 (Knox, IV)"
+  },
+  {
+   "id": "C03",
+   "bolum": "Siste dönüş",
+   "soru": null,
+   "tts": "Sis öyle kalındı ki, iki çizme boyu ötesi görülmüyordu.",
+   "alt": "Sis öyle kalındı ki, iki çizme boyu ötesi görülmüyordu.",
+   "kaynak": "K06 (\"two pair of boots\")"
+  },
+  {
+   "id": "C04",
+   "bolum": "Siste dönüş",
+   "soru": null,
+   "tts": "Meri Katolikti. İskoçya bir yıl önce Protestan olmuştu.",
+   "alt": "Mary Katolikti. İskoçya bir yıl önce Protestan olmuştu.",
+   "kaynak": "1560 Reform Parlamentosu (standart)"
+  },
+  {
+   "id": "C05",
+   "bolum": "Siste dönüş",
+   "soru": null,
+   "tts": "Ama genç kraliçe ilk yıllarında şaşırtıcı bir akılla yönetti: kimsenin inancına dokunmadı, kendi ayinini yalnız kendi şapelinde yaptı.",
+   "alt": "Ama genç kraliçe ilk yıllarında şaşırtıcı bir akılla yönetti: kimsenin inancına dokunmadı, kendi ayinini yalnız kendi şapelinde yaptı.",
+   "kaynak": "standart; Zweig 7. bölüm"
+  },
+  {
+   "id": "C06",
+   "bolum": "Siste dönüş",
+   "soru": null,
+   "tts": "[thoughtful] Ve o yıllarda bir tek şeyi çok istedi: güneydeki kuzenini görmek.",
+   "alt": "Ve o yıllarda bir tek şeyi çok istedi: güneydeki kuzenini görmek.",
+   "kaynak": "K07"
+  },
+  {
+   "id": "D01",
+   "bolum": "Görmediği kuzen",
+   "soru": "Hiç karşılaşmadan birbirlerini nasıl tanıdılar?",
+   "tts": "Bin beş yüz altmış iki yazında Meri, Elizabeth'e bir yüzük gönderdi: kalp biçiminde kesilmiş bir elmas.",
+   "alt": "1562 yazında Mary, Elizabeth'e bir yüzük gönderdi: kalp biçiminde kesilmiş bir elmas.",
+   "kaynak": "K07"
+  },
+  {
+   "id": "D02",
+   "bolum": "Görmediği kuzen",
+   "soru": null,
+   "tts": "İngiliz elçisine şöyle dedi: \"İyi niyetimi bundan daha iyi anlatan bir şey bilmiyorum.\"",
+   "alt": "İngiliz elçisine şöyle dedi: \"İyi niyetimi bundan daha iyi anlatan bir şey bilmiyorum.\"",
+   "kaynak": "K07 (Randolph, 17 Haziran 1562)"
+  },
+  {
+   "id": "D03",
+   "bolum": "Görmediği kuzen",
+   "soru": null,
+   "tts": "Elizabeth de karşılığında bir elmas yolladı. O yaz yüz yüze görüşmeyi bile planladılar.",
+   "alt": "Elizabeth de karşılığında bir elmas yolladı. O yaz yüz yüze görüşmeyi bile planladılar.",
+   "kaynak": "K08, K09"
+  },
+  {
+   "id": "D04",
+   "bolum": "Görmediği kuzen",
+   "soru": null,
+   "tts": "Görüşme ertelendi ve hiç gerçekleşmedi.",
+   "alt": "Görüşme ertelendi ve hiç gerçekleşmedi.",
+   "kaynak": "K09"
+  },
+  {
+   "id": "D05",
+   "bolum": "Görmediği kuzen",
+   "soru": null,
+   "tts": "Bu yüzden birbirlerini yalnız elçilerin gözünden tanıdılar.",
+   "alt": "Bu yüzden birbirlerini yalnız elçilerin gözünden tanıdılar.",
+   "kaynak": "anlatım"
+  },
+  {
+   "id": "D06",
+   "bolum": "Görmediği kuzen",
+   "soru": null,
+   "tts": "Bin beş yüz altmış dörtte Meri'nin elçisi Ceyms Melvil, Londra'da Elizabeth'in karşısındaydı. Anılarında o günleri anlatır.",
+   "alt": "1564'te Mary'nin elçisi James Melville, Londra'da Elizabeth'in karşısındaydı. Anılarında o günleri anlatır.",
+   "kaynak": "K10"
+  },
+  {
+   "id": "D07",
+   "bolum": "Görmediği kuzen",
+   "soru": null,
+   "tts": "Elizabeth ona sorular sordu: Kimin saçı daha güzeldi? Hangisi daha güzeldi?",
+   "alt": "Elizabeth ona sorular sordu: Kimin saçı daha güzeldi? Hangisi daha güzeldi?",
+   "kaynak": "K10"
+  },
+  {
+   "id": "D08",
+   "bolum": "Görmediği kuzen",
+   "soru": null,
+   "tts": "Sonra boylarını sordu. Melvil, Meri'nin daha uzun olduğunu söyledi.",
+   "alt": "Sonra boylarını sordu. Melville, Mary'nin daha uzun olduğunu söyledi.",
+   "kaynak": "K10"
+  },
+  {
+   "id": "D09",
+   "bolum": "Görmediği kuzen",
+   "soru": null,
+   "tts": "Elizabeth'in cevabı şuydu: \"O hâlde fazla uzun. Çünkü ben ne fazla uzunum ne fazla kısa.\"",
+   "alt": "Elizabeth'in cevabı şuydu: \"O hâlde fazla uzun. Çünkü ben ne fazla uzunum ne fazla kısa.\"",
+   "kaynak": "K10 (Melville 1827, 1564)"
+  },
+  {
+   "id": "D10",
+   "bolum": "Görmediği kuzen",
+   "soru": null,
+   "tts": "İki kraliçe arasındaki rekabetin en insani hâli buydu: kendini hiç görmediğin biriyle ölçmek.",
+   "alt": "İki kraliçe arasındaki rekabetin en insani hâli buydu: kendini hiç görmediğin biriyle ölçmek.",
+   "kaynak": "anlatım"
+  },
+  {
+   "id": "D11",
+   "bolum": "Görmediği kuzen",
+   "soru": null,
+   "tts": "Ama Elizabeth'in aklı başka bir şeyle meşguldü: Meri kiminle evlenecekti?",
+   "alt": "Ama Elizabeth'in aklı başka bir şeyle meşguldü: Mary kiminle evlenecekti?",
+   "kaynak": "K11"
+  },
+  {
+   "id": "D12",
+   "bolum": "Görmediği kuzen",
+   "soru": null,
+   "tts": "Çünkü Meri'nin kocası, bir gün İngiltere'nin de kralı olabilirdi.",
+   "alt": "Çünkü Mary'nin kocası, bir gün İngiltere'nin de kralı olabilirdi.",
+   "kaynak": "Mary, Elizabeth'in olası varisi (standart)"
+  },
+  {
+   "id": "D13",
+   "bolum": "Görmediği kuzen",
+   "soru": null,
+   "tts": "Elizabeth ona tuhaf bir aday önerdi: kendi gözdesi Robırt Dadli'yi.",
+   "alt": "Elizabeth ona tuhaf bir aday önerdi: kendi gözdesi Robert Dudley'yi.",
+   "kaynak": "K11"
+  },
+  {
+   "id": "D14",
+   "bolum": "Görmediği kuzen",
+   "soru": null,
+   "tts": "Tsvayg'a göre Meri bu kez kalbini dinledi ve başka birini seçti: uzun boylu, yakışıklı, on dokuz yaşındaki kuzeni Lord Darnli.",
+   "alt": "Zweig'a göre Mary bu kez kalbini dinledi ve başka birini seçti: uzun boylu, yakışıklı, on dokuz yaşındaki kuzeni Lord Darnley.",
+   "kaynak": "K12; Zweig 9. bölüm"
+  },
+  {
+   "id": "D15",
+   "bolum": "Görmediği kuzen",
+   "soru": null,
+   "tts": "Tsvayg'a göre bu seçim, başka zaman berrak olan aklının tamamen dışındaydı. Gerçek tutku, der Tsvayg, hesap kabul etmez.",
+   "alt": "Zweig'a göre bu seçim, başka zaman berrak olan aklının tamamen dışındaydı. Gerçek tutku, der Zweig, hesap kabul etmez.",
+   "kaynak": "Zweig 9. bölüm (\"unanalysierbar und irrational… jenseits ihres sonst hellen Verstandes\"; doğrulandı)"
+  },
+  {
+   "id": "D16",
+   "bolum": "Görmediği kuzen",
+   "soru": null,
+   "tts": "Temmuz bin beş yüz altmış beşte evlendiler.",
+   "alt": "Temmuz 1565'te evlendiler.",
+   "kaynak": "K12"
+  },
+  {
+   "id": "E01",
+   "bolum": "Holyrood'daki gece",
+   "soru": "Kalbiyle seçtiği adam ona ne yaptı?",
+   "tts": "Birkaç ay içinde Meri, Tsvayg'ın deyişiyle olgunlaşmamış ve kendini beğenmiş bir adamla evlendiğini gördü.",
+   "alt": "Birkaç ay içinde Mary, Zweig'ın deyişiyle olgunlaşmamış ve kendini beğenmiş bir adamla evlendiğini gördü.",
+   "kaynak": "Zweig 9. bölüm (\"des unreifen, eitlen… Knaben\"; doğrulandı)"
+  },
+  {
+   "id": "E02",
+   "bolum": "Holyrood'daki gece",
+   "soru": null,
+   "tts": "Ona kral unvanını verdi ama yetkisini vermedi.",
+   "alt": "Ona kral unvanını verdi ama yetkisini vermedi.",
+   "kaynak": "standart (crown matrimonial verilmedi)"
+  },
+  {
+   "id": "E03",
+   "bolum": "Holyrood'daki gece",
+   "soru": null,
+   "tts": "Darnli'nin kıskançlığı, kraliçenin İtalyan sekreteri David Ritsio'ya yöneldi.",
+   "alt": "Darnley'nin kıskançlığı, kraliçenin İtalyan sekreteri David Rizzio'ya yöneldi.",
+   "kaynak": "standart"
+  },
+  {
+   "id": "E04",
+   "bolum": "Holyrood'daki gece",
+   "soru": null,
+   "tts": "Dokuz Mart bin beş yüz altmış altı akşamı Meri, Holirud sarayında küçük bir odada yemekteydi. Altı aylık hamileydi.",
+   "alt": "9 Mart 1566 akşamı Mary, Holyrood sarayında küçük bir odada yemekteydi. Altı aylık hamileydi.",
+   "kaynak": "K13"
+  },
+  {
+   "id": "E05",
+   "bolum": "Holyrood'daki gece",
+   "soru": null,
+   "tts": "Darnli'nin de aralarında olduğu silahlı lordlar odaya girdi ve Ritsio'yu kraliçenin gözü önünde sürükleyip öldürdü.",
+   "alt": "Darnley'nin de aralarında olduğu silahlı lordlar odaya girdi ve Rizzio'yu kraliçenin gözü önünde sürükleyip öldürdü.",
+   "kaynak": "K13; görsel: gölgeler, şiddet gösterilmez"
+  },
+  {
+   "id": "E06",
+   "bolum": "Holyrood'daki gece",
+   "soru": null,
+   "tts": "Meri iki yıl sonra bunu şöyle yazacaktı: hizmetkârımı gözümün önünde, ben hamileyken öldürdüler.",
+   "alt": "Mary iki yıl sonra bunu şöyle yazacaktı: hizmetkârımı gözümün önünde, ben hamileyken öldürdüler.",
+   "kaynak": "K13 (Workington mektubu, Camden)"
+  },
+  {
+   "id": "E07",
+   "bolum": "Holyrood'daki gece",
+   "soru": null,
+   "tts": "Ama ağlayıp beklemedi. İki gece sonra kocasını ikna edip kendi yanına çekti; ikisi gece yarısı saraydan kaçtılar.",
+   "alt": "Ama ağlayıp beklemedi. İki gece sonra kocasını ikna edip kendi yanına çekti; ikisi gece yarısı saraydan kaçtılar.",
+   "kaynak": "standart (11–12 Mart 1566)"
+  },
+  {
+   "id": "E08",
+   "bolum": "Holyrood'daki gece",
+   "soru": null,
+   "tts": "Üç ay sonra bir oğlan doğurdu: Ceyms.",
+   "alt": "Üç ay sonra bir oğlan doğurdu: James.",
+   "kaynak": "K14"
+  },
+  {
+   "id": "E09",
+   "bolum": "Holyrood'daki gece",
+   "soru": null,
+   "tts": "Haber Londra'ya ulaştığında Elizabeth, Grinic'te yemekten sonra dans ediyordu.",
+   "alt": "Haber Londra'ya ulaştığında Elizabeth, Greenwich'te yemekten sonra dans ediyordu.",
+   "kaynak": "K14 (Melville: \"dancing efter supper\")"
+  },
+  {
+   "id": "E10",
+   "bolum": "Holyrood'daki gece",
+   "soru": null,
+   "tts": "Melvil'in duyduğuna göre Elizabeth elini yanağına koyup oturdu ve hanımlarına şöyle dedi: \"İskoçya kraliçesi güzel bir oğlan doğurdu, bense kısır bir kütüğüm.\"",
+   "alt": "Melville'in duyduğuna göre Elizabeth elini yanağına koyup oturdu ve hanımlarına şöyle dedi: \"İskoçya kraliçesi güzel bir oğlan doğurdu, bense kısır bir kütüğüm.\"",
+   "kaynak": "K14 (Melville 1827, s. 158–159; ertesi gün dostlarından duydu)"
+  },
+  {
+   "id": "E11",
+   "bolum": "Holyrood'daki gece",
+   "soru": null,
+   "tts": "Ertesi sabah elçiyi sevinçli bir yüzle karşıladı.",
+   "alt": "Ertesi sabah elçiyi sevinçli bir yüzle karşıladı.",
+   "kaynak": "K14"
+  },
+  {
+   "id": "E12",
+   "bolum": "Holyrood'daki gece",
+   "soru": null,
+   "tts": "Uzaktaki Elizabeth buydu: yüzü sevinçli, içi kederli. Aklı hep kalbinin önünde.",
+   "alt": "Uzaktaki Elizabeth buydu: yüzü sevinçli, içi kederli. Aklı hep kalbinin önünde.",
+   "kaynak": "anlatım"
+  },
+  {
+   "id": "F01",
+   "bolum": "Bothwell",
+   "soru": "Bothwell'le neden evlendi?",
+   "tts": "Meri ile Darnli artık birbirine yabancıydı.",
+   "alt": "Mary ile Darnley artık birbirine yabancıydı.",
+   "kaynak": "standart"
+  },
+  {
+   "id": "F02",
+   "bolum": "Bothwell",
+   "soru": null,
+   "tts": "On Şubat bin beş yüz altmış yedi gecesi Edinbıra'da, Darnli'nin kaldığı ev havaya uçtu.",
+   "alt": "10 Şubat 1567 gecesi Edinburgh'da, Darnley'nin kaldığı ev havaya uçtu.",
+   "kaynak": "K15"
+  },
+  {
+   "id": "F03",
+   "bolum": "Bothwell",
+   "soru": null,
+   "tts": "Darnli'nin cesedi bahçede bulundu. Üzerinde patlamanın izi yoktu; boğulduğu düşünülür.",
+   "alt": "Darnley'nin cesedi bahçede bulundu. Üzerinde patlamanın izi yoktu; boğulduğu düşünülür.",
+   "kaynak": "standart (Kirk o'Field)"
+  },
+  {
+   "id": "F04",
+   "bolum": "Bothwell",
+   "soru": null,
+   "tts": "Herkesin parmağı tek bir adamı gösterdi: sert, cesur, gözü kara bir sınır lordu, Botvel Kontu.",
+   "alt": "Herkesin parmağı tek bir adamı gösterdi: sert, cesur, gözü kara bir sınır lordu, Bothwell Kontu.",
+   "kaynak": "standart"
+  },
+  {
+   "id": "F05",
+   "bolum": "Bothwell",
+   "soru": null,
+   "tts": "Elizabeth o günlerde Meri'ye bir mektup yazdı. Belki de ona en yakın olduğu an.",
+   "alt": "Elizabeth o günlerde Mary'ye bir mektup yazdı. Belki de ona en yakın olduğu an.",
+   "kaynak": "K16"
+  },
+  {
+   "id": "F06",
+   "bolum": "Bothwell",
+   "soru": null,
+   "tts": "\"Duyduklarım kulaklarımı öyle sersemletti, yüreğimi öyle korkuttu ki, yazacak gücüm zor yetiyor. Sizin için, ondan daha çok üzülüyorum.\"",
+   "alt": "\"Duyduklarım kulaklarımı öyle sersemletti, yüreğimi öyle korkuttu ki, yazacak gücüm zor yetiyor. Sizin için, ondan daha çok üzülüyorum.\"",
+   "kaynak": "K16 (24 Şubat 1567; Mumby'nin özetinden, B)"
+  },
+  {
+   "id": "F07",
+   "bolum": "Bothwell",
+   "soru": null,
+   "tts": "Ve onu uyardı: onurunu korusun, bu cinayeti cezasız bırakmasın.",
+   "alt": "Ve onu uyardı: onurunu korusun, bu cinayeti cezasız bırakmasın.",
+   "kaynak": "K16"
+  },
+  {
+   "id": "F08",
+   "bolum": "Bothwell",
+   "soru": null,
+   "tts": "Meri bu uyarıyı dinlemedi. Botvel bir mahkemede aklandı.",
+   "alt": "Mary bu uyarıyı dinlemedi. Bothwell bir mahkemede aklandı.",
+   "kaynak": "standart (12 Nisan 1567)"
+  },
+  {
+   "id": "F09",
+   "bolum": "Bothwell",
+   "soru": null,
+   "tts": "İki hafta geçmeden Botvel, Meri'nin yolunu kesti ve onu Danbar kalesine götürdü.",
+   "alt": "İki hafta geçmeden Bothwell, Mary'nin yolunu kesti ve onu Dunbar kalesine götürdü.",
+   "kaynak": "K17 (24 Nisan)"
+  },
+  {
+   "id": "F10",
+   "bolum": "Bothwell",
+   "soru": null,
+   "tts": "Yanında esir alınanlardan biri, elçi Melvil'di. Anılarında iki şey yazar.",
+   "alt": "Yanında esir alınanlardan biri, elçi Melville'di. Anılarında iki şey yazar.",
+   "kaynak": "K17"
+  },
+  {
+   "id": "F11",
+   "bolum": "Bothwell",
+   "soru": null,
+   "tts": "Botvel'in yüzbaşısı, bunun kraliçenin rızasıyla olduğunu söylemişti.",
+   "alt": "Bothwell'in yüzbaşısı, bunun kraliçenin rızasıyla olduğunu söylemişti.",
+   "kaynak": "K17"
+  },
+  {
+   "id": "F12",
+   "bolum": "Bothwell",
+   "soru": null,
+   "tts": "Melvil ise şöyle yazar: kraliçe onunla evlenmekten başka yol bulamadı, çünkü Botvel onu zorla almıştı.",
+   "alt": "Melville ise şöyle yazar: kraliçe onunla evlenmekten başka yol bulamadı, çünkü Bothwell onu zorla almıştı.",
+   "kaynak": "K17 (Melville 1827, s. 177)"
+  },
+  {
+   "id": "F13",
+   "bolum": "Bothwell",
+   "soru": null,
+   "tts": "Üç hafta sonra Meri, Botvel'le evlendi. Darnli'nin ölümünden yalnız üç ay sonra.",
+   "alt": "Üç hafta sonra Mary, Bothwell'le evlendi. Darnley'nin ölümünden yalnız üç ay sonra.",
+   "kaynak": "K18"
+  },
+  {
+   "id": "F14",
+   "bolum": "Bothwell",
+   "soru": null,
+   "tts": "Tsvayg burada hikâyenin merkezine bir tutku yerleştirir.",
+   "alt": "Zweig burada hikâyenin merkezine bir tutku yerleştirir.",
+   "kaynak": "Z04; Zweig 13. bölüm \"Bir tutkunun trajedisi\""
+  },
+  {
+   "id": "F15",
+   "bolum": "Bothwell",
+   "soru": null,
+   "tts": "Ona göre Meri, Botvel'e delice âşıktı. Kanıtı da Meri'nin ona yazdığı söylenen mektuplar ve şiirlerdi.",
+   "alt": "Ona göre Mary, Bothwell'e delice âşıktı. Kanıtı da Mary'nin ona yazdığı söylenen mektuplar ve şiirlerdi.",
+   "kaynak": "Z04, K24"
+  },
+  {
+   "id": "F16",
+   "bolum": "Bothwell",
+   "soru": null,
+   "tts": "Bu mektupların asılları kayıp. Yalnız düşmanlarının sunduğu kopyalar kaldı; bugün birçok tarihçi değiştirildiklerini düşünüyor.",
+   "alt": "Bu mektupların asılları kayıp. Yalnız düşmanlarının sunduğu kopyalar kaldı; bugün birçok tarihçi değiştirildiklerini düşünüyor.",
+   "kaynak": "K24"
+  },
+  {
+   "id": "F17",
+   "bolum": "Bothwell",
+   "soru": null,
+   "tts": "Tsvayg mektuplara inandı; tanık ise zorbalık yazdı. Asıllar kayıp olduğu için hangisinin doğru olduğunu kimse kesin bilemiyor.",
+   "alt": "Zweig mektuplara inandı; tanık ise zorbalık yazdı. Asıllar kayıp olduğu için hangisinin doğru olduğunu kimse kesin bilemiyor.",
+   "kaynak": "dürüstlük cümlesi (hassasiyet: oylama yok)"
+  },
+  {
+   "id": "G01",
+   "bolum": "Gölün ortasındaki ada",
+   "soru": "Bir kraliçe tahtını nasıl kaybeder?",
+   "tts": "Lordlar ayaklandı. Haziran bin beş yüz altmış yedide, Karberi tepesinde iki ordu karşılaştı; savaş olmadı.",
+   "alt": "Lordlar ayaklandı. Haziran 1567'de, Carberry tepesinde iki ordu karşılaştı; savaş olmadı.",
+   "kaynak": "K18"
+  },
+  {
+   "id": "G02",
+   "bolum": "Gölün ortasındaki ada",
+   "soru": null,
+   "tts": "Botvel kaçtı, Meri teslim oldu. Botvel'i bir daha hiç görmedi.",
+   "alt": "Bothwell kaçtı, Mary teslim oldu. Bothwell'i bir daha hiç görmedi.",
+   "kaynak": "standart"
+  },
+  {
+   "id": "G03",
+   "bolum": "Gölün ortasındaki ada",
+   "soru": null,
+   "tts": "Meri, Lok Liven gölünün ortasındaki küçük bir ada kalesine kapatıldı.",
+   "alt": "Mary, Loch Leven gölünün ortasındaki küçük bir ada kalesine kapatıldı.",
+   "kaynak": "K18"
+  },
+  {
+   "id": "G04",
+   "bolum": "Gölün ortasındaki ada",
+   "soru": null,
+   "tts": "Orada ikiz bebeklerini düşürdü.",
+   "alt": "Orada ikiz bebeklerini düşürdü.",
+   "kaynak": "standart (Nau; Temmuz 1567)"
+  },
+  {
+   "id": "G05",
+   "bolum": "Gölün ortasındaki ada",
+   "soru": null,
+   "tts": "Birkaç gün sonra, hasta yatağındayken, tahttan feragat belgesini zorla imzalattılar. Bir yaşındaki oğlu Ceyms kral ilan edildi.",
+   "alt": "Birkaç gün sonra, hasta yatağındayken, tahttan feragat belgesini zorla imzalattılar. Bir yaşındaki oğlu James kral ilan edildi.",
+   "kaynak": "K18"
+  },
+  {
+   "id": "G06",
+   "bolum": "Gölün ortasındaki ada",
+   "soru": null,
+   "tts": "Yirmi dört yaşındaydı. Tahtını, kocasını ve oğlunu kaybetmişti.",
+   "alt": "Yirmi dört yaşındaydı. Tahtını, kocasını ve oğlunu kaybetmişti.",
+   "kaynak": "yaş: Aralık 1542 → Temmuz 1567"
+  },
+  {
+   "id": "G07",
+   "bolum": "Gölün ortasındaki ada",
+   "soru": null,
+   "tts": "Adada on bir aya yakın kaldı.",
+   "alt": "Adada on bir aya yakın kaldı.",
+   "kaynak": "K18, K19 (17 Haziran 1567 → 2 Mayıs 1568)"
+  },
+  {
+   "id": "G08",
+   "bolum": "Gölün ortasındaki ada",
+   "soru": null,
+   "tts": "İki Mayıs bin beş yüz altmış sekiz gecesi, kalenin anahtarlarını çalan genç bir uşak onu kaçırdı ve kapıyı arkalarından kilitledi.",
+   "alt": "2 Mayıs 1568 gecesi, kalenin anahtarlarını çalan genç bir uşak onu kaçırdı ve kapıyı arkalarından kilitledi.",
+   "kaynak": "K19 (standart)"
+  },
+  {
+   "id": "G09",
+   "bolum": "Gölün ortasındaki ada",
+   "soru": null,
+   "tts": "Birkaç gün içinde etrafında altı bin kişilik bir ordu toplandı.",
+   "alt": "Birkaç gün içinde etrafında altı bin kişilik bir ordu toplandı.",
+   "kaynak": "standart"
+  },
+  {
+   "id": "G10",
+   "bolum": "Gölün ortasındaki ada",
+   "soru": null,
+   "tts": "On üç Mayıs'ta, Lengsayd'da, bu ordu kırk beş dakikada dağıldı.",
+   "alt": "13 Mayıs'ta, Langside'da, bu ordu kırk beş dakikada dağıldı.",
+   "kaynak": "K19 (standart)"
+  },
+  {
+   "id": "H01",
+   "bolum": "Solway",
+   "soru": "Neden rakibine sığındı?",
+   "tts": "Meri güneye kaçtı.",
+   "alt": "Mary güneye kaçtı.",
+   "kaynak": "K23"
+  },
+  {
+   "id": "H02",
+   "bolum": "Solway",
+   "soru": null,
+   "tts": "Bir ay sonra o kaçışı kendi kalemiyle şöyle anlatacaktı:",
+   "alt": "Bir ay sonra o kaçışı kendi kalemiyle şöyle anlatacaktı:",
+   "kaynak": "K23"
+  },
+  {
+   "id": "H03",
+   "bolum": "Solway",
+   "soru": null,
+   "tts": "[sad] \"Doksan iki mil, durmadan, attan inmeden. Sonra çıplak yerde uyumak, ekşi süt içmek, ekmeksiz yulaf yemek. Üç gece, baykuşlar gibi.\"",
+   "alt": "\"Doksan iki mil, durmadan, attan inmeden. Sonra çıplak yerde uyumak, ekşi süt içmek, ekmeksiz yulaf yemek. Üç gece, baykuşlar gibi.\"",
+   "kaynak": "K23 (Carlisle, 21 Haziran 1568; Labanoff II)"
+  },
+  {
+   "id": "H04",
+   "bolum": "Solway",
+   "soru": null,
+   "tts": "Sonunda kıyıda, Dandrenın manastırına sığındı.",
+   "alt": "Sonunda kıyıda, Dundrennan manastırına sığındı.",
+   "kaynak": "standart"
+  },
+  {
+   "id": "H05",
+   "bolum": "Solway",
+   "soru": null,
+   "tts": "Karşısında Solvey körfezi vardı. Körfezin öbür yanında İngiltere.",
+   "alt": "Karşısında Solway körfezi vardı. Körfezin öbür yanında İngiltere.",
+   "kaynak": "coğrafya"
+  },
+  {
+   "id": "H06",
+   "bolum": "Solway",
+   "soru": null,
+   "tts": "Babasını yıkan o yenilginin adı da Solvey'di.",
+   "alt": "Babasını yıkan o yenilginin adı da Solway'di.",
+   "kaynak": "Solway Moss 1542 (B01 ile eş); ödeme"
+  },
+  {
+   "id": "H07",
+   "bolum": "Solway",
+   "soru": null,
+   "tts": "Yanındaki lordlar, Fransa'ya gitmesi için yalvardı: orada ailesi, geliri vardı; orada bir kraliçe olarak karşılanırdı.",
+   "alt": "Yanındaki lordlar, Fransa'ya gitmesi için yalvardı: orada ailesi, geliri vardı; orada bir kraliçe olarak karşılanırdı.",
+   "kaynak": "K20 (dostlarının ısrarı); Fransa'daki dul geliri (standart)"
+  },
+  {
+   "id": "H08",
+   "bolum": "Solway",
+   "soru": null,
+   "tts": "Ama Meri, Elizabeth'e çoktan bir haberci yollamıştı.",
+   "alt": "Ama Mary, Elizabeth'e çoktan bir haberci yollamıştı.",
+   "kaynak": "K20"
+  },
+  {
+   "id": "H09",
+   "bolum": "Solway",
+   "soru": null,
+   "tts": "Habercinin elinde bir elmas vardı: yıllar önce Elizabeth'ten aldığı dostluk nişanı.",
+   "alt": "Habercinin elinde bir elmas vardı: yıllar önce Elizabeth'ten aldığı dostluk nişanı.",
+   "kaynak": "K20 (Camden 1688)"
+  },
+  {
+   "id": "H10",
+   "bolum": "Solway",
+   "soru": null,
+   "tts": "Elizabeth yardım sözü verecekti. Ama Meri cevabı beklemedi.",
+   "alt": "Elizabeth yardım sözü verecekti. Ama Mary cevabı beklemedi.",
+   "kaynak": "K20 (Camden: haberci dönmeden geçti)"
+  },
+  {
+   "id": "H11",
+   "bolum": "Solway",
+   "soru": null,
+   "tts": "Tsvayg'a göre bu kararı aceleyle, sanki kendini ikna etmek ister gibi verdi.",
+   "alt": "Zweig'a göre bu kararı aceleyle, sanki kendini ikna etmek ister gibi verdi.",
+   "kaynak": "Zweig 18. bölüm (\"Mit rascher Hand, wie um sich selbst zu bereden\")"
+  },
+  {
+   "id": "H12",
+   "bolum": "Solway",
+   "soru": null,
+   "tts": "On altı Mayıs bin beş yüz altmış sekiz. Meri küçük bir balıkçı teknesine bindi ve Solvey'i geçti.",
+   "alt": "16 Mayıs 1568. Mary küçük bir balıkçı teknesine bindi ve Solway'i geçti.",
+   "kaynak": "K21"
+  },
+  {
+   "id": "H13",
+   "bolum": "Solway",
+   "soru": null,
+   "tts": "Akşam İngiliz kıyısına, Vörkington'a çıktı. Ertesi gün Elizabeth'e kendi eliyle yazdı.",
+   "alt": "Akşam İngiliz kıyısına, Workington'a çıktı. Ertesi gün Elizabeth'e kendi eliyle yazdı.",
+   "kaynak": "K21, K22"
+  },
+  {
+   "id": "H14",
+   "bolum": "Solway",
+   "soru": null,
+   "tts": "[softly] \"Size yalvarırım, beni bir an önce yanınıza çağırın. Acınacak hâldeyim; dünyada, kaçtığım hâlimle kendimden başka hiçbir şeyim yok.\"",
+   "alt": "\"Size yalvarırım, beni bir an önce yanınıza çağırın. Acınacak hâldeyim; dünyada, kaçtığım hâlimle kendimden başka hiçbir şeyim yok.\"",
+   "kaynak": "K22 (Labanoff II, s. 76–77)"
+  },
+  {
+   "id": "H15",
+   "bolum": "Solway",
+   "soru": null,
+   "tts": "Ve mektubu şöyle imzaladı: \"Sadık ve sevgi dolu iyi kız kardeşiniz, kuzeniniz ve kaçmış tutsak, Meri.\"",
+   "alt": "Ve mektubu şöyle imzaladı: \"Sadık ve sevgi dolu iyi kız kardeşiniz, kuzeniniz ve kaçmış tutsak, Mary.\"",
+   "kaynak": "K22 (\"eschappée prisonière, Marie R.\")"
+  },
+  {
+   "id": "H16",
+   "bolum": "Solway",
+   "soru": null,
+   "tts": "Kaçmış tutsak. Bu imza, ömrünün geri kalanının başlığı olacaktı.",
+   "alt": "Kaçmış tutsak. Bu imza, ömrünün geri kalanının başlığı olacaktı.",
+   "kaynak": "anlatım"
+  },
+  {
+   "id": "H17",
+   "bolum": "Solway",
+   "soru": null,
+   "tts": "Yirmi beş yaşındaydı. Tsvayg'a göre gerçek hayatı o gün bitmişti.",
+   "alt": "Yirmi beş yaşındaydı. Zweig'a göre gerçek hayatı o gün bitmişti.",
+   "kaynak": "Z03 (Zweig \"henüz yirmi beşinde değil\" der; Mary Aralık 1567'de 25'ine girmişti, yaş düzeltildi)"
+  },
+  {
+   "id": "I01",
+   "bolum": "On dokuz yıl",
+   "soru": "Elizabeth onu neden ne bıraktı ne öldürdü?",
+   "tts": "Elizabeth'in önünde üç kapı vardı. Üçü de kapalıydı.",
+   "alt": "Elizabeth'in önünde üç kapı vardı. Üçü de kapalıydı.",
+   "kaynak": "anlatım; bölüm sorusuna köprü"
+  },
+  {
+   "id": "I02",
+   "bolum": "On dokuz yıl",
+   "soru": null,
+   "tts": "Meri'yi serbest bırakırsa, Meri bir ordu toplayıp geri dönebilirdi.",
+   "alt": "Mary'yi serbest bırakırsa, Mary bir ordu toplayıp geri dönebilirdi.",
+   "kaynak": "standart"
+  },
+  {
+   "id": "I03",
+   "bolum": "On dokuz yıl",
+   "soru": null,
+   "tts": "Fransa'ya gönderirse, Katolik krallar onu İngiltere tahtına oturtmak için kullanabilirdi.",
+   "alt": "Fransa'ya gönderirse, Katolik krallar onu İngiltere tahtına oturtmak için kullanabilirdi.",
+   "kaynak": "standart"
+  },
+  {
+   "id": "I04",
+   "bolum": "On dokuz yıl",
+   "soru": null,
+   "tts": "Öldürürse, kutsanmış bir kraliçenin kanını dökmüş olurdu; bu da kendi tacını tartışmaya açardı.",
+   "alt": "Öldürürse, kutsanmış bir kraliçenin kanını dökmüş olurdu; bu da kendi tacını tartışmaya açardı.",
+   "kaynak": "standart"
+  },
+  {
+   "id": "I05",
+   "bolum": "On dokuz yıl",
+   "soru": null,
+   "tts": "Bu yüzden Elizabeth en iyi bildiği şeyi yaptı: bekledi.",
+   "alt": "Bu yüzden Elizabeth en iyi bildiği şeyi yaptı: bekledi.",
+   "kaynak": "Z02 (Zweig: sabır ve gerçekçilik)"
+  },
+  {
+   "id": "I06",
+   "bolum": "On dokuz yıl",
+   "soru": null,
+   "tts": "Meri ise bir misafir olarak geldiğini sanıyordu. Bir ay sonra Karlayl'dan yazdığı mektupta bir cümle var: \"Bir tutsaktan pek farkım yok.\"",
+   "alt": "Mary ise bir misafir olarak geldiğini sanıyordu. Bir ay sonra Carlisle'dan yazdığı mektupta bir cümle var: \"Bir tutsaktan pek farkım yok.\"",
+   "kaynak": "K23"
+  },
+  {
+   "id": "I07",
+   "bolum": "On dokuz yıl",
+   "soru": null,
+   "tts": "Elizabeth'le yüz yüze görüşmek istedi. Elizabeth reddetti: önce Darnli cinayetinden aklanmalıydı.",
+   "alt": "Elizabeth'le yüz yüze görüşmek istedi. Elizabeth reddetti: önce Darnley cinayetinden aklanmalıydı.",
+   "kaynak": "standart (1568); K09"
+  },
+  {
+   "id": "I08",
+   "bolum": "On dokuz yıl",
+   "soru": null,
+   "tts": "York'ta ve Vestminster'da bir soruşturma toplandı. Masaya o mektuplar kondu. Karar çıkmadı.",
+   "alt": "York'ta ve Westminster'da bir soruşturma toplandı. Masaya o mektuplar kondu. Karar çıkmadı.",
+   "kaynak": "K24"
+  },
+  {
+   "id": "I09",
+   "bolum": "On dokuz yıl",
+   "soru": null,
+   "tts": "Meri kaleden kaleye taşındı: Tatberi, Şefild, Çartli.",
+   "alt": "Mary kaleden kaleye taşındı: Tutbury, Sheffield, Chartley.",
+   "kaynak": "standart"
+  },
+  {
+   "id": "I10",
+   "bolum": "On dokuz yıl",
+   "soru": null,
+   "tts": "Uzun yılları iğne ve iplikle geçirdi.",
+   "alt": "Uzun yılları iğne ve iplikle geçirdi.",
+   "kaynak": "standart (işlemeler)"
+  },
+  {
+   "id": "I11",
+   "bolum": "On dokuz yıl",
+   "soru": null,
+   "tts": "Bin beş yüz altmış dokuzda onu ziyaret eden bir İngiliz, tahtının üstündeki sayvana işlenmiş bir söz gördü ve anlamadı:",
+   "alt": "1569'da onu ziyaret eden bir İngiliz, tahtının üstündeki sayvana işlenmiş bir söz gördü ve anlamadı:",
+   "kaynak": "K25 (Nicholas White, Tutbury; \"cloth of estate\")"
+  },
+  {
+   "id": "I12",
+   "bolum": "On dokuz yıl",
+   "soru": null,
+   "tts": "[thoughtful] \"An ma fen e mon komansman.\" Sonumda başlangıcım.",
+   "alt": "\"En ma fin est mon commencement.\" Sonumda başlangıcım.",
+   "kaynak": "K25; L6 açılır (cevap M)"
+  },
+  {
+   "id": "I13",
+   "bolum": "On dokuz yıl",
+   "soru": null,
+   "tts": "Bu söz annesinindi: ateşin içinde yeniden doğan bir anka kuşunun altında yazılıydı.",
+   "alt": "Bu söz annesinindi: ateşin içinde yeniden doğan bir anka kuşunun altında yazılıydı.",
+   "kaynak": "K25 (Palliser 1870: Mary of Guise'in amblemi)"
+  },
+  {
+   "id": "I14",
+   "bolum": "On dokuz yıl",
+   "soru": null,
+   "tts": "Yıllar geçtikçe Meri, adına kurulan planların merkezine oturdu. bin beş yüz altmış dokuzda kuzeyin kontları onun adına ayaklandı; bin beş yüz yetmiş birde bir İtalyan bankerin planı ortaya çıktı. Her seferinde zincir biraz daha sıkıldı.",
+   "alt": "Yıllar geçtikçe Mary, adına kurulan planların merkezine oturdu. 1569'da kuzeyin kontları onun adına ayaklandı; 1571'de bir İtalyan bankerin planı ortaya çıktı. Her seferinde zincir biraz daha sıkıldı.",
+   "kaynak": "standart (Kuzey Ayaklanması 1569, Ridolfi 1571)"
+  },
+  {
+   "id": "I15",
+   "bolum": "On dokuz yıl",
+   "soru": null,
+   "tts": "Bir yaşında bıraktığı oğlu büyüdü, Protestan bir kral oldu. bin beş yüz seksen altıda Elizabeth'le ittifak imzaladı ve ondan yıllık para almayı kabul etti.",
+   "alt": "Bir yaşında bıraktığı oğlu büyüdü, Protestan bir kral oldu. 1586'da Elizabeth'le ittifak imzaladı ve ondan yıllık para almayı kabul etti.",
+   "kaynak": "standart (Berwick Antlaşması, Temmuz 1586)"
+  },
+  {
+   "id": "I16",
+   "bolum": "On dokuz yıl",
+   "soru": null,
+   "tts": "Meri artık kırk yaşını geçmişti. Romatizma yüzünden zor yürüyordu.",
+   "alt": "Mary artık kırk yaşını geçmişti. Romatizma yüzünden zor yürüyordu.",
+   "kaynak": "standart"
+  },
+  {
+   "id": "I17",
+   "bolum": "On dokuz yıl",
+   "soru": null,
+   "tts": "Ve İngiltere'de bir adam, onun bir hata yapmasını sabırla bekliyordu: Elizabeth'in casus şefi Frensis Volsingım.",
+   "alt": "Ve İngiltere'de bir adam, onun bir hata yapmasını sabırla bekliyordu: Elizabeth'in casus şefi Francis Walsingham.",
+   "kaynak": "standart"
+  },
+  {
+   "id": "J01",
+   "bolum": "Bira fıçısındaki mektuplar",
+   "soru": "Mektuplarını kim okuyordu?",
+   "tts": "Bin beş yüz seksen altıda Meri, Çartli'de dış dünyadan tamamen kopuktu. Bütün mektuplaşması yasaklanmıştı.",
+   "alt": "1586'da Mary, Chartley'de dış dünyadan tamamen kopuktu. Bütün mektuplaşması yasaklanmıştı.",
+   "kaynak": "standart (1585)"
+  },
+  {
+   "id": "J02",
+   "bolum": "Bira fıçısındaki mektuplar",
+   "soru": null,
+   "tts": "Sonra bir gün gizli bir yol açıldı.",
+   "alt": "Sonra bir gün gizli bir yol açıldı.",
+   "kaynak": "K27"
+  },
+  {
+   "id": "J03",
+   "bolum": "Bira fıçısındaki mektuplar",
+   "soru": null,
+   "tts": "Mektuplar, Börtın'dan bira getiren bir biracının fıçılarında saklanarak geliyor ve gidiyordu.",
+   "alt": "Mektuplar, Burton'dan bira getiren bir biracının fıçılarında saklanarak geliyor ve gidiyordu.",
+   "kaynak": "K27 (Pollen 1922)"
+  },
+  {
+   "id": "J04",
+   "bolum": "Bira fıçısındaki mektuplar",
+   "soru": null,
+   "tts": "Meri, bir yıla yakın sessizlikten sonra yeniden yazabiliyordu.",
+   "alt": "Mary, bir yıla yakın sessizlikten sonra yeniden yazabiliyordu.",
+   "kaynak": "K27 (Ocak 1586)"
+  },
+  {
+   "id": "J05",
+   "bolum": "Bira fıçısındaki mektuplar",
+   "soru": null,
+   "tts": "Ama bu yolu Volsingım açmıştı. Her mektup önce onun masasına gidiyor, şifresi çözülüyor, kopyalanıyor, sonra yoluna devam ediyordu.",
+   "alt": "Ama bu yolu Walsingham açmıştı. Her mektup önce onun masasına gidiyor, şifresi çözülüyor, kopyalanıyor, sonra yoluna devam ediyordu.",
+   "kaynak": "K27"
+  },
+  {
+   "id": "J06",
+   "bolum": "Bira fıçısındaki mektuplar",
+   "soru": null,
+   "tts": "Temmuz bin beş yüz seksen altıda genç bir Katolik soylu, Entıni Bebingtın, ona bir plan yazdı: Elizabeth öldürülecek, Meri kurtarılacaktı.",
+   "alt": "Temmuz 1586'da genç bir Katolik soylu, Anthony Babington, ona bir plan yazdı: Elizabeth öldürülecek, Mary kurtarılacaktı.",
+   "kaynak": "standart; K28"
+  },
+  {
+   "id": "J07",
+   "bolum": "Bira fıçısındaki mektuplar",
+   "soru": null,
+   "tts": "Meri cevap verdi.",
+   "alt": "Mary cevap verdi.",
+   "kaynak": "K28"
+  },
+  {
+   "id": "J08",
+   "bolum": "Bira fıçısındaki mektuplar",
+   "soru": null,
+   "tts": "Mektubunun çözülmüş kopyasında şu cümle var: \"O zaman altı beyefendiyi işe koşmanın vakti gelecek.\"",
+   "alt": "Mektubunun çözülmüş kopyasında şu cümle var: \"O zaman altı beyefendiyi işe koşmanın vakti gelecek.\"",
+   "kaynak": "K28 (Pollen 1922)"
+  },
+  {
+   "id": "J09",
+   "bolum": "Bira fıçısındaki mektuplar",
+   "soru": null,
+   "tts": "Altı beyefendi, Elizabeth'i öldürecek altı adamdı.",
+   "alt": "Altı beyefendi, Elizabeth'i öldürecek altı adamdı.",
+   "kaynak": "standart"
+  },
+  {
+   "id": "J10",
+   "bolum": "Bira fıçısındaki mektuplar",
+   "soru": null,
+   "tts": "Volsingım'ın şifre çözücüsü, kopyanın üstüne küçük bir darağacı çizdi.",
+   "alt": "Walsingham'ın şifre çözücüsü, kopyanın üstüne küçük bir darağacı çizdi.",
+   "kaynak": "standart (Phelippes)"
+  },
+  {
+   "id": "J11",
+   "bolum": "Bira fıçısındaki mektuplar",
+   "soru": null,
+   "tts": "Meri yargılanmak üzere Fadıringey şatosuna götürüldü.",
+   "alt": "Mary yargılanmak üzere Fotheringhay şatosuna götürüldü.",
+   "kaynak": "standart"
+  },
+  {
+   "id": "J12",
+   "bolum": "Bira fıçısındaki mektuplar",
+   "soru": null,
+   "tts": "Orada İngiliz lordlarına şöyle dedi: \"Vicdanınıza bakın ve unutmayın: bütün dünya sahnesi İngiltere krallığından daha geniştir.\"",
+   "alt": "Orada İngiliz lordlarına şöyle dedi: \"Vicdanınıza bakın ve unutmayın: bütün dünya sahnesi İngiltere krallığından daha geniştir.\"",
+   "kaynak": "K29 (Camden 1688)"
+  },
+  {
+   "id": "J13",
+   "bolum": "Bira fıçısındaki mektuplar",
+   "soru": null,
+   "tts": "Mahkeme onu ölüme mahkûm etti. Geriye tek bir imza kalıyordu.",
+   "alt": "Mahkeme onu ölüme mahkûm etti. Geriye tek bir imza kalıyordu.",
+   "kaynak": "standart"
+  },
+  {
+   "id": "K01",
+   "bolum": "Elizabeth, Elizabeth'e karşı",
+   "soru": "O imzayı kim attı?",
+   "tts": "Tsvayg bu bölüme \"Elizabeth, Elizabeth'e karşı\" der.",
+   "alt": "Zweig bu bölüme \"Elizabeth, Elizabeth'e karşı\" der.",
+   "kaynak": "Z01 (24. bölüm)"
+  },
+  {
+   "id": "K02",
+   "bolum": "Elizabeth, Elizabeth'e karşı",
+   "soru": null,
+   "tts": "Çünkü artık savaş iki kraliçe arasında değil, Elizabeth'in kendi içindeydi.",
+   "alt": "Çünkü artık savaş iki kraliçe arasında değil, Elizabeth'in kendi içindeydi.",
+   "kaynak": "Zweig 24. bölüm (yorum)"
+  },
+  {
+   "id": "K03",
+   "bolum": "Elizabeth, Elizabeth'e karşı",
+   "soru": null,
+   "tts": "Parlamento idam istedi. Elizabeth şöyle cevap verdi:",
+   "alt": "Parlamento idam istedi. Elizabeth şöyle cevap verdi:",
+   "kaynak": "K30"
+  },
+  {
+   "id": "K04",
+   "bolum": "Elizabeth, Elizabeth'e karşı",
+   "soru": null,
+   "tts": "[thoughtful] \"Dileğinizi kabul etmeyeceğim desem, belki düşündüğümden fazlasını söylemiş olurum. Kabul edeceğim desem, bilmeniz gerekenden fazlasını. Size cevapsız bir cevap vermek zorundayım.\"",
+   "alt": "\"Dileğinizi kabul etmeyeceğim desem, belki düşündüğümden fazlasını söylemiş olurum. Kabul edeceğim desem, bilmeniz gerekenden fazlasını. Size cevapsız bir cevap vermek zorundayım.\"",
+   "kaynak": "K30 (D'Ewes; Tanner 1922, s. 564)"
+  },
+  {
+   "id": "K05",
+   "bolum": "Elizabeth, Elizabeth'e karşı",
+   "soru": null,
+   "tts": "Haftalar geçti. bir Şubat bin beş yüz seksen yedide sonunda fermanı imzaladı.",
+   "alt": "Haftalar geçti. 1 Şubat 1587'de sonunda fermanı imzaladı.",
+   "kaynak": "K32"
+  },
+  {
+   "id": "K06",
+   "bolum": "Elizabeth, Elizabeth'e karşı",
+   "soru": null,
+   "tts": "Aynı gün iki sekreteri, Meri'nin gardiyanı Eymiyas Polit'e gizli bir mektup yazdı.",
+   "alt": "Aynı gün iki sekreteri, Mary'nin gardiyanı Amias Paulet'e gizli bir mektup yazdı.",
+   "kaynak": "K31"
+  },
+  {
+   "id": "K07",
+   "bolum": "Elizabeth, Elizabeth'e karşı",
+   "soru": null,
+   "tts": "Mektupta, Elizabeth'in ona kırgın olduğu yazıyordu: Polit, kimse söylemeden, \"o kraliçenin hayatını kısaltmanın bir yolunu\" bulmamıştı.",
+   "alt": "Mektupta, Elizabeth'in ona kırgın olduğu yazıyordu: Paulet, kimse söylemeden, \"o kraliçenin hayatını kısaltmanın bir yolunu\" bulmamıştı.",
+   "kaynak": "K31 (Poulet Letter-Books, s. 359)"
+  },
+  {
+   "id": "K08",
+   "bolum": "Elizabeth, Elizabeth'e karşı",
+   "soru": null,
+   "tts": "Yani fermanla değil, sessizce.",
+   "alt": "Yani fermanla değil, sessizce.",
+   "kaynak": "K31 (yorum)"
+  },
+  {
+   "id": "K09",
+   "bolum": "Elizabeth, Elizabeth'e karşı",
+   "soru": null,
+   "tts": "Polit ertesi gün cevap verdi: \"Tanrı korusun; vicdanımı böyle kirletemem, torunlarıma böyle bir leke bırakamam. Kanun ve ferman olmadan kan dökmem.\"",
+   "alt": "Paulet ertesi gün cevap verdi: \"Tanrı korusun; vicdanımı böyle kirletemem, torunlarıma böyle bir leke bırakamam. Kanun ve ferman olmadan kan dökmem.\"",
+   "kaynak": "K31 (s. 362)"
+  },
+  {
+   "id": "K10",
+   "bolum": "Elizabeth, Elizabeth'e karşı",
+   "soru": null,
+   "tts": "Ferman Fadıringey'e gönderildi. Elizabeth'in haberi olmadan mı? Kendisi sonradan öyle söyleyecekti.",
+   "alt": "Ferman Fotheringhay'e gönderildi. Elizabeth'in haberi olmadan mı? Kendisi sonradan öyle söyleyecekti.",
+   "kaynak": "K32, K36"
+  },
+  {
+   "id": "K11",
+   "bolum": "Elizabeth, Elizabeth'e karşı",
+   "soru": null,
+   "tts": "Meri yedi Şubat akşamı, yemekten sonra, ertesi sabah sekizde öleceğini öğrendi.",
+   "alt": "Mary 7 Şubat akşamı, yemekten sonra, ertesi sabah sekizde öleceğini öğrendi.",
+   "kaynak": "K33"
+  },
+  {
+   "id": "L01",
+   "bolum": "Kırmızı",
+   "soru": "Neden kırmızı giydi?",
+   "tts": "Kırmızının cevabı o son gecede başlıyor.",
+   "alt": "Kırmızının cevabı o son gecede başlıyor.",
+   "kaynak": "köprü"
+  },
+  {
+   "id": "L02",
+   "bolum": "Kırmızı",
+   "soru": null,
+   "tts": "Meri o gece uyumadı. Vasiyetini yazdı, hizmetkârlarına veda etti.",
+   "alt": "Mary o gece uyumadı. Vasiyetini yazdı, hizmetkârlarına veda etti.",
+   "kaynak": "K33 (standart)"
+  },
+  {
+   "id": "L03",
+   "bolum": "Kırmızı",
+   "soru": null,
+   "tts": "Gece saat ikide son mektubunu yazdı: Fransa kralına, ilk kocasının kardeşine.",
+   "alt": "Gece saat ikide son mektubunu yazdı: Fransa kralına, ilk kocasının kardeşine.",
+   "kaynak": "K33"
+  },
+  {
+   "id": "L04",
+   "bolum": "Kırmızı",
+   "soru": null,
+   "tts": "Mektubun ilk cümlesi bütün hikâyeyi anlatıyor:",
+   "alt": "Mektubun ilk cümlesi bütün hikâyeyi anlatıyor:",
+   "kaynak": "K33"
+  },
+  {
+   "id": "L05",
+   "bolum": "Kırmızı",
+   "soru": null,
+   "tts": "[softly] \"Tanrı'nın izniyle, sanırım günahlarım yüzünden, bu kraliçenin, kuzenimin kollarına atıldım. Orada çok sıkıntı çektim ve yirmi yıla yakın zaman geçirdim.\"",
+   "alt": "\"Tanrı'nın izniyle, sanırım günahlarım yüzünden, bu kraliçenin, kuzenimin kollarına atıldım. Orada çok sıkıntı çektim ve yirmi yıla yakın zaman geçirdim.\"",
+   "kaynak": "K33 (Labanoff VI, s. 491)"
+  },
+  {
+   "id": "L06",
+   "bolum": "Kırmızı",
+   "soru": null,
+   "tts": "Ölmeden önceki son gece, kendi hayatını Solvey'den başlatıyordu.",
+   "alt": "Ölmeden önceki son gece, kendi hayatını Solway'den başlatıyordu.",
+   "kaynak": "anlatım; L2 kapanır"
+  },
+  {
+   "id": "L07",
+   "bolum": "Kırmızı",
+   "soru": null,
+   "tts": "Sabah büyük salona siyahlar içinde girdi. Elinde bir haç, belinde bir tespih vardı.",
+   "alt": "Sabah büyük salona siyahlar içinde girdi. Elinde bir haç, belinde bir tespih vardı.",
+   "kaynak": "K34"
+  },
+  {
+   "id": "L08",
+   "bolum": "Kırmızı",
+   "soru": null,
+   "tts": "Hizmetçileri siyah elbisesini çıkardı. Altından kızıl kadife bir iç etek çıktı.",
+   "alt": "Hizmetçileri siyah elbisesini çıkardı. Altından kızıl kadife bir iç etek çıktı.",
+   "kaynak": "K34 (L1 kapanır)"
+  },
+  {
+   "id": "L09",
+   "bolum": "Kırmızı",
+   "soru": null,
+   "tts": "Hizmetçi kadınlar ağlamaya başladı. Meri onlara Fransızca, \"Ağlamayın, sizin için dua ettim\" dedi.",
+   "alt": "Hizmetçi kadınlar ağlamaya başladı. Mary onlara Fransızca, \"Ağlamayın, sizin için dua ettim\" dedi.",
+   "kaynak": "K34"
+  },
+  {
+   "id": "L10",
+   "bolum": "Kırmızı",
+   "soru": null,
+   "tts": "Diz çöktü ve Latince dua etti. Son sözü de Latinceydi: \"Ruhumu senin ellerine bırakıyorum.\"",
+   "alt": "Diz çöktü ve Latince dua etti. Son sözü de Latinceydi: \"Ruhumu senin ellerine bırakıyorum.\"",
+   "kaynak": "K34 (In te Domine confido; In manus tuas)"
+  },
+  {
+   "id": "L11",
+   "bolum": "Kırmızı",
+   "soru": null,
+   "tts": "Ve salon sustu.",
+   "alt": "Ve salon sustu.",
+   "kaynak": "görsel: idam gösterilmez"
+  },
+  {
+   "id": "L12",
+   "bolum": "Kırmızı",
+   "soru": null,
+   "tts": "Neden kırmızı? Tsvayg'a göre Meri bunu, dökülecek kan giysisinde göze batmasın diye seçmişti.",
+   "alt": "Neden kırmızı? Zweig'a göre Mary bunu, dökülecek kan giysisinde göze batmasın diye seçmişti.",
+   "kaynak": "Z05 (25. bölüm)"
+  },
+  {
+   "id": "L13",
+   "bolum": "Kırmızı",
+   "soru": null,
+   "tts": "Bugün birçok tarihçiye göre ise başka bir anlamı vardı: kırmızı, Katolik kilisesinde şehitlerin rengidir.",
+   "alt": "Bugün birçok tarihçiye göre ise başka bir anlamı vardı: kırmızı, Katolik kilisesinde şehitlerin rengidir.",
+   "kaynak": "K40"
+  },
+  {
+   "id": "L14",
+   "bolum": "Kırmızı",
+   "soru": null,
+   "tts": "Meri birkaç saat önce aynı mektupta şöyle yazmıştı: onu inancı ve bu taçtaki hakkı yüzünden öldürüyorlardı.",
+   "alt": "Mary birkaç saat önce aynı mektupta şöyle yazmıştı: onu inancı ve bu taçtaki hakkı yüzünden öldürüyorlardı.",
+   "kaynak": "K33 (Labanoff VI, s. 492–493: \"le maintien du droit que Dieu m'a donné à ceste couronne\"); L3"
+  },
+  {
+   "id": "L15",
+   "bolum": "Kırmızı",
+   "soru": null,
+   "tts": "Onun gözünde kırmızı, bir suçlunun değil, inancı uğruna ölen birinin rengiydi.",
+   "alt": "Onun gözünde kırmızı, bir suçlunun değil, inancı uğruna ölen birinin rengiydi.",
+   "kaynak": "K40 (Mary'nin bakışı; anlatıcı hükmü değil)"
+  },
+  {
+   "id": "L16",
+   "bolum": "Kırmızı",
+   "soru": null,
+   "tts": "Başındaki tül düştüğünde, saçlarının yetmiş yaşında birininki gibi ağarmış ve kısacık olduğu görüldü. Kırk dört yaşındaydı.",
+   "alt": "Başındaki tül düştüğünde, saçlarının yetmiş yaşında birininki gibi ağarmış ve kısacık olduğu görüldü. Kırk dört yaşındaydı.",
+   "kaynak": "K34"
+  },
+  {
+   "id": "L17",
+   "bolum": "Kırmızı",
+   "soru": null,
+   "tts": "Protestan dekan haykırdı: \"Kraliçe'nin bütün düşmanları böyle yok olsun.\"",
+   "alt": "Protestan dekan haykırdı: \"Kraliçe'nin bütün düşmanları böyle yok olsun.\"",
+   "kaynak": "K34"
+  },
+  {
+   "id": "L18",
+   "bolum": "Kırmızı",
+   "soru": null,
+   "tts": "Sonra eteğinin altından, oraya saklanmış küçük köpeği çıktı. Yanından ayrılmak istemedi.",
+   "alt": "Sonra eteğinin altından, oraya saklanmış küçük köpeği çıktı. Yanından ayrılmak istemedi.",
+   "kaynak": "K34 (sıra tutanağa göre)"
+  },
+  {
+   "id": "L19",
+   "bolum": "Kırmızı",
+   "soru": null,
+   "tts": "Haber Londra'ya ulaştığında Elizabeth'in yüzü değişti, sesi kesildi. Yas giydi, ağladı, meclisini azarladı.",
+   "alt": "Haber Londra'ya ulaştığında Elizabeth'in yüzü değişti, sesi kesildi. Yas giydi, ağladı, meclisini azarladı.",
+   "kaynak": "K35"
+  },
+  {
+   "id": "L20",
+   "bolum": "Kırmızı",
+   "soru": null,
+   "tts": "Fermanı gönderen sekreteri Deyvisın'ı yargılattı. Meri'nin oğluna şöyle yazdı: \"Niyetimin tam tersine başıma gelen o elim olay.\"",
+   "alt": "Fermanı gönderen sekreteri Davison'ı yargılattı. Mary'nin oğluna şöyle yazdı: \"Niyetimin tam tersine başıma gelen o elim olay.\"",
+   "kaynak": "K32, K36"
+  },
+  {
+   "id": "L21",
+   "bolum": "Kırmızı",
+   "soru": null,
+   "tts": "Niyetimin tam tersine.",
+   "alt": "Niyetimin tam tersine.",
+   "kaynak": "anlatım (vurgu)"
+  },
+  {
+   "id": "M01",
+   "bolum": "Sonumda başlangıcım",
+   "soru": "Peki kim kazandı?",
+   "tts": "Elizabeth on altı yıl daha yaşadı. Tahtını kimseyle paylaşmadı; varis bırakmadı.",
+   "alt": "Elizabeth on altı yıl daha yaşadı. Tahtını kimseyle paylaşmadı; varis bırakmadı.",
+   "kaynak": "K37, K39"
+  },
+  {
+   "id": "M02",
+   "bolum": "Sonumda başlangıcım",
+   "soru": null,
+   "tts": "Kırk dört yıl hüküm sürdü ve İngiltere'yi en güçlü dönemlerinden birine taşıdı. Akıl, tahtı korudu.",
+   "alt": "Kırk dört yıl hüküm sürdü ve İngiltere'yi en güçlü dönemlerinden birine taşıdı. Akıl, tahtı korudu.",
+   "kaynak": "K39"
+  },
+  {
+   "id": "M03",
+   "bolum": "Sonumda başlangıcım",
+   "soru": null,
+   "tts": "Yirmi dört Mart bin altı yüz üçte öldü.",
+   "alt": "24 Mart 1603'te öldü.",
+   "kaynak": "K37"
+  },
+  {
+   "id": "M04",
+   "bolum": "Sonumda başlangıcım",
+   "soru": null,
+   "tts": "Peki İngiltere tahtına kim oturdu? Meri Stüart'ın oğlu Ceyms.",
+   "alt": "Peki İngiltere tahtına kim oturdu? Mary Stuart'ın oğlu James.",
+   "kaynak": "K37; L3 kapanır"
+  },
+  {
+   "id": "M05",
+   "bolum": "Sonumda başlangıcım",
+   "soru": null,
+   "tts": "On altı yaşında İngiltere'nin armasını taşıyan kız o tahta hiç oturamadı. Ama oğlu oturdu.",
+   "alt": "On altı yaşında İngiltere'nin armasını taşıyan kız o tahta hiç oturamadı. Ama oğlu oturdu.",
+   "kaynak": "K04, K37"
+  },
+  {
+   "id": "M06",
+   "bolum": "Sonumda başlangıcım",
+   "soru": null,
+   "tts": "Bugün İngiltere'nin kraliyet ailesi Meri Stüart'ın soyundan gelir. Tudor hanedanı ise Elizabeth'le sona erdi.",
+   "alt": "Bugün İngiltere'nin kraliyet ailesi Mary Stuart'ın soyundan gelir. Tudor hanedanı ise Elizabeth'le sona erdi.",
+   "kaynak": "standart (I. James → Bohemya Kraliçesi Elizabeth → Hannover Sophia)"
+  },
+  {
+   "id": "M07",
+   "bolum": "Sonumda başlangıcım",
+   "soru": null,
+   "tts": "[thoughtful] Sonumda başlangıcım. Sayvana işlenmiş o bilmece, böyle çözüldü.",
+   "alt": "Sonumda başlangıcım. Sayvana işlenmiş o bilmece, böyle çözüldü.",
+   "kaynak": "K25, Z06; L6 kapanır"
+  },
+  {
+   "id": "M08",
+   "bolum": "Sonumda başlangıcım",
+   "soru": null,
+   "tts": "Oğlu Ceyms, annesini Vestminster Ebi'ye taşıttı.",
+   "alt": "Oğlu James, annesini Westminster Abbey'ye taşıttı.",
+   "kaynak": "K38"
+  },
+  {
+   "id": "M09",
+   "bolum": "Sonumda başlangıcım",
+   "soru": null,
+   "tts": "Bugün iki kraliçe aynı şapelin karşılıklı iki nefinde yatıyor; aralarında yalnız bir koridor var. Hayattayken bir kez bile yüz yüze gelmediler.",
+   "alt": "Bugün iki kraliçe aynı şapelin karşılıklı iki nefinde yatıyor; aralarında yalnız bir koridor var. Hayattayken bir kez bile yüz yüze gelmediler.",
+   "kaynak": "K38, K09"
+  },
+  {
+   "id": "M10",
+   "bolum": "Sonumda başlangıcım",
+   "soru": null,
+   "tts": "Tsvayg'ın hükmü şöyle: gerçekçi Elizabeth tarihte kazandı; romantik Meri ise şiirde ve efsanede.",
+   "alt": "Zweig'ın hükmü şöyle: gerçekçi Elizabeth tarihte kazandı; romantik Mary ise şiirde ve efsanede.",
+   "kaynak": "Zweig 8. bölüm (\"Elisabeth, die Realistin, siegt in der Geschichte, Maria Stuart, die Romantikerin, in Dichtung und Legende\"; doğrulandı)"
+  },
+  {
+   "id": "M11",
+   "bolum": "Sonumda başlangıcım",
+   "soru": null,
+   "tts": "[curious] Şimdi soru senin: sen kalbinle mi yaşıyorsun, aklınla mı? Ve sence hangisi kazandı? Cevabını yorumlara yaz.",
+   "alt": "Şimdi soru senin: sen kalbinle mi yaşıyorsun, aklınla mı? Ve sence hangisi kazandı? Cevabını yorumlara yaz.",
+   "kaynak": "L4 kapanır (izleyiciye)"
+  },
+  {
+   "id": "M12",
+   "bolum": "Sonumda başlangıcım",
+   "soru": null,
+   "tts": "Zaman Kuryesi geçmişten bugüne böyle sorular taşıyor. Bu yolculuğu sevdiysen abone ol.",
+   "alt": "Zaman Kuryesi geçmişten bugüne böyle sorular taşıyor. Bu yolculuğu sevdiysen abone ol.",
+   "kaynak": "abone çağrısı (doruktan hemen sonra, kısa)"
+  },
+  {
+   "id": "M13",
+   "bolum": "Sonumda başlangıcım",
+   "soru": null,
+   "tts": "Aynı yüzyılda, tahtını kendi isteğiyle bırakan bir imparator daha vardı. Onun hikâyesi ekranda.",
+   "alt": "Aynı yüzyılda, tahtını kendi isteğiyle bırakan bir imparator daha vardı. Onun hikâyesi ekranda.",
+   "kaynak": "bitiş ekranı: Şarlken (son 20 sn içinde)"
+  }
+ ],
+ "not": "tts: okunuş biçimi (yabancı adlar, rakamlar sözcükle); alt: altyazı. Kaynak kimlikleri kaynak/KAYNAKLAR.md"
+}

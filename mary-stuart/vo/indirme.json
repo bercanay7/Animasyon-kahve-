@@ -1,0 +1,122 @@
+{
+ "flow_id": "D1JWp9bP96TZERstmXM7",
+ "voice": "Emrullah",
+ "voice_id": "DpEiQMnL9WxMsymCsjPY",
+ "model": "eleven_v4",
+ "not": "18 Kasım 2026: kullanıcı ~30.000 kredi onayı verdi (13 bölüm × 2 çekim + okunuş testi).",
+ "cekimler": {
+  "test": {
+   "node": "G8Omu9OhkBqgbxodTTlJ",
+   "session": [
+    "ZZ88uEeHFQ02mRxQgP4Z",
+    "nMHAoSslddrHA01owpcK"
+   ],
+   "kredi": 772
+  },
+  "s00": {
+   "node": "4ApusXsZqnoRIsI581tX",
+   "session": [
+    "AzQGNL2WIurV2b0YwdlI",
+    "tQF1T36VK6zb239hEggx"
+   ],
+   "kredi": 1074
+  },
+  "s01": {
+   "node": "eEhZsPlOSIOQQMJ1sXk9",
+   "session": [
+    "NoRWg65TAJINPkmLMDOf",
+    "vIYWU0x8X8HlBZ9SoOTt"
+   ],
+   "kredi": 2134
+  },
+  "s02": {
+   "node": "p1TTPEkvBFlLHsr3oy2I",
+   "session": [
+    "TWbJ6xu6gDBBFgLG5Dsp",
+    "DX9CdJuXBcTf422ho1O9"
+   ],
+   "kredi": 1112
+  },
+  "s03": {
+   "node": "BFRaAyK1o7cWJkubXWec",
+   "session": [
+    "RJjn2S8DF28mLi9Yvg55",
+    "9Gs1gasttcfVgztrbBkT"
+   ],
+   "kredi": 2662
+  },
+  "s04": {
+   "node": "aDjmXd8a0XmkotAi1EpT",
+   "session": [
+    "5c1p6X9BmXEwQdeIqE2S",
+    "sbDWgN2PxIYPsKBQYLD5"
+   ],
+   "kredi": 2162
+  },
+  "s05": {
+   "node": "1vkzPTs6jI5tEYBpSrEq",
+   "session": [
+    "kZCLCRzlXiLwcVwfYtAX",
+    "zrYAKJ6gf51oWUwcCtTd"
+   ],
+   "kredi": 2948
+  },
+  "s06": {
+   "node": "bBKTaEzDT52bpslWWflB",
+   "session": [
+    "SIECx1rrdb9laEDLauZs",
+    "fByDQn2O6FMelqBbX4Zp"
+   ],
+   "kredi": 1504
+  },
+  "s07": {
+   "node": "3ndpIOcPeZi6KFTMkZT5",
+   "session": [
+    "eV4bOG3ehd0ow4HB44xK",
+    "2cxLFiRsQYhLjtaZ6818"
+   ],
+   "kredi": 2654
+  },
+  "s08": {
+   "node": "fQcZJwgPclOViXW2yevu",
+   "session": [
+    "sz1nzafKs04vF9o1XX6j",
+    "VWO8paL5kqIWcWgT2XyI"
+   ],
+   "kredi": 3244
+  },
+  "s09": {
+   "node": "LrIJxhJhOicgtWuTagAx",
+   "session": [
+    "NRxxSIVZ9jMQB2LjPjYn",
+    "hf9pkOJvf4V75vc3xj0v"
+   ],
+   "kredi": 2110
+  },
+  "s10": {
+   "node": "L7s9h6t0bC8jgOmAmtKw",
+   "session": [
+    "CKktFlVX8FiJ0YUyerI0",
+    "fAalilb2nPjOJYk9rmGZ"
+   ],
+   "kredi": 2064
+  },
+  "s11": {
+   "node": "1OaFh2xT0BpFkTr5sFg1",
+   "session": [
+    "YNf4ugNbAhkJmFP1hWCg",
+    "rV8sssUvGYLdtvlaz5ws"
+   ],
+   "kredi": 3530
+  },
+  "s12": {
+   "node": "l4RbgFXgVl2lLkcBDBOv",
+   "session": [
+    "pNQfseOpXNFRjpK3tSjf",
+    "bPk9iytgaHLPhv7lz2wI"
+   ],
+   "kredi": 2302
+  }
+ },
+ "toplam_kredi": 30272
+}
