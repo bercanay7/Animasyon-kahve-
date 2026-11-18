@@ -15,6 +15,7 @@ Kanalın ilk "Kitapların Sorduğu Sorular" videosu: Stefan Zweig'ın *Maria Stu
 - **Sessizliğe dayalı hizalama** iki cümleli satırlarda ve iki nokta duraklamalarında yanıldı (D10, I12–I13, I17, E12). Çözüm: satır alt cümlelere bölünerek hizalandı, kalan beş sınır sessizlik ölçümüyle elle zorlandı (`vo/sinir.json`). Whisper olsaydı gerekmezdi.
 - **Çizilmiş figürler yakın planda kaba.** Kural doğrulandı: yüz ve el gerçek gravürden; çizim uzak siluet.
 - **Hassasiyet görüntüde:** Finden gravürünün köşesindeki ek resim idam anını (balta) gösteriyordu; Fable'ın da işaret ettiği kırmızı lekeler kan gibi okunuyordu; dans sahnesindeki kalkık kollar selama, simetrik anka amblem kartalına benziyordu. Hepsi düzeltildi; ama ilk ikisi render başladıktan sonra fark edildi ve dört parça yeniden üretildi.
+- **Son render'dan sonra tam boy kare kontrolü iki kusur daha buldu:** soy çizgisi adların üstünden geçiyordu ("I. James" "ı. James" okunuyordu) ve kitabı kırmızıdan çıkaran dikdörtgen, eteğin içinde gri bir kutu gibi duruyordu. Altı parça yeniden üretildi, kapak B yenilendi. Çıkarma alanı nesnenin kendi biçimiyle çizilir, dikdörtgenle değil; çizgi ve ok yazının arasında kesilir.
 - **Dosya boyu:** film greni her karede değiştiği için usta kopya ~3 GB; teslim kopyaları ayrıca sıkıştırıldı.
 
 ## Sonraki videoya
