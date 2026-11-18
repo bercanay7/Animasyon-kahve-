@@ -75,7 +75,7 @@ function renderFrameTo(g, t) {
   SFC.theatre(g, 1920, 1080, GATE, Math.max(.3, FP.mean), 1);
   g.save(); g.beginPath(); g.roundRect(GATE.x, GATE.y, GATE.w, GATE.h, 22); g.clip();
   g.drawImage(dev, GATE.x, GATE.y);
-  if (o.ust) { g.save(); g.translate(GATE.x, GATE.y); try { o.ust(g, sta); } catch (e) { console.log('[ust ' + sh.id + '] ' + e.message); } g.restore(); }
+  if (o.ust && !window.SHORTS_UST_YOK) { g.save(); g.translate(GATE.x, GATE.y); try { o.ust(g, sta); } catch (e) { console.log('[ust ' + sh.id + '] ' + e.message); } g.restore(); }
   SFP.damage(g, GATE.x, GATE.y, FW, FH, frame, look.strength);
   if (o.iris != null && o.iris < 1) SFC.iris(g, 1920, 1080, GATE.x + (o.irisX ?? 720), GATE.y + (o.irisY ?? 540), o.iris * 900, 4);
   if (o.karart) { g.fillStyle = `rgba(8,7,6,${clamp(o.karart)})`; g.fillRect(GATE.x, GATE.y, FW, FH); }

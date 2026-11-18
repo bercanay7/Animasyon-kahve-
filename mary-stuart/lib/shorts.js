@@ -1,6 +1,7 @@
 // Shorts (Mary Stuart): filmden kesitler (shorts/edl.json), dikey 1080×1920. Kare: film kadrajının ortası (810×1080 → 1080×1440).
 // Üstte kanca yazısı (kapak B'nin sözü, ilk saniyeden), altta sözcük vurgulu altyazı; sonda kanal kartı.
 'use strict';
+window.SHORTS_UST_YOK = true;   // filmin üst katmanı (künye, etiket) dikey kırpmada kesik kalıyordu; Shorts kendi künyesini yazar
 let EDL = null; fetch('shorts/edl.json').then(r => r.json()).then(j => { EDL = j; });
 const SC = document.getElementById('s'), sg = SC.getContext('2d');
 const ALT = {}; fetch('senaryo.json').then(r => r.json()).then(j => { for (const s of j.segments) ALT[s.id] = s.alt; });
