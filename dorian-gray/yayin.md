@@ -1,6 +1,6 @@
 # Dorian Gray'in Portresi: yayın adımları (YouTube Studio, bilgisayardan)
 
-1. **Yükle:** `dorian-gray.mp4` (yüksek kalite). Yüklemeden önce dosya adını `dorian-gray-in-portresi-oscar-wilde.mp4` yap. Telefonda izleme kopyası ayrı (`dorian-gray_telefon.mp4`); onu yükleme.
+1. **Yükle:** `dorian-gray.mp4` (yüksek kalite). Yüklemeden önce dosya adını `dorian-gray-in-portresi-oscar-wilde.mp4` yap. Telefonda izleme kopyası ayrı (`dorian_gray_telefon.mp4`); onu yükleme.
 2. **Ayrıntılar:** başlık, açıklama, etiketler `youtube.md`'den. Bölüm damgaları açıklamada (0:00 ile başlar; 9 bölüm, her biri ≥ 10 sn). Açıklamadaki "Kanalda ayrıca: Kafka …" satırının sonuna Kafka videosunun bağlantısını ekle.
 3. **Kapak ("Test ve karşılaştır"):** iki ayrı vaat, iki ayrı kompozisyon:
    - **A** `kapak/kapak_a.jpg` ("KİMSE GÖRMEDİ", ortadan başlamak): kilitli odada bir el örtünün köşesini kaldırıyor; altında renkli tuvalde çökmüş yüzün bir gözü. Soru: örtünün altında ne var? Film bu odayla açılır (0:00, el perdede).
