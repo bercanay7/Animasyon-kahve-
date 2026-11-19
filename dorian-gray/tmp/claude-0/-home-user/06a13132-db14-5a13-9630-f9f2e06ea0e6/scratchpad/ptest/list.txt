@@ -1,0 +1,2 @@
+file '/home/user/Animasyon-kahve-/dorian-gray/tmp/claude-0/-home-user/06a13132-db14-5a13-9630-f9f2e06ea0e6/scratchpad/ptest/c000.mp4'
+file '/home/user/Animasyon-kahve-/dorian-gray/tmp/claude-0/-home-user/06a13132-db14-5a13-9630-f9f2e06ea0e6/scratchpad/ptest/c001.mp4'

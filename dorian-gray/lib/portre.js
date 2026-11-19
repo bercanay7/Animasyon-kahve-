@@ -46,7 +46,7 @@ window.PORTRE = {
   ciz, BOYA,
   hazir: (async () => {
     await document.fonts.load('italic 600 21px "Cormorant Garamond"', 'BASIL HALLWARD');
-    gl = document.createElement('canvas'); E = new Impasto(gl, { W, H, ss: 2 });
+    gl = document.createElement('canvas'); E = new Impasto(gl, { W, H, ss: +(new URLSearchParams(location.search).get('ss') || 2) });
     for (const d of Object.keys(PC.DUR)) PL[d] = levhaYap(d);
     window.PORTRE.darbe = Object.fromEntries(Object.entries(PL).map(([k, v]) => [k, v.n]));
     return true;
