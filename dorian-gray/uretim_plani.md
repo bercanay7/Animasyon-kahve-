@@ -1,6 +1,6 @@
 # Oscar Wilde, *Dorian Gray'in Portresi*: üretim planı
 
-Başlangıç: 19 Kasım 2026. Seri: Kitapların Sorduğu Sorular. Yayın hedefi: 30 Kasım 2026 (en geç 29 Kasım'da yüklemeye hazır).
+Başlangıç: 19 Kasım 2026. Seri: Kitapların Sorduğu Sorular. Yayın hedefi: 30 Kasım 2026 (en geç 29 Kasım'da yüklemeye hazır). **Durum (19 Kasım akşamı):** senaryo, seslendirme, 94 planlık film, müzik ve miks, iki kapak, yayın metinleri hazır; render sürüyor, ardından Fable son yorumu.
 
 **Çalışma düzeni (kullanıcının kararı, 19 Kasım):** bağımsız kurul, puanlama ve çok ajanlı akış yok. Başkan işi tek başına yapar ve denetler; CLAUDE.md ölçütleri ve kanal kuralları aynen geçerli. Fable'a yalnız takılınan yerde tek soru, tek cevap (her danışma aşağıdaki "Fable danışmaları" bölümüne konu ve gerekçesiyle yazılır). Render ve kapaklardan sonra, yayından önce Fable bütün işi bir kez yorumlar; bulgular `geriye_bakis.md`'ye.
 
@@ -142,3 +142,27 @@ Kullanıcının cevapları: çeviri İş Bankası Kültür Yayınları (Hasan Â
 - **Seçim:** bütün bölümlerde "a" (`vo/secim.json`); zamanlar Scribe kelime zamanlarından. "b" çekimleri sessizlik hizalamasında da temiz (`vo/oneri/`), yedek.
 - **Anlatım izi:** `vo/vo.wav` **8:16,1**, `timeline.js`, altyazı `dorian-gray.tr.srt` (135 satır). Kontroller: hikâye B01'de **0:24**'te başlıyor (kural ≤0:45); "ekranda" **8:01,9**'da, bitiş ekranı 7:56,1'de başlıyor (son 20 sn içinde).
 - **Kulakla bakılacaklar (kullanıcı):** "Dorian Grey" ve "Oskar Vayld" okunuşu; B06 dilek ("[pleading]") ve G08–G11 doruk tonu; "Evet, vicdandı." duraklaması.
+
+## 9. Film (19 Kasım)
+- **94 plan** (`planlar.json`, ölçekli; ardışık iki plan aynı ölçekte değil), her biri cümleye ya da sözcüğe bağlı. Görsel kurallar: Dorian'ın yüzü yalnız portrede; renk yalnız tabloda (ve dergi sayfasındaki dilek vurgusunda); cinayet ve ölüm gölgeyle, kan yok, yerdeki adam yalnız yüzüklü bir el.
+- **Kurgu özeti iki tur** (`tools/ozet.js`, her plandan bir kare): 1. turda 13 zayıf plan, 2. turda 8 plan yeniden çizildi (opera locaları, ev dışı, duvardaki gölgeler, sarı kitap, yerdeki el, anahtar, kalabalık, avukat). Salona şamdan ışığı eklendi.
+- **Hassasiyet taraması tam boy karede:** dergi sayfası (P017) dilek satırını hiç göstermiyordu, "kendimi öldürürüm" satırı zaten kadraj dışındaydı; kırpma dilek paragrafına alındı, "For this—for this—I would give everything!" fosforlu kalem gibi vurgulanıyor (çarpma karışımı: yazı solmaz). Bıçak, gölgeler, kalabalık, Sibyl sahneleri: kan yok, dinî simge yok, selam gibi okunan poz yok.
+
+## 10. Ses (19 Kasım)
+- **Müzik** `audio/score.py` (özgün, numpy sentezi; çalgılar Mary Stuart'taki kendi piyano/armonyumumuz): PORTRE müzik kutusu motifi (tablo değiştikçe triton ile bozulur), re majör VALS (yıllar geçince si minöre ve yavaşa döner), SIBYL ezgisi (kötü oynadığı gece yarıda kalır), HENRY armonyumda kromatik iniş. İki sessizlik: E09 cinayetten sonra (1,8 sn) ve G08 bıçaktan sonra "çığlık" boyunca (3,2 sn).
+- **Hata ve düzeltme:** piyano sentezinde alçak notada sönüm negatife düşüp sinyali patlatıyordu (müzik baştan sona -180 dB çıktı). `dec = max(.3, …)` ile düzeltildi. Aynı hata Mary Stuart'ta da vardı (`geriye_bakis.md`).
+- **Efekt** `audio/efekt.py`: saat, bahçe kuşları, palet bıçağı, tiyatro uğultusu ve seyrek alkış (ikinci gece), merdiven, örtü, kapı, anahtar, sokakta nal ve rüzgâr, gaz lambası, şömine, perde yırtılması, boğuk düşüş (bıçak sesi yok), mahkeme uğultusu, sayfa. Çığlık duyulmaz: sessizlik taşır.
+- **Miks** `tools/mix_ffmpeg.py 13 17`: **−14,3 LUFS, tepe −1,5 dBFS**.
+
+## 11. Kapaklar (19 Kasım; `lib/kapak.js`, `tools/kapak.js`, `kapak/`)
+- **A "KİMSE GÖRMEDİ"** (ortadan başlamak): kilitli odada bir el örtünün köşesini kaldırıyor, altında renkli tuvalde çökmüş yüzün bir gözü. Harf yüksekliği %19. Filmin ilk karesiyle aynı oda ve el.
+- **B "HER ŞEY BİR CÜMLEYLE BAŞLADI"** (A B'yi etkiliyor): Henry'nin ağzındaki sigaranın dumanı Dorian'ın kulağına, arkada genç portre. Kanalın ilk 4 kelimelik kapak yazısı denemesi (Eden çalışması); harf yüksekliği %12 (iki satırda %18'e sığmıyor; deneme bilerek yapıldı).
+- Elenen ilk taslaklar: A'da oda fazla aydınlık ve lamba ikinci odak; B'de duman portrenin yüzünü kesiyordu (bıçak gibi okunur), Henry'nin uzanan kolu Dorian'a dokunuyor gibiydi (yakınlık hassasiyeti). "ONU BİR CÜMLE BOZDU" yazısı "bozmak" fiilinin argo anlamı yüzünden kullanılmadı.
+- Test: 246/168/120 px küçültmeler, gri değer, açık akış + süre rozeti taklidi, `araclar/kapak/odak.py` (`kapak/test/`). A'da göz önce yazıya, sonra yüze gidiyor; B'de tek odak portre.
+
+## 12. Render ve teslim
+- `render.js` (Narkissos'tan; yerel http sunucusu, 4 işçi, hareket bulanıklığı yok, portre `?ss=1.5`). Portreli kareler 2–7 sn, ötekiler 0,3–1 sn.
+- 19 Kasım öğleden sonra render, Mary Stuart'ın düzeltilmiş kopyası için durduruldu (bitmiş parçalar önbellekte) ve sonra sürdürüldü.
+
+## Fable danışmaları
+- Üretim sırasında yok (takılınan yer olmadı). Son yorum `geriye_bakis.md`'de.
