@@ -76,9 +76,10 @@ P('P003', (ctx, st) => levha(ctx, CAM(960, 540 - 30 * st.p, 1 + .05 * st.p), () 
 // P004 A02@sordu: Lippincott başlık sayfası
 P('P004', (ctx, st) => { SET.belge(ctx, 'lippBaslik', CAM(960, 520 - 40 * st.p, 1.12 + .06 * st.p), 600, 40, 720, { kirp: [40, 40, 940, 1300] }); }, { over: null });
 // P017 B07: Lippincott s.19, dilek paragrafı (intihar satırı kadraj dışında)
-P('P017', (ctx, st) => { const sx = [60, 330, 920, 330]; SET.belge(ctx, 'lippDilek', CAM(960, 470, 1.0 + .06 * st.p), 160, 300, 1600, { kirp: sx });
-  const u = io(p01(st, .8, 4)); ctx.save(); ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.globalCompositeOperation = 'multiply'; ctx.fillStyle = 'rgba(40,30,20,.35)';
-  ctx.fillRect(0, 0, DW, DH); ctx.globalCompositeOperation = 'screen'; ctx.fillStyle = `rgba(255,240,200,${.35 * u})`; ctx.fillRect(160 * RS, 560 * RS, 1600 * RS * u, 110 * RS); ctx.restore(); }, { over: null });
+P('P017', (ctx, st) => { const sx = [60, 512, 920, 190]; SET.belge(ctx, 'lippDilek', CAM(960, 540, 1.0 + .05 * st.p), 160, 375, 1600, { kirp: sx });
+  // dilek: "For this—for this—I would give / everything!" (Lippincott 1890, s.19); "kill myself" satırı kadraj dışında
+  const u = io(p01(st, .6, 2.6)), v = io(p01(st, 2.6, 3.2)); ctx.save(); ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.globalCompositeOperation = 'multiply'; ctx.fillStyle = 'rgba(40,30,20,.35)'; ctx.fillRect(0, 0, DW, DH);
+  ctx.fillStyle = 'rgb(255,214,130)'; ctx.fillRect(845 * RS, 610 * RS, 695 * u * RS, 48 * RS); ctx.fillRect(176 * RS, 660 * RS, 228 * v * RS, 48 * RS); ctx.restore(); }, { over: null });
 // P018 B07@Vayld: 1890 / 1891 iki satır
 P('P018', (ctx, st) => { levha(ctx, CAM(960, 540, 1), () => { kagitArka(); INSAN.fill(SET.R(260, 220, 1400, 640), .9, { th: 0, id: 10 }); }, [.07, 0, 0]); }, {
   over: (ctx, st) => { const c = `rgb(${GR.INK})`; txt(ctx, '1890', 520, 420, { px: 72, col: c, a: clamp(st.lt / .5) }); quote(ctx, '“…her şeyi verirdim!”', 1080, 420, st.lt, { px: 64, col: c, panel: false });
