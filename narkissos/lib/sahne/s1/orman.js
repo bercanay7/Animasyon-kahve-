@@ -58,10 +58,13 @@
     const r = S1.eko(L, { x: px + 190, gy: 440 + 37 * 28 + 44.5 * 28, s: 28, dir: -1, p: { blink: 1 - ramp(t, tB - .05, tB + .2, E.out3), neck: .05, head: .05 } });
     const e = headPt(L, r.J, r.M, [3.9, -7.05]);
     // yaprak gölgesi yalnız figürün üstünde: yüz karanlık, göz çevresi seçilir
-    L.globalCompositeOperation = 'source-atop'; const g = L.createRadialGradient(e[0], e[1], 20, e[0], e[1], 190); // Fable tur 1: göz küçük kalıyordu → gözün çevresi açık, yüz yaprak gölgesinde g.addColorStop(0, 'rgba(8,4,2,0)'); g.addColorStop(.16, 'rgba(8,4,2,.08)'); g.addColorStop(.4, 'rgba(8,4,2,.8)'); g.addColorStop(1, 'rgba(8,4,2,.96)');
+    // Fable tur 1: göz küçük kalıyordu ve kör okur "bedensiz dev yüz" gördü → gözün çevresi açık, yüzün geri kalanı yaprak gölgesinde (yalnız göz seçilir)
+    L.globalCompositeOperation = 'source-atop'; const g = L.createRadialGradient(e[0], e[1], 20, e[0], e[1], 210);
+    g.addColorStop(0, 'rgba(8,4,2,0)'); g.addColorStop(.2, 'rgba(8,4,2,.1)'); g.addColorStop(.45, 'rgba(8,4,2,.82)'); g.addColorStop(1, 'rgba(8,4,2,.97)');
     L.fillStyle = g; L.fillRect(-500, -500, 3000, 2500);
+    if (ac < 1) { L.fillStyle = `rgba(8,4,2,${(.92 * (1 - ac)).toFixed(3)})`; L.fillRect(-500, -500, 3000, 2500); } // 'biri'ye kadar yüz gölgede (geyik ve koşu öne çıkar)
     // yalnız baş görünür: yaprakların arasından (yumuşak kenarlı maske)
-    L.globalCompositeOperation = 'destination-in'; const g2 = L.createRadialGradient(e[0] - 40, e[1] + 20, 90, e[0] - 40, e[1] + 20, 340); g2.addColorStop(0, '#000'); g2.addColorStop(1, 'rgba(0,0,0,0)');
+    L.globalCompositeOperation = 'destination-in'; const g2 = L.createRadialGradient(e[0] - 30, e[1] + 10, 70, e[0] - 30, e[1] + 10, 250); g2.addColorStop(0, '#000'); g2.addColorStop(1, 'rgba(0,0,0,0)');
     L.fillStyle = g2; L.fillRect(-500, -500, 3000, 2500); L.globalCompositeOperation = 'source-over';
     ctx.save(); ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.drawImage(LY.s1eko, 0, 0); ctx.restore();
     for (let i = 0; i < 5; i++) S1.dal(ctx, 1980 - i * 40 + 70 * ac * (i % 2 ? 1 : -.3), 160 + i * 150 + (160 + i * 150 < 360 ? -120 : 130) * ac, 1.9, PI + (i - 2) * .25 + ac * (i % 2 ? -.25 : .2), t, 90 + i, { koyu: true, L: 320, leaf: 50 });
@@ -152,7 +155,7 @@
   plan('P023', (ctx, st) => {
     const t = st.t, tG = PE('P023', 0), tG2 = PE('P023', 1), tBu = PE('P023', 2), gy = 920, s = 7.4;
     baseT(ctx); camAt(ctx, lerp(940, 1020, E.sine(st.p)), 520, 1.0);
-    S1.orman(ctx, t, { gy, trees: [[150, 2.3, 3], [1700, 2.4, 5], [2150, 2.1, 11]], far: UZAK });
+    S1.orman(ctx, t, { gy, trees: [[150, 2.3, 3], [1880, 2.4, 5], [2250, 2.1, 11]], far: UZAK }); // Fable tur 1: kırmızı GEL yaprakların üstündeydi → sağ ağaç geride, yankı ağaçla genç arasındaki boşlukta
     const turn = t > tG2 + .25;
     const f0 = { x: 900, y: gy - 44.5 * s, s, dir: -1, sty: STY.red, lk: LK_NK, seed: 23, p: { headBack: turn, headBackA: .05 } };
     const { J, M } = joints(ctx, f0);
@@ -162,7 +165,7 @@
     // GEL! sola (ağaçlara)
     if (!turn || t < tG2 + .8) sozSola(ctx, 'GEL!', m[0] - 40, m[1] - 20, 64, ramp(t, tG, tG + .3, E.out2) * (1 - ramp(t, tG2 + .2, tG2 + .8, E.io2)), { col: S1.KIL });
     // yankı: sağdaki ağaçların arasından
-    if (t > tG2) S1.yanki(ctx, 'GEL!', 1660, 600, t, tG2, { dx: -1, px: 64, dt: .4, reps: ['GEL!', 'gel', 'el'], life: 2.2 });
+    if (t > tG2) S1.yanki(ctx, 'GEL!', 1560, 560, t, tG2, { dx: -1, px: 64, dt: .35, reps: ['GEL!', 'gel'], life: 1.5 }); // kısa ömür: sönen tekrarlar gencin bedenine binmez
     // başını çevirdi: BURADA BULUŞALIM! sağa
     if (turn) { const nk = jointPt(ctx, M, J.neckT), xm = 2 * nk[0] - m[0] + 40;
       S1.yolYazi(ctx, 'BURADA BULUŞALIM!', S1.konusmaYolu(xm, m[1] - 20, -.1, 1100, t, { amp: 10 }), ramp(t, tBu - .05, tBu + 1.1, E.lin), { px: 50, col: S1.KIL }); }
@@ -190,11 +193,11 @@
     const geri = ramp(t, tB, tB + .8, E.io2);
     NK({ ctx, x: 560, gy, s, dir: 1, p: { torso: -.12 * geri, neck: -.1 * geri, head: -.06 * geri, shF: -.3, elF: -.4 } });
     // Fable tur 1: mızrak başın önünden geçiyordu → arkada, yere dayalı ve geriye yatık
-    spear(ctx, [455, gy - 1 * s], -1.82, 62 * s, s * .9);
+    { const ang = -1.82, L = 62 * s; spear(ctx, [455 + Math.cos(ang) * L * .45, gy - 1 * s + Math.sin(ang) * L * .45], ang, L, s * .9); } // dip ucu yerde (yerin altına inmez)
     // kollar dümdüz ("uyurgezer") değil: açık yay, dirsekler bükük, iki kol farklı; koşu x·yön mesafesiyle (ayak kaymaz)
     const kol = ramp(t, tK - .15, tK + .5, E.out3);
     walkScene(ctx, null, xw, s, t, -1, { ground: groundOf(() => gy), noCam: true, sty: S1.RFF, lk: S1.LK_EKO, stride: 44, stand, stripe: .45, lean: .18 * (1 - stand),
-      p: { smile: 1.2, shN: lerp(.2, 1.25, kol), elN: lerp(.5, .75, kol), shF: lerp(-.2, .95, kol), elF: lerp(.4, .95, kol), wrN: -.2 * kol, handN: 'open', handF: 'open' } });
+      p: { smile: 1.2, shN: lerp(.2, 1.4, kol), elN: lerp(.5, .95, kol), shF: lerp(-.2, .6, kol), elF: lerp(.4, .75, kol), wrN: -.2 * kol, handN: 'open', handF: 'open' } }); // kucak açık: yakın kol omuz hizasında, uzak kol aşağıda, dirsekler bükük; iki kol paralel değil (uyurgezer okunmaz)
   }, { mb: 6 });
 
   // ---- P026 · orta · C07: Narkissos geri çekilir, eliyle iter; ANCAK BEN ÖLÜNCE BANA SAHİP OLURSUN; 'olursun'da döner, kaçar ----
@@ -250,11 +253,12 @@
   // ---- P028 · ayrıntı · C09 · LEVHA: havada asılı BANA SAHİP OLURSUN; 'tut'ta parlar, 'sahibine'de ağaçların arasından uzaklaşır, 'dönecek'te son harf uzakta bir su yüzüne düşer ve yansır ----
   plan('P028', (ctx, st) => {
     const t = st.t, tT = PE('P028', 0), tS = PE('P028', 1), tD = PE('P028', 2);
-    baseT(ctx); glaze(ctx, 1300, 700, 1300, 'rgba(110,46,22,.45)');
+    baseT(ctx); glaze(ctx, 1300, 700, 1500, 'rgba(160,70,32,.62)'); // Fable tur 1: çok karanlıktı → zemin değeri yükseldi (sıcak ışık, yer bandı, ağaçlar daha belirgin)
     const u = ramp(t, tS - .1, tD + .2, E.io2);
     camAt(ctx, lerp(900, 1160, u) + 60 * E.sine(st.p), 540, lerp(1.0, 1.05, E.sine(st.p)));
     // derinlik: uzak ağaçlar (soluk), uzakta küçük su yüzü
-    for (const [x, sc, sd] of [[200, 1.1, 31], [700, .9, 33], [1250, 1.0, 35], [1900, .85, 37], [2400, 1.0, 39]]) { ctx.save(); ctx.globalAlpha = .45; vaseTree(ctx, x, 820, sc, sd, t, { fill: '#7A3D20' }); ctx.restore(); }
+    for (const [x, sc, sd] of [[200, 1.1, 31], [700, .9, 33], [1250, 1.0, 35], [1900, .85, 37], [2400, 1.0, 39]]) { ctx.save(); ctx.globalAlpha = .75; vaseTree(ctx, x, 820, sc, sd, t, { fill: '#8E4826' }); ctx.restore(); }
+    groundBand(ctx, 820, -3000, 6000, { h: 1400 });
     const wy = 820, pool = c => c.ellipse(1720, wy + 14, 170, 18, 0, 0, TAU);
     ctx.save(); ctx.beginPath(); pool(ctx); ctx.fillStyle = '#050302'; ctx.fill(); ctx.lineWidth = 2.5; ctx.strokeStyle = PC.clayR; ctx.stroke(); ctx.restore();
     // yazı: yakında büyük, 'sahibine'de uzaklaşır (küçülür, sağa ve aşağı)

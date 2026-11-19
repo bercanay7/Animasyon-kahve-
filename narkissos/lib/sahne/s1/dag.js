@@ -15,6 +15,26 @@
     const h = lerp2(kalca, yuz, E.io2(ortu));
     const f = { ...f0, ik: { ...f0.ik, hN: h }, alpha: o.alpha };
     figure(ctx, f);
+    // Fable tur 1: oturunca etek "saydam" okunuyordu (bacaklar eteğin içinden görünüyor) → otururken kucağa ve dizden aşağı dökülen dolu etek (ayaklar dışarıda)
+    const ea = clamp((sit - .25) / .45);
+    if (ea > 0) { const J2 = joints(ctx, f).J, M2 = joints(ctx, f).M, P = q => jointPt(ctx, M2, q);
+      const H = P(J2.hip), K = P(J2.LN.knee), A = P(J2.LN.ank), K2 = P(J2.LF.knee), Kx = Math.max(K[0], K2[0]), Ky = Math.min(K[1], K2[1]), u = s;
+      // kucak → dizin önü (yuvarlak) → dizden etek ucuna dökülen kumaş; dizle oturak arasında asılı kumaş (vazo resminde oturan kadın)
+      ctx.save(); ctx.globalAlpha *= ea * (o.alpha ?? 1); ctx.beginPath();
+      ctx.moveTo(H[0] - 9 * u, H[1] - 6 * u);
+      ctx.quadraticCurveTo(H[0] + 2 * u, H[1] - 9.5 * u, Kx - 2 * u, Ky - 5.2 * u);
+      ctx.quadraticCurveTo(Kx + 5.5 * u, Ky - 4.8 * u, Kx + 5.4 * u, Ky + 1.5 * u);
+      ctx.quadraticCurveTo(A[0] + 4.6 * u, lerp(Ky, A[1], .6), A[0] + 6.2 * u, A[1] - 2.4 * u);
+      ctx.quadraticCurveTo(A[0], A[1] - 1.2 * u, A[0] - 7.5 * u, A[1] - 2.2 * u);
+      ctx.quadraticCurveTo(lerp(H[0], A[0], .5), lerp(H[1], A[1], .55), H[0] - 2 * u, H[1] + 8 * u);
+      ctx.quadraticCurveTo(H[0] - 8 * u, H[1] + 8 * u, H[0] - 10 * u, H[1] + 3 * u);
+      ctx.closePath();
+      ctx.fillStyle = S1.LK_EKO.robeCol; ctx.fill(); ctx.lineJoin = 'round'; ctx.lineWidth = .45 * u; ctx.strokeStyle = C.ink; ctx.stroke();
+      // kıvrımlar: dizden etek ucuna, uyluk üstünde iki uzun kıvrım; etek ucunda kırmızı bant
+      ctx.lineWidth = .26 * u; ctx.lineCap = 'round';
+      for (let i = 0; i < 5; i++) { const v = (i + .5) / 5; ctx.beginPath(); ctx.moveTo(lerp(Kx - 4 * u, Kx + 4 * u, v), Ky + 1.5 * u); ctx.quadraticCurveTo(lerp(Kx - 5 * u, Kx + 4.6 * u, v), lerp(Ky, A[1], .55), lerp(A[0] - 6.2 * u, A[0] + 4.8 * u, v), A[1] - 3.6 * u); ctx.stroke(); }
+      for (let i = 0; i < 2; i++) { ctx.beginPath(); ctx.moveTo(H[0] - 2 * u, H[1] - (3 - 3 * i) * u); ctx.quadraticCurveTo(lerp(H[0], Kx, .5), lerp(H[1], Ky, .5) - (4 - 2.5 * i) * u, Kx - 3 * u, Ky - (2 - 2 * i) * u); ctx.stroke(); }
+      ctx.lineWidth = 1.3 * u; ctx.strokeStyle = C.red; ctx.beginPath(); ctx.moveTo(A[0] - 6.8 * u, A[1] - 3.4 * u); ctx.quadraticCurveTo(A[0], A[1] - 2.6 * u, A[0] + 5.6 * u, A[1] - 3.6 * u); ctx.stroke(); ctx.restore(); }
     // yapraklı dal: elden yukarı; örtünce yaprak kümesi yüzün önünde (yalnız yüz)
     S1.dal(ctx, h[0] - 4, h[1] + 6, s / 6.2, lerp(-1.0, -1.62, ortu), t, 77, { L: 130, leaf: 44, n: 8, bend: .6 });
     return { f, J, M, yuz };
@@ -80,14 +100,15 @@
   plan('P031', (ctx, st) => {
     const t = st.t, tG = PE('P031', 0), tH = PE('P031', 1), tD = PE('P031', 2);
     baseT(ctx); glaze(ctx, 1100, 800, 1400, 'rgba(110,46,22,.38)');
+    glow(ctx, 1100, 330, 1300, 'rgba(230,140,80,.32)'); // Fable tur 1: çok karanlıktı → dağların ardında sıcak gök, yamaçlar bir değer açık
     camAt(ctx, lerp(720, 1280, ramp(t, st.at, st.end, E.sine)), 540, lerp(1.0, 1.05, ramp(t, st.at, st.end, E.sine)));
-    crag(ctx, [[-800, 900], [-300, 420], [300, 330], [700, 470], [1200, 300], [1700, 380], [2300, 290], [2900, 520], [2900, 900]], { fill: '#2E150A', seed: 41, wob: 16, strata: 3, lobes: 3 });
-    crag(ctx, [[-800, 900], [-200, 560], [400, 520], [900, 640], [1400, 540], [2000, 600], [2700, 520], [2900, 900]], { fill: '#43200F', seed: 43, wob: 14, strata: 3, lobes: 3 });
-    crag(ctx, [[-800, 1000], [-100, 720], [600, 700], [1100, 780], [1700, 700], [2400, 760], [2900, 1000]], { fill: '#5A2C16', seed: 45, wob: 12, strata: 4, lobes: 3 });
+    crag(ctx, [[-800, 900], [-300, 420], [300, 330], [700, 470], [1200, 300], [1700, 380], [2300, 290], [2900, 520], [2900, 900]], { fill: '#4E2614', seed: 41, wob: 16, strata: 3, lobes: 3 });
+    crag(ctx, [[-800, 900], [-200, 560], [400, 520], [900, 640], [1400, 540], [2000, 600], [2700, 520], [2900, 900]], { fill: '#6A3319', seed: 43, wob: 14, strata: 3, lobes: 3 });
+    crag(ctx, [[-800, 1000], [-100, 720], [600, 700], [1100, 780], [1700, 700], [2400, 760], [2900, 1000]], { fill: '#86431F', seed: 45, wob: 12, strata: 4, lobes: 3 });
     YAZ.forEach(([s, x, y, px], i) => {
       const t0 = i < 1 ? st.at + .4 : i < 2 ? tG - .2 : tH + (i - 2) * .22;
       const a = ramp(t, t0, t0 + .35, E.out3) * (1 - ramp(t, Math.max(t0 + .9, i === YAZ.length - 1 ? tD : t0 + .9), Math.max(t0 + 1.8, tD + .6), E.io2)) * Math.pow(.82, i);
-      if (a > .01) txtDipinto(ctx, s, x, y, px, 1, { col: S1.KIRMIZI, a });
+      if (a > .01) txtDipinto(ctx, s, x, y, px, 1, { col: '#F06A44', a }); // açılan yamaçlarda okunur kalsın diye bir ton parlak kırmızı
     });
   });
 })();

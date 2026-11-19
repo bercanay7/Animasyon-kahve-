@@ -20,7 +20,7 @@
       p: { torso: lerp(.14, -.04, push), neck: .1, head: .05, hipN: .12, knN: .05, hipF: -.12, knF: .04, shN: lerp(-1.1, -.5, push), elN: .4, shF: lerp(-.9, -.3, push), elF: .5, handN: 'open', handF: 'open', smile: -.2 } });
     // Narkissos geri çekilir, eliyle iter
     figure(ctx, { x: 1180, y: gy - 43 * 4.2, s: 4.2, dir: -1, sty: S2_SEP, lk: { ...LK_NK, khiton: { col: '#A9805A', edge: 1.3, sleeve: false } }, seed: 58, idle: .5, alpha: .85,
-      p: { torso: -.16 * push, neck: -.15 * push, head: -.25 * push, hipN: -.18, knN: .06, hipF: .22, knF: .1, shN: 1.0 * push, elN: .55 * push, wrN: -1.5 * push, shF: .2, elF: .6, handN: 'open', handF: 'flat', mouthOpen: tO > t && t > tA - .1 ? .6 : 0 } });
+      p: { torso: -.16 * push, neck: -.15 * push, head: -.2 * push, hipN: -.18, knN: .06, hipF: .22, knF: .1, shN: 1.15 * push, elN: -.45 * push, wrN: 1.5 * push, shF: .2, elF: .6, handN: 'open', handF: 'flat', mouthOpen: tO > t && t > tA - .1 ? .6 : 0 } });
     // dipinto (tur 2): iki satır, ortada; 'SAHİP' P056'daki ekran yerinde (S2_SAHIP), yazı kenara ve yaprakların üstüne taşmaz. olursun'da pınara (sağa) uçar
     const fly = ramp(t, tO + .1, tO + 1.2, E.in2), wr = ramp(t, tA - .05, tO + .1, E.lin);
     const L1 = 'ANCAK BEN ÖLÜNCE', L2a = 'BANA ', L2 = 'BANA SAHİP OLURSUN', n1 = [...L1].length, n2 = [...L2].length, k = wr * (n1 + n2);

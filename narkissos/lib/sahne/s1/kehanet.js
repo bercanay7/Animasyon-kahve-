@@ -58,5 +58,5 @@
     const bx = lerp(1880, 2180, ce), by = 640;
     S1.bebek(ctx, bx, by, 9, -.1, -1);
     ctx.save(); ctx.translate(bx + 70, by + 50); ctx.rotate(-.3); ctx.beginPath(); ctx.ellipse(0, 0, 70, 22, 0, 0, TAU); ctx.fillStyle = PC.clayR; ctx.fill(); ctx.strokeStyle = C.ink; ctx.lineWidth = 3; ctx.stroke(); ctx.restore();
-  }, { over: (ctx, st) => kunye(ctx, 'Ovidius, Dönüşümler III 348 · si se non noverit', st.lt - 2.2, 99) });
+  }, { over: (ctx, st) => kunye(ctx, 'Ovidius, Dönüşümler III 348 · si se non noverit', st.lt - 2.2, 99, { x: 1800, align: 'right' }) }); // künye sağ altta: sol altta kâhinin gövdesine biniyordu (Fable tur 1)
 })();

@@ -3,7 +3,8 @@
 // Çocuk: 7–8 yaş oranı (baş büyük, boy gencin yarısı), kısa düz saç, alında bant yok, kemerli kısa tunik, elinde çember (trokhos). Arkadaşları baştan sona patikada.
 'use strict';
 (() => {
-  const LK_COC = { hair: 'short', garment: 'short', headS: 1.42, jaw: false };
+  // tur 2: kel manken okunuyordu: siyah sır kısa saç (rf + HAIR_MOD; modern: alında kırmızı bant çizilmez), kemerli kısa tunik (koyu kil), büyük baş
+  const LK_COC = { hair: 'short', rf: true, modern: true, hairPts: HAIR_MOD, noCurls: true, garment: 'short', headS: 1.5, jaw: false, khiton: { col: '#7E3920', edge: 1.2, sleeve: false } };
   const cocuk = (c, x, gy, s, t, p, dir = 1, o = {}) => figure(c, { x, y: gy - 43 * s * (o.bend ? .97 : 1), s, dir, sty: STY.red, lk: LK_COC, seed: o.seed ?? 86, idle: .6, stripe: .5, p });
   const cember = (c, x, y, r, a = 0) => { c.save(); c.strokeStyle = C.ink; c.lineWidth = 6; c.beginPath(); c.arc(x, y, r, 0, TAU); c.stroke(); c.strokeStyle = PC.clayR; c.lineWidth = 2.5; c.stroke();
     c.strokeStyle = C.ink; c.lineWidth = 3; c.beginPath(); c.moveTo(x - r * .2, y - r * .9); c.lineTo(x - r * 1.3 * Math.cos(a), y - r * 1.8); c.stroke(); c.restore(); };
@@ -14,10 +15,16 @@
     const bend = ramp(t, tB - .4, tB + .6, E.io2) * (1 - ramp(t, tH - .3, tH + .2, E.io2)), laugh = ramp(t, tK - .1, tK + .3, E.out2);
     const run = clamp((t - tH - .1) / (tO - tH + .4)), xr = lerp(980, 260, E.in2(run) * .5 + run * .5);
     baseT(ctx); glaze(ctx, 1000, 760, 1200, 'rgba(140,64,30,.45)');
-    camAt(ctx, ...camMix([1060 - 60 * ramp(t, st.at, tH, E.lin), 560, 1.05 + .04 * ramp(t, st.at, tH, E.lin)], [620, 520, 1.05], ramp(t, tH, tO + .3, E.io2)));
+    // tur 2: 'bakar, güler' yakında (kamera çocuğa ve yansımasına yaklaşır), 'gider'de geri çekilir: eylem büyür
+    const near = ramp(t, tB - .6, tB + .8, E.io2);
+    camAt(ctx, ...camMix(camMix([1060, 560, 1.05], [1010, 640, 1.75], near), [620, 520, 1.05], ramp(t, tH - .1, tO + .3, E.io2)));
     groundBand(ctx, gy, -800, 2600);
-    // patika (köye): arkada sola kıvrılır
-    ctx.save(); ctx.fillStyle = '#B9653A'; ctx.strokeStyle = 'rgba(14,9,7,.5)'; ctx.lineWidth = 2; ctx.beginPath(); ctx.moveTo(-300, gy + 2); ctx.bezierCurveTo(100, gy + 6, 500, gy + 30, 900, gy + 60); ctx.lineTo(980, gy + 60); ctx.bezierCurveTo(560, gy + 22, 160, gy + 8, -300, gy + 14); ctx.closePath(); ctx.fill(); ctx.stroke(); ctx.restore();
+    // patika (köye), tur 2: kıyı şeridinde soldan çocuğun yerine kadar uzanan açık toprak yol (ince çizgi anlaşılmıyordu); kenarları kesik çizgi, üstünde çakıl
+    ctx.save(); const pg = ctx.createLinearGradient(-300, 0, 1050, 0); pg.addColorStop(0, '#C47A4A'); pg.addColorStop(.85, '#B9653A'); pg.addColorStop(1, 'rgba(185,101,58,0)');
+    ctx.fillStyle = pg; ctx.beginPath(); ctx.moveTo(-300, gy + 4); ctx.lineTo(1050, gy + 10); ctx.lineTo(1050, gy + 52); ctx.lineTo(-300, gy + 56); ctx.closePath(); ctx.fill();
+    ctx.strokeStyle = 'rgba(14,9,7,.45)'; ctx.lineWidth = 2; ctx.setLineDash([18, 12]); for (const y of [gy + 8, gy + 52]) { ctx.beginPath(); ctx.moveTo(-300, y); ctx.lineTo(980, y + 2); ctx.stroke(); } ctx.setLineDash([]);
+    const pr = rng(861); ctx.fillStyle = 'rgba(90,44,22,.6)'; for (let i = 0; i < 26; i++) { ctx.beginPath(); ctx.ellipse(-260 + pr() * 1250, gy + 16 + pr() * 30, 4 + pr() * 5, 2 + pr() * 2, 0, 0, TAU); ctx.fill(); }
+    ctx.restore();
     // söğütler ve uzakta köy
     for (const [x, sc, sd] of [[1480, 1.7, 21], [1800, 1.4, 22], [-120, 1.5, 23]]) vaseTree(ctx, x, gy, sc, sd, t, { branches: 7, reach: 120 });
     city(ctx, -260, gy - 4, .7, '#3A1B0D', PC.clayR, 4);

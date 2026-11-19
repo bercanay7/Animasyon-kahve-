@@ -10,10 +10,10 @@ function s2_cam(st, c0, c1, e = E.sine) { return camMix(c0, c1, st.p, e); }
 // olay rampası: plan eylemi k'dan başlayıp d sn
 function s2_r(t, id, k, d = .6, off = 0, e = E.io2) { const a = PE(id, k, off); return ramp(t, a, a + d, e); }
 // bölüm kartı (yalnız başlık, 2–3 sn, sahnenin üstünde tek başına)
-function s2_bolum(ctx, s, lt, d = 2.6, x = W / 2) {
+function s2_bolum(ctx, s, lt, d = 2.6, x = W / 2, y = 170) {
   if (NOTEXT) return;
   const a = clamp(lt / .4) * clamp((d - lt) / .5); if (a <= 0) return;
-  txt(ctx, s, x, 170, { font: FONT.baslik(78, 700), px: 78, ls: 14, a: E.sine(a), panel: .7 });
+  txt(ctx, s, x, y, { font: FONT.baslik(78, 700), px: 78, ls: 14, a: E.sine(a), panel: .7 });
 }
 // figürü ayrı katmanda çizip ışık, soluma (fade 0..1), mermer (0..1) ile basar
 function s2_litFig(ctx, f, light, o = {}) {
@@ -153,7 +153,8 @@ function s2_yakin(ctx, t, o = {}) {
   const { J, M } = joints(ctx, f);
   const eye = headPt(ctx, J, M, EYE_Q);
   const lag = o.lag ?? refLag(t);
-  const fR = lag ? s2_dFig(ctx, t - lag, NT, T, o) : f;
+  let fR = lag ? s2_dFig(ctx, t - lag, NT, T, o) : f;
+  if (o.reflNoJaw) fR = { ...fR, lk: { ...fR.lk, jaw: false, earHidden: true } }; // tur 2 (P046): ters yansımada kulak ve çene kazıması sırıtma gibi okunuyordu
   const lock = T.ben != null ? ramp(t, T.ben, T.ben + .45, E.out3) : 0;
   const brk = T.hit != null ? ramp(t, T.hit, T.hit + .15, E.out2) * (1 - ramp(t, T.hit + .7, T.hit + 1.6, E.io2)) : 0;
   const refA = o.refA ?? (lerp(.44, .84, lock) + .26 * brk);
@@ -387,10 +388,11 @@ function s2_uzakKaya(c, x, wy) {
 }
 // ağıt yakan peri (ayakta, elleri başında: Yunan ağıt jesti; saç yolma yok). h 0..1 kollar kalkar
 const LK_PERI = { fem: true, hair: 'long', garment: 'robe', himation: true, robeCol: '#C9703F', himCol: '#8E2F1F' };
+const S2_TEN = { ...STY.red, white: '#DDA77B' }; // tur 2: kadın teni açık kil (beyaz ten kolları başörtü gibi okutuyordu); Eko'nun koyu hâli s2_eko'da
 function s2_peri(c, x, gy, s, t, seed, h, dir = 1, o = {}) {
-  return figure(c, { x, y: gy - 43 * s, s, dir, sty: STY.red, lk: LK_PERI, seed, idle: .6, stripe: .5, alpha: o.alpha,
+  return figure(c, { x, y: gy - 43 * s, s, dir, sty: S2_TEN, lk: LK_PERI, seed, idle: .6, stripe: .5, alpha: o.alpha,
     p: { torso: .02 + .04 * h, neck: .1 + .15 * h, head: .12 + .12 * h, hipN: .04, knN: .02, hipF: -.05, knF: .02,
-      shN: lerp(.1, -2.75, h), elN: lerp(.3, 2.2, h), shF: lerp(-.1, -2.55, h), elF: lerp(.3, 2.3, h), handN: 'flat', handF: 'flat' } });
+      shN: lerp(.1, -2.45, h), elN: lerp(.3, 2.05, h), shF: lerp(-.1, -2.3, h), elF: lerp(.3, 2.15, h), handN: 'flat', handF: 'flat' } });
 }
 // P073: ot yatağı yakın. part 0..1 peri otları aralar; gone 0..1 son nokta söner, el boş yere değer
 function s2_otYatak(ctx, t, st, part, gone, tA) {
@@ -409,14 +411,20 @@ function s2_otYatak(ctx, t, st, part, gone, tA) {
   ctx.restore();
   // ot tutamları (aralanır)
   for (let i = 0; i < 9; i++) { const x = 740 + i * 32, sp = part * (i < 4 ? -1 : 1) * 14; ctx.save(); ctx.translate(x + sp, gy - 2); grass(ctx, 0, 0, 2.6, t, 80 + i); ctx.restore(); }
-  // perinin kolu ve eli (beyaz ten: kadın), üstten iner; otları aralar, boş yere değer
-  const hx = lerp(820, 880, part), hy = lerp(380, 600 - 8 * (1 - gone), part);
-  if (part > .01) { ctx.save(); ctx.lineJoin = 'round';
-    const el = [hx - 130, hy - 170], sh = [hx - 170, hy - 330];
-    ctx.fillStyle = '#8E2F1F'; ctx.strokeStyle = C.ink; ctx.lineWidth = 3; ctx.beginPath(); ctx.moveTo(sh[0] - 70, sh[1] - 60); ctx.lineTo(sh[0] + 70, sh[1] - 60); ctx.lineTo(el[0] + 40, el[1] - 40); ctx.lineTo(el[0] - 40, el[1] - 30); ctx.closePath(); ctx.fill(); ctx.stroke();
-    ctx.fillStyle = '#D88A57'; ctx.beginPath(); ctx.moveTo(el[0] - 26, el[1] - 20); ctx.quadraticCurveTo(hx - 70, hy - 110, hx - 20, hy - 22); ctx.lineTo(hx + 8, hy - 10); ctx.quadraticCurveTo(hx - 40, hy - 120, el[0] + 26, el[1] - 34); ctx.closePath(); ctx.fill(); ctx.stroke();
-    ctx.beginPath(); ctx.moveTo(hx - 24, hy - 26); ctx.bezierCurveTo(hx - 10, hy - 6, hx + 28, hy - 4, hx + 40, hy + 2); ctx.lineTo(hx + 30, hy + 10); ctx.bezierCurveTo(hx + 8, hy + 8, hx - 20, hy + 6, hx - 32, hy - 8); ctx.closePath(); ctx.fill(); ctx.stroke();
-    for (let k = 0; k < 3; k++) { ctx.beginPath(); ctx.moveTo(hx + 4 + k * 9, hy - 4); ctx.lineTo(hx + 12 + k * 9, hy + 6); ctx.lineWidth = 1.6; ctx.stroke(); }
+  // tur 2: perinin önkolu ve eli soldan, yere paralel girer (üstten inen kol bacak gibi okunuyordu): kırmızı himation yeni, açık ten önkol, dört ayrık parmak otları aralar
+  if (part > .01) { const hx = lerp(560, 860, part), hy = lerp(560, 612 - 6 * (1 - gone), part), el = [hx - 300, hy - 70];
+    ctx.save(); ctx.lineJoin = 'round'; ctx.lineCap = 'round'; ctx.strokeStyle = C.ink; ctx.lineWidth = 3;
+    // önkol (bilekte incelir)
+    ctx.fillStyle = '#DDA77B'; ctx.beginPath(); ctx.moveTo(el[0], el[1] - 20); ctx.quadraticCurveTo(hx - 150, hy - 50, hx - 44, hy - 15); ctx.lineTo(hx - 40, hy + 3); ctx.quadraticCurveTo(hx - 160, hy - 18, el[0], el[1] + 22); ctx.closePath(); ctx.fill(); ctx.stroke();
+    // yen: kırmızı himation kenarı, kadraj dışından
+    ctx.fillStyle = '#8E2F1F'; ctx.beginPath(); ctx.moveTo(el[0] - 200, el[1] - 60); ctx.lineTo(el[0] + 20, el[1] - 36); ctx.quadraticCurveTo(el[0] + 34, el[1], el[0] + 14, el[1] + 38); ctx.lineTo(el[0] - 200, el[1] + 70); ctx.closePath(); ctx.fill(); ctx.stroke();
+    ctx.strokeStyle = 'rgba(14,9,7,.6)'; ctx.lineWidth = 2; for (let k = 0; k < 3; k++) { ctx.beginPath(); ctx.moveTo(el[0] - 120 + k * 40, el[1] - 44 + k * 6); ctx.lineTo(el[0] - 110 + k * 40, el[1] + 50 - k * 4); ctx.stroke(); }
+    // el: avuç ve dört parmak (yere doğru, aralık), başparmak üstte
+    ctx.strokeStyle = C.ink; ctx.lineWidth = 3; ctx.fillStyle = '#DDA77B';
+    ctx.beginPath(); ctx.ellipse(hx - 22, hy - 6, 30, 17, .12, 0, TAU); ctx.fill(); ctx.stroke();
+    for (let k = 0; k < 4; k++) { const a = -.28 + k * .2, L = 38 - Math.abs(k - 1.4) * 5, bx = hx + 2, by = hy - 14 + k * 8;
+      ctx.save(); ctx.translate(bx, by); ctx.rotate(a); ctx.beginPath(); ctx.roundRect(0, -5.5, L, 11, 5.5); ctx.fill(); ctx.stroke(); ctx.restore(); }
+    ctx.save(); ctx.translate(hx - 18, hy - 20); ctx.rotate(-.75); ctx.beginPath(); ctx.roundRect(0, -6, 30, 12, 6); ctx.fill(); ctx.stroke(); ctx.restore();
     ctx.restore(); }
   baseT(ctx); meander(ctx, -400, 2400, 0, 36, PC.clayR, PC.glaze);
 }
@@ -503,26 +511,41 @@ function s2_onYuz(c, x, y, s, t) {
   c.beginPath(); c.moveTo(-22, 74); c.quadraticCurveTo(0, 80, 22, 74); c.stroke();
   c.restore();
 }
-// kapalı pınar (P087): taş havuz yandan; level 0..1 su yükselir, notch 0..1 sağ kenarda oluk açılmaya çalışır, inward: halkalar içe döner (zaman)
+// kapalı pınar (P087), tur 2: organik kıyılı pınar (dik yamuk küvet/mezar gibi okunuyordu). level 0..1 su yükselir (iç duvar örtülür);
+// notch 0..1 su sağ kıyıdaki kuru oluğa dil gibi uzanır ama oluğun ağzındaki taş onu kapatır, geri çekilir; inward: halkalar içe döner. push 0..1 kamera oluğa yaklaşır (ikinci ölçek)
 function s2_pinar(ctx, t, st, o) {
   baseT(ctx); glaze(ctx, 960, 760, 1100, 'rgba(120,48,22,.45)');
-  camAt(ctx, ...s2_cam(st, [860, 600, 1.0], [1060, 610, 1.06]));
-  const x0 = 360, x1 = 1640, yb = 860, yr = 560, wy = lerp(800, yr + 14, o.level);
-  // havuz içi (koyu su) ve yükselen su yüzü
-  ctx.save(); ctx.beginPath(); ctx.moveTo(x0 + 40, yr); ctx.lineTo(x1 - 40, yr); ctx.lineTo(x1 - 120, yb); ctx.lineTo(x0 + 120, yb); ctx.closePath(); ctx.clip();
-  ctx.fillStyle = '#050302'; ctx.fillRect(0, wy, 2400, 600);
-  waterBody(ctx, c => c.rect(0, wy, 2400, 600), wy, t, { a: .22, seed: 87, span: [x0, x1], n: 26, depth: 260 });
-  // halkalar içe döner: kenardan merkeze daralan elipsler
-  if (t > o.inward) for (let k = 0; k < 4; k++) { const u = ((t - o.inward) * .45 + k / 4) % 1, rx = lerp(560, 40, u), a = (1 - u) * clamp((t - o.inward) / .6);
-    ctx.strokeStyle = `rgba(226,150,96,${(.7 * a).toFixed(3)})`; ctx.lineWidth = 3; ctx.beginPath(); ctx.ellipse(1000, wy + 4, rx, rx * .09, 0, 0, TAU); ctx.stroke(); }
-  ctx.strokeStyle = 'rgba(232,160,104,.9)'; ctx.lineWidth = 4; ctx.beginPath(); ctx.moveTo(0, wy); ctx.lineTo(2400, wy); ctx.stroke();
+  camAt(ctx, ...camMix(s2_cam(st, [920, 600, 1.12], [1010, 610, 1.16]), [1530, 690, 2.05], E.io2(clamp(o.push || 0))));
+  const gy = 560, cx = 940, cy = 730, rx = 600, ry = 128;
+  const rim = (k = 1, dy = 0) => { const P = []; for (let i = 0; i < 48; i++) { const a = i / 48 * TAU, n = .5 * Math.sin(a * 3 + 1) + .35 * Math.sin(a * 5 + 2.3) + .2 * Math.sin(a * 9 + .4); /* kapalı (periyodik) kıyı dalgası */ P.push([cx + Math.cos(a) * rx * k * (1 + .07 * n), cy + dy + Math.sin(a) * ry * k * (1 + .14 * n)]); } return P; };
+  const shape = (c, P) => { c.beginPath(); P.forEach((q, i) => i ? c.lineTo(...q) : c.moveTo(...q)); c.closePath(); };
+  groundBand(ctx, gy, -600, 2800, { h: 1000 });
+  for (const [x, sc, sd] of [[140, 1.8, 3], [420, 1.4, 6], [1780, 1.9, 8], [2050, 1.5, 5]]) vaseTree(ctx, x, gy, sc, sd, t, { branches: 7, reach: 110 });
+  // oluk: sağ kıyıdan dışarı (kuru, kil rengi), ağzında kapatan taş
+  const R = [cx + rx - 6, cy + 4], oy = x => cy + 4 + Math.sin((x - R[0]) * .006) * 18;
+  ctx.save(); ctx.beginPath(); ctx.moveTo(R[0] - 30, oy(R[0]) - 22); for (let x = R[0]; x <= 2400; x += 30) ctx.lineTo(x, oy(x) - 22); for (let x = 2400; x >= R[0] - 30; x -= 30) ctx.lineTo(x, oy(x) + 22); ctx.closePath();
+  ctx.fillStyle = '#3A1B0D'; ctx.fill(); ctx.strokeStyle = C.ink; ctx.lineWidth = 3; ctx.stroke(); ctx.restore();
+  // pınarın iç duvarı (su alçakken görünür) ve kıyı çizgisi
+  const P = rim(); shape(ctx, P); ctx.fillStyle = '#2A140A'; ctx.fill();
+  ctx.save(); shape(ctx, P); ctx.clip();
+  const k = lerp(.66, .985, o.level), W2 = rim(k, (1 - k) * ry * .55);
+  shape(ctx, W2); ctx.fillStyle = '#050302'; ctx.fill();
+  ctx.save(); shape(ctx, W2); ctx.clip();
+  waterBody(ctx, c => shape(c, W2), cy - ry, t, { a: .2, seed: 87, span: [cx - rx, cx + rx], n: 20, depth: ry * 1.8 });
+  mirror(ctx, c => { for (const [x, sc, sd] of [[420, 1.4, 6], [1780, 1.9, 8]]) vaseTree(c, x, gy, sc, sd, t, { branches: 7, reach: 110 }); }, gy, c => shape(c, W2), t, { a: .22, calm: .9 });
+  if (t > o.inward) for (let j = 0; j < 4; j++) { const u = ((t - o.inward) * .45 + j / 4) % 1, r2 = lerp(rx * k * .92, 30, u), a = (1 - u) * clamp((t - o.inward) / .6);
+    ctx.strokeStyle = `rgba(226,150,96,${(.7 * a).toFixed(3)})`; ctx.lineWidth = 3; ctx.beginPath(); ctx.ellipse(cx, cy + (1 - k) * ry * .55, r2, r2 * ry / rx, 0, 0, TAU); ctx.stroke(); }
   ctx.restore();
-  // taş kenarlar (iki yanda kaya; sağda oluk çentiği)
-  crag(ctx, [[-400, 1300], [-400, yr - 20], [x0 + 60, yr - 40], [x0 + 40, yr], [x0 + 130, yb + 10], [x1 - 130, yb + 10], [x1 - 40, yr], [x1 - 60, yr - 40], [2400, yr - 20], [2400, 1300]], { fill: '#5A2C16', seed: 88, wob: 4, strata: 4, lobes: 2 });
-  if (o.notch > .01) { ctx.save(); ctx.strokeStyle = C.ink; ctx.lineWidth = 5; ctx.beginPath(); ctx.moveTo(x1 - 50, yr - 30); ctx.lineTo(x1 - 30 + 30 * o.notch, yr - 10 + 30 * o.notch); ctx.lineTo(x1 + 20 + 80 * o.notch, yr - 30); ctx.stroke();
-    ctx.fillStyle = `rgba(5,3,2,${(.9 * o.notch).toFixed(3)})`; ctx.beginPath(); ctx.moveTo(x1 - 45, yr - 26); ctx.lineTo(x1 - 30 + 30 * o.notch, yr - 12 + 28 * o.notch); ctx.lineTo(x1 + 15 + 80 * o.notch, yr - 26); ctx.closePath(); ctx.fill(); ctx.restore(); }
-  for (let i = 0; i < 7; i++) grass(ctx, 120 + i * 300, yr - 30, 1.6, t, 90 + i);
-  narcissus(ctx, 480, yr - 36, 1.6, t, 5, { dir: 1, h: 56 });
+  shape(ctx, W2); ctx.strokeStyle = 'rgba(232,160,104,.85)'; ctx.lineWidth = 3; ctx.stroke();
+  ctx.restore();
+  // suyun oluğa uzanan dili: taşa dayanır, geri çekilir
+  if (o.notch > .01 && o.level > .8) { const L = 70 * o.notch; ctx.save(); ctx.fillStyle = '#050302'; ctx.strokeStyle = 'rgba(232,160,104,.85)'; ctx.lineWidth = 2.5;
+    ctx.beginPath(); ctx.moveTo(R[0] - 20, oy(R[0]) - 16); ctx.quadraticCurveTo(R[0] + L, oy(R[0] + L) - 18, R[0] + L + 8, oy(R[0] + L)); ctx.quadraticCurveTo(R[0] + L, oy(R[0] + L) + 18, R[0] - 20, oy(R[0]) + 16); ctx.closePath(); ctx.fill(); ctx.stroke(); ctx.restore(); }
+  shape(ctx, P); ctx.strokeStyle = PC.clayR; ctx.lineWidth = 4; ctx.stroke();
+  // oluğun ağzındaki taş (kapalı)
+  crag(ctx, [[R[0] + 70, oy(R[0] + 90) + 30], [R[0] + 64, oy(R[0] + 90) - 26], [R[0] + 96, oy(R[0] + 90) - 44], [R[0] + 140, oy(R[0] + 90) - 36], [R[0] + 150, oy(R[0] + 90) + 30]], { fill: '#7E3920', seed: 86, wob: 3, strata: 2, lobes: 1 });
+  for (let i = 0; i < 8; i++) { const a = PI * (1.08 + i * .12); grass(ctx, cx + Math.cos(a) * rx * 1.04, cy + Math.sin(a) * ry * 1.06 - 2, 1.5, t, 90 + i); }
+  narcissus(ctx, cx - rx * .62, cy - ry * .86, 1.5, t, 5, { dir: 1, h: 56 });
   baseT(ctx); meander(ctx, -400, 2400, 0, 36, PC.clayR, PC.glaze);
 }
 // zeminde akan dere (P088): x0 → x1, flow 0..1 (açılma ve akış), y kanal ekseni
@@ -534,34 +557,43 @@ function s2_dere(c, t, flow, x0, x1, y) {
   c.strokeStyle = 'rgba(236,232,222,.5)'; c.lineWidth = 2; for (let i = 0; i < 30; i++) { const x = x0 + ((i * 97 + t * 160) % (x1 - x0)); c.beginPath(); c.moveTo(x, y + Math.sin(x * .01) * 10); c.lineTo(x + 30, y + Math.sin(x * .01) * 10); c.stroke(); }
   c.restore();
 }
-// taşa takılan akıntı (P089): sh 0..1 su taşa çarpıp geri döner, cl 0..1 yüzey kapanır (yalnız yansıma)
+// taşa takılan akıntı (P089), tur 2: büyük kaya (Eko'nun kayasına benziyordu) yerine dar akıntının içinde küçük, yuvarlak bir çakıl.
+// sh 0..1 su çakıla çarpıp geri döner, cl 0..1 yüzey kapanır (yalnız yansıma); çakılın ötesinde oluk kuru
 function s2_tasAkinti(ctx, t, st, sh, cl) {
   baseT(ctx); glaze(ctx, 960, 900, 1100, 'rgba(120,48,22,.45)');
-  camAt(ctx, ...s2_cam(st, [880, 560, 1.0], [1040, 570, 1.08]));
-  const wy = 600, xs = 1280;
-  groundBand(ctx, wy - 6, -400, 2400, { h: 600 });
-  ctx.save(); ctx.beginPath(); ctx.rect(-400, wy, xs + 40 + 400, 260); ctx.clip(); ctx.fillStyle = '#050302'; ctx.fillRect(-400, wy, 3000, 300);
-  // kapanan yüzey: ağaçların yansıması (soluk)
-  if (cl > .01) { ctx.save(); ctx.globalAlpha = .45 * cl; ctx.translate(0, 2 * wy); ctx.scale(1, -1); vaseTree(ctx, 500, wy, 1.2, 3, t, { branches: 6 }); vaseTree(ctx, 900, wy, 1.0, 8, t, { branches: 5 }); ctx.restore(); }
-  // akan çizgiler: önce sağa, taşa çarpınca geri (sola), kapanınca durur
-  const dir = lerp(1, -1, sh), sp = 180 * (1 - cl);
-  ctx.strokeStyle = `rgba(236,232,222,${(.55 * (1 - cl)).toFixed(3)})`; ctx.lineWidth = 2.4;
-  for (let i = 0; i < 26; i++) { const yy = wy + 16 + (i % 9) * 26, x = ((i * 131 + dir * t * sp) % 1700 + 1700) % 1700 - 400; ctx.beginPath(); ctx.moveTo(x, yy); ctx.lineTo(x + 40, yy); ctx.stroke(); }
-  if (sh > .01 && cl < 1) for (let k = 0; k < 3; k++) { const u = ((t * .8 + k / 3) % 1); ctx.strokeStyle = `rgba(226,150,96,${(.6 * (1 - u) * sh * (1 - cl)).toFixed(3)})`; ctx.lineWidth = 3; ctx.beginPath(); ctx.arc(xs - 10, wy + 90, 40 + u * 160, PI * .55, PI * 1.45); ctx.stroke(); }
+  camAt(ctx, ...s2_cam(st, [900, 640, 1.25], [1020, 650, 1.32]));
+  const gy = 520, y0 = 640, y1 = 770, xs = 1200, pr = 58, yc = (y0 + y1) / 2;
+  groundBand(ctx, gy, -600, 2800, { h: 1000 });
+  for (const [x, sc, sd] of [[380, 1.3, 3], [760, 1.0, 8], [1650, 1.4, 6]]) vaseTree(ctx, x, gy, sc, sd, t, { branches: 6 });
+  const ch = (xa, xb) => { ctx.beginPath(); ctx.moveTo(xa, y0 + Math.sin(xa * .004) * 8); for (let x = xa; x <= xb; x += 20) ctx.lineTo(x, y0 + Math.sin(x * .004) * 8); for (let x = xb; x >= xa; x -= 20) ctx.lineTo(x, y1 + Math.sin(x * .004 + 1) * 8); ctx.closePath(); };
+  ch(xs, 2600); ctx.fillStyle = '#3A1B0D'; ctx.fill(); ctx.strokeStyle = C.ink; ctx.lineWidth = 3; ctx.stroke(); // kuru oluk
+  ctx.save(); ch(-600, xs + 10); ctx.fillStyle = '#050302'; ctx.fill(); ctx.clip();
+  if (cl > .01) { ctx.save(); ctx.globalAlpha = .5 * cl; ctx.translate(0, 2 * y0); ctx.scale(1, -1); vaseTree(ctx, 380, y0, .9, 3, t, { branches: 6 }); vaseTree(ctx, 760, y0, .7, 8, t, { branches: 5 }); ctx.restore(); }
+  const dir = lerp(1, -1, sh), sp = 170 * (1 - cl);
+  ctx.strokeStyle = `rgba(236,232,222,${(.6 * (1 - cl)).toFixed(3)})`; ctx.lineWidth = 2.4;
+  for (let i = 0; i < 22; i++) { const yy = y0 + 14 + (i % 5) * 24, x = ((i * 131 + dir * t * sp) % 1800 + 1800) % 1800 - 600; if (x > xs - pr - 40) continue; ctx.beginPath(); ctx.moveTo(x, yy); ctx.lineTo(x + 36, yy); ctx.stroke(); }
+  if (sh > .01 && cl < 1) for (let k = 0; k < 3; k++) { const u = ((t * .8 + k / 3) % 1); ctx.strokeStyle = `rgba(226,150,96,${(.7 * (1 - u) * sh * (1 - cl)).toFixed(3)})`; ctx.lineWidth = 3; ctx.beginPath(); ctx.arc(xs - pr, yc, 20 + u * 110, PI * .6, PI * 1.4); ctx.stroke(); }
   ctx.restore();
-  ctx.strokeStyle = 'rgba(232,160,104,.9)'; ctx.lineWidth = 4; ctx.beginPath(); ctx.moveTo(-400, wy); ctx.lineTo(xs + 40, wy); ctx.stroke();
-  crag(ctx, [[xs - 30, wy + 300], [xs - 20, wy - 60], [xs + 80, wy - 140], [xs + 260, wy - 120], [xs + 330, wy + 20], [xs + 340, wy + 300]], { fill: '#5A2C16', seed: 89, wob: 5, strata: 3, lobes: 2 });
-  for (let i = 0; i < 6; i++) grass(ctx, 100 + i * 220, wy - 4, 1.8, t, 95 + i);
+  ch(-600, xs + 10); ctx.strokeStyle = PC.clayR; ctx.lineWidth = 3; ctx.stroke();
+  // çakıl: yassı, düzensiz (top ya da meyve okunmasın), koyu kil, ince ışık kenarı
+  crag(ctx, [[xs - 70, yc + 34], [xs - 66, yc - 6], [xs - 30, yc - 34], [xs + 26, yc - 38], [xs + 64, yc - 12], [xs + 72, yc + 34]], { fill: '#6E331B', seed: 89, wob: 4, strata: 2, lobes: 1 });
+  ctx.save(); ctx.strokeStyle = 'rgba(240,190,140,.55)'; ctx.lineWidth = 2.5; ctx.beginPath(); ctx.moveTo(xs - 50, yc - 14); ctx.quadraticCurveTo(xs - 10, yc - 34, xs + 30, yc - 32); ctx.stroke(); ctx.restore();
+  for (let i = 0; i < 6; i++) grass(ctx, 120 + i * 300, y0 - 10, 1.6, t, 95 + i);
   baseT(ctx); meander(ctx, -400, 2400, 0, 36, PC.clayR, PC.glaze);
 }
-// Eko (P090; DAG): kayaya karışmış karanlık kadın figürü, yüzü yapraklı dalla örtülü (baştan ayağa örtülü değil)
+// Eko (P090, P091), tur 2: kayaya karışmış karanlık kadın figürü (ten koyu kil, gri/beyaz değil; kontur ince kil); yakın kolu yüzünün önünde yapraklı bir dal tutar
+// (kol başın arkasında tuhaf duruyordu). Baştan ayağa örtülü değil: yüzün yalnız önünde dal
+const S2_EKO = { ...STY.red, fill: '#3A1B0D', white: '#4A2414', red: '#6E2A18', line: '#B9653A', dilute: '#5A2C16' };
 function s2_eko(c, x, gy, s, t, a) {
-  figure(c, { x, y: gy - 43 * s, s, dir: -1, sty: STY.red, lk: { fem: true, hair: 'long', garment: 'robe', himation: true, robeCol: '#4A2214', himCol: '#3A1B0D' }, seed: 61, idle: .5, stripe: .4, alpha: a,
-    p: { torso: .05, neck: .2, head: .25, hipN: .02, knN: .02, hipF: -.04, knF: .02, shN: -1.9, elN: 1.5, shF: .1, elF: .5, handN: 'flat', handF: 'flat' } });
-  // yüzünün önünde yapraklı dal
-  c.save(); c.globalAlpha *= Math.min(1, a + .35); c.translate(x - 22 * s, gy - 92 * s); c.rotate(-.5 + Math.sin(t * .8) * .04);
-  c.strokeStyle = C.ink; c.lineWidth = 4; c.beginPath(); c.moveTo(0, 50); c.quadraticCurveTo(-10, 0, -6, -50); c.stroke();
-  for (let k = 0; k < 7; k++) { const yy = 40 - k * 14; for (const sd of [-1, 1]) { c.save(); c.translate(-4, yy); c.rotate(sd * .9); c.beginPath(); c.ellipse(sd * 12, 0, 13, 5, 0, 0, TAU); c.fillStyle = '#7E3920'; c.fill(); c.lineWidth = 1.6; c.stroke(); c.restore(); } }
+  const f = { x, y: gy - 43 * s, s, dir: -1, sty: S2_EKO, lk: { fem: true, hair: 'long', garment: 'robe', himation: true, robeCol: '#2A140A', himCol: '#4A2214' }, seed: 61, idle: .5, stripe: .4, alpha: a,
+    p: { torso: .05, neck: .12, head: .18, hipN: .02, knN: .02, hipF: -.04, knF: .02, shN: .45, elN: 2.2, shF: .12, elF: .4, handN: 'flat', handF: 'flat' } }; // kol gövdenin önünde katlı, el çene hizasında (yumruk ya da kalkık kol yok)
+  figure(c, f);
+  const { J, M } = joints(c, f), w = jointPt(c, M, J.AN.wr), hd = headPt(c, J, M, [3.2, -5.6]);
+  // dal: elden yukarı, yüzün önünden geçer
+  const ang = Math.atan2(hd[1] - 40 - w[1], hd[0] - 10 - w[0]) + Math.sin(t * .8) * .03, L = Math.hypot(hd[1] - 40 - w[1], hd[0] - 10 - w[0]) + 30 * s / 3.4;
+  c.save(); c.globalAlpha *= Math.min(1, a + .3); c.translate(w[0], w[1]); c.rotate(ang);
+  c.strokeStyle = C.ink; c.lineWidth = 4; c.beginPath(); c.moveTo(0, 0); c.lineTo(L, 0); c.stroke();
+  for (let k = 0; k < 8; k++) { const xx = L * (.25 + .75 * k / 7); for (const sd of [-1, 1]) { c.save(); c.translate(xx, 0); c.rotate(sd * .9 - .3); c.beginPath(); c.ellipse(13, 0, 14, 5.5, 0, 0, TAU); c.fillStyle = '#7E3920'; c.fill(); c.lineWidth = 1.6; c.stroke(); c.restore(); } }
   c.restore();
 }
 
@@ -587,11 +619,27 @@ function s2_eko(c, x, gy, s, t, a) {
   // P036 · ayrıntı · D01@ona · Kıyının yakını: hiçbir şey suya değmez (çoban ve keçinin gölgesi, kuş, dal)
   plan('P036', (ctx, st) => {
     const t = st.t, tC = PE('P036', 0), tK = PE('P036', 1), tD = PE('P036', 2);
-    s2_kiyi(ctx, t, { fig: false, lag: 0, cam: s2_cam(st, [1240, 640, 2.15], [1460, 640, 2.15]), bankN: [[1290, 5, 60], [1318, 8, 48], [1350, 2, 56], [1520, 3, 52]],
-      waterFx: (c, wy) => { // çoban ve keçinin gölgesi su yüzünde kayar (yansıma değil, gölge şerit), suya değmez
-        const u = ramp(t, tC - .2, tC + 2.6, E.lin), x = lerp(1050, 1720, u), a = .42 * Math.sin(PI * clamp(u));
-        c.save(); c.globalAlpha = a; c.fillStyle = '#000'; c.translate(x, wy + 40); c.scale(1, .32);
-        c.beginPath(); c.ellipse(0, 0, 22, 120, 0, 0, TAU); c.fill(); c.beginPath(); c.ellipse(70, 30, 44, 26, 0, 0, TAU); c.fill(); c.restore(); },
+    s2_kiyi(ctx, t, { fig: false, lag: 0, cam: s2_cam(st, [1240, 640, 2.15], [1460, 640, 2.15]),
+      bg: c => { baseT(c); const g = c.createLinearGradient(0, 260, 0, 560); g.addColorStop(0, 'rgba(170,86,44,0)'); g.addColorStop(1, 'rgba(190,100,52,.42)'); c.fillStyle = g; c.fillRect(0, 260, W, 300); }, // ufuk aydınlık: karşı kıyıdan geçen siluetler okunur
+      bankN: [[1290, 5, 60], [1318, 8, 48], [1350, 2, 56], [1520, 3, 52]],
+      waterFx: (c, wy) => { // tur 2: su yüzü hafif gümüş parlar (P035'in devamı)
+        const g = c.createLinearGradient(0, wy, 0, wy + 330); g.addColorStop(0, 'rgba(236,232,222,.16)'); g.addColorStop(1, 'rgba(236,232,222,0)'); c.fillStyle = g; c.fillRect(900, wy, 1200, 330);
+        c.strokeStyle = 'rgba(245,242,232,.4)'; c.lineCap = 'round'; for (let i = 0; i < 10; i++) { const y = wy + 14 + i * 26, x = 980 + hash(i * 2.3) * 700 + Math.sin(t * .7 + i) * 6, L = 50 + hash(i * 4.1) * 140; c.lineWidth = 2; c.beginPath(); c.moveTo(x, y); c.lineTo(x + L, y); c.stroke(); } },
+      under: c => { // tur 2: çoban (asalı, siyah figür) ve keçisi karşı kıyıdan geçer; kara suda görünmeyen gölge yerine siluet. Kimse suya inmez
+        const u = ramp(t, tC - .4, tC + 4.2, E.lin); if (u <= 0 || u >= 1) return;
+        const a = clamp(u / .08) * clamp((1 - u) / .08), gyF = KIYI.wy - 16, xs = lerp(1100, 1560, u), s = 1.45;
+        c.save(); c.globalAlpha *= a;
+        walkScene(c, null, xs, s, t, 1, { ground: groundOf(() => gyF), noCam: true, sty: STY.black, lk: { beard: 'short', hair: 'short', garment: 'short' }, dist: (xs - 1100), stride: 34, lean: .05, seed: 36 });
+        // asa
+        c.strokeStyle = C.ink; c.lineWidth = 4; c.lineCap = 'round'; c.beginPath(); c.moveTo(xs + 14 * s, gyF - 56 * s); c.lineTo(xs + 20 * s, gyF); c.stroke();
+        // keçi: önde, adımları mesafeye bağlı
+        const gx = xs + 34 * s, ph = (xs - 1100) / (9 * s) * PI;
+        c.fillStyle = C.ink; c.beginPath(); c.ellipse(gx, gyF - 13 * s, 10 * s, 4.6 * s, 0, 0, TAU); c.fill();
+        c.beginPath(); c.ellipse(gx + 11 * s, gyF - 18 * s, 3.4 * s, 2.4 * s, -.5, 0, TAU); c.fill();
+        c.lineWidth = 1.4 * s; c.beginPath(); c.moveTo(gx + 10 * s, gyF - 20 * s); c.quadraticCurveTo(gx + 8 * s, gyF - 26 * s, gx + 4 * s, gyF - 25 * s); c.stroke(); // boynuz
+        c.beginPath(); c.moveTo(gx - 10 * s, gyF - 15 * s); c.lineTo(gx - 13 * s, gyF - 19 * s); c.stroke(); // kuyruk
+        for (const [lx, o] of [[-7, 0], [-4, .5], [5, .5], [8, 0]]) { const sw = Math.sin(ph + o * PI) * 1.8 * s; c.beginPath(); c.moveTo(gx + lx * s, gyF - 10 * s); c.lineTo(gx + lx * s + sw, gyF); c.stroke(); }
+        c.restore(); },
       post: c => {
         // kuş: suyun üstünden geçer, inmez (vazo kuşu: iki kanat yayı)
         const u = ramp(t, tK - .3, tK + 1.6, E.lin); if (u > 0 && u < 1) { const x = lerp(1060, 1760, u), y = 540 - 30 * Math.sin(PI * u), fl = Math.sin(t * 16) * 7;
@@ -734,7 +782,7 @@ function s2_eko(c, x, gy, s, t, a) {
   plan('P046', (ctx, st) => {
     const t = st.t, tY = PE('P046', 0), tG = PE('P046', 1);
     const u = ramp(t, tY - .1, tG + .2, E.io2);
-    s2_yakin(ctx, t, { cam: s2_cam(st, [905, 790, 2.05], [905, 780, 1.88]), noBank: true, pose: tt => ({ ...dPoseO(tt, {}), smile: -.05 }),
+    s2_yakin(ctx, t, { cam: s2_cam(st, [905, 790, 2.05], [905, 780, 1.88]), noBank: true, reflNoJaw: true, pose: tt => ({ ...dPoseO(tt, {}), smile: 0, mouthFlat: true }), // tur 2: yansıma nötr (gülümseyen gölge-ikiz ürkütücüydü)
       refA: lerp(.55, .95, u),
       waterFx: (c, wy) => { c.fillStyle = `rgba(201,112,63,${(.62 * u).toFixed(3)})`; c.fillRect(-3000, wy, 9000, 3000); },
       reflTint: c => { c.fillStyle = `rgba(14,9,7,${(.96 * u).toFixed(3)})`; c.fillRect(-3000, -3000, 9000, 9000); } });
@@ -777,12 +825,10 @@ function s2_eko(c, x, gy, s, t, a) {
     const t = st.t, tD = PE('P049', 0);
     s2_yakin(ctx, t, { cam: [905 - 280, 580, 1.3], noBank: true, refA: .6,
       pose: tt => ({ ...dPoseO(tt, {}), smile: -.05, brow: .1 + .25 * ramp(tt, tD, tD + .3), blink: .5 * ramp(tt, tD - .05, tD + .25, E.out2) }) });
-    // ön plan sazları (paralaks: kamera sabit, sazlar kayar)
-    baseT(ctx); const dx = lerp(80, -260, st.p);
-    ctx.save(); ctx.strokeStyle = '#0B0605'; ctx.lineCap = 'round';
-    for (let i = 0; i < 7; i++) { const x = 1500 + i * 70 + dx * 1.4, h = 420 + hash(i * 3.1) * 260; ctx.lineWidth = 16 + hash(i) * 10; ctx.beginPath(); ctx.moveTo(x, H + 20); ctx.quadraticCurveTo(x - 20 + Math.sin(t * .8 + i) * 10, H - h * .55, x - 40 + Math.sin(t * .9 + i) * 18, H - h); ctx.stroke(); }
-    ctx.restore();
-  }, { over: (ctx, st) => s2_bolum(ctx, 'O BENİM', st.lt, 2.5, 560) });
+    // tur 2: ön planda kalın siyah sazlar yansımada 'çubuk' okunuyordu; yerine alt kenarda ince ot tutamları kayar (paralaks), yansımanın yüzüne binmez
+    baseT(ctx); const dx = lerp(60, -200, st.p);
+    for (let i = 0; i < 5; i++) grass(ctx, 1380 + i * 120 + dx * (1.2 + .1 * i), H + 30, 5.2 + hash(i) * 1.4, t, 140 + i);
+  }, { over: (ctx, st) => s2_bolum(ctx, 'BİLMEK', st.lt, 2.5, 470, 760) }); // kart kıyı kayasının üstünde (omuza ve yüzlere binmez) // tur 2: bölüm kartı 'O BENİM' ifşadan 18 sn önce aynı sözü veriyordu
 
   // P050 · orta · E02 · Tanıma hamlesinin hazırlığı: el kayadan kalkar, yansımanın eli 9 kare geç gelir (iki el aynı karede)
   plan('P050', (ctx, st) => {
@@ -989,7 +1035,8 @@ function s2_eko(c, x, gy, s, t, a) {
       ground: c => s2_rafW(c),
       sky: c => { const a = ramp(t, tY, tY + .5) * (1 - ramp(t, tY + 1.6, tY + 2.6)); if (a > 0) { txtDipinto(c, 'AH', 1240, 380, 40, 1, { col: '#E0573A', a: .5 * a }); txtDipinto(c, 'AH', 1420, 330, 30, 1, { col: '#E0573A', a: .3 * a }); } },
       fig: (c, refl) => { withFigT(t, () => s2_litFig(c, s2_proneW(c, t, { head: .3, neck: .3 }), null, { fade: 1 }));
-        for (const [x, sd, k, d] of [[520, 51, 0, 1], [700, 52, .25, -1], [1180, 53, .5, -1]]) s2_peri(c, x, 760, 3.1, t, sd, ramp(t, tA - .3 + k, tA + .7 + k, E.io2), d); } });
+        // tur 2: üçü de kıyıda (sağdaki suyun içindeydi), dağınık: farklı derinlik, yön ve an
+        for (const [x, gy, sc, sd, k, d] of [[372, 772, 3.2, 51, .3, 1], [548, 754, 2.85, 52, 0, 1], [706, 766, 3.05, 53, .55, -1]]) s2_peri(c, x, gy, sc, t, sd, ramp(t, tA - .3 + k, tA + .7 + k, E.io2), d); } });
   });
 
   // P073 · yakın · E17@bedeni · Kayboluş: ot yatağında yalnız ışık noktaları; peri otları aralar, noktalar havalanır ve söner; el boş yere değer
@@ -1028,13 +1075,14 @@ function s2_eko(c, x, gy, s, t, a) {
   // P083 · orta · F04@ama · Alacakaranlıkta pınar; 'narsist' yazıları düşer, hiçbir şeye yapışmadan suya değer ve söner (halka yok). Figür yok
   plan('P083', (ctx, st) => {
     const t = st.t, t0 = st.at, tU = PE('P083', 1), tT = PE('P083', 2);
-    s2_kiyi(ctx, t, { fig: false, lag: 0, cam: s2_cam(st, [1250, 560, 1.15], [1350, 560, 1.15]), warm: 'rgba(70,40,46,.5)',
+    s2_kiyi(ctx, t, { fig: false, lag: 0, cam: s2_cam(st, [1250, 560, 1.15], [1350, 560, 1.15]), warm: 'rgba(150,72,46,.6)', // tur 2: alacakaranlık ama okunur (8 sn neredeyse siyahtı)
+      bg: c => { baseT(c); const g = c.createRadialGradient(1000, 520, 60, 1000, 520, 900); g.addColorStop(0, 'rgba(196,110,70,.38)'); g.addColorStop(1, 'rgba(196,110,70,0)'); c.fillStyle = g; c.fillRect(0, 0, W, H); },
       post: c => { c.save(); const n = 14;
         for (let i = 0; i < n; i++) { const d = hash(i * 5.1), t1 = t0 - .6 + i * ((tT - t0 + .2) / n), u = clamp((t - t1) / 2.2); if (u <= 0 || u >= 1) continue;
           const x = 1000 + d * 820 + Math.sin(t + i) * 10, y = lerp(230, KIYI.wy + 12, E.in2(u)), a = u < .85 ? 1 : 1 - (u - .85) / .15;
-          c.globalAlpha = a * .9; c.font = FONT.alinti(30 + Math.round(d * 34), 600); c.textAlign = 'center'; c.fillStyle = '#F2E6CE'; c.fillText('narsist', x, y); }
+          c.globalAlpha = a * .9; c.font = FONT.alinti(46 + Math.round(d * 34), 600); c.textAlign = 'center'; c.fillStyle = '#F2E6CE'; c.fillText('narsist', x, y); }
         c.restore();
-        c.save(); baseT(c); c.fillStyle = `rgba(20,12,24,${(.25 + .15 * ramp(t, tU, tT + .5)).toFixed(3)})`; c.fillRect(0, 0, W, H); c.restore(); } });
+        c.save(); baseT(c); c.fillStyle = `rgba(20,12,24,${(.06 + .12 * ramp(t, tU, tT + .5)).toFixed(3)})`; c.fillRect(0, 0, W, H); c.restore(); } });
   });
 
   // P084 · ayrıntı · F04@bu#1 · Kıyıdaki nergis; su durulur, yansıma netleşir; nergis hafifçe suya eğilir
@@ -1047,7 +1095,9 @@ function s2_eko(c, x, gy, s, t, a) {
   // P087 · orta-yakın · F07 · Kapalı pınar: su kıyıya kadar yükselir, oluk açılmaya çalışır ama akamaz, halkalar içe döner. Freud'un ilk cümlesi suyun üstünde
   plan('P087', (ctx, st) => {
     const t = st.t, tO = PE('P087', 0), tD = PE('P087', 1), tA = PE('P087', 2), tK = PE('P087', 4);
-    s2_pinar(ctx, t, st, { level: ramp(t, st.at, tO + 1.5, E.io2) * (1 - .05 * ramp(t, tK, tK + 1)), notch: ramp(t, tD - .1, tD + 1.0, E.io2) * (1 - ramp(t, tA, tA + .8, E.io2)), inward: tA });
+    // tur 2: iki ölçek tek planda: orta-yakın pınar → 'dışarıya'da kamera oluğa yaklaşır (ayrıntı: su taşa dayanır) → 'akamadığında' geri çekilir, halkalar içe döner
+    s2_pinar(ctx, t, st, { level: ramp(t, st.at, tO + 1.5, E.io2) * (1 - .05 * ramp(t, tK, tK + 1)), notch: ramp(t, tD - .1, tD + 1.0, E.io2) * (1 - ramp(t, tA, tA + .8, E.io2)), inward: tA,
+      push: ramp(t, tD - .5, tD + .8, E.io2) * (1 - ramp(t, tA + .3, tA + 1.6, E.io2)) });
   }, { over: (ctx, st) => { const g = PE('P087', 3); quote(ctx, 'Güçlü bir benlik sevgisi insanı hastalığa karşı korur.', W / 2, 250, st.t - g, { px: 68, maxW: 1300 }); kunye(ctx, 'Freud, 1914 · s. 11 (çevirimiz)', st.t - PE('P087', 4), 99) } });
 
   // P088 · geniş · F08@ama · Aynı pınar, geniş: oluk açılır, su dışarı, ormana doğru akar
@@ -1070,7 +1120,7 @@ function s2_eko(c, x, gy, s, t, a) {
     const both = ramp(t, tB - .3, tB + 1.6, E.io2), sh = ramp(t, tI - .2, tI + 1.0, E.io2);
     s2_genis(ctx, t, { cam: camMix([900, 560, 1.35], [1180 + 80 * st.p, 560, 1.0 + .05 * st.p], both), trees: false, refA: .42, nerg: [[975, 11, 50], [1560, 5, 58]],
       ground: (c, gy) => { s2_rafW(c); vaseTree(c, 150, gy, 1.75, 3, t, { branches: 7, reach: 110 }); vaseTree(c, 420, gy, 1.5, 6, t, { branches: 6 }); crag(c, [[1680, 770], [1720, 560], [1820, 420], [1960, 380], [2120, 440], [2240, 620], [2300, 770]], { fill: '#24110A', seed: 55, wob: 6, strata: 3, lobes: 2 }); },
-      fig: (c, refl) => { withFigT(t, () => figure(c, s2_proneW(c, t, { head: .05 }))); if (!refl) s2_eko(c, 1900, 768, 3.4, t, .5 + .2 * (1 - sh)); },
+      fig: (c, refl) => { withFigT(t, () => figure(c, s2_proneW(c, t, { head: .05 }))); if (!refl) s2_eko(c, 1900, 768, 3.4, t, 1); },
       post: c => { const g = c.createRadialGradient(1000, 740, 0, 1000, 740, 380); g.addColorStop(0, 'rgba(255,214,160,.16)'); g.addColorStop(1, 'rgba(255,214,160,0)'); c.save(); c.globalCompositeOperation = 'lighter'; c.fillStyle = g; c.fillRect(500, 400, 1000, 700); c.restore();
         const g2 = c.createLinearGradient(1600, 0, 2300, 0); g2.addColorStop(0, 'rgba(5,3,2,0)'); g2.addColorStop(1, `rgba(5,3,2,${(.45 + .2 * sh).toFixed(3)})`); c.fillStyle = g2; c.fillRect(1500, -200, 1200, 1400); } });
   });

@@ -303,11 +303,11 @@
   "at": "B03@kendini",
   "set": "DELFI",
   "olcek": "ayrıntı",
-  "ne": "Yazıtın yakını; yazıtın altında bir su birikintisi. Taşta ΓΝΩΘΙ ΣΕΑΥΤΟΝ, altında Türkçe KENDİNİ TANI; Türkçe satır suda ters döner (P061'deki KENDİNİ TANIMAZSA → TANIDI'nın karşılığı)",
+  "ne": "Yazıtın yakını; yazıtın altında bir su birikintisi. Taşta ΓΝΩΘΙ ΣΑΥΤΟΝ, altında Türkçe KENDİNİ TANI; Türkçe satır suda ters döner (P061'deki KENDİNİ TANIMAZSA → TANIDI'nın karşılığı)",
   "eylem": [
    {
     "at": "B03@kendini",
-    "ne": "taşta ΓΝΩΘΙ ΣΕΑΥΤΟΝ harf harf belirir, altında Türkçe KENDİNİ TANI"
+    "ne": "taşta ΓΝΩΘΙ ΣΑΥΤΟΝ harf harf belirir, altında Türkçe KENDİNİ TANI"
    },
    {
     "at": "B03@tersine",
@@ -321,7 +321,7 @@
   "tr": {
    "type": "cut"
   },
-  "yazi": "yazıt: ΓΝΩΘΙ ΣΕΑΥΤΟΝ (taşta, Yunanca) · KENDİNİ TANI (Türkçe, taşın altında) · künye: Delfi, Apollon tapınağı",
+  "yazi": "yazıt: ΓΝΩΘΙ ΣΑΥΤΟΝ (taşta, Yunanca) · KENDİNİ TANI (Türkçe, taşın altında) · künye: Delfi, Apollon tapınağı",
   "kamera": "yavaş aşağı kayma (taştan suya)",
   "hassasiyet": "",
   "levha": true,
@@ -505,15 +505,15 @@
   "at": "C02@günden-0.65",
   "set": "YANKI",
   "olcek": "yakın",
-  "ne": "Eko'nun profili yakın: başka bir ağızdan gelen yazı ona doğru akar; yalnız son kelime onda yanar ve geri döner",
+  "ne": "Eko'nun profili yakın: başka bir ağızdan gelen söz ona doğru akar; yalnız son öbek onda yanar ve geri döner. Yazı yok: harfsiz söz (P020/P052 dili, okunmayan fırça kıvrımları)",
   "eylem": [
    {
     "at": "C02@son",
-    "ne": "gelen yazının yalnız son kelimesi kırmızı yanar"
+    "ne": "gelen sözün yalnız son öbeği kırmızı yanar"
    },
    {
     "at": "C02@verebilir",
-    "ne": "Eko o kelimeyi geri verir; kelime solarak uzaklaşır"
+    "ne": "Eko o öbeği iki kez küçülerek geri verir; solarak uzaklaşır"
    }
   ],
   "tr": {
@@ -521,7 +521,7 @@
   },
   "yazi": "",
   "kamera": "yazıyı izleyen yatay kayma",
-  "hassasiyet": "",
+  "hassasiyet": "Kaynakta olmayan söz yazılmaz: okunur harf yok",
   "levha": false,
   "bolum": "Yankı",
   "sahip": "SAHİP-1",
@@ -909,11 +909,11 @@
   "at": "C12@ellerini",
   "set": "FRIZ",
   "olcek": "ters açı",
-  "ne": "Arkadan siluet: öne çıkan genç kollarını göğe kaldırır; beddua yazısı göğe yükselir",
+  "ne": "Arkadan siluet: öne çıkan genç tek kolunu göğe uzatır (el yarı açık); beddua yazısı göğe yükselir",
   "eylem": [
    {
     "at": "C12@kaldırır",
-    "ne": "kollar yükselir (Yunan yakarış duruşu, arkadan)"
+    "ne": "uzak kol dirsek bükük kalkar, neredeyse dik göğe uzanır, el yarı açık (arkadan; yüzü örtmez)"
    },
    {
     "at": "C12@sevsin",
@@ -929,7 +929,7 @@
   },
   "yazi": "",
   "kamera": "aşağıdan göğe yavaş kayma",
-  "hassasiyet": "Arkadan siluet; avuçları yüze yakın açık dua pozu, diz çökme, secde yok",
+  "hassasiyet": "Arkadan siluet; tek kol göğe, el yarı açık. Yumruk, 45° öne uzanan düz kol (selam), iki avucu göğe açık dua pozu, diz çökme, secde yok",
   "levha": false,
   "bolum": "Yankı",
   "sahip": "SAHİP-1",

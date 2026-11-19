@@ -176,8 +176,10 @@ function grass(ctx, x, y, s, t, seed, o = {}) {
   ctx.restore();
 }
 // mızrak: a noktasından ang yönünde L boyunda (avcı Narkissos)
-function spear(ctx, a, ang, L, s) {
-  const b = add(a, [Math.cos(ang) * L, Math.sin(ang) * L]), c0 = add(a, [-Math.cos(ang) * L * .45, -Math.sin(ang) * L * .45]);
+// o.dip: dip ucunun a'dan geriye uzunluğu (L'nin kesri; varsayılan .45). o.dip = 0: dip ucu a'da biter (a yerdeyse mızrak yerin altına inmez)
+function spear(ctx, a, ang, L, s, o = {}) {
+  const dk = o.dip ?? .45;
+  const b = add(a, [Math.cos(ang) * L, Math.sin(ang) * L]), c0 = add(a, [-Math.cos(ang) * L * dk, -Math.sin(ang) * L * dk]);
   ctx.save(); ctx.lineCap = 'round';
   ctx.strokeStyle = C.ink; ctx.lineWidth = 1.9 * s; ctx.beginPath(); ctx.moveTo(...c0); ctx.lineTo(...b); ctx.stroke();
   ctx.strokeStyle = PC.clayR; ctx.lineWidth = .8 * s; ctx.stroke();
