@@ -123,7 +123,7 @@ Kullanıcının cevapları: çeviri İş Bankası Kültür Yayınları (Hasan Â
 | Aday | Figür (orta plan, sırtı dönük) | Kapak 168 px | 8 sn dosya (H.264 CRF 18) | Kare süresi (tek işçi) |
 |---|---|---|---|---|
 | **gravür** (`milton/lib`) | koyu siluet + kenar ışığı okunuyor | yüz taramada kayboluyor | 6,1 MB | **0,19 sn** |
-| **impasto** (Lemo, bütün sahne) | yumuşak, okunuyor; oda en atmosferik | yüz okunuyor ama mor örtü odağı bölüyor | (video sürüyor) | ~9 sn (oda+örtü+figür+portre 81 bin darbe) |
+| **impasto** (Lemo, bütün sahne) | yumuşak, okunuyor; oda en atmosferik | yüz okunuyor ama mor örtü odağı bölüyor | 9,3 MB (3 işçiyle 32 dk) | ~9 sn (oda+örtü+figür+portre 81 bin darbe) |
 | **karma** (dünya gravür, yalnız portre impasto) | gravürle aynı | **yüz siyah-beyaz karede tek renkli ada: tek odak** | 6,2 MB | 2,0 sn (portreli planlarda; portresiz planlar 0,19) |
 
 **Seçim: KARMA.** Gerekçe:
