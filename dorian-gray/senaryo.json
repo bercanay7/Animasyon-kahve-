@@ -1,6 +1,6 @@
 {
  "voice": "Emrullah (ElevenLabs; voice_id creative_list_voices ile bulunur)",
- "revizyon": "rev0c (19 Kasım 2026): kaynak denetimi düzeltmeleri (XIX zamanlaması, yarı itiraf sahnesi, dava cevabı birebir, mahkûmiyet açık)",
+ "revizyon": "rev1 (19 Kasım 2026): seslendirme metni (okunuş: Vayld, Henri, Sibil Veyn, Jülyet, Şekspir, Holvırd, Grey; yıllar yazıyla); ses bölümleri vo/bolumler.json",
  "not": "Kaynak: Oscar Wilde, The Picture of Dorian Gray (1891 kitap, kaynak/wilde_1891_pg174.txt satır numaralı; 1890 dergi, kaynak/wilde_1890_lippincott_archive.txt). Çeviriler bizim. Dava: Stuart Mason, Oscar Wilde: Art and Morality (1912), kaynak/mason_art_and_morality_1912.txt. İskelet: Harmon (uretim_plani.md §4).",
  "segments": [
   {
@@ -8,427 +8,488 @@
    "bolum": "Oda",
    "tts": "[whispers] Yaptığın her şey yüzüne değil de bir tabloya yazılsaydı… ve o tabloyu kimse görmeseydi, ne yapardın?",
    "alt": "Yaptığın her şey yüzüne değil de bir tabloya yazılsaydı… ve o tabloyu kimse görmeseydi, ne yapardın?",
-   "kaynak": "Kanca; başlığın sorusu ilk cümlede. Görüntü: kilitli oda, lamba, mor örtünün kenarı kalkar (kapak A)"
+   "kaynak": "Kanca; başlığın sorusu ilk cümlede. Görüntü: kilitli oda, lamba, mor örtünün kenarı kalkar (kapak A)",
+   "vo": "s00"
   },
   {
    "id": "A02",
    "bolum": "Oda",
-   "tts": "[calmly] Oscar Wilde bu soruyu 1890'da bir romanda sordu: Dorian Gray'in Portresi.",
+   "tts": "[calmly] Oskar Vayld bu soruyu bin sekiz yüz doksanda bir romanda sordu: Dorian Grey'in Portresi.",
    "alt": "Oscar Wilde bu soruyu 1890'da bir romanda sordu: Dorian Gray'in Portresi.",
-   "kaynak": "Kimlik tek cümle kancanın içinde (Ran dersi). Lippincott's Monthly Magazine, Temmuz 1890"
+   "kaynak": "Kimlik tek cümle kancanın içinde (Ran dersi). Lippincott's Monthly Magazine, Temmuz 1890",
+   "vo": "s00"
   },
   {
    "id": "A03",
    "bolum": "Oda",
    "tts": "[slowly] Bu örtünün altını yıllarca kimse görmedi. Biz göreceğiz.",
    "alt": "Bu örtünün altını yıllarca kimse görmedi. Biz göreceğiz.",
-   "kaynak": "Somut görsel vaat (Kafka dersi); L1 açılır → G10–G11. Kapak A 'KİMSE GÖRMEDİ'"
+   "kaynak": "Somut görsel vaat (Kafka dersi); L1 açılır → G10–G11. Kapak A 'KİMSE GÖRMEDİ'",
+   "vo": "s00"
   },
   {
    "id": "B01",
    "bolum": "Portre",
-   "tts": "[calmly] Londra, bir haziran günü. Ressam Basil Hallward en iyi tablosunu bitirmek üzere: yirmi yaşını yeni geçmiş, olağanüstü güzel bir genç. Dorian Gray.",
+   "tts": "[calmly] Londra, bir haziran günü. Ressam Basil Holvırd en iyi tablosunu bitirmek üzere: yirmi yaşını yeni geçmiş, olağanüstü güzel bir genç. Dorian Grey.",
    "alt": "Londra, bir haziran günü. Ressam Basil Hallward en iyi tablosunu bitirmek üzere: yirmi yaşını yeni geçmiş, olağanüstü güzel bir genç. Dorian Gray.",
-   "kaynak": "I; 'over twenty' (1891: 440); 'this particular day of June' (1017). Köprü yok: kancadan sonraki ilk cümle hikâye"
+   "kaynak": "I; 'over twenty' (1891: 440); 'this particular day of June' (1017). Köprü yok: kancadan sonraki ilk cümle hikâye",
+   "vo": "s01"
   },
   {
    "id": "B02",
    "bolum": "Portre",
    "tts": "[thoughtful] Basil tabloyu sergilemek istemez. “İçine kendimden fazlasını koydum,” der.",
    "alt": "Basil tabloyu sergilemek istemez. “İçine kendimden fazlasını koydum,” der.",
-   "kaynak": "I (1891: 149, 472). L2 açılır → G13"
+   "kaynak": "I (1891: 149, 472). L2 açılır → G13",
+   "vo": "s01"
   },
   {
    "id": "B03",
    "bolum": "Portre",
-   "tts": "[calmly] Stüdyoda bir konuk daha vardır: Lord Henry. Ona göre birini etkilemek, ona kendi ruhunu vermektir.",
+   "tts": "[calmly] Stüdyoda bir konuk daha vardır: Lord Henri. Ona göre birini etkilemek, ona kendi ruhunu vermektir.",
    "alt": "Stüdyoda bir konuk daha vardır: Lord Henry. Ona göre birini etkilemek, ona kendi ruhunu vermektir.",
-   "kaynak": "II (1891: 702)"
+   "kaynak": "II (1891: 702)",
+   "vo": "s01"
   },
   {
    "id": "B04",
    "bolum": "Bahçe",
    "tts": "[softly] Bahçede Dorian'a yalnız birkaç cümle söyler: “Gençlik, sahip olmaya değer tek şeydir. Gençliğin gidince güzelliğin de gider. Zaman seni kıskanıyor.”",
    "alt": "Bahçede Dorian'a yalnız birkaç cümle söyler: “Gençlik, sahip olmaya değer tek şeydir. Gençliğin gidince güzelliğin de gider. Zaman seni kıskanıyor.”",
-   "kaynak": "II (1891: 853–854, 877–880); kısaltılmış, kendi çevirimiz. Kapak B'nin vaadi burada karşılanır"
+   "kaynak": "II (1891: 853–854, 877–880); kısaltılmış, kendi çevirimiz. Kapak B'nin vaadi burada karşılanır",
+   "vo": "s01"
   },
   {
    "id": "B05",
    "bolum": "Bahçe",
    "tts": "[slowly] Dorian içeri döner, bitmiş tabloya bakar ve ilk kez yaşlanacağını anlar.",
    "alt": "Dorian içeri döner, bitmiş tabloya bakar ve ilk kez yaşlanacağını anlar.",
-   "kaynak": "II"
+   "kaynak": "II",
+   "vo": "s01"
   },
   {
    "id": "B06",
    "bolum": "Bahçe",
    "tts": "[pleading] “Ben hep genç kalsam, tablo yaşlansa… Bunun için her şeyi verirdim. Ruhumu bile verirdim.”",
    "alt": "“Ben hep genç kalsam, tablo yaşlansa… Bunun için her şeyi verirdim. Ruhumu bile verirdim.”",
-   "kaynak": "II (1891: 1014–1022)"
+   "kaynak": "II (1891: 1014–1022)",
+   "vo": "s01"
   },
   {
    "id": "B07",
    "bolum": "Bahçe",
-   "tts": "[calmly] Derginin ilk metninde yalnız “her şeyi verirdim” diyordu; Wilde bir yıl sonra kitapta bedele adını koydu: ruh.",
+   "tts": "[calmly] Derginin ilk metninde yalnız “her şeyi verirdim” diyordu; Vayld bir yıl sonra kitapta bedele adını koydu: ruh.",
    "alt": "Derginin ilk metninde yalnız “her şeyi verirdim” diyordu; Wilde bir yıl sonra kitapta bedele adını koydu: ruh.",
-   "kaynak": "1890: 1036 'I would give everything!'; 1891: 1021 'I would give my soul for that!'. 1890/1891 farkı sahnenin içinde tek cümle"
+   "kaynak": "1890: 1036 'I would give everything!'; 1891: 1021 'I would give my soul for that!'. 1890/1891 farkı sahnenin içinde tek cümle",
+   "vo": "s01"
   },
   {
    "id": "B08",
    "bolum": "Bahçe",
    "tts": "[urgent] Basil, palet bıçağıyla tuvali yırtmak ister. Dorian bıçağı elinden alır: “Yapma Basil! Bu cinayet olur!”",
    "alt": "Basil, palet bıçağıyla tuvali yırtmak ister. Dorian bıçağı elinden alır: “Yapma Basil! Bu cinayet olur!”",
-   "kaynak": "II (1891: 1080–1087). L3 açılır → G08–G11"
+   "kaynak": "II (1891: 1080–1087). L3 açılır → G08–G11",
+   "vo": "s01"
   },
   {
    "id": "C01",
    "bolum": "Tiyatro",
-   "tts": "[calmly] Birkaç hafta sonra Dorian, yoksul bir sokaktaki küçük bir tiyatroda bir kız görür: on yedisine yeni girmiş Sibyl Vane. Her gece başka bir Shakespeare kadınını oynar; en çok da Juliet'i.",
+   "tts": "[calmly] Birkaç hafta sonra Dorian, yoksul bir sokaktaki küçük bir tiyatroda bir kız görür: on yedisine yeni girmiş Sibil Veyn. Her gece başka bir Şekspir kadınını oynar; en çok da Jülyet'i.",
    "alt": "Birkaç hafta sonra Dorian, yoksul bir sokaktaki küçük bir tiyatroda bir kız görür: on yedisine yeni girmiş Sibyl Vane. Her gece başka bir Shakespeare kadınını oynar; en çok da Juliet'i.",
-   "kaynak": "IV (1891: 1982 'hardly seventeen'; Juliet 1970–2188). Sibyl ilk perdede adı ve yüzüyle ekilir; Rosalind/Imogen adları ad yükü olmasın diye anılmaz"
+   "kaynak": "IV (1891: 1982 'hardly seventeen'; Juliet 1970–2188). Sibyl ilk perdede adı ve yüzüyle ekilir; Rosalind/Imogen adları ad yükü olmasın diye anılmaz",
+   "vo": "s02"
   },
   {
    "id": "C02",
    "bolum": "Tiyatro",
    "tts": "[warmly] Dorian ona âşık olur, daha doğrusu sahnede oynadığı kadınlara. Evlenmeye karar verir.",
    "alt": "Dorian ona âşık olur, daha doğrusu sahnede oynadığı kadınlara. Evlenmeye karar verir.",
-   "kaynak": "IV–VII; VII'de kendisi söyler (1891: 3381–3384)"
+   "kaynak": "IV–VII; VII'de kendisi söyler (1891: 3381–3384)",
+   "vo": "s02"
   },
   {
    "id": "C03",
    "bolum": "Tiyatro",
-   "tts": "[calmly] Basil'le Lord Henry'yi onu izlemeye getirdiği gece Sibyl kötü oynar.",
+   "tts": "[calmly] Basil'le Lord Henri'yi onu izlemeye getirdiği gece Sibil kötü oynar.",
    "alt": "Basil'le Lord Henry'yi onu izlemeye getirdiği gece Sibyl kötü oynar.",
-   "kaynak": "VII"
+   "kaynak": "VII",
+   "vo": "s02"
   },
   {
    "id": "C04",
    "bolum": "Tiyatro",
    "tts": "[softly] Çünkü artık gerçekten sevmektedir; sahnedeki aşkın sahte olduğunu anlamıştır.",
    "alt": "Çünkü artık gerçekten sevmektedir; sahnedeki aşkın sahte olduğunu anlamıştır.",
-   "kaynak": "VII (1891: 3349–3363)"
+   "kaynak": "VII (1891: 3349–3363)",
+   "vo": "s02"
   },
   {
    "id": "C05",
    "bolum": "Tiyatro",
    "tts": "[coldly] Dorian sahne arkasına gider ve tek cümleyle bitirir: “Aşkımı öldürdün.”",
    "alt": "Dorian sahne arkasına gider ve tek cümleyle bitirir: “Aşkımı öldürdün.”",
-   "kaynak": "VII (1891: 3372–3381)"
+   "kaynak": "VII (1891: 3372–3381)",
+   "vo": "s02"
   },
   {
    "id": "C06",
    "bolum": "Tablo",
    "tts": "[slowly] O gece eve döner. Tablonun önünden geçerken durur.",
    "alt": "O gece eve döner. Tablonun önünden geçerken durur.",
-   "kaynak": "VII (1891: 3479–3481)"
+   "kaynak": "VII (1891: 3479–3481)",
+   "vo": "s03"
   },
   {
    "id": "C07",
    "bolum": "Tablo",
    "tts": "[whispers] Ağzın kenarında daha önce olmayan bir çizgi vardır. Bir zalimlik çizgisi.",
    "alt": "Ağzın kenarında daha önce olmayan bir çizgi vardır. Bir zalimlik çizgisi.",
-   "kaynak": "VII (1891: 3485–3487, 3494). İlk değişiklik"
+   "kaynak": "VII (1891: 3485–3487, 3494). İlk değişiklik",
+   "vo": "s03"
   },
   {
    "id": "C08",
    "bolum": "Tablo",
    "tts": "[calmly] Aynaya bakar. Kendi dudaklarında öyle bir çizgi yoktur.",
    "alt": "Aynaya bakar. Kendi dudaklarında öyle bir çizgi yoktur.",
-   "kaynak": "VII (1891: 3503–3506)"
+   "kaynak": "VII (1891: 3503–3506)",
+   "vo": "s03"
   },
   {
    "id": "C09",
    "bolum": "Tablo",
    "tts": "[slowly] Dileği tutmuştu.",
    "alt": "Dileği tutmuştu.",
-   "kaynak": "VII (1891: 3512–3519)"
+   "kaynak": "VII (1891: 3512–3519)",
+   "vo": "s03"
   },
   {
    "id": "C10",
    "bolum": "Tablo",
-   "tts": "[calmly] Ertesi sabah utanır, Sibyl'e af dileyen bir mektup yazar. Ama Lord Henry bir haberle gelir: Sibyl o gece ölmüştür.",
+   "tts": "[calmly] Ertesi sabah utanır, Sibil'e af dileyen bir mektup yazar. Ama Lord Henri bir haberle gelir: Sibil o gece ölmüştür.",
    "alt": "Ertesi sabah utanır, Sibyl'e af dileyen bir mektup yazar. Ama Lord Henry bir haberle gelir: Sibyl o gece ölmüştür.",
-   "kaynak": "VIII (1891: 3697–3703 mektup; 3796 ölüm). Ölüm biçimi anlatılmaz (YouTube politikası)"
+   "kaynak": "VIII (1891: 3697–3703 mektup; 3796 ölüm). Ölüm biçimi anlatılmaz (YouTube politikası)",
+   "vo": "s03"
   },
   {
    "id": "C11",
    "bolum": "Tablo",
-   "tts": "[thoughtful] Henry'ye göre Sibyl hiç gerçekten yaşamamıştı, o yüzden hiç gerçekten ölmemişti. Bir oyundu.",
+   "tts": "[thoughtful] Henri'ye göre Sibil hiç gerçekten yaşamamıştı, o yüzden hiç gerçekten ölmemişti. Bir oyundu.",
    "alt": "Henry'ye göre Sibyl hiç gerçekten yaşamamıştı, o yüzden hiç gerçekten ölmemişti. Bir oyundu.",
-   "kaynak": "VIII (1891: 3971–3974)"
+   "kaynak": "VIII (1891: 3971–3974)",
+   "vo": "s03"
   },
   {
    "id": "C12",
    "bolum": "Tablo",
    "tts": "[calmly] Dorian o akşam operaya gider.",
    "alt": "Dorian o akşam operaya gider.",
-   "kaynak": "VIII (1891: 4007)"
+   "kaynak": "VIII (1891: 4007)",
+   "vo": "s03"
   },
   {
    "id": "C13",
    "bolum": "Kilit",
    "tts": "[slowly] Tabloyu ise evin en üst katındaki eski okul odasına kaldırır. Üstüne, altın işlemeli mor bir örtü örter. Kapıyı kilitler. Anahtar artık hep onun cebindedir.",
    "alt": "Tabloyu ise evin en üst katındaki eski okul odasına kaldırır. Üstüne, altın işlemeli mor bir örtü örter. Kapıyı kilitler. Anahtar artık hep onun cebindedir.",
-   "kaynak": "X (1891: 4518–4552); anahtar XI (4871)"
+   "kaynak": "X (1891: 4518–4552); anahtar XI (4871)",
+   "vo": "s03"
   },
   {
    "id": "D01",
    "bolum": "Yıllar",
-   "tts": "[calmly] Yıllar geçer. Lord Henry'nin ona gönderdiği sarı bir kitap, Dorian'ın yıllarca kurtulamadığı bir etki olur.",
+   "tts": "[calmly] Yıllar geçer. Lord Henri'nin ona gönderdiği sarı bir kitap, Dorian'ın yıllarca kurtulamadığı bir etki olur.",
    "alt": "Yıllar geçer. Lord Henry'nin ona gönderdiği sarı bir kitap, Dorian'ın yıllarca kurtulamadığı bir etki olur.",
-   "kaynak": "X–XI (1891: 4766, 4831)"
+   "kaynak": "X–XI (1891: 4766, 4831)",
+   "vo": "s04"
   },
   {
    "id": "D02",
    "bolum": "Yıllar",
    "tts": "[calmly] Londra'da onun hakkında korkunç söylentiler dolaşır. Ama onu gören inanamaz: o yüzde hâlâ yirmi yaşında, lekesiz bir genç vardır.",
    "alt": "Londra'da onun hakkında korkunç söylentiler dolaşır. Ama onu gören inanamaz: o yüzde hâlâ yirmi yaşında, lekesiz bir genç vardır.",
-   "kaynak": "XI (1891: 4854–4860)"
+   "kaynak": "XI (1891: 4854–4860)",
+   "vo": "s04"
   },
   {
    "id": "D03",
    "bolum": "Yıllar",
    "tts": "[whispers] Dorian ara sıra kilitli odaya çıkar, elinde bir aynayla tablonun karşısına geçer: bir tablodaki yaşlanan yüze, bir aynadaki genç yüze bakar.",
    "alt": "Dorian ara sıra kilitli odaya çıkar, elinde bir aynayla tablonun karşısına geçer: bir tablodaki yaşlanan yüze, bir aynadaki genç yüze bakar.",
-   "kaynak": "XI (1891: 4868–4875)"
+   "kaynak": "XI (1891: 4868–4875)",
+   "vo": "s04"
   },
   {
    "id": "D04",
    "bolum": "Yıllar",
    "tts": "[slowly] İkisinin farkı onu korkutmaz. Keyif verir.",
    "alt": "İkisinin farkı onu korkutmaz. Keyif verir.",
-   "kaynak": "XI (1891: 4875–4876 'quicken his sense of pleasure')"
+   "kaynak": "XI (1891: 4875–4876 'quicken his sense of pleasure')",
+   "vo": "s04"
   },
   {
    "id": "D05",
    "bolum": "Yıllar",
    "tts": "[thoughtful] Çünkü kimse görmüyordur. Bedeli tablo ödüyordur.",
    "alt": "Çünkü kimse görmüyordur. Bedeli tablo ödüyordur.",
-   "kaynak": "Anlatıcı; açının cümlesi"
+   "kaynak": "Anlatıcı; açının cümlesi",
+   "vo": "s04"
   },
   {
    "id": "E01",
    "bolum": "Basil",
    "tts": "[calmly] Otuz sekizinci doğum gününden bir gece önce, sisli bir sokakta Basil'le karşılaşır.",
    "alt": "Otuz sekizinci doğum gününden bir gece önce, sisli bir sokakta Basil'le karşılaşır.",
-   "kaynak": "XII (1891: 5493–5494; dergide 32. doğum günü)"
+   "kaynak": "XII (1891: 5493–5494; dergide 32. doğum günü)",
+   "vo": "s05"
   },
   {
    "id": "E02",
    "bolum": "Basil",
    "tts": "[earnest] Basil söylentileri sormaya gelmiştir; ama inanmadığını söyler. Ona göre günah insanın yüzüne yazılır, gizlenemez.",
    "alt": "Basil söylentileri sormaya gelmiştir; ama inanmadığını söyler. Ona göre günah insanın yüzüne yazılır, gizlenemez.",
-   "kaynak": "XII (1891: 5590–5592)"
+   "kaynak": "XII (1891: 5590–5592)",
+   "vo": "s05"
   },
   {
    "id": "E03",
    "bolum": "Basil",
    "tts": "[coldly] Dorian güler: “Gel. Sana ruhumu göstereyim.”",
    "alt": "Dorian güler: “Gel. Sana ruhumu göstereyim.”",
-   "kaynak": "XII (1891: 5687, 5710)"
+   "kaynak": "XII (1891: 5687, 5710)",
+   "vo": "s05"
   },
   {
    "id": "E04",
    "bolum": "Basil",
    "tts": "[slowly] Onu yukarı, kilitli odaya çıkarır. Lambayı masaya koyar.",
    "alt": "Onu yukarı, kilitli odaya çıkarır. Lambayı masaya koyar.",
-   "kaynak": "XIII (1891: 5764–5776)"
+   "kaynak": "XIII (1891: 5764–5776)",
+   "vo": "s05"
   },
   {
    "id": "E05",
    "bolum": "Basil",
    "tts": "[whispers] Perdeyi çubuğundan koparıp yere fırlatır. Basil önce kendi tablosunu tanımaz. Sonra köşedeki imzayı görür: kendi adı.",
    "alt": "Perdeyi çubuğundan koparıp yere fırlatır. Basil önce kendi tablosunu tanımaz. Sonra köşedeki imzayı görür: kendi adı.",
-   "kaynak": "XIII (1891: 5793–5794 perde; 5805–5809 imza, kırmızı harfler)"
+   "kaynak": "XIII (1891: 5793–5794 perde; 5805–5809 imza, kırmızı harfler)",
+   "vo": "s05"
   },
   {
    "id": "E06",
    "bolum": "Basil",
    "tts": "[pleading] Dorian'a dönüp “Daha geç değil,” der. “Hiçbir zaman geç değildir.”",
    "alt": "Dorian'a dönüp “Daha geç değil,” der. “Hiçbir zaman geç değildir.”",
-   "kaynak": "XIII (1891: 5897–5899). Duaya dair ayrıntı anlatılmaz"
+   "kaynak": "XIII (1891: 5897–5899). Duaya dair ayrıntı anlatılmaz",
+   "vo": "s05"
   },
   {
    "id": "E07",
    "bolum": "Basil",
    "tts": "[tense] Dorian tabloya bakar. İçinde Basil'e karşı ani bir nefret kabarır; sanki o sırıtan dudaklar kulağına fısıldamıştır.",
    "alt": "Dorian tabloya bakar. İçinde Basil'e karşı ani bir nefret kabarır; sanki o sırıtan dudaklar kulağına fısıldamıştır.",
-   "kaynak": "XIII (1891: 5902–5906)"
+   "kaynak": "XIII (1891: 5902–5906)",
+   "vo": "s05"
   },
   {
    "id": "E08",
    "bolum": "Basil",
    "tts": "[whispers] Boyalı bir sandığın üstünde, birkaç gün önce unuttuğu bir bıçak durmaktadır.",
    "alt": "Boyalı bir sandığın üstünde, birkaç gün önce unuttuğu bir bıçak durmaktadır.",
-   "kaynak": "XIII (1891: 5909–5912)"
+   "kaynak": "XIII (1891: 5909–5912)",
+   "vo": "s05"
   },
   {
    "id": "E09",
    "bolum": "Basil",
    "tts": "[slowly] Ve Dorian, o tabloyu yapan adamı öldürür.",
    "alt": "Ve Dorian, o tabloyu yapan adamı öldürür.",
-   "kaynak": "XIII. Görüntü: lamba, gölge; kan ve beden yok"
+   "kaynak": "XIII. Görüntü: lamba, gölge; kan ve beden yok",
+   "vo": "s05"
   },
   {
    "id": "E10",
    "bolum": "Basil",
    "tts": "[calmly] Ertesi gün bütün izler yok edilmiştir. Kimse görmemiştir.",
    "alt": "Ertesi gün bütün izler yok edilmiştir. Kimse görmemiştir.",
-   "kaynak": "XIV (Alan Campbell adsız). L1'in ikinci yankısı"
+   "kaynak": "XIV (Alan Campbell adsız). L1'in ikinci yankısı",
+   "vo": "s05"
   },
   {
    "id": "F01",
    "bolum": "Dönüş",
-   "tts": "[calmly] Haftalar sonra Dorian, Lord Henry'ye iyi olmaya karar verdiğini söyler. Bir köy kızını sevmiş, ama onu kandırmadan bırakmıştır. Yıllardır yaptığı ilk iyilik.",
+   "tts": "[calmly] Haftalar sonra Dorian, Lord Henri'ye iyi olmaya karar verdiğini söyler. Bir köy kızını sevmiş, ama onu kandırmadan bırakmıştır. Yıllardır yaptığı ilk iyilik.",
    "alt": "Haftalar sonra Dorian, Lord Henry'ye iyi olmaya karar verdiğini söyler. Bir köy kızını sevmiş, ama onu kandırmadan bırakmıştır. Yıllardır yaptığı ilk iyilik.",
-   "kaynak": "XIX (1891: 8021–8065; 'six weeks' 8076; 'the first good action I have done for years' 8065). Hetty adsız"
+   "kaynak": "XIX (1891: 8021–8065; 'six weeks' 8076; 'the first good action I have done for years' 8065). Hetty adsız",
+   "vo": "s06"
   },
   {
    "id": "F02",
    "bolum": "Dönüş",
-   "tts": "[tense] Sonra ona bir soru sorar: “Sana Basil'i ben öldürdüm desem?” Henry güler: “Cinayet işlemek sende yok, Dorian.”",
+   "tts": "[tense] Sonra ona bir soru sorar: “Sana Basil'i ben öldürdüm desem?” Henri güler: “Cinayet işlemek sende yok, Dorian.”",
    "alt": "Sonra ona bir soru sorar: “Sana Basil'i ben öldürdüm desem?” Henry güler: “Cinayet işlemek sende yok, Dorian.”",
-   "kaynak": "XIX (1891: 8132–8137). Doğruyu söyler, kimse inanmaz: açının sahnesi"
+   "kaynak": "XIX (1891: 8132–8137). Doğruyu söyler, kimse inanmaz: açının sahnesi",
+   "vo": "s06"
   },
   {
    "id": "F03",
    "bolum": "Dönüş",
    "tts": "[earnest] Dorian bir cümle daha söyler: “Beni bir kitapla zehirledin.”",
    "alt": "Dorian bir cümle daha söyler: “Beni bir kitapla zehirledin.”",
-   "kaynak": "XIX (1891: 8321)"
+   "kaynak": "XIX (1891: 8321)",
+   "vo": "s06"
   },
   {
    "id": "F04",
    "bolum": "Dönüş",
-   "tts": "[amused] Henry yine güler: “Kitapla zehirlenmek diye bir şey yoktur. Sanatın eyleme hiçbir etkisi yoktur.”",
+   "tts": "[amused] Henri yine güler: “Kitapla zehirlenmek diye bir şey yoktur. Sanatın eyleme hiçbir etkisi yoktur.”",
    "alt": "Henry yine güler: “Kitapla zehirlenmek diye bir şey yoktur. Sanatın eyleme hiçbir etkisi yoktur.”",
-   "kaynak": "XIX (1891: 8329–8330)"
+   "kaynak": "XIX (1891: 8329–8330)",
+   "vo": "s06"
   },
   {
    "id": "F05",
    "bolum": "Dönüş",
    "tts": "[slowly] O gece evinde, ilk kez şunu düşünür: keşke her günahı cezasını hemen getirseydi.",
    "alt": "O gece evinde, ilk kez şunu düşünür: keşke her günahı cezasını hemen getirseydi.",
-   "kaynak": "XX (1891: 8384–8388 'Better for him that each sin of his life had brought its sure swift penalty along with it'). Açının cümlesi Dorian'ın ağzından"
+   "kaynak": "XX (1891: 8384–8388 'Better for him that each sin of his life had brought its sure swift penalty along with it'). Açının cümlesi Dorian'ın ağzından",
+   "vo": "s06"
   },
   {
    "id": "G01",
    "bolum": "Son",
-   "tts": "[bitter] Lord Henry'nin yıllar önce verdiği aynaya bakar. Cevabı hazırdır: güzellik bir lanetti. “Beni mahveden güzelliğimdi,” der ve aynayı yere çalar.",
+   "tts": "[bitter] Lord Henri'nin yıllar önce verdiği aynaya bakar. Cevabı hazırdır: güzellik bir lanetti. “Beni mahveden güzelliğimdi,” der ve aynayı yere çalar.",
    "alt": "Lord Henry'nin yıllar önce verdiği aynaya bakar. Cevabı hazırdır: güzellik bir lanetti. “Beni mahveden güzelliğimdi,” der ve aynayı yere çalar.",
-   "kaynak": "XX (1891: 8392–8406; ayna Lord Henry'nin hediyesi 8392). Bu paragraf 1890 metninde yok (1891'de eklendi). Kullanıcının sorusu burada"
+   "kaynak": "XX (1891: 8392–8406; ayna Lord Henry'nin hediyesi 8392). Bu paragraf 1890 metninde yok (1891'de eklendi). Kullanıcının sorusu burada",
+   "vo": "s07"
   },
   {
    "id": "G02",
    "bolum": "Son",
-   "tts": "[calmly] Sonra suçu tek tek dağıtır: her şeyi yapan tabloydu, Basil'in sözleri dayanılmazdı, Henry'nin kitabı onu zehirlemişti. Hiç kendisi değil.",
+   "tts": "[calmly] Sonra suçu tek tek dağıtır: her şeyi yapan tabloydu, Basil'in sözleri dayanılmazdı, Henri'nin kitabı onu zehirlemişti. Hiç kendisi değil.",
    "alt": "Sonra suçu tek tek dağıtır: her şeyi yapan tabloydu, Basil'in sözleri dayanılmazdı, Henry'nin kitabı onu zehirlemişti. Hiç kendisi değil.",
-   "kaynak": "XX (1891: 8419–8425); kitap XIX (8321). 'Hiç kendisi değil' anlatıcı"
+   "kaynak": "XX (1891: 8419–8425); kitap XIX (8321). 'Hiç kendisi değil' anlatıcı",
+   "vo": "s07"
   },
   {
    "id": "G03",
    "bolum": "Son",
    "tts": "[hopeful] Bir iyilik yapmıştı ama. Belki tablo düzelmiştir. Lambayı alıp yukarı çıkar.",
    "alt": "Bir iyilik yapmıştı ama. Belki tablo düzelmiştir. Lambayı alıp yukarı çıkar.",
-   "kaynak": "XX (1891: 8427–8441). L4 açılır"
+   "kaynak": "XX (1891: 8427–8441). L4 açılır",
+   "vo": "s07"
   },
   {
    "id": "G04",
    "bolum": "Son",
    "tts": "[whispers] Perdeyi çeker. Tabloda yalnız bir şey değişmiştir: gözlerde bir sinsilik, ağızda ikiyüzlülüğün kıvrımı.",
    "alt": "Perdeyi çeker. Tabloda yalnız bir şey değişmiştir: gözlerde bir sinsilik, ağızda ikiyüzlülüğün kıvrımı.",
-   "kaynak": "XX (1891: 8443–8447). L4 kapanır"
+   "kaynak": "XX (1891: 8443–8447). L4 kapanır",
+   "vo": "s07"
   },
   {
    "id": "G05",
    "bolum": "Son",
    "tts": "[thoughtful] İyiliği bile bir maskeymiş: kibirden, meraktan, rol yapma hevesinden.",
    "alt": "İyiliği bile bir maskeymiş: kibirden, meraktan, rol yapma hevesinden.",
-   "kaynak": "XX (1891: 8449–8453, 8470–8474)"
+   "kaynak": "XX (1891: 8449–8453, 8470–8474)",
+   "vo": "s07"
   },
   {
    "id": "G06",
    "bolum": "Son",
    "tts": "[slowly] İtiraf etmeyi düşünür. Güler. Kim inanırdı ki?",
    "alt": "İtiraf etmeyi düşünür. Güler. Kim inanırdı ki?",
-   "kaynak": "XX (1891: 8457–8460)"
+   "kaynak": "XX (1891: 8457–8460)",
+   "vo": "s07"
   },
   {
    "id": "G07",
    "bolum": "Son",
    "tts": "[whispers] Tablo onun için bir vicdan gibiydi. Evet, vicdandı. Onu yok edecekti.",
    "alt": "Tablo onun için bir vicdan gibiydi. Evet, vicdandı. Onu yok edecekti.",
-   "kaynak": "XX (1891: 8485–8486)"
+   "kaynak": "XX (1891: 8485–8486)",
+   "vo": "s07"
   },
   {
    "id": "G08",
    "bolum": "Son",
    "tts": "[tense] Basil'i öldüren bıçağı alır ve tabloya saplar.",
    "alt": "Basil'i öldüren bıçağı alır ve tabloya saplar.",
-   "kaynak": "XX (1891: 8488–8494). L3 kapanır ('bu cinayet olur')"
+   "kaynak": "XX (1891: 8488–8494). L3 kapanır ('bu cinayet olur')",
+   "vo": "s07"
   },
   {
    "id": "G09",
    "bolum": "Son",
    "tts": "[calmly] Evde bir çığlık duyulur.",
    "alt": "Evde bir çığlık duyulur.",
-   "kaynak": "XX (1891: 8496)"
+   "kaynak": "XX (1891: 8496)",
+   "vo": "s07"
   },
   {
    "id": "G10",
    "bolum": "Son",
    "tts": "[slowly] Hizmetçiler içeri girdiğinde duvarda efendilerinin portresini bulurlar: genç, güzel, ilk günkü gibi.",
    "alt": "Hizmetçiler içeri girdiğinde duvarda efendilerinin portresini bulurlar: genç, güzel, ilk günkü gibi.",
-   "kaynak": "XX (1891: 8517–8523; hizmetçiler balkondan girer). L1 kapanır: örtünün altını görürüz"
+   "kaynak": "XX (1891: 8517–8523; hizmetçiler balkondan girer). L1 kapanır: örtünün altını görürüz",
+   "vo": "s07"
   },
   {
    "id": "G11",
    "bolum": "Son",
    "tts": "[whispers] Yerde ise yüzüne bakılamayacak kadar çökmüş, yaşlı bir adam yatmaktadır. Onu ancak yüzüklerinden tanırlar.",
    "alt": "Yerde ise yüzüne bakılamayacak kadar çökmüş, yaşlı bir adam yatmaktadır. Onu ancak yüzüklerinden tanırlar.",
-   "kaynak": "XX (1891: 8524–8527). Görüntü: yerde yalnız yüzüklü el, kan yok"
+   "kaynak": "XX (1891: 8524–8527). Görüntü: yerde yalnız yüzüklü el, kan yok",
+   "vo": "s07"
   },
   {
    "id": "G12",
    "bolum": "Mahkeme",
-   "tts": "[calmly] Beş yıl sonra, 1895'te, Londra'da bir mahkemede bir avukat bu romandan sayfalar okur ve yazarına sorar: Bu ahlaksız bir kitap değil mi?",
+   "tts": "[calmly] Beş yıl sonra, bin sekiz yüz doksan beşte, Londra'da bir mahkemede bir avukat bu romandan sayfalar okur ve yazarına sorar: Bu ahlaksız bir kitap değil mi?",
    "alt": "Beş yıl sonra, 1895'te, Londra'da bir mahkemede bir avukat bu romandan sayfalar okur ve yazarına sorar: Bu ahlaksız bir kitap değil mi?",
-   "kaynak": "Old Bailey, 3 Nisan 1895, Carson'ın sorgusu; Lippincott's metninden okudu (Mason 1912: 2624–2745)"
+   "kaynak": "Old Bailey, 3 Nisan 1895, Carson'ın sorgusu; Lippincott's metninden okudu (Mason 1912: 2624–2745)",
+   "vo": "s08"
   },
   {
    "id": "G13",
    "bolum": "Mahkeme",
-   "tts": "[firmly] Sonra Wilde'ın kitabın başına koyduğu cümleyi okur: “Ahlaklı ya da ahlaksız kitap diye bir şey yoktur. Kitaplar iyi yazılmıştır ya da kötü.” Wilde geri adım atmaz: “Sanata bakışım budur.”",
+   "tts": "[firmly] Sonra Vayld'ın kitabın başına koyduğu cümleyi okur: “Ahlaklı ya da ahlaksız kitap diye bir şey yoktur. Kitaplar iyi yazılmıştır ya da kötü.” Vayld geri adım atmaz: “Sanata bakışım budur.”",
    "alt": "Sonra Wilde'ın kitabın başına koyduğu cümleyi okur: “Ahlaklı ya da ahlaksız kitap diye bir şey yoktur. Kitaplar iyi yazılmıştır ya da kötü.” Wilde geri adım atmaz: “Sanata bakışım budur.”",
-   "kaynak": "Önsöz (1891: 54–55); mahkemede Carson okur, Wilde 'That expresses my view of art' der (Mason 1912: 2675–2678)"
+   "kaynak": "Önsöz (1891: 54–55); mahkemede Carson okur, Wilde 'That expresses my view of art' der (Mason 1912: 2675–2678)",
+   "vo": "s08"
   },
   {
    "id": "G14",
    "bolum": "Mahkeme",
    "tts": "[slowly] Romanında bedeli tablo ödüyordu. Gerçek hayatta yazar ödedi: birkaç hafta sonra, o dönemin İngiltere'sinde suç sayılan, erkeklerle ilişkileri yüzünden iki yıl hapse mahkûm edildi.",
    "alt": "Romanında bedeli tablo ödüyordu. Gerçek hayatta yazar ödedi: birkaç hafta sonra, o dönemin İngiltere'sinde suç sayılan, erkeklerle ilişkileri yüzünden iki yıl hapse mahkûm edildi.",
-   "kaynak": "Dava 5 Nisan 1895'te düştü; Wilde 25 Mayıs 1895'te 'ağır ahlaksızlık' suçundan iki yıl ağır çalışmaya mahkûm edildi. Hassasiyet: tek cümle, olgu, yargısız"
+   "kaynak": "Dava 5 Nisan 1895'te düştü; Wilde 25 Mayıs 1895'te 'ağır ahlaksızlık' suçundan iki yıl ağır çalışmaya mahkûm edildi. Hassasiyet: tek cümle, olgu, yargısız",
+   "vo": "s08"
   },
   {
    "id": "G15",
    "bolum": "Mahkeme",
-   "tts": "[thoughtful] Bir mektubunda üç karakteri şöyle anlatmıştı: Basil, olduğumu sandığım kişi. Lord Henry, dünyanın beni sandığı kişi. Dorian, olmak istediğim kişi… belki başka çağlarda.",
+   "tts": "[thoughtful] Bir mektubunda üç karakteri şöyle anlatmıştı: Basil, olduğumu sandığım kişi. Lord Henri, dünyanın beni sandığı kişi. Dorian, olmak istediğim kişi… belki başka çağlarda.",
    "alt": "Bir mektubunda üç karakteri şöyle anlatmıştı: Basil, olduğumu sandığım kişi. Lord Henry, dünyanın beni sandığı kişi. Dorian, olmak istediğim kişi… belki başka çağlarda.",
-   "kaynak": "Ralph Payne'e mektup (The Letters of Oscar Wilde, ed. Hart-Davis 1962, s. 352). L2 kapanır. Tarih birincil kaynaktan doğrulanmadı: anlatımda tarih yok"
+   "kaynak": "Ralph Payne'e mektup (The Letters of Oscar Wilde, ed. Hart-Davis 1962, s. 352). L2 kapanır. Tarih birincil kaynaktan doğrulanmadı: anlatımda tarih yok",
+   "vo": "s08"
   },
   {
    "id": "G16",
    "bolum": "Soru",
    "tts": "[thoughtful] Güzellik bir lanet miydi? Dorian öyle sandı. Basil ise günahın yüze yazıldığını söylemişti. Dorian'ın yüzüne yazılmadı. Ama bir yere yazıldı.",
    "alt": "Güzellik bir lanet miydi? Dorian öyle sandı. Basil ise günahın yüze yazıldığını söylemişti. Dorian'ın yüzüne yazılmadı. Ama bir yere yazıldı.",
-   "kaynak": "Kullanıcının sorusu (L5) + XII (5591) yankısı; iksir"
+   "kaynak": "Kullanıcının sorusu (L5) + XII (5591) yankısı; iksir",
+   "vo": "s08"
   },
   {
    "id": "G17",
    "tts": "[warmly] Peki kimse görmeseydi, sizin portreniz bugün nasıl görünürdü? Cevabınızı yorumlara yazın; geçmişten bir soru daha getirmemiz için abone olun. Kafka'nın Dönüşüm'ü ekranda.",
    "alt": "Peki kimse görmeseydi, sizin portreniz bugün nasıl görünürdü? Cevabınızı yorumlara yazın; geçmişten bir soru daha getirmemiz için abone olun. Kafka'nın Dönüşüm'ü ekranda.",
    "kaynak": "Başlığın sorusu döner; abone çağrısı son anın içinde; 'ekranda' bitiş ekranı içinde (Kafka dersi)",
-   "bolum": "Soru"
+   "bolum": "Soru",
+   "vo": "s08"
   }
  ]
 }
