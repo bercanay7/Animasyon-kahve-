@@ -112,3 +112,24 @@ Kullanıcının cevapları: çeviri İş Bankası Kültür Yayınları (Hasan Â
 - **A, "ortadan başlamak" (gizli oda):** karanlık çatı odası, Dorian'ın eli lambayla mor örtünün köşesini kaldırıyor; örtünün altı görünmüyor, yalnız tablonun altın çerçevesinin köşesi ve karanlık. Tek odak: lamba ışığının örtü kenarına düştüğü yer (karenin en parlak noktası). Dorian'ın yüzü yok ya da arkadan. Yazı: "KİMSE GÖRMEDİ" (2 kelime). Vaat: gizlenen bir şey var. Film ilk saniyede bu odayla açılır.
 - **B, "A, B'yi etkiliyor" (bir sözle başladı):** bahçe/stüdyo; solda Lord Henry'nin koyu silueti, sigara dumanı bir çizgi gibi sağdaki genç Dorian'ın kulağına uzanıyor; arkada şövalede örtülü tablo. Yazı 4–6 kelime deneme: "HER ŞEY BİR CÜMLEYLE BAŞLADI" ya da daha kısa "ONU BİR CÜMLE BOZDU". Vaat: başkasının sözü insanı yoldan çıkarır mı? Film ~0:20'de bahçe sahnesiyle karşılar.
 - Hassasiyet: kırmızı leke kan gibi okunur (Mary Stuart dersi); bıçak ve ceset kapakta yok. "BOZDU" fiilinin argo çağrışımı yok (kontrol edilecek); Henry–Dorian yakınlığı romantik/cinsel okunmayacak mesafede.
+
+## 7. Üslup (19 Kasım; inceleme ajansız, başkan)
+**İnceleme.** cinecode (`BIZIM_NOT.md`, `styles/`): Viktorya dönemine ve "boyanmış, değişen portre"ye en yakın tarifler `engraving` (kendi gravürümüzün akrabası), `impasto` (bıçakla yağlıboya), `watercolor`, `shadow-puppet`. Lemo (`KATALOG.md`, `3a7132b`): `vintage-collage` (eski gravürlerden kesik kâğıt) ve `impasto` indirilip STYLE.md'leri okundu (depoya alınmadı, CC BY-NC).
+- **Elenen:** `vintage-collage`: dili Terry Gilliam'a yakın şakacı bir kesik kâğıt oyunu, müziği bando; gotik bir trajediye uymuyor. `silent-film`: Mary Stuart'ta kullanıldı (iki video önce). `shadow-puppet`/siluet: Narkissos'un koyu figürlü vazo diline fazla yakın. `watercolor`: dönemle bağı zayıf.
+- **impasto'nun yasasından alınan fikir:** "gri bir dünyada tek renkli istisna; renk bir olaydır". Darbeler teker teker belirebiliyor (`app`), yani portrenin bozulması gerçekten üstüne boyanarak gösterilebilir.
+
+**Aynı sahneyle üç aday** (`kapi/`; XX. bölüm: kilitli oda, lamba, perde çekilir, çökmüş portre; 8 sn; çıktılar scratchpad/kapi):
+
+| Aday | Figür (orta plan, sırtı dönük) | Kapak 168 px | 8 sn dosya (H.264 CRF 18) | Kare süresi (tek işçi) |
+|---|---|---|---|---|
+| **gravür** (`milton/lib`) | koyu siluet + kenar ışığı okunuyor | yüz taramada kayboluyor | 6,1 MB | **0,19 sn** |
+| **impasto** (Lemo, bütün sahne) | yumuşak, okunuyor; oda en atmosferik | yüz okunuyor ama mor örtü odağı bölüyor | (video sürüyor) | ~9 sn (oda+örtü+figür+portre 81 bin darbe) |
+| **karma** (dünya gravür, yalnız portre impasto) | gravürle aynı | **yüz siyah-beyaz karede tek renkli ada: tek odak** | 6,2 MB | 2,0 sn (portreli planlarda; portresiz planlar 0,19) |
+
+**Seçim: KARMA.** Gerekçe:
+1. **Fikir görüntünün kendisinde:** dünya (Londra, insanlar, odalar) baskı çizgisidir; renk yalnız tabloda. Değişen tek şey tablo olduğu için gözü tablo taşır. Dorian'ın yüzünü filmde **yalnız portrede** görürüz (dünyada hep sırtı dönük, uzak ya da gölgede): "kimse görmese" açısının görsel kuralı. Sonda bıçaktan sonra renk genç yüze geri döner, yerdeki adam çizgi olarak kalır.
+2. **Kapak 168 px:** renkli yüz siyah-beyaz karede tek odak (kanalın "tek vurgu rengi" dersi).
+3. **Maliyet:** dosya boyu gravürle aynı; render süresi yalnız portreli planlarda artar (tahmin: ~8:20 film, planların ~%40'ında portre → ortalama ~0,9 sn/kare, 4 işçiyle ~1,5–2 sa). Bütün sahne impasto ~9 sn/kare: aynı film ~35 sa, kabul edilemez. impasto tuvali portrenin sınır kutusuna kısıtlanırsa süre ayrıca düşer (ölçülecek).
+4. **Narkissos'tan ayrışma:** vazo (kırmızı/siyah figür, düz) yerine Viktorya basılı kitap resmi (gravür) + yağlıboya. Dönemle bağ: 1890'ların romanları gravürle resimlenirdi; tablo ise yağlıboya.
+5. **Riskler ve önlemler:** (a) iki dil "yapıştırılmış" okunabilir: portre her zaman yaldızlı çerçevenin içinde ve lamba ışığında kalır, çerçeve gravürdür (dil geçişi çerçevede). (b) Kodla çizilmiş yüz zayıf yan: ilk denemede kafatası/karikatür okundu; kaynağın tarifine göre yeniden çizildi (XIII, 5800–5804), hâlâ "yaşlı kadın" okunabiliyor: erkek işaretleri (çene, favori, kısa yan saç, soluk dudak) eklenecek. (c) Gravürde Viktorya figürleri (redingot, silindir şapka, Sibyl'in elbisesi) için figür kiti gerekiyor; `araclar/hareket/` yürüyüş için.
+6. **Lisans:** `kapi/vendor/impasto.js`, `plate.js` MIT (lemomo-ai/lemo-opuscar `3a7132b`); üretime geçerken `araclar/ASSETS.md`'ye yazılır.
