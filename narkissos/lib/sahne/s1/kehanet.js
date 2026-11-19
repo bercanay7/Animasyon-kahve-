@@ -44,9 +44,10 @@
     glaze(ctx, 700, 900, 1300, 'rgba(118,48,22,.45)');
     camAt(ctx, fx, 470, 1.0);
     crag(ctx, [[-900, 1150], [-500, 760], [200, 700], [500, 900], [700, 1150]], { fill: '#4E2615', seed: 8, wob: 10, strata: 3, lobes: 2 });
-    const s = 26, gy = 430 + 37 * s + 44.5 * s;
+    // Fable tur 1: künye (sol alt, y ≈ 846) sakalın üstüne biniyordu → kâhin biraz küçük ve yukarıda; sakal y < 760'ta biter
+    const s = 21, gy = 330 + 37 * s + 44.5 * s;
     const konus = Math.max(0, Math.sin((t - tK) * 9)) * ramp(t, tK - .1, tK, E.lin) * (1 - ramp(t, tT + .5, tT + .7, E.lin));
-    const f = S1.tiresias(ctx, t, { x: 300, gy, s, up: .55 + .05 * Math.sin(t * .8) });
+    const f = S1.tiresias(ctx, t, { x: 360, gy, s, up: .55 + .05 * Math.sin(t * .8) });
     const m = S1.basNok(ctx, f, S1.AGIZ);
     // ağızdan çıkan fırça yazısı (Türkçe dipinto), hafif dalgalı şerit
     const p = ramp(t, tK - .05, tT + .55, E.lin);

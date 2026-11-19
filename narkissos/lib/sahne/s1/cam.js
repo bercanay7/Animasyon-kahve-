@@ -178,6 +178,50 @@
   //  3. telefon ~%15 küçük (pw 196), el camın sol kenarını görünür kavrar (handY 400)
   //  4. çene altındaki sıcak parıltı yok: ekran ışığı nötr/soğuk ve camın üst kenarından (kendi ışık katmanımız; phoneScene light 0)
   const PW = 196;
+  // phoneScene'in (lib/cam.js) set içi kopyası; tek fark yansımanın dönüşümü (Fable animatik tur 1: camda baş aşağı yansıma "mantıksız"):
+  //  fl = 0 camda DİK ayna yansıması (yatay ayna, yüz sola bakar, camın içinde); fl = 1 su aynası (lib/su.js mirror ile birebir aynı).
+  //  Ara değerde yansıma çapası (göz) etrafında döner: ters dönme yalnız cam suya dönerken olur.
+  //  refMap(p): figür noktasının yansımadaki yeri (göz parıltısı, karartma için).
+  const s1PhoneScene = (ctx, t, o) => {
+    const m = o.m, fl = o.flip ?? m;
+    baseT(ctx);
+    glaze(ctx, 1100, 820, 1100, `rgba(${lerp(80, 120, m) | 0},${lerp(42, 48, m) | 0},${lerp(28, 22, m) | 0},.45)`);
+    const p = { torso: .3, neck: o.neckA ?? .42, head: (o.headA ?? .55) + (o.headNod || 0), shN: .38, elN: .5, shF: .32, elF: .55, handN: 'fist', handF: 'fist', smile: 0, brow: .15, mouthOpen: 0, blink: o.blink,
+      mouthFlat: !!o.neutral, eyeWide: o.neutral ? .3 : 0 };
+    let f = { x: 0, y: 0, s: 20.5, dir: 1, sty: STY.red, lk: LK_MOD, seed: 31, idle: .6, p, faceW: 1.35, stripe: .35 };
+    f = placeNeck(ctx, f, o.neck || [640, 370]);
+    const { J: J0, M: M0 } = joints(ctx, f), e = headPt(ctx, J0, M0, [3.7, -6.75]);
+    const wy = o.wy ?? 600, pcx = e[0] + (o.phDx ?? 330), pw = o.pw ?? 270;
+    const dxR = o.refDx != null ? o.refDx : lerp(pcx - e[0] - 20, 0, m);
+    const hy = o.handY ?? 340;
+    if (o.armToPhone) { f.ik = { hN: [pcx - pw - 70, wy + hy + 120 + 420 * m] }; f.noFarArm = true; }
+    camAt(ctx, ...o.cam);
+    const shape = morphPts(roundRectPts(pcx - pw, wy, pcx + pw, wy + 900, 56, 56), ellipsePts(pcx - 100, wy + 360, 1300, 360), m);
+    const clip = c => poly(c, shape);
+    waterBody(ctx, clip, wy, t, { a: .2 * m, seed: 6, span: [300, 2100], n: 40 });
+    if (o.feedA > .005) phoneFeed(ctx, clip, pcx, pw, wy, o.feed || 0, o.feedA * (1 - m));
+    const rings = typeof o.rings === 'function' ? o.rings(pcx, wy, e) : o.rings;
+    // yansıma çapası: camda gözün dik aynası camın ortasında; suda su aynasının göz noktası
+    const C0 = [pcx - 18, wy + 275], C1 = [e[0] + dxR, 2 * wy - e[1]], C = lerp2(C0, C1, E.io2(fl)), th = PI * E.io2(fl), ca = Math.cos(th), sa = Math.sin(th);
+    const refMap = q => { const vx = -(q[0] - e[0]), vy = q[1] - e[1]; return [C[0] + ca * vx - sa * vy, C[1] + sa * vx + ca * vy]; };
+    mirror(ctx, c => { c.scale(1, -1); c.translate(-dxR, -2 * wy); c.translate(C[0], C[1]); c.rotate(th); c.scale(-1, 1); c.translate(-e[0], -e[1]); figure(c, f); },
+      wy, clip, t, { a: o.refA ?? .42, rings, calm: lerp(.15, 1.2, m), dx: dxR, calmAt: o.eyeCalm ? { x: C[0], y: C[1], r: o.eyeCalm } : null });
+    const ph = 1 - m;
+    if (o.glare && ph > .01) glassGlare(ctx, clip, pcx, wy, pw, ph * o.glare, t);
+    if (ph > .01) {
+      ctx.save(); ctx.beginPath(); clip(ctx); ctx.clip();
+      const g = ctx.createLinearGradient(pcx - 200, wy, pcx + 250, wy + 600); g.addColorStop(0, 'rgba(255,240,215,0)'); g.addColorStop(.45, `rgba(255,240,215,${.07 * ph})`); g.addColorStop(.55, `rgba(255,240,215,${.07 * ph})`); g.addColorStop(1, 'rgba(255,240,215,0)');
+      ctx.fillStyle = g; ctx.fillRect(600, wy, 1100, 900); ctx.restore();
+      ctx.save(); ctx.globalAlpha = ph; ctx.fillStyle = '#21160f';
+      ctx.beginPath(); ctx.roundRect(pcx - 50, wy + 20, 100, 13, 6.5); ctx.fill();
+      ctx.beginPath(); ctx.arc(pcx + 78, wy + 26, 7, 0, TAU); ctx.fill(); ctx.restore();
+    }
+    ctx.save(); ctx.beginPath(); poly(ctx, shape); ctx.lineWidth = lerp(4.5, 6, m); ctx.strokeStyle = mixCol('#B9653A', '#C9703F', m); ctx.lineJoin = 'round'; ctx.stroke(); ctx.restore();
+    if (o.light > 0) { ctx.save(); ctx.globalCompositeOperation = 'lighter'; glow(ctx, pcx - 120, wy, 420, `rgba(255,220,170,${.14 * o.light})`); ctx.restore(); }
+    litFigure(ctx, f, { x: e[0] + 120, y: wy + 20, r: 430, c: 'rgba(255,226,186,A)', a: .34 * o.light, dark: .25 + .25 * o.light });
+    if (ph > .02) phoneHand(ctx, pcx - pw, wy, t, ph, o.thumb || 0, o.light, hy);
+    return { f, refMap, shape, e, pcx, C, fl };
+  };
   plan('P001', (ctx, st) => {
     const t = st.t;
     const tF1 = PE('P001', 0), tF2 = PE('P001', 1), tB = PE('P001', 2), m0 = PE('P001', 3), m1 = PE('P001', 4);
@@ -187,32 +231,32 @@
     const z = t < m0 ? lerp(.82, .86, E.sine(clamp(t / m0))) : lerp(.86, 1.24, ramp(t, m0, m1, E.in2));
     const u = ramp(t, m0, m1, E.in2), fx = lerp(720, 990, u), fy = lerp(650, 770, u);
     const dxR = 240 * E.io2(m); // gövdeden açıl
-    const f = phoneScene(ctx, t, {
-      ...PH3, pw: PW, handY: 400, m, thumb: th, cam: [fx, fy, z], light: 0, refA: lerp(.2, .26, m), refDx: dxR, feed, feedA: 1 - ramp(t, tF2, tB, E.io2),
+    const R = s1PhoneScene(ctx, t, {
+      ...PH3, pw: PW, handY: 400, m, flip: m, thumb: th, cam: [fx, fy, z], light: 0, refA: lerp(.24, .26, m), refDx: dxR, feed, feedA: 1 - ramp(t, tF2, tB, E.io2),
       headNod: .04 * Math.sin(t * 1.1) - .04 * ramp(t, Wd('A01', 'kendine'), tB, E.io2),
       // halka: yansıyan başın sağ altından doğar; çizgiler yansıyan figürün 80 birim çevresinde çizilmez (hale okunmasın)
       rings: (cx, wy) => [{ x: cx + 240, y: wy + 330, t0: m0 + .1, A: 9, sq: .32, v: 330, lam: 46, k: .9, reach: 1200, life: 3.4, mask: 80 }],
     });
+    const f = R.f;
     // nötr ekran ışığı: camın üst kenarından yukarı, yalnız figürün üstünde (çene altında sıcak parıltı yok)
-    const { J, M } = joints(ctx, f), e = headPt(ctx, J, M, EYE_Q), eS = headPt(ctx, J, M, [EYE_Q[0] * LK_MOD.headS, EYE_Q[1] * LK_MOD.headS]), wy = PH3.wy, pcx = e[0] + PH3.phDx, ph = 1 - m;
+    const { J, M } = joints(ctx, f), eS = headPt(ctx, J, M, [EYE_Q[0] * LK_MOD.headS, EYE_Q[1] * LK_MOD.headS]), wy = PH3.wy, pcx = R.pcx, ph = 1 - m;
     if (ph > .01) {
       const T = ctx.getTransform(), L = layer('s1lit'); L.setTransform(1, 0, 0, 1, 0, 0); L.drawImage(LY.fig, 0, 0);
       L.globalCompositeOperation = 'source-in'; L.setTransform(T); // L = ışık, figürün biçiminde
       const g = L.createRadialGradient(pcx - 40, wy + 10, 0, pcx - 40, wy + 10, 300); g.addColorStop(0, `rgba(214,224,230,${.26 * ph})`); g.addColorStop(.5, `rgba(214,224,230,${.1 * ph})`); g.addColorStop(1, 'rgba(214,224,230,0)');
       L.fillStyle = g; L.fillRect(pcx - 400, wy - 320, 760, 340);
       ctx.save(); ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.globalCompositeOperation = 'screen'; ctx.drawImage(LY.s1lit, 0, 0); ctx.restore();
-      // camın üst kenarında ince soğuk ışık çizgisi
       ctx.save(); ctx.globalAlpha = .5 * ph; ctx.strokeStyle = 'rgba(214,226,232,.6)'; ctx.lineWidth = 2; ctx.beginPath(); ctx.moveTo(pcx - PW + 50, wy + 3); ctx.lineTo(pcx + PW - 50, wy + 3); ctx.stroke(); ctx.restore();
     }
-    // yansıyan saçın ucu: cam içinde yumuşak karartma (yansıyan başın alt yarısı)
-    const shape = morphPts(roundRectPts(pcx - PW, wy, pcx + PW, wy + 900, 56, 56), ellipsePts(pcx - 100, wy + 360, 1300, 360), m);
-    const ry = 2 * wy - eS[1];
-    ctx.save(); ctx.beginPath(); poly(ctx, shape); ctx.clip();
-    const g2 = ctx.createLinearGradient(0, ry + 70, 0, ry + 250); g2.addColorStop(0, 'rgba(6,3,2,0)'); g2.addColorStop(1, 'rgba(6,3,2,.82)');
-    ctx.fillStyle = g2; ctx.fillRect(pcx - 1600, ry + 70, 3200, 1400);
+    // yansımanın uzak ucu (camda gövde, suda saç): cam içinde yumuşak karartma; yön yansımanın dönüşünü izler
+    const rE = R.refMap(eS), dn = 1; // karartma her iki hâlde de yansıyan gözün altında (camda gövde, suda saç)
+    const off = lerp(150, 70, R.fl);
+    ctx.save(); ctx.beginPath(); poly(ctx, R.shape); ctx.clip();
+    const g2 = ctx.createLinearGradient(0, rE[1] + off * dn, 0, rE[1] + (off + 180) * dn); g2.addColorStop(0, 'rgba(6,3,2,0)'); g2.addColorStop(1, 'rgba(6,3,2,.82)');
+    ctx.fillStyle = g2; ctx.fillRect(pcx - 1600, rE[1] + off, 3200, 1400);
     // yansıyan göz bir an parlar ('baktın'; tek odak)
     const gl = ramp(t, tB - .05, tB + .25, E.out3) * (1 - .7 * ramp(t, tB + .5, tB + 1.3, E.io2)) * (1 - m);
-    if (gl > .01) { ctx.globalCompositeOperation = 'lighter'; glow(ctx, eS[0] + dxR, ry, 40, `rgba(255,240,215,${(.42 * gl).toFixed(3)})`); }
+    if (gl > .01) { ctx.globalCompositeOperation = 'lighter'; glow(ctx, rE[0], rE[1], 40, `rgba(255,240,215,${(.42 * gl).toFixed(3)})`); }
     ctx.restore();
   });
 })();

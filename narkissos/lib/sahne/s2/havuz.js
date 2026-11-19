@@ -39,6 +39,38 @@ function s2_litFig(ctx, f, light, o = {}) {
 }
 // ışık noktaları (incelme): beden çevresinde, belirlenimci
 function s2_motes(ctx, t, n, seed, cx, cy, rx, ry, a) { if (a > .005) motesN(ctx, t, n, seed, cx, cy, rx, ry, a); }
+// karşı kıyıdan (eksen değişimi, tur 2): sahne kendi katmanına çizilir ve yatayda aynalanarak basılır (kaya sağda, su solda, genç sola bakar).
+// fn(g) sahneyi g'ye çizer (meander: false verin; bordür aynalanmadan sonra çizilir). Sahnedeki yazılar aynalanmasın diye s2_scr ile ekran yerini alıp sonra çizin.
+function s2_flip(ctx, fn, o = {}) {
+  const g = layer('s2flip'); const r = fn(g);
+  ctx.save(); ctx.setTransform(-1, 0, 0, 1, CW, 0); ctx.drawImage(LY.s2flip, 0, 0); ctx.restore();
+  baseT(ctx); if (o.meander !== false) meander(ctx, -400, 2400, 0, 36, PC.clayR, PC.glaze);
+  return r;
+}
+// dünya noktasının mantıksal ekran yeri (1920×1080); flip: aynalanmış sahnede
+function s2_scr(c, p, flip = false) { const q = c.getTransform().transformPoint(new DOMPoint(p[0], p[1])); const x = q.x / RS, y = q.y / RS; return [flip ? W - x : x, y]; }
+// aynalanmış sahnede dipinto yazısı (yazı ters okunmasın): sahne içinde kuyruğa alınır (dünya noktası → ekran), aynalamadan sonra basılır.
+// Q: dizi; o.align 'left' (dünyada sağa uzanan) aynalanınca sağa hizalanır; o.clipY (dünya y): bunun altında kalan kısım görünür (suya giren yazı)
+function s2_yazQ(c, Q, s, wp, px, p, o = {}) { const z = Math.hypot(c.getTransform().a, c.getTransform().b) / RS; Q.push({ s, at: s2_scr(c, wp, true), px: px * z, p, o, cy: o.clipY != null ? s2_scr(c, [0, o.clipY], true)[1] : null }); }
+function s2_yazBas(ctx, Q) {
+  baseT(ctx);
+  for (const q of Q) { const o = { ...q.o }; let x = q.at[0];
+    ctx.save(); ctx.font = FONT.baslik(q.px, o.w || 600); ctx.letterSpacing = (o.ls ?? Math.round(q.px * .12)) + 'px'; const wd = ctx.measureText(q.s).width; ctx.restore();
+    if (o.align === 'left') x -= wd;
+    if (o.align === 'left') x = clamp(x, 120, 1800 - wd); else x = clamp(x, 120 + wd / 2, 1800 - wd / 2); // yazı x 120–1800 içinde
+    ctx.save(); if (q.cy != null) { ctx.beginPath(); ctx.rect(0, q.cy + 1, W, H); ctx.clip(); }
+    txtDipinto(ctx, q.s, x, q.at[1], q.px, q.p, { ...o, align: o.align === 'left' ? 'left' : o.align, ls: o.ls != null ? o.ls : undefined }); ctx.restore(); }
+}
+// yansıma kilitlenme parıltısı (P053 'benim'): temas noktasında kısa ışık ve yüzeyde kısa ışık çizgisi; a 0..1
+function s2_parilti(ctx, x, y, a) {
+  if (a <= .01) return;
+  ctx.save(); ctx.globalCompositeOperation = 'lighter';
+  const g = ctx.createRadialGradient(x, y, 0, x, y, 90); g.addColorStop(0, `rgba(255,236,200,${(.75 * a).toFixed(3)})`); g.addColorStop(.35, `rgba(255,214,160,${(.25 * a).toFixed(3)})`); g.addColorStop(1, 'rgba(255,214,160,0)');
+  ctx.fillStyle = g; ctx.beginPath(); ctx.ellipse(x, y, 90, 40, 0, 0, TAU); ctx.fill();
+  ctx.strokeStyle = `rgba(255,236,200,${(.7 * a).toFixed(3)})`; ctx.lineWidth = 3; ctx.lineCap = 'round';
+  ctx.beginPath(); ctx.moveTo(x - 160 * a - 20, y); ctx.lineTo(x + 160 * a + 20, y); ctx.stroke();
+  ctx.restore();
+}
 
 // ---- orta: kıyıda uzanmış genç (lib/havuz.js kiyiOrta kopyası + kancalar) ----
 // o: {cam, look, reach, smile, lag, refA, rings, pose(tt) → poz alanları, hN, hF, head, neck, handN, fade, marble, light, fig:false,
@@ -48,7 +80,7 @@ function s2_kiyiFig(t, o = {}) {
   const grip = [xe - 12, gy - .6];
   const hN = o.hN || [lerp(grip[0] + 4, xe + 40, reach), lerp(grip[1], wy - 34, reach)];
   const pp = { ...pPose({ head: .08 * look + (o.head || 0), neck: .04 * look + (o.neck || 0), handN: o.handN || (reach > .3 ? 'open' : 'flat'), smile: o.smile ?? .25 * reach,
-    brow: o.brow, mouthOpen: o.mouthOpen, eyeWide: o.eyeWide, blink: o.blink }), hemPerp: true, hemT: .62 };
+    brow: o.brow, mouthOpen: o.mouthOpen, eyeWide: o.eyeWide, blink: o.blink }), mouthFlat: !!o.mouthFlat, hemPerp: true, hemT: .62 };
   return { f: proneFig(px, gy, s, pp, { hN, hF: o.hF || [grip[0] - 9, grip[1]], flatFeet: -2.9 }), aN: o.wrA ?? lerp(.12, .42, reach) };
 }
 function s2_kiyi(ctx, t, o = {}) {
@@ -66,7 +98,7 @@ function s2_kiyi(ctx, t, o = {}) {
   if (o.waterFx) { ctx.save(); ctx.beginPath(); water(ctx); ctx.clip(); o.waterFx(ctx, wy); ctx.restore(); }
   const bank = c => { if (o.bank !== false) for (const [x, sd, h] of (o.bankN || [[1290, 5, 60], [1318, 8, 48], [1350, 2, 56]])) narcissus(c, x, wy - 14, .62, t, sd, { dir: -1, h }); };
   mirror(ctx, bank, wy, c => c.rect(1150, wy, 4000, 2000), t, { a: .45, calm: 1.1 });
-  if (fR || o.refl) mirror(ctx, c => { if (fR) withFigT(t - lag, () => { figure(c, fR); if (o.reflTint) { c.save(); c.globalCompositeOperation = 'source-atop'; o.reflTint(c); c.restore(); } }); if (o.refl) o.refl(c, t - lag); }, wy, water, t, { a: o.refA ?? .42, calm: o.calm ?? 1.1, rings: o.rings, warpBox: o.warpBox });
+  if (fR || o.refl) mirror(ctx, c => { if (fR) withFigT(t - lag, () => { figure(c, fR); if (o.reflTint) { c.save(); c.globalCompositeOperation = 'source-atop'; o.reflTint(c); c.restore(); } }); if (o.refl) o.refl(c, t - lag); }, wy, water, t, { a: o.refA ?? .42, calm: o.calm ?? 1.1, rings: o.rings, warpBox: o.warpBox, dx: o.rdx || 0 });
   if (o.pre) o.pre(ctx);
   farBank(ctx, 1180, 2600, wy, t, 17, { h: 22, grass: 7, fill: '#3A1B0D' }); bank(ctx);
   ledge(ctx, xe, gy, wy);
@@ -97,13 +129,16 @@ function s2_dFig(ctx, t, NT, T, o = {}) {
   const s = D_S, gy = NT[1] - D_GAP + .2 * s, px = NT[0] - 30 * s;
   const q = o.pose ? o.pose(t) : dPoseO(t, T), pp = pPose(q);
   pp.neck = 1.0 + q.neck; pp.head = -.9 + q.head;
+  if (q.mouthFlat) pp.mouthFlat = true;
   const R = o.handOff ? { w: [140, 600], a: 1.62, hand: 'flat' } : s2_dReach(t, T);
   pp.handN = R.hand; pp.handF = 'flat';
   const hN = [R.w[0] + (NT[0] - D_XE), R.w[1] + (NT[1] - D_WY)];
   const f = proneFig(px, gy, s, pp, { idle: .3, faceW: 1.5, stripe: .3, hN, hF: o.handOff ? [px + 12 * s, gy - .2 * s] : [px + 17 * s, gy - .4 * s] });
   f.noFarArm = true;
+  const hh = typeof o.handHead === 'function' ? o.handHead(t) : (o.handHead || 0); // tur 2 (P055): el şakağa gider (0..1)
+  if (hh > .001) { const { J: J0, M: M0 } = joints(ctx, f), tp = headPt(ctx, J0, M0, [-.2, -7.6]); f.ik = { ...f.ik, hN: lerp2(f.ik.hN, tp, E.io2(clamp(hh))) }; pp.handN = hh > .4 ? 'flat' : pp.handN; }
   const { J } = joints(ctx, f);
-  f.p = { ...f.p, wrN: R.a - J.AN.foA, wrF: 1.62 - J.AF.foA };
+  f.p = { ...f.p, wrN: lerp(R.a - J.AN.foA, J.AN.foA * 0 - .4, clamp(hh)), wrF: 1.62 - J.AF.foA };
   return f;
 }
 
@@ -247,27 +282,29 @@ function s2_patika(c, gy, li) {
     c.fillStyle = g; c.beginPath(); c.moveTo(130, 120); c.lineTo(330, 120); c.lineTo(900, 1080); c.lineTo(560, 1080); c.closePath(); c.fill(); }
   c.restore();
 }
-// sırttan çekimde ön plandaki baş ve omuz (ekran koordinatı): koyu siluet, yanağın/kulağın kenarında sudan gelen sıcak ışık; hands 0..1 eller başa
-function s2_sirt(ctx, t, glow, hands) {
-  ctx.save(); baseT(ctx); const by = Math.sin(t * .8) * 3, hx = 900, hy = 150 + by, R = 200;
-  const head = c => { c.beginPath(); c.ellipse(hx, hy, R, R * .96, 0, 0, TAU); };
-  // omuzlar (khiton, arkadan): ekranın üst kenarından inen geniş yay
-  ctx.fillStyle = '#93492A'; ctx.strokeStyle = C.ink; ctx.lineWidth = 6;
-  ctx.beginPath(); ctx.moveTo(180, -30); ctx.bezierCurveTo(240, 260, 520, 330, hx, 330); ctx.bezierCurveTo(1280, 330, 1560, 260, 1620, -30); ctx.closePath(); ctx.fill(); ctx.stroke();
-  ctx.strokeStyle = 'rgba(14,9,7,.5)'; ctx.lineWidth = 3; for (let i = 0; i < 7; i++) { const x = 380 + i * 175; ctx.beginPath(); ctx.moveTo(x, -10); ctx.quadraticCurveTo(x + (i - 3) * 14, 150, x + (i - 3) * 30, 300); ctx.stroke(); }
-  // kollar: dirsekler iki yana açılır, eller başın iki yanına (yalnız 'yapayım'dan sonra)
-  if (hands > .02) for (const sd of [-1, 1]) {
-    const sh = [hx + sd * 330, 300], el = [hx + sd * lerp(360, 470, hands), lerp(330, 210, hands)], hd = [hx + sd * lerp(340, 190, hands), lerp(330, 160, hands)];
+// omuz üstü çekim (P055, tur 2): sağ ön planda gencin başının arkası, kulağı ve omzu (ekran koordinatı); hale yok: başın çevresinde ışık ya da halka yok, ışık yalnız suda.
+// hands 0..1: yakın kol kalkar, el şakağa; öbür elin parmakları başın sol yanında görünür (başını iki elinin arasına alır)
+function s2_omuzNk(ctx, t, hands) {
+  ctx.save(); baseT(ctx); const by = Math.sin(t * .8) * 3, hx = 1640, hy = 330 + by;
+  const ink = C.ink;
+  // omuz ve khiton (sağ alttan yükselen kütle)
+  ctx.fillStyle = '#93492A'; ctx.strokeStyle = ink; ctx.lineWidth = 6;
+  ctx.beginPath(); ctx.moveTo(1180, H + 30); ctx.bezierCurveTo(1250, 820, 1380, 640, 1560, 600); ctx.bezierCurveTo(1700, 570, 1860, 560, W + 40, 600); ctx.lineTo(W + 40, H + 30); ctx.closePath(); ctx.fill(); ctx.stroke();
+  ctx.strokeStyle = 'rgba(14,9,7,.5)'; ctx.lineWidth = 3.5; for (const k of [0, 1, 2, 3]) { ctx.beginPath(); ctx.moveTo(1330 + k * 120, H + 10); ctx.bezierCurveTo(1380 + k * 110, 880, 1450 + k * 100, 720, 1540 + k * 110, 640); ctx.stroke(); }
+  // boyun (kil) ve başın arkası (siyah sır saç, kısa bukle kazımaları)
+  ctx.fillStyle = '#C9703F'; ctx.strokeStyle = ink; ctx.lineWidth = 5; ctx.beginPath(); ctx.moveTo(1500, 610); ctx.bezierCurveTo(1520, 520, 1560, 470, 1620, 450); ctx.lineTo(1760, 470); ctx.bezierCurveTo(1760, 540, 1740, 590, 1730, 610); ctx.closePath(); ctx.fill(); ctx.stroke();
+  ctx.fillStyle = '#C9703F'; ctx.beginPath(); ctx.ellipse(hx - 168, hy + 50, 24, 40, -.25, 0, TAU); ctx.fill(); ctx.stroke(); // kulak (suya dönük yan)
+  ctx.beginPath(); ctx.moveTo(hx - 150, hy + 10); ctx.bezierCurveTo(hx - 190, hy + 120, hx - 140, hy + 190, hx - 70, hy + 200); ctx.lineTo(hx - 20, hy + 120); ctx.closePath(); ctx.fill(); // yanak kenarı (yüz suya dönük, yalnız kenarı)
+  ctx.fillStyle = '#0E0907'; ctx.beginPath(); ctx.ellipse(hx, hy, 170, 158, .15, 0, TAU); ctx.fill();
+  ctx.strokeStyle = 'rgba(201,112,63,.6)'; ctx.lineWidth = 3.5; for (let i = 0; i < 18; i++) { const a = i / 18 * TAU, rr = 40 + (i % 3) * 38; ctx.beginPath(); ctx.arc(hx + Math.cos(a) * rr, hy + Math.sin(a) * rr * .9, 16, a - 1.2, a + 1.2); ctx.stroke(); }
+  if (hands > .02) {
     const limb = (a2, b2, w0, w1) => { const d = sub(b2, a2), n = [-d[1] / len(d), d[0] / len(d)]; ctx.beginPath(); ctx.moveTo(a2[0] + n[0] * w0, a2[1] + n[1] * w0); ctx.lineTo(b2[0] + n[0] * w1, b2[1] + n[1] * w1); ctx.lineTo(b2[0] - n[0] * w1, b2[1] - n[1] * w1); ctx.lineTo(a2[0] - n[0] * w0, a2[1] - n[1] * w0); ctx.closePath(); ctx.fill(); ctx.stroke(); };
-    ctx.fillStyle = '#C9703F'; ctx.strokeStyle = C.ink; ctx.lineWidth = 5; limb(sh, el, 46, 36); limb(el, hd, 36, 28); ctx.beginPath(); ctx.arc(el[0], el[1], 36, 0, TAU); ctx.fill();
-    ctx.beginPath(); ctx.ellipse(hd[0] - sd * 6, hd[1] - 10, 30, 44, sd * .3, 0, TAU); ctx.fill(); ctx.stroke();
+    const el = [lerp(1900, 1880, hands), lerp(1100, 470, hands)], hd = [lerp(1880, 1520, hands), lerp(1150, 320, hands)];
+    ctx.fillStyle = '#C9703F'; ctx.strokeStyle = ink; ctx.lineWidth = 5; limb([1980, 1000], el, 52, 42); limb(el, hd, 42, 32); ctx.beginPath(); ctx.arc(el[0], el[1], 42, 0, TAU); ctx.fill();
+    ctx.save(); ctx.translate(hd[0], hd[1]); ctx.rotate(-2.6); ctx.beginPath(); ctx.ellipse(0, 0, 58, 34, 0, 0, TAU); ctx.fill(); ctx.stroke(); ctx.lineWidth = 2.5; for (const k of [-1, 0, 1]) { ctx.beginPath(); ctx.moveTo(10, k * 12); ctx.lineTo(50, k * 13); ctx.stroke(); } ctx.restore();
+    // öbür elin parmakları başın sol yanında (yalnız uçlar)
+    ctx.save(); ctx.globalAlpha *= clamp(hands * 1.4 - .3); ctx.fillStyle = '#C9703F'; ctx.lineWidth = 4; for (let k = 0; k < 3; k++) { ctx.beginPath(); ctx.ellipse(hx - 150 + k * 18, hy - 120 + k * 22, 13, 30, .9, 0, TAU); ctx.fill(); ctx.stroke(); } ctx.restore();
   }
-  ctx.fillStyle = '#C9703F'; ctx.strokeStyle = C.ink; ctx.lineWidth = 4; ctx.beginPath(); ctx.ellipse(hx + R * .93, hy + 40, 26, 40, .2, 0, TAU); ctx.fill(); ctx.stroke(); // kulak (sağda)
-  ctx.fillStyle = '#0B0605'; head(ctx); ctx.fill();
-  ctx.strokeStyle = 'rgba(201,112,63,.6)'; ctx.lineWidth = 4; for (let i = 0; i < 16; i++) { const a = i / 16 * TAU, rr = R * (.45 + .35 * (i % 2)); ctx.beginPath(); ctx.arc(hx + Math.cos(a) * rr, hy + Math.sin(a) * rr, 20, a - 1.3, a + 1.3); ctx.stroke(); }
-  // yanağın ve kulağın kenarı: sudan gelen sıcak ışık (yalnız alt sağ kenarda; başın çevresinde halka yok)
-  if (glow > .01) { ctx.save(); head(ctx); ctx.clip(); const g = ctx.createRadialGradient(hx + 150, hy + 220, 0, hx + 150, hy + 220, 230); g.addColorStop(0, `rgba(255,190,120,${(.7 * glow).toFixed(3)})`); g.addColorStop(1, 'rgba(255,190,120,0)'); ctx.fillStyle = g; ctx.fillRect(hx - 100, hy, 400, 300); ctx.restore();
-    ctx.strokeStyle = `rgba(255,205,140,${(.9 * glow).toFixed(3)})`; ctx.lineWidth = 7; ctx.beginPath(); ctx.ellipse(hx, hy, R, R * .96, 0, .15, 1.0); ctx.stroke(); }
   ctx.restore();
 }
 // P056 alıntısı: 'Sahip' kelimesi ekranın üst yarısında ortada (P057'ye eşleme kesmesi: aynı yerde SAHİP)
@@ -290,8 +327,8 @@ function s2_altSu(ctx, t, st, calm, hand) {
   s2_yakin(g, t, { cam, lag: 0, noBank: true, refA: 0, light: .2, T: { son: tK - 1.0, ben: tK - .1, back: 1e9, hand: 'open' }, pose: tt => ({ ...dPoseO(tt, {}), smile: -.3 }) });
   baseT(ctx); ctx.fillStyle = '#060404'; ctx.fillRect(0, 0, W, H);
   const yW = 540 + (D_WY - cam[1]) * cam[2] + 6; // yüzeyin ekrandaki yeri
-  const amp = lerp(26, 3, calm), step = 4;
-  ctx.save(); ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.globalAlpha = lerp(.55, .85, calm);
+  const amp = lerp(9, 2, calm), step = 4; // tur 2: kırılma hafif (beden 'erimiş kütle' okunmasın)
+  ctx.save(); ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.globalAlpha = lerp(.72, .92, calm);
   for (let y = 0; y < yW * RS; y += step * RS) { const dx = amp * RS * Math.sin(y / RS * .045 + t * 2.1) * (.4 + .6 * (1 - y / (yW * RS))); ctx.drawImage(LY.s2alt, 0, y, DW, step * RS, dx, y, DW, step * RS); }
   ctx.restore();
   baseT(ctx);
@@ -313,20 +350,31 @@ function s2_kiragi(ctx, t, st, sun, melt, tE) {
   ctx.fillStyle = '#050302'; ctx.fillRect(-200, 820, 2400, 400); ctx.strokeStyle = 'rgba(201,112,63,.25)'; ctx.lineWidth = 3; for (let i = 0; i < 9; i++) { const y = 850 + i * 24, x = 200 + hash(i) * 1400; ctx.beginPath(); ctx.moveTo(x, y); ctx.lineTo(x + 160, y); ctx.stroke(); }
   ctx.strokeStyle = 'rgba(232,160,104,.9)'; ctx.lineWidth = 4; ctx.beginPath(); ctx.moveTo(-200, 820); ctx.lineTo(2400, 820); ctx.stroke();
   // ışık şeridi (eğik; hale değil)
-  if (sun > .01) { const g = ctx.createLinearGradient(400, 0, 1300, 800); g.addColorStop(0, 'rgba(255,226,170,0)'); g.addColorStop(1, `rgba(255,226,170,${(.22 * sun).toFixed(3)})`); ctx.fillStyle = g; ctx.beginPath(); ctx.moveTo(300, -40); ctx.lineTo(520, -40); ctx.lineTo(lerp(700, 1340, sun), 820); ctx.lineTo(lerp(560, 1100, sun), 820); ctx.closePath(); ctx.fill(); }
-  // ot yaprağı (kıyıdan suya eğik): kil dolgu, siyah kontur, orta damar
-  const B = [[260, 900], [700, 520], [1200, 420], [1500, 560]], sw = Math.sin(t * .9) * 6;
-  const pt = u => { const a = lerp2(B[0], B[1], u), b = lerp2(B[1], B[2], u), c2 = lerp2(B[2], B[3], u); const ab = lerp2(a, b, u), bc = lerp2(b, c2, u); return add(lerp2(ab, bc, u), [0, sw * u]); };
-  const wid = u => 34 * (1 - u) * (.4 + .6 * Math.sin(PI * Math.min(1, u * 1.6)));
-  ctx.beginPath(); for (let i = 0; i <= 40; i++) { const u = i / 40, p = pt(u), q = sub(pt(Math.min(1, u + .01)), pt(Math.max(0, u - .01))), n = [-q[1] / len(q), q[0] / len(q)], w = wid(u); i ? ctx.lineTo(p[0] + n[0] * w, p[1] + n[1] * w) : ctx.moveTo(p[0] + n[0] * w, p[1] + n[1] * w); }
-  for (let i = 40; i >= 0; i--) { const u = i / 40, p = pt(u), q = sub(pt(Math.min(1, u + .01)), pt(Math.max(0, u - .01))), n = [-q[1] / len(q), q[0] / len(q)], w = wid(u); ctx.lineTo(p[0] - n[0] * w, p[1] - n[1] * w); }
-  ctx.closePath(); ctx.fillStyle = PC.clayR; ctx.fill(); ctx.strokeStyle = C.ink; ctx.lineWidth = 4; ctx.stroke();
-  ctx.beginPath(); for (let i = 0; i <= 40; i++) { const p = pt(i / 40); i ? ctx.lineTo(...p) : ctx.moveTo(...p); } ctx.lineWidth = 2; ctx.stroke();
-  // kırağı: küçük beyaz noktalar ve kısa çizgiler (yıldız değil); ışıkla parlar, erir (küçülür ve söner)
+  if (sun > .01) { const g = ctx.createLinearGradient(400, 0, 1300, 800); g.addColorStop(0, 'rgba(255,226,170,0)'); g.addColorStop(1, `rgba(255,226,170,${(.22 * sun).toFixed(3)})`); ctx.fillStyle = g; ctx.beginPath(); ctx.moveTo(300, -40); ctx.lineTo(520, -40); ctx.lineTo(lerp(700, 1180, sun), 820); ctx.lineTo(lerp(600, 1060, sun), 820); ctx.closePath(); ctx.fill(); }
+  // tur 2: ince, yeşil-gri ot yaprakları (kuyruklu yıldız okunmasın): arkada iki koyu yaprak, önde yakın tek yaprak; kırağı kenarlarda küçük beyaz taneler
+  const sw = Math.sin(t * .9) * 5;
+  const blade = (B, w0, fill, ink, swk) => {
+    const pt = u => { const a = lerp2(B[0], B[1], u), b = lerp2(B[1], B[2], u), c2 = lerp2(B[2], B[3], u); const ab = lerp2(a, b, u), bc = lerp2(b, c2, u); return add(lerp2(ab, bc, u), [0, sw * swk * u]); };
+    const wid = u => w0 * (1 - Math.pow(u, 1.6)) + 1.5;
+    const nrm = u => { const q = sub(pt(Math.min(1, u + .01)), pt(Math.max(0, u - .01))); return [-q[1] / len(q), q[0] / len(q)]; };
+    ctx.beginPath(); for (let i = 0; i <= 50; i++) { const u = i / 50, p = pt(u), n = nrm(u), w = wid(u); i ? ctx.lineTo(p[0] + n[0] * w, p[1] + n[1] * w) : ctx.moveTo(p[0] + n[0] * w, p[1] + n[1] * w); }
+    for (let i = 50; i >= 0; i--) { const u = i / 50, p = pt(u), n = nrm(u), w = wid(u); ctx.lineTo(p[0] - n[0] * w, p[1] - n[1] * w); }
+    ctx.closePath(); ctx.fillStyle = fill; ctx.fill(); ctx.strokeStyle = ink; ctx.lineWidth = 3; ctx.stroke();
+    ctx.beginPath(); for (let i = 0; i <= 50; i++) { const p = pt(i / 50); i ? ctx.lineTo(...p) : ctx.moveTo(...p); } ctx.strokeStyle = 'rgba(220,226,200,.35)'; ctx.lineWidth = 1.6; ctx.stroke();
+    return { pt, wid, nrm };
+  };
+  // kıyı (solda): koyu toprak sırt, yapraklar ondan çıkar ve suyun üstüne eğilir
+  crag(ctx, [[-400, 1200], [-400, 700], [120, 690], [330, 730], [470, 800], [520, 830], [560, 1200]], { fill: '#4A2412', seed: 64, wob: 4, strata: 3, lobes: 2 });
+  for (let i = 0; i < 4; i++) grass(ctx, 40 + i * 110, 700 + i * 12, 2.2, t, 150 + i);
+  blade([[260, 720], [420, 470], [700, 330], [860, 400]], 13, '#3E4536', C.ink, .5);
+  blade([[340, 740], [560, 560], [820, 520], [960, 600]], 11, '#3A4033', C.ink, .4);
+  const L = blade([[300, 730], [560, 380], [1060, 300], [1400, 600]], 28, '#7F8A6C', C.ink, 1);
+  const pt = L.pt;
+  // kırağı: kenar boyunca küçük beyaz taneler (yıldız değil); ışıkla parlar, erir (küçülür ve söner)
   const r = rng(64); ctx.save();
-  for (let i = 0; i < 110; i++) { const u = .04 + r() * .9, side = r() * 2 - 1, p = pt(u), w = wid(u) * side * .8, sz = (2 + r() * 3.5) * (1 - melt * (.6 + .4 * r())), bright = .6 + .4 * sun;
+  for (let i = 0; i < 160; i++) { const u = .05 + r() * .9, side = r() < .5 ? -1 : 1, p = pt(u), n = L.nrm(u), w = L.wid(u) * side * (.55 + .4 * r()), sz = (1.6 + r() * 2.6) * (1 - melt * (.6 + .4 * r())), bright = .6 + .4 * sun;
     if (sz <= .3) continue; ctx.globalAlpha = clamp((1 - melt * 1.1) + .2) * bright; ctx.fillStyle = '#F6F0E2';
-    const x = p[0] + w * .3, y = p[1] + w; if (r() < .5) { ctx.beginPath(); ctx.arc(x, y, sz, 0, TAU); ctx.fill(); } else { ctx.strokeStyle = '#F6F0E2'; ctx.lineWidth = sz * .7; ctx.beginPath(); ctx.moveTo(x - sz * 1.4, y); ctx.lineTo(x + sz * 1.4, y - sz * .4); ctx.stroke(); } }
+    ctx.beginPath(); ctx.arc(p[0] + n[0] * w, p[1] + n[1] * w, sz, 0, TAU); ctx.fill(); }
   ctx.restore();
   // ucunda damla: erirken büyür, 'erirse'de suya düşer
   const tip = pt(1), form = clamp(melt * 1.3), fall = clamp((t - tE) / .45);
@@ -627,9 +675,14 @@ function s2_eko(c, x, gy, s, t, a) {
 
   // P041 · ters açı · D05 · Tepeden: su çizgisi dikey eksen, kıyının taşı solda; solda gerçek baş, sağda yansıyan yüz (yakın sahne 90° döndürülür)
   plan('P041', (ctx, st) => {
+    // tur 2: tepeden açı kaldırıldı (secde/maske okunuyordu). Ters açı = karşı kıyıdan yan bakış: su çizgisi kadrajın tam ortasında, üstte gerçek yüz, altta yansıması;
+    // dirsekler kıyıda, baş kalkık; kamera su çizgisi boyunca yavaş kayar. 'seven'de gerçek yüz, 'sevilen'de (9 kare geç) yansıma ışıklanır
     const t = st.t, tS = PE('P041', 0), tV = PE('P041', 1);
     const l1 = ramp(t, tS - .1, tS + .5, E.out2), l2 = ramp(t, tV - .1 + REF_LAG, tV + .5 + REF_LAG, E.out2);
-    s2_tepe(ctx, t, { dy: lerp(-40, 40, st.p), lA: l1, rA: l2, refA: .42 });
+    s2_flip(ctx, g => s2_yakin(g, t, { cam: s2_cam(st, [D_XE + 250, D_WY + 10, .97], [D_XE + 360, D_WY + 10, 1.0]), noBank: true, light: .12 + .4 * l1, refA: .46 + .3 * l2,
+      pose: tt => ({ ...dPoseO(tt, {}), smile: .1, mouthFlat: true, eyeWide: .2 }),
+      refl: (rc, tt, fR) => { if (l2 <= .01) return; const { J, M } = joints(rc, fR), e = headPt(rc, J, M, [2.5, -6]);
+        rc.save(); rc.globalCompositeOperation = 'lighter'; const gr = rc.createRadialGradient(e[0], e[1], 0, e[0], e[1], 260); gr.addColorStop(0, `rgba(255,214,160,${(.22 * l2).toFixed(3)})`); gr.addColorStop(1, 'rgba(255,214,160,0)'); rc.fillStyle = gr; rc.fillRect(e[0] - 300, e[1] - 300, 600, 600); rc.restore(); } }), { meander: false });
   });
 
   // P042 · orta · D06 · Suya eğilip yaklaşır (değmeden), kollarını daldırır; yansıma halkalarla kırılır; eller boş çıkar, damlalar
@@ -762,10 +815,18 @@ function s2_eko(c, x, gy, s, t, a) {
 
   // P053 · yakın · E03 · Tanıma hamlesi (kapı D_benim): parmak suya değer, 'benim'de iki parmak buluşur, gecikme sıfırlanır; irkilme. Sessizlikte kilitli yansıma
   plan('P053', (ctx, st) => {
-    const t = st.t, T = { son: PE('P053', 0), ben: PE('P053', 1), back: PE('P053', 3), lean0: st.at };
-    s2_yakin(ctx, t, { T, cam: s2_cam(st, [D_XE + 330, D_WY - 22, .96], [D_XE + 330, D_WY - 10, 1.02]) });
-  }, { over: (ctx, st) => { const b = PE('P053', 1); buyukSoz(ctx, 'O benim.', st.t, b, { y: 200, a: 1 - ramp(st.t, PE('P053', 3) + 1.2, PE('P053', 3) + 1.8) });
-    kunye(ctx, 'Ovidius, Dönüşümler III 463 · iste ego sum', st.t - b - .4, st.end - b - .3) } });
+    // tur 2: iki yüz de tam kadrajda (kamera su çizgisinde); 'benim'e kadar âşık gülümseme, 'benim'de gülümseme düşer, göz açılır ve açık kalır;
+    // yansıma aynı kareye oturur: gecikme sıfırlanır, yansıma bir an parlar (temas noktasında ışık, yüzeyde ışık çizgisi)
+    const t = st.t, T = { son: PE('P053', 0), ben: PE('P053', 1), back: PE('P053', 3), lean0: st.at }, b = T.ben;
+    const flash = ramp(t, b - .04, b + .1, E.out2) * (1 - ramp(t, b + .35, b + 1.5, E.io2)), lock = ramp(t, b, b + .45, E.out3);
+    s2_yakin(ctx, t, { T, cam: s2_cam(st, [D_XE + 450, D_WY + 6, .84], [D_XE + 440, D_WY + 6, .9]), refA: lerp(.46, .86, lock) + .14 * flash,
+      pose: tt => { const q = dPoseO(tt, T), pre = 1 - ramp(tt, b - .05, b + .12, E.out3), op = ramp(tt, b - .02, b + .12, E.out3);
+        return { ...q, smile: lerp(-.9, .45, pre), eyeWide: Math.max(q.eyeWide || 0, .6 * op), browUp: Math.max(q.browUp || 0, .35 * op), blink: tt > b - .3 && tt < b + 3.2 ? 0 : q.blink }; },
+      post: (c, I) => { s2_parilti(c, D_TOUCH.tip[0] + 4, I.wy + 2, flash); } });
+  }, { over: (ctx, st) => { const b = PE('P053', 1);
+    // 'O benim.' sağdaki boş alanda, vazo ressamının fırça yazısı (dipinto), büyük kırmızı; yüzün üstüne binmez
+    if (!NOTEXT && st.t > b) txtDipinto(ctx, 'O BENİM.', 1455, 235, 112, ramp(st.t, b, b + .3, E.lin), { col: '#D2492E', w: 700, ls: 12, a: 1 - ramp(st.t, PE('P053', 3) + 1.2, PE('P053', 3) + 1.8) });
+    kunye(ctx, 'Ovidius, Dönüşümler III 463 · iste ego sum', st.t - b - .4, st.end - b - .3, { x: 1800, align: 'right' }) } });
 
   // P054 · geniş · E05 · Geri çekilmiş manzara: o hâlâ kıyıda; arkasındaki patika ışıkla açılır ve söner
   plan('P054', (ctx, st) => {
@@ -778,51 +839,73 @@ function s2_eko(c, x, gy, s, t, a) {
 
   // P055 · ters açı · E06 · Sırttan: kamera omzunun arkasında; yüzü yalnız yansımada. Su parıltısı yükselir, yüzün kenarını ısıtır; başını ellerinin arasına alır
   plan('P055', (ctx, st) => {
+    // tur 2: omuz üstü (karşı kıyı ekseni: yansıma solda, genç sağ ön planda); başın arkasında disk ya da ışık yok, ışık yalnız suda
     const t = st.t, tY = PE('P055', 0), tP = PE('P055', 1);
     const glow = ramp(t, tY - .2, tY + 1.2, E.io2), hands = ramp(t, tP - .2, tP + .7, E.io2);
-    s2_yakin(ctx, t, { cam: s2_cam(st, [905, 760, 1.25], [905, 745, 1.32]), noBank: true, refA: .72, noReal: true,
-      waterFx: (c, wy) => { const g = c.createRadialGradient(1040, wy + 6, 0, 1040, wy + 6, 520); g.addColorStop(0, `rgba(255,214,150,${(.1 + .3 * glow).toFixed(3)})`); g.addColorStop(1, 'rgba(255,214,150,0)'); c.fillStyle = g; c.fillRect(0, wy, 3000, 600); },
-      post: () => s2_sirt(ctx, t, glow, hands) });
-  }, { over: (ctx, st) => kunye(ctx, 'Ovidius, Dönüşümler III 464', st.lt, st.d, { x: 1800, align: 'right' }) });
+    s2_flip(ctx, g => s2_yakin(g, t, { cam: s2_cam(st, [960, 770, 1.12], [960, 755, 1.18]), noBank: true, refA: .72, noReal: true, lag: 0,
+      waterFx: (c, wy) => { const gr = c.createRadialGradient(1000, wy + 160, 0, 1000, wy + 160, 560); gr.addColorStop(0, `rgba(255,214,150,${(.08 + .26 * glow).toFixed(3)})`); gr.addColorStop(1, 'rgba(255,214,150,0)'); c.fillStyle = gr; c.fillRect(0, wy, 3000, 900); },
+      handHead: tt => ramp(tt, tP - .2, tP + .7, E.io2), pose: tt => ({ ...dPoseO(tt, {}), smile: 0, mouthFlat: true, brow: -.1 + .3 * hands, browUp: .15 }) }), { meander: false });
+    s2_omuzNk(ctx, t, hands);
+    baseT(ctx); meander(ctx, -400, 2400, 0, 36, PC.clayR, PC.glaze);
+  }, { over: (ctx, st) => kunye(ctx, 'Ovidius, Dönüşümler III 464', st.lt, st.d) });
 
   // P056 · orta · E07 · Kıyıyı kavramış; eli yansımanın yüzüne çok yakın, değmez; 'SAHİP' yazıda kırmızı yanar; el boş kapanır
   plan('P056', (ctx, st) => {
+    // tur 2: tanımadan sonra eksen değişir (karşı kıyıdan): kaya sağda, su solda
     const t = st.t, tI = PE('P056', 0), tS = PE('P056', 1), tY = PE('P056', 2);
-    s2_kiyi(ctx, t, { cam: s2_cam(st, [930, 590, 1.5], [1010, 590, 1.5]),
-      pose: tt => ({ look: 1, reach: ramp(tt, tI - .1, tI + 1.2, E.io2) * .95, handN: tt > tY + .1 ? 'fist' : 'open' }) });
+    s2_flip(ctx, g => s2_kiyi(g, t, { cam: s2_cam(st, [930, 545, 1.42], [1000, 545, 1.42]), meander: false,
+      pose: tt => ({ look: 1, reach: ramp(tt, tI - .1, tI + 1.2, E.io2) * .95, handN: tt > tY + .1 ? 'fist' : 'open' }) }));
   }, { over: (ctx, st) => s2_sahipSatir(ctx, st) });
 
   // P058 · ayrıntı · E08@söz · LEVHA · Uçan 'SAHİP' suya düşer, yansımanın dudaklarında durur. Söz geri döndü
   plan('P058', (ctx, st) => {
-    const t = st.t, tD = PE('P058', 0);
-    s2_yakin(ctx, t, { cam: s2_cam(st, [920, 690, 1.9], [920, 690, 2.0]), noBank: true, refA: .66, pose: tt => ({ ...dPoseO(tt, {}), smile: -.1 }),
-      post: (c, I) => { // SAHİP yukarıdan iner, su yüzünü geçer ve yansıyan dudaklara oturur
+    const t = st.t, tD = PE('P058', 0), Q = [];
+    s2_flip(ctx, g => s2_yakin(g, t, { cam: s2_cam(st, [920, 690, 1.9], [920, 690, 2.0]), noBank: true, refA: .66, pose: tt => ({ ...dPoseO(tt, {}), smile: 0, mouthFlat: true }),
+      post: (c, I) => { // SAHİP yukarıdan iner, su yüzünü geçer ve yansıyan dudaklara oturur (yazı aynalanmaz)
         const mo = headPt(c, I.J, I.M, [5.4, -3.2]), m = [mo[0], 2 * I.wy - mo[1]], u = ramp(t, st.at, tD + .1, E.in2), y = lerp(m[1] - 520, m[1], u), wob = settle(t, tD + .1, 6, 2.4, 3);
-        c.save(); if (y > I.wy) { c.beginPath(); c.rect(0, I.wy + 1, 4000, 2000); c.clip(); }
-        txtDipinto(c, 'SAHİP', m[0] + 20, y - 12 + wob, 58, 1, { col: '#E0573A', a: y > I.wy ? .85 : 1 }); c.restore(); } });
+        s2_yazQ(c, Q, 'SAHİP', [m[0] + 20, y - 12 + wob], 58, 1, { col: '#E0573A', a: y > I.wy ? .9 : 1, clipY: y > I.wy ? I.wy : null }); } }), { meander: false });
+    s2_yazBas(ctx, Q);
   }, { over: (ctx, st) => kunye(ctx, 'copia · Ovidius, Dönüşümler III 391 / 466', st.lt, st.d, { y: 150 }) });
 
   // P059 · ters açı · E09 · Tepeden (su çizgisi dikey): akıntı yansımayı uzaklaştırır, figür ona uzanır; yaprak düşer; yansıma geri gelir, el çekilir
   plan('P059', (ctx, st) => {
+    // tur 2: tepeden açı kaldırıldı. Karşı kıyı ekseni, yandan geniş-orta: dirsekler kıyıda, baş kalkık; akıntı yansımayı uzaklaştırır, genç ona uzanır;
+    // 'dilek'te suya bir yaprak düşer (halka yok), 'uzak'ta yansıma geri gelir, el çekilir
     const t = st.t, tA = PE('P059', 0), tD = PE('P059', 1), tU = PE('P059', 2);
     const drift = ramp(t, tA - .3, tA + 1.4, E.io2) * (1 - ramp(t, tU - .2, tU + 1.2, E.io2));
-    const reach = ramp(t, tA, tA + 1.2, E.io2) * (1 - ramp(t, tU, tU + 1.0, E.io2));
-    s2_tepe(ctx, t, { dx: lerp(30, -50, st.p), drift: 220 * drift, reach: reach * .8, lA: .2, rA: .2, refA: .45, wob: 1 + drift,
-      leaf: c => { const u = ramp(t, tD - .6, tD + .2, E.in2); if (u <= 0) return; const x = lerp(1500, 1380, u) + 120 * ramp(t, tD + .2, st.end, E.lin), y = lerp(-60, 330, u) + Math.sin(t * 2) * 4;
-        c.save(); c.translate(x, y); c.rotate(u * 2.2 + .4); c.beginPath(); c.ellipse(0, 0, 34, 11, 0, 0, TAU); c.fillStyle = PC.clayR; c.fill(); c.strokeStyle = C.ink; c.lineWidth = 2.4; c.stroke(); c.beginPath(); c.moveTo(-30, 0); c.lineTo(30, 0); c.lineWidth = 1.6; c.stroke(); c.restore(); } });
-  }, { over: (ctx, st) => kunye(ctx, 'Ovidius, Dönüşümler III 467', st.lt, st.d) });
+    const reach = tt => ramp(tt, tA, tA + 1.2, E.io2) * (1 - ramp(tt, tU, tU + 1.0, E.io2));
+    s2_flip(ctx, g => s2_kiyi(g, t, { cam: s2_cam(st, [1020, 650, 1.24], [1080, 655, 1.28]), meander: false, rdx: 150 * drift, calm: 1.1 + 2.2 * drift, refA: .45 - .12 * drift,
+      pose: tt => ({ look: 1, reach: .85 * reach(tt), head: -.06 * reach(tt), handN: 'open' }),
+      waterFx: (c, wy) => { // akıntı: suyun yüzünde sağa kayan kısa çizgiler (yalnız uzaklaşırken)
+        if (drift <= .01) return; c.strokeStyle = `rgba(236,232,222,${(.35 * drift).toFixed(3)})`; c.lineWidth = 2.4; c.lineCap = 'round';
+        for (let i = 0; i < 14; i++) { const y = wy + 20 + (i % 7) * 34, x = 1000 + ((i * 173 + t * 120) % 900); c.beginPath(); c.moveTo(x, y); c.lineTo(x + 50, y); c.stroke(); } },
+      post: c => { const u = ramp(t, tD - .7, tD + .1, E.in2); if (u <= 0) return; // yaprak: yukarıdan salınarak iner, suya değer ve akıntıyla kayar
+        const x = lerp(1380, 1300, u) + Math.sin(u * 7) * 40 * (1 - u) + 160 * ramp(t, tD + .1, st.end, E.lin), y = lerp(220, KIYI.wy - 4, u) + (u >= 1 ? Math.sin(t * 2) * 2 : 0);
+        c.save(); c.translate(x, y); c.rotate(u < 1 ? Math.sin(u * 9) * .8 : .05); c.beginPath(); c.ellipse(0, 0, 30, 10, 0, 0, TAU); c.fillStyle = PC.clayR; c.fill(); c.strokeStyle = C.ink; c.lineWidth = 2.4; c.stroke(); c.beginPath(); c.moveTo(-26, 0); c.lineTo(26, 0); c.lineWidth = 1.4; c.stroke(); c.restore(); } }));
+  }, { over: (ctx, st) => kunye(ctx, 'Ovidius, Dönüşümler III 467', st.lt, st.d, { x: 1800, align: 'right' }) });
 
   // P061 · orta · E10@şimdi · LEVHA · KENDİNİ TANIMAZSA suda ters yansır; sonu düşer: TANIDI; yazı halkasız batar ve söner
   plan('P061', (ctx, st) => {
+    // tur 2: karşı kıyı ekseni; yazı büyük ve parlak. Önce suda ters (yansımış) KENDİNİ / TANIMAZSA; 'tanıdı'da MAZSA düşer, DI gelir ve yazı dikey eksende döner:
+    // KENDİNİ TANIDI düz okunur. 'kurtarmadı'da halkasız batar ve söner
     const t = st.t, tT = PE('P061', 0), tK = PE('P061', 1);
-    const ap = ramp(t, st.at, st.at + .9, E.out2), drop = ramp(t, tT - .1, tT + .6, E.in2), sink = ramp(t, tK - .1, tK + 1.6, E.io2);
-    s2_kiyi(ctx, t, { cam: s2_cam(st, [1120, 600, 1.0], [1120, 660, 1.0]), look: 1, pose: () => ({ look: 1 }), lag: 0, refA: .55,
-      refl: c => { // yansımaya giren yazı (yansıyınca ters döner)
-        const y0 = KIYI.wy - 120 + 260 * sink, a = ap * (1 - sink);
-        if (a <= .01) return; c.save(); c.globalAlpha = a; txtDipinto(c, 'KENDİNİ TANI', 1110, y0, 72, 1, { col: '#E8603F', align: 'left' });
-        c.font = FONT.baslik(72, 600); c.letterSpacing = '9px'; const w0 = c.measureText('KENDİNİ TANI').width + 9, x2 = 1110 + w0 + 12;
-        c.globalAlpha = a * (1 - drop); txtDipinto(c, 'MAZSA', x2, y0 + 220 * drop, 72, 1, { col: '#E8603F', align: 'left' });
-        c.globalAlpha = a * drop; txtDipinto(c, 'DI', x2, y0, 72, 1, { col: '#E8603F', align: 'left' }); c.restore(); } });
+    const ap = ramp(t, st.at, st.at + .9, E.out2), drop = ramp(t, tT - .1, tT + .6, E.in2), turn = ramp(t, tT + .1, tT + .9, E.io2), sink = ramp(t, tK - .1, tK + 1.6, E.io2);
+    let wyS = 600;
+    s2_flip(ctx, g => s2_kiyi(g, t, { cam: s2_cam(st, [1120, 610, 1.0], [1120, 650, 1.0]), meander: false, look: 1, pose: () => ({ look: 1 }), lag: 0, refA: .5,
+      post: c => { wyS = s2_scr(c, [0, KIYI.wy], true)[1]; } }));
+    const a = ap * (1 - sink); if (a > .01) { // yazı bloğu ekranda (suyun içinde, sol yarı)
+      const cx = 560, cy = wyS + 170 + 140 * sink, sy = lerp(-1, 1, turn), px = 96;
+      ctx.save(); baseT(ctx); ctx.beginPath(); ctx.rect(0, wyS + 2, W, H); ctx.clip();
+      softPanel(ctx, cx, cy, 520, 190, .35 * a);
+      ctx.translate(cx, cy); ctx.scale(1, Math.abs(sy) < .04 ? .04 * Math.sign(sy || 1) : sy); ctx.globalAlpha = a;
+      const col = mixCol('#E8603F', '#FF8A5C', turn);
+      txtDipinto(ctx, 'KENDİNİ', 0, -62, px, 1, { col, w: 700, ls: 10 });
+      ctx.font = FONT.baslik(px, 700); ctx.letterSpacing = '10px'; const wT = ctx.measureText('TANI').width, wM = ctx.measureText('TANIMAZSA').width, wD = ctx.measureText('TANIDI').width;
+      const L = lerp(wM, wD, drop), x0 = -L / 2;
+      txtDipinto(ctx, 'TANI', x0, 62, px, 1, { col, w: 700, ls: 10, align: 'left' });
+      ctx.globalAlpha = a * (1 - drop); txtDipinto(ctx, 'MAZSA', x0 + wT, 62 + 160 * drop * (sy < 0 ? -1 : 1), px, 1, { col, w: 700, ls: 10, align: 'left' });
+      ctx.globalAlpha = a * drop; txtDipinto(ctx, 'DI', x0 + wT, 62, px, 1, { col, w: 700, ls: 10, align: 'left' });
+      ctx.restore(); }
   });
 
   // P062 · yakın · E11 · Gözyaşı halkası (kapı D_halka): damla düşer, halka doğar, yansıma yatay dalga kaydırmasıyla koyu lekeye dağılır
@@ -831,17 +914,17 @@ function s2_eko(c, x, gy, s, t, a) {
     const brk = ramp(t, T.hit, T.hit + .25, E.out2) * (1 - .5 * ramp(t, T.hit + 1.5, T.hit + 3.5, E.io2)), dark = ramp(t, PE('P062', 2) - .2, PE('P062', 2) + .8, E.io2);
     const tx = D_XE + 270, rings = [{ x: tx, y: D_WY + 4, t0: T.hit, A: 70, sq: .62, v: 820, lam: 150, k: 1.4, reach: 1800, life: 4.5, shear: .9, noLines: true },
       { x: tx, y: D_WY + 4, t0: T.hit, A: 1, sq: .62, v: 1000, lam: 115, k: .8, reach: 2600, life: 4.5, mask: 80 }];
-    s2_yakin(ctx, t, { T, rings, cam: camMix([D_XE + 300, D_WY - 60, 1.12], [D_XE + 300, D_WY + 90, 1.12], ramp(t, T.tear, T.hit + .3, E.io2)),
+    s2_flip(ctx, g => s2_yakin(g, t, { T, rings, cam: camMix([D_XE + 300, D_WY - 60, 1.12], [D_XE + 300, D_WY + 90, 1.12], ramp(t, T.tear, T.hit + .3, E.io2)),
       calm: 1 + 11 * brk, refA: .5 + .3 * (1 - dark),
       pose: tt => ({ ...dPoseO(tt, T), smile: -.45, brow: -.1 }),
-      reflTint: c => { c.fillStyle = `rgba(14,9,7,${(.7 * dark).toFixed(3)})`; c.fillRect(-3000, -3000, 9000, 9000); } });
+      reflTint: c => { c.fillStyle = `rgba(14,9,7,${(.7 * dark).toFixed(3)})`; c.fillRect(-3000, -3000, 9000, 9000); } }), { meander: false });
   });
 
   // P063 · ters açı · E12 · Suyun içinden yukarı: yüzeyin üstünde açık avuç (dokunmaz), parmak gölgeleri suya düşer; yüzey durulur, el ve yüz toparlanır
   plan('P063', (ctx, st) => {
     const t = st.t, tK = PE('P063', 0), tB = PE('P063', 1);
     const calm = ramp(t, tB - .2, tB + 1.4, E.io2), hand = ramp(t, tK - .4, tK + .4, E.out2);
-    s2_altSu(ctx, t, st, calm, hand);
+    s2_flip(ctx, g => s2_altSu(g, t, st, calm, hand));
   });
 
   // P064 · ayrıntı · E13 · Kıyıdaki ot yaprağında kırağı: güneş vurur, kırağı erir, damla suya düşer
@@ -854,43 +937,48 @@ function s2_eko(c, x, gy, s, t, a) {
   plan('P065', (ctx, st) => {
     const t = st.t, tA = PE('P065', 0), tI = PE('P065', 1), tE = PE('P065', 2);
     const fade = .45 * ramp(t, tA - .1, tA + 1.2, E.io2) + .55 * ramp(t, tI, tE + .6, E.io2), mo = ramp(t, tI - .1, tI + 1.0, E.out2);
-    s2_kiyi(ctx, t, { cam: s2_cam(st, [870, 600, 1.5], [870, 600, 1.42]), fade, light: .3 * (1 - fade), pose: () => ({ look: 1 }), lag: 0,
-      post: c => s2_motes(c, t, 26, 65, 760, 560, 300, 70, .8 * mo) });
+    s2_flip(ctx, g => s2_kiyi(g, t, { cam: s2_cam(st, [870, 600, 1.5], [870, 600, 1.42]), meander: false, fade, light: .3 * (1 - fade), pose: () => ({ look: 1 }), lag: 0,
+      post: c => s2_motes(c, t, 26, 65, 760, 560, 300, 70, .8 * mo) }));
   });
 
   // P067 · orta · E14@narkissos · İncelmiş Narkissos 'ah' der; kayalardan soluk yankı döner
   plan('P067', (ctx, st) => {
-    const t = st.t, tA = PE('P067', 0), tE = PE('P067', 1);
-    s2_kiyi(ctx, t, { cam: s2_cam(st, [980, 560, 1.22], [1060, 560, 1.22]), fade: 1, light: 0, lag: 0,
+    // tur 2: karşı kıyı ekseni, daha geniş: kıyıdaki soluk beden küçük, karşıda yankının döndüğü kayalar büyük; AH yazıları aynalanmaz
+    const t = st.t, tA = PE('P067', 0), tE = PE('P067', 1), Q = [];
+    s2_flip(ctx, g => s2_kiyi(g, t, { cam: s2_cam(st, [1140, 520, .98], [1200, 520, .98]), meander: false, fade: 1, light: 0, lag: 0,
       pose: tt => ({ look: 1, mouthOpen: 1.4 * ramp(tt, tA - .1, tA + .15) * (1 - ramp(tt, tA + .6, tA + .9)) }),
-      pre: c => s2_uzakKaya(c, 1560, KIYI.wy),
+      pre: c => s2_uzakKaya(c, 1640, KIYI.wy),
       post: c => { s2_motes(c, t, 22, 66, 760, 560, 300, 70, .6);
-        const a1 = ramp(t, tA, tA + .3) * (1 - ramp(t, tA + 1.6, tA + 2.4)); if (a1 > 0) txtDipinto(c, 'AH', 1090, 470 - 30 * ramp(t, tA, tA + 2), 54, ramp(t, tA, tA + .4), { col: '#E0573A', a: a1 });
-        const a2 = ramp(t, tE, tE + .4) * (1 - ramp(t, tE + 1.6, tE + 2.6)); if (a2 > 0) txtDipinto(c, 'AH', 1600 - 260 * ramp(t, tE, tE + 2.4), 470, 46, ramp(t, tE, tE + .4), { col: '#E0573A', a: .55 * a2 }); } });
+        const a1 = ramp(t, tA, tA + .3) * (1 - ramp(t, tA + 1.6, tA + 2.4)); if (a1 > 0) s2_yazQ(c, Q, 'AH', [1080, 470 - 30 * ramp(t, tA, tA + 2)], 70, ramp(t, tA, tA + .4), { col: '#E0573A', a: a1 });
+        const a2 = ramp(t, tE, tE + .4) * (1 - ramp(t, tE + 1.6, tE + 2.6)); if (a2 > 0) s2_yazQ(c, Q, 'AH', [1640 - 360 * ramp(t, tE, tE + 2.4), 400], 60, ramp(t, tE, tE + .4), { col: '#E0573A', a: .6 * a2 }); } }));
+    s2_yazBas(ctx, Q);
   });
 
   // P068 · yakın · E15 · Son bakış: incelmiş beden suya son sözü söyler; ELVEDA suya iner
   plan('P068', (ctx, st) => {
-    const t = st.t, tA = PE('P068', 0), tE = PE('P068', 1);
-    s2_yakin(ctx, t, { cam: camMix([D_XE + 380 - 40 * st.p, D_WY - 50, 1.0 + .06 * st.p], [D_XE + 380 - 40 * st.p, D_WY + 120, 1.0 + .06 * st.p], ramp(t, tE - .3, tE + 1.6, E.io2)), fade: 1, light: 0, lag: 0, refA: .3, noBank: true,
+    const t = st.t, tA = PE('P068', 0), tE = PE('P068', 1), Q = [];
+    s2_flip(ctx, g => s2_yakin(g, t, { cam: camMix([D_XE + 380 - 40 * st.p, D_WY - 50, 1.0 + .06 * st.p], [D_XE + 380 - 40 * st.p, D_WY + 120, 1.0 + .06 * st.p], ramp(t, tE - .3, tE + 1.6, E.io2)), fade: 1, light: 0, lag: 0, refA: .3, noBank: true,
       reflTint: c => { c.fillStyle = 'rgba(232,214,184,.5)'; c.fillRect(-3000, -3000, 9000, 9000); },
       pose: tt => ({ ...dPoseO(tt, {}), smile: -.3, mouthOpen: (tt > tA - .1 && tt < tE + .5 ? .9 * Math.max(0, Math.sin((tt - tA) * 7)) : 0) }),
       post: (c, I) => {
         s2_motes(c, t, 18, 68, I.eye[0] - 120, I.eye[1] + 40, 220, 80, .5);
-        const a1 = ramp(t, tA, tA + .3) * (1 - ramp(t, tE - .3, tE + .3)); if (a1 > 0) txtDipinto(c, 'AH, BOŞUNA SEVİLEN ÇOCUK!', I.eye[0] + 260, I.eye[1] - 230, 44, ramp(t, tA, tE - .4, E.lin), { col: '#E0573A', a: a1, align: 'left' });
-        const u = ramp(t, tE, tE + 1.6, E.io2), a2 = ramp(t, tE, tE + .3) * (1 - ramp(t, tE + 2.2, tE + 3)); if (a2 > 0) { c.save(); const y = lerp(I.eye[1] + 60, I.wy + 130, u); if (y > I.wy) { c.beginPath(); c.rect(0, I.wy + 1, 4000, 2000); c.clip(); }
-          txtDipinto(c, 'ELVEDA', I.eye[0] + 150, y, 48, ramp(t, tE, tE + .5), { col: '#E0573A', a: a2 * (y > I.wy ? .7 : 1) }); c.restore(); } } });
+        const a1 = ramp(t, tA, tA + .3) * (1 - ramp(t, tE - .3, tE + .3)); if (a1 > 0) s2_yazQ(c, Q, 'AH, BOŞUNA SEVİLEN ÇOCUK!', [I.eye[0] + 120, I.eye[1] - 230], 48, ramp(t, tA, tE - .4, E.lin), { col: '#E0573A', a: a1, align: 'left' });
+        const u = ramp(t, tE, tE + 1.6, E.io2), a2 = ramp(t, tE, tE + .3) * (1 - ramp(t, tE + 2.2, tE + 3)); if (a2 > 0) { const y = lerp(I.eye[1] + 60, I.wy + 130, u);
+          s2_yazQ(c, Q, 'ELVEDA', [I.eye[0] + 150, y], 52, ramp(t, tE, tE + .5), { col: '#E0573A', a: a2 * (y > I.wy ? .75 : 1), clipY: y > I.wy ? I.wy : null }); } } }), { meander: false });
+    s2_yazBas(ctx, Q);
   });
 
   // P070 · orta · E16 · İncelmiş beden başını otların üstüne bırakır; ışık söner, su kararır
   plan('P070', (ctx, st) => {
+    // tur 2: karşı kıyı ekseni, alçak kamera (ön planda otlar): baş otlara iner, ışık söner
     const t = st.t, tB = PE('P070', 0), tO = PE('P070', 1);
     const down = ramp(t, tB - .3, tB + 1.4, E.io2), off = ramp(t, tO - .2, tO + 1.6, E.io2);
-    s2_kiyi(ctx, t, { cam: s2_cam(st, [820, 600, 1.34], [900, 606, 1.48]), fade: 1, light: 0, lag: 0, refA: .3 * (1 - off),
+    s2_flip(ctx, g => s2_kiyi(g, t, { cam: s2_cam(st, [820, 560, 1.34], [900, 570, 1.44]), meander: false, fade: 1, light: 0, lag: 0, refA: .3 * (1 - off),
       pose: () => ({ look: 1 - down, head: 1.0 * down, neck: .9 * down, hN: [lerp(968, 900, down), lerp(617, 611, down)] }),
       under: c => { for (const [x, sd] of [[930, 1], [965, 2], [1000, 3], [895, 4]]) grass(c, x, KIYI.gy - 2, 2.2, t, 70 + sd); },
       post: c => { s2_motes(c, t, 16, 70, 760, 560, 300, 70, .55 * (1 - .6 * off));
-        c.save(); baseT(c); c.fillStyle = `rgba(6,3,4,${(.5 * off).toFixed(3)})`; c.fillRect(0, 0, W, H); c.restore(); } });
+        for (let i = 0; i < 7; i++) grass(c, 560 + i * 70, KIYI.gy + 40, 4.2, t, 140 + i); // ön plan otları (alçak kamera)
+        c.save(); baseT(c); c.fillStyle = `rgba(6,3,4,${(.35 * off).toFixed(3)})`; c.fillRect(0, 0, W, H); c.restore(); } }));
   });
 
   // P072 · orta · E17 · Kıyıda periler ağıt yakar (ayakta, elleri başlarında); yamaçlardan soluk dipinto yankı
@@ -997,8 +1085,19 @@ function s2_eko(c, x, gy, s, t, a) {
 
   // P093 · ters açı · F10 · Tepeden: figür ve yansıması kapalı bir halka gibi; havuzun kenarı içe kapanır
   plan('P093', (ctx, st) => {
+    // tur 2: tepeden açı kaldırıldı. Üst çapraz geniş: pınar zeminde elips, genç kıyı kayasında, yansıması suda. Su çizgisi pınarın kenarından taşar ve zeminde
+    // ikisinin çevresinde (başın değil, iki bedenin) dolanıp kapanır: 'kendini'de başlar, 'sevgisi'nde çevre kararır, 'çıkamadı'da halka kapanır
     const t = st.t, tK = PE('P093', 0), tS = PE('P093', 1), tC = PE('P093', 2);
-    s2_tepe(ctx, t, { dx: lerp(40, -60, st.p), lA: .4, rA: .4, refA: .5, ring: ramp(t, tK - .2, tC + .3, E.io2), close: ramp(t, tS - .2, tC + .8, E.io2) * .9 });
+    const ring = ramp(t, tK - .2, tC + .3, E.io2), close = ramp(t, tS - .2, tC + .8, E.io2) * .8;
+    const R = { cx: 1140, cy: 800, rx: 640, ry: 104 };
+    const arc = (c, top) => { if (ring <= .005) return; const a1 = (top ? -1 : 1) * PI * ring; c.save(); c.lineCap = 'round';
+      c.strokeStyle = 'rgba(5,3,2,.95)'; c.lineWidth = 14; c.beginPath(); c.ellipse(R.cx, R.cy, R.rx, R.ry, 0, Math.min(0, a1), Math.max(0, a1)); c.stroke();
+      c.strokeStyle = 'rgba(232,160,104,.95)'; c.lineWidth = 4; c.beginPath(); c.ellipse(R.cx, R.cy, R.rx + 8, R.ry + 6, 0, Math.min(0, a1), Math.max(0, a1)); c.stroke(); c.restore(); };
+    s2_genis(ctx, t, { cam: s2_cam(st, [1080, 730, 1.24], [1130, 740, 1.3]), midTree: false, refA: .5,
+      ground: c => { s2_rafW(c); arc(c, true); },
+      fig: (c, refl) => withFigT(t, () => figure(c, s2_proneW(c, t, { head: .05 }))),
+      post: c => { arc(c, false);
+        if (close > .01) { c.save(); baseT(c); const g = c.createRadialGradient(W / 2, 600, lerp(1100, 520, close), W / 2, 600, lerp(1300, 900, close)); g.addColorStop(0, 'rgba(5,3,2,0)'); g.addColorStop(1, 'rgba(5,3,2,.9)'); c.fillStyle = g; c.fillRect(0, 0, W, H); c.restore(); } } });
   });
 
   // P094 · orta · F10@ovidius · Togalı şair kıyının kenarında; elini gence uzatır, sonra döner ve gider; genç kıpırdamaz

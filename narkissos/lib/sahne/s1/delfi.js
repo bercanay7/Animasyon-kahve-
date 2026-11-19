@@ -1,9 +1,9 @@
 // DELFI seti, SAHİP-1: P011, P012. Bu dosyayı yalnız bu sahip değiştirir.
-// Kurallar: lib/sahne/KILAVUZ.md. Tanrı figürü, sunak, tapınan kalabalık yok. Yazıt metni planlar.json'dan: ΓΝΩΘΙ ΣΕΑΥΤΟΝ (taş) · KENDİNİ TANI.
+// Kurallar: lib/sahne/KILAVUZ.md. Tanrı figürü, sunak, tapınan kalabalık yok. Yazıt: ΓΝΩΘΙ ΣΑΥΤΟΝ (Pausanias 10.24.1 biçimi; başkan kararı, tek biçim) · KENDİNİ TANI. planlar.json'daki ΣΕΑΥΤΟΝ ortak dosyada düzeltilmeli (rapor).
 'use strict';
 (() => {
   const S1 = window.S1;
-  const YAZIT = 'ΓΝΩΘΙ ΣΕΑΥΤΟΝ', TR = 'KENDİNİ TANI';
+  const YAZIT = 'ΓΝΩΘΙ ΣΑΥΤΟΝ', TR = 'KENDİNİ TANI';
   // taş levha (stel): x merkez, gy taban, w, h
   const stel = (ctx, x, gy, w, h, o = {}) => {
     ctx.save(); ctx.beginPath(); ctx.moveTo(x - w / 2, gy); ctx.lineTo(x - w / 2 + 6, gy - h); ctx.lineTo(x + w / 2 - 6, gy - h); ctx.lineTo(x + w / 2, gy); ctx.closePath();
@@ -29,20 +29,21 @@
     ctx.save(); ctx.strokeStyle = 'rgba(30,14,8,.55)'; ctx.lineWidth = 2; for (const yy of [gy - 170, gy - 130, gy - 90]) { ctx.beginPath(); ctx.moveTo(1336, yy); ctx.lineTo(1424, yy); ctx.stroke(); } ctx.restore();
   }, { over: (ctx, st) => kunye(ctx, 'Delfi, Apollon tapınağı', st.lt - .4, 99) });
 
-  // ---- P012 · ayrıntı · B03@kendini · LEVHA: yazıtın yakını ve altındaki su birikintisi. 'kendini'de ΓΝΩΘΙ ΣΕΑΥΤΟΝ harf harf belirir, altında KENDİNİ TANI;
+  // ---- P012 · ayrıntı · B03@kendini · LEVHA: yazıtın yakını ve altındaki su birikintisi. 'kendini'de ΓΝΩΘΙ ΣΑΥΤΟΝ harf harf belirir, altında KENDİNİ TANI;
   //      'tersine'de Türkçe satırın suyun içindeki görüntüsü harf harf döner (ayna); 'ölüm'de halkalarla dağılır ----
-  const WY = 640;
+  const WY = 640, YG = 420, YT = 562, XC = 1020; // XC: satırlar biraz sağda (yansıyan Yunanca satır sol alttaki künyeye binmesin)
   plan('P012', (ctx, st) => {
     const t = st.t, tK = PE('P012', 0), tT = PE('P012', 1), tO = PE('P012', 2);
     baseT(ctx); glaze(ctx, 960, 700, 1300, 'rgba(120,50,24,.4)');
-    camAt(ctx, 960, lerp(430, 590, ramp(t, st.at, st.end, E.io2)), 1.0);
+    camAt(ctx, 960, lerp(430, 560, ramp(t, st.at, st.end, E.io2)), 1.0);
     // taş yüzü
     stel(ctx, 960, WY - 8, 1480, 760, { lw: 6, k: 2 });
     const pG = ramp(t, tK, tK + 1.8, E.lin), pT = ramp(t, tK + 1.2, tK + 2.2, E.lin);
     // kazıma yazıt: koyu çizgi, altında açık kenar (oyuk)
-    ctx.save(); ctx.translate(2, 3); dipintoYaz(ctx, YAZIT, 960, 230, 104, pG, { col: 'rgba(255,214,170,.35)', w: .1 }); ctx.restore();
-    dipintoYaz(ctx, YAZIT, 960, 230, 104, pG, { col: '#2A140A', w: .1 });
-    txtDipinto(ctx, TR, 960, 420, 74, pT, { col: '#2A140A', w: 700 });
+    // Fable tur 1 önerisi: iki satır da suya yansısın → satırlar taşın alt yarısında (yansımaları kadrajda kalır)
+    ctx.save(); ctx.translate(2, 3); dipintoYaz(ctx, YAZIT, XC, YG, 96, pG, { col: 'rgba(255,214,170,.35)', w: .1 }); ctx.restore();
+    dipintoYaz(ctx, YAZIT, XC, YG, 96, pG, { col: '#2A140A', w: .1 });
+    txtDipinto(ctx, TR, XC, YT, 74, pT, { col: '#2A140A', w: 700 });
     // su birikintisi (taşın dibinde)
     const pool = c => c.rect(-400, WY, 2800, 1000);
     ctx.save(); ctx.beginPath(); pool(ctx); ctx.fillStyle = '#060302'; ctx.fill(); ctx.restore();
@@ -51,8 +52,9 @@
     const rA = ramp(t, tK + 1.6, tK + 2.6, E.io2);
     mirror(ctx, c => {
       stel(c, 960, WY - 8, 1480, 760, { lw: 6, k: 2 });
+      dipintoYaz(c, YAZIT, XC, YG, 96, pG, { col: '#2A140A', w: .1 }); // Yunanca satır: düz ayna
       // satırın görüntüsü: 'tersine'den önce dik okunur; sonra harfler tek tek döner (ayna)
-      S1.yolYazi(c, TR, [[960 - 290, 420], [960 + 400, 420]], 1, { px: 74, col: '#2A140A', font: FONT.baslik(74, 700), ls: 74 * .12, rise: 0,
+      S1.yolYazi(c, TR, [[XC - 290, YT], [XC + 400, YT]], 1, { px: 74, col: '#2A140A', font: FONT.baslik(74, 700), ls: 74 * .12, rise: 0,
         flipY: (i, n) => -Math.cos(PI * ramp(t, tT + i * .12, tT + i * .12 + .45, E.io2)) });
     }, WY, pool, t, { a: .5 * rA, calm: 1.4, rings: t > tO ? rings : null });
     shoreLine(ctx, -400, WY, { x1: 2400, w: 3 });

@@ -71,24 +71,40 @@
     f.ik = { fN: mx(f.ik.fN), fF: mx(f.ik.fF), hN: mx([px + 34 * s, gy + 1.2 * s]), hF: mx([px + 30 * s, gy - .2 * s]) };
     return f;
   };
-  const p5Patika = [[1270, 690], [1330, 610], [1300, 520], [1380, 440], [1460, 380], [1500, 330]];
+  // Fable tur 1: patika "dil/leke" okunuyordu → dar, kıvrılarak ormana giden ve ufukta (ağaçların arasındaki boşlukta) kaybolan yol; perspektifle incelir
+  const P5_YOL = [[1150, 712], [1200, 680], [1170, 620], [1250, 560], [1330, 500], [1330, 440], [1400, 390], [1462, 350], [1490, 334]];
+  const p5Yol = (ctx, sun) => {
+    // merkez çizgisi spline'dan örneklenir; genişlik yakında 58, ufukta 3
+    const P = []; for (let i = 0; i < P5_YOL.length - 1; i++) for (let k = 0; k < 12; k++) { const u = k / 12, a = P5_YOL[Math.max(0, i - 1)], b = P5_YOL[i], c = P5_YOL[i + 1], d = P5_YOL[Math.min(P5_YOL.length - 1, i + 2)];
+      P.push([.5 * ((2 * b[0]) + (-a[0] + c[0]) * u + (2 * a[0] - 5 * b[0] + 4 * c[0] - d[0]) * u * u + (-a[0] + 3 * b[0] - 3 * c[0] + d[0]) * u * u * u),
+              .5 * ((2 * b[1]) + (-a[1] + c[1]) * u + (2 * a[1] - 5 * b[1] + 4 * c[1] - d[1]) * u * u + (-a[1] + 3 * b[1] - 3 * c[1] + d[1]) * u * u * u)]); }
+    P.push(P5_YOL[P5_YOL.length - 1]);
+    const n = P.length, Lf = [], Rt = [];
+    for (let i = 0; i < n; i++) { const q = P[i], q2 = P[Math.min(n - 1, i + 1)], q1 = P[Math.max(0, i - 1)], a = Math.atan2(q2[1] - q1[1], q2[0] - q1[0]), w = lerp(58, 3, Math.pow(i / (n - 1), .8)) / 2;
+      Lf.push([q[0] - Math.sin(a) * w, q[1] + Math.cos(a) * w]); Rt.push([q[0] + Math.sin(a) * w, q[1] - Math.cos(a) * w]); }
+    ctx.save(); ctx.beginPath(); ctx.moveTo(...Lf[0]); Lf.forEach(q => ctx.lineTo(...q)); for (let i = n - 1; i >= 0; i--) ctx.lineTo(...Rt[i]); ctx.closePath();
+    const g = ctx.createLinearGradient(0, 760, 0, 334); g.addColorStop(0, mixCol('#9A5530', '#D49058', sun)); g.addColorStop(1, mixCol('#6E3A1F', '#B87444', sun)); ctx.fillStyle = g; ctx.fill();
+    // iki kenarda koyu kontur (yol izi), ortada ayak izi çizgisi
+    ctx.lineWidth = 2.4; ctx.strokeStyle = 'rgba(30,14,8,.75)'; ctx.beginPath(); Lf.forEach((q, i) => i ? ctx.lineTo(...q) : ctx.moveTo(...q)); ctx.stroke(); ctx.beginPath(); Rt.forEach((q, i) => i ? ctx.lineTo(...q) : ctx.moveTo(...q)); ctx.stroke();
+    ctx.setLineDash([10, 14]); ctx.lineWidth = 1.4; ctx.strokeStyle = 'rgba(40,18,9,.35)'; ctx.beginPath(); P.slice(0, Math.floor(n * .6)).forEach((q, i) => i ? ctx.lineTo(...q) : ctx.moveTo(...q)); ctx.stroke(); ctx.setLineDash([]);
+    ctx.restore();
+    return P;
+  };
   plan('P005', (ctx, st) => {
     const t = st.t, tN = PE('P005', 0), tK = PE('P005', 1), { gy, sh, s, px } = P5;
     baseT(ctx); glaze(ctx, 1300, 500, 1300, 'rgba(120,48,22,.42)');
     camAt(ctx, lerp(880, 1060, E.sine(st.p)), 560, 1.0);
-    // uzak orman çizgisi (yukarıdan bakış: ufuk yüksek)
+    // uzak orman çizgisi (yukarıdan bakış: ufuk yüksek); yolun girdiği yerde (x ≈ 1490) boşluk
     groundBand(ctx, 330, -1000, 4000, { h: 1400, fill: '#4E2513' });
-    for (const [x, sc, sd] of [[620, 1.0, 3], [900, 1.25, 8], [1180, 1.1, 5], [1700, 1.3, 11], [1960, 1.05, 2], [2200, 1.2, 7], [380, 1.15, 13]]) vaseTree(ctx, x, 334, sc, sd, t, { branches: 6, reach: 90 });
-    // patika: genişten (genç'in arkası) ormanın boşluğuna daralan açık şerit; 'neden'de güneş düşer (rengi açılır, eğik ışık)
+    for (const [x, sc, sd] of [[620, 1.0, 3], [900, 1.25, 8], [1180, 1.1, 5], [1380, 1.2, 9], [1620, 1.3, 11], [1860, 1.05, 2], [2100, 1.2, 7], [380, 1.15, 13]]) vaseTree(ctx, x, 334, sc, sd, t, { branches: 6, reach: 90 });
     const sun = ramp(t, tN - .1, tN + .7, E.io2);
-    const L = [[1150, 760], [1210, 640], [1180, 540], [1300, 450], [1440, 380], [1478, 334]], R = [[1500, 334], [1520, 380], [1420, 460], [1330, 560], [1390, 660], [1470, 760]];
-    ctx.save(); ctx.beginPath(); spline(ctx, L.concat(R), true, .8); ctx.fillStyle = mixCol('#8A4A26', '#C98650', sun); ctx.fill();
-    ctx.lineWidth = 3; ctx.strokeStyle = 'rgba(30,14,8,.6)'; ctx.stroke();
-    // patikada taş izleri
-    ctx.fillStyle = 'rgba(40,18,9,.35)'; for (let i = 0; i < 10; i++) { const u = i / 9, q = lerp2(lerp2(L[Math.floor(u * 5)], L[Math.min(5, Math.floor(u * 5) + 1)], (u * 5) % 1), lerp2(R[5 - Math.floor(u * 5)], R[Math.max(0, 4 - Math.floor(u * 5))], (u * 5) % 1), .3 + .4 * hash(i)); ctx.beginPath(); ctx.ellipse(q[0], q[1], 9 - u * 5, 3.5 - u * 1.5, 0, 0, TAU); ctx.fill(); }
-    if (sun > .01) { // eğik güneş: ormanın boşluğundan patikaya düşen tek yumuşak şerit
+    p5Yol(ctx, sun);
+    // yol boyunca küçülen ağaçlar (derinlik): yolu ormana bağlar
+    for (const [x, y, sc, sd] of [[1290, 600, .75, 15], [1420, 470, .55, 16], [1230, 420, .5, 17], [1520, 400, .45, 18]]) vaseTree(ctx, x, y, sc, sd, t, { branches: 5, reach: 70 });
+    ctx.save();
+    if (sun > .01) { // eğik güneş: ormanın boşluğundan yola düşen tek yumuşak şerit
       const g = ctx.createLinearGradient(1560, 0, 1300, 760); g.addColorStop(0, `rgba(255,214,150,${(.2 * sun).toFixed(3)})`); g.addColorStop(1, 'rgba(255,214,150,0)');
-      ctx.globalCompositeOperation = 'screen'; ctx.fillStyle = g; ctx.beginPath(); ctx.moveTo(1500, -100); ctx.lineTo(1640, -100); ctx.lineTo(1480, 780); ctx.lineTo(1170, 780); ctx.closePath(); ctx.fill(); }
+      ctx.globalCompositeOperation = 'screen'; ctx.fillStyle = g; ctx.beginPath(); ctx.moveTo(1480, -100); ctx.lineTo(1600, -100); ctx.lineTo(1330, 780); ctx.lineTo(1090, 780); ctx.closePath(); ctx.fill(); }
     ctx.restore();
     for (let i = 0; i < 12; i++) grass(ctx, 1000 + i * 120 + (i % 3) * 30, 660 + (i % 4) * 90, 1.4, t, i + 21);
     // su: solda, kıyı çizgisi kayanın önünde (yansıma eksen sh)
@@ -96,7 +112,11 @@
     waterBody(ctx, water, sh, t, { a: .2, seed: 7, span: [-400, px - 40 * s], n: 26, depth: 400 });
     const lag = refLag(t);
     mirror(ctx, c => withFigT(t - lag, () => figure(c, p5Fig(t - lag))), sh, water, t, { a: .38, calm: 1.0 });
-    crag(ctx, [[px - 52 * s, gy + 4], [px - 30 * s, gy - 8], [px + 60 * s, gy - 4], [px + 64 * s, gy + 70], [px - 40 * s, sh + 60]], { fill: '#5A2C16', seed: 6, wob: 10, strata: 3, lobes: 2 });
+    // kıyı kayası: düz levha değil ("tahta" okunuyordu) → yuvarlak sırtlı, girintili, üstünde ot öbekleri olan kaya yığını
+    crag(ctx, [[px - 58 * s, gy + 14], [px - 48 * s, gy - 2], [px - 26 * s, gy - 10], [px + 6 * s, gy - 6], [px + 36 * s, gy - 13], [px + 62 * s, gy - 2], [px + 84 * s, gy + 22], [px + 92 * s, gy + 62],
+      [px + 74 * s, gy + 96], [px + 40 * s, gy + 88], [px + 20 * s, sh + 60], [px - 46 * s, sh + 70]],
+      { fill: '#4E2615', seed: 6, wob: 18, strata: 0, lobes: 8, bounce: [px + 10 * s, gy - 40, 340, 'rgba(201,112,63,.35)'] });
+    for (const [x, k] of [[px - 50 * s, 1], [px + 52 * s, 2], [px + 74 * s, 3]]) grass(ctx, x, gy - 2, 1.3, t, 40 + k);
     figure(ctx, p5Fig(t));
     shoreLine(ctx, -3000, sh, { x1: px - 40 * s, w: 2.6 });
     // rüzgâr ('kalkıp'): yapraklar patikadan uzağa, sağ üste sürüklenir; genç kıpırdamaz
@@ -109,8 +129,9 @@
   // ---- P007 · yakın · A05@peki: su yüzü ve yansıma; 'kendini'de esinti suyu ürpertir (halka yok), 'döner'de yansıma yerine oturur, kenarda bir yaprak kıyıya sürüklenir ----
   plan('P007', (ctx, st) => {
     const t = st.t, tK = PE('P007', 0), tD = PE('P007', 1);
-    const z = lerp(1.18, 1.11, E.sine(st.p));
-    const r = yakinYuz(ctx, t, { T: {}, cam: [D_XE + 380, D_WY + 150, z], pose: () => ({ neck: 0, head: .02 * Math.sin(t * .6), smile: -.25, brow: .25 }),
+    // Fable tur 1: P004 ile aynı kadraj olmasın → yalnız su ve yansıma: su çizgisi kadrajın hemen üstünde, gerçek yüz kadraj dışında (eksen: suya bakış)
+    const z = lerp(1.56, 1.46, E.sine(st.p));
+    const r = yakinYuz(ctx, t, { T: {}, cam: [D_XE + 500, D_WY + 540 / z + 12, z], pose: () => ({ neck: 0, head: .02 * Math.sin(t * .6), smile: -.25, brow: .25 }),
       rings: [{ x: D_XE + 380, y: D_WY + 4, t0: tK, A: 3.2, sq: .62, v: 900, lam: 260, k: 1.4, reach: 3200, life: tD - tK + .2, shear: 1.6, noLines: true }] });
     // esinti: ince yatay kırışıklar suyun üstünden soldan sağa geçer
     const e = ramp(t, tK - .05, tK + .3, E.io2) * (1 - ramp(t, tD - .4, tD + .3, E.io2));

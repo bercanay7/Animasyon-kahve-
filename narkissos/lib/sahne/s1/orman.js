@@ -49,19 +49,19 @@
     S1.orman(ctx, t, { gy, trees: [[-80, 1.9, 3], [430, 1.5, 8, 6], [1050, 1.7, 5], [1620, 1.8, 11], [2160, 1.6, 13]], far: UZAK });
     if (dx > 0 && dx < 1) S1.geyik(ctx, lerp(-260, 2500, dx), gy - 108, 1.55, t * 13);
     if (dxN > 0 && dxN < 1) { const xw = lerp(-260, 2300, dxN); let J = null, M = null;
-      walkScene(ctx, null, xw, s, t, 1, { ground: groundOf(() => gy), noCam: true, sty: STY.red, lk: LK_NK, dist: xw * .62, stride: 46, stripe: .5, lean: .28, onJoints: (j, m) => { J = j; M = m; }, p: { shF: .9, elF: -.6, shN: -.6, elN: 1.2 } });
+      walkScene(ctx, null, xw, s, t, 1, { ground: groundOf(() => gy), noCam: true, sty: STY.red, lk: LK_NK, stride: 72, /* dist = x·yön: basan ayak yerde sabit (kayma yok) */ stripe: .5, lean: .28, onJoints: (j, m) => { J = j; M = m; }, p: { shF: .9, elF: -.6, shN: -.6, elN: 1.2 } });
       if (J) spear(ctx, jointPt(ctx, M, J.AF.wr), -.35, 62 * s, s * .9); }
     // ön plan (kamera dışı, paralaks): sağda yaprak perdesi; 'biri'de aralanır, gölgede bir göz açılır (Eko)
     baseT(ctx);
     const ac = ramp(t, tB - .3, tB + .5, E.io2), px = 1500 - 60 * E.sine(st.p);
     const L = layer('s1eko'); L.setTransform(ctx.getTransform());
-    const r = S1.eko(L, { x: px + 160, gy: 470 + 37 * 22 + 44.5 * 22, s: 22, dir: -1, p: { blink: 1 - ramp(t, tB - .05, tB + .2, E.out3), neck: .05, head: .05 } });
+    const r = S1.eko(L, { x: px + 190, gy: 440 + 37 * 28 + 44.5 * 28, s: 28, dir: -1, p: { blink: 1 - ramp(t, tB - .05, tB + .2, E.out3), neck: .05, head: .05 } });
     const e = headPt(L, r.J, r.M, [3.9, -7.05]);
     // yaprak gölgesi yalnız figürün üstünde: yüz karanlık, göz çevresi seçilir
-    L.globalCompositeOperation = 'source-atop'; const g = L.createRadialGradient(e[0], e[1], 8, e[0], e[1], 130); g.addColorStop(0, 'rgba(8,4,2,0)'); g.addColorStop(.4, 'rgba(8,4,2,.6)'); g.addColorStop(1, 'rgba(8,4,2,.95)');
+    L.globalCompositeOperation = 'source-atop'; const g = L.createRadialGradient(e[0], e[1], 20, e[0], e[1], 190); // Fable tur 1: göz küçük kalıyordu → gözün çevresi açık, yüz yaprak gölgesinde g.addColorStop(0, 'rgba(8,4,2,0)'); g.addColorStop(.16, 'rgba(8,4,2,.08)'); g.addColorStop(.4, 'rgba(8,4,2,.8)'); g.addColorStop(1, 'rgba(8,4,2,.96)');
     L.fillStyle = g; L.fillRect(-500, -500, 3000, 2500);
     // yalnız baş görünür: yaprakların arasından (yumuşak kenarlı maske)
-    L.globalCompositeOperation = 'destination-in'; const g2 = L.createRadialGradient(e[0] - 40, e[1] + 20, 60, e[0] - 40, e[1] + 20, 260); g2.addColorStop(0, '#000'); g2.addColorStop(1, 'rgba(0,0,0,0)');
+    L.globalCompositeOperation = 'destination-in'; const g2 = L.createRadialGradient(e[0] - 40, e[1] + 20, 90, e[0] - 40, e[1] + 20, 340); g2.addColorStop(0, '#000'); g2.addColorStop(1, 'rgba(0,0,0,0)');
     L.fillStyle = g2; L.fillRect(-500, -500, 3000, 2500); L.globalCompositeOperation = 'source-over';
     ctx.save(); ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.drawImage(LY.s1eko, 0, 0); ctx.restore();
     for (let i = 0; i < 5; i++) S1.dal(ctx, 1980 - i * 40 + 70 * ac * (i % 2 ? 1 : -.3), 160 + i * 150 + (160 + i * 150 < 360 ? -120 : 130) * ac, 1.9, PI + (i - 2) * .25 + ac * (i % 2 ? -.25 : .2), t, 90 + i, { koyu: true, L: 320, leaf: 50 });
@@ -189,32 +189,46 @@
     S1.orman(ctx, t, { gy, trees: [[-60, 1.9, 3], [380, 1.6, 8, 6], [1300, 1.8, 5], [2150, 1.9, 11], [2550, 1.7, 13]], far: UZAK });
     const geri = ramp(t, tB, tB + .8, E.io2);
     NK({ ctx, x: 560, gy, s, dir: 1, p: { torso: -.12 * geri, neck: -.1 * geri, head: -.06 * geri, shF: -.3, elF: -.4 } });
-    spear(ctx, [500, gy - 30 * s], -1.4, 62 * s, s * .9);
+    // Fable tur 1: mızrak başın önünden geçiyordu → arkada, yere dayalı ve geriye yatık
+    spear(ctx, [455, gy - 1 * s], -1.82, 62 * s, s * .9);
+    // kollar dümdüz ("uyurgezer") değil: açık yay, dirsekler bükük, iki kol farklı; koşu x·yön mesafesiyle (ayak kaymaz)
     const kol = ramp(t, tK - .15, tK + .5, E.out3);
-    walkScene(ctx, null, xw, s, t, -1, { ground: groundOf(() => gy), noCam: true, sty: S1.RFF, lk: S1.LK_EKO, dist: -xw * .9, stride: 40, stand, stripe: .45, lean: .18 * (1 - stand),
-      p: { smile: 1.2, shN: lerp(.2, 1.75, kol), elN: lerp(.5, .15, kol), shF: lerp(-.2, 1.45, kol), elF: lerp(.4, .2, kol), handN: 'open', handF: 'open' } });
+    walkScene(ctx, null, xw, s, t, -1, { ground: groundOf(() => gy), noCam: true, sty: S1.RFF, lk: S1.LK_EKO, stride: 44, stand, stripe: .45, lean: .18 * (1 - stand),
+      p: { smile: 1.2, shN: lerp(.2, 1.25, kol), elN: lerp(.5, .75, kol), shF: lerp(-.2, .95, kol), elF: lerp(.4, .95, kol), wrN: -.2 * kol, handN: 'open', handF: 'open' } });
   }, { mb: 6 });
 
   // ---- P026 · orta · C07: Narkissos geri çekilir, eliyle iter; ANCAK BEN ÖLÜNCE BANA SAHİP OLURSUN; 'olursun'da döner, kaçar ----
+  // P026 söz yolu: ağızdan yukarı-sola, sonra başın üstünden sağa (Eko'ya) düz şerit
+  let p26M = null;
+  const p26Yol = (m, t) => { const P = [], a = [m[0] - 10, m[1] - 20], c = [m[0] - 120, m[1] - 230], b = [m[0] + 160, m[1] - 250];
+    for (let i = 0; i <= 16; i++) { const u = i / 16; P.push([(1 - u) * (1 - u) * a[0] + 2 * u * (1 - u) * c[0] + u * u * b[0], (1 - u) * (1 - u) * a[1] + 2 * u * (1 - u) * c[1] + u * u * b[1]]); }
+    for (let i = 1; i <= 20; i++) P.push([b[0] + i * 70, b[1] + 6 * Math.sin(i * .6 + t * 1.3)]);
+    return P; };
   plan('P026', (ctx, st) => {
     const t = st.t, tC = PE('P026', 0), tA = PE('P026', 1), tO = PE('P026', 2), gy = 920, s = 7.2;
     baseT(ctx); camAt(ctx, lerp(900, 960, E.sine(st.p)), 520, 1.0);
     S1.orman(ctx, t, { gy, trees: [[120, 2.3, 3], [1750, 2.3, 5], [2200, 2.0, 11]], far: UZAK });
-    // Eko sağ kenarda, kolları açık ve inmeye başlar
+    // Eko sağda: kollar açık yay hâlinden iner (dümdüz değil)
     const in_ = ramp(t, tC, tO + .5, E.io2);
-    S1.eko(ctx, { x: 1500, gy, s, dir: -1, p: { shN: lerp(1.6, .6, in_), elN: .2, shF: lerp(1.4, .5, in_), elF: .2, handN: 'open', handF: 'open', neck: .06 * in_ } });
+    S1.eko(ctx, { x: 1500, gy, s, dir: -1, p: { shN: lerp(1.2, .35, in_), elN: lerp(.7, .3, in_), shF: lerp(1.0, .3, in_), elF: lerp(.9, .4, in_), handN: 'open', handF: 'open', neck: .08 * in_, head: .05 * in_ } });
+    // Fable tur 1: reddediş okunmuyordu (karşılıklı uzanma) → Narkissos gövdesi ve başı Eko'dan dönük (sola, başı biraz kalkık),
+    // yakın kol geriye uzanır, avuç Eko'ya dönük iter ('çek'); 'olursun'da kaçar (yürüyüş x·yön mesafesiyle, ayak kaymaz)
     const it = ramp(t, tC - .15, tC + .35, E.out3), kac = ramp(t, tO + .1, st.end, E.in2);
-    const nx = 860 - 700 * kac - 50 * it;
+    const nx = 860 - 700 * kac - 40 * it;
+    const pz = { torso: .16 * it, neck: -.06 * it, head: -.1 * it, shN: lerp(.1, -1.45, it), elN: lerp(.2, -.05, it), handN: 'flat', wrN: -1.45 * it, shF: .5, elF: .9 };
     if (kac < .05) {
-      const f0 = { x: nx, y: gy - 44.5 * s, s, dir: 1, sty: STY.red, lk: LK_NK, seed: 23 }, { J, M } = joints(ctx, f0);
-      NK({ ctx, x: nx, gy, s, dir: 1, p: { torso: -.14 * it, neck: -.08 * it, head: -.06 * it, shN: lerp(.2, 1.5, it), elN: lerp(.3, -.05, it), handN: 'flat', wrN: -1.35 * it, shF: -.3, elF: -.3 } });
-      spear(ctx, [nx - 60, gy - 30 * s], -1.5, 62 * s, s * .9);
-      const m = headPt(ctx, J, M, [7.5, -3.6]);
-      S1.yolYazi(ctx, 'ANCAK BEN ÖLÜNCE BANA SAHİP OLURSUN', S1.konusmaYolu(m[0] + 40, m[1] - 70, -.05, 1500, t, { amp: 9 }), ramp(t, tA - .05, tO + .55, E.lin), { px: 38, col: S1.KIL });
+      const f0 = { x: nx, y: gy - 44.5 * s, s, dir: -1, sty: STY.red, lk: LK_NK, seed: 23, p: pz }, { J, M } = joints(ctx, f0);
+      // adım: öndeki ayak sola (uzaklaşma yönüne) atılmış
+      NK({ ctx, x: nx, gy, s, dir: -1, p: pz, ik: { fN: [nx - 9 * s * it - 3 * s, gy - 3 * s, 0], fF: [nx + 6 * s * it + 2 * s, gy - 3 * s, 0] } });
+      spear(ctx, jointPt(ctx, M, J.AF.wr), -1.75, 62 * s, s * .9);
+      // söz: yüz sola dönük; şerit ağızdan yukarı çıkıp başın üstünden geriye, Eko'ya doğru kıvrılır (sözü arkasına atar)
+      const m = headPt(ctx, J, M, [7.5, -3.6]); p26M = m;
+      S1.yolYazi(ctx, 'ANCAK BEN ÖLÜNCE BANA SAHİP OLURSUN', p26Yol(m, t), ramp(t, tA - .05, tO + .55, E.lin), { px: 38, col: S1.KIL });
     } else {
-      walkScene(ctx, null, nx, s, t, -1, { ground: groundOf(() => gy), noCam: true, sty: STY.red, lk: LK_NK, dist: -nx * .7, stride: 44, stripe: .5, lean: .22 });
-      const m = [nx + 200, gy - 44.5 * s - 30 * s];
-      S1.yolYazi(ctx, 'ANCAK BEN ÖLÜNCE BANA SAHİP OLURSUN', S1.konusmaYolu(900, 470 - 70, -.05, 1500, t, { amp: 9 }), 1, { px: 38, col: S1.KIL, a: 1 - .3 * kac });
+      let J = null, M = null;
+      walkScene(ctx, null, nx, s, t, -1, { ground: groundOf(() => gy), noCam: true, sty: STY.red, lk: LK_NK, stride: 44, stripe: .5, lean: .22, onJoints: (j, m) => { J = j; M = m; } });
+      if (J) spear(ctx, jointPt(ctx, M, J.AF.wr), -2.0, 62 * s, s * .9);
+      S1.yolYazi(ctx, 'ANCAK BEN ÖLÜNCE BANA SAHİP OLURSUN', p26Yol(p26M || [nx, 300], t), 1, { px: 38, col: S1.KIL, a: 1 - .3 * kac });
     }
   }, { mb: 6 });
 
