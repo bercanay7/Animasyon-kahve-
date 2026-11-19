@@ -338,3 +338,9 @@ Dört bağımsız mercek: kaynak (8/10), hassasiyet (7,5), Türkçe seslendirme 
   - C07 "Ancak ben ölünce bana sahip olursun" ret olarak duyuluyor mu;
   - "Zaman Kuryesi'ne" öncesindeki ~0,08 sn'lik kesinti;
   - genel ton.
+
+## 13. Çalışma düzeni değişti (kullanıcının kararı, 19 Kasım 2026)
+- Bu video fazla kullanım yedi; bundan sonra kurul, Fable puanlaması ve çok ajanlı akış yok.
+- Başkan işleri kendisi yapar; doğrulamayı kendi ölçümüyle ve kareye bakarak kendisi yapar.
+- Çalışmakta olan animatik düzeltme turu (iki set sahibi + birleştirme) tamamlanır.
+- Sonraki adımları (müzik, miks, son render, altyazı, kapak, yayın paketi) başkan tek başına yapar.
