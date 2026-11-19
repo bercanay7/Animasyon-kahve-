@@ -105,7 +105,7 @@ const SET = (() => {
     fill(F([[1620, 60], [1460, 60], [1490, 860], [1620, 860]]), .08, { type: 'bend', ox: 1540, oy: 60, a: HV, k: -.0006, id: 9 });
     fill(F([[300, 40], [1620, 40], [1620, 140], [960, 180], [300, 140]]), .07, { th: H0, id: 9 });
     // boyalı dekor: Capulet balkonu (açık ton, çizgili)
-    fill(R(460, 140, 1000, 720), .45, { th: H0, id: 0 });
+    fill(R(460, 140, 1000, 720), .16, { th: H0, id: 0 });
     fill(F([[1050, 380], [1360, 380], [1360, 420], [1050, 420]]), .7, { th: H0, id: 9 });
     for (let x = 1060; x < 1360; x += 28) fill(R(x, 420, 10, 70), .7, { th: HV, id: 9 });
     fill(F([[1080, 160], [1330, 160], [1330, 380], [1080, 380]]), .2, { th: HV, id: 9 });
@@ -140,8 +140,10 @@ const SET = (() => {
     fill(R(1400, 400, 460, 30), .35, { th: H0, id: 9 });
     if (o.ates !== false) { const t = o.t || 0; for (let k = 0; k < 4; k++) { const x = 1560 + k * 50, f = 1 + .2 * Math.sin(t * 7 + k * 2); const p = new Path2D(); p.moveTo(x - 20, 870); p.quadraticCurveTo(x, 870 - 120 * f, x + 6, 870 - 150 * f); p.quadraticCurveTo(x + 18, 860 - 60 * f, x + 22, 870); p.closePath(); GR.fill(p, GR.tone(1), { th: HV, id: 3 }); }
       isik({ x: 1630, y: 800, r0: 40, r1: 820, a: .7 }); }
+    // şamdan (piyanonun üstünde) ve ışığı
+    { const t2 = o.t || 0; for (const dx of [-30, 0, 30]) alev(520 + dx, 560, t2 + dx, .6); isik({ x: 520, y: 560, r1: 700, a: .65 }); }
     // piyano (sol orta)
-    fill(Sm([[260, 600], [760, 600], [780, 640], [780, 760], [240, 760], [240, 640]]), .03, { th: H0, id: 9 });
+    fill(Sm([[260, 600], [760, 600], [780, 640], [780, 760], [240, 760], [240, 640]]), .03, { th: H0, id: 9 }); fill(R(280, 610, 460, 14), .5, { th: H0, id: 9 });
     fill(R(250, 740, 520, 26), .3, { th: H0, id: 9 });
     for (const x of [280, 740]) fill(R(x, 760, 22, 130), .02, { th: HV, id: 9 });
     // divan (orta sağ)

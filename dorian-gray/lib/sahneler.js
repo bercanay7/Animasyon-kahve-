@@ -87,7 +87,7 @@ P('P018', (ctx, st) => { levha(ctx, CAM(960, 540, 1), () => { kagitArka(); INSAN
 // ═════ STÜDYO ═════
 const STU_SV = { x: 1060, y: 150, s: .92 };
 function stuArka(st, o = {}) { SET.studyo({ isik: o.isik ?? 1 }); const Mf = SET.sovale(STU_SV.x, STU_SV.y, STU_SV.s); return Mf; }
-const BASIL = (x, o = {}) => INSAN.adam({ x, y: 1000, h: 760, yon: o.yon ?? 1, arka: false, ton: .12, kenar: .55, kenarYan: 1, yuzTon: .2, ...o });
+const BASIL = (x, o = {}) => INSAN.adam({ x, y: 1000, h: 760, yon: o.yon ?? 1, arka: false, ton: .04, kenar: .6, kenarYan: 1, sakal: false, ...o });
 const HENRY = (x, o = {}) => INSAN.adam({ x, y: 1000, h: 800, yon: o.yon ?? 1, arka: false, ton: .05, kenar: .5, kenarYan: 1, biyik: true, ...o });
 // P006 B01: stüdyo geniş
 P('P006', (ctx, st) => { const c = camLerp(CAM(960, 540, 1), CAM(1000, 540, 1.04), st.p);
@@ -100,34 +100,25 @@ P('P008', (ctx, st) => sahne(ctx, st, { cam: CAM(1290, 400, 2.1 + .1 * st.p), ar
 P('P009', (ctx, st) => sahne(ctx, st, { cam: CAM(1080, 560, 1.25), arka: () => stuArka(st), portre: 'G', on: () => BASIL(760 - 40 * io(p01(st, 0, 2)), { kolOn: { a: .2, b: .1 }, bas: -.08 }) }), { yazi: { y: 150 } });
 // P010 B03: ters açı, divanda Henry, duman
 function duman(x, y, t, uz = 1, yon = 1) { for (let k = 0; k < 6; k++) { const u = ((t * .25 + k / 6) % 1), xx = x + yon * u * 260 * uz + Math.sin(u * 7 + k) * 30, yy = y - u * 420 * uz; INSAN.fill(SET.E2(xx, yy, 14 + u * 60, 6 + u * 22, .4), .75 - u * .5, { type: 'bend', ox: xx - 40, oy: yy, a: 0, k: .006, id: 2 }); } }
-P('P010', (ctx, st) => levha(ctx, CAM(700, 600, 1.15), () => { SET.studyo({ isik: .6 }); const h = HENRY(420, { yon: 1, egim: -.35, kolOn: { a: 2.2, b: -1.6 }, sigara: true, h: 760 }); duman(h.el[0] + 20, h.el[1] - 10, st.t, 1, 1); }));
+
 // P011 B03@etkilemek: duman Dorian'ın kulağına
 P('P011', (ctx, st) => levha(ctx, CAM(1250, 380, 2.2), () => { SET.studyo({ isik: .8 }); DOR(1300, { y: 1000, h: 760 }); const u = io(p01(st, 0, st.d)); for (let k = 0; k < 14; k++) { const q = k / 14; if (q > u) break; const x = 900 + q * 400, y = 330 + Math.sin(q * 6 + st.t) * 18 - q * 20; INSAN.fill(SET.E2(x, y, 22, 8, .2), .8, { type: 'bend', ox: x - 20, oy: y, a: 0, k: .006, id: 2 }); } }));
 
 // ═════ BAHÇE ═════
 P('P012', (ctx, st) => SET.dore(ctx, 'dore169', CAM(960, 500 + 120 * st.p, 1.0), 1920), { over: null });
-P('P013', (ctx, st) => levha(ctx, CAM(960, 560, 1.1), () => { SET.bahce({ t: st.t }); const h = HENRY(760, { yon: 1, kolOn: { a: .9 + .3 * Math.sin(st.t * 1.6), b: -.6 }, sigara: false, sapka: true }); DOR(1180, { yon: -1, kenarYan: -1, kenar: .5 }); }), { yazi: { y: 160 } });
-P('P014', (ctx, st) => levha(ctx, CAM(960, 520, 1.6), () => { SET.bahce({ t: st.t }); for (let k = 0; k < 18; k++) { const t0 = k * .35, u = clamp((st.lt - t0) / 3); if (u <= 0) continue; const x = 700 + (k * 97) % 520 + Math.sin(u * 6 + k) * 40, y = 300 + u * 700; INSAN.fill(SET.E2(x, y, 9, 5, u * 6 + k), .75, { th: 0, id: 6 }); } }));
+P('P013', (ctx, st) => { const c = CAM(960, 760, 1.25); SET.dore(ctx, 'dore169', c, 1920); onKatman(ctx, c, () => { HENRY(760, { y: 1400, h: 900, yon: 1, kolOn: { a: .9 + .3 * Math.sin(st.t * 1.6), b: -.6 }, sapka: true, kenar: .7 }); DOR(1180, { y: 1400, h: 880, yon: -1, kenarYan: -1, kenar: .7 }); }); }, { yazi: { y: 160 } });
+
 
 // ═════ STÜDYO (dilek, bıçak) ═════
 P('P015', (ctx, st) => sahne(ctx, st, { cam: CAM(1200, 520, 1.3), arka: () => stuArka(st), portre: 'G', on: () => DOR(1040, { h: 780, bas: .1 * io(p01(st, 0, 3)) }) }));
 P('P016', (ctx, st) => sahne(ctx, st, { cam: CAM(1290, 420, 1.9 + .12 * st.p), arka: () => stuArka(st), portre: 'G', on: () => DOR(1040, { h: 1100, y: 1400 }) }), { yazi: { y: 160 } });
-P('P019', (ctx, st) => { const u = io(p01(st, .3, 1.2)), y = io(p01(st, Wd('B08', 'Dorian') - st.at, Wd('B08', 'Dorian') - st.at + .5));
-  sahne(ctx, st, { cam: CAM(1150, 540, 1.3), arka: () => stuArka(st), portre: 'G', on: () => { BASIL(900, { kolOn: { a: .3 + 2.0 * u - .6 * y, b: -.2 } }); DOR(640 + 140 * y, { yon: 1, arka: false, yuzTon: .04, ton: .03, kolOn: { a: .4 + 1.6 * y, b: -.3 }, kenar: .35 }); } }); }, { yazi: { y: 150 } });
+
 
 // ═════ LONDRA ═════
 P('P020', (ctx, st) => SET.dore(ctx, 'dore245', CAM(960, 400 + 200 * st.p, 1.0), 1920), { yazi: {} });
-P('P033', (ctx, st) => levha(ctx, CAM(960, 540, 1.05 - .04 * st.p), () => { // opera: localar, avize
-  INSAN.fill(SET.R(-400, -400, 2800, 1900), .04, { th: 0, id: 0 });
-  for (let r = 0; r < 3; r++) for (let k = 0; k < 7; k++) { const x = 60 + k * 280, y = 260 + r * 230; INSAN.fill(SET.R(x, y, 230, 170), .02, { th: 0, id: 0 }); INSAN.fill(SET.R(x - 6, y + 160, 242, 22), .4, { th: 0, id: 9 }); for (let s = 0; s < 3; s++) INSAN.fill(SET.E2(x + 50 + s * 64, y + 120, 18, 22), .2 + .05 * s, { th: .9, id: 6 }); }
-  const t = st.t; for (let k = 0; k < 12; k++) { const a = k / 12 * Math.PI * 2, x = 960 + Math.cos(a) * 160, y = 130 + Math.sin(a) * 40; INSAN.fill(SET.E2(x, y, 7, 14 + 3 * Math.sin(t * 8 + k)), 1, { th: Math.PI / 2, id: 3 }); }
-  SET.isik({ x: 960, y: 130, r1: 700, a: .7 }); }));
-P('P039', (ctx, st) => SET.dore(ctx, 'dore263', CAM(960, 520 - 60 * st.p, 1.0 + .06 * st.p), 1920), { over: null });
-P('P040', (ctx, st) => levha(ctx, CAM(960, 560, 1), () => { // kalabalık döner
-  INSAN.fill(SET.R(-400, -400, 2800, 1900), .1, { th: 0, id: 0 }); SET.isik({ x: 980, y: 300, r1: 900, a: .8 });
-  const u = io(p01(st, Wd('D02', 'gören') - st.at, Wd('D02', 'gören') - st.at + 1));
-  for (let k = 0; k < 9; k++) { const x = 120 + k * 210 + (k % 2) * 40; if (Math.abs(x - 980) < 160) continue; INSAN.adam({ x, y: 960 + (k % 3) * 20, h: 560 + (k % 3) * 40, yon: x < 980 ? 1 : -1, arka: false, ton: .05 + (k % 3) * .02, bas: u * (x < 980 ? .25 : .25), sapka: k % 2 === 0, kenar: .3 }); }
-  DOR(980, { h: 640, y: 980, kenar: .6 }); }));
+
+
+
 P('P045', (ctx, st) => SET.dore(ctx, 'dore275', CAM(960, 500 + 60 * st.p, 1.0), 1920), { yazi: {} });
 P('P046', (ctx, st) => { const u = io(p01(st, 0, st.d * .7)); levha(ctx, CAM(960, 560, 1.15), () => {
   INSAN.fill(SET.R(-400, -400, 2800, 1900), .05, { th: 0, id: 0 });
@@ -138,10 +129,7 @@ P('P046', (ctx, st) => { const u = io(p01(st, 0, st.d * .7)); levha(ctx, CAM(960
   INSAN.fill(SET.R(1500 - 300 * u - 120, 760, 90, 70), .1, { th: 0, id: 9 });   // çanta
 }); });
 // G09: dışarıdan ev, gece
-P('P076', (ctx, st) => levha(ctx, CAM(960, 520, 1.05), () => { INSAN.fill(SET.R(-400, -400, 2800, 1900), .03, { th: 0, id: 0 });
-  INSAN.fill(SET.R(500, 80, 900, 900), .1, { th: 0, id: 9 }); for (let r = 0; r < 3; r++) for (let k = 0; k < 4; k++) INSAN.fill(SET.R(560 + k * 220, 140 + r * 260, 120, 180), (r === 0 && k === 2) ? .96 : .02, { th: Math.PI / 2, id: 10 });
-  SET.isik({ x: 1060, y: 230, r1: 420, a: .8 });
-  for (const [x, yn] of [[260, 1], [380, 1]]) INSAN.adam({ x: x + 40 * io(p01(st, 0, 1.2)), y: 1040, h: 560, yon: yn, sapka: true, ton: .04, bas: -.3 * io(p01(st, 1, 2)), kenar: null }); }));
+
 
 // ═════ TİYATRO ═════
 const SIB = (o = {}) => INSAN.kadin({ x: 1200, y: 920, h: 600, yon: -1, elbise: .8, ...o });
@@ -177,19 +165,16 @@ P('P048', (ctx, st) => levha(ctx, CAM(1500, 330, 2.4), () => { SET.salon({ t: st
 P('P057', (ctx, st) => levha(ctx, CAM(960, 560, 1), () => { SET.salon({ t: st.t }); DOR(520, { h: 660, y: 940, egim: .25, kolOn: { a: 1.25 + .1 * Math.sin(st.t * 6), b: -.2 } }); HENRY(1140, { yon: -1, egim: -.3, kolOn: { a: .6, b: .2 }, sigara: true }); }), { yazi: {} });
 P('P059', (ctx, st) => { const u = io(p01(st, 0, 1)); levha(ctx, CAM(700, 520, 1.4), () => { SET.salon({ t: st.t }); DOR(560, { h: 660, y: 940, egim: .25 - .25 * u, arka: u < .5, yon: u < .5 ? 1 : -1, ton: .03, yuzTon: .03, kenar: .35 }); HENRY(1140, { yon: -1, egim: -.3, kolOn: { a: .6, b: .2 }, sigara: true }); }); }, { yazi: { y: 150 } });
 P('P060', (ctx, st) => levha(ctx, CAM(1150, 380, 2.0), () => { SET.salon({ t: st.t }); const h = HENRY(1140, { yon: -1, egim: -.3 + .03 * Math.sin(st.t * 7), kolOn: { a: 2.1, b: -1.5 }, sigara: true }); duman(h.el[0], h.el[1], st.t, .7, -1); }), { yazi: { y: 160 } });
-P('P061', (ctx, st) => levha(ctx, CAM(520, 680, 2.4), () => { SET.salon({ t: st.t }); INSAN.fill(INSAN.F([[380, 590], [640, 590], [650, 600], [372, 600]]), .62, { th: 0, id: 9 }); INSAN.fill(SET.R(390, 540, 230, 50), .62, { th: 0, id: 9 });
-  GR.save(); GR.frame(560, 470 + 20 * io(p01(st, 0, 1)), .2, 1, 1); INSAN.fill(INSAN.Sm([[-70, -20], [70, -30], [90, 30], [-60, 40]]), .5, { th: 0, id: 5 }); GR.restore(); }), { yazi: { y: 150 } });
+
 P('P062', (ctx, st) => { const u = io(p01(st, 0, 1.5)); levha(ctx, CAM(960, 560, 1.05), () => { SET.salon({ t: st.t }); DOR(520, { h: 660, y: 940, egim: .25 }); HENRY(1140 - 60 * u, { yon: -1, egim: -.3 * (1 - u), kolOn: { a: .4, b: .3 } }); }); }, { yazi: { y: 150 } });
 
-P('P058', (ctx, st) => { const u = io(p01(st, 0, st.d)); levha(ctx, CAM(960, 560, 1.2), () => { SET.bahce({ t: st.t }); for (let k = 0; k < 24; k++) { const q = ((st.lt * .3 + k / 24) % 1), x = 300 + (k * 131) % 1300, y = 200 + q * 760; INSAN.fill(SET.E2(x, y, 8, 5, q * 6 + k), .9, { th: 0, id: 6 }); }
-  INSAN.kadin({ x: 1100 + 260 * u, y: 900, h: 420 - 80 * u, yon: 1, elbise: .7, kol: { a: .1, b: .1 } }); }); });
+
 // ═════ ODA (taşıma, örtü, kilit, yıllar, ayna) ═════
 P('P034', (ctx, st) => { const u = p01(st, 0, st.d); levha(ctx, CAM(960, 520, 1), () => { odaArka(st, { cerceveYok: true, lambaVar: false }); SET.isik({ x: 300, y: 300, r1: 900, a: .5 });
   const x = 200 + 900 * u; GR.save(); GR.frame(x, 330, -.05, 1, .8); INSAN.fill(SET.R(0, 0, 500, 720), .3, { th: Math.PI / 2, id: 9 }); GR.restore();
   for (const [dx, yn] of [[-60, 1], [520, 1]]) INSAN.adam({ x: x + dx, y: 1000, h: 640, yon: yn, arka: dx < 0, ton: .05, adim: st.t * .7, kolOn: { a: 2.6, b: .2 }, kenar: .3 }); }); });
 P('P035', (ctx, st) => sahne(ctx, st, { cam: CAM(1340, 560, 1.5), arka: () => { const _M = odaArka(st); perde(1070, 100 - 760 * (1 - io(p01(st, 0, 1.0))));  return _M; } }));
-P('P036', (ctx, st) => levha(ctx, CAM(960, 560, 2.6), () => { odaArka(st, { cerceveYok: true }); INSAN.fill(SET.R(700, 200, 520, 800), .2, { th: Math.PI / 2, id: 9 }); INSAN.fill(SET.E2(960, 600, 40, 40), .05, { th: 0, id: 9 }); INSAN.fill(INSAN.F([[952, 600], [968, 600], [972, 660], [948, 660]]), .02);
-  const a = -1.5 * io(p01(st, 0, 1.2)); GR.save(); GR.frame(960, 600, a, 1, 1); INSAN.fill(INSAN.F([[-8, -10], [140, -10], [140, 10], [-8, 10]]), .7, { th: 0, id: 9 }); INSAN.fill(SET.E2(160, 0, 26, 26), .7, { th: 0, id: 9 }); GR.restore(); }));
+
 P('P037', (ctx, st) => sahne(ctx, st, { cam: CAM(1340, 470, 2.0), arka: () => odaArka(st), portre: 'Y', gecis: { dan: 'Z', t0: st.at + .3 } }));
 P('P041', (ctx, st) => { const u = io(p01(st, 0, 2)); levha(ctx, CAM(960, 540, 1), () => { odaArka(st, { lamba: { x: 500 + 300 * u, y: 640 }, cerceveYok: false }); perde(1070, 100); DOR(380 + 300 * u, { adim: u < 1 ? st.t : null, kolOn: { a: .9, b: -.4 } }); }); });
 P('P042', (ctx, st) => sahne(ctx, st, { cam: CAM(1300, 420, 2.2), arka: () => odaArka(st), portre: 'Y', expo: .95, on: () => { GR.save(); GR.frame(1010, 520 + 10 * Math.sin(st.t), .3, 1, 1); INSAN.fill(SET.E2(0, 0, 70, 95), .45, { type: 'rad', cx: 0, cy: 0, id: 9 }); INSAN.fill(SET.E2(0, 0, 56, 80), .96, { th: 0, id: 10 }); GR.restore(); } }));
@@ -207,12 +192,8 @@ P('P050', (ctx, st) => { const d = Wd('E05', 'Basil') - st.at, u = io(p01(st, 0,
 P('P051', (ctx, st) => sahne(ctx, st, { cam: CAM(1250, 720, 4.0 - .4 * st.p), arka: () => odaArka(st), portre: 'C' }));
 P('P052', (ctx, st) => levha(ctx, CAM(900, 540, 1.15), () => { odaArka(st); perdeYigin(820, 960); BASIL(1100, { yon: -1, kenarYan: 1, kolOn: { a: .8, b: -.3 }, kolArka: { a: .6, b: -.2 } }); DOR(560, { kenar: .3 }); }), { yazi: { y: 160 } });
 P('P053', (ctx, st) => sahne(ctx, st, { cam: CAM(1300, 470, 2.4 + .3 * st.p), arka: () => odaArka(st), portre: 'C', on: () => DOR(1020, { h: 1200, y: 1500, kenar: .2 }) }));
-P('P054', (ctx, st) => levha(ctx, CAM(1760, 790, 3.2), () => { odaArka(st); GR.save(); GR.frame(1780, 790, -.1, 1, 1); INSAN.fill(INSAN.F([[-90, -6], [40, -6], [46, 0], [40, 6], [-90, 6]]), .85, { th: 0, id: 9 }); INSAN.fill(SET.R(40, -10, 70, 20), .1, { th: 0, id: 9 }); GR.restore();
-  SET.isik({ x: 1760, y: 790, r1: 80 + 30 * Math.sin(st.t * 5), a: .6 }); }));
-P('P055', (ctx, st) => { const u = p01(st, 0, 1.4); levha(ctx, CAM(960, 540, 1), () => { odaArka(st, { isik: u < .7 ? 1 : 0 });
-  GR.tx.save(); GR.tx.globalCompositeOperation = 'multiply'; GR.tx.fillStyle = 'rgba(0,0,0,.0)'; GR.tx.restore();
-  // duvarda iki gölge: biri yükselir
-  const gx = 600, gy = 260; INSAN.fill(INSAN.Sm([[gx, gy + 400], [gx + 80, gy + 60 - 120 * io(u)], [gx + 200, gy - 40 - 140 * io(u)], [gx + 260, gy + 380]]), .02); INSAN.fill(INSAN.Sm([[gx + 420, gy + 420], [gx + 460, gy + 180], [gx + 560, gy + 140], [gx + 600, gy + 420]]), .03); }); });
+
+
 P('P056', (ctx, st) => levha(ctx, CAM(960, 540, 1), () => { odaArka(st, { lambaVar: false }); perde(1070, 100); SET.huzme([[0, 0], [400, 0], [1200, 1080], [500, 1080]], .25); }));
 
 // ═════ EV (ayna, suç) ═════
@@ -224,7 +205,7 @@ P('P066', (ctx, st) => { const ks = [Wd('G02', 'her') , Wd('G02', 'Basil'), Wd('
   const xs = [380, 960, 1540]; ks.forEach((k, i) => { const a = clamp((st.lt - k) / .6); if (a > 0) SET.isik({ x: xs[i], y: 520, r1: 300, a: .8 * a }); });
   INSAN.fill(SET.R(260, 300, 240, 340), .12, { th: Math.PI / 2, id: 9 });   // perdeli tablo (küçük)
   INSAN.fill(SET.E2(1540, 560, 110, 70), .35, { th: 0, id: 9 }); }); });
-P('P067', (ctx, st) => levha(ctx, CAM(1400, 500, 2.2), () => { SET.salon({ t: st.t }); INSAN.fill(INSAN.F([[1300, 520], [1520, 520], [1530, 560], [1290, 560]]), .62, { th: 0, id: 9 }); SET.isik({ x: 1410, y: 520, r1: 260, a: .9 }); }));
+
 P('P068', (ctx, st) => { const u = io(p01(st, 0, Math.min(st.d, 2.6))); levha(ctx, CAM(960, 540, 1), () => { odaArka(st, { lamba: { x: 300 + 605 * u, y: 1000 - 350 * u }, r1: 500 + 200 * u }); perde(1070, 100); }); });
 
 // ═════ ODA (son) ═════
@@ -236,14 +217,10 @@ P('P070', (ctx, st) => sahne(ctx, st, { cam: CAM(1310, 420, 2.6), arka: () => od
 P('P071', (ctx, st) => sahne(ctx, st, { cam: CAM(1200, 560, 1.4), arka: () => odaArka(st), portre: 'I', on: () => DOR(1580, { yon: -1, kenarYan: -1, h: 840, arka: false, ton: .02, yuzTon: .02, kenar: .4, bas: -.1 }) }));
 P('P072', (ctx, st) => sahne(ctx, st, { cam: CAM(1000, 560, 1.15), arka: () => odaArka(st), portre: 'I', on: () => DOR(720, { egim: .02 * Math.sin(st.t * 10) * (1 - p01(st, 0, st.d)), kolOn: { a: .2, b: .1 } }) }));
 P('P073', (ctx, st) => sahne(ctx, st, { cam: CAM(1340, 420, 2.2 + .5 * st.p), arka: () => odaArka(st), portre: 'I' }));
-P('P074', (ctx, st) => levha(ctx, CAM(1760, 790, 3.6), () => { odaArka(st); GR.save(); GR.frame(1780, 790, -.1, 1, 1); INSAN.fill(INSAN.F([[-90, -6], [40, -6], [46, 0], [40, 6], [-90, 6]]), .95, { th: 0, id: 9 }); INSAN.fill(SET.R(40, -10, 70, 20), .1, { th: 0, id: 9 }); GR.restore(); SET.isik({ x: 1730, y: 790, r1: 60 + 40 * Math.abs(Math.sin(st.t * 4)), a: .8 }); }));
+
 P('P075', (ctx, st) => { const u = io(p01(st, 0, Math.max(.5, st.d - .3))); sahne(ctx, st, { cam: CAM(1160, 520, 1.25), arka: () => odaArka(st), portre: 'I',
   on: () => { const r = DOR(820, { kolOn: { a: .3 + 1.2 * u, b: -.3 - .4 * u }, egim: .05 * u }); GR.save(); GR.frame(r.el[0], r.el[1], -1.2 + 1.6 * u, 1, 1); INSAN.fill(INSAN.F([[0, -5], [130, -5], [136, 0], [130, 5], [0, 5]]), .95, { th: 0, id: 9 }); GR.restore(); } }); });
-P('P079', (ctx, st) => levha(ctx, CAM(960, 760, 2.4), () => { odaArka(st, { isik: .7 }); GR.save(); GR.frame(940, 930, .1, 1, 1);
-  INSAN.fill(INSAN.Sm([[-160, -40], [40, -50], [120, -30], [170, -10], [160, 20], [40, 30], [-160, 40]]), .55, { th: .2, id: 5 });   // buruşmuş el (gravür)
-  for (const [x, y] of [[60, -50], [100, -46], [134, -34], [150, -16]]) INSAN.fill(INSAN.F([[x, y], [x + 50, y + 4], [x + 52, y + 16], [x, y + 12]]), .5, { th: .2, id: 5 });
-  INSAN.fill(SET.E2(80, -38, 12, 16), .92, { th: 0, id: 10 }); INSAN.fill(SET.E2(112, -32, 12, 15), .92, { th: 0, id: 10 });   // yüzükler
-  for (let k = 0; k < 7; k++) INSAN.fill(INSAN.F([[-140 + k * 30, -30], [-110 + k * 30, -24], [-112 + k * 30, -22]]), .2, { th: 0, id: 5 }); GR.restore(); }));
+
 P('P080', (ctx, st) => sahne(ctx, st, { cam: CAM(1100, 560, 1.0 + .04 * st.p), arka: () => { const _M = odaArka(st, { isik: .6 }); INSAN.fill(INSAN.Sm([[760, 990], [1000, 950], [1200, 990], [1180, 1030], [780, 1030]]), .02);  return _M; }, portre: 'G', expo: .9 }));
 P('P077', (ctx, st) => { const u = io(p01(st, 0, 1.6)); sahne(ctx, st, { cam: CAM(1100, 540, 1.05), arka: () => { const _M = odaArka(st, { isik: .5 + .5 * u });  return _M; }, portre: 'G', gecis: { dan: 'I', t0: st.at - 1.0 }, on: () => { for (const [x, yn] of [[260, 1], [420, 1]]) INSAN.adam({ x: x + 120 * u, y: 1000, h: 700, yon: yn, ton: .05, kenar: .35, arka: false, kolOn: { a: .5, b: .2 } }); } }); });
 P('P078', (ctx, st) => sahne(ctx, st, { cam: CAM(1300, 470, 2.0 + .25 * st.p), arka: () => odaArka(st, { isik: 1 }), portre: 'G' }));
@@ -251,9 +228,7 @@ P('P078', (ctx, st) => sahne(ctx, st, { cam: CAM(1300, 470, 2.0 + .25 * st.p), a
 // ═════ MAHKEME ve iksir ═════
 P('P081', (ctx, st) => levha(ctx, CAM(960, 540 - 30 * st.p, 1 + .05 * st.p), () => { kagitArka(); INSAN.fill(SET.R(600, 30, 720, 1020), .92, { th: 0, id: 10 }); SET.fotoGravur('sarony18', 640, 60, 640, { kirp: [120, 160, 2040, 3360], kontrast: 1.5 }); }, [.07, 0, 0]), { yazi: {} });
 P('P082', (ctx, st) => levha(ctx, CAM(960, 540, 1.0 + .03 * st.p), () => SET.mahkeme()), { yazi: { px: 40 } });
-P('P083', (ctx, st) => levha(ctx, CAM(1000, 520, 1.4), () => { SET.mahkeme(); const h = INSAN.adam({ x: 820, y: 1000, h: 800, yon: 1, ton: .06, kenar: .45, kolOn: { a: 1.4, b: -.9 }, sakal: false });
-  INSAN.fill(SET.E2(820 + 8, 1000 - 800 * .92, 70, 50), .85, { type: 'bend', ox: 760, oy: 230, a: 0, k: .01, id: 6 });   // peruk
-  GR.save(); GR.frame(h.el[0] + 10, h.el[1] - 20, -.2, 1, 1); INSAN.fill(SET.R(0, -110, 150, 200), .88, { th: 0, id: 10 }); for (let k = 0; k < 8; k++) INSAN.fill(SET.R(14, -90 + k * 22, 120, 3), .3, { th: 0, id: 9 }); GR.restore(); }));
+
 P('P084', (ctx, st) => levha(ctx, CAM(960, 540, 1), () => { kagitArka(); INSAN.fill(SET.R(360, 80, 1200, 920), .92, { th: 0, id: 10 }); }, [.07, 0, 0]), { over: (ctx, st) => {
   const c = `rgb(${GR.INK})`; txt(ctx, 'THE PREFACE', W / 2, 200, { px: 46, col: c, ls: 8, a: clamp(st.lt / .6) });
   ctx.save(); ctx.font = FONT.alinti(52); ctx.fillStyle = c; ctx.textAlign = 'center'; ctx.globalAlpha = clamp((st.lt - .4) / .8); ctx.fillText('There is no such thing as a moral or an immoral book.', W / 2, 330); ctx.fillText('Books are well written, or badly written. That is all.', W / 2, 400); ctx.restore();
@@ -274,5 +249,99 @@ P('P092', (ctx, st) => sahne(ctx, st, { cam: CAM(1340, 470, 2.0), arka: () => od
 P('P093', (ctx, st) => levha(ctx, CAM(1000, 520, 1.05 - .03 * st.p), () => { odaArka(st); perde(1070, 100); }), { over: (ctx, st) => etiket(ctx, 'KİMSE GÖRMESEYDİ?', 560, 300, st.lt, st.d, { px: 58 }) });
 P('P094', (ctx, st) => levha(ctx, CAM(1500, 540, 1.0), () => { odaArka(st, { isik: .7 }); perde(1070, 100); }), { over: null });   // bitiş ekranı: sol yarı boş (YouTube öğeleri)
 
+// ═════ düzeltilmiş planlar (kurgu özeti 1) ═════
+// Henry: divanın kenarında yarı oturur, sigara; duman tavana
+P('P010', (ctx, st) => levha(ctx, CAM(760, 600, 1.15), () => { SET.studyo({ isik: .6 }); const h = HENRY(480, { yon: 1, egim: -.08, h: 820, kolOn: { a: 2.3, b: -1.7 }, kolArka: { a: -.2, b: .4 }, sigara: true, kenar: .65 }); duman(h.el[0] + 10, h.el[1] - 10, st.t, 1, 1); }), { yazi: {} });
+// leylak yerine Doré bahçesinin yakın yaprakları + düşen yapraklar
+P('P014', (ctx, st) => { const c = CAM(700, 1300, 2.0 + .1 * st.p); SET.dore(ctx, 'dore169', c, 1920); onKatman(ctx, c, () => { for (let k = 0; k < 22; k++) { const t0 = k * .25, u = clamp((st.lt - t0) / 3); if (u <= 0) continue; const x = 520 + (k * 97) % 380 + Math.sin(u * 6 + k) * 30, y = 1060 + u * 520; INSAN.fill(SET.E2(x, y, 9, 5, u * 6 + k), .95, { th: 0, id: 6 }); } }); }, { over: null });
+P('P058', (ctx, st) => { const u = io(p01(st, 0, st.d)), c = CAM(1300, 900, 1.3); SET.dore(ctx, 'dore169', c, 1920); onKatman(ctx, c, () => INSAN.kadin({ x: 1240 + 220 * u, y: 1380, h: 520 - 90 * u, yon: 1, elbise: .85, kol: { a: .1, b: .1 } })); }, { over: null });
+// bıçak: Basil sağda, Dorian soldan gelir; eller tuvalin önünde buluşur
+P('P019', (ctx, st) => { const u = io(p01(st, .3, 1.2)), w0 = Wd('B08', 'Dorian') - st.at, y = io(p01(st, w0, w0 + .5));
+  sahne(ctx, st, { cam: CAM(1150, 540, 1.3), arka: () => stuArka(st), portre: 'G', on: () => { const b = BASIL(1500, { yon: -1, kenarYan: -1, kolOn: { a: .3 + 1.9 * u, b: -.3 } }); GR.save(); GR.frame(b.el[0], b.el[1], -1.2 + .4 * u, 1, 1); INSAN.fill(INSAN.F([[0, -4], [-120, -4], [-126, 0], [-120, 4], [0, 4]]), .95, { th: 0, id: 9 }); GR.restore();
+    DOR(560 + 420 * y, { arka: true, kenar: .5, kolOn: { a: .4 + 1.5 * y, b: -.4 }, adim: y > 0 && y < 1 ? st.t * 1.4 : null }); } }); }, { yazi: { y: 150 } });
+// Doré gece: levhanın alt yarısı (insanlar)
+
+// kalabalık: üç sıra derinlik, boy ve yön çeşitli, üst üste biner; Dorian ışıkta, sırtı dönük
+P('P040', (ctx, st) => levha(ctx, CAM(960, 560, 1), () => { INSAN.fill(SET.R(-400, -400, 2800, 1900), .1, { th: 0, id: 0 }); SET.isik({ x: 960, y: 260, r1: 1000, a: .85 });
+  const g = Wd('D02', 'gören') - st.at, u = io(p01(st, g, g + 1.2));
+  const K = [[180, 880, 470, 1, .1], [420, 900, 500, -1, .3], [1500, 885, 480, -1, .2], [1720, 905, 520, -1, .05], [80, 1010, 640, 1, .25], [300, 1040, 700, 1, .05], [1640, 1030, 690, -1, .15], [1880, 1060, 740, -1, .3]];
+  K.forEach(([x, y, h, yn, dl], i) => INSAN.adam({ x, y, h, yon: yn, arka: i % 3 === 2, ton: .03, kenar: .4, kenarYan: x < 960 ? 1 : -1, sapka: i % 2 === 0, bas: (x < 960 ? .22 : .22) * io(p01(st, g + dl, g + dl + 1)), kolOn: { a: .05 + .1 * (i % 2), b: .1 } }));
+  DOR(960, { h: 620, y: 960, kenar: .7 }); }), { over: null });
+// anahtar: kilitte ışık havuzu, döner ve çıkar
+P('P036', (ctx, st) => levha(ctx, CAM(960, 560, 2.4), () => { INSAN.fill(SET.R(-400, -400, 2800, 1900), .06, { th: Math.PI / 2, id: 9 }); SET.isik({ x: 960, y: 580, r1: 420, a: .9 });
+  INSAN.fill(SET.R(860, 480, 200, 260), .45, { th: 0, id: 9 }); INSAN.fill(SET.E2(960, 560, 22, 22), .02); INSAN.fill(INSAN.F([[952, 560], [968, 560], [972, 610], [948, 610]]), .02);
+  const a = -1.57 * io(p01(st, .2, 1.4)), dx = 120 * io(p01(st, 2.6, 3.6)); GR.save(); GR.frame(960 + dx, 575, a, 1, 1);
+  INSAN.fill(INSAN.F([[-6, -5], [110, -5], [110, 5], [-6, 5]]), .82, { th: 0, id: 9 }); INSAN.fill(SET.E2(140, 0, 30, 30), .82, { th: 0, id: 9 }); INSAN.fill(SET.E2(140, 0, 14, 14), .06); INSAN.fill(SET.R(20, 5, 14, 18), .82, { th: 0, id: 9 }); GR.restore(); }), { over: null });
+// bıçak (sandık üstünde): büyük, ışıkta parlar
+function bicakPlan(ctx, st, z) { levha(ctx, CAM(1760, 780, z), () => { SET.oda(); SET.isik({ x: 1700, y: 760, r1: 380, a: .85 });
+  GR.save(); GR.frame(1760, 790, -.12, 1, 1); INSAN.fill(INSAN.F([[-150, -9], [60, -9], [72, 0], [60, 9], [-150, 9]]), .95, { th: 0, id: 9 }); INSAN.fill(INSAN.F([[60, -16], [74, -16], [74, 16], [60, 16]]), .1, { th: 0, id: 9 }); INSAN.fill(INSAN.F([[74, -9], [200, -11], [206, 0], [200, 11], [74, 9]]), .08, { th: 0, id: 9 }); GR.restore();
+  const g = .6 + .4 * Math.sin(st.t * 3); INSAN.fill(INSAN.F([[1650, 782], [1700, 778], [1650, 786]]), 1, { th: 0, id: 10 }); SET.isik({ x: 1660, y: 782, r1: 60 * g, a: .8 }); }); }
+P('P054', (ctx, st) => bicakPlan(ctx, st, 3.0), { over: null });
+P('P074', (ctx, st) => bicakPlan(ctx, st, 3.4), { over: null });
+// duvardaki gölgeler: lamba alçakta, iki büyük gölge duvarda; biri ötekinin üstüne kalkar; lamba söner (kan yok)
+
+// sarı kitap: yakın, ışık havuzunda (gravür: renk yok)
+
+
+
+// yerdeki el: koyu kol yeninin ucunda kırışık el (gravür çizgileri), iki parlak yüzük; yüz yok, kan yok
+
+// ═════ düzeltilmiş planlar (kurgu özeti 2) ═════
+// opera: at nalı biçiminde üç kat loca; içleri ışıklı, seyircilerin başları siluet; büyük avize
+P('P033', (ctx, st) => levha(ctx, CAM(960, 540, 1.05 - .04 * st.p), () => {
+  INSAN.fill(SET.R(-400, -400, 2800, 1900), .03, { th: 0, id: 0 });
+  for (let r = 0; r < 3; r++) for (let k = -4; k <= 4; k++) { const a = k / 4.6, x = 960 + Math.sin(a) * 1050, sc = .62 + .38 * Math.abs(Math.sin(a)), y = 300 + r * 250 - 60 * Math.cos(a) * (1 - r * .2), w = 200 * sc, h = 150;
+    INSAN.fill(SET.R(x - w / 2, y, w, h), .55, { th: 0, id: 10 }); INSAN.fill(SET.R(x - w / 2 - 8, y + h - 6, w + 16, 30), .3, { th: 0, id: 9 }); INSAN.fill(SET.R(x - w / 2 - 12, y - 14, 14, h + 44), .12, { th: 0, id: 9 });
+    for (let q = 0; q < 3; q++) { const hx = x - w * .3 + q * w * .3, hy = y + h - 34 - (q % 2) * 10; INSAN.fill(SET.E2(hx, hy, 15 * sc + 3, 19), .02); INSAN.fill(SET.R(hx - 22 * sc, hy + 14, 44 * sc, 30), .02); } }
+  const t = st.t; INSAN.fill(SET.E2(960, 120, 210, 46), .6, { th: 0, id: 10 }); for (let k = 0; k < 16; k++) { const a = k / 16 * Math.PI * 2, x = 960 + Math.cos(a) * 200, y = 120 + Math.sin(a) * 44; INSAN.fill(SET.E2(x, y - 18, 6, 12 + 3 * Math.sin(t * 8 + k)), 1, { th: Math.PI / 2, id: 3 }); }
+  SET.isik({ x: 960, y: 140, r1: 820, a: .75 }); }), { over: null });
+// Doré gece: figürlerden aya doğru yükselen kamera (levha karanlık; aylı üst yarı ışık verir)
+P('P039', (ctx, st) => SET.dore(ctx, 'dore263', CAM(960, 1250 - 330 * io(st.p), 1.0), 1920), { over: null });
+// ev dışarıdan: Georgian cephe, basamaklı kapı, parmaklık, gaz lambası; üst katta tek ışıklı pencere; geçen iki beyefendi durup bakar
+P('P076', (ctx, st) => { const yur = io(p01(st, 0, 1.6)), bak = io(p01(st, 1.4, 2.3)); levha(ctx, CAM(960, 540, 1.0 + .03 * st.p), () => {
+  INSAN.fill(SET.R(-400, -400, 2800, 1900), .04, { th: 0, id: 0 }); INSAN.fill(SET.R(-400, -400, 2800, 420), .08, { th: .2, id: 6 });
+  INSAN.fill(SET.R(120, 40, 1680, 900), .16, { th: 0, id: 9 }); for (let y = 90; y < 900; y += 34) INSAN.fill(SET.R(120, y, 1680, 3), .08, { th: 0, id: 9 });
+  INSAN.fill(SET.R(100, 30, 1720, 26), .35, { th: 0, id: 9 });
+  for (let r = 0; r < 2; r++) for (let k = 0; k < 5; k++) { const x = 220 + k * 330, y = 120 + r * 300, isikli = (r === 0 && k === 3);
+    INSAN.fill(SET.R(x - 10, y - 10, 160, 250), .3, { th: 0, id: 9 }); INSAN.fill(SET.R(x, y, 140, 230), isikli ? .97 : .03, { th: Math.PI / 2, id: 10 });
+    if (isikli) { INSAN.fill(SET.R(x + 66, y, 8, 230), .3); INSAN.fill(SET.R(x, y + 110, 140, 8), .3); } INSAN.fill(SET.R(x - 16, y + 240, 172, 14), .4, { th: 0, id: 9 }); }
+  INSAN.fill(SET.R(860, 640, 200, 300), .02); INSAN.fill(SET.E2(960, 640, 100, 60), .3, { th: 0, id: 9 }); INSAN.fill(SET.E2(960, 640, 84, 50), .75, { th: 0, id: 10 }); for (let k = -2; k <= 2; k++) INSAN.fill(INSAN.F([[960, 640], [960 + k * 40 - 3, 592], [960 + k * 40 + 3, 592]]), .1); INSAN.fill(SET.R(850, 640, 220, 300), .02);
+  for (let k = 0; k < 3; k++) INSAN.fill(SET.R(820 - k * 30, 940 + k * 22, 280 + k * 60, 22), .3 - k * .06, { th: 0, id: 9 });
+  INSAN.fill(SET.R(-400, 1000, 2800, 200), .1, { th: 0, id: 9 });
+  for (let x = -40; x < 1960; x += 40) if (x < 780 || x > 1140) INSAN.fill(SET.R(x, 860, 6, 140), .02); INSAN.fill(SET.R(-40, 870, 820, 6), .02); INSAN.fill(SET.R(1140, 870, 820, 6), .02);
+  INSAN.fill(SET.R(1600, 560, 12, 460), .02); INSAN.fill(INSAN.F([[1570, 520], [1642, 520], [1630, 570], [1582, 570]]), .9, { th: 0, id: 10 }); SET.isik({ x: 1606, y: 545, r1: 360, a: .75 });
+  SET.isik({ x: 1280, y: 240, r1: 520, a: .7 });
+  for (const [x, dx] of [[200, 0], [330, 30]]) INSAN.adam({ x: x + dx + 260 * yur, y: 1080, h: 600, yon: 1, sapka: true, ton: .03, bas: -.35 * bak, adim: yur < 1 ? st.t * 1.3 : null, kenar: .35, kenarYan: 1 }); }); }, { over: null });
+// avukat: dergiyi kaldırmış, okur (peruk yok: siluet yeter)
+P('P083', (ctx, st) => levha(ctx, CAM(1000, 520, 1.4), () => { SET.mahkeme(); const h = INSAN.adam({ x: 820, y: 1000, h: 800, yon: 1, ton: .06, kenar: .45, kolOn: { a: 1.4, b: -.9 }, sakal: false });
+  GR.save(); GR.frame(h.el[0] + 10, h.el[1] - 20, -.2, 1, 1); INSAN.fill(SET.R(0, -110, 150, 200), .88, { th: 0, id: 10 }); for (let k = 0; k < 8; k++) INSAN.fill(SET.R(14, -90 + k * 22, 120, 3), .3, { th: 0, id: 9 });
+  const cev = io(p01(st, 1, 1.8)); if (cev > 0 && cev < 1) INSAN.fill(INSAN.F([[150, -110], [150 - 150 * (1 - cev), -110 - 30 * Math.sin(cev * Math.PI)], [150 - 150 * (1 - cev), 90 - 30 * Math.sin(cev * Math.PI)], [150, 90]]), .95, { th: 0, id: 10 }); GR.restore(); }), { over: null });
+// duvardaki gölgeler: aydınlık duvar, yerdeki lamba; iki büyük gölge; biri ötekine kalkar; lamba söner (kan yok)
+P('P055', (ctx, st) => { const u = io(p01(st, .2, 1.6)), sondu = io(p01(st, st.d - 1.2, st.d - .6)); levha(ctx, CAM(960, 520, 1), () => {
+  INSAN.fill(SET.R(-400, -400, 2800, 1900), .45 * (1 - sondu) + .03, { th: 0, id: 9 }); INSAN.fill(SET.R(-400, 960, 2800, 400), .12 * (1 - sondu) + .02, { th: .1, id: 9 });
+  if (sondu < 1) SET.isik({ x: 960, y: 1000, r1: 1300, a: .8 * (1 - sondu) });
+  INSAN.adam({ x: 700, y: 980, h: 800, yon: 1, ton: .02, kolOn: { a: .5 - .3 * u, b: .2 }, kenar: null, egim: -.05 - .1 * u });
+  INSAN.adam({ x: 1180, y: 980, h: 830 + 140 * u, yon: -1, ton: .02, arka: true, kolOn: { a: 1.2 + 1.7 * u, b: -.6 }, kenar: null, egim: .12 * u });
+  if (sondu < 1) SET.lamba(960, 1000, st.t, 1.4); }); }, { over: null });
+// sarı kitap: piyanonun üstünde açık kitap; sayfalar ışıkta, satırlar; Dorian'ın eli üstüne bastırır (gravür: renk yok)
+function kitapPlan(ctx, st, el) { levha(ctx, CAM(960, 600, 2.0 + .06 * st.p), () => { INSAN.fill(SET.R(-400, -400, 2800, 1900), .04, { th: 0, id: 9 });
+  INSAN.fill(SET.R(-400, 700, 2800, 500), .12, { th: .04, id: 9 }); INSAN.fill(SET.R(-400, 690, 2800, 14), .4, { th: 0, id: 9 }); SET.isik({ x: 960, y: 600, r1: 560, a: .85 });
+  INSAN.fill(INSAN.F([[700, 700], [952, 676], [968, 676], [1220, 700], [1210, 720], [710, 720]]), .25, { th: 0, id: 9 });
+  INSAN.fill(INSAN.Sm([[720, 520], [840, 500], [950, 512], [956, 690], [840, 678], [712, 698]]), .9, { th: 0, id: 10 }); INSAN.fill(INSAN.Sm([[970, 512], [1080, 500], [1200, 520], [1208, 698], [1080, 678], [964, 690]]), .9, { th: 0, id: 10 });
+  INSAN.fill(SET.R(952, 508, 16, 184), .2, { th: 0, id: 9 });
+  for (let k = 0; k < 9; k++) { const y = 540 + k * 16; INSAN.fill(SET.R(746, y - (k < 1 ? 0 : 0), 186 - (k === 8 ? 80 : 0), 3), .3); INSAN.fill(SET.R(990, y, 186 - (k === 4 ? 70 : 0), 3), .3); }
+  if (el) { const b = io(p01(st, .3, 1.3)); GR.save(); GR.frame(1200 - 60 * b, 660 - 40 * b, Math.PI + .55, 1, 1); INSAN.fill(INSAN.F([[-30, -40], [-300, -56], [-300, 50], [-30, 40]]), .02);
+    INSAN.fill(INSAN.Sm([[-34, -40], [40, -46], [100, -30], [118, -6], [100, 22], [40, 34], [-34, 38]]), .55, { th: .5, id: 5 });
+    for (const [y, l] of [[-34, 60], [-12, 70], [10, 64], [30, 48]]) INSAN.fill(INSAN.Sm([[100, y - 7], [100 + l, y - 5], [106 + l, y + 1], [100 + l, y + 7], [100, y + 7]]), .5, { th: .5, id: 5 }); GR.restore(); } }); }
+P('P061', (ctx, st) => kitapPlan(ctx, st, true), { yazi: { y: 150 } });
+P('P067', (ctx, st) => kitapPlan(ctx, st, false), { over: null });
+// yerdeki el: koyu döşeme, kol yeni, kırışık el ve ayrık parmaklar; iki parlak yüzük; yüz yok, kan yok
+P('P079', (ctx, st) => levha(ctx, CAM(960, 570, 2.3 + .06 * st.p), () => { INSAN.fill(SET.R(-400, -400, 2800, 1900), .03, { th: 0, id: 0 }); for (let y = 300; y < 900; y += 70) INSAN.fill(SET.R(-400, y, 2800, 3), .1, { th: 0, id: 9 });
+  SET.isik({ x: 1000, y: 570, r1: 300, a: .5 });
+  GR.save(); GR.frame(900, 580, .1, 1, 1); INSAN.fill(INSAN.F([[-600, -56], [-150, -62], [-130, 60], [-600, 64]]), .015); INSAN.fill(INSAN.F([[-160, -64], [-132, -64], [-118, 62], [-146, 62]]), .55, { th: 0, id: 10 });
+  INSAN.fill(INSAN.Sm([[-122, -52], [-20, -60], [56, -50], [70, 0], [56, 40], [-122, 50]]), .62, { th: 1.2, id: 5 });
+  for (const [y, l, a] of [[-44, 100, -.14], [-16, 116, -.03], [12, 108, .07], [38, 84, .18]]) { GR.save(); GR.frame(60, y, a, 1, 1); INSAN.fill(INSAN.Sm([[-6, -10], [l * .5, -9], [l, -6], [l + 8, 0], [l, 7], [l * .5, 9], [-6, 10]]), .62, { th: a + 1.2, id: 5 }); INSAN.fill(SET.R(l * .45, -9, 4, 18), .15); INSAN.fill(SET.R(l * .8, -7, 3, 14), .15); GR.restore(); }
+  INSAN.fill(INSAN.Sm([[-40, 46], [10, 60], [60, 86], [76, 100], [60, 106], [10, 82], [-40, 58]]), .62, { th: .8, id: 5 });
+  INSAN.fill(SET.R(104, -34, 14, 26), .98, { th: 0, id: 10 }); INSAN.fill(SET.R(100, -6, 14, 26), .98, { th: 0, id: 10 }); SET.isik({ x: 1010, y: 570, r1: 60, a: .7 }); GR.restore(); }), { over: null });
 // eksik plan kimlikleri (taslakta çizilmemiş) uyarısı
 window.initScenes = () => { const var_ = new Set(SHOTS.map(s => s.id)); const eksik = Object.keys(PS).filter(k => !var_.has(k)); if (eksik.length) console.warn('çizilmemiş planlar: ' + eksik.join(' ')); };
