@@ -25,11 +25,23 @@
     // zemin: koyu sıcak kahve; resmin içindeki ışık sol üstten
     R.fill(P([[ix - 4, iy - 4], [ix + iw + 4, iy - 4], [ix + iw + 4, iy + ih + 4], [ix - 4, iy + ih + 4]]), mix('#4c3421', '#2c2a1c'), { dir: 30, maxR: 22, group: 'tuval', detail: 1.2 });
     R.fill(Ell(ix + 120, iy + 150, 190, 220), mix('#6a4a2c', '#3a3424'), { dir: 30, maxR: 22, group: 'tuval' });
-    // gövde: koyu redingot, beyaz yaka, koyu kravat; geniş omuz (erkek)
+    // gövde: koyu redingot, açık yakalar; beyaz gömlek önü, kanatlı dik yaka, geniş gri ipek fular ve iğne (Viktorya beyefendisi;
+    // eski düz beyaz bant + koyu kravat papaz yakası gibi okunuyordu, Fable son yorumu 19 Kasım)
     R.fill(S([[cx - 190, iy + ih + 10], [cx - 178, hy + 190], [cx - 110, hy + 132], [cx - 36, hy + 114], [cx + 52, hy + 118], [cx + 132, hy + 142], [cx + 182, hy + 200], [cx + 196, iy + ih + 10]]), mix('#17120f', '#121410'), { dir: 70, maxR: 12, group: 'ceket' });
-    R.fill(P([[cx - 30, hy + 112], [cx + 38, hy + 114], [cx + 30, hy + 150], [cx - 24, hy + 150]]), mix('#eee4ce', '#bab49c'), { dir: 0, maxR: 4, group: 'yaka' });
-    R.fill(P([[cx - 16, hy + 122], [cx + 22, hy + 123], [cx + 12, hy + 196], [cx - 2, hy + 198]]), mix('#2c1e30', '#211b1b'), { dir: 90, maxR: 4, group: 'kravat' });
-    R.fill(P([[cx - 36, hy + 112], [cx - 16, hy + 122], [cx - 6, hy + 236], [cx - 60, hy + 160]]), mix('#221a16', '#1a1814'), { dir: 70, maxR: 5, group: 'ceket' });   // yaka devrik kenarı
+    R.fill(P([[cx - 44, hy + 112], [cx + 50, hy + 114], [cx + 34, hy + 300], [cx - 26, hy + 300]]), mix('#ece2cc', '#b8b29a'), { dir: 90, maxR: 5, group: 'gomlek' });
+    R.fill(P([[cx - 34, hy + 98], [cx + 32, hy + 102], [cx + 36, hy + 128], [cx - 38, hy + 124]]), mix('#f4ecd8', '#c4bea6'), { dir: 0, maxR: 4, group: 'yaka' });
+    R.fill(P([[cx - 10, hy + 120], [cx - 48, hy + 146], [cx - 36, hy + 118]]), mix('#f4ecd8', '#c4bea6'), { dir: 0, maxR: 3, group: 'yaka' });
+    R.fill(P([[cx + 12, hy + 122], [cx + 52, hy + 148], [cx + 40, hy + 120]]), mix('#f4ecd8', '#c4bea6'), { dir: 0, maxR: 3, group: 'yaka' });
+    // fular: boğazda düğüm, aşağı doğru açılan katlı ipek, yakaların altına girer
+    R.fill(P([[cx - 22, hy + 132], [cx + 24, hy + 133], [cx + 44, hy + 250], [cx + 6, hy + 262], [cx - 34, hy + 250]]), mix('#6c6658', '#46443a'), { dir: 100, maxR: 4, group: 'kravat' });
+    R.fill(P([[cx - 6, hy + 140], [cx + 10, hy + 140], [cx + 22, hy + 252], [cx + 6, hy + 260]]), mix('#9a9282', '#62604f'), { dir: 95, maxR: 3, group: 'kravat' });
+    R.fill(P([[cx - 20, hy + 120], [cx + 22, hy + 121], [cx + 18, hy + 142], [cx - 16, hy + 141]]), mix('#5a5448', '#3c3a32'), { dir: 0, maxR: 3, group: 'kravat' });
+    R.fill(Ell(cx + 3, hy + 186, 4.5, 4.5), mix('#d8b860', '#8a7a4a'), { maxR: 2, group: 'igne' });
+    // açık yakalar (lapel): beyaz gömleği V biçiminde keser; ipek kaplama biraz açık
+    R.fill(P([[cx - 118, hy + 136], [cx - 44, hy + 114], [cx - 40, hy + 160], [cx - 4, hy + 272], [cx - 4, hy + 330], [cx - 80, hy + 330], [cx - 104, hy + 220]]), mix('#2e241c', '#22201a'), { dir: 60, maxR: 6, group: 'ceket' });   // sol yaka
+    R.fill(P([[cx + 134, hy + 142], [cx + 52, hy + 116], [cx + 50, hy + 162], [cx + 12, hy + 272], [cx + 12, hy + 330], [cx + 92, hy + 330], [cx + 116, hy + 220]]), mix('#261e18', '#1c1a16'), { dir: 120, maxR: 6, group: 'ceket' });   // sağ yaka
+    R.line(c => { c.moveTo(cx - 40, hy + 160); c.lineTo(cx - 4, hy + 272); }, mix('#4a3c30', '#34302a'), 3, { group: 'ceket' });
+    R.line(c => { c.moveTo(cx + 50, hy + 162); c.lineTo(cx + 12, hy + 272); }, mix('#4a3c30', '#34302a'), 3, { group: 'ceket' });
     // boyun
     R.fill(P([[cx - 32, hy + 60], [cx + 22, hy + 64], [cx + 28, hy + 116], [cx - 32, hy + 114]]), mix('#b8875e', '#6e6a4e'), { dir: 80, maxR: 5, group: 'boyun' });
     // baş: ¾, izleyicinin soluna bakar; çene köşeli (erkek), çökmüşte gıdı sarkar

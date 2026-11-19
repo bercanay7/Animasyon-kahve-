@@ -1,10 +1,11 @@
 # Dorian Gray'in Portresi: YouTube metinleri (kurulsuz üretim; başkan)
 
 ## Başlık
-**Seçilen (55 karakter):** Dorian Gray'in Portresi: Kimse Görmeseydi Ne Yapardın?
+**Seçilen (42 karakter):** Dorian Gray: Kimse Görmeseydi Ne Yapardın?
+- Fable'ın son yorumuyla kısaltıldı (19 Kasım): 54 karakterlik ilk seçim ("Dorian Gray'in Portresi: Kimse Görmeseydi Ne Yapardın?") mobil akışta "…Ne Yap" diye kesiliyor, sorunun kendisi düşüyordu. Kapı kelimesi "dorian gray" başta kalıyor; "Dorian Gray'in Portresi" açıklamanın ilk cümlesinde ve etiketlerde.
 - On aday ve eleme `uretim_plani.md` §5'te. Tanıdık kapı ("dorian gray", Türkçe aramada 204 B medyan) başta; akış ~45–50 karakterde kesse de kapı düşmez. Soru izleyicinin kendi hayatına sorulur (talep kontrolü b) ve filmin ilk cümlesiyle aynıdır (0:00 "…o tabloyu kimse görmeseydi, ne yapardın?"), son cümlede döner (7:51).
 - Kalıp: "Ne Zaman …?" (Narkissos) ve "Neden …?" değil; "… Ne Yapardın?" koşullu kişisel soru.
-- Yedek (test sürerken kullanılmaz): Kimse Görmeseydi Ne Yapardın? | Dorian Gray'in Portresi
+- Yedek (test sürerken kullanılmaz): Dorian Gray'in Portresi: Kimse Görmeseydi Ne Yapardın?
 
 ## Açıklama
 Oscar Wilde'ın Dorian Gray'in Portresi: yaptığın her şey yüzüne değil de bir tabloya yazılsaydı ve o tabloyu kimse görmeseydi, ne yapardın?
@@ -29,6 +30,7 @@ Kaynaklar
 - Stuart Mason, Oscar Wilde: Art and Morality (1912): 1890 basın tartışması ve 3 Nisan 1895 sorgusu (Carson'ın soruları, Wilde'ın "That expresses my view of art" cevabı).
 - Wilde'ın Ralph Payne'e mektubu (üç karakter sözü): The Letters of Oscar Wilde, ed. R. Hart-Davis (1962), s. 352.
 - 25 Mayıs 1895 mahkûmiyeti: iki yıl ağır çalışma.
+- Not: videoda avukatın sorusu ("Bu ahlaksız bir kitap değil mi?") Carson'ın sorgudaki sorularının özetidir, birebir alıntı değildir.
 
 Görseller (kamu malı)
 - Oscar Wilde, Napoleon Sarony fotoğrafları (New York, 1882): The Metropolitan Museum of Art, Open Access (CC0).

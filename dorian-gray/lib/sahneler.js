@@ -141,7 +141,7 @@ P('P023', (ctx, st) => levha(ctx, CAM(960, 540, .82), () => { SET.tiyatro({ t: s
 P('P024', (ctx, st) => levha(ctx, CAM(1180, 380, 2.0), () => { SET.tiyatro({ t: st.t }); SIB({ kol: { a: 2.4, b: .9 }, bas: .15 * io(p01(st, 0, 3)) }); }));
 P('P025', (ctx, st) => { const u = io(p01(st, 0, st.d)); levha(ctx, CAM(960, 560, 1.15), () => { INSAN.fill(SET.R(-400, -400, 2800, 1900), .06, { th: 0, id: 0 }); SET.isik({ x: 1300, y: 300, r1: 700, a: .7 });
   for (let k = 0; k < 4; k++) INSAN.fill(SET.R(1400 + k * 90, 100, 60, 800), .2, { th: Math.PI / 2, id: 9 });   // kulis kulisleri
-  INSAN.kadin({ x: 1150, y: 980, h: 620, yon: -1, kol: { a: 1.9, b: .3 }, elbise: .78 }); DOR(800 - 260 * u, { yon: -1, arka: false, ton: .03, yuzTon: .03, kenar: .35, kenarYan: 1, adim: u > 0 && u < 1 ? st.t * .9 : null }); }); }, { yazi: { y: 160 } });
+  INSAN.kadin({ x: 1150, y: 980, h: 620, yon: -1, kol: { a: 1.05, b: 1.0 }, elbise: .78 }); SET.isik({ x: 640 - 200 * u, y: 520, r1: 460, a: .4 }); DOR(800 - 260 * u, { yon: -1, arka: false, ton: .03, yuzTon: .03, kenar: .35, kenarYan: 1, adim: u > 0 && u < 1 ? st.t * .9 : null }); }); }, { yazi: { y: 160 } });
 
 // ═════ EV (hol, şafak) ═════
 const EV_FR = { x: 1150, y: 150, s: .9 };
@@ -318,11 +318,11 @@ P('P083', (ctx, st) => levha(ctx, CAM(1000, 520, 1.4), () => { SET.mahkeme(); co
   GR.save(); GR.frame(h.el[0] + 10, h.el[1] - 20, -.2, 1, 1); INSAN.fill(SET.R(0, -110, 150, 200), .88, { th: 0, id: 10 }); for (let k = 0; k < 8; k++) INSAN.fill(SET.R(14, -90 + k * 22, 120, 3), .3, { th: 0, id: 9 });
   const cev = io(p01(st, 1, 1.8)); if (cev > 0 && cev < 1) INSAN.fill(INSAN.F([[150, -110], [150 - 150 * (1 - cev), -110 - 30 * Math.sin(cev * Math.PI)], [150 - 150 * (1 - cev), 90 - 30 * Math.sin(cev * Math.PI)], [150, 90]]), .95, { th: 0, id: 10 }); GR.restore(); }), { over: null });
 // duvardaki gölgeler: aydınlık duvar, yerdeki lamba; iki büyük gölge; biri ötekine kalkar; lamba söner (kan yok)
-P('P055', (ctx, st) => { const u = io(p01(st, .2, 1.6)), sondu = io(p01(st, st.d - 1.2, st.d - .6)); levha(ctx, CAM(960, 520, 1), () => {
-  INSAN.fill(SET.R(-400, -400, 2800, 1900), .45 * (1 - sondu) + .03, { th: 0, id: 9 }); INSAN.fill(SET.R(-400, 960, 2800, 400), .12 * (1 - sondu) + .02, { th: .1, id: 9 });
+P('P055', (ctx, st) => { const u = io(p01(st, .2, 1.6)), sondu = io(p01(st, st.d - 1.9, st.d - 1.2)); levha(ctx, CAM(960, 520, 1), () => {
+  INSAN.fill(SET.R(-400, -400, 2800, 1900), .3 * (1 - sondu) + .03, { th: 0, id: 9 }); INSAN.fill(SET.R(-400, 960, 2800, 400), .12 * (1 - sondu) + .02, { th: .1, id: 9 });
   if (sondu < 1) SET.isik({ x: 960, y: 1000, r1: 1300, a: .8 * (1 - sondu) });
   INSAN.adam({ x: 700, y: 980, h: 800, yon: 1, ton: .02, kolOn: { a: .5 - .3 * u, b: .2 }, kenar: null, egim: -.05 - .1 * u });
-  INSAN.adam({ x: 1180, y: 980, h: 830 + 140 * u, yon: -1, ton: .02, arka: true, kolOn: { a: 1.2 + 1.7 * u, b: -.6 }, kenar: null, egim: .12 * u });
+  INSAN.adam({ x: 1240 - 160 * u, y: 980, h: 830 + 140 * u, yon: -1, ton: .02, arka: true, kolOn: { a: .12, b: .1 }, kenar: null, egim: .06 * u });   // temas ve kalkık kol yok: adım + ışığın sönmesi
   if (sondu < 1) SET.lamba(960, 1000, st.t, 1.4); }); }, { over: null });
 // sarı kitap: piyanonun üstünde açık kitap; sayfalar ışıkta, satırlar; Dorian'ın eli üstüne bastırır (gravür: renk yok)
 function kitapPlan(ctx, st, el) { levha(ctx, CAM(960, 600, 2.0 + .06 * st.p), () => { INSAN.fill(SET.R(-400, -400, 2800, 1900), .04, { th: 0, id: 9 });
@@ -331,18 +331,26 @@ function kitapPlan(ctx, st, el) { levha(ctx, CAM(960, 600, 2.0 + .06 * st.p), ()
   INSAN.fill(INSAN.Sm([[720, 520], [840, 500], [950, 512], [956, 690], [840, 678], [712, 698]]), .9, { th: 0, id: 10 }); INSAN.fill(INSAN.Sm([[970, 512], [1080, 500], [1200, 520], [1208, 698], [1080, 678], [964, 690]]), .9, { th: 0, id: 10 });
   INSAN.fill(SET.R(952, 508, 16, 184), .2, { th: 0, id: 9 });
   for (let k = 0; k < 9; k++) { const y = 540 + k * 16; INSAN.fill(SET.R(746, y - (k < 1 ? 0 : 0), 186 - (k === 8 ? 80 : 0), 3), .3); INSAN.fill(SET.R(990, y, 186 - (k === 4 ? 70 : 0), 3), .3); }
-  if (el) { const b = io(p01(st, .3, 1.3)); GR.save(); GR.frame(1200 - 60 * b, 660 - 40 * b, Math.PI + .55, 1, 1); INSAN.fill(INSAN.F([[-30, -40], [-300, -56], [-300, 50], [-30, 40]]), .02);
+  if (el) { const b = io(p01(st, .3, 1.3)); GR.save(); GR.frame(1340 - 90 * b, 712, Math.PI + .08, 1, 1); INSAN.fill(INSAN.F([[-30, -40], [-300, -56], [-300, 50], [-30, 40]]), .02);
     INSAN.fill(INSAN.Sm([[-34, -40], [40, -46], [100, -30], [118, -6], [100, 22], [40, 34], [-34, 38]]), .55, { th: .5, id: 5 });
     for (const [y, l] of [[-34, 60], [-12, 70], [10, 64], [30, 48]]) INSAN.fill(INSAN.Sm([[100, y - 7], [100 + l, y - 5], [106 + l, y + 1], [100 + l, y + 7], [100, y + 7]]), .5, { th: .5, id: 5 }); GR.restore(); } }); }
 P('P061', (ctx, st) => kitapPlan(ctx, st, true), { yazi: { y: 150 } });
 P('P067', (ctx, st) => kitapPlan(ctx, st, false), { over: null });
-// yerdeki el: koyu döşeme, kol yeni, kırışık el ve ayrık parmaklar; iki parlak yüzük; yüz yok, kan yok
-P('P079', (ctx, st) => levha(ctx, CAM(960, 570, 2.3 + .06 * st.p), () => { INSAN.fill(SET.R(-400, -400, 2800, 1900), .03, { th: 0, id: 0 }); for (let y = 300; y < 900; y += 70) INSAN.fill(SET.R(-400, y, 2800, 3), .1, { th: 0, id: 9 });
-  SET.isik({ x: 1000, y: 570, r1: 300, a: .5 });
-  GR.save(); GR.frame(900, 580, .1, 1, 1); INSAN.fill(INSAN.F([[-600, -56], [-150, -62], [-130, 60], [-600, 64]]), .015); INSAN.fill(INSAN.F([[-160, -64], [-132, -64], [-118, 62], [-146, 62]]), .55, { th: 0, id: 10 });
-  INSAN.fill(INSAN.Sm([[-122, -52], [-20, -60], [56, -50], [70, 0], [56, 40], [-122, 50]]), .62, { th: 1.2, id: 5 });
-  for (const [y, l, a] of [[-44, 100, -.14], [-16, 116, -.03], [12, 108, .07], [38, 84, .18]]) { GR.save(); GR.frame(60, y, a, 1, 1); INSAN.fill(INSAN.Sm([[-6, -10], [l * .5, -9], [l, -6], [l + 8, 0], [l, 7], [l * .5, 9], [-6, 10]]), .62, { th: a + 1.2, id: 5 }); INSAN.fill(SET.R(l * .45, -9, 4, 18), .15); INSAN.fill(SET.R(l * .8, -7, 3, 14), .15); GR.restore(); }
-  INSAN.fill(INSAN.Sm([[-40, 46], [10, 60], [60, 86], [76, 100], [60, 106], [10, 82], [-40, 58]]), .62, { th: .8, id: 5 });
-  INSAN.fill(SET.R(104, -34, 14, 26), .98, { th: 0, id: 10 }); INSAN.fill(SET.R(100, -6, 14, 26), .98, { th: 0, id: 10 }); SET.isik({ x: 1010, y: 570, r1: 60, a: .7 }); GR.restore(); }), { over: null });
+// yerdeki el: koyu döşeme, koyu kol ve beyaz manşet; soluk el, aralı parmaklar koyu zeminde ayrı okunur; iki parlak yüzük; yüz yok, kan yok
+// (ilk çizimde el, zeminle aynı tonda tarandığı için "balon" gibi okunuyordu; Fable son yorumu 19 Kasım)
+P('P079', (ctx, st) => levha(ctx, CAM(960, 560, 1.7 + .05 * st.p), () => { INSAN.fill(SET.R(-400, -400, 2800, 1900), .02, { th: 0, id: 0 });
+  for (let y = 260; y < 900; y += 90) INSAN.fill(SET.R(-400, y, 2800, 3), .07, { th: 0, id: 9 });
+  GR.save(); GR.frame(900, 560, .08, 1, 1);
+  INSAN.fill(INSAN.F([[-700, -62], [-170, -66], [-150, 66], [-700, 70]]), .01);   // kol
+  INSAN.fill(INSAN.F([[-176, -70], [-130, -68], [-116, 66], [-160, 70]]), .9, { th: 0, id: 10 });   // manşet
+  INSAN.fill(INSAN.Sm([[-124, -50], [-30, -58], [52, -54], [74, -10], [66, 34], [10, 50], [-124, 50]]), .8, { th: .3, id: 5 });   // avuç sırtı
+  // parmaklar ve yüzükler el çerçevesinde elle döndürülür (iç içe GR.frame göreli değil)
+  const rot = (ox, oy, a, pts) => pts.map(([x, y]) => [ox + x * Math.cos(a) - y * Math.sin(a), oy + x * Math.sin(a) + y * Math.cos(a)]);
+  for (const [y, l, a] of [[-44, 104, -.16], [-15, 122, -.04], [14, 112, .08], [40, 86, .2]]) {
+    INSAN.fill(INSAN.Sm(rot(60, y, a, [[-8, -10], [l * .5, -9], [l, -7], [l + 9, 0], [l, 7], [l * .5, 9], [-8, 10]])), .8, { th: .3, id: 5 });
+    INSAN.fill(INSAN.F(rot(60, y, a, [[l * .48, -8], [l * .48 + 3, -8], [l * .48 + 3, 8], [l * .48, 8]])), .3);
+    if (y < 0) { INSAN.fill(INSAN.F(rot(60, y, a, [[l * .3 - 2, -13], [l * .3 + 18, -13], [l * .3 + 18, 13], [l * .3 - 2, 13]])), .02);
+      INSAN.fill(INSAN.F(rot(60, y, a, [[l * .3 + 1, -11], [l * .3 + 15, -11], [l * .3 + 15, 11], [l * .3 + 1, 11]])), .99, { th: 0, id: 10 }); } }
+  SET.isik({ x: 1004, y: 524, r1: 70, a: .6 }); GR.restore(); }), { over: null });
 // eksik plan kimlikleri (taslakta çizilmemiş) uyarısı
 window.initScenes = () => { const var_ = new Set(SHOTS.map(s => s.id)); const eksik = Object.keys(PS).filter(k => !var_.has(k)); if (eksik.length) console.warn('çizilmemiş planlar: ' + eksik.join(' ')); };

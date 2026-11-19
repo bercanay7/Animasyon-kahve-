@@ -6,7 +6,7 @@
   const ST = { t: 2.2, lt: 2.2, p: .5, d: 4, at: 0 };
   function yazi(ctx, satirlar, x, y, px, o = {}) {
     ctx.save(); ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.textAlign = o.align || 'left'; ctx.textBaseline = 'alphabetic';
-    ctx.font = `400 ${px}px "Bebas Neue"`; const lh = px * (o.lh || .92);
+    ctx.font = `400 ${px}px "Bebas Neue"`; if (o.ls) ctx.letterSpacing = o.ls + 'px'; const lh = px * (o.lh || .92);
     satirlar.forEach((s, i) => {
       ctx.shadowColor = 'rgba(0,0,0,.85)'; ctx.shadowBlur = px * .12; ctx.fillStyle = (o.renk && o.renk[i]) || '#efe6d2'; ctx.fillText(s, x, y + i * lh);
     });
@@ -42,10 +42,11 @@
       INSAN.fill(INSAN.F([[22, -36], [40, -36], [40, 40], [22, 40]]), .45, { th: 0, id: 9 });
       INSAN.fill(INSAN.Sm([[24, -30], [-30, -40], [-66, -30], [-84, -8], [-70, 10], [-40, 6], [-54, 26], [-20, 34], [24, 32]]), .06);
       INSAN.fill(INSAN.Sm([[-30, -40], [-66, -30], [-84, -8], [-80, -14], [-62, -34], [-30, -44]]), .7, { th: 0, id: 10 });
+      for (const [y0, x1] of [[-21, -80], [-3, -74], [15, -60]]) INSAN.fill(INSAN.F([[-26, y0 - 2], [x1, y0 - 4], [x1, y0], [-26, y0 + 2]]), .62, { th: 0, id: 10 });   // parmak aralıkları (Fable: "parmaksız eldiven")
       GR.restore();
       
     });
-    yazi(ctx, ['KİMSE', 'GÖRMEDİ'], o.tx ?? 90, o.ty ?? 430, o.px ?? 300);
+    yazi(ctx, ['KİMSE', 'GÖRMEDİ'], o.tx ?? 44, o.ty ?? 430, o.px ?? 290, { ls: o.ls ?? -7 });   // İ çerçeve kenarına binmesin (Fable)
   }
   function kapakB(ctx, o) {
     const cam = CAM(o.cx ?? 1040, o.cy ?? 420, o.z ?? .95); let Mf;
@@ -59,6 +60,7 @@
       for (let k = 0; k <= 70; k++) { const q = k / 70, x = x0 + (x1 - x0) * q, y = y0 + (y1 - y0) * q - Math.sin(q * Math.PI) * (o.kav ?? 90) + Math.sin(q * 13) * 9;
         INSAN.fill(SET.E2(x, y, 10 + 6 * Math.sin(q * Math.PI), 4 + 2 * Math.sin(q * Math.PI), .3 + q), .92 - .15 * q, { th: 0, id: 10 }); }
     });
+    if (o.bant !== 0) { ctx.save(); ctx.setTransform(1, 0, 0, 1, 0, 0); const g = ctx.createLinearGradient(0, 0, 0, o.bant ?? 430); g.addColorStop(0, 'rgba(0,0,0,.78)'); g.addColorStop(.8, 'rgba(0,0,0,.6)'); g.addColorStop(1, 'rgba(0,0,0,0)'); ctx.fillStyle = g; ctx.fillRect(0, 0, W, o.bant ?? 430); ctx.restore(); }   // yazı altına koyu bant (Fable)
     yazi(ctx, o.satir || ['HER ŞEY BİR', 'CÜMLEYLE BAŞLADI'], o.tx ?? 960, o.ty ?? 175, o.px ?? 190, { align: 'center' });
   }
   window.kapak = (v, o = {}) => {

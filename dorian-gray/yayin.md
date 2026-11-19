@@ -9,7 +9,7 @@
 4. **Kitle:** "Hayır, çocuklara özel değil".
 5. **Değiştirilmiş/sentetik içerik:** gerçekçi bir kişi ya da olay göstermiyor (animasyon; Wilde'ın 1882 fotoğrafları ve 1890 dergi sayfası arşiv görseli olarak gravür süzgecinden geçirilmiş). Ses yapay zekâ: açıklamada yazılı. YouTube'un o günkü sorusunu oku; gerçekçi içerik değilse "Hayır".
 6. **Altyazı:** Altyazılar → Dosya yükle → "Zamanlamalı" → `dorian-gray.tr.srt` (Türkçe).
-7. **Bitiş ekranı (son 20 sn, 7:56–8:16):** anlatımın son cümlesi "Kafka'nın Dönüşüm'ü ekranda." ("ekranda" 8:01,9'da, bitiş ekranının içinde). Ekranın sol yarısı boş (kilitli oda sağda): sola **Kafka videosu** ("Kafka'nın Dönüşüm'ü: İşe Yaramasan da Seni Severler miydi?"), altına **abone ol**; ikinci öğe istenirse **Narkissos videosu** (aynı temanın öteki yüzü: yansıma). Sağ alttaki rozet alanı boş.
+7. **Bitiş ekranı (son 20 sn, 7:56–8:16):** anlatımın son cümlesi "Kafka'nın Dönüşüm'ü ekranda." ("ekranda" 8:01,9'da, bitiş ekranının içinde). Ekranın sağ yarısı boş ve karanlık (lamba x≈360, örtülü tablo x≈540–1080; Fable son yorumunda düzeltildi): sağ yarıya **Kafka videosu** ("Kafka'nın Dönüşüm'ü: İşe Yaramasan da Seni Severler miydi?"), altına **abone ol**; ikinci öğe istenirse **Narkissos videosu** (aynı temanın öteki yüzü: yansıma). Sağ alttaki rozet alanı boş.
 8. **Kartlar (isteğe bağlı):** 7:39 ("Güzellik bir lanet miydi?") → Narkissos videosu.
 9. **Oynatma listesi:** "Kitapların Sorduğu Sorular".
 10. **Sabit yorum:** `youtube.md` → "Sabit yorum".
