@@ -88,3 +88,9 @@ Metin denetiminde kayda geçen beş anlatım sapması yeniden seslendirildi (Emr
 - **Kontrol:** değişen yalnız bu beş bölge, ek yerleri sessizlikte (tık yok); "havaya" (patlama sesi) cümle sonuna 0,80 sn (eskisi 0,82); müzik ve efekt yeni zaman çizelgesiyle yeniden üretildi, miks −14,20 LUFS / −1,50 dBFS; altyazı farkı yalnız bu beş cümlede. Parçalar 15, 16, 45, 46, 50, 51 yeniden render edildi.
 - **Kulakla son onay kullanıcıda:** `vo/yama/karsilastirma_eski_yeni.mp3` (her cümle önce eski, sonra yeni, bağlamıyla).
 - **Yamadan sonra kare kontrolünde (önceden var olan) kusur:** M10'da "Stefan Zweig" künyesi, kamera Elizabeth'ten Mary'ye kayarken önce "I. ELİZABETH", sonra "MARY STUART" mezar etiketinin üstüne biniyordu → etiket bloğu 60 px yukarı (y 700 → 640); 50. parça yeniden render edildi.
+
+## Müzik düzeltmesi (19 Kasım 2026, yayından bir gün önce; başkan)
+- **Bulgu (Dorian Gray üretiminde):** `audio/score.py`'deki piyano sentezinde çok alçak notalarda (MIDI < ~37) sönüm katsayısı negatife düşüyor, nota üstel olarak büyüyor; normalleştirme bütün müziği bu patlamaya göre kısıyor. Aynı kodla müzik yeniden üretilince 1.249 saniyenin yalnız ~14'ünde müzik duyuluyordu. Miks LUFS'u (−14,2) bunu göstermedi: anlatım ölçümü taşıyordu. **Teslim edilen film ve Shorts müziksizdi** (Shorts'un son kartı tamamen sessiz).
+- **Düzeltme:** `dec = max(.3, .55 + .05*(m-48)) * (1 + k*.55)`. Müzik, efekt ve miks yeniden üretildi: müzik medyanı −36 dB, 1.249 saniyenin 1.167'sinde −60 dB üstü; miks −14,3 LUFS / −1,5 dBFS. Seslendirme ve zaman çizelgesi aynı (ipuçları commit'tekiyle birebir).
+- **Teslim:** film baştan render edildi (görüntü aynı; konteyner yenilendiği için usta kopya yoktu), YouTube ve telefon kopyaları ile Shorts yeni sesle yeniden üretildi.
+- **Ders:** her müzik üretiminden sonra saniye saniye düzey eğrisi basılır (medyan ve "−60 dB üstü saniye" sayısı). Ses kurulu da müziği ayrı dosyada ölçer, miksin içinde değil.

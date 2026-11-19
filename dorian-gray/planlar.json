@@ -1,0 +1,957 @@
+{
+ "_not": "Plan listesi (yönetmen: başkan). Çalıştır: python3 tools/planlar_kaynak.py → planlar.json + planlar.js\nSatır: (çapa, set, ölçek, kadraj, hareket, yazı, portre)\n  çapa: film.js A() yazımı: 'B02', 'B02@kelime', 'B02@kelime#1', '+0.4'\n  ölçek: G geniş · O orta · Y yakın · A ayrıntı · T ters açı (ardışık iki plan aynı ölçekte olmaz)\n  portre: renkli tablo kadrajda mı ve hangi durumda (G genç · Z zalimlik çizgisi · Y yıllar · C çökmüş · I ikiyüzlü · '' yok)\nGörsel kurallar (üretim planı §7):\n  1) Dorian'ın yüzü yalnız portrede görünür; dünyada sırtı dönük, uzak ya da gölgede.\n  2) Renk yalnız portrede (tablonun içindeki kırmızı imza dahil).\n  3) Ölüm ve şiddet gölgeyle verilir; kan yok. Ölü yalnız yüzüklü el.\n  4) Gerçek görseller: Doré levhaları doğrudan (zaten gravür), Sarony fotoğrafları ton katmanından gravüre çevrilir; Lippincott sayfası kâğıt olarak.\n",
+ "setler": {
+  "ODA": "Kilitli oda: evin en üst katındaki eski okul odası; gece, lamba, kitaplık, boyalı sandık, perdeli tablo (üslup kapısı sahnesi)",
+  "STU": "Basil'in stüdyosu: haziran ışığı, büyük pencere, şövale, divan; Basil, Lord Henry, Dorian (sırtı dönük)",
+  "BAH": "Bahçe: leylaklar, sedir; Doré 'bahçe partisi' kuruluş planı, sonra çizim",
+  "BEL": "Belge: Sarony fotoğrafı (gravüre çevrilmiş), Lippincott's 1890 sayfaları, Önsöz sayfası; kâğıt üstünde",
+  "LON": "Londra: Doré levhaları (gece, sis, gaz lambası), çizilmiş sokak siluetleri",
+  "TIY": "Küçük tiyatro: sahne ışıkları, balkon dekoru, Sibyl (Juliet), loca; kulis",
+  "EV": "Dorian'ın evi: holde portre, şafak ışığı, panjur, fildişi çerçeveli el aynası, yazı masası",
+  "SAL": "Salon: Lord Henry'nin oturduğu oda, piyano, sigara dumanı, sarı kitap",
+  "MAH": "Mahkeme 1895: sanık kürsüsü, peruklu avukat silueti, kitap; galeri",
+  "SON": "Kapanış: perdeli tablo, lamba; bitiş ekranı"
+ },
+ "planlar": {
+  "P001": {
+   "id": "P001",
+   "at": "A01",
+   "set": "ODA",
+   "olcek": "Y",
+   "kadraj": "Lamba alevi ve mor perdenin işlemeli kenarını tutan el; perde birkaç parmak kalkar, altı karanlık",
+   "hareket": "alev titrer, el perdeyi azar azar kaldırır",
+   "yazi": "",
+   "portre": ""
+  },
+  "P002": {
+   "id": "P002",
+   "at": "A01@kimse",
+   "set": "ODA",
+   "olcek": "G",
+   "kadraj": "Oda geniş: sırtı dönük Dorian, masada lamba, perdeli büyük çerçeve",
+   "hareket": "yavaş yaklaşma; Dorian'ın soluğu",
+   "yazi": "",
+   "portre": ""
+  },
+  "P003": {
+   "id": "P003",
+   "at": "A02",
+   "set": "BEL",
+   "olcek": "O",
+   "kadraj": "Sarony 1882 Wilde portresi (gravüre çevrilmiş), kâğıt üstünde",
+   "hareket": "yavaş yaklaşma",
+   "yazi": "OSCAR WILDE · 1890",
+   "portre": ""
+  },
+  "P004": {
+   "id": "P004",
+   "at": "A02@sordu",
+   "set": "BEL",
+   "olcek": "A",
+   "kadraj": "Lippincott's Temmuz 1890 başlık sayfası: THE PICTURE OF DORIAN GRAY",
+   "hareket": "sayfa hafif kayar",
+   "yazi": "",
+   "portre": ""
+  },
+  "P005": {
+   "id": "P005",
+   "at": "A03",
+   "set": "ODA",
+   "olcek": "Y",
+   "kadraj": "Kapalı perde, altın işleme, lamba ışığı titrer; 'göreceğiz'de perde ürperir",
+   "hareket": "perdede rüzgârsız kıpırtı",
+   "yazi": "",
+   "portre": ""
+  },
+  "P006": {
+   "id": "P006",
+   "at": "B01",
+   "set": "STU",
+   "olcek": "G",
+   "kadraj": "Stüdyo: büyük pencereden haziran ışığı, şövalede tablo, Basil fırçayla, kürsüde Dorian (sırtı dönük)",
+   "hareket": "Basil'in kolu fırçayla iner kalkar; ışıkta toz",
+   "yazi": "LONDRA · HAZİRAN",
+   "portre": "G"
+  },
+  "P007": {
+   "id": "P007",
+   "at": "B01@Ressam",
+   "set": "STU",
+   "olcek": "O",
+   "kadraj": "Basil şövalenin başında, fırça tuvalde; tuval bize dönük değil (yan)",
+   "hareket": "fırça darbeleri",
+   "yazi": "",
+   "portre": ""
+  },
+  "P008": {
+   "id": "P008",
+   "at": "B01@Dorian",
+   "set": "STU",
+   "olcek": "Y",
+   "kadraj": "Tuvalde genç yüz: son fırça darbeleri yüzü tamamlar (darbe darbe boyama)",
+   "hareket": "darbeler sırayla belirir",
+   "yazi": "",
+   "portre": "G"
+  },
+  "P009": {
+   "id": "P009",
+   "at": "B02",
+   "set": "STU",
+   "olcek": "O",
+   "kadraj": "Basil tablodan geri çekilir, fırçayı bırakır; tablo onun yanında",
+   "hareket": "Basil'in omuzları düşer",
+   "yazi": "“İçine kendimden fazlasını koydum.”",
+   "portre": "G"
+  },
+  "P010": {
+   "id": "P010",
+   "at": "B03",
+   "set": "STU",
+   "olcek": "T",
+   "kadraj": "Ters açı: divanda Lord Henry, sigara dumanı tavana kıvrılır",
+   "hareket": "duman",
+   "yazi": "LORD HENRY",
+   "portre": ""
+  },
+  "P011": {
+   "id": "P011",
+   "at": "B03@etkilemek",
+   "set": "STU",
+   "olcek": "A",
+   "kadraj": "Duman ince bir çizgi gibi Dorian'ın kulağına doğru uzanır (kapak B)",
+   "hareket": "duman ilerler",
+   "yazi": "",
+   "portre": ""
+  },
+  "P012": {
+   "id": "P012",
+   "at": "B04",
+   "set": "BAH",
+   "olcek": "G",
+   "kadraj": "Doré'nin bahçe partisi levhası, sedir ağacı",
+   "hareket": "yavaş kaydırma",
+   "yazi": "",
+   "portre": ""
+  },
+  "P013": {
+   "id": "P013",
+   "at": "B04@Gençlik",
+   "set": "BAH",
+   "olcek": "O",
+   "kadraj": "Leylakların altında Henry konuşur (el hareketi), Dorian sırtı dönük dinler",
+   "hareket": "Henry'nin eli, leylak dalları",
+   "yazi": "“Gençlik, sahip olmaya değer tek şeydir.”",
+   "portre": ""
+  },
+  "P014": {
+   "id": "P014",
+   "at": "B04@Zaman",
+   "set": "BAH",
+   "olcek": "A",
+   "kadraj": "Leylak salkımı: yapraklar birer birer düşer",
+   "hareket": "düşen yapraklar",
+   "yazi": "",
+   "portre": ""
+  },
+  "P015": {
+   "id": "P015",
+   "at": "B05",
+   "set": "STU",
+   "olcek": "O",
+   "kadraj": "Dorian (sırtı dönük) bitmiş tablonun önünde; tabloda genç yüz bize bakar",
+   "hareket": "Dorian'ın başı hafif eğilir",
+   "yazi": "",
+   "portre": "G"
+  },
+  "P016": {
+   "id": "P016",
+   "at": "B06",
+   "set": "STU",
+   "olcek": "Y",
+   "kadraj": "Tablonun yüzü yakın; önde Dorian'ın koyu omuz silueti",
+   "hareket": "yavaş yaklaşma",
+   "yazi": "“Ruhumu bile verirdim.”",
+   "portre": "G"
+  },
+  "P017": {
+   "id": "P017",
+   "at": "B07",
+   "set": "BEL",
+   "olcek": "A",
+   "kadraj": "Lippincott's 1890, s.19: 'I would give everything!' satırı ışıkta; altta 1890/1891 karşılaştırma yazısı",
+   "hareket": "ışık satır boyunca kayar",
+   "yazi": "1890: “her şeyi verirdim” · 1891: “ruhumu verirdim”",
+   "portre": ""
+  },
+  "P018": {
+   "id": "P018",
+   "at": "B07@Vayld",
+   "set": "BEL",
+   "olcek": "Y",
+   "kadraj": "Kâğıt üstünde iki satır dizgi: 1890 / 1891; 'ruh' sözcüğü belirir",
+   "hareket": "satırlar belirir",
+   "yazi": "",
+   "portre": ""
+  },
+  "P019": {
+   "id": "P019",
+   "at": "B08",
+   "set": "STU",
+   "olcek": "O",
+   "kadraj": "Basil palet bıçağını tuvale kaldırır; Dorian'ın eli bıçağı tutar (siluetler)",
+   "hareket": "kol hızla kalkar, el yakalar",
+   "yazi": "“Bu cinayet olur!”",
+   "portre": "G"
+  },
+  "P020": {
+   "id": "P020",
+   "at": "C01",
+   "set": "LON",
+   "olcek": "G",
+   "kadraj": "Doré: eski evli, kalabalık yoksul sokak",
+   "hareket": "yavaş kaydırma",
+   "yazi": "BİRKAÇ HAFTA SONRA",
+   "portre": ""
+  },
+  "P021": {
+   "id": "P021",
+   "at": "C01@Sibil",
+   "set": "TIY",
+   "olcek": "O",
+   "kadraj": "Küçük sahne, ayak ışıkları, balkon dekoru; Juliet kılığında Sibyl",
+   "hareket": "ışık titrer, Sibyl'in kolu kalkar",
+   "yazi": "SIBYL VANE · 17",
+   "portre": ""
+  },
+  "P022": {
+   "id": "P022",
+   "at": "C02",
+   "set": "TIY",
+   "olcek": "Y",
+   "kadraj": "Locada Dorian'ın sırtı ve omzu, öne eğilmiş; ötede sahne ışığı",
+   "hareket": "Dorian öne eğilir",
+   "yazi": "",
+   "portre": ""
+  },
+  "P023": {
+   "id": "P023",
+   "at": "C03",
+   "set": "TIY",
+   "olcek": "G",
+   "kadraj": "Salon geniş: locada üç siluet; sahnede kaskatı Sibyl",
+   "hareket": "seyirci kıpırtısı",
+   "yazi": "",
+   "portre": ""
+  },
+  "P024": {
+   "id": "P024",
+   "at": "C04",
+   "set": "TIY",
+   "olcek": "Y",
+   "kadraj": "Sibyl profil siluet, eli göğsünde, ışık yüzünün kenarında",
+   "hareket": "baş eğilir",
+   "yazi": "",
+   "portre": ""
+  },
+  "P025": {
+   "id": "P025",
+   "at": "C05",
+   "set": "TIY",
+   "olcek": "O",
+   "kadraj": "Kulis: Dorian sırtını döner, Sibyl ona uzanır",
+   "hareket": "Dorian uzaklaşır",
+   "yazi": "“Aşkımı öldürdün.”",
+   "portre": ""
+  },
+  "P026": {
+   "id": "P026",
+   "at": "C06",
+   "set": "EV",
+   "olcek": "G",
+   "kadraj": "Şafakta Dorian'ın holü: duvarda portre; Dorian geçerken durur",
+   "hareket": "Dorian yürür ve durur",
+   "yazi": "",
+   "portre": "G"
+  },
+  "P027": {
+   "id": "P027",
+   "at": "C07",
+   "set": "EV",
+   "olcek": "Y",
+   "kadraj": "Tablonun ağzı yakın: zalimlik çizgisi darbe darbe belirir",
+   "hareket": "çizgi boyanır",
+   "yazi": "",
+   "portre": "Z"
+  },
+  "P028": {
+   "id": "P028",
+   "at": "C08",
+   "set": "EV",
+   "olcek": "A",
+   "kadraj": "Fildişi çerçeveli el aynası arkadan; aynaya bakan baş silueti; yansıma görünmez",
+   "hareket": "ayna kalkar",
+   "yazi": "",
+   "portre": ""
+  },
+  "P029": {
+   "id": "P029",
+   "at": "C09",
+   "set": "EV",
+   "olcek": "O",
+   "kadraj": "Panjur açılır, şafak ışığı tabloya vurur; zalimlik çizgisi yerinde",
+   "hareket": "ışık açılır",
+   "yazi": "",
+   "portre": "Z"
+  },
+  "P030": {
+   "id": "P030",
+   "at": "C10",
+   "set": "EV",
+   "olcek": "Y",
+   "kadraj": "Yazı masası: kalem, mektup",
+   "hareket": "kalem yazar",
+   "yazi": "",
+   "portre": ""
+  },
+  "P031": {
+   "id": "P031",
+   "at": "C10@Ama",
+   "set": "EV",
+   "olcek": "G",
+   "kadraj": "Holde kapı açılır, eşikte Lord Henry'nin silueti",
+   "hareket": "kapı açılır",
+   "yazi": "",
+   "portre": ""
+  },
+  "P032": {
+   "id": "P032",
+   "at": "C11",
+   "set": "SAL",
+   "olcek": "Y",
+   "kadraj": "Lord Henry koltukta konuşur, sigara dumanı ağır ağır kıvrılır",
+   "hareket": "duman",
+   "yazi": "“Hiç gerçekten yaşamamıştı.”",
+   "portre": ""
+  },
+  "P033": {
+   "id": "P033",
+   "at": "C12",
+   "set": "LON",
+   "olcek": "G",
+   "kadraj": "Opera: localar, avize ışıkları (çizim)",
+   "hareket": "avize ışıkları titrer",
+   "yazi": "",
+   "portre": ""
+  },
+  "P034": {
+   "id": "P034",
+   "at": "C13",
+   "set": "ODA",
+   "olcek": "O",
+   "kadraj": "İki hizmetçi çerçeveyi merdivenden yukarı taşır (siluet)",
+   "hareket": "taşıyanlar yürür",
+   "yazi": "",
+   "portre": ""
+  },
+  "P035": {
+   "id": "P035",
+   "at": "C13@Üstüne",
+   "set": "ODA",
+   "olcek": "Y",
+   "kadraj": "Altın işlemeli mor örtü çerçevenin üstüne iner",
+   "hareket": "örtü iner",
+   "yazi": "",
+   "portre": ""
+  },
+  "P036": {
+   "id": "P036",
+   "at": "C13@Kapıyı",
+   "set": "ODA",
+   "olcek": "A",
+   "kadraj": "Anahtar kilitte döner, cebe girer",
+   "hareket": "anahtar döner",
+   "yazi": "",
+   "portre": ""
+  },
+  "P037": {
+   "id": "P037",
+   "at": "D01",
+   "set": "ODA",
+   "olcek": "Y",
+   "kadraj": "Tablo: yüz darbe darbe yaşlanır (yıllar)",
+   "hareket": "darbeler",
+   "yazi": "",
+   "portre": "Y"
+  },
+  "P038": {
+   "id": "P038",
+   "at": "D01@sarı",
+   "set": "SAL",
+   "olcek": "A",
+   "kadraj": "Masada sarı kapaklı kitap (gravür), sayfalar kendiliğinden çevrilir",
+   "hareket": "sayfalar döner",
+   "yazi": "",
+   "portre": ""
+  },
+  "P039": {
+   "id": "P039",
+   "at": "D02",
+   "set": "LON",
+   "olcek": "G",
+   "kadraj": "Doré: gece, sis, kahve tezgâhında silindir şapkalılar",
+   "hareket": "yavaş yaklaşma",
+   "yazi": "",
+   "portre": ""
+  },
+  "P040": {
+   "id": "P040",
+   "at": "D02@inanamaz",
+   "set": "LON",
+   "olcek": "O",
+   "kadraj": "Kalabalık siluetler Dorian'ın geçişine döner; Dorian sırtı dönük, ışıkta",
+   "hareket": "başlar döner",
+   "yazi": "",
+   "portre": ""
+  },
+  "P041": {
+   "id": "P041",
+   "at": "D03",
+   "set": "ODA",
+   "olcek": "G",
+   "kadraj": "Merdiven ve kilitli kapı: lambalı Dorian girer",
+   "hareket": "kapı açılır",
+   "yazi": "",
+   "portre": ""
+  },
+  "P042": {
+   "id": "P042",
+   "at": "D03@tablodaki",
+   "set": "ODA",
+   "olcek": "Y",
+   "kadraj": "Tabloda yaşlanan yüz ve önde aynanın parlak kenarı",
+   "hareket": "ışık titrer",
+   "yazi": "",
+   "portre": "Y"
+  },
+  "P043": {
+   "id": "P043",
+   "at": "D04",
+   "set": "ODA",
+   "olcek": "O",
+   "kadraj": "Dorian elinde aynayla tablonun karşısında; yansıma yalnız ışık",
+   "hareket": "baş ayna ile tablo arasında döner",
+   "yazi": "",
+   "portre": "C"
+  },
+  "P044": {
+   "id": "P044",
+   "at": "D05",
+   "set": "ODA",
+   "olcek": "G",
+   "kadraj": "Oda geniş, kapı kapanır, lamba söner",
+   "hareket": "ışık azalır",
+   "yazi": "",
+   "portre": ""
+  },
+  "P045": {
+   "id": "P045",
+   "at": "E01",
+   "set": "LON",
+   "olcek": "G",
+   "kadraj": "Doré: gaz lambası, sisli gece sokağı",
+   "hareket": "yavaş yaklaşma",
+   "yazi": "SİSLİ BİR KASIM GECESİ",
+   "portre": ""
+  },
+  "P046": {
+   "id": "P046",
+   "at": "E01@Basil",
+   "set": "LON",
+   "olcek": "O",
+   "kadraj": "Gaz lambası altında iki siluet karşılaşır; Basil'in elinde çanta",
+   "hareket": "Basil yürür, durur",
+   "yazi": "",
+   "portre": ""
+  },
+  "P047": {
+   "id": "P047",
+   "at": "E02",
+   "set": "SAL",
+   "olcek": "O",
+   "kadraj": "Kütüphanede Basil konuşur, elleri açık; Dorian sırtı dönük ateşin önünde",
+   "hareket": "Basil'in eli",
+   "yazi": "“Günah insanın yüzüne yazılır.”",
+   "portre": ""
+  },
+  "P048": {
+   "id": "P048",
+   "at": "E03",
+   "set": "SAL",
+   "olcek": "Y",
+   "kadraj": "Dorian'ın omzu ve başı (arkadan); omuzlar güler",
+   "hareket": "omuz sarsılır",
+   "yazi": "“Gel. Sana ruhumu göstereyim.”",
+   "portre": ""
+  },
+  "P049": {
+   "id": "P049",
+   "at": "E04",
+   "set": "ODA",
+   "olcek": "G",
+   "kadraj": "Merdivende yükselen lamba, duvarda büyüyen gölgeler; lamba masaya konur",
+   "hareket": "lamba yükselir",
+   "yazi": "",
+   "portre": ""
+  },
+  "P050": {
+   "id": "P050",
+   "at": "E05",
+   "set": "ODA",
+   "olcek": "O",
+   "kadraj": "Perde çubuğundan kopar, yere düşer; çökmüş portre",
+   "hareket": "perde düşer",
+   "yazi": "",
+   "portre": "C"
+  },
+  "P051": {
+   "id": "P051",
+   "at": "E05@imzayı",
+   "set": "ODA",
+   "olcek": "A",
+   "kadraj": "Tuvalin köşesinde parlak kırmızı imza: BASIL HALLWARD",
+   "hareket": "lamba ışığı imzaya kayar",
+   "yazi": "",
+   "portre": "C"
+  },
+  "P052": {
+   "id": "P052",
+   "at": "E06",
+   "set": "ODA",
+   "olcek": "T",
+   "kadraj": "Ters açı: Basil Dorian'a döner, elleri açık",
+   "hareket": "Basil yaklaşır",
+   "yazi": "“Hiçbir zaman geç değildir.”",
+   "portre": ""
+  },
+  "P053": {
+   "id": "P053",
+   "at": "E07",
+   "set": "ODA",
+   "olcek": "Y",
+   "kadraj": "Tablonun sırıtan dudakları; önde Dorian'ın koyu silueti",
+   "hareket": "yaklaşma",
+   "yazi": "",
+   "portre": "C"
+  },
+  "P054": {
+   "id": "P054",
+   "at": "E08",
+   "set": "ODA",
+   "olcek": "A",
+   "kadraj": "Boyalı sandığın üstünde bıçak, lamba ışığında parlar",
+   "hareket": "parıltı",
+   "yazi": "",
+   "portre": ""
+  },
+  "P055": {
+   "id": "P055",
+   "at": "E09",
+   "set": "ODA",
+   "olcek": "G",
+   "kadraj": "Duvarda iki gölge: biri yükselir; lamba devrilir, karanlık",
+   "hareket": "gölge, karanlık",
+   "yazi": "",
+   "portre": ""
+  },
+  "P056": {
+   "id": "P056",
+   "at": "E10",
+   "set": "ODA",
+   "olcek": "O",
+   "kadraj": "Sabah: boş oda, perde yeniden tablonun üstünde, kapı kilitli",
+   "hareket": "toz",
+   "yazi": "",
+   "portre": ""
+  },
+  "P057": {
+   "id": "P057",
+   "at": "F01",
+   "set": "SAL",
+   "olcek": "G",
+   "kadraj": "Salon: Dorian piyanoda (sırtı dönük), Henry divanda",
+   "hareket": "Dorian'ın elleri çalar",
+   "yazi": "HAFTALAR SONRA",
+   "portre": ""
+  },
+  "P058": {
+   "id": "P058",
+   "at": "F01@köy",
+   "set": "BAH",
+   "olcek": "Y",
+   "kadraj": "Elma çiçekli bir bahçede uzaklaşan köy kızı silueti",
+   "hareket": "kız uzaklaşır, yapraklar",
+   "yazi": "",
+   "portre": ""
+  },
+  "P059": {
+   "id": "P059",
+   "at": "F02",
+   "set": "SAL",
+   "olcek": "O",
+   "kadraj": "Dorian çalmayı keser, döner (yüzü gölgede)",
+   "hareket": "dönüş",
+   "yazi": "“Sana Basil’i ben öldürdüm desem?”",
+   "portre": ""
+  },
+  "P060": {
+   "id": "P060",
+   "at": "F02@güler",
+   "set": "SAL",
+   "olcek": "Y",
+   "kadraj": "Henry güler, sigara dumanı",
+   "hareket": "duman",
+   "yazi": "“Cinayet işlemek sende yok, Dorian.”",
+   "portre": ""
+  },
+  "P061": {
+   "id": "P061",
+   "at": "F03",
+   "set": "SAL",
+   "olcek": "A",
+   "kadraj": "Piyanonun üstünde sarı kitap, Dorian'ın eli üstünde",
+   "hareket": "el kitaba bastırır",
+   "yazi": "“Beni bir kitapla zehirledin.”",
+   "portre": ""
+  },
+  "P062": {
+   "id": "P062",
+   "at": "F04",
+   "set": "SAL",
+   "olcek": "O",
+   "kadraj": "Henry ayağa kalkar, eldivenlerini alır",
+   "hareket": "Henry kalkar",
+   "yazi": "“Sanatın eyleme hiçbir etkisi yoktur.”",
+   "portre": ""
+  },
+  "P063": {
+   "id": "P063",
+   "at": "F05",
+   "set": "EV",
+   "olcek": "G",
+   "kadraj": "Gece, Dorian'ın evi; kütüphanede yalnız Dorian (sırtı dönük)",
+   "hareket": "ateş titrer",
+   "yazi": "",
+   "portre": ""
+  },
+  "P064": {
+   "id": "P064",
+   "at": "G01",
+   "set": "EV",
+   "olcek": "Y",
+   "kadraj": "Fildişi Cupid'li ayna; yansıma yalnız ışık; 'çalar'da ayna yere düşer, gümüş kıymıklar",
+   "hareket": "ayna kalkar, düşer, kırılır",
+   "yazi": "“Beni mahveden güzelliğimdi.”",
+   "portre": ""
+  },
+  "P065": {
+   "id": "P065",
+   "at": "G01@çalar",
+   "set": "EV",
+   "olcek": "A",
+   "kadraj": "Ayna yere düşer, gümüş kıymıklar saçılır",
+   "hareket": "kırılma",
+   "yazi": "",
+   "portre": ""
+  },
+  "P066": {
+   "id": "P066",
+   "at": "G02",
+   "set": "EV",
+   "olcek": "O",
+   "kadraj": "Dorian'ın silueti; ışık sırayla üç nesneye düşer: perdeli tablo, Basil'in paleti, sarı kitap",
+   "hareket": "ışık nesneden nesneye",
+   "yazi": "",
+   "portre": ""
+  },
+  "P067": {
+   "id": "P067",
+   "at": "G02@Henri",
+   "set": "EV",
+   "olcek": "A",
+   "kadraj": "Sarı kitap ışıkta",
+   "hareket": "ışık",
+   "yazi": "",
+   "portre": ""
+  },
+  "P068": {
+   "id": "P068",
+   "at": "G03",
+   "set": "ODA",
+   "olcek": "G",
+   "kadraj": "Merdivende yükselen lamba (tek başına)",
+   "hareket": "lamba yükselir",
+   "yazi": "",
+   "portre": ""
+  },
+  "P069": {
+   "id": "P069",
+   "at": "G04",
+   "set": "ODA",
+   "olcek": "O",
+   "kadraj": "Perde çekilir (kapı sahnesi); tablo",
+   "hareket": "perde düşer",
+   "yazi": "",
+   "portre": "C"
+  },
+  "P070": {
+   "id": "P070",
+   "at": "G04@sinsilik",
+   "set": "ODA",
+   "olcek": "Y",
+   "kadraj": "Tablonun gözleri ve ağzı: ikiyüzlülük kıvrımı darbe darbe belirir",
+   "hareket": "darbeler",
+   "yazi": "",
+   "portre": "I"
+  },
+  "P071": {
+   "id": "P071",
+   "at": "G05",
+   "set": "ODA",
+   "olcek": "T",
+   "kadraj": "Ters açı: tablonun yanından Dorian'ın koyu silueti",
+   "hareket": "omuz düşer",
+   "yazi": "",
+   "portre": "I"
+  },
+  "P072": {
+   "id": "P072",
+   "at": "G06",
+   "set": "ODA",
+   "olcek": "O",
+   "kadraj": "Dorian'ın omuzları güler; lamba titrer",
+   "hareket": "omuz sarsılır",
+   "yazi": "",
+   "portre": ""
+  },
+  "P073": {
+   "id": "P073",
+   "at": "G07",
+   "set": "ODA",
+   "olcek": "Y",
+   "kadraj": "Tablonun yüzü, ağır yaklaşma",
+   "hareket": "yaklaşma",
+   "yazi": "",
+   "portre": "I"
+  },
+  "P074": {
+   "id": "P074",
+   "at": "G07@yok",
+   "set": "ODA",
+   "olcek": "A",
+   "kadraj": "Sandıkta parlayan bıçak",
+   "hareket": "parıltı",
+   "yazi": "",
+   "portre": ""
+  },
+  "P075": {
+   "id": "P075",
+   "at": "G08",
+   "set": "ODA",
+   "olcek": "O",
+   "kadraj": "Bıçak tuvale doğru kalkar; temas anında kesme",
+   "hareket": "kol iner",
+   "yazi": "",
+   "portre": "I"
+  },
+  "P076": {
+   "id": "P076",
+   "at": "G09",
+   "set": "LON",
+   "olcek": "G",
+   "kadraj": "Dışarıdan ev: meydan, gece, ışıklı pencere; geçen iki beyefendi durur",
+   "hareket": "siluetler durur",
+   "yazi": "",
+   "portre": ""
+  },
+  "P077": {
+   "id": "P077",
+   "at": "G10",
+   "set": "ODA",
+   "olcek": "G",
+   "kadraj": "Hizmetçiler balkondan girer; duvarda genç, güzel portre",
+   "hareket": "kapı açılır, ışık",
+   "yazi": "",
+   "portre": "G"
+  },
+  "P078": {
+   "id": "P078",
+   "at": "G10@genç",
+   "set": "ODA",
+   "olcek": "Y",
+   "kadraj": "Genç portre yakın, parlak",
+   "hareket": "yavaş yaklaşma",
+   "yazi": "",
+   "portre": "G"
+  },
+  "P079": {
+   "id": "P079",
+   "at": "G11",
+   "set": "ODA",
+   "olcek": "A",
+   "kadraj": "Yerde yüzüklü, buruşmuş yaşlı el (gravür); yüz yok, kan yok",
+   "hareket": "lamba ışığı",
+   "yazi": "",
+   "portre": ""
+  },
+  "P080": {
+   "id": "P080",
+   "at": "G11@tanırlar",
+   "set": "ODA",
+   "olcek": "G",
+   "kadraj": "Geniş: duvarda genç portre, yerde karanlık bir biçim",
+   "hareket": "karanlık çöker",
+   "yazi": "",
+   "portre": "G"
+  },
+  "P081": {
+   "id": "P081",
+   "at": "G12",
+   "set": "BEL",
+   "olcek": "O",
+   "kadraj": "Sarony 1882 (oturan, elinde kitap; gravüre çevrilmiş)",
+   "hareket": "yavaş yaklaşma",
+   "yazi": "1895",
+   "portre": ""
+  },
+  "P082": {
+   "id": "P082",
+   "at": "G12@mahkemede",
+   "set": "MAH",
+   "olcek": "G",
+   "kadraj": "Mahkeme salonu siluetleri: kürsü, galeri, sanık yeri",
+   "hareket": "kalabalık kıpırtısı",
+   "yazi": "OLD BAILEY · 3 NİSAN 1895",
+   "portre": ""
+  },
+  "P083": {
+   "id": "P083",
+   "at": "G12@sorar",
+   "set": "MAH",
+   "olcek": "O",
+   "kadraj": "Peruklu avukat silueti elinde dergiyi tutar",
+   "hareket": "sayfa çevrilir",
+   "yazi": "",
+   "portre": ""
+  },
+  "P084": {
+   "id": "P084",
+   "at": "G13",
+   "set": "BEL",
+   "olcek": "Y",
+   "kadraj": "Önsöz sayfası (dizgi): 'There is no such thing as a moral or an immoral book.'",
+   "hareket": "satır ışıkta",
+   "yazi": "“Ahlaklı ya da ahlaksız kitap diye bir şey yoktur.”",
+   "portre": ""
+  },
+  "P085": {
+   "id": "P085",
+   "at": "G13@Vayld#1",
+   "set": "MAH",
+   "olcek": "O",
+   "kadraj": "Tanık kürsüsünde Wilde silueti (Sarony'den gravür), dimdik",
+   "hareket": "ışık",
+   "yazi": "“Sanata bakışım budur.”",
+   "portre": ""
+  },
+  "P086": {
+   "id": "P086",
+   "at": "G14",
+   "set": "ODA",
+   "olcek": "O",
+   "kadraj": "Perdeli tablo, lamba (bedeli tablo ödüyordu)",
+   "hareket": "alev",
+   "yazi": "",
+   "portre": ""
+  },
+  "P087": {
+   "id": "P087",
+   "at": "G14@Gerçek",
+   "set": "BEL",
+   "olcek": "Y",
+   "kadraj": "Sarony portresi; mürekkep alttan yükselir, yüzü yavaşça karartır",
+   "hareket": "karartma",
+   "yazi": "1895 · İKİ YIL",
+   "portre": ""
+  },
+  "P088": {
+   "id": "P088",
+   "at": "G15",
+   "set": "BEL",
+   "olcek": "G",
+   "kadraj": "Üç siluet yan yana (Basil, Henry, Dorian); sözcüklere bağlı etiketler",
+   "hareket": "siluetler sırayla ışıkta",
+   "yazi": "",
+   "portre": ""
+  },
+  "P089": {
+   "id": "P089",
+   "at": "G15@başka",
+   "set": "ODA",
+   "olcek": "Y",
+   "kadraj": "Dorian siluetinin yerine genç portre",
+   "hareket": "darbeler",
+   "yazi": "",
+   "portre": "G"
+  },
+  "P090": {
+   "id": "P090",
+   "at": "G16",
+   "set": "ODA",
+   "olcek": "O",
+   "kadraj": "Genç portre; üstünde soru",
+   "hareket": "yaklaşma",
+   "yazi": "GÜZELLİK BİR LANET Mİ?",
+   "portre": "G"
+  },
+  "P091": {
+   "id": "P091",
+   "at": "G16@Basil",
+   "set": "STU",
+   "olcek": "G",
+   "kadraj": "Boş stüdyo, boş şövale, pencere ışığı",
+   "hareket": "ışık kayar",
+   "yazi": "“Günah yüze yazılır.”",
+   "portre": ""
+  },
+  "P092": {
+   "id": "P092",
+   "at": "G16@yazılmadı",
+   "set": "ODA",
+   "olcek": "Y",
+   "kadraj": "Genç yüzün üstüne çökmüş yüz darbe darbe boyanır",
+   "hareket": "darbeler",
+   "yazi": "",
+   "portre": "C"
+  },
+  "P093": {
+   "id": "P093",
+   "at": "G17",
+   "set": "SON",
+   "olcek": "G",
+   "kadraj": "Açılıştaki oda: lamba, perdeli tablo; soru",
+   "hareket": "alev",
+   "yazi": "KİMSE GÖRMESEYDİ?",
+   "portre": ""
+  },
+  "P094": {
+   "id": "P094",
+   "at": "G17@Cevabınızı",
+   "set": "SON",
+   "olcek": "O",
+   "kadraj": "Bitiş ekranı: perdeli tablo solda karanlıkta; sağda iki video yuvası için boşluk",
+   "hareket": "alev",
+   "yazi": "",
+   "portre": ""
+  }
+ }
+}

@@ -1,0 +1,144 @@
+[
+ {
+  "onek": "s00",
+  "ad": "Kanca",
+  "ids": [
+   "A01",
+   "A02",
+   "A03"
+  ],
+  "metin": "[whispers] Yaptığın her şey yüzüne değil de bir tabloya yazılsaydı… ve o tabloyu kimse görmeseydi, ne yapardın? [calmly] Oskar Vayld bu soruyu bin sekiz yüz doksanda bir romanda sordu: Dorian Grey'in Portresi. [slowly] Bu örtünün altını yıllarca kimse görmedi. Biz göreceğiz.",
+  "karakter": 246,
+  "karakter_etiketli": 275
+ },
+ {
+  "onek": "s01",
+  "ad": "Portre",
+  "ids": [
+   "B01",
+   "B02",
+   "B03",
+   "B04",
+   "B05",
+   "B06",
+   "B07",
+   "B08"
+  ],
+  "metin": "[calmly] Londra, bir haziran günü. Ressam Basil Holvırd en iyi tablosunu bitirmek üzere: yirmi yaşını yeni geçmiş, olağanüstü güzel bir genç. Dorian Grey. [thoughtful] Basil tabloyu sergilemek istemez. “İçine kendimden fazlasını koydum,” der. [calmly] Stüdyoda bir konuk daha vardır: Lord Henri. Ona göre birini etkilemek, ona kendi ruhunu vermektir. [softly] Bahçede Dorian'a yalnız birkaç cümle söyler: “Gençlik, sahip olmaya değer tek şeydir. Gençliğin gidince güzelliğin de gider. Zaman seni kıskanıyor.” [slowly] Dorian içeri döner, bitmiş tabloya bakar ve ilk kez yaşlanacağını anlar. [pleading] “Ben hep genç kalsam, tablo yaşlansa… Bunun için her şeyi verirdim. Ruhumu bile verirdim.” [calmly] Derginin ilk metninde yalnız “her şeyi verirdim” diyordu; Vayld bir yıl sonra kitapta bedele adını koydu: ruh. [urgent] Basil, palet bıçağıyla tuvali yırtmak ister. Dorian bıçağı elinden alır: “Yapma Basil! Bu cinayet olur!”",
+  "karakter": 848,
+  "karakter_etiketli": 926
+ },
+ {
+  "onek": "s02",
+  "ad": "Tiyatro",
+  "ids": [
+   "C01",
+   "C02",
+   "C03",
+   "C04",
+   "C05"
+  ],
+  "metin": "[calmly] Birkaç hafta sonra Dorian, yoksul bir sokaktaki küçük bir tiyatroda bir kız görür: on yedisine yeni girmiş Sibil Veyn. Her gece başka bir Şekspir kadınını oynar; en çok da Jülyet'i. [warmly] Dorian ona âşık olur, daha doğrusu sahnede oynadığı kadınlara. Evlenmeye karar verir. [calmly] Basil'le Lord Henri'yi onu izlemeye getirdiği gece Sibil kötü oynar. [softly] Çünkü artık gerçekten sevmektedir; sahnedeki aşkın sahte olduğunu anlamıştır. [coldly] Dorian sahne arkasına gider ve tek cümleyle bitirir: “Aşkımı öldürdün.”",
+  "karakter": 486,
+  "karakter_etiketli": 531
+ },
+ {
+  "onek": "s03",
+  "ad": "Tablo",
+  "ids": [
+   "C06",
+   "C07",
+   "C08",
+   "C09",
+   "C10",
+   "C11",
+   "C12",
+   "C13"
+  ],
+  "metin": "[slowly] O gece eve döner. Tablonun önünden geçerken durur. [whispers] Ağzın kenarında daha önce olmayan bir çizgi vardır. Bir zalimlik çizgisi. [calmly] Aynaya bakar. Kendi dudaklarında öyle bir çizgi yoktur. [slowly] Dileği tutmuştu. [calmly] Ertesi sabah utanır, Sibil'e af dileyen bir mektup yazar. Ama Lord Henri bir haberle gelir: Sibil o gece ölmüştür. [thoughtful] Henri'ye göre Sibil hiç gerçekten yaşamamıştı, o yüzden hiç gerçekten ölmemişti. Bir oyundu. [calmly] Dorian o akşam operaya gider. [slowly] Tabloyu ise evin en üst katındaki eski okul odasına kaldırır. Üstüne, altın işlemeli mor bir örtü örter. Kapıyı kilitler. Anahtar artık hep onun cebindedir.",
+  "karakter": 592,
+  "karakter_etiketli": 670
+ },
+ {
+  "onek": "s04",
+  "ad": "Yıllar",
+  "ids": [
+   "D01",
+   "D02",
+   "D03",
+   "D04",
+   "D05"
+  ],
+  "metin": "[calmly] Yıllar geçer. Lord Henri'nin ona gönderdiği sarı bir kitap, Dorian'ın yıllarca kurtulamadığı bir etki olur. [calmly] Londra'da onun hakkında korkunç söylentiler dolaşır. Ama onu gören inanamaz: o yüzde hâlâ yirmi yaşında, lekesiz bir genç vardır. [whispers] Dorian ara sıra kilitli odaya çıkar, elinde bir aynayla tablonun karşısına geçer: bir tablodaki yaşlanan yüze, bir aynadaki genç yüze bakar. [slowly] İkisinin farkı onu korkutmaz. Keyif verir. [thoughtful] Çünkü kimse görmüyordur. Bedeli tablo ödüyordur.",
+  "karakter": 470,
+  "karakter_etiketli": 521
+ },
+ {
+  "onek": "s05",
+  "ad": "Basil",
+  "ids": [
+   "E01",
+   "E02",
+   "E03",
+   "E04",
+   "E05",
+   "E06",
+   "E07",
+   "E08",
+   "E09",
+   "E10"
+  ],
+  "metin": "[calmly] Otuz sekizinci doğum gününden bir gece önce, sisli bir sokakta Basil'le karşılaşır. [earnest] Basil söylentileri sormaya gelmiştir; ama inanmadığını söyler. Ona göre günah insanın yüzüne yazılır, gizlenemez. [coldly] Dorian güler: “Gel. Sana ruhumu göstereyim.” [slowly] Onu yukarı, kilitli odaya çıkarır. Lambayı masaya koyar. [whispers] Perdeyi çubuğundan koparıp yere fırlatır. Basil önce kendi tablosunu tanımaz. Sonra köşedeki imzayı görür: kendi adı. [pleading] Dorian'a dönüp “Daha geç değil,” der. “Hiçbir zaman geç değildir.” [tense] Dorian tabloya bakar. İçinde Basil'e karşı ani bir nefret kabarır; sanki o sırıtan dudaklar kulağına fısıldamıştır. [whispers] Boyalı bir sandığın üstünde, birkaç gün önce unuttuğu bir bıçak durmaktadır. [slowly] Ve Dorian, o tabloyu yapan adamı öldürür. [calmly] Ertesi gün bütün izler yok edilmiştir. Kimse görmemiştir.",
+  "karakter": 777,
+  "karakter_etiketli": 873
+ },
+ {
+  "onek": "s06",
+  "ad": "Dönüş",
+  "ids": [
+   "F01",
+   "F02",
+   "F03",
+   "F04",
+   "F05"
+  ],
+  "metin": "[calmly] Haftalar sonra Dorian, Lord Henri'ye iyi olmaya karar verdiğini söyler. Bir köy kızını sevmiş, ama onu kandırmadan bırakmıştır. Yıllardır yaptığı ilk iyilik. [tense] Sonra ona bir soru sorar: “Sana Basil'i ben öldürdüm desem?” Henri güler: “Cinayet işlemek sende yok, Dorian.” [earnest] Dorian bir cümle daha söyler: “Beni bir kitapla zehirledin.” [amused] Henri yine güler: “Kitapla zehirlenmek diye bir şey yoktur. Sanatın eyleme hiçbir etkisi yoktur.” [slowly] O gece evinde, ilk kez şunu düşünür: keşke her günahı cezasını hemen getirseydi.",
+  "karakter": 508,
+  "karakter_etiketli": 553
+ },
+ {
+  "onek": "s07",
+  "ad": "Son",
+  "ids": [
+   "G01",
+   "G02",
+   "G03",
+   "G04",
+   "G05",
+   "G06",
+   "G07",
+   "G08",
+   "G09",
+   "G10",
+   "G11"
+  ],
+  "metin": "[bitter] Lord Henri'nin yıllar önce verdiği aynaya bakar. Cevabı hazırdır: güzellik bir lanetti. “Beni mahveden güzelliğimdi,” der ve aynayı yere çalar. [calmly] Sonra suçu tek tek dağıtır: her şeyi yapan tabloydu, Basil'in sözleri dayanılmazdı, Henri'nin kitabı onu zehirlemişti. Hiç kendisi değil. [hopeful] Bir iyilik yapmıştı ama. Belki tablo düzelmiştir. Lambayı alıp yukarı çıkar. [whispers] Perdeyi çeker. Tabloda yalnız bir şey değişmiştir: gözlerde bir sinsilik, ağızda ikiyüzlülüğün kıvrımı. [thoughtful] İyiliği bile bir maskeymiş: kibirden, meraktan, rol yapma hevesinden. [slowly] İtiraf etmeyi düşünür. Güler. Kim inanırdı ki? [whispers] Tablo onun için bir vicdan gibiydi. Evet, vicdandı. Onu yok edecekti. [tense] Basil'i öldüren bıçağı alır ve tabloya saplar. [calmly] Evde bir çığlık duyulur. [slowly] Hizmetçiler içeri girdiğinde duvarda efendilerinin portresini bulurlar: genç, güzel, ilk günkü gibi. [whispers] Yerde ise yüzüne bakılamayacak kadar çökmüş, yaşlı bir adam yatmaktadır. Onu ancak yüzüklerinden tanırlar.",
+  "karakter": 929,
+  "karakter_etiketli": 1038
+ },
+ {
+  "onek": "s08",
+  "ad": "Mahkeme",
+  "ids": [
+   "G12",
+   "G13",
+   "G14",
+   "G15",
+   "G16",
+   "G17"
+  ],
+  "metin": "[calmly] Beş yıl sonra, bin sekiz yüz doksan beşte, Londra'da bir mahkemede bir avukat bu romandan sayfalar okur ve yazarına sorar: Bu ahlaksız bir kitap değil mi? [firmly] Sonra Vayld'ın kitabın başına koyduğu cümleyi okur: “Ahlaklı ya da ahlaksız kitap diye bir şey yoktur. Kitaplar iyi yazılmıştır ya da kötü.” Vayld geri adım atmaz: “Sanata bakışım budur.” [slowly] Romanında bedeli tablo ödüyordu. Gerçek hayatta yazar ödedi: birkaç hafta sonra, o dönemin İngiltere'sinde suç sayılan, erkeklerle ilişkileri yüzünden iki yıl hapse mahkûm edildi. [thoughtful] Bir mektubunda üç karakteri şöyle anlatmıştı: Basil, olduğumu sandığım kişi. Lord Henri, dünyanın beni sandığı kişi. Dorian, olmak istediğim kişi… belki başka çağlarda. [thoughtful] Güzellik bir lanet miydi? Dorian öyle sandı. Basil ise günahın yüze yazıldığını söylemişti. Dorian'ın yüzüne yazılmadı. Ama bir yere yazıldı. [warmly] Peki kimse görmeseydi, sizin portreniz bugün nasıl görünürdü? Cevabınızı yorumlara yazın; geçmişten bir soru daha getirmemiz için abone olun. Kafka'nın Dönüşüm'ü ekranda.",
+  "karakter": 1004,
+  "karakter_etiketli": 1066
+ }
+]
