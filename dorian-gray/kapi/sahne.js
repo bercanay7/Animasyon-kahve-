@@ -86,34 +86,43 @@
     R.fill(P([[cx - 14, hy + 120], [cx + 22, hy + 121], [cx + 10, hy + 190], [cx - 2, hy + 192]]), { c: mix('#2a1c2c', '#201a1a'), h: { th: HV, id: 9 }, p: { dir: 90, maxR: 4, group: 'kravat' } });
     // boyun
     R.fill(P([[cx - 30, hy + 62], [cx + 22, hy + 66], [cx + 26, hy + 118], [cx - 30, hy + 116]]), { c: mix('#b8875e', '#6e6a4e'), h: { th: HD, id: 5 }, p: { dir: 80, maxR: 5, group: 'boyun' } });
-    // baş (¾, izleyicinin soluna bakar): yüz düzlemi (ışıkta) + gölge düzlemi
-    const cave = k * 9;
-    const yuz = [[cx - 62, hy - 70], [cx - 66, hy - 10], [cx - 58 + cave * .4, hy + 30], [cx - 40, hy + 66], [cx - 8, hy + 84], [cx + 30, hy + 72], [cx + 54, hy + 30], [cx + 60, hy - 30], [cx + 50, hy - 92], [cx - 10, hy - 110], [cx - 50, hy - 100]];
-    R.fill(S(yuz), { c: mix('#e4b98d', '#9c9a74'), ton: .86 - .2 * k, h: { th: HD, id: 5 }, p: { dir: 'edge', maxR: 6, group: 'yuz', detail: .8 } });
-    R.fill(S([[cx + 12, hy - 96], [cx + 50, hy - 92], [cx + 60, hy - 30], [cx + 54, hy + 30], [cx + 30, hy + 72], [cx + 8, hy + 82], [cx + 20, hy + 20], [cx + 22, hy - 40]]),
-      { c: mix('#a8754f', '#5c5a42'), ton: .5 - .2 * k, h: { th: HD, id: 5 }, p: { dir: 'edge', maxR: 5, group: 'yuz' } });                                            // gölge yanağı (aynı grup: yumuşak kenar)
-    // saç: genç = gür, koyu altın; çökmüş = seyrek, gri
-    R.fill(S([[cx - 70, hy - 52], [cx - 74, hy - 104], [cx - 40, hy - 136], [cx + 14, hy - 140], [cx + 58, hy - 118], [cx + 70, hy - 70], [cx + 60, hy - 40], [cx + 46, hy - 84], [cx + 4, hy - 100 + 10 * k], [cx - 40, hy - 90 + 12 * k], [cx - 58, hy - 60]]),
-      { c: mix('#7a5a2a', '#6a665c'), h: { type: 'bend', ox: cx - 60, oy: hy - 120, a: .3, k: .004, id: 6 }, p: { dir: 'edge', maxR: 6, group: 'sac' } });
-    // göz çukurları, gözler (çökmüşte derin ve kısık: "sinsilik bakışı")
-    const ey = hy - 26, gz = 1 + .5 * k;
-    R.fill(Ell(cx - 30, ey, 15 * gz, 9 * gz, -.1), { c: mix('#8a5a3c', '#3a3424'), h: { th: HD, id: 5 }, p: { maxR: 3, group: 'cukur1' } });
-    R.fill(Ell(cx + 22, ey + 2, 12 * gz, 8 * gz, .1), { c: mix('#6a442c', '#2c281c'), h: { th: HD, id: 5 }, p: { maxR: 3, group: 'cukur2' } });
-    R.fill(Ell(cx - 30, ey + 1, 8, 4.5 - 2 * k, -.1), { c: mix('#2a2a3a', '#14140c'), h: { th: H0, id: 5 }, p: { maxR: 2, group: 'goz1' } });
-    R.fill(Ell(cx + 22, ey + 3, 6.5, 4 - 1.8 * k, .1), { c: mix('#2a2a3a', '#14140c'), h: { th: H0, id: 5 }, p: { maxR: 2, group: 'goz2' } });
-    // kaş (çökmüşte iç uç aşağı)
-    R.line(c => { c.moveTo(cx - 50, ey - 20 + 4 * k); c.quadraticCurveTo(cx - 32, ey - 30, cx - 12, ey - 22 - 6 * k); }, mix('#4a3418', '#3a382c'), 6, { h: { th: H0, id: 5 }, p: { maxR: 2, group: 'kas1' } });
-    R.line(c => { c.moveTo(cx + 8, ey - 22 - 6 * k); c.quadraticCurveTo(cx + 26, ey - 28, cx + 40, ey - 18); }, mix('#3a2a14', '#2c2a20'), 5, { h: { th: H0, id: 5 }, p: { maxR: 2, group: 'kas2' } });
-    // burun gölgesi
-    R.fill(P([[cx - 6, ey + 4], [cx + 6, ey + 40], [cx - 10, ey + 50], [cx - 20, ey + 46]]), { c: mix('#9a6844', '#4c4834'), h: { th: HD, id: 5 }, p: { maxR: 3, group: 'burun' } });
-    // ağız: genç = düz, dolgun; çökmüş = "ikiyüzlülüğün kıvrık çizgisi" (bir uç yukarı)
-    R.line(c => { c.moveTo(cx - 28, hy + 46 + 4 * k); c.quadraticCurveTo(cx - 6, hy + 50 - 2 * k, cx + 18, hy + 44 - 12 * k); }, mix('#7a3a2a', '#2a2018'), 5, { h: { th: H0, id: 5 }, p: { maxR: 2, group: 'agiz' } });
-    // çökmüş yüzün kırışıkları ve çökük yanak (genç hâlde yüz renginde, görünmez)
+    // baş (¾, izleyicinin soluna bakar; ışık resmin içinde soldan). Kaynak: genç = "dürüst mavi gözler, gür altın saç, ince kıvrımlı
+    //  kırmızı dudaklar"; çökmüş = "incelen saçta hâlâ biraz altın, ağır şehvetli ağız, kırışan alın, sulu gözlerde mavinin kalıntısı" (XIII, 5800–5804)
+    const ten = mix('#e8c09a', '#b4a47c'), tenG = mix('#b88660', '#7c6c4c'), tenK = mix('#9a6a48', '#5a4c34');
+    const yuz = [[cx - 10, hy - 110], [cx - 50, hy - 96], [cx - 62, hy - 58], [cx - 64, hy - 22], [cx - 60, hy + 6 + 4 * k], [cx - 52, hy + 40], [cx - 36, hy + 70], [cx - 14, hy + 84], [cx + 14, hy + 80], [cx + 40, hy + 58], [cx + 56, hy + 22], [cx + 62, hy - 26], [cx + 54, hy - 80], [cx + 26, hy - 104]];
+    R.fill(S(yuz), { c: ten, ton: .9 - .16 * k, h: { th: HD, id: 5 }, p: { dir: 'edge', maxR: 6, group: 'yuz', detail: .7 } });
+    // gölge düzlemi: sağ yanak ve çene altı (aynı grup, yumuşak kenar); çökmüşte yanak çukuru
+    R.fill(S([[cx + 22, hy - 98], [cx + 54, hy - 80], [cx + 62, hy - 26], [cx + 56, hy + 22], [cx + 40, hy + 58], [cx + 14, hy + 80], [cx + 4, hy + 60], [cx + 24 - 6 * k, hy + 26], [cx + 30, hy - 10], [cx + 28, hy - 60]]),
+      { c: tenG, ton: .62 - .18 * k, h: { th: HD, id: 5 }, p: { dir: 'edge', maxR: 5, group: 'yuz' } });
+    if (k > 0) R.fill(S([[cx + 20, hy + 6], [cx + 44, hy - 4], [cx + 48, hy + 30], [cx + 30, hy + 50], [cx + 16, hy + 40]]), { c: mix('#b88660', '#5e5038'), ton: .4, h: { th: HD, id: 5 }, p: { maxR: 4, group: 'yuz' } });
+    // saç: genç gür altın dalgalar; çökmüş incelmiş, grileşmiş altın, alın açılmış
+    const sacUst = 12 * k;
+    R.fill(S([[cx - 66, hy - 40], [cx - 76, hy - 92], [cx - 52, hy - 132], [cx - 6, hy - 146], [cx + 44, hy - 134], [cx + 70, hy - 98], [cx + 72, hy - 54], [cx + 60, hy - 30], [cx + 56, hy - 74], [cx + 30, hy - 98 + sacUst], [cx + 2, hy - 102 + sacUst], [cx - 24, hy - 92 + sacUst], [cx - 46, hy - 86 + sacUst], [cx - 58, hy - 60]]),
+      { c: mix('#b08a40', '#8a8268'), ton: .55 - .1 * k, h: { type: 'bend', ox: cx - 70, oy: hy - 130, a: .25, k: .004, id: 6 }, p: { dir: 'edge', maxR: 6, group: 'sac' } });
+    for (const [x0, y0, x1, y1] of [[cx - 40, hy - 128, cx - 58, hy - 84], [cx - 4, hy - 140, cx - 22, hy - 104], [cx + 34, hy - 130, cx + 20, hy - 100]])
+      R.line(c => { c.moveTo(x0, y0); c.quadraticCurveTo((x0 + x1) / 2 + 10, (y0 + y1) / 2, x1, y1); }, mix('#6a4c1c', '#5c584a'), 4, { h: { th: .9, id: 6 }, p: { maxR: 2, group: 'sacc' + x0 } });
+    // kaşlar (çökmüşte iç uç aşağı, gölgeli)
+    const ey = hy - 24;
+    R.line(c => { c.moveTo(cx - 56, ey - 14 + 3 * k); c.quadraticCurveTo(cx - 42, ey - 24, cx - 22, ey - 18 - 3 * k); }, mix('#7a5420', '#4a4436'), 5, { h: { th: H0, id: 5 }, p: { maxR: 2, group: 'kas1' } });
+    R.line(c => { c.moveTo(cx - 2, ey - 18 - 3 * k); c.quadraticCurveTo(cx + 18, ey - 26, cx + 40, ey - 16); }, mix('#6a4818', '#3e3a2e'), 5, { h: { th: H0, id: 5 }, p: { maxR: 2, group: 'kas2' } });
+    // gözler: badem, üst kapak çizgisi, iris (genç mavi; çökmüş soluk, kapak ağır)
+    for (const [ex, w, g] of [[cx - 38, 13, 'g1'], [cx + 14, 15, 'g2']]) {
+      R.fill(Ell(ex, ey, w, 6 - 1.6 * k, 0), { c: mix('#efe6d6', '#c8bc96'), ton: .92, h: { th: H0, id: 5 }, p: { maxR: 2, group: 'ak' + g } });
+      R.fill(Ell(ex - 2, ey + .5, 5, 5 - 1.4 * k, 0), { c: mix('#3a5a8a', '#4a5050'), ton: .22, h: { th: H0, id: 5 }, p: { maxR: 2, group: 'ir' + g } });
+      R.line(c => { c.moveTo(ex - w - 2, ey + 1); c.quadraticCurveTo(ex, ey - 9 + 3 * k, ex + w + 2, ey); }, mix('#3a2414', '#2a2418'), 3 + 2 * k, { h: { th: H0, id: 5 }, p: { maxR: 2, group: 'kp' + g } });
+      if (k > 0) R.line(c => { c.moveTo(ex - w, ey + 9); c.quadraticCurveTo(ex, ey + 15, ex + w, ey + 8); }, '#6a5c40', 2.5, { h: { th: H0, id: 5 }, p: { maxR: 2, group: 'tk' + g } });
+    }
+    // burun: sırt çizgisi ve sağında ince gölge düzlemi, burun deliği gölgesi (üçgen leke yok)
+    R.fill(S([[cx - 22, ey + 6], [cx - 14, ey + 8], [cx - 12, hy + 26], [cx - 20, hy + 32], [cx - 28, hy + 30]]), { c: tenG, ton: .66 - .14 * k, h: { th: HD, id: 5 }, p: { maxR: 3, group: 'burun' } });
+    R.fill(Ell(cx - 24, hy + 32, 7, 3.5, 0), { c: tenK, ton: .3, h: { th: H0, id: 5 }, p: { maxR: 2, group: 'delik' } });
+    // ağız: genç ince kıvrımlı kırmızı dudaklar; çökmüş ağır dudaklar ve sağ köşede "ikiyüzlülüğün kıvrık çizgisi"
+    const ay = hy + 52;
+    R.fill(S([[cx - 38, ay], [cx - 22, ay - 6 - 2 * k], [cx - 12, ay - 4], [cx - 2, ay - 6 - 2 * k], [cx + 10, ay - 1 - 4 * k], [cx - 12, ay + 1]]), { c: mix('#a8443a', '#6a3a2c'), ton: .45, h: { th: H0, id: 5 }, p: { maxR: 2, group: 'ustdudak' } });
+    R.fill(S([[cx - 34, ay + 1], [cx - 12, ay + 2], [cx + 8, ay], [cx - 4, ay + 10 + 4 * k], [cx - 24, ay + 10 + 4 * k]]), { c: mix('#c8685a', '#7c4c3a'), ton: .6, h: { th: H0, id: 5 }, p: { maxR: 2, group: 'altdudak' } });
     if (k > 0) {
-      R.line(c => { c.moveTo(cx - 52, hy + 4); c.quadraticCurveTo(cx - 40, hy + 40, cx - 24, hy + 60); }, mix('#e4b98d', '#3e3a28'), 4, { h: { th: H0, id: 5 }, p: { maxR: 2, group: 'kir1' } });
-      R.line(c => { c.moveTo(cx - 22, ey + 18); c.quadraticCurveTo(cx - 34, ey + 30, cx - 44, ey + 30); }, mix('#e4b98d', '#4a4630'), 3, { h: { th: H0, id: 5 }, p: { maxR: 2, group: 'kir2' } });
-      R.line(c => { c.moveTo(cx - 44, ey - 40); c.lineTo(cx + 10, ey - 44); }, mix('#e4b98d', '#5a5640'), 3, { h: { th: H0, id: 5 }, p: { maxR: 2, group: 'kir3' } });
-      R.fill(S([[cx - 56, hy + 6], [cx - 44, hy - 4], [cx - 36, hy + 26], [cx - 46, hy + 44]]), { c: mix('#e4b98d', '#6c6a4c'), h: { th: HD, id: 5 }, p: { maxR: 4, group: 'yanak' } });
+      R.line(c => { c.moveTo(cx + 8, ay - 2); c.quadraticCurveTo(cx + 18, ay - 8, cx + 20, ay - 18); }, '#4a3c28', 3, { h: { th: H0, id: 5 }, p: { maxR: 2, group: 'kivrim' } });        // ikiyüzlülük kıvrımı
+      R.line(c => { c.moveTo(cx - 36, hy + 28); c.quadraticCurveTo(cx - 44, ay, cx - 38, ay + 18); }, '#6a5c40', 2.5, { h: { th: H0, id: 5 }, p: { maxR: 2, group: 'kir1' } });  // burun-dudak çizgisi
+      for (const yy of [hy - 74, hy - 62]) R.line(c => { c.moveTo(cx - 44, yy); c.quadraticCurveTo(cx - 6, yy - 5, cx + 34, yy); }, '#7c6e4c', 2.2, { h: { th: H0, id: 5 }, p: { maxR: 2, group: 'alin' + yy } });
     }
   }
   LEV.portre = { draw(R) { portre(R, 1); } };
