@@ -18,8 +18,27 @@
 - **Render maliyeti:** portreli kareler 2–10 sn (yakın planlar pahalı). Impasto'nun süper örneklemesi 2 → 1,5 görünümü değiştirmeden süreyi üçte bir kısalttı (`?ss=1.5`).
 - **Render betiğinde yol hatası:** `PARTS` mutlak yol verilince `path.join` onu proje klasörüne ekliyordu; deneme parçaları depoya girdi, çıkarıldı. `path.resolve` ile düzeltildi.
 
-## Fable son yorumu
-(render ve kapaklardan sonra eklenecek)
+## Fable son yorumu (19 Kasım, son render ve kapaklardan sonra; tek tur)
+Fable bütün kurgu özeti sayfalarına, ~30 tam boy kareye, senaryoya, SRT'ye, iki kapağa, `youtube.md` ve `yayin.md`'ye baktı; alıntıları Mason ve 1891 metniyle karşılaştırdı. Politika ya da doğruluk açısından engelleyici bulgu yok dedi; iki engelleyici, altı önemli bulgu verdi. Başkan her birini karede ya da metinde doğruladı.
+
+**Uygulananlar**
+- **(Engelleyici) Portredeki yaka papaz yakası gibi okunuyordu:** simsiyah giysinin ortasında küçük beyaz dikdörtgen ve koyu şerit. "Günah, ruh, vicdan" anlatımıyla birlikte "günahkâr rahip" okuması doğar; filmin tek renkli ve en çok bakılan görseli. Beyaz gömlek önü, kanatlı dik yaka, geniş gri ipek fular, altın iğne ve açık ceket yakalarıyla Viktorya beyefendisine çevrildi (`lib/portre_ciz.js`); bütün portreli parçalar ve kapak B yeniden üretildi. **Ders:** hassasiyet taraması kıyafet ayrıntısına da bakar; tek renkli küçük bir dikdörtgen bir mesleği (ve dini) çağırır.
+- **(Engelleyici) `yayin.md` bitiş ekranını ters tarif ediyordu** ("sol yarı boş"); doğrusu sağ yarı. Düzeltildi. **Ders:** bitiş ekranı tarifi son render'ın karesine bakılarak yazılır, plan listesinden değil.
+- **G11 yüzüklerinden tanınan el (6:36):** el zeminle aynı tonda tarandığı için "konuşma balonu" gibi okunuyordu, parmaklar ve yüzükler hiç görünmüyordu. Neden: iç içe `GR.frame` göreli değil mutlak çalışıyor; parmaklar kadrajın dışına çiziliyordu. Parmaklar el çerçevesinde elle döndürüldü, el soluk, zemin koyu, arkadaki ışık çizgileri kaldırıldı.
+- **C05 Sibyl (2:04):** dümdüz ~30° kalkık kol selam gibi okunuyordu (Mary Stuart'taki dans dersiyle aynı). Kol dirsekten kırık, öne uzanır; Dorian arkadan ışıkla seçilir oldu.
+- **E09 cinayet (4:33):** kol ötekinin başının üstüne kalkıyordu. İlk düzeltme (kol öne) daha kötü oldu: el yüze dokunuyor gibi duruyordu. Son hâl: temas ve kalkık kol yok, Dorian adım atar, ışık söner.
+- **F04 kitaba basılan el (5:08):** açık kitaba basan el yemin gibi okunabilir; el artık kitabı alt kenarından itiyor.
+- **Kapak A:** "GÖRMEDİ"nin İ'si çerçevenin çizgili kenarına biniyordu (küçükte "GÖRMED"); harf aralığı daraltılıp yazı sola alındı (harf yüksekliği %18,8'de kaldı). Ele parmak aralıkları eklendi.
+- **Kapak B:** yazı şövaleye ve pencereye biniyordu; yazının altına koyu bant kondu.
+- **Başlık 54 → 42 karakter:** "Dorian Gray: Kimse Görmeseydi Ne Yapardın?". Mobil akışta eski başlık "…Ne Yap" diye kesiliyor, soru düşüyordu.
+- **G12 avukatın sorusu** ("Bu ahlaksız bir kitap değil mi?") kaynakta birebir yok, Carson'ın sorularının özeti; açıklamaya "özetidir, birebir alıntı değildir" notu eklendi.
+
+**Reddedilenler (gerekçesiyle)**
+- **B02 çevirisi** ("İçine kendimden fazlasını koydum"; aslı "I have put too much of myself into it"): Türkçede "kendimden fazlasını koydum" gündelik dilde "gereğinden fazla kendimi koydum" anlamında da okunur; anlam kayması küçük. Ekran yazısını değiştirmek sesle yazıyı ayırır, sesi düzeltmek kredi ister. Sonraki videoda kural: tırnak içi alıntının çevirisi seslendirmeden önce aslıyla satır satır karşılaştırılır.
+- **Kapak B'de portreyi büyütmek:** denendi; büyüyen kadrajda yazı portrenin başına biniyor ve Dorian portrenin yarısını örtüyor. Bant yeterli görüldü.
+- **0:08–0:16 Wilde fotoğrafı ve başlık sayfası (kanca sonrası köprü):** Fable da kabul edilebilir dedi (tek cümle, A03 somut vaat veriyor). Kanalın üç kez ölçtüğü sızıntı yeri olduğu için 48. saat eğrisinde bu aralığa ayrıca bakılacak.
+
+**Açık kalan (Fable'ın en emin olmadığı):** okunuşlar ("Vayld", "Holvırd") ve fısıltı etiketli cümleler kulakla onaylanmalı; ses dinlenemedi.
 
 ## Açık kalanlar
 - Kulakla son onay kullanıcıda: "Dorian Grey" ve "Oskar Vayld" okunuşu, B06 dilek tonu, G08–G11 doruk, müzik ve sessizlikler (E09 sonrası 1,8 sn, G09 "çığlık" 3,2 sn).
