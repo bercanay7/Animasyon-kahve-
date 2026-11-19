@@ -69,7 +69,7 @@ async function master() {
   const DUR = +fs.readFileSync(path.join(ROOT, 'timeline.js'), 'utf8').match(/window\.DUR\s*=\s*([\d.]+)/)[1];
   const [ra, rb] = process.env.ARALIK ? process.env.ARALIK.split('-').map(Number) : [0, DUR];
   const f0 = Math.round(ra * FPS), f1 = Math.min(Math.round(rb * FPS), Math.round(DUR * FPS)), CH = Math.round((+process.env.CHUNK || 24) * FPS);
-  const dir = path.join(ROOT, process.env.PARTS || ((ANIM ? '.parts_animatik' : '.parts') + (process.env.ARALIK ? '_' + ra + '-' + rb : '')));
+  const dir = path.resolve(ROOT, process.env.PARTS || ((ANIM ? '.parts_animatik' : '.parts') + (process.env.ARALIK ? '_' + ra + '-' + rb : '')));
   fs.mkdirSync(dir, { recursive: true });
   const key = renderKey();
   const chunks = [];

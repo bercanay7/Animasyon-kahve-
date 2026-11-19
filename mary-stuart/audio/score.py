@@ -53,7 +53,7 @@ def piyano(m, v=.7, d=2.5):
         fk = f0 * k * np.sqrt(1 + B * k * k)
         if fk > 9000: break
         a = (1 / k ** 1.15) * (.35 + .65 * key[1]) ** (k * .25) * (1 + .3 * np.exp(-((k - 2) ** 2)))
-        dec = (.55 + .05 * (m - 48)) * (1 + k * .55)
+        dec = max(.3, .55 + .05 * (m - 48)) * (1 + k * .55)   # alçak notada sönüm negatife düşüp sinyali patlatıyordu (19 Kasım düzeltmesi)
         for det in (-.0006, .0006):
             s += a * np.sin(2 * np.pi * fk * (1 + det) * t + k) * (np.exp(-t * dec) * .7 + .3 * np.exp(-t * dec * .25))
     ham = rng.standard_normal(int(.012 * SR)) * np.exp(-np.arange(int(.012 * SR)) / 90) * .15
