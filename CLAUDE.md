@@ -473,10 +473,10 @@ Ayrıntı: `ran/geriye_bakis.md`, `ran/KURUL.md`, `ran/uretim_plani.md`.
 - **ElevenLabs:** kota yarıda bitebilir (reddedilen çağrı ücretlendirilmez); büyük üretimden önce kalan krediyi kullanıcıya sor. **Scribe'ın `estimate_only` tahmini ~16 kat düşük** (gerçek ≈ 5,5 kredi/sn): döküm yalnız en riskli bölüme.
 - **Düzenleme sonrası sözdizimi denetimi:** `node -e "new Function(require('fs').readFileSync('dosya.js','utf8'))"`; render işçileri sayfayı başta yüklediği için ortadaki kod değişikliği yalnız sonraki render'a geçer (gerekirse `ONLY=` ile parça yeniden).
 - **Kurulsuz üretim kullanıcının kararıydı** (kullanım %90). Kullanım açılırsa ilk tur: hassasiyet (Amida resmi, Kaede, Japon kültürü) + kapak.
-- **Yayın sonrası dersler (44. saat eğrisi; kural):**
-  - **Kancadan hikâyeye köprü sıfır cümle.** İkaros, Kafka ve Ran'da aynı yerde sızıntı: kanca sorusundan sonraki ilk cümle hikâyenin ilk cümlesidir. Kimlik bilgisi (ad, yıl) kancanın içinde tek cümle olabilir; kaynak karşılaştırması ve "şunu ekledi" türü merak sözleri hikâyenin içine dağıtılır. Merak sorusu kalacaksa izleyicinin göreceği somut bir şeyi vaat eder (Kafka'nın "böceği hiç görmeyeceksiniz" sözü eğriyi yükseltti, Ran'ın soyut "Shakespeare'in vermediği şey"i yükseltmedi).
-  - **Bölüm sonuna analiz kuyruğu eklenmez:** izleyici bölüm damgasıyla atlıyor. Karşılaştırma sahnenin içinde tek cümle olur.
-  - **Doruğu taşıyacak kişiler ilk perdede adı ve görüntüsüyle ekilir;** filmin ortasından sonra yeni ad + geçmiş anlatımı en büyük gövde düşüşünü getirdi.
+- **Yayın sonrası dersler (44. saat eğrisi):**
+  - **Kural: kancadan hikâyeye köprü sıfır cümle.** İkaros, Kafka ve Ran'da aynı yerde sızıntı: kanca sorusundan sonraki ilk cümle hikâyenin ilk cümlesidir. Kimlik bilgisi (ad, yıl) kancanın içinde tek cümle olabilir; kaynak karşılaştırması ve "şunu ekledi" türü merak sözleri hikâyenin içine dağıtılır. Merak sorusu kalacaksa izleyicinin göreceği somut bir şeyi vaat eder (Kafka'nın "böceği hiç görmeyeceksiniz" sözü eğriyi yükseltti, Ran'ın soyut "Shakespeare'in vermediği şey"i yükseltmedi).
+  - **İpucu (tek video; Mary Stuart'ta sınanacak, iki videoda görülürse kural): bölüm sonuna analiz kuyruğu eklenmez.** İzleyici bölüm damgasıyla atlıyor. Karşılaştırma sahnenin içinde tek cümle olur.
+  - **İpucu (tek video; Medici dersiyle aynı yönde): doruğu taşıyacak kişiler ilk perdede adı ve görüntüsüyle ekilir.** Filmin ortasından sonra yeni ad + geçmiş anlatımı en büyük gövde düşüşünü getirdi.
 
 ## Mary Stuart dersleri (18 Kasım 2026)
 Ayrıntı: `mary-stuart/geriye_bakis.md`, `mary-stuart/KURUL.md`, `mary-stuart/uretim_plani.md`.
