@@ -1,0 +1,185 @@
+# Ovidius, Metamorphoses III 336–512 (Tiresias, Eko, Narkissos)
+# Metin: Hugo Magnus baskısı (Gotha 1892; kamu malı), Perseus Digital Library TEI dosyasından düz metin olarak alındı:
+#   github.com/PerseusDL/canonical-latinLit, data/phi0959/phi006/phi0959.phi006.perseus-lat2.xml (dijital baskı CC BY-SA 4.0).
+# Satır numaraları Perseus/Magnus'unkiler. Satır numarası verilen her alıntı senaryo aşamasında bu dosyaya karşı denetlenir.
+# Önemli satırlar (ilk okuma, doğrulanacak):
+#   346–348 Tiresias: "si se non noverit" (kendini tanımazsa) · 359–369 Juno'nun Eko'ya cezası
+#   463 "Iste ego sum: sensi, nec me mea fallit imago." · 466 "inopem me copia fecit"
+#   474–476 gözyaşları suyu bulandırır · 500–501 Eko "vale" der · 504–505 Styks'te bile kendine bakar · 509–510 çiçek
+336  At pater omnipotens (neque enim licet inrita cuiquam
+337  facta dei fecisse deo) pro lumine adempto
+338  scire futura dedit, poenamque levavit honore.
+339  Ille per Aonias fama celeberrimus urbes
+340  inreprehensa dabat populo responsa petenti.
+341  Prima fide vocisque ratae temptamina sumpsit
+342  caerula Liriope. Quam quondam flumine curvo
+343  implicuit clausaeque suis Cephisus in undis
+344  vim tulit. Enixa est utero pulcherrima pleno
+345  infantem, nymphis iam tunc qui posset amari,
+346  Narcissumque vocat. De quo consultus, an esset
+347  tempora maturae visurus longa senectae,
+348  fatidicus vates “si se non noverit” inquit.
+349  Vana diu visa est vox auguris: exitus illam
+350  resque probat letique genus novitasque furoris.
+351  Namque ter ad quinos unum Cephisius annum
+352  addiderat poteratque puer iuvenisque videri:
+353  multi illum iuvenes, multae cupiere puellae.
+354  Sed fuit in tenera tam dura superbia forma:
+355  nulli illum iuvenes, nullae tetigere puellae.
+356  Adspicit hunc trepidos agitantem in retia cervos
+357  vocalis nymphe, quae nec reticere loquenti,
+358  nec prior ipsa loqui didicit, resonabilis Echo.
+359  Corpus adhuc Echo, non vox erat; et tamen usum
+360  garrula non alium, quam nunc habet, oris habebat,
+361  reddere de multis ut verba novissima posset.
+362  Fecerat hoc Iuno, quia, cum deprendere posset
+363  cum Iove saepe suo nymphas in monte iacentes,
+364  illa deam longo prudens sermone tenebat,
+365  dum fugerent nymphae. Postquam Saturnia sensit
+366  “huius” ait “linguae, qua sum delusa, potestas
+367  parva tibi dabitur vocisque brevissimus usus”:
+368  reque minas firmat. Tamen haec in fine loquendi
+369  ingeminat voces auditaque verba reportat.
+370  Ergo ubi Narcissum per devia rura vagantem
+371  vidit et incaluit, sequitur vestigia furtim,
+372  quoque magis sequitur, flamma propiore calescit,
+373  non aliter, quam cum summis circumlita taedis
+374  admotas rapiunt vivacia sulphura flammas.
+375  O quotiens voluit blandis accedere dictis
+376  et molles adhibere preces: natura repugnat
+377  nec sinit incipiat. Sed, quod sinit, illa parata est
+378  exspectare sonos, ad quos sua verba remittat.
+379  Forte puer comitum seductus ab agmine fido,
+380  dixerat “ecquis adest?” et “adest!” responderat Echo.
+381  Hic stupet, utque aciem partes dimittit in omnes,
+382  voce “veni!” magna clamat: vocat illa vocantem.
+383  Respicit et rursus nullo veniente “quid” inquit
+384  “me fugis?” et totidem, quot dixit, verba recepit.
+385  Perstat et, alternae deceptus imagine vocis,
+386  “huc coeamus!” ait: nullique libentius umquam
+387  responsura sono “coeamus” rettulit Echo,
+388  et verbis favet ipsa suis egressaque silva
+389  ibat, ut iniceret sperato bracchia collo.
+390  Ille fugit fugiensque “manus complexibus aufer:
+391  ante” ait “emoriar, quam sit tibi copia nostri.”
+392  Rettulit illa nihil nisi “sit tibi copia nostri.”
+393  Spreta latet silvis pudibundaque frondibus ora
+394  protegit et solis ex illo vivit in antris.
+395  Sed tamen haeret amor crescitque dolore repulsae.
+396  Extenuant vigiles corpus miserabile curae,
+397  adducitque cutem macies et in aera sucus
+398  corporis omnis abit. Vox tantum atque ossa supersunt:
+399  vox manet; ossa ferunt lapidis traxisse figuram.
+400  inde latet silvis nulloque in monte videtur;
+401  omnibus auditur: sonus est, qui vivit in illa.
+402  Sic hanc, sic alias undis aut montibus ortas
+403  luserat hic nymphas, sic coetus ante viriles.
+404  Inde manus aliquis despectus ad aethera tollens
+405  “sic amet ipse licet sic non potiatur amato!”
+406  dixerat. Adsensit precibus Rhamnusia iustis.
+407  Fons erat inlimis, nitidis argenteus undis,
+408  quem neque pastores neque pastae monte capellae
+409  contigerant aliudve pecus, quem nulla volucris
+410  nec fera turbarat nec lapsus ab arbore ramus.
+411  Gramen erat circa, quod proximus umor alebat,
+412  silvaque sole locum passura tepescere nullo.
+413  Hic puer, et studio venandi lassus et aestu,
+414  procubuit faciemque loci fontemque secutus.
+415  dumque sitim sedare cupit, sitis altera crevit.
+416  Dumque bibit, visae correptus imagine formae
+417  spem sine corpore amat: corpus putat esse, quod unda est
+418  adstupet ipse sibi, vultuque inmotus eodem
+419  haeret, ut e Pario formatum marmore signum.
+420  Spectat humi positus geminum, sua lumina, sidus
+421  et dignos Baccho, dignos et Apolline crines
+422  impubesque genas et eburnea colla decusque
+423  oris et in niveo mixtum candore ruborem,
+424  cunctaque miratur, quibus est mirabilis ipse.
+425  Se cupit imprudens et qui probat, ipse probatur,
+426  dumque petit, petitur, pariterque accendit et ardet.
+427  Inrita fallaci quotiens dedit oscula fonti!
+428  In mediis quotiens visum captantia collum
+429  bracchia mersit aquis, nec se deprendit in illis!
+430  Quid videat, nescit: sed quod videt, uritur illo,
+431  atque oculos idem, qui decipit, incitat error.
+432  Credule, quid frusta simulacra fugacia captas?
+433  quod petis, est nusquam; quod amas, avertere, perdes.
+434  Ista repercussae, quam cernis, imaginis umbra est:
+435  nil habet ista sui; tecum venitque manetque,
+436  tecum discedet, si tu discedere possis.
+437  Non illum Cereris, non illum cura quietis
+438  abstrahere inde potest, sed opaca fusus in herba
+439  spectat inexpleto mendacem lumine formam,
+440  perque oculos perit ipse suos; paulumque levatus
+441  ad circumstantes tendens sua bracchia silvas
+442  “ecquis, io silvae, crudelius” inquit “amavit?
+443  Scitis enim, et multis latebra opportuna fuistis.
+444  Ecquem, cum vestrae tot agantur saecula vitae,
+445  qui sic tabuerit, longo meministis in aevo?
+446  Et placet et video; sed quod videoque placetque,
+447  non tamen invenio: tantus tenet error amantem.
+448  Quoque magis doleam, nec nos mare separat ingens,
+449  nec via nec montes nec clausis moenia portis:
+450  exigua prohibemur aqua. Cupit ipse teneri:
+451  nam quotiens liquidis porreximus oscula lymphis,
+452  hic totiens ad me resupino nititur ore.
+453  Posse putes tangi: minimum est, quod amantibus obstat.
+454  Quisquis es, huc exi! quid me, puer unice, fallis,
+455  quove petitus abis? certe nec forma nec aetas
+456  est mea quam fugias, et amarunt me quoque nymphae.
+457  Spem mihi nescio quam vultu promittis amico,
+458  cumque ego porrexi tibi bracchia, porrigis ultro:
+459  cum risi, adrides; lacrimas quoque saepe notavi
+460  me lacrimante tuas, nutu quoque signa remittis,
+461  et quantum motu formosi suspicor oris,
+462  verba refers aures non pervenientia nostras.
+463  Iste ego sum: sensi, nec me mea fallit imago.
+464  Uror amore mei, flammas moveoque feroque.
+465  Quid faciam? roger, anne rogem? quid deinde rogabo?
+466  quod cupio mecum est: inopem me copia fecit.
+467  O utinam a nostro secedere corpore possem!
+468  Votum in amante novum: vellem quod amamus abesset! —
+469  Iamque dolor vires adimit, nec tempora vitae
+470  longa meae superant, primoque exstinguor in aevo.
+471  Nec mihi mors gravis est posituro morte dolores:
+472  hic, qui diligitur, vellem diuturnior esset.
+473  Nunc duo concordes anima moriemur in una.”
+474  Dixit et ad faciem rediit male sanus eandem
+475  et lacrimis turbavit aquas, obscuraque moto
+476  reddita forma lacu est. Quam cum vidisset abire,
+477  “quo refugis? remane, nec me, crudelis, amantem
+478  desere!” clamavit: “liceat, quod tangere non est,
+479  adspicere et misero praebere alimenta furori.”
+480  Dumque dolet, summa vestem deduxit ab ora
+481  nudaque marmoreis percussit pectora palmis.
+482  Pectora traxerunt tenuem percussa ruborem,
+483  non aliter quam poma solent, quae candida parte,
+484  parte rubent, aut ut variis solet uva racemis
+485  ducere purpureum nondum matura colorem.
+486  Quae simul adspexit liquefacta rursus in unda,
+487  non tulit ulterius, sed ut intabescere flavae
+488  igne levi cerae matutinaeque pruinae
+489  sole tepente solent, sic attenuatus amore
+490  liquitur et tecto paulatim carpitur igni.
+491  Et neque iam color est mixto candore rubori,
+492  nec vigor et vires et quae modo visa placebant,
+493  nec corpus remanet, quondam quod amaverat Echo.
+494  Quae tamen ut vidit, quamvis irata memorque,
+495  indoluit, quotiensque puer miserabilis “eheu”
+496  dixerat, haec resonis iterabat vocibus “eheu”;
+497  cumque suos manibus percusserat ille lacertos,
+498  haec quoque reddebat sonitum plangoris eundem.
+499  Ultima vox solitam fuit haec spectantis in undam,
+500  “heu frustra dilecte puer!” totidemque remisit
+501  verba locus, dictoque vale “vale!” inquit et Echo.
+502  Ille caput viridi fessum submisit in herba;
+503  lumina mors clausit domini mirantia formam.
+504  Tunc quoque se, postquam est inferna sede receptus,
+505  in Stygia spectabat aqua. Planxere sorores
+506  naides et sectos fratri posuere capillos,
+507  planxerunt dryades: plangentibus adsonat Echo.
+508  Iamque rogum quassasque faces feretrumque parabant:
+509  nusquam corpus erat; croceum pro corpore florem
+510  inveniunt, foliis medium cingentibus albis.
+511  Cognita res meritam vati per Achaidas urbes
+512  attulerat famam, nomenque erat auguris ingens.

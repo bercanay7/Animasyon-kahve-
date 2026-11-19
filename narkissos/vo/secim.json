@@ -1,0 +1,12 @@
+{
+ "_not": "18 Kasım: Whisper yok; hizala.py ile iki çekim karşılaştırıldı. Süre ve sınırlar ikisinde de temiz; varsayılan a. s08'de a seçildi (b'de 3 şüpheli sınır, a'da 1). Kulakla son onay kullanıcıda. s06'da b (sınırlar daha düzenli). s08'de b: Scribe dökümünde a 'devam ederim' okunuyor, b 'devam edelim' (doğru). Scribe s02_a ve s08_a/b: bütün sözcükler doğru; 'Kuryesi'ne' öncesinde ~0,08 sn'lik kısa kesinti var (kulakla bakılmalı).",
+ "s00": "s00_a.mp3",
+ "s01": "s01_a.mp3",
+ "s02": "s02_a.mp3",
+ "s03": "s03_a.mp3",
+ "s04": "s04_a.mp3",
+ "s05": "s05_a.mp3",
+ "s06": "s06_b.mp3",
+ "s07": "s07_a.mp3",
+ "s08": "s08_b.mp3"
+}

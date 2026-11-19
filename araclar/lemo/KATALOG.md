@@ -40,7 +40,17 @@ Gözlem `style.json` dosyalarından alındı. "GL" sütunu motorun three.js/WebG
 | | `one-line` | Tek kesintisiz çizgiyle bir hayat | yok | Biyografi özetleri (Milton'ın hayatı gibi kısa ara bölümler) |
 | Kitaplar / Ekrandaki Felsefe | `stick-explainer`, `chalkboard`, `colored-pencil` | Çöp adam bilim anlatımı; tebeşir tahtası; renkli kalem kesit çizimi | az | Psikoloji ve felsefe kavram anlatımları (TED-Ed çizgisi) |
 
-**Kanala uymayanlar (bakılmadı):** neon, HUD, oyun, ürün, reklam, borsa ve haber kuşağı üslupları (`neon-tubes`, `hologram-hud`, `pixel-rpg`, `glass-product`, `news-package`, `spreadsheet` …).
+### Narkissos taramasında ölçülenler (18 Kasım 2026)
+Ayrıntı ve gerekçe: `narkissos/uretim_plani.md` §5. Süreler başsız Chromium + SwiftShader'da, üretimdeki JPEG `.96` hattıyla ve tek işçiyle, boş makinede ölçüldü. GL'li motorlarda `render(t)` hızlı döner; asıl bedel GPU'nun bitmesinde ve kare okumada ödenir. O yüzden hep çizim + okuma + JPEG toplamı ölçülür.
+
+| Slug | Ne | Kare süresi | Not |
+|---|---|---|---|
+| `risograph` | Saydam üst baskı, yarım ton, kayık plakalar | 0,28–1,18 sn; hareket bulanıklığıyla medyan 2,3 sn; 4 işçide ~1,8 kat hızlanma | Su yansıması gölgelendiricide hazır (`riso.js:50–68`). Demo 24 fps için yazılmış; tohumu çağıran kod veriyor (`film.js:327`). CREDITS'e göre görsellerin hepsi kodla üretilmiş |
+| `scratch-film` | Siyah emülsiyona kazınmış titrek çizgi | 0,13–0,41 sn; doğrusal ölçekleniyor | Saf Canvas2D, klasik betik, tohumlu rng. İnce çizgi 168 px'te kayboluyor |
+| `neon-tubes` | Neon tabela, su birikintisinde yansıma ve halka | 3,5–5 sn (GPU); 4 işçi hızlandırmıyor | En iyi hazır yansıma motoru (`gl.js` 217–301). Tüp alfabesinde Türkçe harf yok. Demodaki haçlı eczane tabelası alınmaz |
+| `paper-lantern`, `impasto` | | 10–37 sn ve 5,8–10,6 sn | Uzun film için fazla yavaş |
+
+**Kanala uymayanlar (bakılmadı):** HUD, oyun, ürün, reklam, borsa ve haber kuşağı üslupları (`hologram-hud`, `pixel-rpg`, `glass-product`, `news-package`, `spreadsheet` …).
 
 ## Kullanım sırası (CLAUDE.md "Üslup ve çizim motoru seçimi")
 1. Önce kendi motorlarımıza bakılır.
