@@ -63,3 +63,6 @@ Ham veri: `2026-11-17-studio-verileri.md`. Studio'dan okundu, yalnız okuma; öm
 | Kapak testi | çoğu berabere | A2 ile C arasında ≥%60 pay net sonuç |
 
 Kanalın genel tablosu için: **içerik tutuyor (0:30 ve ortalama izleme bandı her uzunlukta aynı), darboğaz ilk 10 saniye ve paketleme.** Ran'ın üç sınaması: başlıktaki tanıdık kapı ("Kral Lear") TO'yu %1,7'nin üstüne çıkarıyor mu, yeni kurgu (hikâye 0:42'de) 0:30'u %61'in üstünde tutuyor mu, iki farklı vaat taşıyan kapaklar testte ayrışıyor mu.
+
+## 5. Ran, 44. saat (19 Kasım; ayrıntı `2026-11-19-ran-48saat.md`)
+Gösterim 2,2 B (dalga yok) · TO **%3,0** · 0:10 ≈%80 · 0:30 %66 · ort. %39,3 · abone izlenme payı %65,8 · gösterim başına izlenme ≈0,10 dk. §4'teki çizgiye göre: TO ve 0:10 geçti; gösterim ve abone payı tutmadı; 0:30 ve ortalama sınırda. 7. gün değerleri bu tabloya eklenecek.
