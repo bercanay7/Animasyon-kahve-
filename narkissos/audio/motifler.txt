@@ -1,0 +1,9 @@
+# Motiflerin çaldığı anlar (audio/score.py üretir; zaman = film saniyesi)
+00:19.20  A03   YANKI                              Mi4 Sol4 Si4
+01:53.26  C04   YANKI                              Si4 Re5 Fa#5
+01:57.84  C05   YANKI                              Si4 Re5 Fa#5
+02:07.80  C06   YANKI                              Si4 Re5 Fa#5
+03:23.31  D03   YANKI                              Mi4 Sol4 Si4
+04:57.07  E07   YANKI                              Sol4 Sib4 Re5
+07:51.21  F09   YANKI                              Mi4 Sol4 Si4
+08:45.40  F12   YANKI                              Mi4 Sol4 Si4
