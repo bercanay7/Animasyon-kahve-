@@ -16,17 +16,20 @@
     ctx.restore();
     const push = ramp(t, st.at - .3, st.at + .4, E.out2);
     // Eko (yüzü açık; uzun giysi ve himation; baştan ayağa örtülü değil): kollarını açmış, itilince geri çekilir
-    figure(ctx, { x: 760 - 30 * push, y: gy - 43 * 4.2, s: 4.2, dir: 1, sty: STY.white, lk: LK_EKO, seed: 57, idle: .5, alpha: .55,
+    figure(ctx, { x: 760 - 30 * push, y: gy - 43 * 4.2, s: 4.2, dir: 1, sty: S2_SEP, lk: LK_EKO, seed: 57, idle: .5, alpha: .8,
       p: { torso: lerp(.14, -.04, push), neck: .1, head: .05, hipN: .12, knN: .05, hipF: -.12, knF: .04, shN: lerp(-1.1, -.5, push), elN: .4, shF: lerp(-.9, -.3, push), elF: .5, handN: 'open', handF: 'open', smile: -.2 } });
     // Narkissos geri çekilir, eliyle iter
-    figure(ctx, { x: 1180, y: gy - 43 * 4.2, s: 4.2, dir: -1, sty: STY.white, lk: { ...LK_NK, khiton: null }, seed: 58, idle: .5, alpha: .6,
-      p: { torso: -.08, neck: -.05, head: -.05, hipN: -.18, knN: .06, hipF: .22, knF: .1, shN: -1.25 * push, elN: .15, shF: .2, elF: .6, handN: 'open', handF: 'flat', mouthOpen: tO > t && t > tA - .1 ? .6 : 0 } });
-    // dipinto: ağzından; 'SAHİP' P056'daki ekran yerinde (S2_SAHIP), olursun'da pınara (sağa) uçar
+    figure(ctx, { x: 1180, y: gy - 43 * 4.2, s: 4.2, dir: -1, sty: S2_SEP, lk: { ...LK_NK, khiton: { col: '#A9805A', edge: 1.3, sleeve: false } }, seed: 58, idle: .5, alpha: .85,
+      p: { torso: -.16 * push, neck: -.15 * push, head: -.25 * push, hipN: -.18, knN: .06, hipF: .22, knF: .1, shN: 1.0 * push, elN: .55 * push, wrN: -1.5 * push, shF: .2, elF: .6, handN: 'open', handF: 'flat', mouthOpen: tO > t && t > tA - .1 ? .6 : 0 } });
+    // dipinto (tur 2): iki satır, ortada; 'SAHİP' P056'daki ekran yerinde (S2_SAHIP), yazı kenara ve yaprakların üstüne taşmaz. olursun'da pınara (sağa) uçar
     const fly = ramp(t, tO + .1, tO + 1.2, E.in2), wr = ramp(t, tA - .05, tO + .1, E.lin);
-    ctx.save(); baseT(ctx); ctx.font = FONT.baslik(46, 600); ctx.letterSpacing = '6px';
-    const L = 'ANCAK BEN ÖLÜNCE BANA ', wL = ctx.measureText(L).width + 6 * 0, wS = ctx.measureText('SAHİP').width;
-    const x0 = S2_SAHIP[0] - wL - wS / 2 + 1500 * fly, y0 = S2_SAHIP[1] - 120 * fly;
+    const L1 = 'ANCAK BEN ÖLÜNCE', L2a = 'BANA ', L2 = 'BANA SAHİP OLURSUN', n1 = [...L1].length, n2 = [...L2].length, k = wr * (n1 + n2);
+    ctx.save(); baseT(ctx); ctx.font = FONT.baslik(50, 600); ctx.letterSpacing = '6px';
+    const wA = ctx.measureText(L2a).width, wS = ctx.measureText('SAHİP').width; ctx.restore();
+    const dx = 1500 * fly, dy = -120 * fly;
+    ctx.save(); baseT(ctx); ctx.globalAlpha = 1 - fly;
+    txtDipinto(ctx, L1, S2_SAHIP[0] + dx, S2_SAHIP[1] - 78 + dy, 50, clamp(k / n1), { col: '#9A3B25', ls: 6 });
+    if (k > n1) txtDipinto(ctx, L2, S2_SAHIP[0] - wA - wS / 2 + dx, S2_SAHIP[1] + dy, 50, clamp((k - n1) / n2), { col: '#9A3B25', align: 'left', ls: 6 });
     ctx.restore();
-    ctx.save(); baseT(ctx); ctx.globalAlpha = 1 - fly; txtDipinto(ctx, 'ANCAK BEN ÖLÜNCE BANA SAHİP OLURSUN', x0, y0, 46, wr, { col: '#9A3B25', align: 'left', ls: 6 }); ctx.restore();
   }, { post: { tex: .25, vig: .5 } });
 })();

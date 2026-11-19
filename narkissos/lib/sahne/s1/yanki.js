@@ -53,7 +53,23 @@
       off: tc > 0 ? (i => [0, 900 * tc * tc * (.6 + .8 * hash(i * 1.7)) + 20 * tc]) : null, rot: tc > 0 ? (i => tc * 3 * (hash(i) - .5)) : null, fade: tc > 0 ? (i => 1 - clamp((tc - .4 - hash(i) * .3) / .5)) : null });
   });
 
+  // harfsiz söz (P020 ve P052 dili): okunmayan fırça kıvrımı; harf yok, yalnız sözün biçimi (öbek = kelime). (x, y) sol orta; n hece; dönen genişlik
+  const HW = (sd, i, h) => h * (.42 + .3 * hash(sd * 31.7 + i * 7.3 + 1));
+  const isaret = (ctx, x, y, n, sd, h, col, a = 1) => {
+    ctx.save(); ctx.globalAlpha *= a; ctx.strokeStyle = col; ctx.lineCap = 'round'; ctx.lineJoin = 'round'; ctx.lineWidth = h * .12;
+    let cx = x; ctx.beginPath(); ctx.moveTo(cx, y);
+    for (let i = 0; i < n; i++) { // her hece: bir yukarı ilmek ve bir aşağı kavis, yükseklikleri değişken (el yazısı gibi, okunmaz)
+      const w = HW(sd, i, h), up = h * (.25 + .25 * hash(sd * 5.1 + i * 3.3)), dn = h * (.1 + .2 * hash(sd * 2.9 + i * 6.1));
+      ctx.bezierCurveTo(cx + w * .25, y - up * 1.6, cx + w * .55, y - up * 1.6, cx + w * .45, y);
+      ctx.bezierCurveTo(cx + w * .4, y + dn * 1.4, cx + w * .9, y + dn * 1.4, cx + w, y);
+      cx += w;
+    }
+    ctx.stroke(); ctx.restore(); return cx - x;
+  };
+
   // ---- P019 · yakın · C02@günden-0.65: Eko'nun profili yakın; başka bir ağızdan gelen yazı ona akar; 'son'da yalnız son kelime kırmızı yanar; 'verebilir'de Eko onu geri verir, solarak uzaklaşır ----
+  //      Fable tur 1: 'BİRİ BENİ DUYSUN' kaynakta olmayan bir sözdü (Eko ilk sözü söyleyemez, C01/C03) → harfsiz söz: üç öbek okunmayan fırça işareti;
+  //      'son'da yalnız son öbek kırmızı yanar, 'verebilir'de Eko o öbeği geri verir (iki kez, küçülerek), önceki öbekler söner.
   plan('P019', (ctx, st) => {
     const t = st.t, tS = PE('P019', 0), tV = PE('P019', 1), s = 22;
     baseT(ctx); zemin(ctx, 1300);
@@ -64,14 +80,26 @@
     const m = headPt(ctx, J, M, [6.4, -3.9]);
     const ag = Math.max(0, Math.sin((t - tV) * PI / .5)) * (t > tV && t < tV + 1 ? 1 : 0);
     if (ag > .03) { ctx.save(); ctx.fillStyle = '#2A140A'; ctx.beginPath(); ctx.ellipse(m[0] + 6, m[1] + 2, 9, 7 * ag, 0, 0, TAU); ctx.fill(); ctx.restore(); }
-    // gelen yazı: soldan akar, ağzın önünde durur
-    const gel = ramp(t, st.at - .3, tS - .2, E.out2), x1 = lerp(-1200, m[0] - 1000, gel), y = m[1] - 40;
-    const fd = 1 - ramp(t, tV + .4, tV + 1.2, E.io2);
-    const d = S1.yolYazi(ctx, 'BİRİ BENİ ', [[x1, y], [x1 + 2000, y]], 1, { px: 58, col: S1.KIL, a: fd });
-    const yan = ramp(t, tS - .05, tS + .3, E.out3);
-    ctx.save(); if (yan > 0) { ctx.shadowColor = 'rgba(255,110,70,.6)'; ctx.shadowBlur = 24 * yan; }
-    S1.yolYazi(ctx, 'DUYSUN', [[x1 + d, y], [x1 + d + 1200, y]], 1, { px: 58, col: mixCol(S1.KIL, '#F06A44', yan), a: 1 - ramp(t, tV, tV + .4, E.io2) });
-    ctx.restore();
-    if (t > tV) S1.yanki(ctx, 'DUYSUN', m[0] - 260, m[1] + 70, t, tV, { dx: -1, px: 62, dt: .45, col: '#E8583A', reps: ['DUYSUN', 'duysun', 'sun'], life: 2.4 });
+    // gelen söz: soldan akar, ağzın önünde durur (üç öbek, aralarında boşluk)
+    const gel = ramp(t, st.at - .3, tS - .2, E.out2), h = 74, y = m[1] - 40;
+    const fd = 1 - ramp(t, tV + .4, tV + 1.2, E.io2), yan = ramp(t, tS - .05, tS + .3, E.out3);
+    const OB = [[3, 11], [2, 12], [4, 13]], gap = h * .8;
+    const wOf = ([n, sd]) => { let w = 0; for (let i = 0; i < n; i++) w += HW(sd, i, h); return w; };
+    const W = OB.reduce((q, o) => q + wOf(o) + gap, -gap), xEnd = m[0] - 70, x0 = lerp(-W - 200, xEnd - W, gel);
+    let x = x0;
+    OB.forEach((o, i) => {
+      const last = i === OB.length - 1;
+      if (!last) isaret(ctx, x, y + 8 * Math.sin(t * 1.4 + i), o[0], o[1], h, S1.KIL, fd);
+      else { ctx.save(); if (yan > 0) { ctx.shadowColor = 'rgba(255,110,70,.6)'; ctx.shadowBlur = 24 * yan; }
+        isaret(ctx, x, y + 8 * Math.sin(t * 1.4 + i), o[0], o[1], h, mixCol(S1.KIL, '#F06A44', yan), 1 - ramp(t, tV, tV + .4, E.io2)); ctx.restore(); }
+      x += wOf(o) + gap;
+    });
+    // geri verilen söz: son öbek Eko'nun ağzından sola, iki kez küçülerek ve solarak
+    if (t > tV) {
+      const o = OB[2];
+      for (let r = 0; r < 3; r++) { const u = t - tV - r * .45; if (u < 0) continue;
+        const sc = Math.pow(.72, r), a = (1 - clamp(u / 2.2)) * (1 - r * .25), hh = h * 1.1 * sc;
+        isaret(ctx, m[0] - 90 - 300 * r - 160 * E.out2(clamp(u / 1.2)) - wOf(o) * sc, m[1] + 80 + 36 * r, o[0], o[1], hh, '#E8583A', a); }
+    }
   });
 })();

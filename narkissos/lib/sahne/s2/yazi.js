@@ -6,7 +6,7 @@
   plan('P081', (ctx, st) => {
     const t = st.t, tA = PE('P081', 0), tN = PE('P081', 1);
     s2_belgeZemin(ctx, s2_cam(st, [900, 560, 1.55], [900, 560, 1.64]));
-    s2_sepNark(ctx, t, 700, 640, { s: 4.2, lean: 1 });
+    s2_sepNark(ctx, t, S2_ORTA.nx, S2_ORTA.ny, { s: S2_ORTA.ns, lean: 1 });
     const gr = 1 - ramp(t, tN - .1, tN + .4, E.io2) * .65;
     dipintoYaz(ctx, 'ΝΑΡΚΙΣΣΟΣ', 900, 420, 34, 1, { col: C.sepia, a: gr });
     const w1 = ramp(t, tA - .05, tA + 1.0, E.lin), sw = ramp(t, tN - .1, tN + .25, E.io2);

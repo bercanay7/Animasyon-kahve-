@@ -280,19 +280,25 @@
     baseT(ctx); glaze(ctx, 960, 200, 1200, 'rgba(90,40,20,.35)');
     camAt(ctx, 960, lerp(380, 640, ramp(t, st.at, st.end, E.io2)), 1.0);
     const ac = ramp(t, tT - .2, tT + 1.2, E.io2);
+    // ışık huzmesi (Fable tur 1: "asılı çubuk" okunuyordu): bulut aralığından aşağı GENİŞLEYEN tek huzme, yumuşak kenarlı; 'kabul'de ucu pınara kadar iner.
+    // Bulutların ardında başlar (üst ucu bulut aralığında görünür). Tek huzme: haç, ışın yelpazesi, hale yok.
+    const L = ramp(t, tT + .1, tT + 1.0, E.out2), dn = ramp(t, tK - .1, tK + 1.2, E.io2);
+    if (L > 0) { const yT = 150, y1 = lerp(420, 960, dn), wT = 34, wB = lerp(90, 250, dn), xc = 960 + 6 * Math.sin(t * .4);
+      ctx.save(); ctx.globalCompositeOperation = 'screen';
+      const gv = ctx.createLinearGradient(0, yT, 0, y1); gv.addColorStop(0, 'rgba(255,226,170,1)'); gv.addColorStop(.75, 'rgba(255,214,150,.75)'); gv.addColorStop(1, 'rgba(255,200,140,0)');
+      for (let k = 0; k < 12; k++) { const e = 1 + k * .11; // iç içe yamuklar: kenara doğru söner
+        ctx.globalAlpha = L * .075; ctx.fillStyle = gv; ctx.beginPath();
+        ctx.moveTo(xc - wT * e / 2, yT); ctx.lineTo(xc + wT * e / 2, yT); ctx.lineTo(xc + wB * e / 2, y1); ctx.lineTo(xc - wB * e / 2, y1); ctx.closePath(); ctx.fill(); }
+      motesN(ctx, t, 18, 7, xc, (yT + y1) / 2, wB * .35, (y1 - yT) * .45, .5 * L); // huzmede süzülen toz
+      ctx.restore(); }
     for (const [x, y, sc, sd, d] of [[500, 160, 2.4, 1, -1], [960, 120, 2.8, 2, 1], [1450, 170, 2.5, 3, 1], [200, 300, 2.0, 4, -1], [1750, 300, 2.1, 5, 1], [760, 330, 1.9, 6, -1], [1180, 320, 2.0, 7, 1]])
       cloud(ctx, x + d * (220 + 60 * hash(sd)) * ac + 14 * Math.sin(t * .3 + sd), y, sc, '#3A1C10', 'rgba(201,112,63,.4)', sd);
-    // ışık şeridi: tek, dikey, ince (haç ya da ışın yelpazesi değil)
-    const L = ramp(t, tT + .2, tT + 1.0, E.out2), dn = ramp(t, tK - .1, tK + 1.1, E.io2);
-    if (L > 0) { const y1 = lerp(300, 930, dn); ctx.save(); ctx.globalCompositeOperation = 'screen';
-      const g = ctx.createLinearGradient(930, 0, 990, 0); g.addColorStop(0, 'rgba(255,214,150,0)'); g.addColorStop(.5, `rgba(255,224,170,${(.55 * L).toFixed(3)})`); g.addColorStop(1, 'rgba(255,214,150,0)');
-      ctx.fillStyle = g; ctx.fillRect(930, -200, 60, y1 + 200); ctx.restore(); }
     // orman üstü (ağaç tepeleri) ve aradaki pınar
     groundBand(ctx, 950, -1000, 4000, { h: 800, fill: '#3A1B0D' });
     for (let i = 0; i < 12; i++) { const x = -150 + i * 200; if (Math.abs(x - 960) < 140) continue; vaseTree(ctx, x, 960, 1.15 + .2 * hash(i), 50 + i, t, { branches: 6, reach: 80 }); }
-    const pg = ramp(t, tK + .6, tK + 1.4, E.io2);
+    const pg = ramp(t, tK + .7, tK + 1.5, E.io2);
     ctx.save(); ctx.beginPath(); ctx.ellipse(960, 950, 110, 14, 0, 0, TAU); ctx.fillStyle = '#050302'; ctx.fill(); ctx.lineWidth = 2.5; ctx.strokeStyle = PC.clayR; ctx.stroke();
-    if (pg > 0) { ctx.globalCompositeOperation = 'screen'; ctx.fillStyle = `rgba(255,220,160,${(.35 * pg).toFixed(3)})`; ctx.fill(); }
+    if (pg > 0) { ctx.globalCompositeOperation = 'screen'; ctx.fillStyle = `rgba(255,220,160,${(.5 * pg).toFixed(3)})`; ctx.fill(); }
     ctx.restore();
   });
 })();

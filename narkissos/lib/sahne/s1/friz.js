@@ -1,6 +1,6 @@
 // FRIZ seti, SAHİP-1: P014, P015, P032, P033. Bu dosyayı yalnız bu sahip değiştirir.
 // Kurallar: lib/sahne/KILAVUZ.md. Kalabalık vazo bandı gibi; figürler dağınık gruplar hâlinde ve ayakta (sıra hâlinde eğilen dizi yok).
-// P033 beddua: ayakta, TEK kol göğe kalkar (yumruk); iki avuç açık dua duruşu, diz çökme, secde yok.
+// P033 beddua: ayakta, bir kol göğe uzanır, el yarı açık; yumruk (siyasi selam), iki avuç göğe açık dua duruşu, diz çökme, secde yok.
 'use strict';
 (() => {
   const S1 = window.S1;
@@ -70,23 +70,25 @@
     });
   });
 
-  // ---- P033 · ters açı · C12@ellerini: aşağıdan, gök önünde siluet; öne çıkan genç TEK kolunu göğe kaldırır (ayakta), ağzından O DA BÖYLE SEVSİN göğe yükselir; 'kavuşamasın'da bulutlara ulaşır ----
+  // ---- P033 · ters açı · C12@ellerini: aşağıdan, gök önünde siluet; öne çıkan genç bir kolunu göğe uzatır (ayakta), ağzından O DA BÖYLE SEVSİN göğe yükselir; 'kavuşamasın'da bulutlara ulaşır ----
+  //      Fable tur 1: yumruk (siyasi selam) kalktı; iki avuç göğe açık dua duruşu da yok (hassasiyet). Uzak kol (gövdenin ardından; yüzü örtmez) neredeyse dik göğe uzanır, el yarı açık; yakın kol aşağıda. Kalkarken dirsek bükük (düz kol hiçbir anda öne uzanmaz); 45° düz kol selam gibi okunur, kaçınılır.
+  //      Yazı 'o'da yazılmaya başlar, 'sevsin'de tamamdır ve plan sonuna dek (≥ 1,5 sn) TAM kalır; 'kavuşamasın'da bütün olarak bulutlara yükselir (harf silinmez, kesik okunmaz).
   plan('P033', (ctx, st) => {
-    const t = st.t, tK = PE('P033', 0), tS = PE('P033', 1), tV = PE('P033', 2), gy = 1020, s = 8.6;
+    const t = st.t, tK = PE('P033', 0), tV = PE('P033', 2), tO = Wd('C12', 'o'), tS = Wd('C12', 'sevsin', 0, true), gy = 1010, s = 6.2;
     baseT(ctx);
-    camAt(ctx, 960, lerp(620, 470, ramp(t, st.at, st.end, E.io2)), 1.0);
+    camAt(ctx, 960, lerp(600, 530, ramp(t, st.at, st.end, E.io2)), 1.0);
     // gök: kil (ters tonlu), koyu sarmal bulutlar; aşağıda yer çizgisi
     ctx.fillStyle = '#B9653A'; ctx.fillRect(-1000, -1000, 4000, 3000);
-    glow(ctx, 1200, 200, 900, 'rgba(240,170,110,.35)');
-    for (const [x, y, sc, sd] of [[300, -60, 2.6, 1], [1150, -150, 3.0, 2], [1750, -20, 2.4, 3], [700, -250, 2.2, 4]]) cloud(ctx, x + 10 * Math.sin(t * .3 + sd), y, sc, '#3A1C10', 'rgba(201,112,63,.5)', sd);
+    glow(ctx, 1300, 180, 900, 'rgba(240,170,110,.35)');
+    for (const [x, y, sc, sd] of [[260, -20, 2.6, 1], [1250, -10, 3.0, 2], [1820, 30, 2.4, 3], [760, -200, 2.2, 4]]) cloud(ctx, x + 10 * Math.sin(t * .3 + sd), y, sc, '#3A1C10', 'rgba(201,112,63,.5)', sd);
     ctx.fillStyle = '#1A0E08'; ctx.fillRect(-1000, gy, 4000, 600);
-    const k = ramp(t, tK - .1, tK + .7, E.out3);
+    const k = ramp(t, tK - .1, tK + .8, E.io2), v = ramp(t, tV, tV + 1.1, E.io2);
     let J = null, M = null;
-    figure(ctx, { x: 820, y: gy - 44.5 * s, s, dir: 1, sty: STY.black, lk: { ...S1.LK_GENC, khiton: { col: '#24150E', edge: 1.2, sleeve: false } }, seed: 104, stripe: 0, idle: .6,
-      p: { neck: -.25 * k, head: -.25 * k, shN: lerp(.15, 2.75, k), elN: lerp(.3, .1, k), handN: 'fist', shF: -.15, elF: .2 }, onJoints: (j, m) => { J = j; M = m; } });
+    figure(ctx, { x: 640, y: gy - 44.5 * s, s, dir: 1, sty: STY.black, lk: { ...S1.LK_GENC, khiton: { col: '#24150E', edge: 1.2, sleeve: false } }, seed: 104, stripe: 0, idle: .6,
+      p: { torso: .06 * k, neck: -.22 * k, head: -.22 * k, shN: lerp(.15, -.15, k), elN: lerp(.3, .3, k), handN: 'open', shF: lerp(-.1, 3.1, k), elF: lerp(.2, -.28, k) + 1.5 * Math.sin(PI * k), handF: 'flat' }, onJoints: (j, m) => { J = j; M = m; } });
     if (J) { const m = headPt(ctx, J, M, [6.6, -4.2]);
-      const P = S1.konusmaYolu(m[0] + 50, m[1] - 10, -.32, 1150, t, { amp: 14, k: .015, curl: -.35 });
-      const v = ramp(t, tV, tV + 1.2, E.io2);
-      S1.yolYazi(ctx, 'O DA BÖYLE SEVSİN', P, ramp(t, tS - .05, tS + 1.1, E.lin), { px: 56, col: '#3A0E06', fade: i => 1 - v * (i / 16) * .9 }); }
+      // söz yolu: ağızdan sağ-yukarı, kolun yönünde göğe; 'kavuşamasın'da bütün yazı bulutlara kalkar
+      const P = S1.konusmaYolu(m[0] + 60, m[1] - 10 - 100 * v, -.3 - .05 * v, 1000, t, { amp: 12, k: .015, curl: .12 });
+      S1.yolYazi(ctx, 'O DA BÖYLE SEVSİN', P, ramp(t, tO - .05, Math.min(tS, st.end - 1.6), E.lin), { px: 62, col: '#3A0E06', a: 1 - .25 * v }); }
   });
 })();
