@@ -15,5 +15,5 @@
 8. **Kart (isteğe bağlı):** 7:13'te ("Freud") ya da 8:16'da → Sisifos videosu.
 9. **Oynatma listesi:** "Mitler ve Felsefe".
 10. **Sabit yorum:** `youtube.md` → "Sabit yorum".
-11. **Zamanlama:** Ran'dan en az 5–7 gün sonra, en erken 24–25 Kasım, akşam 20:00–21:00. Yayın aralığı denemesi: `analiz/2026-11-18-sisifos-sonme.md`.
+11. **Zamanlama (kullanıcı kesinleştirdi, 20 Kasım):** 24 Kasım 2026. 48. saat = 26 Kasım, 7. gün = 1 Aralık. Ran 7. gün ölçümü (24 Kasım 18:00) Narkissos yayına girmeden alınır. Yayın aralığı denemesi: `analiz/2026-11-18-sisifos-sonme.md`.
 12. **48. saat ve 7. gün:** TO, 0:30'da kalan, ilk 10 saniye, göz atma testi. Kanal medyanlarıyla karşılaştır (`analiz/2026-11-17-kanal-ortalamasi.md`). Bu video "yeni kapı" sınaması: talep (a) güçlü, (b) güçlü.
