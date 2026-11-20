@@ -66,3 +66,4 @@ Kanalın genel tablosu için: **içerik tutuyor (0:30 ve ortalama izleme bandı 
 
 ## 5. Ran, 44. saat (19 Kasım; ayrıntı `2026-11-19-ran-48saat.md`)
 Gösterim 2,2 B (dalga yok) · TO **%3,0** · 0:10 ≈%80 · 0:30 %66 · ort. %39,3 · abone izlenme payı %65,8 · gösterim başına izlenme ≈0,10 dk. §4'teki çizgiye göre: TO ve 0:10 geçti; gösterim ve abone payı tutmadı; 0:30 ve ortalama sınırda. 7. gün değerleri bu tabloya eklenecek.
+Ran 67. saat (20 Kasım): gösterim 2,9 B (dalga yok), TO %3,0, ort. %38,2, 0:10 ≈%81, 0:30 ≈%66, abone izlenme payı %55,0.
