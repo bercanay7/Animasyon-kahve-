@@ -580,6 +580,11 @@ Kaynak: Linus (@linus5x), filmlerini Claude'a çizdiren biri; X'te 5 maddelik li
   - Bunun için klipte `z0` ve `cy0` kullan; kırpmayı üste hizala (y0 = 0).
 
 ## Sonraki videolar için kullanıcının önerileri
+- **Fikir sorma ve bakış açısı (kullanıcının kararı, 22 Kasım 2026):** yeni videonun açısı kurulurken kullanıcının kendi fikirleri sorulur (konu seçiminden sonra, iskeletten önce; kısa sorular, seçenekli). Amaç herkesin yaptığı anlatım değil, farklı bir bakış; ama **sıkıcı olmamalı** (somut olay kuralı geçerli). Öne alınacak üç bakış:
+  - **Kaybedenin gözünden:** kazananı değil kaybedeni ya da sıradan bir insanı (yetim çocuk, eskici, kâtip) merkeze almak;
+  - **Bir nesnenin yolculuğu:** lale gibi bir nesneyi kurye yapmak (kahve, kâğıt para, saat, bir kitap…);
+  - **Bildiğimiz hikâyeyi bozmak:** okulda öğrenilen bir anlatının arşivde başka çıkması (Lale Devri adı, Mackay'in denizcisi).
+  Lale Çılgınlığı ikinci ve üçüncüyü birlikte kullandı; sonraki konu taramasında adaylar bu üç bakışla da puanlanır.
 - **Psikolojik anlatım:** Stefan Zweig (*Yıldızın Parladığı Anlar*) ve Dostoyevski gibi karakterin iç dünyasına inen bir anlatım.
   - 29 Ekim videosunda kayıt ve kurgu bittikten sonra önerildiği için uygulanmadı.
   - Senaryo en baştan bu üslupla kurulmalı: tek bir "karar anı" ve onu yaşayan kişinin iç dünyası.
