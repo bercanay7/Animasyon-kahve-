@@ -230,9 +230,11 @@ const SET2 = (() => {
     fill(Sm([[-600, 470], [-200, 420], [300, 450], [700, 400], [1200, 440], [1700, 410], [2500, 450], [2500, 560], [-600, 560]]), o.gece ? .03 : .45, { th: -.05, id: 9 });
     for (let k = 0; k < 14; k++) { const x = -300 + k * 190, y = 480 + rnd(k) * 30; fill(R(x, y - 20, 60, 30), o.gece ? .5 : .2, { th: H0, id: 9 }); }
     fill(R(-600, 560, 3100, 400), o.gece ? .12 : .7, { th: .01, id: 8 });
-    for (let k = 0; k < 3; k++) { const x = 300 + k * 600 + Math.sin(t * .5 + k) * 20; fill(Sm([[x - 90, 640 + k * 30], [x + 90, 640 + k * 30], [x + 60, 660 + k * 30], [x - 60, 660 + k * 30]]), .08, { th: H0, id: 9 }); }
+    // kayık bir servinin önünden ya da arkasından geçmez: dikey servi + yatay kayık haç silueti verir (Fable son okuması, 22 Kasım)
+    const servis = o.servi || [[300, 480], [520, 420], [1950, 500]];
+    for (let k = 0; k < 3; k++) { const x = 300 + k * 600 + Math.sin(t * .5 + k) * 20; if (servis.some(([sx]) => Math.abs(sx - x) < 190)) continue; fill(Sm([[x - 90, 640 + k * 30], [x + 90, 640 + k * 30], [x + 60, 660 + k * 30], [x - 60, 660 + k * 30]]), .08, { th: H0, id: 9 }); }
     if (o.kosk !== false) SET.kosk(o.kx ?? 1100, 900, o.kw ?? 700, 260, { gece: o.gece });
-    for (const [x, h] of (o.servi || [[300, 480], [520, 420], [1950, 500]])) SET.servi(x, 960, h);
+    for (const [x, h] of servis) SET.servi(x, 960, h);
     fill(R(-600, 900, 3100, 600), o.gece ? .1 : .35, { type: 'persp', y0: 900, D: 200, p0: 7, p1: 14, id: 8 });
   }
   // Osmanlı figürü: kaftan + kavuk/sarık; o.sultan için daha geniş kaftan ve yüksek kavuk
@@ -242,7 +244,7 @@ const SET2 = (() => {
     fill(R(-600, -500, 3100, 1600), .3, { th: H0, id: 0 });
     for (let k = 0; k < 6; k++) { const x = -100 + k * 360; fill(R(x, 220, 320, 520), .08, { th: HV, id: 9 }); fill(Sm([[x + 30, 740], [x + 30, 380], [x + 160, 300], [x + 290, 380], [x + 290, 740]]), .2, { th: HV, id: 9 }); fill(R(x + 30, 640, 260, 100), .4, { th: H0, id: 9 }); }
     fill(R(-600, 740, 3100, 800), .4, { type: 'persp', y0: 740, D: 200, p0: 7, p1: 14, id: 8 });
-    for (let k = 0; k < 6; k++) { const x = 60 + k * 360; SET.saksi(x + 100, 640, .6); LALE.ciz(x + 100, 590, .5, { sap: 30, tip: 'ist', cesit: k % 2 ? 'ist' : 'istSari' }); }
+    if (o.lale !== false) for (let k = 0; k < 6; k++) { const x = 60 + k * 360; SET.saksi(x + 100, 640, .6); for (const [dx, dy, e] of [[-20, 6, -.25], [0, -10, 0], [20, 6, .25]]) LALE.ciz(x + 100 + dx, 590 + dy, .45, { sap: 34, tip: 'ist', cesit: (k + dx) % 2 ? 'ist' : 'istSari', egim: e }); }
   }
   // gemi (sürgün): tek direkli kadırga silueti, iskele
   function gemi(x, y, s = 1, t = 0) { fill(Sm([[x - 300 * s, y], [x + 320 * s, y], [x + 260 * s, y + 70 * s], [x - 240 * s, y + 70 * s]]), .06, { th: H0, id: 9 }); fill(R(x - 6 * s, y - 380 * s, 12 * s, 380 * s), .06, { th: HV, id: 9 }); fill(Sm([[x, y - 360 * s], [x + 200 * s, y - 120 * s + Math.sin(t) * 6], [x, y - 80 * s]]), .85, { th: .3, id: 10 }); }
@@ -255,19 +257,19 @@ const SET2 = (() => {
   // kalabalık: sırtı dönük siluetler, meşale ışıkları (şiddet yok); o.n kişi, o.t
   function kalabalik(t, o = {}) {
     const n = o.n ?? 14;
-    for (let i = 0; i < n; i++) { const r = i % 3, x = 100 + (i * 137) % 1800, y = 980 + r * 60; INSAN.adam({ x, y, h: 420 + r * 70, yon: i % 2 ? 1 : -1, arka: true, giysi: 'kaftan', sapka: i % 3 === 0 ? 'kavuk' : 'sarik', sarikTon: .45, kenar: .35, kolOn: { a: .3 + Math.sin(t * 2 + i) * .1, b: .4 } }); }
+    for (let i = 0; i < n; i++) { const r = i % 3, x = 100 + (i * 137) % 1800, y = 980 + r * 60; INSAN.adam({ x, y, h: 420 + r * 70, yon: i % 2 ? 1 : -1, arka: o.karisik ? i % 3 !== 1 : true, giysi: 'kaftan', sapka: i % 3 === 0 ? 'kavuk' : 'sarik', sarikTon: .45, kenar: .35, kolOn: { a: .3 + Math.sin(t * 2 + i) * .1, b: .4 } }); }
     for (let k = 0; k < (o.mesale ?? 3); k++) { const x = 400 + k * 520, y = 520 + Math.sin(t + k) * 6; fill(R(x - 4, y, 8, 140), .1, { th: HV, id: 9 }); SET.alev(x, y, t + k, 1.4); SET.isik({ x, y: y - 20, r1: 340, a: .7 }); }
   }
   // saray kapısı (gece): iki kule arasında kemerli kapı; kandil
   function sarayKapi(t, o = {}) {
     fill(R(-600, -500, 3100, 1600), .05, { th: -.05, id: 1 });
-    fill(R(460, 200, 1000, 760), .14, { th: H0, id: 4 });
-    for (const x of [380, 1460]) fill(R(x, 140, 160, 820), .1, { th: HV, id: 4 });
+    fill(R(460, 200, 1000, 760), o.duvar ?? .14, { th: H0, id: 4 });
+    for (const x of [380, 1460]) fill(R(x, 140, 160, 820), (o.duvar ?? .14) - .04, { th: HV, id: 4 });
     fill(R(760, 520, 400, 440), .03, { th: HV, id: 9 }); fill(R(956, 520, 8, 440), .25, { th: HV, id: 9 });   // düz, kapalı çift kanat ahşap kapı
     for (let k = 0; k < 4; k++) fill(R(760, 560 + k * 110, 400, 6), .2, { th: H0, id: 9 });
     fill(R(-600, 960, 3100, 600), .12, { type: 'persp', y0: 960, D: 200, p0: 7, p1: 14, id: 8 });
     const a = o.kandil ?? 1; fill(R(1250, 560, 10, 140), .2, { th: HV, id: 9 });
-    if (a > .05) { SET.kandil(1255, 540, t, 1.4); SET.isik({ x: 1255, y: 540, r1: 420 * a, a: .8 * a }); }
+    if (a > .05) { SET.kandil(1255, 540, t, o.kandilS ?? 1.4); SET.isik({ x: 1255, y: 540, r1: (o.kandilR ?? 420) * a, a: .8 * a }); }
   }
   // sedir (boş taht yerine sivil oturma): uzun minder, yastıklar, pencere ışığı
   function sedir(t, o = {}) {
@@ -275,7 +277,7 @@ const SET2 = (() => {
     for (let k = 0; k < 3; k++) { const x = 560 + k * 300; fill(R(x, 220, 240, 340), .8, { th: HV, id: 10 }); fill(R(x + 116, 220, 8, 340), .2, { th: HV, id: 9 }); }
     SET.huzme([[560, 560], [1400, 560], [1700, 1080], [300, 1080]], .25);
     fill(R(400, 640, 1120, 140), .3, { th: H0, id: 9 }); fill(R(400, 780, 1120, 60), .1, { th: H0, id: 9 });
-    for (let k = 0; k < 4; k++) fill(Sm([[480 + k * 260, 640], [480 + k * 260, 520], [640 + k * 260, 520], [640 + k * 260, 640]]), .55, { type: 'rad', cx: 560 + k * 260, cy: 580, id: 9 });
+    for (let k = 0; k < 4; k++) { fill(Sm([[480 + k * 260, 640], [480 + k * 260, 520], [640 + k * 260, 520], [640 + k * 260, 640]]), .55, { th: .35, id: 9 }); fill(R(556 + k * 260, 536, 8, 96), .3, { th: HV, id: 9 }); }   // yastık: çapraz tarama + dikiş (halka tarama hedef tahtası gibi okunuyordu)
     fill(R(-600, 840, 3100, 700), .28, { type: 'persp', y0: 840, D: 200, p0: 8, p1: 15, id: 8 });
   }
   // gazete sayfası (1913): başlık alanı, sütunlar; yazılar YAZI ile

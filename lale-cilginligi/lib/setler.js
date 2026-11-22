@@ -37,6 +37,7 @@ const SET = (() => {
     const nc = Math.max(2, Math.round(w / 80)), cw = w / nc;
     for (let r = 0; r < Math.min(o.kat ?? 2, Math.floor(h / 120)); r++) for (let c = 0; c < nc; c++) {
       const px = x + c * cw + cw * .2, py = y - h + 40 + r * 120, pw = cw * .6, ph = 80;
+      if (o.kapi !== false && px < x + w * .62 && px + pw > x + w * .38 && py + ph > y - 124) continue;   // kapının hemen üstüne pencere yok (kapıyla birleşip kanatlı kapsül gibi okunuyordu)
       const lit = o.pen && rnd(x + r * 7 + c) < o.pen;
       fill(R(px, py, pw, ph), lit ? .92 : (ton < .3 ? .4 : .08), { th: HV, id: lit ? 10 : 9 });
       fill(R(px + pw / 2 - 2, py, 4, ph), .35, { th: HV, id: 9 }); fill(R(px, py + ph / 2 - 2, pw, 4), .35, { th: H0, id: 9 });
@@ -44,7 +45,7 @@ const SET = (() => {
     // çatı penceresi / vinç kancası
     if (h > 100) { fill(R(x + w / 2 - 14, y - h - gh * .72, 28, 40), .05, { th: HV, id: 9 }); fill(R(x + w / 2 - 3, y - h - gh * .92, 6, 22), .1, { th: HV, id: 9 }); }
     // kapı
-    if (o.kapi !== false) fill(Sm([[x + w * .4, y], [x + w * .4, y - 90], [x + w * .5, y - 104], [x + w * .6, y - 90], [x + w * .6, y]]), .05, { th: HV, id: 9 });
+    if (o.kapi !== false) { fill(F([[x + w * .4, y], [x + w * .4, y - 84], [x + w * .44, y - 98], [x + w * .56, y - 98], [x + w * .6, y - 84], [x + w * .6, y]]), .05, { th: HV, id: 9 }); fill(R(x + w * .37, y - 108, w * .26, 7), .3, { th: H0, id: 9 }); }   // düz kenarlı kapı + lento (yuvarlak tabanlı kapsül uçak bombası gibi okunuyordu)
   }
   // gökyüzü + uzak ufuk; o.gun (1 gündüz .. 0 gece)
   function gok(o = {}) {
@@ -132,7 +133,8 @@ const SET = (() => {
   // ── İSTANBUL ──
   function servi(x, y, h, o = {}) { fill(Sm([[x, y - h], [x + h * .09, y - h * .6], [x + h * .1, y - h * .2], [x + h * .06, y], [x - h * .06, y], [x - h * .1, y - h * .2], [x - h * .09, y - h * .6]]), o.ton ?? .04, { type: 'bend', ox: x, oy: y, a: -PI / 2, k: 0, id: 6 }); }
   function kaplumbaga(x, y, s, t, o = {}) {
-    fill(Sm([[x - 60 * s, y], [x - 50 * s, y - 30 * s], [x - 10 * s, y - 46 * s], [x + 36 * s, y - 38 * s], [x + 60 * s, y - 6 * s], [x + 56 * s, y + 4 * s]]), .25, { type: 'rad', cx: x, cy: y, id: 4 });
+    fill(Sm([[x - 60 * s, y], [x - 50 * s, y - 30 * s], [x - 10 * s, y - 46 * s], [x + 36 * s, y - 38 * s], [x + 60 * s, y - 6 * s], [x + 56 * s, y + 4 * s]]), .3, { th: .7, id: 4 });   // kabuk: çapraz tarama (halka tarama hedef tahtası gibi okunuyordu)
+    for (const [ax, ay, bx, by] of [[-30, -34, -36, 0], [8, -44, 6, 2], [40, -32, 44, 0], [-52, -16, 56, -16]]) fill(R(Math.min(x + ax * s, x + bx * s) - 2, Math.min(y + ay * s, y + by * s), Math.abs(bx - ax) * s + 4, Math.abs(by - ay) * s + 3), .08, { th: 0, id: 9 });
     for (const d of [-1, 1]) fill(E2(x + d * 36 * s, y + 6 * s, 12 * s, 7 * s), .2, { th: 0, id: 9 });
     fill(E2(x + 72 * s, y - 6 * s + Math.sin(t * 2) * 2, 14 * s, 9 * s), .2, { th: 0, id: 9 });
     if (o.mum !== false) mum(x - 4 * s, y - 86 * s, t, s);

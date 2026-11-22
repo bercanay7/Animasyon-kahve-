@@ -57,10 +57,10 @@ const INSAN = (() => {
     if (kn != null) { const yanX = ks > 0 ? [[70, -642], [84, -604], [80, -540], [64, -470], [70, -420], [92, et]] : [[-64, -642], [-78, -604], [-70, -540], [-58, -470], [-66, -420], [-86, et]]; serit(yanX, 7, kn, ks); }
     // kıvrımlar (beyaz vuruşlar) ve önden yaka açıklığı / arkadan yırtmaç
     if (o.arka) { vurus(4, -430, 6, et + 10, 4, .5); if (kn != null) { vurus(40 * ks, -560, 28 * ks, -470, 4, kn * .9); vurus(30 * ks, -440, 50 * ks, et + 40, 3, kn * .8); } }
-    else { fill(F([[0, -654], [16, -654], [30, -480], [8, -440], [-14, -480]]), .16, { th: PI / 2, id: 9 }); vurus(10, -460, 34, et + 20, 3, .7); if (kn != null) vurus(46 * ks, -600, 40 * ks, -500, 4, kn); }
+    else { fill(F([[0, -654], [16, -654], [30, -480], [8, -440], [-14, -480]]), .16, { th: PI / 2, id: 9 }); if (!kf) vurus(10, -460, 34, et + 20, 3, .7); /* kaftanda önden eteğe inen açık çizgi yok: kuşakla haç okunuyordu (Fable son okuması) */ if (kn != null) vurus(46 * ks, -600, 40 * ks, -500, 4, kn); }
     // yaka (beyaz) ve boyun
     if (o.yaka === 'duz') fill(Sm([[-70, -650], [-40, -690], [44, -690], [78, -650], [70, -606], [20, -598], [-10, -598], [-64, -606]]), o.arka ? .78 : .92, { th: 0, id: 5 });   // 1630'lar Hollanda: omuza yayılan düz beyaz yaka
-    else if (kf) { fill(F([[-20, -684], [26, -684], [30, -660], [-24, -660]]), .35, { th: 0, id: 9 }); if (!o.arka) { fill(F([[-4, -662], [10, -662], [2, -600]]), .3, { th: PI / 2, id: 9 }); fill(Sm([[-74, -470], [78, -470], [84, -400], [-80, -400]]), .16, { th: .15, id: 9 }); } }   // kaftan: önde açık şerit yok (haç okunmasın, 22 Kasım); yalnız boyunda küçük yaka ve geniş koyu şal kuşak
+    else if (kf) { fill(F([[-20, -684], [26, -684], [30, -660], [-24, -660]]), .35, { th: 0, id: 9 }); if (!o.arka) { fill(F([[-4, -662], [10, -662], [2, -600]]), .3, { th: PI / 2, id: 9 }); fill(Sm([[-74, -470], [78, -470], [84, -400], [-80, -400]]), .07, { th: .15, id: 9 }); } }   // kaftan: önde açık şerit yok (haç okunmasın, 22 Kasım); yalnız boyunda küçük yaka ve geniş koyu şal kuşak
     else fill(F([[-22, -684], [28, -684], [34, -656], [-26, -656]]), o.arka ? .8 : .9, { th: 0, id: 5 });
     fill(F([[-14, -712], [24, -712], [26, -682], [-16, -682]]), o.arka ? .03 : (o.yuzTon ?? .04), { th: PI / 2, id: 5 });
     GR.restore();
@@ -90,6 +90,7 @@ const INSAN = (() => {
         if (kn != null) vurus(ww * .7 * ks, -70 - hh * .8, ww * .9 * ks, -80, 3, Math.min(.95, kn + .3)); }
       else if (o.sapka === 'fes') { fill(F([[-34, -96], [50, -96], [42, -168], [-24, -168]]), .14, { th: PI / 2, id: 9 }); fill(F([[6, -168], [10, -168], [30, -120], [26, -118]]), .05, { th: .4, id: 9 }); }
       else if (o.sapka === 'bork_kullanilmaz') { fill(Sm([[-40, -96], [44, -98], [40, -150], [20, -200], [-6, -230], [-60, -250], [-30, -200], [-40, -150]]), .9, { th: PI / 2, id: 9 }); fill(F([[-44, -92], [48, -94], [46, -110], [-42, -108]]), .3, { th: 0, id: 9 }); }
+      else if (o.sapka === 'bere') { fill(Sm([[-52, -90], [-46, -116], [6, -134], [62, -128], [84, -108], [70, -94], [10, -100]]), .1, { th: .2, id: 9 }); fill(F([[-50, -98], [70, -98], [70, -88], [-50, -88]]), .25, { th: 0, id: 9 }); }   // 1630'lar denizci beresi (yün)
       else if (o.sapka) { fill(F([[-46, -98], [70, -98], [66, -108], [56, -110], [52, -198], [-24, -198], [-28, -110], [-42, -108]]), .02, { th: PI / 2, id: 9 }); if (kn != null) vurus(50 * ks, -190, 46 * ks, -112, 4, kn); }
       GR.restore(); }
     // ön kol

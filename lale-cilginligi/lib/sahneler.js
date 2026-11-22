@@ -54,20 +54,22 @@ function mezatSalonu(st, o = {}) {
   INSAN.adam({ x: 1200, y: 900, h: 560, yon: -1, sapka: 'genis', yaka: 'duz', kenar: .55, kenarYan: -1, kolOn: { a: (o.mezatKol ?? 1.5) + .25 * Math.sin(t * 1.4), b: .9 }, biyik: true, sakal: true });
   INSAN.adam({ x: 720, y: 880, h: 480, yon: 1, sapka: 'genis', yaka: 'duz', kenar: .45, kolOn: { a: .9, b: .9 } });
   const A = [[200, 1150, 700, 1], [520, 1200, 760, -1], [1440, 1190, 740, 1], [1760, 1150, 700, -1]];
-  A.forEach(([x, y, h, yon], i) => { const up = (o.el ?? true) && Math.sin(t * 1.8 + i * 1.7) > .2;
+  const PH = [0, 3.1, 1.6, 4.7];   // karşılıklı komşular ters evrede (yan yana iki kalkık kol başsız gövde gibi okunuyordu)
+  A.forEach(([x, y, h, yon], i) => { const up = (o.el ?? true) && Math.sin(t * 1.8 + PH[i]) > .2;
     INSAN.adam({ x, y, h, yon, arka: true, sapka: 'genis', yaka: 'duz', kenar: .4, kenarYan: yon, giysi: 'pelerin', kolOn: up ? { a: 2.1, b: 1.0 } : { a: .25, b: .3 } }); });
 }
 PL('P003', 'A03', 'MEZ', 'genis', st => ({ cam: camLerp(CAM(960, 540, 1), CAM(980, 560, 1.12), st.p), bg: [.1, 0, 0], ciz: () => mezatSalonu(st) }),
   { over: etk('ALKMAAR · ŞUBAT 1637') });
 // yedi yetim: pencere önünde yedi küçük siluet (sırtı dönük), dışarıda bahçede laleler
-PL('P004', 'A04', 'YET', 'orta', st => ({ cam: camLerp(CAM(960, 560, 1.05), CAM(960, 520, 1.12), st.p), bg: [.06, 0, 0], ciz: () => {
+function yetimler(o = {}) {
   GR.fill(SET.R(-200, -200, 2400, 1500), GR.tone(.07), { th: 0, id: 0 });
   GR.fill(SET.R(360, 160, 1200, 560), GR.tone(.9), { th: -.03, id: 10 });
   SET.kasaba(520, .7); for (let k = 0; k < 9; k++) LALE.ciz(420 + k * 135, 680, .55, { sap: 70, cesit: ['semper', 'viceroy', 'switsers', 'amiral'][k % 4] });
   for (const x of [360, 760, 1160, 1560]) GR.fill(SET.R(x - 14, 160, 28, 560), GR.tone(.08), { th: HV_, id: 9 });
   GR.fill(SET.R(340, 700, 1240, 40), GR.tone(.2), { th: 0, id: 9 });
   for (let i = 0; i < 7; i++) { const h = 300 + ((i * 37) % 5) * 40; INSAN.adam({ x: 470 + i * 165, y: 1080, h, yon: i % 2 ? 1 : -1, arka: true, kenar: .35, palto: .5, kolOn: { a: .1, b: .1 } }); }
-} }), { over: etk('WOUTER WINKEL\'İN YEDİ ÇOCUĞU', { y: 120 }) });
+}
+PL('P004', 'A04', 'YET', 'orta', st => ({ cam: camLerp(CAM(960, 560, 1.05), CAM(960, 520, 1.12), st.p), bg: [.06, 0, 0], ciz: () => yetimler() }), { over: etk('WOUTER WINKEL\'İN YEDİ ÇOCUĞU', { y: 92 }) });
 const HV_ = Math.PI / 2;
 // 5.200 gulden ve beş küçük ev
 PL('P005', 'A05', 'EVL', 'yakin', st => ({ cam: camLerp(CAM(960, 560, 1.15), CAM(960, 560, 1.0), io(st.lt / 3)), bg: [.75, 0, 10], ciz: () => {
@@ -92,17 +94,32 @@ PL('P007', 'A06@patrona', 'ISY', 'orta', st => ({ cam: camLerp(CAM(960, 620, 1.2
   SET2.kalabalik(st.t, { n: 10, mesale: 3 });
 } }), { over: etk('PATRONA HALİL\'İN İSYANI · 1730') });
 // Lale Devri adı: okul kitabı / gazete (Ahmed Refik'in tefrikasının ekimi)
-PL('P008', 'A07', 'GAZ', 'ayrinti', st => ({ cam: camLerp(CAM(960, 540, 1.25), CAM(960, 500, 1.4), st.p), bg: [.2, 0, 0], ciz: () => {
+PL('P008', 'A07', 'GAZ', 'ayrinti', st => ({ cam: camLerp(CAM(960, 500, 1.25), CAM(960, 470, 1.4), st.p), bg: [.2, 0, 0], ciz: () => {
   SET2.masaUst(-300, { ton: .2 });
   SET2.gazete(560, 140, 800, 860);
-  YAZI.ekle('LÂLE DEVRİ', 960, 300, { font: 'baslik', px: 86, align: 'center', ls: 8 });
-  YAZI.ekle('1130 – 1143', 960, 350, { font: 'serif', px: 34, align: 'center' });
+  YAZI.ekle('LÂLE DEVRİ', 960, 210, { font: 'baslik', px: 86, align: 'center', ls: 8 });
+  YAZI.ekle('1718 – 1730', 960, 306, { font: 'serif', px: 34, align: 'center' });
   LALE.ciz(960, 520, 1.2, { sap: 60, tip: 'ist', cesit: 'ist', yaprakYok: true });
 } }));
 
 // ═════════ 1. YOL ═════════
+// zaman çizgisi: "önce seksen yıl geriye" sıçraması görünsün (Fable son okuması: üç izleyicinin ortak ilk düşüşü 0:44).
+// imleç "geriye" sözcüğünde 1637'den 1554'e kayar; bölüm kartının altında, alt bandın üstünde
+function zamanCizgisi(ctx, st, k, o = {}) {
+  if (NOTEXT) return;
+  const a = clamp((st.lt - (o.t0 ?? .3)) / .5) * clamp(((o.t1 ?? 4.8) - st.lt) / .6); if (a <= 0) return;
+  const x0 = 520, x1 = 1400, y = o.y ?? 806, X = yil => x0 + (yil - 1554) / (1730 - 1554) * (x1 - x0);
+  ctx.save(); ctx.globalAlpha *= E.sine(a);
+  softBand(ctx, x0 - 30, x1 + 30, y - 6, 80, 78, .8);
+  ctx.strokeStyle = PAPER_CSS; ctx.lineWidth = 3; ctx.beginPath(); ctx.moveTo(x0, y); ctx.lineTo(x1, y); ctx.stroke();
+  for (const [yil, ad] of [[1554, '1554'], [1637, '1637 · HOLLANDA'], [1730, '1730 · İSTANBUL']]) { const x = X(yil); ctx.beginPath(); ctx.moveTo(x, y - 12); ctx.lineTo(x, y + 12); ctx.stroke(); txt(ctx, ad, x, y - 40, { px: 38, ls: 4 }); }
+  const u = E.io2(clamp((st.lt - k) / 1.4)), xc = lerp(X(1637), X(1554), u);
+  ctx.fillStyle = PAPER_CSS; ctx.beginPath(); ctx.arc(xc, y, 10, 0, TAU); ctx.fill();
+  if (u > .05) txt(ctx, '← SEKSEN YIL', (X(1637) + X(1554)) / 2, y + 38, { px: 34, ls: 3, a: clamp(u * 2) });
+  ctx.restore();
+}
 PL('P010', 'B01', 'YOL', 'genis', st => ({ cam: camLerp(CAM(900, 560, 1), CAM(1060, 620, 1.12), st.p), bg: [.9, 0, 10], ciz: () => SET2.kisYolu({ t: st.t }) }),
-  { over: both(kartOver('B01'), etk('1554 · EDİRNE–İSTANBUL YOLU', { t0: 3.4 })) });
+  { over: both(kartOver('B01'), (ctx, st) => zamanCizgisi(ctx, st, W_(st, 'B01', 'geriye')), etk('1554–55 KIŞI · EDİRNE–İSTANBUL YOLU', { t0: 3.4 })) });
 PL('P011', 'B01@demet', 'YOL', 'yakin', st => ({ cam: camLerp(CAM(960, 560, 1.15), CAM(960, 520, 1.25), st.p), bg: [.85, 0, 10], ciz: () => {
   GR.fill(SET.R(-200, -200, 2400, 1500), GR.tone(.88), { th: -.03, id: 10 });
   SET2.osmanli({ x: 520, y: 1220, h: 900, yon: 1, sapka: 'sarik', kenar: .4, kolOn: { a: 1.3, b: .5 } });
@@ -111,7 +128,7 @@ PL('P011', 'B01@demet', 'YOL', 'yakin', st => ({ cam: camLerp(CAM(960, 560, 1.15
 } }), { over: etk('OGIER GHISELIN DE BUSBECQ, HABSBURG ELÇİSİ', { x: 1770, align: 'right', px: 40 }) });
 PL('P012', 'B02', 'YOL', 'ayrinti', st => ({ cam: camLerp(CAM(960, 420, 1.7), CAM(960, 380, 1.9), st.p), bg: [.85, 0, 10], ciz: () => {
   GR.fill(SET.R(-200, -200, 2400, 1500), GR.tone(.9), { th: -.03, id: 10 }); SET2.buket(960, 760, 1.0, st.t); } }),
-  { over: alnt('“… eorum quos Turcae Tulipan vocant”', 'BUSBECQ, 1581', { y: 800, px: 58 }) });
+  { over: alnt('“… eorum quos Turcae Tulipan vocant”', 'BUSBECQ, 1581', { y: 750, px: 58 }) });
 PL('P013', 'B03', 'SAR', 'orta', st => ({ cam: camLerp(CAM(960, 520, 1.05), CAM(1080, 400, 1.35), st.p), bg: [.6, 0, 0], ciz: () => {
   GR.fill(SET.R(-200, -200, 2400, 1500), GR.tone(.55), { th: .3, id: 0 }); SET.isik({ x: 1100, y: 300, r1: 800, a: .6 }); SET2.sarik(960, 640, 1.3); } }),
   { over: (ctx, st) => { const k = W_(st, 'B03', 'tülbendin'); etiket(ctx, 'TÜLBENT → TULIPAN → TULIP', 150, 120, st.lt - k, st.d - k, { align: 'left', px: 44 }); } });
@@ -120,7 +137,23 @@ PL('P014', 'B04', 'MEK', 'yakin', st => { const k = clamp(st.lt / Math.max(1, st
   YAZI.ekle('Turcae flores valde excolunt …', 800, 640, { font: 'el', px: 30, kadar: k * 1.4 });
   YAZI.ekle('… Tulipan …', 820, 690, { font: 'el', px: 30, kadar: (k - .3) * 2 });
 } }; });
-PL('P015', 'B05', 'LEI', 'genis', st => ({ cam: camLerp(CAM(960, 560, 1), CAM(860, 600, 1.1), st.p), bg: [.9, 0, 10], ciz: () => SET2.leiden(st.t) }),
+// B04 ikinci yarı: elçinin yazdığı şey bir olay olarak: İstanbul çarşısında akçeyle çiçek alınıyor (6:30'daki narh bölümüne tohum)
+PL('P014b', 'B04@türkler', 'CAR', 'orta', st => { const k = W_(st, 'B04', 'akçe'); const g = io((st.lt - k + .2) / .8); return { cam: camLerp(CAM(1000, 620, 1.35), CAM(1060, 640, 1.48), st.p), bg: [.3, 0, 0], ciz: () => {
+  SET2.carsi(st.t);
+  SET2.osmanli({ x: 800, y: 1100, h: 560, yon: 1, sapka: 'sarik', kenar: .45, kolOn: { a: .9 + g * .35, b: .5 } });
+  SET2.osmanli({ x: 1330, y: 1100, h: 540, yon: -1, sapka: 'kavuk', kenar: .45, kenarYan: -1, kolOn: { a: 1.0, b: .7 } });
+  if (g > 0) SET2.para(1110, 636, 1 + Math.round(g * 3), .7);
+} }; });
+// B05 başı: soğanlar yola çıkar (sandıkta soğanlar, "Tulipan" yazılı not, mühür); botanikçi 1593'te Leiden'de
+PL('P015a', 'B05', 'SAN', 'ayrinti', st => { const u = io(st.lt / Math.max(2, st.d)); return { cam: camLerp(CAM(880, 580, 1.5), CAM(1020, 560, 1.62), u), bg: [.15, 0, 0], renk: 0, ciz: () => {
+  SET2.masaUst(-300, { ton: .2 });
+  GR.fill(SET.R(560, 470, 640, 260), GR.tone(.25), { th: 0, id: 9 }); GR.fill(SET.R(582, 490, 596, 200), GR.tone(.12), { th: 0, id: 9 });
+  for (let i = 0; i < 7; i++) { const a = clamp((st.lt - .2 - i * .18) / .3); if (a > 0) LALE.sogan(650 + (i % 4) * 140 + (i > 3 ? 70 : 0), 650 - (i > 3 ? 56 : 0) - (1 - a) * 40, .7, { ton: .55 }); }
+  GR.fill(SET.R(560, 680, 640, 56), GR.tone(.3), { th: 0, id: 9 }); GR.fill(SET.R(560, 680, 640, 6), GR.tone(.12), { th: 0, id: 9 });
+  SET2.sayfa(1250, 520, 300, 190, { ton: .95 }); YAZI.ekle('Tulipan', 1296, 610, { font: 'el', px: 44 });
+  GR.fill(SET.E2(1500, 680, 24, 24), GR.tone(.14), { type: 'rad', cx: 1494, cy: 674, id: 9 });
+} }; });
+PL('P015', 'B05@bin', 'LEI', 'genis', st => ({ cam: camLerp(CAM(960, 560, 1), CAM(860, 600, 1.1), st.p), bg: [.9, 0, 10], ciz: () => SET2.leiden(st.t) }),
   { over: etk('LEIDEN · 1593 · CAROLUS CLUSIUS') });
 PL('P016', 'B06', 'HIR', 'orta', st => ({ cam: camLerp(CAM(1000, 700, 1.25), CAM(1040, 760, 1.4), st.p), bg: [.05, 0, 1], ciz: () => SET2.hirsiz(st.t) }));
 
@@ -161,7 +194,7 @@ PL('P030', 'D01', 'EKI', 'genis', st => ({ cam: camLerp(CAM(960, 560, 1), CAM(10
   { over: both(kartOver('D01'), etk('1636 SONBAHARI', { t0: 3.4 })) });
 PL('P031', 'D02', 'SOZ', 'ayrinti', st => { const k = clamp(st.lt / 6); return { cam: camLerp(CAM(960, 520, 1.1), CAM(960, 560, 1.2), st.p), bg: [.86, 0, 10], ciz: () => {
   SET2.kesit(st.t); SET2.sayfa(620, 120, 680, 380, { ton: .96, cerceve: true });
-  YAZI.ekle('Semper Augustus — 200 aes', 680, 220, { font: 'el', px: 38, kadar: k * 2 });
+  YAZI.ekle('Switsers — 1 pond', 680, 220, { font: 'el', px: 38, kadar: k * 2 });
   YAZI.ekle('te leveren in Junij · te betalen in Junij', 680, 290, { font: 'el', px: 32, kadar: (k - .3) * 2 });
   YAZI.ekle('Haarlem, 1636', 680, 360, { font: 'el', px: 30, kadar: (k - .55) * 3 });
   SET2.kalem(1000 + k * 200, 400, -.8, .9);
@@ -185,22 +218,22 @@ PL('P034', 'D05', 'ODA', 'yakin', st => ({ cam: camLerp(CAM(960, 540, 1.0), CAM(
   sonra: (ctx, cam) => { SET2.gorsel(ctx, cam, 'mwMeyhane', 160, 60, 1600, { kirp: [0, 0, 1, .86] }); } }),
   { over: etk('“COMPARITY DER BLOEMISTEN TOT HARLEM” · 1637 GRAVÜRÜ (RIJKSMUSEUM)', { y: 120, px: 34 }) });
 // Switsers: fiyat çizgisi gibi yükselen sap; renk koyulaşır
-PL('P035', 'D06', 'SWI', 'ayrinti', st => { const u = io((st.lt - .5) / Math.max(1, st.d - 1)); return { cam: camLerp(CAM(960, 560, 1), CAM(960, 520, 1.05), st.p), bg: [.88, 0, 10], ciz: () => {
+PL('P035', 'D06', 'SWI', 'ayrinti', st => { const u = io((st.lt - .5) / Math.max(1, st.d - 1)); return { cam: camLerp(CAM(960, 560, 1), CAM(960, 556, 1.05), st.p), bg: [.88, 0, 10], ciz: () => {
   GR.fill(SET.R(-200, -200, 2400, 1500), GR.tone(.93), { th: 0, id: 10 });
-  for (let k = 0; k < 6; k++) GR.fill(SET.R(260, 900 - k * 140, 1400, 2), GR.tone(.5), { th: 0, id: 9 });
-  const x = 1500, y = 900 - u * 700;
-  const p = new Path2D(); p.moveTo(300, 880); p.bezierCurveTo(800, 870, 1200, 800 - u * 300, x, y + 40); p.lineTo(x + 6, y + 44); p.bezierCurveTo(1200, 806 - u * 300, 800, 876, 300, 886); p.closePath();
+  for (let k = 0; k < 6; k++) GR.fill(SET.R(260, 800 - k * 118, 1400, 2), GR.tone(.5), { th: 0, id: 9 });
+  const x = 1500, y = 800 - u * 560;
+  const p = new Path2D(); p.moveTo(300, 780); p.bezierCurveTo(800, 772, 1200, 712 - u * 260, x, y + 40); p.lineTo(x + 6, y + 44); p.bezierCurveTo(1200, 718 - u * 260, 800, 778, 300, 786); p.closePath();
   GR.fill(p, GR.tone(.15), { th: 0, id: 9 });
   LALE.ciz(x, y, 1.2 + u * .6, { sap: 0, cesit: 'switsers', ac: .2 + u * .2, renk: .4 + u * .6 });
-  YAZI.ekle('31 ARALIK 1636 · 125', 300, 960, { font: 'baslik', px: 30 }); YAZI.ekle('1 ŞUBAT 1637 · ' + Math.round(125 + u * 1375), 1240, 960, { font: 'baslik', px: 30 });
-} }; }, { over: etk('SWITSERS · GULDEN / POUND') });
+  YAZI.ekle('31 ARALIK 1636 · 125', 300, 836, { font: 'baslik', px: 36 }); YAZI.ekle('1 ŞUBAT 1637 · ' + Math.round(125 + u * 1375), 1180, 836, { font: 'baslik', px: 36 });
+} }; }, { over: etk('SWITSERS · BİR LİBRESİ KAÇ GULDEN') });
 PL('P036', 'D07', 'MEZ', 'orta', st => ({ cam: camLerp(CAM(1040, 560, 1.3), CAM(1060, 540, 1.4), st.p), bg: [.1, 0, 0], ciz: () => mezatSalonu(st, { mezatKol: 2.1 }) }));
 PL('P037', 'D08', 'LIS', 'ayrinti', st => { const k = W_(st, 'D08', 'kâğıt'); return { cam: camLerp(CAM(960, 520, 1.1), CAM(960, 540, 1.0), st.p), bg: [.2, 0, 0], ciz: () => {
   SET2.masaUst(-300, { ton: .2 }); SET2.sayfa(560, 80, 800, 720, { ton: .95, cerceve: true });
   YAZI.ekle('Lijste van eenighe Tulpaen', 960, 170, { font: 'baslik', px: 40, align: 'center' });
   YAZI.ekle('verkocht aen de meest-biedende, op den 5. Februarij 1637', 960, 215, { font: 'italik', px: 28, align: 'center' });
-  const L = [['Admirael van Enkhuysen', '5200'], ['Viceroy', '4203'], ['Brabanson', '1600'], ['Bruyn Purper', '2025'], ['Paragon van Delft', '605']];
-  L.forEach(([a, b], i) => { YAZI.ekle(a, 640, 290 + i * 52, { font: 'serif', px: 32 }); YAZI.ekle(b + ' gl.', 1280, 290 + i * 52, { font: 'serif', px: 32, align: 'right' }); });
+  const L = [['Viceroy', '4203'], ['Bruyn Purper', '2025'], ['Paragon van Delft', '605'], ['…', '']];
+  L.forEach(([a, b], i) => { YAZI.ekle(a, 640, 290 + i * 52, { font: 'serif', px: 32 }); YAZI.ekle(b ? b + ' gl.' : '', 1280, 290 + i * 52, { font: 'serif', px: 32, align: 'right' }); });
   YAZI.ekle('90.000', 960, 620, { font: 'baslik', px: 64, align: 'center', a: clamp(st.lt / .8) });
   for (let i = 0; i < 7; i++) { const a = clamp((st.lt - k - i * .12) / .4); if (a > 0) SET2.para(640 + i * 105, 760, 3 + Math.round(a * 3), .8); }
 } }; });
@@ -209,7 +242,7 @@ PL('P038', 'D09', 'KES', 'yakin', st => ({ cam: camLerp(CAM(960, 560, 1.1), CAM(
 } }), { over: buyukYazi('KÂĞIT ÜZERİNDE', { y: 150, px: 88 }) });
 
 // ═════════ 4. ÇÖKÜŞ ═════════
-PL('P040', 'E01', 'MEZ', 'genis', st => { const r = 1 - io((st.lt - 3.6) / 2.5); return { cam: camLerp(CAM(960, 540, 1.0), CAM(970, 520, 1.15), st.p), bg: [.1, 0, 0], ciz: () => mezatSalonu(st, { el: false, mezatKol: 2.1, cesit: 'switsers', lr: r }), renk: 1 }; },
+PL('P040', 'E01', 'MEZ', 'genis', st => { const r = 1 - io((st.lt - 3.6) / 2.5), kk = io((st.lt - W_(st, 'E01', 'kimse')) / 1.4); return { cam: camLerp(CAM(960, 540, 1.0), CAM(970, 520, 1.15), st.p), bg: [.1, 0, 0], ciz: () => mezatSalonu(st, { el: false, mezatKol: 2.1 - kk * 1.8, cesit: 'switsers', lr: r }), renk: 1 }; },
   { over: both(kartOver('E01'), etk('HAARLEM · ŞUBAT 1637', { t0: 3.4 })) });
 PL('P041', 'E02', 'BOS', 'orta', st => ({ cam: camLerp(CAM(960, 600, 1.05), CAM(900, 620, 1.15), st.p), bg: [.08, 0, 0], renk: 1 - io(st.lt / 3), ciz: () => {
   SET.meyhane({ isik: .5 });
@@ -230,7 +263,7 @@ PL('P043', 'E04', 'HAZ', 'orta', st => ({ cam: camLerp(CAM(960, 560, 1.05), CAM(
   GR.fill(SET.R(-600, 640, 3100, 900), GR.tone(.3), { type: 'persp', y0: 640, D: 240, p0: 6, p1: 14, id: 8 });
   SET.ev(1100, 900, 420, 360, { ton: .2, basamak: 4, kat: 2 });
   for (let k = 0; k < 6; k++) LALE.sogan(300 + k * 110, 980, .5, { ton: .5 });
-  INSAN.adam({ x: 1060, y: 960, h: 520, yon: 1, sapka: 'genis', yaka: 'duz', kenar: .5, kolOn: { a: 1.6 + Math.max(0, Math.sin(st.t * 6)) * .3, b: .9 } });
+  INSAN.adam({ x: 1060, y: 960, h: 520, yon: 1, sapka: 'genis', yaka: 'duz', kenar: .5, kolOn: { a: 1.3 + Math.max(0, Math.sin(st.t * 6)) * .25, b: .9 } });
   SET2.kese(860, 960, .8);
 } }), { over: etk('HAZİRAN 1637') });
 PL('P044', 'E05', 'MAH', 'genis', st => ({ cam: camLerp(CAM(960, 520, 1), CAM(960, 500, 1.08), st.p), bg: [.85, 0, 10], renk: 0, ciz: () => {
@@ -244,14 +277,17 @@ PL('P044', 'E05', 'MAH', 'genis', st => ({ cam: camLerp(CAM(960, 520, 1), CAM(96
 PL('P045', 'E06', 'KAR', 'ayrinti', st => ({ cam: camLerp(CAM(960, 520, 1.2), CAM(960, 520, 1.3), st.p), bg: [.2, 0, 0], renk: 0, ciz: () => {
   SET2.masaUst(-300, { ton: .2 }); SET2.sayfa(620, 140, 680, 760, { ton: .95, cerceve: true });
   YAZI.ekle('Haerlem, 1638', 960, 250, { font: 'baslik', px: 36, align: 'center' }); SET2.satirlar(680, 320, 560, 7, 34);
-  const a = clamp((st.lt - W_(st, 'E06', 'yüzde')) / .3); YAZI.ekle('3½ %', 960, 760, { font: 'baslik', px: 120, align: 'center', a, renk: [120, 20, 20] });
-} }));
+  YAZI.ekle('Burgemeesters', 960, 292, { font: 'italik', px: 28, align: 'center' });
+  const a = clamp((st.lt - W_(st, 'E06', 'yüzde')) / .3); YAZI.ekle('3½ %', 960, 700, { font: 'baslik', px: 120, align: 'center', a, renk: [120, 20, 20] });
+} }), { over: etk('HAARLEM BELEDİYESİ KARARI · MAYIS 1638', { px: 40 }) });
 PL('P046', 'E07', 'LIS', 'yakin', st => ({ cam: camLerp(CAM(960, 460, 1.4), CAM(960, 420, 1.6), st.p), bg: [.2, 0, 0], renk: 0, ciz: () => {
   SET2.masaUst(-300, { ton: .14 }); SET2.sayfa(560, 80, 800, 720, { ton: .9, cerceve: true });
   YAZI.ekle('Lijste van eenighe Tulpaen', 960, 170, { font: 'baslik', px: 40, align: 'center', a: .6 }); YAZI.ekle('90.000', 960, 460, { font: 'baslik', px: 96, align: 'center' }); YAZI.ekle('?', 1200, 470, { font: 'baslik', px: 120, align: 'center', a: clamp((st.lt - 1.2) / .5) });
 } }));
 
 // ═════════ 5. EFSANE ═════════
+PL('P046b', 'E07@ödendiğini', 'YET', 'orta', st => ({ cam: camLerp(CAM(960, 540, 1.08), CAM(960, 520, 1.16), st.p), bg: [.06, 0, 0], renk: 0, ciz: () => yetimler() }),
+  { over: buyukYazi('90.000 ?', { y: 160, px: 96, t0: .3 }) });
 PL('P050', 'F01', 'MAT', 'genis', st => ({ cam: camLerp(CAM(960, 540, 1), CAM(1000, 520, 1.1), st.p), bg: [.1, 0, 0], renk: 0, ciz: () => SET2.matbaa(st.t) }),
   { over: both(kartOver('F01'), etk('HAARLEM · 1637', { t0: 3.4 })) });
 PL('P051', 'F02', 'BRO', 'ayrinti', st => ({ cam: camLerp(CAM(960, 520, 1.15), CAM(960, 500, 1.25), st.p), bg: [.2, 0, 0], renk: 0, ciz: () => {
@@ -260,7 +296,7 @@ PL('P051', 'F02', 'BRO', 'ayrinti', st => ({ cam: camLerp(CAM(960, 520, 1.15), C
   YAZI.ekle('WAERMONDT ende GAERGOEDT', 960, 275, { font: 'baslik', px: 36, align: 'center' }); YAZI.ekle('nopende de opkomste ende ondergangh van Flora', 960, 320, { font: 'italik', px: 26, align: 'center' });
   INSAN.adam({ x: 820, y: 820, h: 420, yon: 1, sapka: 'genis', yaka: 'duz', kenar: .5, kolOn: { a: 1.0 + Math.sin(st.t * 2) * .2, b: .8 } });
   SET2.usta({ x: 1100, y: 820, h: 420, yon: -1, kenar: .5, kenarYan: -1, kolOn: { a: 1.2 + Math.sin(st.t * 2 + 1) * .2, b: .9 } });
-  YAZI.ekle('HAERLEM · ADRIAEN ROMAN · 1637', 960, 900, { font: 'baslik', px: 24, align: 'center' });
+  YAZI.ekle('HAERLEM · ADRIAEN ROMAN · 1637', 960, 362, { font: 'baslik', px: 24, align: 'center' });
 } }), { over: (ctx, st) => { const k = W_(st, 'F02', 'doğrucu'); etiket(ctx, 'WAERMONDT = DOĞRUCU · GAERGOEDT = AÇGÖZLÜ', W / 2, 830, st.lt - k, st.d - k, { align: 'center', px: 40 }); } });
 PL('P052', 'F03', 'DOK', 'orta', st => { const k = W_(st, 'F03', 'tezgâhını'); const g = io((st.lt - k) / 1.6); return { cam: camLerp(CAM(960, 560, 1.05), CAM(960, 580, 1.12), st.p), bg: [.1, 0, 0], renk: 0, ciz: () => {
   GR.fill(SET.R(-200, -200, 2400, 1500), GR.tone(.12), { th: 0, id: 0 }); GR.fill(SET.R(-600, 900, 3100, 600), GR.tone(.25), { type: 'persp', y0: 900, D: 200, p0: 8, p1: 15, id: 8 });
@@ -274,13 +310,17 @@ PL('P053', 'F04', 'MAC', 'genis', st => ({ cam: camLerp(CAM(960, 560, 1), CAM(10
 // denizci: rıhtımda oturur, soğanı ringa balığıyla yer
 PL('P054', 'F05', 'RIH', 'orta', st => { const k = W_(st, 'F05', 'yiyor'); const isir = clamp((st.lt - k) / .4); return { cam: camLerp(CAM(1000, 640, 1.15), CAM(1040, 660, 1.3), st.p), bg: [.9, 0, 10], ciz: () => {
   SET2.rihtim(st.t);
-  INSAN.adam({ x: 1000, y: 900, h: 460, yon: 1, egim: -.05, sapka: true, kenar: .45, kolOn: { a: 1.9 + Math.sin(st.t * 3) * .1 * isir, b: 1.1 }, kolArka: { a: .9, b: .4 } });
-  LALE.sogan(1150, 560 + isir * 10, .45 * (1 - isir * .4), { ton: .5 });
+  // kol: önce soğanı göğüs önünde tutar, "yiyor"da el çeneye gider (dirsek önde ve aşağıda; alında el selam gibi okunuyordu). Soğan elin ucunda
+  const ka = lerp(1.0, 1.05, isir), kb = lerp(1.3, 2.57, isir), kk = 460 / 760, eg = -.05, a2 = ka + kb;
+  const lx = 56 + 150 * Math.sin(ka) + 174 * Math.sin(a2), ly = -630 + 150 * Math.cos(ka) + 174 * Math.cos(a2);
+  const bx = 1000 + (lx * Math.cos(eg) - ly * Math.sin(eg)) * kk, by = 900 + (lx * Math.sin(eg) + ly * Math.cos(eg)) * kk;
+  INSAN.adam({ x: 1000, y: 900, h: 460, yon: 1, egim: eg, sapka: 'bere', palto: .25, kenar: .45, kolOn: { a: ka, b: kb }, kolArka: { a: .9, b: .4 } });
+  LALE.sogan(bx, by + 8, .42 * (1 - isir * .3), { ton: .5 });
   GR.fill(SET.E2(1040, 820, 60, 14, .2), GR.tone(.6), { th: 0, id: 9 });   // ringa
 } }; }, { over: (ctx, st) => { const k = W_(st, 'F05', 'semper'); etiket(ctx, 'SEMPER AUGUSTUS', 1770, 120, st.lt - k, st.d - k, { align: 'right' }); } });
 PL('P055', 'F06', 'BAC', 'yakin', st => ({ cam: camLerp(CAM(1000, 560, 1.15), CAM(1040, 500, 1.25), st.p), bg: [.88, 0, 10], ciz: () => {
   SET.gok({ gun: 1, ufuk: 1000 }); SET.ev(-100, 1100, 1300, 700, { ton: .25, basamak: 4, kat: 3 }); SET2.bacaci(900, 1040, st.t);
-} }), { over: (ctx, st) => quote(ctx, '“… even chimney-sweeps …”', W / 2 + 300, 780, st.lt, { px: 52, kaynak: 'MACKAY, 1841', maxW: 900 }) });
+} }), { over: (ctx, st) => quote(ctx, '“… even chimney-sweeps …”', W / 2 + 300, 750, st.lt, { px: 52, kaynak: 'MACKAY, 1841', maxW: 900 }) });
 PL('P056', 'F07', 'KIT', 'genis', st => ({ cam: camLerp(CAM(960, 560, 1), CAM(960, 400, 1.15), st.p), bg: [.15, 0, 0], renk: 0, ciz: () => {
   SET2.masaUst(820, { ton: .2 }); GR.fill(SET.R(-600, -500, 3100, 1320), GR.tone(.1), { th: 0, id: 0 });
   const n = Math.min(9, 2 + Math.floor(st.lt * 1.4)); for (let i = 0; i < n; i++) SET2.kitap(700 - (i % 2) * 20, 760 - i * 66, 520, 60, { ton: .1 + (i % 3) * .2 });
@@ -290,19 +330,31 @@ PL('P057', 'F08', 'ARS', 'orta', st => ({ cam: camLerp(CAM(960, 560, 1.02), CAM(
 } }), { over: etk('ANNE GOLDGAR · TULIPMANIA, 2007') });
 PL('P058', 'F09', 'ARS', 'ayrinti', st => ({ cam: camLerp(CAM(960, 520, 1.15), CAM(960, 520, 1.25), st.p), bg: [.2, 0, 0], renk: 0, ciz: () => {
   SET2.masaUst(-300, { ton: .16 }); SET2.defter(360, 160, 1200, 760, { cizgi: 14 });
-  YAZI.ekle('faillissementen · 1637–1638', 400, 220, { font: 'el', px: 34 });
+  YAZI.ekle('lale yüzünden iflas · belgelenen', 400, 220, { font: 'el', px: 34 });
   for (let i = 0; i < 10; i++) YAZI.ekle('—', 520, 300 + i * 44, { font: 'serif', px: 32, a: clamp((st.lt - i * .25) / .3) });
   YAZI.ekle('0', 1340, 560, { font: 'baslik', px: 140, align: 'center', a: clamp((st.lt - 2.6) / .4), renk: [120, 20, 20] });
 } }));
 PL('P059', 'F10', 'ISI', 'genis', st => ({ cam: camLerp(CAM(960, 540, 1), CAM(960, 540, 1.08), st.p), bg: [.9, 0, 10], renk: 0, ciz: () => {
   GR.fill(SET.R(-200, -200, 2400, 1500), GR.tone(.92), { th: 0, id: 10 });
   for (let i = 0; i < 70; i++) { const x = 200 + (i % 14) * 110, y = 260 + Math.floor(i / 14) * 130, a = clamp((st.lt - i * .03) / .3); if (a > 0) INSAN.adam({ x, y: y + 110, h: 110 * a, yon: i % 2 ? 1 : -1, arka: i % 3 === 0, sapka: 'genis', yaka: 'duz', kenar: .5 }); }
-} }), { over: etk('AŞAĞI YUKARI 350 AD') });
+} }), { over: etk('AŞAĞI YUKARI 350 KİŞİ') });
 PL('P05A', 'F11', 'SOZ', 'yakin', st => { const k = W_(st, 'F11', 'tutulmayan'); const y = io((st.lt - k) / 1.0); return { cam: camLerp(CAM(960, 560, 1.15), CAM(960, 560, 1.25), st.p), bg: [.2, 0, 0], renk: 0, ciz: () => {
   SET2.masaUst(-300, { ton: .2 });
-  SET2.sayfa(620 - y * 80, 300, 340, 440, { ton: .95 }); SET2.sayfa(960 + y * 80, 300, 340, 440, { ton: .95 });
-  YAZI.ekle('te betalen in Junij', 650 - y * 80, 400, { font: 'el', px: 34 }); SET2.satirlar(650 - y * 80, 460, 280, 6, 34); SET2.satirlar(990 + y * 80, 460, 280, 6, 34);
+  const x0 = 760, y0 = 250, w = 400, h = 500, sx = x0 + w / 2, cy = y0 + h / 2, J = [];
+  for (let i = 0; i <= 14; i++) J.push([(i % 2 ? 13 : -11) + Math.sin(i * 2.3) * 5, -h / 2 + i * h / 14]);
+  for (const sg of [-1, 1]) {   // senedin iki yarısı: yırtık kenar ortada, yarılar yana açılıp döner
+    const kx = (sg < 0 ? x0 : x0 + w) - sx, pts = [[kx, -h / 2], ...J, [kx, h / 2]];
+    GR.save(); GR.frame(sx + sg * y * 150, cy + y * 26, sg * y * .14, 1, 1);
+    GR.fill(INSAN.F(pts), GR.tone(.95), { th: .02, id: 10 });
+    for (let i = 0; i < 7; i++) GR.fill(SET.R(sg < 0 ? kx + 34 : 34, -110 + i * 38, sg < 0 ? 150 - (i % 3) * 20 : 130 - (i % 2) * 24, 3), GR.tone(.25), { th: 0, id: 9 });
+    GR.restore();
+  }
+  YAZI.ekle('te betalen in Junij', x0 + 28 - y * 150, y0 + 100 + y * 10, { font: 'el', px: 34, rot: -y * .14 });
 } }; });
+PL('P05B', 'F11@yıkımı', 'KIT', 'genis', st => ({ cam: camLerp(CAM(960, 520, 1), CAM(960, 420, 1.12), st.p), bg: [.15, 0, 0], renk: 0, ciz: () => {
+  SET2.masaUst(820, { ton: .2 }); GR.fill(SET.R(-600, -500, 3100, 1320), GR.tone(.1), { th: 0, id: 0 });
+  const n = Math.min(10, 3 + Math.floor(st.lt * 2)); for (let i = 0; i < n; i++) SET2.kitap(700 - (i % 2) * 20, 760 - i * 66, 520, 60, { ton: .1 + (i % 3) * .2 });
+} }));
 
 // ═════════ 6. İSTANBUL ═════════
 PL('P060', 'G01', 'IST', 'orta', st => ({ cam: camLerp(CAM(960, 560, 1), CAM(1000, 560, 1.1), st.p), bg: [.9, 0, 10], ciz: () => {
@@ -317,7 +369,7 @@ PL('P061', 'G02', 'SAA', 'genis', st => { const u = io(st.lt / Math.max(2, st.d 
   SET.kosk(560, 700, 800, 300 * (.3 + u * .7), {});
   for (const [x, h] of [[250, 460], [1700, 520]]) SET.servi(x, 760, h);
   GR.fill(SET.R(-600, 840, 3100, 600), GR.tone(.35), { type: 'persp', y0: 840, D: 200, p0: 7, p1: 14, id: 8 });
-} }; }, { over: etk('SAADABAD · KÂĞITHANE') });
+} }; }, { over: etk('SADABAD · KÂĞITHANE') });
 PL('P062', 'G03', 'GEC', 'orta', st => ({ cam: camLerp(CAM(960, 620, 1.05), CAM(900, 640, 1.18), st.p), bg: [.08, 0, 1], ciz: () => {
   GR.fill(SET.R(-200, -200, 2400, 1500), GR.tone(.08), { th: -.05, id: 1 });
   SET.kosk(560, 640, 800, 300, { gece: true });
@@ -325,7 +377,7 @@ PL('P062', 'G03', 'GEC', 'orta', st => ({ cam: camLerp(CAM(960, 620, 1.05), CAM(
   GR.fill(SET.R(-200, 700, 2400, 500), GR.tone(.12), { type: 'persp', y0: 700, D: 200, p0: 7, p1: 14, id: 8 });
   for (let r = 0; r < 3; r++) for (let x = 120; x < 1850; x += 110) LALE.ciz(x + r * 40, 800 + r * 90, .6 + r * .2, { tip: 'ist', sap: 60 + r * 20, cesit: r === 1 ? 'istSari' : 'ist', ac: .1 });
   for (let x = 160; x < 1850; x += 220) { SET.kandil(x, 760, st.t + x, 1.2); SET.isik({ x, y: 760, r1: 170, a: .6 }); }
-  const kx = 300 + st.lt * 60; SET.kaplumbaga(kx, 1010, 1.2, st.t); SET.isik({ x: kx, y: 900, r1: 220, a: .7 });
+  const kx = 300 + st.lt * 60; SET.kaplumbaga(kx, 872, 1.5, st.t); SET.isik({ x: kx, y: 760, r1: 260, a: .8 });
 } }), { over: etk('ÇIRAĞAN · ANLATILANLARA GÖRE') });
 PL('P063', 'G04', 'NIZ', 'yakin', st => ({ cam: camLerp(CAM(960, 520, 1.1), CAM(960, 480, 1.2), st.p), bg: [.88, 0, 10], ciz: () => {
   GR.fill(SET.R(-200, -200, 2400, 1500), GR.tone(.9), { th: 0, id: 10 }); SET.isik({ x: 960, y: 400, r1: 800, a: .5 });
@@ -334,7 +386,7 @@ PL('P063', 'G04', 'NIZ', 'yakin', st => ({ cam: camLerp(CAM(960, 520, 1.1), CAM(
 PL('P064', 'G05', 'CAR', 'genis', st => ({ cam: camLerp(CAM(960, 540, 1), CAM(1000, 560, 1.1), st.p), bg: [.3, 0, 0], ciz: () => {
   SET2.carsi(st.t);
   SET2.osmanli({ x: 700, y: 1060, h: 560, yon: 1, sapka: 'sarik', kenar: .45, kolOn: { a: 1.4, b: .6 } }); SET2.osmanli({ x: 1100, y: 1060, h: 540, yon: -1, sapka: 'sarik', kenar: .45, kenarYan: -1, kolOn: { a: 1.4, b: .6 } });
-  SET2.para(900, 760, 3 + Math.floor(st.lt * 2) % 4, .8);
+  SET2.para(880, 636, 3 + Math.floor(st.lt * 2) % 4, .8);
 } }));
 // kadı defteri: Latin harfli aktarım (Aktepe'nin yayımladığı listeden)
 function narhDefteri(st, o = {}) {
@@ -345,7 +397,7 @@ function narhDefteri(st, o = {}) {
   LALE.ciz(1250, 520, 1.6, { sap: 150, tip: 'ist', cesit: 'ist', ac: .05 });
 }
 PL('P065', 'G06', 'NAR', 'ayrinti', st => ({ cam: camLerp(CAM(960, 520, 1.05), CAM(900, 480, 1.15), st.p), bg: [.2, 0, 0], ciz: () => narhDefteri(st) }),
-  { over: both(etk('İSTANBUL KADILIĞI DEFTERİ · 28 HAZİRAN 1726', { px: 38 }), (ctx, st) => etiket(ctx, 'Latin harfli aktarım: M. Münir Aktepe, 1953', W / 2, 830, st.lt - 1, st.d - 1, { align: 'center', px: 30 })) });
+  { over: both(etk('İSTANBUL KADILIĞI DEFTERİ · 28 HAZİRAN 1726', { px: 38, y: 100 }), (ctx, st) => etiket(ctx, 'Latin harfli aktarım: M. Münir Aktepe, 1953', W / 2, 830, st.lt - 1, st.d - 1, { align: 'center', px: 30 })) });
 PL('P066', 'G07', 'SUR', 'orta', st => ({ cam: camLerp(CAM(960, 600, 1.05), CAM(1060, 620, 1.15), st.p), bg: [.85, 0, 10], ciz: () => {
   SET2.bogaz(st.t, { kosk: false, servi: [[200, 420]] }); SET2.gemi(1400, 700, 1, st.t);
   SET2.osmanli({ x: 700, y: 1040, h: 560, yon: -1, sapka: 'kavuk', kenar: .45, kenarYan: -1, kolOn: { a: 1.2, b: .6 } });
@@ -354,20 +406,25 @@ PL('P066', 'G07', 'SUR', 'orta', st => ({ cam: camLerp(CAM(960, 600, 1.05), CAM(
 } }), { over: etk('NARHIN ÜSTÜNDE SATANA: MÜSADERE VE SÜRGÜN') });
 PL('P067', 'G08', 'NAR', 'yakin', st => ({ cam: camLerp(CAM(620, 380, 1.6), CAM(700, 460, 1.4), st.p), bg: [.2, 0, 0], ciz: () => narhDefteri(st) }),
   { over: (ctx, st) => { const k = W_(st, 'G08', 'üç'); buyukYazi('≈ 300 YEVMİYE', { y: 800, px: 84, t0: k })(ctx, st); } });
-PL('P068', 'G09', 'NAR', 'ayrinti', st => { const k = W_(st, 'G09', 'dört'); return { cam: camLerp(CAM(700, 420, 1.5), CAM(700, 420, 1.6), st.p), bg: [.2, 0, 0], ciz: () => {
+PL('P068', 'G09', 'NAR', 'ayrinti', st => { const k = W_(st, 'G09', 'dört'); return { cam: camLerp(CAM(700, 380, 1.5), CAM(720, 380, 1.6), st.p), bg: [.2, 0, 0], ciz: () => {
   narhDefteri(st, { baslik: 'Narh fermanı sureti · Muharrem 1140 (Ağustos 1727)', liste: [['Nîze-i rummânî', ''], ['Sâhib-kırân', '150 kuruş'], ['Gül-rîz', '100 kuruş']] });
-  YAZI.ekle('50', 860, 306, { font: 'serif', px: 34, align: 'right', a: 1 - clamp((st.lt - k) / .3) });
-  if (st.lt > k) { GR.fill(SET.R(800, 292, 70, 3), GR.tone(.1), { th: 0, id: 9 }); YAZI.ekle('200 kuruş', 940, 306, { font: 'serif', px: 38, align: 'right', renk: [130, 20, 20], a: clamp((st.lt - k) / .4) }); }
+  YAZI.ekle('50 kuruş', 940, 260, { font: 'serif', px: 34, align: 'right', a: 1 - .45 * clamp((st.lt - k) / .4) });
+  if (st.lt > k) { const u = clamp((st.lt - k) / .35); GR.fill(SET.R(800, 256, 146 * u, 3), GR.tone(.1), { th: 0, id: 9 }); YAZI.ekle('200 kuruş', 975, 260, { font: 'serif', px: 40, renk: [130, 20, 20], a: clamp((st.lt - k - .2) / .4) }); }
 } }; }, { over: etk('BİR YIL SONRA · 1727') });
 
 // ═════════ 7. 1730 ═════════
 PL('P070', 'H01', 'CAD', 'genis', st => ({ cam: camLerp(CAM(960, 540, 1), CAM(1040, 540, 1.1), st.p), bg: [.8, 0, 10], ciz: () => SET2.cadirlar(st.t) }),
   { over: both(kartOver('H01'), etk('ÜSKÜDAR · EYLÜL 1730', { t0: 3.4 })) });
-PL('P071', 'H02', 'BEY', 'orta', st => ({ cam: camLerp(CAM(960, 620, 1.1), CAM(960, 640, 1.0), st.p), bg: [.3, 0, 0], ciz: () => {
-  SET2.carsi(st.t); SET2.kalabalik(st.t, { n: 4 + Math.floor(clamp(st.lt / st.d) * 12), mesale: 0 });
-} }), { over: etk('BEYAZIT · 28 EYLÜL 1730') });
-PL('P072', 'H03', 'SAR', 'genis', st => { const k = W_(st, 'H03', 'ekimin'); return { cam: camLerp(CAM(960, 560, 1), CAM(960, 520, 1.12), st.p), bg: [.05, 0, 1], ciz: () => SET2.sarayKapi(st.t, { kandil: 1 - clamp((st.lt - k - 1.2) / 1.4) }) }; },
-  { over: (ctx, st) => { const k = W_(st, 'H03', 'ekimin'); etiket(ctx, '1 EKİM 1730', 150, 120, st.lt - k, st.d - k); } });
+PL('P071', 'H02', 'BEY', 'orta', st => { const kb = W_(st, 'H02', 'kalabalık'); const b = io((st.lt - kb + 1.2) / 2.4); return { cam: camLerp(CAM(960, 620, 1.1), CAM(960, 640, 1.0), st.p), bg: [.3, 0, 0], renk: 0, ciz: () => {
+  SET2.carsi(st.t, { lale: false }); SET2.kalabalik(st.t, { n: 3 + Math.floor(b * 13), mesale: 0, karisik: true });
+  SET2.osmanli({ x: 820, y: 1200, h: 780, yon: 1, arka: true, sapka: 'sarik', sarikTon: .3, kenar: .6, kolOn: { a: .25, b: .3 } });
+  // omzunda eski giysi çıkını: düzensiz, düğümlü (başın yanında açık disk hale, belde çizgili oval kalkan gibi okunuyordu)
+  GR.fill(INSAN.Sm([[724, 572], [778, 548], [842, 560], [870, 604], [856, 652], [800, 676], [742, 664], [716, 624]]), GR.tone(.34), { th: .25, id: 9 });
+  for (const [x1, y1, x2] of [[742, 600, 846], [736, 636, 838]]) GR.fill(SET.R(x1, y1, x2 - x1, 4), GR.tone(.12), { th: 0, id: 9 });
+  GR.fill(INSAN.F([[790, 552], [770, 520], [800, 540], [826, 516], [812, 556]]), GR.tone(.28), { th: 0, id: 9 });   // düğüm
+} }; }, { over: etk('BEYAZIT · 28 EYLÜL 1730 · PATRONA HALİL') });
+PL('P072', 'H03', 'SAR', 'genis', st => { const k = W_(st, 'H03', 'ekimin'); return { cam: camLerp(CAM(960, 560, 1), CAM(960, 520, 1.12), st.p), bg: [.05, 0, 1], ciz: () => SET2.sarayKapi(st.t, { kandil: 1 - clamp((st.lt - k - 1.2) / 1.4), duvar: .32, kandilS: 2.0, kandilR: 560 }) }; },
+  { over: (ctx, st) => { const k = W_(st, 'H03', 'ekimin'); etiket(ctx, '1 EKİM 1730', 150, 120, st.lt - k, st.d - k, { align: 'left' }); } });
 PL('P073', 'H04', 'SED', 'orta', st => ({ cam: camLerp(CAM(960, 600, 1.1), CAM(960, 620, 1.18), st.p), bg: [.12, 0, 0], ciz: () => {
   SET2.sedir(st.t); SET2.osmanli({ x: 1300 + st.lt * 60, y: 1040, h: 600, yon: 1, arka: true, kenar: .5, adim: st.t * .6 });
 } }), { over: etk('2 EKİM 1730 · TAHT I. MAHMUD\'A') });
@@ -387,6 +444,7 @@ PL('P075', 'H06', 'PAT', 'yakin', st => { const u = io(st.lt / st.d); return { c
 PL('P080', 'I02', 'KRO', 'ayrinti', st => ({ cam: camLerp(CAM(960, 540, 1.05), CAM(960, 540, 1.15), st.p), bg: [.1, 0, 0], renk: 0, ciz: () => {
   GR.fill(SET.R(-200, -200, 2400, 1500), GR.tone(.08), { th: 0, id: 0 });
   for (let i = 0; i < 9; i++) SET2.kitap(300 + i * 150, 300, 120, 560, { ton: .12 + (i % 3) * .12 });
+  [[1, 'TÂRÎH-İ RÂŞİD'], [4, 'TÂRÎH-İ ÇELEBİZÂDE'], [7, 'TÂRÎH-İ SUBHÎ']].forEach(([i, ad]) => { GR.fill(SET.R(318 + i * 150, 360, 84, 440), GR.tone(.9), { th: HV_, id: 10 }); YAZI.ekle(ad, 360 + i * 150, 580, { font: 'baslik', px: 30, align: 'center', rot: -Math.PI / 2 }); });   // sırt etiketi (açık kâğıt, koyu yazı: baskı katmanı çarpmayla basılır)
   SET.isik({ x: 960, y: 400, r1: 900, a: .5 });
 } }), { over: both(kartOver('I02'), etk('ON SEKİZİNCİ YÜZYIL VAKAYİNAMELERİ', { t0: 3.4, px: 38 })) });
 PL('P081', 'I03', 'IKD', 'orta', st => ({ cam: camLerp(CAM(960, 540, 1), CAM(960, 500, 1.12), st.p), bg: [.15, 0, 0], ciz: () => {
@@ -395,18 +453,18 @@ PL('P081', 'I03', 'IKD', 'orta', st => ({ cam: camLerp(CAM(960, 540, 1), CAM(960
   YAZI.ekle('Lâle Devri', 800, 320, { font: 'baslik', px: 46, align: 'center', a: clamp((st.lt - W_(st, 'I03', 'ahmed')) / .5) });
   LALE.ciz(800, 560, .9, { sap: 40, tip: 'ist', cesit: 'ist', yaprakYok: true, renk: clamp((st.lt - W_(st, 'I03', 'ahmed')) / 1.2) });
   INSAN.adam({ x: 1500, y: 1060, h: 700, yon: -1, kenar: .45, kenarYan: -1, kolOn: { a: 1.0, b: .6 }, biyik: true, sapka: 'fes' });
-} }), { over: (ctx, st) => { etiket(ctx, 'ŞAİR YAHYA KEMAL', 150, 120, st.lt, W_(st, 'I03', 'ahmed')); const k = W_(st, 'I03', 'ahmed'); etiket(ctx, 'TARİHÇİ AHMED REFİK', 1770, 120, st.lt - k, st.d - k, { align: 'right' }); } });
+} }), { over: (ctx, st) => { etiket(ctx, 'ŞAİR YAHYA KEMAL', 150, 92, st.lt, W_(st, 'I03', 'ahmed'), { align: 'left' }); const k = W_(st, 'I03', 'ahmed'); etiket(ctx, 'TARİHÇİ AHMED REFİK', 1770, 92, st.lt - k, st.d - k, { align: 'right' }); } });
 PL('P082', 'I04', 'KIT', 'yakin', st => ({ cam: camLerp(CAM(960, 560, 1.15), CAM(960, 520, 1.25), st.p), bg: [.15, 0, 0], ciz: () => {
   SET2.masaUst(-300, { ton: .16 }); SET2.kitap(360, 160, 1200, 760, { acik: true });
   YAZI.ekle('LÂLE DEVRİ', 660, 260, { font: 'baslik', px: 40, align: 'center' }); SET2.satirlar(420, 320, 480, 8, 34);
   YAZI.ekle('500 – 1000 altın', 1260, 280, { font: 'baslik', px: 44, align: 'center' });
   LALE.ciz(1260, 640, 1.3, { sap: 140, tip: 'ist', cesit: 'ist' });
   SET2.para(1160, 840, 3 + Math.floor(clamp(st.lt / 2) * 8), .9); SET2.para(1360, 840, 3 + Math.floor(clamp(st.lt / 2) * 6), .9);
-} }), { over: etk('AHMED REFİK, LÂLE DEVRİ (1915)') });
+} }), { over: etk('AHMED REFİK, LÂLE DEVRİ (KİTAP, 1915)') });
 PL('P083', 'I05', 'NAR', 'orta', st => { const g = io((st.lt - 2) / 1.5); return { cam: camLerp(CAM(960, 540, 1.0), CAM(960, 540, 1.08), st.p), bg: [.2, 0, 0], ciz: () => {
   narhDefteri(st);
   SET2.para(1500, 860, Math.max(1, Math.round(14 * (1 - g) + 1)), 1.0);
-} }; }, { over: both(etk('M. MÜNİR AKTEPE · TARİH DERGİSİ, 1953'), (ctx, st) => quote(ctx, '“Bu rivayetin doğruluğunu isbat edecek bir vesika da ortada yoktur.”', W / 2, 790, st.lt - 2.5, { px: 46, maxW: 1500 })) });
+} }; }, { over: both(etk('M. MÜNİR AKTEPE · TARİH DERGİSİ, 1953', { y: 100 }), (ctx, st) => quote(ctx, '“Bu rivayetin doğruluğunu isbat edecek bir vesika da ortada yoktur.”', W / 2, 790, st.lt - 2.5, { px: 46, maxW: 1500 })) });
 PL('P084', 'I06', 'DER', 'yakin', st => ({ cam: camLerp(CAM(960, 560, 1.12), CAM(960, 540, 1.22), st.p), bg: [.15, 0, 0], ciz: () => {
   SET2.masaUst(-300, { ton: .2 }); SET2.kitap(360, 160, 1200, 760, { acik: true });
   YAZI.ekle('LÂLE DEVRİ (1718–1730)', 660, 250, { font: 'baslik', px: 32, align: 'center' }); SET2.satirlar(420, 300, 480, 9, 34);
@@ -415,25 +473,27 @@ PL('P084', 'I06', 'DER', 'yakin', st => ({ cam: camLerp(CAM(960, 560, 1.12), CAM
 } }), { over: etk('DERS KİTAPLARINDAKİ ANLATI') });
 PL('P085', 'I07', 'KTP', 'ayrinti', st => ({ cam: camLerp(CAM(960, 520, 1.1), CAM(960, 520, 1.2), st.p), bg: [.15, 0, 0], ciz: () => {
   SET2.masaUst(-300, { ton: .2 }); SET2.kitap(700, 120, 520, 760, { ton: .85 });
-  YAZI.ekle('LALE DEVRİ MI?', 960, 320, { font: 'baslik', px: 52, align: 'center' }); YAZI.ekle('2025', 960, 380, { font: 'serif', px: 32, align: 'center' });
+  YAZI.ekle('LALE DEVRİ Mİ?', 960, 320, { font: 'baslik', px: 52, align: 'center' }); YAZI.ekle('2025', 960, 380, { font: 'serif', px: 32, align: 'center' });
   LALE.ciz(960, 640, 1.0, { sap: 60, tip: 'ist', cesit: 'ist', yaprakYok: true });
-} }), { over: (ctx, st) => { const k = W_(st, 'I07', 'lale'); quote(ctx, '“Lale Devri hiç yaşanmamıştır.”', W / 2, 790, st.lt - k + .3, { px: 64, kaynak: 'SELİM KARAHASANOĞLU (ED.), 2025' }); } });
+} }), { over: (ctx, st) => { const k = W_(st, 'I07', 'lale'); quote(ctx, '“Lale Devri hiç yaşanmamıştır.”', W / 2, 740, st.lt - k + .3, { px: 64, kaynak: 'SELİM KARAHASANOĞLU (ED.), 2025' }); } });
 // etiket sökülür: bahçe gündüz, üstünde "SEFAHAT ÇAĞI" levhası düşer
 PL('P086', 'I08', 'KAG', 'genis', st => { const k = W_(st, 'I08', 'sonradan'); const d = io((st.lt - k) / 1.2); return { cam: camLerp(CAM(960, 560, 1), CAM(960, 580, 1.08), st.p), bg: [.9, 0, 10], ciz: () => {
   SET2.bogaz(st.t, { kx: 560, kw: 800 });
   for (let x = 100; x < 1900; x += 110) LALE.ciz(x, 1000, .8, { sap: 80, tip: 'ist', cesit: (x / 110) % 2 ? 'ist' : 'istSari' });
   GR.save(); GR.frame(960, 180 + d * 900, d * .6, 1, 1); SET2.sayfa(-300, -60, 600, 120, { ton: .95 }); GR.restore();
-  YAZI.ekle('SEFAHAT ÇAĞI', 960, 200 + d * 900, { font: 'baslik', px: 56, align: 'center', a: 1 - d });
+  YAZI.ekle('SEFAHAT ÇAĞI', 960, 200 + d * 900, { font: 'baslik', px: 56, align: 'center', a: clamp(1 - d * 1.7) });
 } }; });
+
+PL('P086b', 'I08@ona', 'SED', 'yakin', st => ({ cam: camLerp(CAM(860, 620, 1.45), CAM(980, 640, 1.6), st.p), bg: [.12, 0, 0], renk: 0, ciz: () => SET2.sedir(st.t) }));
 
 // ═════════ 9. SON ═════════
 PL('P090', 'J02', 'KIT', 'orta', st => ({ cam: camLerp(CAM(960, 540, 1), CAM(960, 540, 1.1), st.p), bg: [.15, 0, 0], ciz: () => {
   SET2.masaUst(-300, { ton: .18 });
   SET2.kitap(160, 180, 760, 620, { acik: true }); SET2.kitap(1000, 180, 760, 620, { acik: true });
-  YAZI.ekle('MACKAY · 1841', 540, 260, { font: 'baslik', px: 34, align: 'center' }); YAZI.ekle('AHMED REFİK · 1915', 1380, 260, { font: 'baslik', px: 34, align: 'center' });
+  YAZI.ekle('MACKAY · 1841', 352, 260, { font: 'baslik', px: 34, align: 'center' }); YAZI.ekle('AHMED REFİK · 1913', 1192, 260, { font: 'baslik', px: 34, align: 'center' });
   const r = io((st.lt - 1) / 2);
   LALE.ciz(540, 640, 1.3, { sap: 120, cesit: 'semper', renk: r }); LALE.ciz(1380, 640, 1.3, { sap: 120, tip: 'ist', cesit: 'ist', renk: r });
-} }), { over: (ctx, st) => { etiket(ctx, 'İKİ ÇILGINLIK · İKİ KİTAP', W / 2, 860, st.lt - 1, st.d - 1, { align: 'center' }); } });
+} }), { over: (ctx, st) => { etiket(ctx, 'İKİ ÇILGINLIK · İKİ KİTAP', W / 2, 842, st.lt - 1, st.d - 1, { align: 'center' }); } });
 PL('P091', 'J03', 'ODA', 'yakin', st => ({ cam: camLerp(CAM(960, 660, 1.4), CAM(960, 640, 1.5), st.p), bg: [.08, 0, 0], ciz: () => {
   SET2.arkaOda(st.t);
   INSAN.adam({ x: 620, y: 1000, h: 640, yon: 1, sapka: 'genis', yaka: 'duz', kenar: .5, kolOn: { a: .6 + Math.sin(st.t * 2) * .2, b: 1.0 } });
@@ -452,7 +512,7 @@ PL('P094', 'J06', 'SON', 'genis', st => ({ cam: camLerp(CAM(960, 560, 1.05), CAM
 PL('P095', 'J06@ekranda', 'SON', 'orta', st => ({ cam: CAM(960, 540, 1), bg: [.12, 0, 0], ciz: () => {
   GR.fill(SET.R(-200, -200, 2400, 1500), GR.tone(.1), { th: 0, id: 0 });
   GR.fill(SET.R(80, 140, 760, 800), GR.tone(.92), { th: -.02, id: 10 });
-  for (let r = 0; r < 4; r++) for (let x = 140; x < 800; x += 110) LALE.ciz(x + (r % 2) * 50, 620 + r * 90, .55 + r * .15, { sap: 60, cesit: ['semper', 'viceroy', 'switsers', 'amiral'][(r + x / 110) % 4 | 0], egim: Math.sin(st.t + x) * .03 });
+  for (let r = 0; r < 4; r++) for (let x = 140; x < 800; x += 110) LALE.ciz(x + (r % 2) * 50, 620 + r * 90, .55 + r * .15, { sap: 60, cesit: ['semper', 'viceroy', 'switsers', 'amiral'][(r + x / 110) % 4 | 0], egim: Math.sin(st.t * 1.1 + x) * .07 });
 } }), { over: (ctx, st) => { txt(ctx, 'ZAMAN KURYESİ', 460, 230, { px: 54, ls: 8, col: `rgb(${GR.INK})` }); txt(ctx, 'Lale Çılgınlığı', 460, 300, { px: 40, font: FONT.alinti(44), col: `rgb(${GR.INK})` }); } });
 
 function initScenes() {

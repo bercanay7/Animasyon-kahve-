@@ -20,6 +20,16 @@ const LALE = (() => {
     istSari: { zem: [232, 186, 44], alev: [190, 70, 20], kenar: [150, 90, 10] },
   };
   let Q = [];
+  // örtü (22 Kasım, Fable son okuması): lale kuyruğa girdikten sonra gravürde üstüne çizilen her opak şekil (figür, el, yüz,
+  // başka bir lale) boyayı orada siler; yoksa çarpma boyası önden geçen elin, yüzün, eteğin üstüne biner ("kanlı el" okuması).
+  // n = şekil çizildiği anda kuyruktaki lale sayısı: şekil yalnız kendinden önce kuyruğa girmiş laleleri örter.
+  // Yalnız düz opak ton ("rgb(…)") sayılır: yarı saydam ton, gradyan ve yalnız tarama örtmez (ışık, sis, gölge taraması).
+  let OCC = [];
+  const _fill = GR.fill;
+  GR.fill = function (path, toneStyle, hs, rule = 'nonzero') {
+    if (Q.length && typeof toneStyle === 'string' && toneStyle.startsWith('rgb(')) OCC.push({ p: path, m: GR.tx.getTransform(), n: Q.length, rule });
+    return _fill(path, toneStyle, hs, rule);
+  };
   const rnd = s => { const x = Math.sin(s * 127.1 + 311.7) * 43758.5453; return x - Math.floor(x); };
   // yaprak yolu: taban (bx, by), genişlik w, boy h, uç kayması lean, uç kıvrımı tip (+ dışa), dönüş a (taban çevresinde)
   function yaprakPts(bx, by, w, h, lean, tip, a) {
@@ -100,7 +110,16 @@ const LALE = (() => {
     const c = camOf(cam) || { x: 0, y: 0, s: 1 }, z = c.s * RS;
     cx.setTransform(1, 0, 0, 1, 0, 0); cx.globalCompositeOperation = 'source-over'; cx.clearRect(0, 0, DW, DH);
     const kay = o.kay ?? 2.2;
-    for (const L of Q) {
+    let oi = 0;
+    const ort = n => { // n'ye kadar (n dahil) kaydedilmiş örtüleri boya katmanından sil
+      if (oi >= OCC.length || OCC[oi].n > n) return;
+      cx.save(); cx.globalCompositeOperation = 'destination-out'; cx.fillStyle = '#000';
+      for (; oi < OCC.length && OCC[oi].n <= n; oi++) { const O = OCC[oi]; cx.setTransform(O.m); cx.fill(O.p, O.rule); }
+      cx.restore();
+    };
+    for (let qi = 0; qi < Q.length; qi++) {
+      const L = Q[qi];
+      ort(qi); // önceki lalelerin üstüne çizilenler (bu lalenin kendi çizgileri dahil değil: onlar n = qi ile kaydedildi ve önceki laleleri örter)
       const R = RENK[L.cesit] || RENK.semper, a = clamp(renk * L.renk); if (a <= .001) continue;
       cx.setTransform(z, 0, 0, z, (kay - c.x) * z, (kay * .6 - c.y) * z);
       for (const { p, Y, i } of L.kat) {
@@ -113,10 +132,10 @@ const LALE = (() => {
         cx.fillStyle = gz; cx.fill(p);
         // alevler: tabandan tepeye ince diller (kırık lale); tohumlu, kare kare sabit
         if (R.alev && !L.nokta) {
-          const n = L.ist ? 2 : 3, ax = tx - ox, ay = ty - oy, Lh = Math.hypot(ax, ay), ux = ax / Lh, uy = ay / Lh, vx = -uy, vy = ux;
+          const n = (L.ist ? 2 : 3) + (o.alevN || 0), ax = tx - ox, ay = ty - oy, Lh = Math.hypot(ax, ay), ux = ax / Lh, uy = ay / Lh, vx = -uy, vy = ux;
           cx.fillStyle = rgba(R.alev, a * .92);
           for (let k = 0; k < n; k++) {
-            const off = (k - (n - 1) / 2) * L.W0 * .18 + (rnd(L.tohum + k + i * 7) - .5) * 6 * L.s, len = Lh * (.5 + .42 * rnd(L.tohum * 3 + k + i)), wd = L.W0 * (.035 + .045 * rnd(L.tohum + k * 5 + i));
+            const off = (k - (n - 1) / 2) * L.W0 * .18 + (rnd(L.tohum + k + i * 7) - .5) * 6 * L.s, len = Lh * (.5 + .42 * rnd(L.tohum * 3 + k + i)), wd = L.W0 * (.035 + .045 * rnd(L.tohum + k * 5 + i)) * (o.alevK || 1);
             const b0x = ox + vx * off + ux * Lh * .1, b0y = oy + vy * off + uy * Lh * .1, ex = b0x + ux * len + vx * (rnd(k + i + L.tohum * 2) - .5) * 10 * L.s, ey = b0y + uy * len + vy * (rnd(k + i + L.tohum * 2) - .5) * 10 * L.s;
             cx.beginPath(); cx.moveTo(b0x - vx * wd, b0y - vy * wd);
             cx.bezierCurveTo(b0x - vx * wd * 1.4 + ux * len * .4, b0y - vy * wd * 1.4 + uy * len * .4, ex - vx * wd * .3 - ux * len * .2, ey - vy * wd * .3 - uy * len * .2, ex, ey);
@@ -131,10 +150,11 @@ const LALE = (() => {
         cx.restore();
       }
     }
+    ort(Infinity);
     // granül: boyayı pigment gürültüsüyle seyrelt
     cx.setTransform(1, 0, 0, 1, 0, 0); if (!GP) GP = cx.createPattern(GT, 'repeat');
     cx.globalCompositeOperation = 'destination-in'; cx.fillStyle = GP; cx.fillRect(0, 0, DW, DH); cx.globalCompositeOperation = 'source-over';
     ctx.save(); ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.globalCompositeOperation = 'multiply'; ctx.drawImage(CV, 0, 0); ctx.restore();
   }
-  return { ciz, sogan, nokta, boya, RENK, sifirla: () => { Q = []; }, get kuyruk() { return Q; } };
+  return { ciz, sogan, nokta, boya, RENK, sifirla: () => { Q = []; OCC = []; }, get kuyruk() { return Q; } };
 })();

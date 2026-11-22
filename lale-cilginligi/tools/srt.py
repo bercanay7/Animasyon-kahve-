@@ -26,7 +26,7 @@ def _low(w): return w.replace('İ', 'i').replace('I', 'ı').lower()
 def _core(w): return re.sub(r'[,;:.?!…”“"]+$|^[“"]+', '', w)
 def pen_end(w):
     """w sözcüğünden sonra kesmenin cezası (negatif = ödül)"""
-    if re.fullmatch(r'[“"]?[A-ZÇĞİÖŞÜ]\.', w): return 200  # "C." gibi tek harfli kısaltmadan sonra kesilmez
+    if re.fullmatch(r'[“"]?[A-ZÇĞİÖŞÜ]\.', w) or re.fullmatch(r'[IVXL]+\.', w): return 200  # "C." ve "III." gibi kısaltma/sıra sayısından sonra kesilmez
     if w[-1] in ',;:.?!…' or w[-2:] in ('.”', '?”', '!”', ',”'): return -25
     c = _low(_core(w)); p = 0
     if c in DANGLE: p += 60
@@ -89,7 +89,7 @@ for sg in segs:
     sents, cur = [], []
     for i in range(n):
         cur.append(i)
-        if i == n - 1 or (toks[i][-1] in '.?!…' and not re.fullmatch(r'[A-ZÇĞİÖŞÜ]\.', toks[i])) or toks[i].endswith('.”') or toks[i].endswith('?”'):
+        if i == n - 1 or (toks[i][-1] in '.?!…' and not re.fullmatch(r'[A-ZÇĞİÖŞÜ]\.', toks[i]) and not re.fullmatch(r'[IVXL]+\.', toks[i])) or toks[i].endswith('.”') or toks[i].endswith('?”'):
             sents.append(cur); cur = []
     # çok kısa cümleleri (≤ 2 kelime) bir sonrakiyle birleştir
     merged = []
