@@ -80,3 +80,18 @@ Web sayfaları ajanlar ve başkan tarafından okundu; dergipark PDF'leri (Aktepe
 - **Kalvinist vaazlar:** Smithsonian broşürleri "Calvinist" diye niteler. Kullanıcının hassasiyet kuralı: dinî figür ve vaaz çağrışımı yok. Anlatımda "broşür" denir, din anılmaz.
 - **Busbecq'in tarihi:** mektup sonradan yazılmış ve iki yolculuğu karıştırmış olabilir (Grout). Anlatımda yıl "1554'ün sonu" (Kasım 1554 yolculuğu) kalır.
 - **Yatırım tavsiyesi yok;** bugünden belirli varlık, kişi ya da kurum anılmaz (kullanıcının kuralı). Açıklamaya "yatırım tavsiyesi değildir" satırı.
+
+## Fable son okumasından sonra (22 Kasım; doğrulayıcı ajanlar kaynağı açtı)
+| Yer | Bulgu | Kaynak | Sonuç |
+|---|---|---|---|
+| G09 (ekran) | 1727 suretinin ilk satırı: Nîze-i rummânî 200, Sâhib-kırân 150, Gül-rîz 100 kuruş | Aktepe, "Damad İbrahim Paşa Devrinde Lâleye Dâir Bir Vesika", TM XI, s. 118 | ✓ (ekran birebir) |
+| G06 (ekran) | 1726 defterinin başlığı ("…lâle-i rûmî ecnâsının … fiat defteridir") | Aktepe, TD IV/7, s. 94; en ucuz kalemler (Bıyıklı, Kızıl, Şirin) 1 akçe: TD VI/9, s. 37–38 | ✓ (ekrandaki başlık kısaltma) |
+| D08 (ekran) | Alkmaar listesi: Viceroy 4203, Bruyn Purper 2025, Paragon van Delft (of Molswijck) 605 | DBNL çevriyazısı (bont054oors01_01_0064, 37 kalem) | ✓; listede olmayan "Brabanson 1600" çıkarıldı; Admirael van Enkhuizen 5.200 mezattan önce özel satış (Grout), listeden alındı |
+| D02 (ekran) | Senette "Semper Augustus — 200 aes · Haarlem, 1636" Mackay'in pasajından geliyordu | Mackay 1841 (kaynak/mackay_1841_tulipomania.txt, 76–81) | "Switsers — 1 pond" yapıldı (pond = libre; ucuz çeşitler libreyle satıldı) |
+| B01 (ekran) | Busbecq'in Edirne–İstanbul yolu | TDV "Busbeke": 20 Ocak 1555'te İstanbul'a varır; Viyana'dan çıkış 23 Kasım 1554 | Ekran "1554–55 KIŞI"; anlatımdaki "1554'ün sonu" yuvarlama olarak kalır |
+| E06 (ekran) | Kararı veren | Haarlem belediyesi (burgemeesters), Mayıs 1638 (Grout) | Künye "HAARLEM BELEDİYESİ KARARI · MAYIS 1638" |
+| F09 (ekran) | Defter başlığı "faillissementen · 1637–1638" anlatımdan geniş (bütün iflaslar) | Goldgar: lale yüzünden iflas eden kimse bulunamadı | "lale yüzünden iflas · belgelenen" yapıldı |
+| I07 | "Lale Devri hiç yaşanmamıştır." | Karahasanoğlu (ed.), Lale Devri mi? (Aralık 2025), yayıncının örnek PDF'i s. 12 | ✓ kelimesi kelimesine |
+| I05 | Aktepe TD IV/7 yılı | DergiPark 1953; TDV "Lâle Devri" maddesi 1952 der | 1953 korunur; açıklamada "TDV'de 1952" |
+| I03/J02 (ekran) | Ahmed Refik 1913 (tefrika) / 1915 (kitap) yan yana | TDV | Son planda 1913 (anlatımla aynı); 8:10 künyesi "(KİTAP, 1915)" |
+| G08 | 1726 düz işçi yevmiyesi 20,5 akçe | Pamuk 2000 (tablo web'de görülemedi) | belirsiz kalır; "yakın" ve "≈" payı; kitap tablosundan bakılacak |

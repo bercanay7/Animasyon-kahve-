@@ -15,7 +15,7 @@ Yükleme YouTube Studio'da bilgisayardan yapılır. YouTube'un kendi zamanlamas�
 | `lale-cilginligi_telefon.mp4` | Telefonda izlemek için küçük kopya |
 | `kapak/kapak_a.jpg` | Kapak A: "BİR EV FİYATINA" (karşıtlık: terazide soğan ve ev) |
 | `kapak/kapak_b.jpg` | Kapak B: "HERKES ALIYORDU" (mezat: teklif veren eller ve tek renkli lale) |
-| `lale-cilginligi.tr.srt` | Türkçe altyazı (144 satır) |
+| `lale-cilginligi.tr.srt` | Türkçe altyazı (143 satır) |
 | `youtube.md` | Başlık, açıklama (bölümler, kaynaklar, görsel künyeleri), etiketler, sabit yorum |
 
 ## 1. Yükleme
@@ -30,7 +30,9 @@ Yükleme YouTube Studio'da bilgisayardan yapılır. YouTube'un kendi zamanlamas�
    - "Değiştirilmiş veya yapay içerik" sorusu: **Hayır**. Video gerçekçi görüntü içermez; stilize animasyon ve kamu malı tarihî gravürlerdir. Anlatımın yapay zekâ sesi olduğu açıklamanın "Yapım" kısmında yazılı.
 3. **Video öğeleri:**
    - Altyazı ekle → Dosya yükle → "Zamanlamalı" → `lale-cilginligi.tr.srt`.
-   - **Bitiş ekranı:** son 16 saniye (9:46–10:02). Filmde **sol yarıda** başlık ve lale tarlası var; **sağ yarı boş**. "Abone ol" ve "En yeni video" (ya da Dorian Gray) öğeleri sağ yarıya konur. Anlatımdaki "ekranda" sözcüğü 9:45,8'de.
+   - **Bitiş ekranı:** 9:44'ten sona (17,9 sn; YouTube sınırı 20 sn). Anlatımdaki "ekranda" sözcüğü 9:44,8–9:45,5'te, yani bitiş ekranının içinde. Filmde **sol yarıda** başlık kartı ve lale tarlası var (x < 840); **sağ yarı boş**. Öğeler sağ yarıya (x ≥ 900): video öğesi üstte, "Abone ol" altında.
+   - **Video öğesi:** ilk hafta "İzleyici için en iyisi" ya da "Belirli video: Dorian Gray"; 18 Aralık'tan (sonraki video çıkınca) "En yeni video". Anlatım "bir sonraki hikâye" diyor; en yeni video o zaman gerçekten sonraki hikâye olur.
+   - **"Kanalda ayrıca" satırı:** yüklemeden önce açıklamadaki "Kanalda ayrıca: Dorian Gray…" satırının sonuna Dorian'ın adresini yapıştır.
 4. **Görünürlük:** Planla → 11.12.2026, 18:00 (GMT+3) → **Planla**.
 
 ## 2. Yayından sonra
@@ -45,3 +47,4 @@ Sessizliğe dayalı hizalama kullanıldı (Scribe çağrısı otomatik izin dene
 - A07 "Peki bu adı kim koydu?" ve J04 "Herkes alıyorsa, sen de alır mısın?" soru tonu.
 - I07 "Lale Devri hiç yaşanmamıştır." alıntısının alıntı gibi okunması.
 - Müzik: Hollanda'da virjinal (hızlanan dans), İstanbul'da kanun; iki sessizlik (3:45 "kimse el kaldırmıyor" ve 7:35 "Ekim'in ilk gecesi").
+- Bölüm geçişlerinde üç kısa boşluk (2:31, 5:12, 9:03; ~1 sn neredeyse sessiz). Fable'ın izleyicilerinden biri bunu "ses kesildi" diye yadırgadı, öbürü nefes sayıp beğendi; kulakla karar ver. İstenirse müzik kuyruğu uzatılır (yalnız miks değişir, render gerekmez).

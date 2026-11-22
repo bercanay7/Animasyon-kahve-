@@ -17,6 +17,12 @@
 - **Ekran yazısı alt bandı:** künyeler ilk taslakta y ≈ 980'deydi; render'dan önce bütün `over` çağrıları tarandı.
 - **Kanca süresi:** ilk taslak (rev1) 680 karakterle ~53 sn'ydi; rev2'de 596 karakter, ses kaydında hikâye 0:44,6'da başladı. Kanca bölümüne kişi ekmek (İbrahim Paşa, Patrona Halil, "Lale Devri" adı) süreyi sınıra itiyor; ekilecek kişi tek cümleye sığmalı.
 
+## Fable son yorumu (izleyici gözü dahil; ayrıntı `uretim_plani.md` → Fable danışmaları 2, raporlar `fable_son_okuma/`)
+- **İzleyici kişilikleri işe yaradı:** üç farklı izleyici (telefonda sabırsız öğrenci, TV'de abone öğretmen, ekonomi merakıyla gelen pazarlamacı) zamanlı bir izleme günlüğü yazdı. Üçünün **ortak** düştüğü yerler kanalın kendi derslerinin tam yerleriydi (kancadan sonra ön hikâye 0:44; hikâye bitince "video bitti" hissi 5:53; art arda belge 8:10; tek planda soyut tez 8:48). Tek kişinin düşüşü zevk, ortak düşüş bulgu sayıldı. Seslendirme sabitken bu yerler görüntüyle (yeni plan, sözcüğe bağlı eylem, olay) karşılandı.
+- **Doğrulayıcı katmanı gerekliydi:** Fable'ın 59 mercek bulgusundan birkaçı yanlış ya da abartılıydı (meşale/mızrak, kopuk el, "kaynaksız" satırlar aslında Aktepe'de). Her bulgu ayrı bir ajanla karede ve kaynakta sınandı; doğrulayıcılar ayrıca kök nedenleri koda kadar izledi (künye paneli tek satır; lale boyası örtüsüz).
+- **Kod çizimi yine simge üretti:** servi + kayık (haç), kapı + pencere (bomba), kabuk ve yastıkta halka tarama (hedef tahtası), başın yanında açık bohça (hale), belde çizgili oval (kalkan), alna giden el (selam). Son üçü düzeltme sırasında başkanın kare kontrolünde çıktı: **her düzeltme kendisi yeni bir simge üretebilir; düzeltilen her plan tam boy karede yeniden bakılır.**
+- **Kullanıcının renk önerisi:** filmde değil kapakta uygulandı (kanıt: izleyicilerin üçü de filmde renk kuralını övdü, kapağı soluk buldu).
+
 ## Açık kalanlar
 - Kulakla son onay kullanıcıda (`yayin.md` → "Kulakla bakılacaklar").
 - Shorts yapılmadı (isteğe bağlı; aday kesitler `youtube.md`).
