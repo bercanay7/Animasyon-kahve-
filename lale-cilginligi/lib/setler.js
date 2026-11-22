@@ -24,34 +24,43 @@ const SET = (() => {
   // ── HOLLANDA ──
   // basamaklı alınlıklı kanal evi (trapgevel); x sol, y taban, w genişlik, h gövde boyu; o.ton cephe, o.pen pencere ışığı
   function ev(x, y, w, h, o = {}) {
-    const st = o.basamak ?? 4, gh = h * .55, ton = o.ton ?? .55;
+    const st = o.basamak ?? 4, gh = h * .55, ton = o.ton ?? .14;
     const pts = [[x, y], [x, y - h]]; const sw = w / (st * 2 + 1);
     for (let i = 0; i < st; i++) { const yy = y - h - gh * (i / st), yy2 = y - h - gh * ((i + 1) / st); pts.push([x + sw * i, yy2], [x + sw * (i + 1), yy2]); }
     pts.push([x + w - sw * st, y - h - gh]);
     for (let i = st - 1; i >= 0; i--) { const yy2 = y - h - gh * ((i + 1) / st), yy = y - h - gh * (i / st); pts.push([x + w - sw * (i + 1), yy2], [x + w - sw * i, yy2], [x + w - sw * i, yy]); }
     pts.push([x + w, y - h], [x + w, y]);
-    fill(F(pts), ton, { th: HV, id: 9 });
+    fill(F(pts), ton, { th: o.th ?? H0, id: 9 });
     // tuğla sıraları (ince koyu çizgiler)
-    for (let yy = y - 18; yy > y - h; yy -= 22) fill(R(x + 2, yy, w - 4, 2.5), ton - .22, { th: H0, id: 9 });
+    if (ton > .3 && h > 100) for (let yy = y - 18; yy > y - h; yy -= 22) fill(R(x + 2, yy, w - 4, 2.5), ton - .22, { th: H0, id: 9 });
     // pencereler: kurşunlu camlar
-    const nc = Math.max(2, Math.round(w / 70)), cw = w / nc;
-    for (let r = 0; r < Math.floor(h / 120); r++) for (let c = 0; c < nc; c++) {
+    const nc = Math.max(2, Math.round(w / 80)), cw = w / nc;
+    for (let r = 0; r < Math.min(o.kat ?? 2, Math.floor(h / 120)); r++) for (let c = 0; c < nc; c++) {
       const px = x + c * cw + cw * .2, py = y - h + 40 + r * 120, pw = cw * .6, ph = 80;
       const lit = o.pen && rnd(x + r * 7 + c) < o.pen;
-      fill(R(px, py, pw, ph), lit ? .92 : .08, { th: HV, id: lit ? 10 : 9 });
+      fill(R(px, py, pw, ph), lit ? .92 : (ton < .3 ? .4 : .08), { th: HV, id: lit ? 10 : 9 });
       fill(R(px + pw / 2 - 2, py, 4, ph), .35, { th: HV, id: 9 }); fill(R(px, py + ph / 2 - 2, pw, 4), .35, { th: H0, id: 9 });
     }
     // çatı penceresi / vinç kancası
-    fill(R(x + w / 2 - 14, y - h - gh * .72, 28, 40), .05, { th: HV, id: 9 });
-    fill(R(x + w / 2 - 3, y - h - gh * .92, 6, 22), .1, { th: HV, id: 9 });
+    if (h > 100) { fill(R(x + w / 2 - 14, y - h - gh * .72, 28, 40), .05, { th: HV, id: 9 }); fill(R(x + w / 2 - 3, y - h - gh * .92, 6, 22), .1, { th: HV, id: 9 }); }
     // kapı
     if (o.kapi !== false) fill(Sm([[x + w * .4, y], [x + w * .4, y - 90], [x + w * .5, y - 104], [x + w * .6, y - 90], [x + w * .6, y]]), .05, { th: HV, id: 9 });
   }
   // gökyüzü + uzak ufuk; o.gun (1 gündüz .. 0 gece)
   function gok(o = {}) {
     const g = o.gun ?? 1;
-    fill(R(-600, -500, 3100, 1300), .86 * g + .04, { th: -.05, id: 10 });
-    if (g > .5) for (let i = 0; i < 5; i++) { const cx = 200 + i * 420 + rnd(i) * 140, cy = 140 + rnd(i + 3) * 120; fill(Sm([[cx - 160, cy + 30], [cx - 120, cy - 20], [cx - 40, cy - 46], [cx + 60, cy - 40], [cx + 150, cy - 6], [cx + 170, cy + 30]]), .72, { type: 'rad', cx, cy: cy + 60, id: 2 }); }
+    fill(R(-600, -500, 3100, 1300), g > .5 ? .97 : .06, { th: -.04, id: 10 });
+    // ufka yakın ince çizgili pus (gravürde gökyüzü yukarıda boş kâğıt, ufukta seyrek çizgi)
+    if (g > .5) { const y0 = o.ufuk ?? 640; for (let k = 0; k < 4; k++) fill(R(-600, y0 - 150 + k * 34, 3100, 16 - k * 2), .82 - k * .02, { th: -.02, id: 1 });
+      for (let i = 0; i < 5; i++) { const cx = 200 + i * 430 + rnd(i) * 160, cy = 150 + rnd(i + 3) * 120, w = 220 + rnd(i * 7) * 160; for (let k = 0; k < 3; k++) fill(Sm([[cx - w + k * 40, cy + k * 14], [cx - w * .4, cy - 12 + k * 14], [cx + w * .5, cy - 8 + k * 14], [cx + w - k * 50, cy + 4 + k * 14], [cx + w * .3, cy + 8 + k * 14], [cx - w * .5, cy + 8 + k * 14]]), .7 + k * .06, { th: -.03, id: 2 }); } }
+  }
+  // uzak kasaba: ufukta alçak, koyu, basamaklı alınlıklı ev siluetleri (kilise kulesi yok: hassasiyet), birkaç ağaç
+  function kasaba(y, s = 1) {
+    let x = -300, i = 0;
+    while (x < 2300) { const w = (46 + rnd(i) * 40) * s, h = (40 + rnd(i + 9) * 34) * s;
+      ev(x, y, w, h, { ton: .12 + rnd(i * 3) * .08, basamak: 2 + (i % 3), kat: 0, kapi: false }); x += w + (rnd(i * 5) < .2 ? 60 * s : 2); i++; }
+    for (let k = 0; k < 9; k++) { const tx = rnd(k * 13) * 2200 - 200, th = (50 + rnd(k) * 40) * s; fill(Sm([[tx - th * .5, y], [tx - th * .55, y - th * .5], [tx - th * .2, y - th], [tx + th * .25, y - th * .95], [tx + th * .55, y - th * .45], [tx + th * .5, y]]), .03, { th: .9, id: 6 }); }
+    fill(R(-600, y - 3, 3100, 6), .1, { th: H0, id: 9 });
   }
   // yel değirmeni (uzak): x, y taban, s ölçek, a kanat açısı
   function degirmen(x, y, s, a) {
@@ -63,15 +72,17 @@ const SET = (() => {
   // lale tarlası: yatay şeritler perspektifte; satır satır laleler (renkli); o.y0 ufuk, o.t salınım zamanı, o.cesitler sıra sıra
   function tarla(o = {}) {
     const y0 = o.y0 ?? 640, t = o.t || 0;
-    fill(R(-600, y0, 3100, 900), .4, { type: 'persp', y0, D: 240, p0: 6, p1: 16, id: 8 });
-    const ces = o.cesitler || ['switsers', 'duz', 'semper', 'sari', 'viceroy', 'duz', 'switsers'];
-    const rows = o.sira ?? 9;
+    fill(R(-600, y0, 3100, 900), .22, { type: 'persp', y0, D: 260, p0: 5, p1: 14, id: 8 });
+    const ces = o.cesitler || ['switsers', 'duz', 'semper', 'sari', 'viceroy', 'duz', 'switsers', 'amiral'];
+    const rows = o.sira ?? 7;
+    // uzak şeritler: yalnız renkli bant (çiçek çizilmez): tarla ufka doğru renk şeridi olur
+    for (let r = 0; r < 5; r++) { const yy = y0 + 4 + r * 7; for (let x = -560; x < 2500; x += 16 + (r * 3)) LALE.nokta(x + rnd(x + r) * 8, yy, 2.5 + r * .7, ces[(r + 3) % ces.length]); }
     for (let r = rows - 1; r >= 0; r--) {
-      const u = (r + 1) / rows, yy = y0 + 18 + Math.pow(u, 1.8) * 520, sc = .16 + Math.pow(u, 1.6) * .8, step = 120 * sc + 22;
-      fill(R(-600, yy + 6 * sc, 3100, 20 * sc), .22, { th: H0, id: 9 });   // toprak sırtı
+      const u = (r + 1) / rows, yy = y0 + 46 + Math.pow(u, 2.1) * 520, sc = .22 + Math.pow(u, 2) * 1.05, step = 150 * sc + 26;
+      fill(R(-600, yy + 4 * sc, 3100, 26 * sc), .08, { th: H0, id: 9 });   // toprak sırtı
       for (let x = -560 + (r % 2) * step * .5; x < 2500; x += step) {
-        const sw = Math.sin(t * 1.3 + x * .004 + r) * .06;
-        LALE.ciz(x + rnd(x * .01 + r) * step * .3, yy, sc, { sap: 70 * sc, egim: sw, cesit: ces[r % ces.length], yaprakYok: sc < .3, tohum: x * .01 + r * 3.1 });
+        const sw = Math.sin(t * 1.3 + x * .004 + r) * .05;
+        LALE.ciz(x + (rnd(x * .01 + r) - .5) * step * .35, yy + (rnd(x * .03 + r) - .5) * 10 * sc, sc * (.85 + rnd(x + r * 9) * .3), { sap: 80 * sc, egim: sw, cesit: ces[(r + Math.floor(rnd(x * .7 + r) * 1.6)) % ces.length], yaprakYok: sc < .35, tohum: x * .01 + r * 3.1, ac: .15 + rnd(x + r) * .2 });
       }
     }
   }
@@ -136,5 +147,5 @@ const SET = (() => {
     for (let i = 0; i < n; i++) fill(Sm([[x + i * w / n + 10, y - h * .25], [x + i * w / n + 10, y - h * .8], [x + (i + .5) * w / n, y - h * .92], [x + (i + 1) * w / n - 10, y - h * .8], [x + (i + 1) * w / n - 10, y - h * .25]]), o.gece ? .06 : .7, { th: HV, id: o.gece ? 9 : 10 });
     fill(R(x - 40, y, w + 80, 24), .3, { th: H0, id: 9 });
   }
-  return { isik, huzme, alev, mum, ev, gok, degirmen, tarla, meyhane, masa, saksi, terazi, servi, kaplumbaga, kandil, kosk, E2, R, rnd };
+  return { isik, huzme, alev, mum, ev, kasaba, gok, degirmen, tarla, meyhane, masa, saksi, terazi, servi, kaplumbaga, kandil, kosk, E2, R, rnd };
 })();

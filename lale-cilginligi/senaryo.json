@@ -1,6 +1,6 @@
 {
  "voice": "Emrullah (ElevenLabs; voice_id creative_list_voices ile bulunur)",
- "revizyon": "rev1 (22 Kasım 2026): Osmanlı kaynak denetimi işlendi",
+ "revizyon": "rev2 (22 Kasım 2026): Fable 5.2'nin bağımsız okuması işlendi; kanca kısaltıldı",
  "not": "Kaynaklar: kaynak/DOGRULAMA.md. Çeviriler bizim. İskelet: Kahramanın Yolculuğu, kahraman lale (uretim_plani.md §4).",
  "segments": [
   {
@@ -20,57 +20,57 @@
   {
    "id": "A03",
    "bolum": "Kanca",
-   "tts": "Beş Şubat bin altı yüz otuz yedi. Hollanda'da, Alkmar kasabasında bir meyhane salonu tıklım tıklım.",
-   "alt": "5 Şubat 1637. Hollanda'da, Alkmaar kasabasında bir meyhane salonu tıklım tıklım.",
+   "tts": "Şubat bin altı yüz otuz yedi, Hollanda'da Alkmar. Bir meyhane salonu tıklım tıklım.",
+   "alt": "Şubat 1637, Hollanda'da Alkmaar. Bir meyhane salonu tıklım tıklım.",
    "kaynak": "Dash 1999 bölüm 12: mezat Nieuwe Schutters-Doelen, Alkmaar, 5 Şubat 1637"
   },
   {
    "id": "A04",
    "bolum": "Kanca",
-   "tts": "Meyhaneci ölmüş, yedi çocuğu yetimhaneye alınmış; geriye bahçesindeki lale soğanları kalmış.",
-   "alt": "Meyhaneci ölmüş, yedi çocuğu yetimhaneye alınmış; geriye bahçesindeki lale soğanları kalmış.",
+   "tts": "Kasabanın bir meyhanecisi ölmüş; yedi yetim çocuğuna kalan, bahçesindeki lale soğanları.",
+   "alt": "Kasabanın bir meyhanecisi ölmüş; yedi yetim çocuğuna kalan, bahçesindeki lale soğanları.",
    "kaynak": "Dash bölüm 12: Wouter Winkel, Oude Schutters-Doelen'in meyhanecisi; yedi çocuk Alkmaar yetimhanesine; soğanlar yetimhanede saklandı. Ekran etiketi: Wouter Winkel"
   },
   {
    "id": "A05",
    "bolum": "Kanca",
-   "tts": "O gün tek bir soğan beş bin iki yüz gulden ediyor: bir marangozun yirmi yıllık kazancı.",
-   "alt": "O gün tek bir soğan 5.200 gulden ediyor: bir marangozun yirmi yıllık kazancı.",
-   "kaynak": "Admirael van Enkhuizen (yavrusuyla) 5.200 gulden, mezattan önce özel satış (Dash). Marangozun yıllık ücreti ~250 gulden (Grout/Encyclopaedia Romana; Posthumus) → 20,8 yıl"
+   "tts": "Tek bir soğana beş bin iki yüz gulden veriliyor: Harlem'de beş küçük ev parası.",
+   "alt": "Tek bir soğana 5.200 gulden veriliyor: Haarlem'de beş küçük ev parası.",
+   "kaynak": "Admirael van Enkhuizen (yavrusuyla) 5.200 gulden, mezattan önce özel satış (Dash). 1.000 gulden = Haarlem'de küçük bir ev (Grout, Posthumus/Goldgar'dan); marangoz ~250 gulden/yıl → 20,8. Kapak A'nın 'ev' vaadi burada karşılanır"
   },
   {
    "id": "A06",
    "bolum": "Kanca",
-   "tts": "Bu hikâyenin bir ikizi var. Doksan yıl sonra İstanbul'da aynı çiçek bir sadrazamın, İbrahim Paşa'nın bahçelerinde açacak; ve bir isyan, Patrona Halil'in isyanı, o bahçeleri yıkacak.",
-   "alt": "Bu hikâyenin bir ikizi var. Doksan yıl sonra İstanbul'da aynı çiçek bir sadrazamın, İbrahim Paşa'nın bahçelerinde açacak; ve bir isyan, Patrona Halil'in isyanı, o bahçeleri yıkacak.",
-   "kaynak": "İbrahim Paşa ve Patrona Halil kancada adıyla ve görüntüsüyle ekilir (Ran dersi). 1637 → 1722–1730: 85–93 yıl. Bahçelerin tahribi: TDV \"Lâle Devri\" (Subhî)"
+   "tts": "Doksan yıl sonra aynı çiçek İstanbul'da, Nevşehirli Damat İbrahim Paşa'nın bahçelerinde açacak; ve Patrona Halil'in isyanı o bahçelerin sonunu getirecek.",
+   "alt": "Doksan yıl sonra aynı çiçek İstanbul'da, Nevşehirli Damat İbrahim Paşa'nın bahçelerinde açacak; ve Patrona Halil'in isyanı o bahçelerin sonunu getirecek.",
+   "kaynak": "İbrahim Paşa (Pargalı ile karışmasın diye 'Nevşehirli Damat') ve Patrona Halil kancada adıyla ve görüntüsüyle ekilir (Ran dersi). Fable 2.1: kanca kısaltıldı"
   },
   {
    "id": "A07",
    "bolum": "Kanca",
-   "tts": "O on iki yılın adını okulda ezberledik: Lale Devri. Peki bu adı kim koydu?",
-   "alt": "O on iki yılın adını okulda ezberledik: Lale Devri. Peki bu adı kim koydu?",
+   "tts": "O yılların adını okulda ezberledik: Lale Devri. Peki bu adı kim koydu?",
+   "alt": "O yılların adını okulda ezberledik: Lale Devri. Peki bu adı kim koydu?",
    "kaynak": "Merak L6 → I03 (1913, bir gazete tefrikası). Kancanın son sorusu; ardından hikâye"
   },
   {
    "id": "B01",
    "bolum": "Yol",
-   "tts": "Bin beş yüz elli dördün sonu. Edirne'den İstanbul'a giden yolda bir Habsburg elçisine demet demet çiçek sunuluyor.",
-   "alt": "1554'ün sonu. Edirne'den İstanbul'a giden yolda bir Habsburg elçisine demet demet çiçek sunuluyor.",
+   "tts": "Önce seksen yıl geriye: bin beş yüz elli dördün sonu. Edirne'den İstanbul'a giden yolda bir Habsburg elçisine demet demet çiçek sunuluyor.",
+   "alt": "Önce seksen yıl geriye: 1554'ün sonu. Edirne'den İstanbul'a giden yolda bir Habsburg elçisine demet demet çiçek sunuluyor.",
    "kaynak": "Busbecq, 1. mektup (tarih 1 Eylül 1555; Kasım 1554 yolculuğu; yayın 1581). Ekran etiketi: Ogier Ghiselin de Busbecq"
   },
   {
    "id": "B02",
    "bolum": "Yol",
-   "tts": "Kışın ortasında açmışlar: nergisler, sümbüller ve Türklerin tulipan dediği çiçekler.",
-   "alt": "Kışın ortasında açmışlar: nergisler, sümbüller ve Türklerin \"tulipan\" dediği çiçekler.",
+   "tts": "Yazdığına göre kışın ortasında açmışlar: nergisler, sümbüller ve Türklerin tulipan dediği çiçekler.",
+   "alt": "Yazdığına göre kışın ortasında açmışlar: nergisler, sümbüller ve Türklerin \"tulipan\" dediği çiçekler.",
    "kaynak": "Busbecq 1581, s. 41: \"Narcissorum, Hyacinthorum, & eorum quos Turcae Tulipan vocant … media plane hieme\"; Forster–Daniell 1881, I, s. 107: \"we were presented with large nosegays of flowers\""
   },
   {
    "id": "B03",
    "bolum": "Yol",
-   "tts": "Oysa Türkler ona lale derdi. Tulipan büyük ihtimalle çiçeğin takıldığı sarığın, tülbendin adıydı; Avrupa bugün hâlâ bu adı kullanıyor.",
-   "alt": "Oysa Türkler ona lale derdi. \"Tulipan\" büyük ihtimalle çiçeğin takıldığı sarığın, tülbendin adıydı; Avrupa bugün hâlâ bu adı kullanıyor.",
+   "tts": "Türkler ona lale der; tulipan büyük ihtimalle çiçeğin takıldığı sarığın, tülbendin adı. Avrupa hâlâ bu adı kullanıyor.",
+   "alt": "Türkler ona lale der; \"tulipan\" büyük ihtimalle çiçeğin takıldığı sarığın, tülbendin adı. Avrupa hâlâ bu adı kullanıyor.",
    "kaynak": "Belon 1553: Türkler laleyi sarık kıvrımına takar; ad karışıklığı yaygın açıklama, kesin değil (\"büyük ihtimalle\"). Görüntü: sarığa takılı lale"
   },
   {
@@ -90,8 +90,8 @@
   {
    "id": "B06",
    "bolum": "Yol",
-   "tts": "Bahçedeki laleler o kadar göz alıyor ki, soğanları defalarca çalınıyor; lale Hollanda'ya biraz da böyle yayılıyor.",
-   "alt": "Bahçedeki laleler o kadar göz alıyor ki, soğanları defalarca çalınıyor; lale Hollanda'ya biraz da böyle yayılıyor.",
+   "tts": "Bahçesindeki laleler o kadar göz alıyor ki soğanları defalarca çalınıyor; lale Hollanda'ya biraz da böyle yayılıyor.",
+   "alt": "Bahçesindeki laleler o kadar göz alıyor ki soğanları defalarca çalınıyor; lale Hollanda'ya biraz da böyle yayılıyor.",
    "kaynak": "Stefanaki vd., Scientific Reports 12:9786 (2022): \"Clusius' bulbs were repeatedly stolen … became a main material source for the later Dutch bulb trade\""
   },
   {
@@ -126,14 +126,14 @@
    "id": "C05",
    "bolum": "Alev",
    "tts": "En ünlüsünün adı Semper Augustus. Bin altı yüz yirmi dörtte bir yazar, bütün Hollanda'da bundan yalnızca bir düzine olduğunu yazıyor; sahibi tanesine bin iki yüz gulden verilse de satmıyor.",
-   "alt": "En ünlüsünün adı Semper Augustus. 1624'te bir yazar, bütün Hollanda'da bundan yalnızca bir düzine olduğunu yazıyor; sahibi tanesine bin iki yüz gulden verilse de satmıyor.",
+   "alt": "En ünlüsünün adı Semper Augustus. 1624'te bir yazar, bütün Hollanda'da bundan yalnızca bir düzine olduğunu yazıyor; sahibi tanesine 1.200 gulden verilse de satmıyor.",
    "kaynak": "Nicolaes van Wassenaer, Historisch verhael (1624)"
   },
   {
    "id": "C06",
    "bolum": "Alev",
    "tts": "Ertesi yıl teklif üç bin guldene çıkıyor. Adam yine satmıyor.",
-   "alt": "Ertesi yıl teklif üç bin guldene çıkıyor. Adam yine satmıyor.",
+   "alt": "Ertesi yıl teklif 3.000 guldene çıkıyor. Adam yine satmıyor.",
    "kaynak": "Wassenaer 1625: 2.000, sonra 3.000 teklif; sahibi karar veremiyor"
   },
   {
@@ -167,15 +167,15 @@
   {
    "id": "D05",
    "bolum": "Rüzgâr",
-   "tts": "Ticaret borsada değil, meyhanelerin arka odalarında yapılıyor. Artık yalnız zenginler yok: dokumacılar, fırıncılar, bira ustaları da kâğıt alıyor.",
-   "alt": "Ticaret borsada değil, meyhanelerin arka odalarında yapılıyor. Artık yalnız zenginler yok: dokumacılar, fırıncılar, bira ustaları da kâğıt alıyor.",
+   "tts": "Ticaret borsada değil, meyhanelerin arka odalarında yapılıyor. Tüccarların yanına ustalar da oturuyor: dokumacılar, fırıncılar.",
+   "alt": "Ticaret borsada değil, meyhanelerin arka odalarında yapılıyor. Tüccarların yanına ustalar da oturuyor: dokumacılar, fırıncılar.",
    "kaynak": "\"colleges\" meyhanelerde (Dash, Goldgar); dokumacı, bira ustası, fırıncı (Grout)"
   },
   {
    "id": "D06",
    "bolum": "Rüzgâr",
-   "tts": "Bir zamanlar sepet sepet gübreliğe atılan sarı kırmızı bir çeşit, Svitsırs, bir ayda on iki kat pahalanıyor.",
-   "alt": "Bir zamanlar sepet sepet gübreliğe atılan sarı-kırmızı bir çeşit, Switsers, bir ayda on iki kat pahalanıyor.",
+   "tts": "Broşürlerin deyişiyle bir zamanlar sepet sepet gübreliğe atılan sarı kırmızı bir çeşit, Svitsers, bir ayda on iki kat pahalanıyor.",
+   "alt": "Broşürlerin deyişiyle bir zamanlar sepet sepet gübreliğe atılan sarı-kırmızı bir çeşit, Switsers, bir ayda on iki kat pahalanıyor.",
    "kaynak": "Goldgar: 31 Aralık 1636 pound başına 125, 1 Şubat 1637 1.500 gulden; gübrelik: Samenspraeck, Gaergoedt"
   },
   {
@@ -188,8 +188,8 @@
   {
    "id": "D08",
    "bolum": "Rüzgâr",
-   "tts": "Mezat bittiğinde toplam doksan bin gulden. Kâğıt üzerinde her çocuğa on üç bin gulden düşüyor: bir zanaatkâr ailesinin kırk yıllık geliri.",
-   "alt": "Mezat bittiğinde toplam doksan bin gulden. Kâğıt üzerinde her çocuğa on üç bin gulden düşüyor: bir zanaatkâr ailesinin kırk yıllık geliri.",
+   "tts": "Mezat bittiğinde toplam doksan bin gulden. Kâğıt üzerinde her çocuğa on üç bin gulden düşüyor: bir zanaatkâr ailesinin kırk yılı aşkın geliri.",
+   "alt": "Mezat bittiğinde toplam 90.000 gulden. Kâğıt üzerinde her çocuğa 13.000 gulden düşüyor: bir zanaatkâr ailesinin kırk yılı aşkın geliri.",
    "kaynak": "Dash: 90.000 toplam; yedide bir ≈ 13.000, \"more than forty times the annual income of a typical artisan family\""
   },
   {
@@ -216,15 +216,15 @@
   {
    "id": "E03",
    "bolum": "Çöküş",
-   "tts": "Lale tüccarları Amsterdam'da toplanıp bir çıkış yolu arıyor; anlaşamıyorlar.",
-   "alt": "Lale tüccarları Amsterdam'da toplanıp bir çıkış yolu arıyor; anlaşamıyorlar.",
+   "tts": "Lale tüccarları Amsterdam'da toplanıp bir uzlaşma öneriyor; öneri tutmuyor.",
+   "alt": "Lale tüccarları Amsterdam'da toplanıp bir uzlaşma öneriyor; öneri tutmuyor.",
    "kaynak": "23–24 Şubat 1637 Amsterdam toplantısı; Amsterdam kabul etmedi (Grout; Posthumus)"
   },
   {
    "id": "E04",
    "bolum": "Çöküş",
-   "tts": "Haziran geliyor, soğanlar topraktan çıkıyor. Satıcılar kapı kapı dolaşıyor; alıcıların çoğu ödemiyor.",
-   "alt": "Haziran geliyor, soğanlar topraktan çıkıyor. Satıcılar kapı kapı dolaşıyor; alıcıların çoğu ödemiyor.",
+   "tts": "Haziran geliyor, soğanlar topraktan çıkıyor. Satıcılar parasını istiyor; alıcıların çoğu ödemiyor.",
+   "alt": "Haziran geliyor, soğanlar topraktan çıkıyor. Satıcılar parasını istiyor; alıcıların çoğu ödemiyor.",
    "kaynak": "Goldgar: çok az alıcı ödedi (IHR incelemesi); söküm Haziran"
   },
   {
@@ -258,8 +258,8 @@
   {
    "id": "F02",
    "bolum": "Efsane",
-   "tts": "Birinde iki komşu konuşuyor. Adları bile bir ders: birinin adı Doğru Ağız, ötekinin Açgözlü.",
-   "alt": "Birinde iki komşu konuşuyor. Adları bile bir ders: birinin adı Doğru Ağız, ötekinin Açgözlü.",
+   "tts": "Birinde iki komşu konuşuyor. Adları bile bir ders: birinin adı Doğrucu, ötekinin Açgözlü.",
+   "alt": "Birinde iki komşu konuşuyor. Adları bile bir ders: birinin adı Doğrucu, ötekinin Açgözlü.",
    "kaynak": "Waermondt (doğru ağız), Gaergoedt (açgözlü mal). Satirik diyalog, gerçek kişi değil"
   },
   {
@@ -272,9 +272,9 @@
   {
    "id": "F04",
    "bolum": "Efsane",
-   "tts": "İki yüz yıl sonra, bin sekiz yüz kırk birde, İskoç gazeteci Çarls Makey bu broşürlerden ve eski kitaplardan bir bölüm yazıyor.",
-   "alt": "İki yüz yıl sonra, 1841'de, İskoç gazeteci Charles Mackay bu broşürlerden ve eski kitaplardan bir bölüm yazıyor.",
-   "kaynak": "Mackay, Memoirs of Extraordinary Popular Delusions (1841), \"The Tulipomania\" (kaynak/)"
+   "tts": "İki yüz yıl sonra, bin sekiz yüz kırk birde, İskoç gazeteci Çarls Mıkay bu broşürlere dayanan eski kitaplardan bir bölüm yazıyor.",
+   "alt": "İki yüz yıl sonra, 1841'de, İskoç gazeteci Charles Mackay bu broşürlere dayanan eski kitaplardan bir bölüm yazıyor.",
+   "kaynak": "Mackay, Memoirs of Extraordinary Popular Delusions (1841), 'The Tulipomania' (kaynak/). Mackay'in kaynağı Beckmann (History of Inventions), o da broşürlere dayanır (Grout; Fable 1.6)"
   },
   {
    "id": "F05",
@@ -286,44 +286,44 @@
   {
    "id": "F06",
    "bolum": "Efsane",
-   "tts": "Makey'e göre bacacılar bile lale alıyor, ülkenin ticareti yıllarca toparlanamıyor.",
-   "alt": "Mackay'e göre bacacılar bile lale alıyor, ülkenin ticareti yıllarca toparlanamıyor.",
+   "tts": "Mıkay'a göre bacacılar bile lale alıyor, ülkenin ticareti yıllarca toparlanamıyor.",
+   "alt": "Mackay'a göre bacacılar bile lale alıyor, ülkenin ticareti yıllarca toparlanamıyor.",
    "kaynak": "Mackay: \"even chimney-sweeps and old clothes-women\"; \"a severe shock, from which it was many years ere it recovered\""
   },
   {
    "id": "F07",
    "bolum": "Efsane",
-   "tts": "Bu sahneler sonraki yüz elli yılın ekonomi kitaplarına aynen geçiyor.",
-   "alt": "Bu sahneler sonraki yüz elli yılın ekonomi kitaplarına aynen geçiyor.",
+   "tts": "Bu sahneler sonraki yüz elli yıl boyunca kitaptan kitaba aktarılıyor.",
+   "alt": "Bu sahneler sonraki yüz elli yıl boyunca kitaptan kitaba aktarılıyor.",
    "kaynak": "Goldgar (History.com): neredeyse herkes Mackay'e dayandı; Galbraith"
   },
   {
    "id": "F08",
    "bolum": "Efsane",
-   "tts": "2007'de tarihçi Anne Goldgar Hollanda arşivlerine dönüyor: noter defterleri, mahkeme kayıtları, mezat listeleri.",
+   "tts": "İki bin yedide tarihçi En Goldgar Hollanda arşivlerine dönüyor: noter defterleri, mahkeme kayıtları, mezat listeleri.",
    "alt": "2007'de tarihçi Anne Goldgar Hollanda arşivlerine dönüyor: noter defterleri, mahkeme kayıtları, mezat listeleri.",
    "kaynak": "Goldgar, Tulipmania (Chicago 2007): arşiv çalışması"
   },
   {
    "id": "F09",
    "bolum": "Efsane",
-   "tts": "Lale yüzünden iflas eden tek bir kişi bulamıyor.",
-   "alt": "Lale yüzünden iflas eden tek bir kişi bulamıyor.",
+   "tts": "Arşivlerde, lale yüzünden iflas ettiği belgelenen tek bir kişi bulamıyor.",
+   "alt": "Arşivlerde, lale yüzünden iflas ettiği belgelenen tek bir kişi bulamıyor.",
    "kaynak": "Smithsonian 2017: \"I couldn't find anybody that went bankrupt\""
   },
   {
    "id": "F10",
    "bolum": "Efsane",
-   "tts": "Ticarette adı geçen birkaç yüz kişi var, çoğu zaten varlıklı tüccar ve usta. Ülkenin ekonomisi sonraki yıllarda büyümeyi sürdürüyor.",
-   "alt": "Ticarette adı geçen birkaç yüz kişi var, çoğu zaten varlıklı tüccar ve usta. Ülkenin ekonomisi sonraki yıllarda büyümeyi sürdürüyor.",
+   "tts": "Adını saptayabildiği alıcı ve satıcılar birkaç yüz kişi; çoğu zaten varlıklı tüccar ve usta. Ülkenin ekonomisi büyümeyi sürdürüyor.",
+   "alt": "Adını saptayabildiği alıcı ve satıcılar birkaç yüz kişi; çoğu zaten varlıklı tüccar ve usta. Ülkenin ekonomisi büyümeyi sürdürüyor.",
    "kaynak": "History.com: ~350 kişi; Grout: ekonomi büyümeyi sürdürdü"
   },
   {
    "id": "F11",
    "bolum": "Efsane",
-   "tts": "Fiyat gerçekten uçmuştu. Yıkımı ise sonradan anlatılan hikâye büyüttü.",
-   "alt": "Fiyat gerçekten uçmuştu. Yıkımı ise sonradan anlatılan hikâye büyüttü.",
-   "kaynak": "Tek karşılaştırma cümlesi, olaydan sonra"
+   "tts": "Fiyat gerçekten uçmuştu. Geriye kalan iflaslar değil, tutulmayan sözlerdi; yıkımı sonradan anlatılan hikâye büyüttü.",
+   "alt": "Fiyat gerçekten uçmuştu. Geriye kalan iflaslar değil, tutulmayan sözlerdi; yıkımı sonradan anlatılan hikâye büyüttü.",
+   "kaynak": "Goldgar: kriz paranın değil, güvenin ve sözün krizi (Smithsonian: 'undermined social expectations'; History.com: 'reputations lost and relationships broken'). Fable 1.4"
   },
   {
    "id": "G01",
@@ -335,8 +335,8 @@
   {
    "id": "G02",
    "bolum": "İstanbul",
-   "tts": "Kâğıthane'de, Boğaz kıyısında köşkler, bahçeler yapılıyor; Sadabad iki ayda yükseliyor.",
-   "alt": "Kâğıthane'de, Boğaz kıyısında köşkler, bahçeler yapılıyor; Sadabad iki ayda yükseliyor.",
+   "tts": "Kâğıthane'de ve Boğaz kıyılarında köşkler, bahçeler yapılıyor; Saadabad iki ayda yükseliyor.",
+   "alt": "Kâğıthane'de ve Boğaz kıyılarında köşkler, bahçeler yapılıyor; Sadabad iki ayda yükseliyor.",
    "kaynak": "TDV Damad İbrâhim Paşa: Sadabad iki ayda"
   },
   {
@@ -349,22 +349,22 @@
   {
    "id": "G04",
    "bolum": "İstanbul",
-   "tts": "Meraklılar yeni çeşitler yetiştiriyor ve onlara adlar veriyor. Birinin adı Nize-i Rummani: nar renkli mızrak.",
+   "tts": "Meraklılar yeni çeşitler yetiştiriyor ve onlara adlar veriyor. Birinin adı Nizeyi Rummani: nar renkli mızrak.",
    "alt": "Meraklılar yeni çeşitler yetiştiriyor ve onlara adlar veriyor. Birinin adı Nîze-i Rummânî: nar renkli mızrak.",
    "kaynak": "Aktepe, Tarih Dergisi IV/7, s. 95: Vefalı Mehmed Bey'in 1129'da (1717) yetiştirdiği lale. \"Nîze\" mızrak, \"rummânî\" nar renkli"
   },
   {
    "id": "G05",
    "bolum": "İstanbul",
-   "tts": "Ve soğanların fiyatı yükseliyor.",
-   "alt": "Ve soğanların fiyatı yükseliyor.",
+   "tts": "Ve meraklılar bu soğanlara her yıl daha çok ödüyor.",
+   "alt": "Ve meraklılar bu soğanlara her yıl daha çok ödüyor.",
    "kaynak": "Çelebizâde Âsım, Tarih, s. 415–416 (Aktepe TD 7, s. 92'den)"
   },
   {
    "id": "G06",
    "bolum": "İstanbul",
-   "tts": "Hollanda'da mahkemeler karışmamıştı. İstanbul'da devlet karışıyor: yirmi sekiz Haziran bin yedi yüz yirmi altıda İstanbul kadısının defterine iki yüz otuz dokuz lalenin tek tek tavan fiyatı yazılıyor.",
-   "alt": "Hollanda'da mahkemeler karışmamıştı. İstanbul'da devlet karışıyor: 28 Haziran 1726'da İstanbul kadısının defterine iki yüz otuz dokuz lalenin tek tek tavan fiyatı yazılıyor.",
+   "tts": "Hollanda'da mahkemeler karışmamıştı. İstanbul'da devlet karışıyor: bin yedi yüz yirmi altı yazında İstanbul kadısının defterine iki yüz otuz dokuz lalenin tavan fiyatı tek tek yazılıyor.",
+   "alt": "Hollanda'da mahkemeler karışmamıştı. İstanbul'da devlet karışıyor: 1726 yazında İstanbul kadısının defterine 239 lalenin tavan fiyatı tek tek yazılıyor.",
    "kaynak": "Aktepe TD 7, s. 93–94: İstanbul Kadılığı defteri 1/24, vr. 28a–29a; 27 Şevval 1138 = 28 Haziran 1726; 239 ad. TDV \"Lâle Devri\"deki \"Ekim 1722\" fermanı doğrulanamadı (DOGRULAMA.md)"
   },
   {
@@ -377,15 +377,15 @@
   {
    "id": "G08",
    "bolum": "İstanbul",
-   "tts": "Listenin en pahalısı Nize-i Rummani: elli kuruş, bir inşaat işçisinin aşağı yukarı on aylık yevmiyesi. En ucuzu bir akçe.",
-   "alt": "Listenin en pahalısı Nîze-i Rummânî: elli kuruş, bir inşaat işçisinin aşağı yukarı on aylık yevmiyesi. En ucuzu bir akçe.",
+   "tts": "Listenin en pahalısı Nizeyi Rummani: elli kuruş, bir inşaat işçisinin üç yüz yevmiyesine yakın. En ucuzu bir akçe.",
+   "alt": "Listenin en pahalısı Nîze-i Rummânî: 50 kuruş, bir inşaat işçisinin üç yüz yevmiyesine yakın. En ucuzu bir akçe.",
    "kaynak": "Aktepe TD 7, s. 95 (50 kuruş); TD 9, s. 36–38 (1 akçe). 1 kuruş = 120 akçe (Pamuk, TDV \"Kuruş\"); 1726 düz işçi yevmiyesi 20,5 akçe (Pamuk 2000, Azaklı–Aksoy 2022 tablosu) → 6.000/20,5 ≈ 293 gün"
   },
   {
    "id": "G09",
    "bolum": "İstanbul",
    "tts": "Bir yıl sonraki listede aynı lalenin tavanı dört katına çıkmış: iki yüz kuruş.",
-   "alt": "Bir yıl sonraki listede aynı lalenin tavanı dört katına çıkmış: iki yüz kuruş.",
+   "alt": "Bir yıl sonraki listede aynı lalenin tavanı dört katına çıkmış: 200 kuruş.",
    "kaynak": "Aktepe, Türkiyat Mecmuası XI (1954), s. 117: Muharrem 1140 (Ağustos 1727) listesi, Nîze-i rummânî 200 kuruş"
   },
   {
@@ -398,30 +398,30 @@
   {
    "id": "H02",
    "bolum": "1730",
-   "tts": "Yirmi sekiz Eylül'de bir eskici, eski bir yeniçeri olan Patrona Halil, bir avuç adamla Beyazıt'ta ayaklanıyor; kalabalık büyüyor.",
-   "alt": "28 Eylül'de bir eskici, eski bir yeniçeri olan Patrona Halil, bir avuç adamla Beyazıt'ta ayaklanıyor; kalabalık büyüyor.",
+   "tts": "Yirmi sekiz Eylül'de, bir zamanlar yeniçeri olan, eski giysi satan Patrona Halil, bir avuç adamla Beyazıt'ta ayaklanıyor; kalabalık büyüyor.",
+   "alt": "28 Eylül'de bir zamanlar yeniçeri olan, eski giysi satan Patrona Halil, bir avuç adamla Beyazıt'ta ayaklanıyor; kalabalık büyüyor.",
    "kaynak": "Karahasanoğlu, \"The 1730 Rebellion\", İstanbul Tarihi: 28 Eylül 1730; TDV \"Ahmed III\" (Aktepe). TDV \"Patrona İsyanı\" 25 Eylül der (DOGRULAMA.md). Görüntüde cami yok"
   },
   {
    "id": "H03",
    "bolum": "1730",
-   "tts": "Üçüncü Ahmed isyancıların baskısıyla damadından vazgeçiyor; bir Ekim gecesi İbrahim Paşa öldürülüyor.",
-   "alt": "III. Ahmed isyancıların baskısıyla damadından vazgeçiyor; 1 Ekim gecesi İbrahim Paşa öldürülüyor.",
+   "tts": "Üçüncü Ahmed isyancıların baskısıyla damadından vazgeçiyor; Ekim'in ilk gecesi İbrahim Paşa öldürülüyor.",
+   "alt": "III. Ahmed isyancıların baskısıyla damadından vazgeçiyor; Ekim'in ilk gecesi İbrahim Paşa öldürülüyor.",
    "kaynak": "TDV \"Patrona İsyanı\" ve \"Damad İbrâhim Paşa\": 18 Rebîülevvel 1143 (1 Ekim 1730) gecesi. Görüntüde şiddet yok"
   },
   {
    "id": "H04",
    "bolum": "1730",
-   "tts": "Ertesi gün Üçüncü Ahmed tahtı yeğeni Birinci Mahmud'a bırakıyor.",
-   "alt": "Ertesi gün III. Ahmed tahtı yeğeni I. Mahmud'a bırakıyor.",
-   "kaynak": "TDV \"Patrona İsyanı\": 2 Ekim 1730"
+   "tts": "Ertesi gün Üçüncü Ahmed tahtı yeğenine bırakıyor.",
+   "alt": "Ertesi gün III. Ahmed tahtı yeğenine bırakıyor.",
+   "kaynak": "TDV 'Patrona İsyanı': 2 Ekim 1730. Ekran etiketi: I. Mahmud"
   },
   {
    "id": "H05",
    "bolum": "1730",
-   "tts": "İsyancılar köşkleri ve lale bahçelerini yıkıyor; yeni padişah engel olamıyor.",
-   "alt": "İsyancılar köşkleri ve lale bahçelerini yıkıyor; yeni padişah engel olamıyor.",
-   "kaynak": "TDV \"Lâle Devri\" (Subhî, s. 6 vd.)"
+   "tts": "İsyancılar Kâğıthane'deki köşklerin ve lale bahçelerinin yıkılmasını istiyor; yeni padişah engel olamıyor.",
+   "alt": "İsyancılar Kâğıthane'deki köşklerin ve lale bahçelerinin yıkılmasını istiyor; yeni padişah engel olamıyor.",
+   "kaynak": "TDV 'Lâle Devri' (Subhî, s. 6 vd.): yeni padişah tahribe engel olamadı. Fable 1.3: kapsam (Sadabad sarayı ayakta kaldı) tartışmalı; ifade isteğe ve engel olunamamasına indirildi"
   },
   {
    "id": "H06",
@@ -431,25 +431,18 @@
    "kaynak": "Karahasanoğlu: 25 Kasım 1730; TDV \"Patrona İsyanı\""
   },
   {
-   "id": "I01",
-   "bolum": "Ad",
-   "tts": "Bu on iki yılı okulda bir adla öğreniyoruz: Lale Devri.",
-   "alt": "Bu on iki yılı okulda bir adla öğreniyoruz: Lale Devri.",
-   "kaynak": "L6"
-  },
-  {
    "id": "I02",
    "bolum": "Ad",
-   "tts": "Ama o yılların tarihçileri bu adı hiç kullanmadı. On sekizinci yüzyılın kroniklerinde Lale Devri diye bir dönem yok.",
-   "alt": "Ama o yılların tarihçileri bu adı hiç kullanmadı. On sekizinci yüzyılın kroniklerinde Lale Devri diye bir dönem yok.",
+   "tts": "O yılların tarihçileri Lale Devri adını hiç kullanmadı; on sekizinci yüzyılın kroniklerinde böyle bir dönem yok.",
+   "alt": "O yılların tarihçileri Lale Devri adını hiç kullanmadı; on sekizinci yüzyılın kroniklerinde böyle bir dönem yok.",
    "kaynak": "TDV \"Lâle Devri\" (Özcan): \"XVIII. yüzyıl Osmanlı kroniklerinde Lâle Devri adı altında bir dönem tanımlaması mevcut değildir\""
   },
   {
    "id": "I03",
    "bolum": "Ad",
-   "tts": "Adı ilk kullanan şair Yahya Kemal; yaygınlaştıran, bin dokuz yüz on üçte İkdam gazetesindeki tefrikasıyla tarihçi Ahmed Refik.",
-   "alt": "Adı ilk kullanan şair Yahya Kemal; yaygınlaştıran, 1913'te İkdam gazetesindeki tefrikasıyla tarihçi Ahmed Refik.",
-   "kaynak": "TDV (Özcan); Kafadar 1993 (Karahasanoğlu 2025, s. 7); kitap İstanbul 1331 (1915)"
+   "tts": "Adı ilk kullanan şair Yahya Kemal; yaygınlaştıran, bin dokuz yüz on üçte bir gazete tefrikasıyla tarihçi Ahmed Refik.",
+   "alt": "Adı ilk kullanan şair Yahya Kemal; yaygınlaştıran, 1913'te bir gazete tefrikasıyla tarihçi Ahmed Refik.",
+   "kaynak": "TDV (Özcan): İkdam 1913; kitap 1331/1915. Ekran: İkdam gazetesi sayfası (A07'nin görüntüsünde de ekilir)"
   },
   {
    "id": "I04",
@@ -461,50 +454,43 @@
   {
    "id": "I05",
    "bolum": "Ad",
-   "tts": "Narh defterlerini 1950'lerde yayımlayan tarihçi, bu rivayeti doğrulayan tek bir belge bulamadığını yazıyor.",
+   "tts": "Narh defterlerini bin dokuz yüz elli üçte yayımlayan tarihçi, bu rivayeti doğrulayan tek bir belge bulamadığını yazıyor.",
    "alt": "Narh defterlerini 1950'lerde yayımlayan tarihçi, bu rivayeti doğrulayan tek bir belge bulamadığını yazıyor.",
    "kaynak": "Aktepe TD 7, s. 93: \"Bu rivayetin doğruluğunu isbat edecek bir vesika da ortada yoktur.\" Ekran etiketi: M. Münir Aktepe"
   },
   {
    "id": "I06",
    "bolum": "Ad",
-   "tts": "Ahmed Refik o yılları zevkin ve gösterişin yılları olarak anlattı; 1730 isyanı da bu sefahate karşı bir halk öfkesi gibi okundu.",
-   "alt": "Ahmed Refik o yılları zevkin ve gösterişin yılları olarak anlattı; 1730 isyanı da bu sefahate karşı bir halk öfkesi gibi okundu.",
-   "kaynak": "Karahasanoğlu 2025 (giriş, s. 9–12): standart anlatı"
+   "tts": "Ahmed Refik o yılları bir zevk ve yenilik çağı olarak anlattı; ders kitaplarında bin yedi yüz otuz isyanı da bu gösterişe karşı bir halk öfkesi olarak yer etti.",
+   "alt": "Ahmed Refik o yılları bir zevk ve yenilik çağı olarak anlattı; ders kitaplarında 1730 isyanı da bu gösterişe karşı bir halk öfkesi olarak yer etti.",
+   "kaynak": "Karahasanoğlu 2025, s. 9–12 (standart anlatı: zevk ve sefahat; 1730 sefahate tepki) ve s. 11 (İbrahim Paşa'nın 'en keyif alacağı eser' Ahmed Refik'in kitabı: Refik dönemi övdü). Erimtan 2008 tanıtımı: Batı'ya yönelme. Fable 1.2"
   },
   {
    "id": "I07",
    "bolum": "Ad",
-   "tts": "İki bin yirmi beşte tarihçilerin bu adı sorguladığı bir kitap çıktı. Editörü girişine şu cümleyi yazdı: Lale Devri hiç yaşanmamıştır.",
-   "alt": "2025'te tarihçilerin bu adı sorguladığı bir kitap çıktı. Editörü girişine şu cümleyi yazdı: \"Lale Devri hiç yaşanmamıştır.\"",
+   "tts": "İki bin yirmi beşte bu adı sorgulayan bir kitap çıktı. Editörü, tarihçi Selim Karahasanoğlu, girişe kışkırtıcı bir cümle yazdı: Lale Devri hiç yaşanmamıştır.",
+   "alt": "2025'te bu adı sorgulayan bir kitap çıktı. Editörü, tarihçi Selim Karahasanoğlu, girişe kışkırtıcı bir cümle yazdı: \"Lale Devri hiç yaşanmamıştır.\"",
    "kaynak": "Karahasanoğlu (ed.), Lale Devri Mi?, VakıfBank Kültür Yayınları, Aralık 2025, s. 12. Ekran etiketi: Selim Karahasanoğlu"
   },
   {
    "id": "I08",
    "bolum": "Ad",
-   "tts": "Ona göre 1730 bir ahlak isyanı değil, bir iktidar kavgasıydı.",
-   "alt": "Ona göre 1730 bir ahlak isyanı değil, bir iktidar kavgasıydı.",
-   "kaynak": "Karahasanoğlu 2025, s. 12: \"1730 isyanı, meydana çıkan bir ahlaki sapmaya tepkinin dışavurumu değil, bir iktidar savaşıdır\""
-  },
-  {
-   "id": "J01",
-   "bolum": "Son",
-   "tts": "Biri Hollanda'da, biri İstanbul'da: iki lale çılgınlığı.",
-   "alt": "Biri Hollanda'da, biri İstanbul'da: iki lale çılgınlığı.",
-   "kaynak": ""
+   "tts": "Kastettiği şu: laleler de vardı, köşkler de; ama o yılları ayrı bir sefahat çağı sayan anlatı sonradan kuruldu. Ona göre bin yedi yüz otuz bir ahlak isyanı değil, bir iktidar kavgasıydı.",
+   "alt": "Kastettiği şu: laleler de vardı, köşkler de; ama o yılları ayrı bir sefahat çağı sayan anlatı sonradan kuruldu. Ona göre 1730 bir ahlak isyanı değil, bir iktidar kavgasıydı.",
+   "kaynak": "Karahasanoğlu 2025, s. 11–12: tüketim normları açısından ayrışma dönemi değil; 'Lale Devri hiç yaşanmamıştır, … Ahmed Refik'in zihnindeki bir kurmacadan ibarettir'; 1730 'bir iktidar savaşıdır'"
   },
   {
    "id": "J02",
    "bolum": "Son",
-   "tts": "İkisinde de fiyatlar gerçekten yükseldi. Ama ikisini de bugün bildiğimiz hâline, aşağı yukarı iki yüz yıl sonra yazılan birer hikâye getirdi: biri Makey'in, öteki Ahmed Refik'in.",
-   "alt": "İkisinde de fiyatlar gerçekten yükseldi. Ama ikisini de bugün bildiğimiz hâline, aşağı yukarı iki yüz yıl sonra yazılan birer hikâye getirdi: biri Mackay'in, öteki Ahmed Refik'in.",
+   "tts": "İki ülkede de fiyatlar gerçekten yükseldi. Ama ikisini de bugün bildiğimiz hâline, aşağı yukarı iki yüz yıl sonra yazılan birer kitap getirdi: birini Mıkay yazdı, ötekini Ahmed Refik.",
+   "alt": "İki ülkede de fiyatlar gerçekten yükseldi. Ama ikisini de bugün bildiğimiz hâline, aşağı yukarı iki yüz yıl sonra yazılan birer kitap getirdi: birini Mackay yazdı, ötekini Ahmed Refik.",
    "kaynak": "1841−1637 = 204; 1913−1730 = 183. Tek karşılaştırma"
   },
   {
    "id": "J03",
    "bolum": "Son",
-   "tts": "Harlem'in meyhanelerinde de soğanı gören yoktu. Masada dolaşan, kimin ne kadar kazandığına dair sözlerdi.",
-   "alt": "Haarlem'in meyhanelerinde de soğanı gören yoktu. Masada dolaşan, kimin ne kadar kazandığına dair sözlerdi.",
+   "tts": "Harlem'in meyhanelerinde soğanı gören yoktu; masada dolaşan, bir kâğıt ve başkalarının kazancına dair sözlerdi.",
+   "alt": "Haarlem'in meyhanelerinde soğanı gören yoktu; masada dolaşan, bir kâğıt ve başkalarının kazancına dair sözlerdi.",
    "kaynak": "D03'e dönüş"
   },
   {
@@ -517,8 +503,8 @@
   {
    "id": "J05",
    "bolum": "Son",
-   "tts": "Belki önce şunu sormak gerek: herkes alıyor sözünü sana kim anlatıyor?",
-   "alt": "Belki önce şunu sormak gerek: \"herkes alıyor\" sözünü sana kim anlatıyor?",
+   "tts": "Belki önce şunu sormak gerek: herkesin aldığını sana kim söylüyor?",
+   "alt": "Belki önce şunu sormak gerek: herkesin aldığını sana kim söylüyor?",
    "kaynak": "İksir"
   },
   {

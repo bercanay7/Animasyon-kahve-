@@ -82,6 +82,12 @@ const LALE = (() => {
     // kökler
     for (let i = -3; i <= 3; i++) { const r = new Path2D(); r.moveTo(x + i * 8 * s, y + 32 * s); r.quadraticCurveTo(x + i * 12 * s, y + 46 * s, x + i * 15 * s + rnd(i) * 6, y + 58 * s); r.lineTo(x + i * 15 * s + 2, y + 58 * s); r.quadraticCurveTo(x + i * 12 * s + 2, y + 46 * s, x + i * 8 * s + 3, y + 32 * s); fill(r, .2, { th: PI / 2, id: 9 }); }
   }
+  // uzak lale: gravürde minik koyu çanak, boyamada renk lekesi
+  function nokta(x, y, r, cesit) {
+    const p = new Path2D(); p.ellipse(x, y - r, r * .7, r, 0, 0, TAU);
+    INSAN.fill(p, .35, { th: PI / 2, id: 9 });
+    Q.push({ kat: [{ p, Y: { R: (a, b) => [x + a, y + b] }, i: 2 }], x, y, s: r / 40, ist: false, H0: r * 2, W0: r * 1.4, cesit, renk: 1, tohum: x, nokta: true });
+  }
   // ── boyama geçişi ──
   const CV = makeCanvas(DW, DH), cx = CV.getContext('2d');
   // granül (suluboya pigment birikmesi): 256 karo alfa gürültüsü
@@ -106,7 +112,7 @@ const LALE = (() => {
         gz.addColorStop(0, rgba(R.zem.map(v => v * .78 * zk), a)); gz.addColorStop(.45, rgba(R.zem.map(v => Math.min(255, v * zk)), a * .92)); gz.addColorStop(1, rgba(R.zem.map(v => v * .92 * zk), a));
         cx.fillStyle = gz; cx.fill(p);
         // alevler: tabandan tepeye ince diller (kırık lale); tohumlu, kare kare sabit
-        if (R.alev) {
+        if (R.alev && !L.nokta) {
           const n = L.ist ? 2 : 3, ax = tx - ox, ay = ty - oy, Lh = Math.hypot(ax, ay), ux = ax / Lh, uy = ay / Lh, vx = -uy, vy = ux;
           cx.fillStyle = rgba(R.alev, a * .92);
           for (let k = 0; k < n; k++) {
@@ -130,5 +136,5 @@ const LALE = (() => {
     cx.globalCompositeOperation = 'destination-in'; cx.fillStyle = GP; cx.fillRect(0, 0, DW, DH); cx.globalCompositeOperation = 'source-over';
     ctx.save(); ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.globalCompositeOperation = 'multiply'; ctx.drawImage(CV, 0, 0); ctx.restore();
   }
-  return { ciz, sogan, boya, RENK, sifirla: () => { Q = []; }, get kuyruk() { return Q; } };
+  return { ciz, sogan, nokta, boya, RENK, sifirla: () => { Q = []; }, get kuyruk() { return Q; } };
 })();

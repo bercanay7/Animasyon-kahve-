@@ -107,5 +107,52 @@ Kural: filmde renk yalnız lalede (§6). Kapakta da tek renk lale, geri kalanı 
 - **Mackay 1841:** denizci ve ringa balığı hikâyesi (kaynağı Blainville'in seyahatnamesi), "yıllarca toparlanamadı" sözü (`kaynak/mackay_1841_tulipomania.txt`).
 - **Osmanlı:** narh fermanı Ekim 1722 (TDV, Özcan; Ahmed Refik, *İstanbul Hayatı*, s. 94–95); 239 adlık narh listesi (Aktepe 1954). İbrahim Paşa 1 Ekim 1730'da öldürüldü (TDV, Aktepe). "Lâle Devri" adı 18. yüzyıl kroniklerinde yok; ilk Yahya Kemal kullandı, Ahmed Refik 1913 İkdam tefrikası ve 1915 kitabıyla yaydı (TDV); Karahasanoğlu 2025: "Lale Devri hiç yaşanmamıştır" (giriş; editörün tezi).
 
+## 6. Üslup (22 Kasım; başkan)
+**İnceleme sırası (CLAUDE.md):** kendi motorlarımız → cinecode → Lemo.
+- **Kendi motorlarımız:** gravür (`milton/lib`, Dorian'da karma üslupla yeniden kullanıldı), vazo, kâğıt kesme, Python. Konuya uyan gravür: 1637 Haarlem broşürleri ve dönemin hicivli baskıları (Crispijn van de Passe, *Floraes Mallewagen*, 1637) gravürdür; 1630'ların lale kitapları ise elle boyanmış suluboyadır. Botanik baskılar (Hortus Eystettensis, 1613) bakır gravür + el boyamasıdır. Yani "gravür dünya + boyalı lale" dönemin kendi baskı dili.
+- **cinecode:** `watercolor` (bitkisel levha + not dili; bütün film suluboya olursa kalabalık, meyhane, mezat ve İstanbul gecesi zayıf kalır: figür ve iç mekân suluboyanın zayıf yanı), `engraving` (bizim motorumuzun akrabası), `ukiyoe` ve `stained-glass` (konuya yabancı; vitray dinî çağrışım).
+- **Lemo** (`KATALOG.md`): `vintage-collage` (eski gravürlerden kolaj; Dorian'da şakacı dili yüzünden elenmişti, burada da ton fazla hafif), `gilded-illumination` (Hristiyan el yazması çağrışımı; Osmanlı minyatürüne benzetilmez kuralı), `watercolor` ve `impasto` (uzun film için yavaş: 5–10 sn/kare).
+- **Elenen:** bütün film suluboya (figür/kalabalık zayıf, iki şehir aynı yumuşak dile düşer); minyatür taklidi (Levnî'yi kodla taklit etmek hem zayıf olur hem bir geleneği karikatürleştirme riski taşır).
+
+**Seçim: gravür dünya + yalnız lalede el boyaması** (kullanıcının önerisi, kaynakla da destekleniyor).
+1. **Fikir görüntünün kuralı:** renk = değer. Fiyat yükseldikçe sahnelerde boyalı lale çoğalır; Şubat 1637'de renk çiçeklerden çekilir (gravür kalır). İstanbul'da da aynı: narh defterinde renk, 1730'da bahçeler yıkılınca söner. Sonda Mackay'in ve Ahmed Refik'in sayfalarında lale yeniden boyanır: hikâye rengi geri getirir (iksir görüntüsü).
+2. **Dönem dili:** gravür + el boyaması 1600'lerin botanik baskısının kendisi; filme gerçek görseller (1637 broşürleri, lale kitabı sayfaları) dikişsiz girer.
+3. **Maliyet:** `lib/lale.js` gravür geçişinde çiçeği çizer, basmadan sonra yaprakları çarpma (multiply) karışımıyla suluboya gibi boyar (granül dokusu, kenar birikmesi, 2 px kayık boya). Kapı karelerinde 0,35–0,65 sn/kare (tek işçi), Dorian'ın portresiz planlarıyla aynı; WebGL yok.
+4. **Dorian'dan ayrışma:** Dorian'da renk yağlıboya ve tek bir nesnede (portre) karanlık iç mekânda; burada suluboya, çok sayıda küçük nesne, gündüz dış mekân (tarla) ve İstanbul gecesi. Yine de iki gravür filmi art arda (4 ve 11 Aralık): fark kapakta da korunur (Dorian kapakları koyu oda, bu filmin kapakları açık kâğıt + renkli lale).
+
+**Kapı (manzara + orta plan figür + yakın + 15 sn hareket + İstanbul gecesi; `kapi/`):**
+- Manzara: Haarlem dışı lale tarlası, ufukta alçak kasaba ve değirmen (kilise kulesi yok). Gökyüzü temiz kâğıt.
+- Orta plan: Alkmaar mezadı; mezatçı ve kâtip masada, ışıkta tek boyalı lale (Admirael van Enkhuizen), sırtı dönük alıcılar 1630'lar giysisiyle (geniş kenarlı şapka, düz beyaz yaka, pelerin). Teklif eli dirsekten kırık, avuç yukarı (düz kalkık kol selam okunur: Mary Stuart dersi).
+- Yakın: tek Semper Augustus, beyaz zemin + lal alevler.
+- 15 sn: tarlaya el boyaması iner (0–2,5 sn), kamera tarlaya yaklaşır; terazi: soğan bir evden ağır basar, sonra renk söner.
+- İstanbul gecesi: köşk, serviler, badem gövdeli hançer uçlu İstanbul laleleri, kandiller, sırtında mum taşıyan kaplumbağa.
+- İlk taslakta bulunup düzeltilenler: yaprakları kopuk ve alevleri zemini boğan çiçek (yumurta çanak, ince alev diline çevrildi); gökdelen gibi okunan evler (ufukta alçak, koyu siluet); yatay uzanan kollar (silah/selam okunuyordu); gaga gibi okunan şapka siperliği.
+- Açık kalan: tarlanın toprak çizgileri ağır; uzak ağaçlar; figürlerin bacakları pelerin altında iki çubuk. Üretimde düzeltilir.
+
+## 7. Tempo kontrolü (seslendirmeden önce; `tempo_kontrol.py`, rev2)
+Art arda soyut dizi yok; köprü adayı yok. Kanca 596 karakter (≈ 44 sn; hikâye B01'de ~0:45, sınırda: seslendirmeden sonra ölçülür).
+
+| Cümle | Bayrak | Karar |
+|---|---|---|
+| A02, A07 | T | A02 → A05 (ev: olay, Alkmaar fiyatı); A07 "adı kim koydu?" → I03 (olay: 1913 gazete tefrikası) |
+| B02 | E (göre) | **olay**: "yazdığına göre" yalnız atıf; çiçek sunulması sahne |
+| B03 | (rev1'de E) | **olay/nesne**: ad karışıklığı sarığa takılı lale görüntüsüyle verilir; tek cümle |
+| C03 | (rev1'de E) | **olay**: "alevler bir virüsün izi" görünür vaadin cevabı (C01–C02'nin merakı); tek cümle |
+| E01 | M (göre) | **olay**: "anlatıldığına göre" atıf |
+| F04, F08 | Y, A | **olay**: yazar bir şey yapıyor (kitap yazıyor; arşive dönüyor) |
+| F06 | M | **olay**: Mackay'in somut iddiaları (bacacılar; ticaret) |
+| F11 | (karşılaştırma) | **soyut**, olaydan sonra tek cümle |
+| G03 | M | **olay**: kandiller, kaplumbağa ("anlatılanlara göre") |
+| G06 | M | **olay + tek karşılaştırma** (Hollanda'da mahkeme karışmamıştı) |
+| I04–I05 | Y | **olay**: Ahmed Refik'in rakamı ve arşivin cevabı (efsane 2'nin somut kanıtı) |
+| I06 | Y | **soyut** (anlatının özeti); ardından I07 olay (kitap, cümle) |
+| I08 | M | **soyut**; I06 ile arasında olay var (art arda değil) |
+| J02 | Y | **soyut**, tek karşılaştırma; J03 somut dönüş (meyhane) |
+| J04, J05 | T | başlığın sorusu ve iksir |
+
+**İkinci yarıda yeni adlar:** Mackay (F04), Goldgar (F08), Ahmed Refik ve Yahya Kemal (I03), Karahasanoğlu (I07). Doruğu taşıyan İbrahim Paşa ve Patrona Halil kancada (A06) ekildi. Ahmed Refik kancada adıyla ekilmez (cevabı ele verir); A07'nin görüntüsünde bir gazete sayfası ekilir. I. Mahmud, İkdam, Busbecq, Clusius, Winkel, Aktepe yalnız ekran etiketinde.
+
 ## Fable danışmaları
-(henüz yok)
+1. **Senaryo rev1, seslendirmeden önce (22 Kasım).** Neden: seslendirme kredi harcayan ve geri dönülmesi pahalı adım; Mary Stuart ve Dorian'da Fable bu kapıda engelleyici bulgu getirmişti. Tek tur, puansız bulgu listesi. Bulgular başkanca kaynakla tartıldı:
+   - **Uygulananlar:** I07 bağlamı ("kışkırtıcı bir cümle") ve I08 açıklaması (laleler de köşkler de vardı; ayrı bir sefahat çağı anlatısı sonradan kuruldu: Karahasanoğlu s. 11–12); **I06 Ahmed Refik'in rolü düzeltildi**: dönemi kınamadı, "zevk ve yenilik çağı" olarak anlattı (Karahasanoğlu s. 11: İbrahim Paşa'nın "en keyif alacağı eser" Refik'in kitabı; Erimtan tanıtımı); "sefahate karşı halk öfkesi" ders kitabı anlatısı; J02 "birer kitap"; H05 ve A06 yıkım ifadesi yumuşatıldı (kapsam tartışmalı); F09–F11 Goldgar tam aktarıldı (kriz paranın değil tutulmayan sözlerin krizi; "adını saptayabildiği" kişiler); D05 "yalnız zenginler yok" (Mackay çizgisi) kaldırıldı; F04 Mackay broşürleri değil onlara dayanan kitapları kullandı (Beckmann); **A05 kapak A'nın "ev" vaadi karşılandı** (1.000 gulden = Haarlem'de küçük ev → beş küçük ev); B02 "yazdığına göre"; A06 "Nevşehirli Damat" (Pargalı ile karışmasın); kanca kısaldı; B01 "Önce seksen yıl geriye" (zaman zikzağı); I01 ve J01 çıkarıldı; E03 uzlaşma önerisi tutmadı; G02 Kâğıthane/Boğaz; G06 tarih ekrana, seste "1726 yazında"; G08 "üç yüz yevmiyeye yakın"; H04 I. Mahmud etikete; I03 İkdam etikete; okunuşlar ("En Goldgar", "Mıkay", "Ekim'in ilk gecesi", "Nizeyi Rummani", "Svitsers", "Saadabad", yıllar yazıyla); F07, J03, J05 dil.
+   - **Reddedilen:** F05'e "güya" (Mackay hikâyeyi olgu diye anlatır; izleyici bunun efsane olduğunu F08–F11'de öğrenir, önceden ele vermek merakı bozar). A05'teki marangoz ölçüsü korunmadı (kanca süresi); D08'deki zanaatkâr ölçüsü yeterli.

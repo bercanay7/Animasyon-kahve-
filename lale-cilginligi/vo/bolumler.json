@@ -1,0 +1,165 @@
+[
+ {
+  "onek": "s00",
+  "ad": "Kanca",
+  "ids": [
+   "A01",
+   "A02",
+   "A03",
+   "A04",
+   "A05",
+   "A06",
+   "A07"
+  ],
+  "metin": "[curious] Herkes alıyorsa, sen de alır mısın? Bir lale soğanını, bir ev fiyatına? [calmly] Şubat bin altı yüz otuz yedi, Hollanda'da Alkmar. Bir meyhane salonu tıklım tıklım. Kasabanın bir meyhanecisi ölmüş; yedi yetim çocuğuna kalan, bahçesindeki lale soğanları. [slowly] Tek bir soğana beş bin iki yüz gulden veriliyor: Harlem'de beş küçük ev parası. [calmly] Doksan yıl sonra aynı çiçek İstanbul'da, Nevşehirli Damat İbrahim Paşa'nın bahçelerinde açacak; ve Patrona Halil'in isyanı o bahçelerin sonunu getirecek. [curious] O yılların adını okulda ezberledik: Lale Devri. Peki bu adı kim koydu?",
+  "karakter": 586,
+  "karakter_etiketli": 596
+ },
+ {
+  "onek": "s01",
+  "ad": "Yol",
+  "ids": [
+   "B01",
+   "B02",
+   "B03",
+   "B04",
+   "B05",
+   "B06"
+  ],
+  "metin": "[calmly] Önce seksen yıl geriye: bin beş yüz elli dördün sonu. Edirne'den İstanbul'a giden yolda bir Habsburg elçisine demet demet çiçek sunuluyor. Yazdığına göre kışın ortasında açmışlar: nergisler, sümbüller ve Türklerin tulipan dediği çiçekler. Türkler ona lale der; tulipan büyük ihtimalle çiçeğin takıldığı sarığın, tülbendin adı. Avrupa hâlâ bu adı kullanıyor. Elçi bir şey daha yazıyor: Türkler çiçeğe çok düşkün; güzel bir çiçek için birkaç akçe vermekten çekinmiyorlar. Soğanlar Avrupa'ya gidiyor. Elçinin soğan yolladığı bir botanikçi, bin beş yüz doksan üç sonbaharında kendi laleleriyle Hollanda'ya, Leyden Üniversitesi'nin bahçesine geliyor. Bahçesindeki laleler o kadar göz alıyor ki soğanları defalarca çalınıyor; lale Hollanda'ya biraz da böyle yayılıyor.",
+  "karakter": 769,
+  "karakter_etiketli": 771
+ },
+ {
+  "onek": "s02",
+  "ad": "Alev",
+  "ids": [
+   "C01",
+   "C02",
+   "C03",
+   "C04",
+   "C05",
+   "C06"
+  ],
+  "metin": "[calmly] Hollandalılar en çok bir tür laleye vuruluyor: beyaz ya da sarı yaprakların üstünde kırmızı, mor alevler. Bu lalelere kırık diyorlar. Hangi soğanın gelecek bahar kırılacağını kimse bilemiyor. [thoughtful] Bugün sebebini biliyoruz: o alevler bir virüsün izi. En pahalı laleler aslında hastaydı. Hastalık soğanı zayıflatıyor, yavru vermesini yavaşlatıyor. Az bulunan şey pahalanıyor. [calmly] En ünlüsünün adı Semper Augustus. Bin altı yüz yirmi dörtte bir yazar, bütün Hollanda'da bundan yalnızca bir düzine olduğunu yazıyor; sahibi tanesine bin iki yüz gulden verilse de satmıyor. Ertesi yıl teklif üç bin guldene çıkıyor. Adam yine satmıyor.",
+  "karakter": 645,
+  "karakter_etiketli": 651
+ },
+ {
+  "onek": "s03",
+  "ad": "Rüzgâr",
+  "ids": [
+   "D01",
+   "D02",
+   "D03",
+   "D04",
+   "D05",
+   "D06",
+   "D07",
+   "D08",
+   "D09"
+  ],
+  "metin": "[calmly] Bin altı yüz otuz altı sonbaharı. Soğanlar toprağa giriyor; haziranda çıkacaklar. Ama alım satım beklemiyor. Toprağın altındaki soğan için bir kâğıt imzalanıyor: şu çeşit, şu ağırlık, haziranda teslim, haziranda ödeme. Kâğıt elden ele geçiyor; soğanı gören yok. Bu işe bir ad takıyorlar: rüzgâr ticareti. Ticaret borsada değil, meyhanelerin arka odalarında yapılıyor. Tüccarların yanına ustalar da oturuyor: dokumacılar, fırıncılar. [excited] Broşürlerin deyişiyle bir zamanlar sepet sepet gübreliğe atılan sarı kırmızı bir çeşit, Svitsers, bir ayda on iki kat pahalanıyor. [calmly] Ve beş Şubat'ta Alkmar'daki o salonda yetimlerin soğanları satılıyor. Mezat bittiğinde toplam doksan bin gulden. Kâğıt üzerinde her çocuğa on üç bin gulden düşüyor: bir zanaatkâr ailesinin kırk yılı aşkın geliri. [slowly] Kâğıt üzerinde. Çünkü para haziranda, soğanlar topraktan çıkınca ödenecek.",
+  "karakter": 880,
+  "karakter_etiketli": 888
+ },
+ {
+  "onek": "s04",
+  "ad": "Çöküş",
+  "ids": [
+   "E01",
+   "E02",
+   "E03",
+   "E04",
+   "E05",
+   "E06",
+   "E07"
+  ],
+  "metin": "[slowly] Aynı günlerde Harlem'de bir satışta, anlatıldığına göre, ilk kez kimse el kaldırmıyor. Birkaç gün içinde alıcılar ortadan kayboluyor. Dünün değerli kâğıtları, bugün kimsenin istemediği borçlar. Lale tüccarları Amsterdam'da toplanıp bir uzlaşma öneriyor; öneri tutmuyor. [calmly] Haziran geliyor, soğanlar topraktan çıkıyor. Satıcılar parasını istiyor; alıcıların çoğu ödemiyor. Mahkemeler bu davalara bakmak istemiyor. Bir yıl sonra Harlem'de bir karar çıkıyor: alıcı fiyatın yüzde üç buçuğunu öderse sözleşmeden kurtuluyor. [thoughtful] Alkmar'daki doksan binin ne kadarının ödendiğini bugün bilen yok.",
+  "karakter": 606,
+  "karakter_etiketli": 612
+ },
+ {
+  "onek": "s05",
+  "ad": "Efsane",
+  "ids": [
+   "F01",
+   "F02",
+   "F03",
+   "F04",
+   "F05",
+   "F06",
+   "F07",
+   "F08",
+   "F09",
+   "F10",
+   "F11"
+  ],
+  "metin": "[calmly] Çöküşün daha ilk haftalarında Harlem'de broşürler basılıyor. Birinde iki komşu konuşuyor. Adları bile bir ders: birinin adı Doğrucu, ötekinin Açgözlü. [slowly] Açgözlü bir dokumacı: soğan almak için evini ipotek etmiş, tezgâhını satmış. Sonunda tek cümle kuruyor: Bir çılgınlıktı. İki yüz yıl sonra, bin sekiz yüz kırk birde, İskoç gazeteci Çarls Mıkay bu broşürlere dayanan eski kitaplardan bir bölüm yazıyor. [amused] Kitabın en ünlü sahnesi: bir denizci tezgâhta bir soğan görüyor, ringa balığının yanına katık diye yiyor. Soğan bir Semper Augustus'muş. Mıkay'a göre bacacılar bile lale alıyor, ülkenin ticareti yıllarca toparlanamıyor. Bu sahneler sonraki yüz elli yıl boyunca kitaptan kitaba aktarılıyor. [calmly] İki bin yedide tarihçi En Goldgar Hollanda arşivlerine dönüyor: noter defterleri, mahkeme kayıtları, mezat listeleri. Arşivlerde, lale yüzünden iflas ettiği belgelenen tek bir kişi bulamıyor. Adını saptayabildiği alıcı ve satıcılar birkaç yüz kişi; çoğu zaten varlıklı tüccar ve usta. Ülkenin ekonomisi büyümeyi sürdürüyor. [thoughtful] Fiyat gerçekten uçmuştu. Geriye kalan iflaslar değil, tutulmayan sözlerdi; yıkımı sonradan anlatılan hikâye büyüttü.",
+  "karakter": 1171,
+  "karakter_etiketli": 1181
+ },
+ {
+  "onek": "s06",
+  "ad": "İstanbul",
+  "ids": [
+   "G01",
+   "G02",
+   "G03",
+   "G04",
+   "G05",
+   "G06",
+   "G07",
+   "G08",
+   "G09"
+  ],
+  "metin": "[calmly] Bin yedi yüz on sekiz. İstanbul'da tahtta Üçüncü Ahmed, sadrazamlıkta damadı Nevşehirli İbrahim Paşa. Kâğıthane'de ve Boğaz kıyılarında köşkler, bahçeler yapılıyor; Saadabad iki ayda yükseliyor. [softly] Bahçelerde lale tarhları. Anlatılanlara göre bahar gecelerinde lalelerin arasına kandiller diziliyor, sırtına mum konmuş kaplumbağalar çiçeklerin arasında dolaşıyor. Meraklılar yeni çeşitler yetiştiriyor ve onlara adlar veriyor. Birinin adı Nizeyi Rummani: nar renkli mızrak. Ve meraklılar bu soğanlara her yıl daha çok ödüyor. [calmly] Hollanda'da mahkemeler karışmamıştı. İstanbul'da devlet karışıyor: bin yedi yüz yirmi altı yazında İstanbul kadısının defterine iki yüz otuz dokuz lalenin tavan fiyatı tek tek yazılıyor. Narhın üstünde satanın lalelerine el konacak, kendisi uzak bir şehre sürülecek. Listenin en pahalısı Nizeyi Rummani: elli kuruş, bir inşaat işçisinin üç yüz yevmiyesine yakın. En ucuzu bir akçe. Bir yıl sonraki listede aynı lalenin tavanı dört katına çıkmış: iki yüz kuruş.",
+  "karakter": 1004,
+  "karakter_etiketli": 1010
+ },
+ {
+  "onek": "s07",
+  "ad": "1730",
+  "ids": [
+   "H01",
+   "H02",
+   "H03",
+   "H04",
+   "H05",
+   "H06"
+  ],
+  "metin": "[serious] Eylül bin yedi yüz otuz. İran cephesinden kötü haberler geliyor; savaş için yeni vergiler konmuş. Yirmi sekiz Eylül'de, bir zamanlar yeniçeri olan, eski giysi satan Patrona Halil, bir avuç adamla Beyazıt'ta ayaklanıyor; kalabalık büyüyor. [slowly] Üçüncü Ahmed isyancıların baskısıyla damadından vazgeçiyor; Ekim'in ilk gecesi İbrahim Paşa öldürülüyor. Ertesi gün Üçüncü Ahmed tahtı yeğenine bırakıyor. [calmly] İsyancılar Kâğıthane'deki köşklerin ve lale bahçelerinin yıkılmasını istiyor; yeni padişah engel olamıyor. Patrona Halil de iki ay sonra öldürülecek.",
+  "karakter": 565,
+  "karakter_etiketli": 571
+ },
+ {
+  "onek": "s08",
+  "ad": "Ad",
+  "ids": [
+   "I02",
+   "I03",
+   "I04",
+   "I05",
+   "I06",
+   "I07",
+   "I08"
+  ],
+  "metin": "[calmly] O yılların tarihçileri Lale Devri adını hiç kullanmadı; on sekizinci yüzyılın kroniklerinde böyle bir dönem yok. Adı ilk kullanan şair Yahya Kemal; yaygınlaştıran, bin dokuz yüz on üçte bir gazete tefrikasıyla tarihçi Ahmed Refik. [amused] Ahmed Refik'in kitabında bir lale soğanı beş yüz, hatta bin altına satılıyor. [calmly] Narh defterlerini bin dokuz yüz elli üçte yayımlayan tarihçi, bu rivayeti doğrulayan tek bir belge bulamadığını yazıyor. Ahmed Refik o yılları bir zevk ve yenilik çağı olarak anlattı; ders kitaplarında bin yedi yüz otuz isyanı da bu gösterişe karşı bir halk öfkesi olarak yer etti. [slowly] İki bin yirmi beşte bu adı sorgulayan bir kitap çıktı. Editörü, tarihçi Selim Karahasanoğlu, girişe kışkırtıcı bir cümle yazdı: Lale Devri hiç yaşanmamıştır. [calmly] Kastettiği şu: laleler de vardı, köşkler de; ama o yılları ayrı bir sefahat çağı sayan anlatı sonradan kuruldu. Ona göre bin yedi yüz otuz bir ahlak isyanı değil, bir iktidar kavgasıydı.",
+  "karakter": 970,
+  "karakter_etiketli": 980
+ },
+ {
+  "onek": "s09",
+  "ad": "Son",
+  "ids": [
+   "J02",
+   "J03",
+   "J04",
+   "J05",
+   "J06"
+  ],
+  "metin": "[thoughtful] İki ülkede de fiyatlar gerçekten yükseldi. Ama ikisini de bugün bildiğimiz hâline, aşağı yukarı iki yüz yıl sonra yazılan birer kitap getirdi: birini Mıkay yazdı, ötekini Ahmed Refik. Harlem'in meyhanelerinde soğanı gören yoktu; masada dolaşan, bir kâğıt ve başkalarının kazancına dair sözlerdi. [curious] Peki sen? Herkes alıyorsa, sen de alır mısın? [slowly] Belki önce şunu sormak gerek: herkesin aldığını sana kim söylüyor? [warmly] Cevabını yorumlara yaz. Zaman Kuryesi'ne abone olursan bir sonraki soruyu ben getireyim; bir sonraki hikâye ekranda.",
+  "karakter": 558,
+  "karakter_etiketli": 566
+ }
+]

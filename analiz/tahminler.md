@@ -31,6 +31,14 @@
 | D2 | 1:15 B07 dergi/kitap karşılaştırması: tek soyut cümle; küçük düşüş olabilir, ≤4 puan. | 1:12–1:25 | |
 | D3 | **Doğal deney (N2 ile karşılaştırma):** hikâye 6:43'te bitiyor; ardından gelen bölüm somut bir anekdot (1895 mahkemesi, avukat romandan sayfa okur, Wilde hapse girer). Tahmin: 6:45–7:35 dik değil (< 1,5 × gövde ortalaması) ve Narkissos'un 6:23–7:50'sinden yatık. İki video da hikâye bittikten sonra gerçek dünyaya geçiyor; biri somut, biri soyut. | iki videonun aynı bölümü yan yana | |
 
+## Lale Çılgınlığı (~9:45; yayın tarihi kesinleşecek, öneri 11 Aralık 18:00; 48. saat ve 7. gün buna göre)
+Yazıldı: 22 Kasım 2026, senaryo rev2 (seslendirmeden önce). Zamanlar seslendirmeden sonra cümle kimliğinden eklenir; tahminin içeriği değişmez.
+| # | Tahmin | Nasıl sınanır | Sonuç |
+|---|---|---|---|
+| L1 | Kanca uzun (~44 sn: Alkmaar mezadı + İstanbul ikizi + "Lale Devri adını kim koydu?") ve ardından zaman sıçraması ("Önce seksen yıl geriye: 1554"). Sıçrama somut bir sahneyle (elçiye çiçek sunuluyor) açıldığı için köprü kaybı yok: B01'in ilk 20 sn'sinde ≤ 4 puan; 0:30 (48. saat) ≥ %65. | B01 ± 20 sn, 0:30 | |
+| L2 | **Doğal deney (Mary Stuart M2 ile aynı soru):** efsanenin çürütülmesi (F08–F11, Goldgar) bir yorum değil, olay olarak kuruldu (arşive dönüş, "bulamıyor", "tutulmayan sözler"). Tahmin: F08–F11 dik değil (< 1,5 × gövde ortalaması). Tutmazsa: izleyici çürütmeyi olay değil açıklama sayıyor. | F08 başı – F11 sonu, dakika başına kayıp / gövde | |
+| L3 | **Türk izleyicinin kapısı:** İstanbul bölümü (G01) yeni bir "ikinci hikâye" açar; doruk kişileri kancada ekildiği ve "Lale Devri" okuldan tanıdık olduğu için G01'den sonraki 30 sn'de düşüş yok (≤ 2 puan) ya da yükseliş; "Ad" bölümü (A07'nin merakının cevabı, I03–I07) Studio'da "Önemli an" ya da yerel yükseliş. | G01 + 30 sn; I03–I07 eğri ve Studio işaretleri | |
+
 ---
 
 ## Sonuçlar

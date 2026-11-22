@@ -10,24 +10,27 @@ const SC = {
     const cam = CAMx(960 + t * 8, 540, 1.0);
     sahne(ctx, cam, () => {
       SET.gok({ gun: 1 });
-      SET.degirmen(1680, 600, .9, t * .35);
-      let x = -200; for (let i = 0; i < 16; i++) { const w = 90 + SET.rnd(i) * 60, h = 150 + SET.rnd(i + 9) * 90; SET.ev(x, 640, w, h, { ton: .38 + SET.rnd(i * 3) * .2, basamak: 3 + (i % 2) }); x += w + 4; }
-      SET.tarla({ y0: 640, t, sira: 9 });
+      SET.degirmen(1560, 566, .7, t * .35);
+      SET.kasaba(560, 1);
+      SET.tarla({ y0: 566, t, sira: 7 });
     });
   },
   // ORTA PLAN: Alkmaar mezadı; mezatçı masada, saksıda tek renkli lale, kalabalık sırtı ve kalkan eller
   mezat(ctx, t) {
     const cam = CAMx(960, 560, 1.0);
     sahne(ctx, cam, () => {
-      SET.meyhane({ isik: 1 });
-      SET.masa(700, 610, 520);
-      SET.saksi(960, 610, 1.1); LALE.ciz(960, 470, 1.1, { sap: 70, cesit: 'amiral', ac: .2 });
-      SET.isik({ x: 960, y: 470, r1: 420, a: .7 });
-      INSAN.adam({ x: 1320, y: 900, h: 640, yon: -1, sapka: 'genis', yaka: 'duz', kenar: .5, kenarYan: -1, kolOn: { a: 2.2 + .25 * Math.sin(t * 1.6), b: .4 }, biyik: true, sakal: true });
-      // kalabalık: sırtı dönük figürler, farklı yükseklikte dirsekten kırık kalkan kollar
-      for (let i = 0; i < 7; i++) { const x = 160 + i * 250 + (i % 2) * 40, up = (Math.sin(t * 2 + i) > .3 && i % 3 !== 1);
-        INSAN.adam({ x, y: 1240 + (i % 2) * 40, h: 900, yon: i % 2 ? 1 : -1, arka: true, sapka: 'genis', yaka: 'duz', kenar: .35, giysi: 'pelerin', kolOn: up ? { a: 2.5, b: -.9 } : { a: .1, b: .1 } }); }
-    });
+      SET.meyhane({ isik: .8 });
+      SET.masa(760, 640, 420);
+      SET.saksi(970, 640, 1.0); LALE.ciz(970, 515, 1.15, { sap: 62, cesit: 'amiral', ac: .2 });
+      SET.isik({ x: 970, y: 520, r1: 520, a: .85 });
+      // mezatçı (masanın arkasında, ¾ profil, ışıkta) ve yanında kâtip
+      INSAN.adam({ x: 1200, y: 900, h: 560, yon: -1, sapka: 'genis', yaka: 'duz', kenar: .55, kenarYan: -1, kolOn: { a: 1.5 + .25 * Math.sin(t * 1.4), b: .9 }, biyik: true, sakal: true });
+      INSAN.adam({ x: 720, y: 880, h: 480, yon: 1, sapka: 'genis', yaka: 'duz', kenar: .45, kolOn: { a: .9, b: .9 } });
+      // alıcılar: ön planda sırtı dönük, farklı derinlik ve boyda; kolları dirsekten kırık, avuç açık (selam okunmaz)
+      const A = [[200, 1150, 700, 1], [520, 1200, 760, -1], [1440, 1190, 740, 1], [1760, 1150, 700, -1]];
+      A.forEach(([x, y, h, yon], i) => { const up = Math.sin(t * 1.8 + i * 1.7) > .2;
+        INSAN.adam({ x, y, h, yon, arka: true, sapka: 'genis', yaka: 'duz', kenar: .4, kenarYan: yon, giysi: 'pelerin', kolOn: up ? { a: 2.1, b: 1.0 } : { a: .25, b: .3 } }); });
+    }, 1, [.1, 0, 0]);
   },
   // YAKIN: tek kırık lale (Semper Augustus); ışık
   yakin(ctx, t) {
@@ -43,7 +46,7 @@ const SC = {
     if (t < 7.5) {
       const cam = camLerp(CAMx(960, 520, 1), CAMx(1060, 700, 1.6), t / 7.5);
       const r = clamp(t / 2.5);
-      sahne(ctx, cam, () => { SET.gok({ gun: 1 }); let x = -200; for (let i = 0; i < 16; i++) { const w = 90 + SET.rnd(i) * 60, h = 150 + SET.rnd(i + 9) * 90; SET.ev(x, 640, w, h, { ton: .38 + SET.rnd(i * 3) * .2, basamak: 3 + (i % 2) }); x += w + 4; } SET.tarla({ y0: 640, t, sira: 9 }); }, r);
+      sahne(ctx, cam, () => { SET.gok({ gun: 1 }); SET.kasaba(560, 1); SET.tarla({ y0: 566, t, sira: 7 }); }, r);
     } else {
       const u = t - 7.5, a = lerp(-.02, .16, E.io2(clamp(u / 3))), renk = 1 - E.io2(clamp((u - 4) / 3));
       sahne(ctx, CAMx(960, 560, 1), () => {
