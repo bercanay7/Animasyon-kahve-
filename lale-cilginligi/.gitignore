@@ -1,0 +1,6 @@
+vo/*.mp3
+vo/*.wav
+audio/*.wav
+*.mp4
+.parts*/
+kapak/test/

@@ -1,6 +1,6 @@
 {
  "voice": "Emrullah (ElevenLabs; voice_id creative_list_voices ile bulunur)",
- "revizyon": "rev2 (22 Kasım 2026): Fable 5.2'nin bağımsız okuması işlendi; kanca kısaltıldı",
+ "revizyon": "rev2 (22 Kasım 2026): Fable 5.2'nin bağımsız okuması işlendi; kanca kısaltıldı; seslendirildi",
  "not": "Kaynaklar: kaynak/DOGRULAMA.md. Çeviriler bizim. İskelet: Kahramanın Yolculuğu, kahraman lale (uretim_plani.md §4).",
  "segments": [
   {
@@ -455,7 +455,7 @@
    "id": "I05",
    "bolum": "Ad",
    "tts": "Narh defterlerini bin dokuz yüz elli üçte yayımlayan tarihçi, bu rivayeti doğrulayan tek bir belge bulamadığını yazıyor.",
-   "alt": "Narh defterlerini 1950'lerde yayımlayan tarihçi, bu rivayeti doğrulayan tek bir belge bulamadığını yazıyor.",
+   "alt": "Narh defterlerini 1953'te yayımlayan tarihçi, bu rivayeti doğrulayan tek bir belge bulamadığını yazıyor.",
    "kaynak": "Aktepe TD 7, s. 93: \"Bu rivayetin doğruluğunu isbat edecek bir vesika da ortada yoktur.\" Ekran etiketi: M. Münir Aktepe"
   },
   {
