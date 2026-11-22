@@ -11,6 +11,9 @@
 9. **Oynatma listesi:** "Kitapların Sorduğu Sorular" (yoksa oluştur); ikinci liste "Tarihin Dönüm Noktaları".
 10. **Sabit yorum:** `youtube.md` → "Sabit yorum".
 11. **Zamanlama (kesin):** 20 Kasım 2026 Cuma 18:00 (Ran 17 Kasım 18:00'de yayımlandı; Ran'ın 48. saat ölçümü 19 Kasım, karışmasın). 48. saat = 22 Kasım 18:00, 7. gün = 27 Kasım. Tarih değişirse `CLAUDE.md`'deki ölçüm tarihleri güncellenir.
-12. **Shorts:** `mary_stuart_shorts.mp4` (25 sn, 1080×1920) uzun videodan 1–2 gün sonra; başlık, açıklama ve "İlgili video" `youtube.md` → "Shorts".
+12. **Shorts:** iki Shorts, ikisi de 1080×1920; başlık, açıklama ve "İlgili video" `youtube.md` → "Shorts" ve "Shorts 2".
+    - `mary_stuart_shorts.mp4` (25 sn, kırmızı iç etek): **22–23 Kasım**.
+    - `mary_stuart_shorts_taht.mp4` (27 sn, "tahta kim oturdu"): **25 Kasım** (Narkissos'un 27 Kasım yayınından iki gün önce; uzun videoların haftasıyla çakışmasın).
+    - Shorts uzun videoya izleyici taşımıyor (Milton dersi); ayrı içerik olarak kanalın havuzunu büyütür.
 13. **Telif notu:** bütün görseller kamu malı (Met Open Access CC0, Commons PD-Art); müzik ve efektler özgün sentez. Content ID itirazı gelirse açıklamadaki görsel künyesi ve `kaynak/GORSELLER.md` kanıttır.
 14. **Hassasiyet notu:** idam anı, balta, kütük ve kan gösterilmez (Finden gravürünün idamı gösteren ek resmi bütün planlarda örtüldü). Din yalnız tarihsel bağlamda anlatılır (Mary'nin Katolik, İskoçya'nın Protestan oluşu; kırmızının şehitlik rengi olarak okunması "birçok tarihçiye göre").

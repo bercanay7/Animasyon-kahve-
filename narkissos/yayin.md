@@ -15,5 +15,5 @@
 8. **Kart (isteğe bağlı):** 7:13'te ("Freud") ya da 8:16'da → Sisifos videosu.
 9. **Oynatma listesi:** "Mitler ve Felsefe".
 10. **Sabit yorum:** `youtube.md` → "Sabit yorum".
-11. **Zamanlama (kullanıcı kesinleştirdi, 20 Kasım):** 24 Kasım 2026. 48. saat = 26 Kasım, 7. gün = 1 Aralık. Ran 7. gün ölçümü (24 Kasım 18:00) Narkissos yayına girmeden alınır. Yayın aralığı denemesi: `analiz/2026-11-18-sisifos-sonme.md`.
+11. **Zamanlama (kullanıcı değiştirdi, 22 Kasım):** **27 Kasım 2026 Cuma 18:00** (önce 24 Kasım'dı). Neden: her videoya tek başına bir hafta; Mary Stuart'ın 7. günü bölünmesin ve Narkissos'un "yeni kapı" sınaması temiz okunsun (`analiz/2026-11-22-genel-karsilastirma.md`). 48. saat = 29 Kasım 18:00, 7. gün = 4 Aralık. Mary Stuart'ın 7. gün ölçümü (27 Kasım) Narkissos yayına girmeden, 18:00'den önce alınır. **Studio'da zamanlanmışsa yayın tarihini orada da değiştir.** Yayın aralığı denemesi: `analiz/2026-11-18-sisifos-sonme.md`.
 12. **48. saat ve 7. gün:** TO, 0:30'da kalan, ilk 10 saniye, göz atma testi. Kanal medyanlarıyla karşılaştır (`analiz/2026-11-17-kanal-ortalamasi.md`). Bu video "yeni kapı" sınaması: talep (a) güçlü, (b) güçlü.

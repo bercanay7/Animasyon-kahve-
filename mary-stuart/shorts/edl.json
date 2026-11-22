@@ -5,13 +5,15 @@
    "id": "A01k",
    "src0": 6.95,
    "src1": 7.95,
-   "t0": 0
+   "t0": 0,
+   "kunye": "E. F. Finden, 19. yy gravürü (The Met, CC0) · sonraki yüzyılın hayali"
   },
   {
    "id": "A01",
    "src0": 0.45,
    "src1": 7.3,
-   "t0": 1.0
+   "t0": 1.0,
+   "kunye": "E. F. Finden, 19. yy gravürü (The Met, CC0) · sonraki yüzyılın hayali"
   },
   {
    "id": "L12",
@@ -23,7 +25,8 @@
    "id": "L13",
    "src0": 1066.13,
    "src1": 1073.5,
-   "t0": 15.14
+   "t0": 15.14,
+   "kunye": "E. F. Finden, 19. yy gravürü (The Met, CC0) · sonraki yüzyılın hayali"
   }
  ],
  "son": {

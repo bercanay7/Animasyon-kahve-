@@ -63,6 +63,7 @@ Yaş farkı var: eski videolar için ilk 7 gün ya da ömür boyu, yeni videolar
 ## 5. Ölçme dersleri
 - **Aynı yaştaki veriyle karşılaştır:** ilk 48 saatin 0:30'u aboneler yüzünden şişer (Milton 40. saatte %68, 4. günde %56).
 - **Tahmin yayından önce yazılır:** Mary Stuart'ta üç tahminin ikisi tuttu. Tutmayan (M2) kuralı inceltti: "göre" sözcüğü değil, olaydan kopuk açıklama.
+- **Tempo aracı geriye dönük doğru yeri buluyor:** `tempo_kontrol.py` Mary Stuart'ta ilk iki dakikadaki tek soyut diziyi (B06–B07, 1:12–1:30) işaretledi; filmin en büyük içerik kaybı tam orası. Art arda soyut üç diziden ikisi gerçek kayıp (1:12, 17:38), biri tutmadı (4:19 Zweig yargıları). 22 Kasım'dan beri araç ilk iki dakikadaki soyut adayları ayrıca "E" ile işaretliyor.
 - **Eğri ~100–150 izleyicilik:** bir izleyici ≈ 1 puan. Tek videodaki küçük kıpırtı ders değildir; ders iki üç videoda görülen örüntüdür.
 
 ## 6. Sonraki adımlar (öneri)

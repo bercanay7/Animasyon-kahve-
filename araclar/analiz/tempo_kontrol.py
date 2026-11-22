@@ -11,19 +11,24 @@ timeline.js verilirse cümleler yayındaki sırayla ve zamanlarıyla dizilir (se
      ilk cümle hikâyenin ilk cümlesidir; yalnız kimlik bilgisi (ad, yıl) tek cümle olabilir.
   M  soyut aday: karşılaştırma/çıkarım sözcüğü var ("göre", "fark", "tıpkı", "-de de", "eklediği", "asıl"…).
      Kural: somut olay tutar, soyut çözümleme düşürür; art arda iki soyut cümle olmaz.
+     Ölçülen (Mary Stuart M2): "göre" sözcüğü değil, olaydan kopuk açıklama kaybettirir; yazarın somut bir karar
+     hakkındaki yargısı tutar. Başkan her M'ye "olaya bağlı mı?" diye bakar.
+  E  erken soyut: ilk iki dakikadaki M (timeline yoksa ilk ~1.480 karakter). En pahalı kayıp burada
+     (Mary Stuart 1:12–1:36 arma ve meşruiyet: 24 sn'de −11). Arka plan gerekiyorsa nesne ya da sahneyle verilir.
   Y  yazar/yaratıcı anılıyor (--yazar), karşılaştırma sözcüğü yok. Kendi başına sorun değil:
      Ran'da "Kurosawa kaleyi inşa ettirdi, sonra yaktı" en iyi tutan yerdi. Başkan "olay mı, yorum mu" diye bakar.
   T  merak sorusu: cevabı bir OLAY olan cümle numarası yazılır, kavram değil.
   A  yeni ad: sürenin (ya da cümlelerin) ilk yarısından sonra ilk kez geçen özel ad.
      İpucu: doruğu taşıyacak kişiler ilk perdede adı ve görüntüsüyle ekilir.
 
-Kaynak dersler: CLAUDE.md "Ran dersleri → Yayın sonrası dersler"; analiz/2026-11-19-ran-48saat.md.
+Kaynak dersler: CLAUDE.md "Ran dersleri → Yayın sonrası dersler"; analiz/2026-11-19-ran-48saat.md;
+analiz/2026-11-22-mary-stuart-45saat.md; analiz/2026-11-22-genel-karsilastirma.md.
 """
 import json, re, sys
 
 KARSILASTIRMA = re.compile(
     r"\b(tıpkı|göre|fark\w*|aksine|oysa|yani|demek|aslında|anlam\w*|simge\w*|sembol\w*|"
-    r"temsil\w*|okuma\w*|yorum\w*|kavram\w*|eklediği|ekledi|vermez|vermediği|çok daha|asıl)\b"
+    r"temsil\w*|okuma\w*|yorum\w*|kavram\w*|eklediği|ekledi|vermez|vermediği|çok daha|asıl|gözünde|meşru\w*)\b"
     r"|'[dt][ae] de\b|'[dt][ae] da\b", re.I)
 MERAK = re.compile(r"\?|bir şey\b|sona sakl|göreceğiz|nedenini|asıl soru|peki\b", re.I)
 AD = re.compile(r"(?<![\wÇĞİÖŞÜçğıöşü])([A-ZÇĞİÖŞÜ][a-zçğıöşüâîûōū]+(?:\s[A-ZÇĞİÖŞÜ][a-zçğıöşüâîûōū]+)?)")
@@ -66,6 +71,7 @@ def tara(rows, yazarlar):
     son_soru = max([i for i in kanca if "?" in rows[i]["alt"]], default=None)
     gorulen = {}
     ortada = set()
+    kar = 0   # timeline yoksa erken bölge karakterle (≈12,3 harf/sn × 120 sn)
     for r in rows:
         for m in AD.finditer(r["alt"]):
             onc = r["alt"][:m.start()].rstrip()[-1:]
@@ -77,8 +83,11 @@ def tara(rows, yazarlar):
         if son_soru is not None and i in kanca and i > son_soru:
             b.append("K")
         yazar_var = any(re.search(r"\b" + re.escape(y), metin) for y in yazarlar)
+        erken = (r["s"] < 120) if r["s"] is not None else (kar < 1480)
+        kar += len(metin)
         if KARSILASTIRMA.search(metin):
             b.append("M")
+            if erken: b.append("E")
         elif yazar_var:
             b.append("Y")
         if MERAK.search(metin) and i > 0:
@@ -122,6 +131,8 @@ def rapor(rows, md=None):
     if len(cur) >= 2: diz.append(cur)
     p("")
     p("Art arda soyut aday dizileri (≥2): " + ("; ".join(f"{d[0]['id']}–{d[-1]['id']} ({zaman(d[0]['s'])})" for d in diz) or "yok"))
+    e = [f"{r['id']} ({zaman(r['s'])})" if r['s'] is not None else r['id'] for r in rows if "E" in r["bayrak"]]
+    p("İlk iki dakikada soyut adaylar (en pahalı kayıp): " + (", ".join(e) or "yok"))
     k = [r["id"] for r in rows if "K" in r["bayrak"]]
     p("Köprü adayları (kanca sorusundan sonra, kanca bölümünde): " + (", ".join(k) or "yok"))
     a = [f"{r['id']} {','.join(r['yeni'])}" for r in rows if r["yeni"]]

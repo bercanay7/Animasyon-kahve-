@@ -43,4 +43,4 @@ Fable bütün kurgu özeti sayfalarına, ~30 tam boy kareye, senaryoya, SRT'ye, 
 ## Açık kalanlar
 - Kulakla son onay kullanıcıda: "Dorian Grey" ve "Oskar Vayld" okunuşu, B06 dilek tonu, G08–G11 doruk, müzik ve sessizlikler (E09 sonrası 1,8 sn, G09 "çığlık" 3,2 sn).
 - Shorts yapılmadı (isteğe bağlı; aday kesitler `youtube.md`).
-- Sonuçlar 48. saat (2 Aralık) ve 7. gün (7 Aralık) verisiyle `CLAUDE.md`'ye yazılır: talep kontrolünün dördüncü sınaması (a güçlü: "dorian gray"; b güçlü) ve kanalın ilk 4 kelimelik kapak yazısı denemesi (B).
+- Sonuçlar 48. saat (6 Aralık) ve 7. gün (11 Aralık; yayın 4 Aralık'a kaydırıldı) verisiyle `CLAUDE.md`'ye yazılır: talep kontrolünün dördüncü sınaması (a güçlü: "dorian gray"; b güçlü) ve kanalın ilk 4 kelimelik kapak yazısı denemesi (B).

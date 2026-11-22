@@ -70,6 +70,17 @@ Zweig'a göre Mary kalbiyle yaşadı ve kaybetti; Elizabeth aklıyla yaşadı ve
 - **Açıklama:** 8 Şubat 1587: İskoçya Kraliçesi Mary Stuart siyah elbisesinin altından kızıl bir iç etekle çıktı. Tam hikâye kanalda: Mary Stuart ve I. Elizabeth. Görsel: E. F. Finden, 19. yy gravürü (The Met, CC0); sonraki yüzyılın hayali, belge değil. #MaryStuart #StefanZweig #1Elizabeth
 - **İlgili video:** uzun video.
 
+## Shorts 2: tahta kim oturdu (22 Kasım; `mary_stuart_shorts_taht.mp4`, 27 sn)
+Eğrinin en güçlü ikinci artışından (19:17–19:42, "bugünkü kraliyet ailesi Mary'nin soyundan"); en güçlü cümle ilk saniyede. Kurgu `shorts/edl_taht.json`.
+- **Başlık:** Elizabeth Onu İdam Ettirdi. Taht Kime Kaldı? #MaryStuart #Tarih
+- **Açıklama:** 1587'de I. Elizabeth, İskoçya Kraliçesi Mary Stuart'ın idam fermanını imzaladı. 1603'te varissiz öldü ve İngiltere tahtına Mary'nin oğlu James oturdu. Bugünkü kraliyet ailesi Mary'nin soyundan gelir. Tam hikâye kanalda: Mary Stuart ve I. Elizabeth. Görseller: I. Elizabeth madalyası (16. yy) ve VI./I. James gravürü (P. de Jode), The Met (CC0). #MaryStuart #1Elizabeth #Tarih
+- **İlgili video:** uzun video.
+
+## Dış paylaşım (isteğe bağlı; maliyeti yok)
+Kanalın havuzu küçükken YouTube dışından gelen izleyici yeni sinyal verir (`analiz/2026-11-22-genel-karsilastirma.md`). Bağlantıya zaman damgası eklenebilir: `?t=1154` (tahta kim oturdu), `?t=1033` (kırmızı iç etek). Video kimliği yükleme sonrası Studio'dan alınır.
+- **Kişisel soru (WhatsApp, Instagram hikâyesi):** "Kalbinle mi yaşarsın, aklınla mı? İki kraliçe, hiç yüz yüze gelmediler; biri ötekinin idam fermanını imzaladı. 20 dakikalık animasyon: [bağlantı]"
+- **Dönüm anı (X, forum):** "Elizabeth, Mary Stuart'ın idam fermanını imzaladı. 16 yıl sonra İngiltere tahtına Mary'nin oğlu oturdu; bugünkü kraliyet ailesi onun soyundan. Hikâyenin tamamı Zweig'ın kitabından: [bağlantı]"
+
 ## SEO (18 Kasım; YouTube otomatik tamamlama ölçümüyle, `uretim_plani.md` → Talep kontrolü)
 | Arama (hl=tr, gl=tr) | Ne çıktı | Nerede kullanıldı |
 |---|---|---|

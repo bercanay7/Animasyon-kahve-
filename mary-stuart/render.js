@@ -14,7 +14,8 @@ function serve() { const ROOT = __dirname; return new Promise(r => { const srv =
 const FPS = 30;
 const SHORTS = !!process.env.SHORTS;
 const PAGE = process.env.PAGE || (SHORTS ? 'shorts.html' : 'film.html');
-const EXTRA = process.env.Q || (SHORTS ? 'rs=2&notext=1' : '');
+const EDLAD = process.env.EDL || '';   // SHORTS=1 EDL=taht → shorts/edl_taht.json, ses shorts/mix_shorts_taht.wav
+const EXTRA = process.env.Q || (SHORTS ? 'rs=2&notext=1' + (EDLAD ? '&edl=' + EDLAD : '') : '');
 // renk: JPEG kareler (tam aralık, BT.601) → BT.709 sınırlı aralık, akışta BT.709 etiketleri (HD standardı)
 const X264 = ['-vf', 'scale=in_range=full:out_range=tv:in_color_matrix=bt601:out_color_matrix=bt709', '-colorspace', 'bt709', '-color_primaries', 'bt709', '-color_trc', 'bt709', '-c:v', 'libx264', '-preset', process.env.PRESET || 'slow', '-crf', process.env.CRF || '18', '-profile:v', 'high', '-pix_fmt', 'yuv420p',
   '-g', '60', '-bf', '3', '-x264-params', 'aq-mode=3:aq-strength=0.9:psy-rd=1.0,0.15'];
@@ -52,10 +53,10 @@ async function worker() {
 async function master() {
   const out = path.resolve(process.argv[2] || (SHORTS ? 'mary_stuart_shorts.mp4' : 'mary_stuart.mp4'));
   let DUR;
-  if (SHORTS) DUR = JSON.parse(fs.readFileSync(path.join(__dirname, 'shorts', 'edl.json'), 'utf8')).DUR;
+  if (SHORTS) DUR = JSON.parse(fs.readFileSync(path.join(__dirname, 'shorts', EDLAD ? `edl_${EDLAD}.json` : 'edl.json'), 'utf8')).DUR;
   else DUR = +fs.readFileSync(path.join(__dirname, 'timeline.js'), 'utf8').match(/window\.DUR\s*=\s*([\d.]+)/)[1];
   const total = Math.round(DUR * FPS), CH = Math.round((+process.env.CHUNK || 24) * FPS);
-  const dir = path.join(__dirname, process.env.PARTS || (SHORTS ? '.parts_shorts' : '.parts'));
+  const dir = path.join(__dirname, process.env.PARTS || (SHORTS ? '.parts_shorts' + (EDLAD ? '_' + EDLAD : '') : '.parts'));
   fs.mkdirSync(dir, { recursive: true });
   const chunks = [];
   for (let a = 0, k = 0; a < total; a += CH, k++) chunks.push({ k, a, b: Math.min(total, a + CH), out: path.join(dir, `c${String(k).padStart(3, '0')}.mp4`) });
@@ -78,7 +79,7 @@ async function master() {
   })));
   const list = path.join(dir, 'list.txt');
   fs.writeFileSync(list, chunks.map(c => `file '${c.out}'`).join('\n'));
-  const mix = path.join(__dirname, process.env.AUDIO || (SHORTS ? 'shorts/mix_shorts.wav' : 'audio/mix.wav'));
+  const mix = path.join(__dirname, process.env.AUDIO || (SHORTS ? `shorts/mix_shorts${EDLAD ? '_' + EDLAD : ''}.wav` : 'audio/mix.wav'));
   const lang = process.env.LANG3 || (/lang=en/.test(EXTRA) ? 'eng' : 'tur'); // ses kanalının dil etiketi (YouTube ve oynatıcılar için)
   const audio = !process.env.NOAUDIO && fs.existsSync(mix) ? ['-i', mix, '-map', '0:v', '-map', '1:a', '-c:a', 'aac', '-b:a', '256k', '-ar', '48000', '-metadata:s:a:0', `language=${lang}`] : [];
   const ff = spawn('ffmpeg', ['-y', '-loglevel', 'error', '-f', 'concat', '-safe', '0', '-i', list, ...audio, '-c:v', 'copy', '-movflags', '+faststart', '-shortest', out],

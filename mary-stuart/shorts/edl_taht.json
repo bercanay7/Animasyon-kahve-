@@ -1,0 +1,75 @@
+{
+ "not": "İkinci Shorts (22 Kasım): eğrinin en güçlü ikinci artışı (19:17–19:42, 'bugünkü kraliyet ailesi Mary'nin soyundan'). En güçlü cümle ilk saniyede; sonra idam, Elizabeth'in ölümü, tahta James'in çıkışı, Tudor'un sonu. Yeni seslendirme yok; ses filmin miksinden.",
+ "kanca": {
+  "satir": [
+   "ONU İDAM ETTİRDİ,",
+   "TAHT OĞLUNA KALDI"
+  ],
+  "bitis": 2,
+  "boy": 112
+ },
+ "ust": {
+  "baslik": "I. ELİZABETH · MARY STUART",
+  "alt": "İngiltere tahtı · 1587–1603"
+ },
+ "son": {
+  "satir": [
+   "SENCE",
+   "HANGİSİ KAZANDI?"
+  ],
+  "alt": "Tam hikâye kanalda: Mary Stuart ve I. Elizabeth",
+  "t0": 24.43,
+  "d": 2.6
+ },
+ "kesit": [
+  {
+   "id": "M06",
+   "src0": 1168.55,
+   "src1": 1173.3,
+   "t0": 0,
+   "cx": 1030,
+   "vsrc0": 1172.4,
+   "altY": 1250,
+   "fadeAlt": 0.97
+  },
+  {
+   "id": "J13",
+   "src0": 893.4,
+   "src1": 895.8,
+   "t0": 4.75,
+   "cx": 560
+  },
+  {
+   "id": "M01",
+   "src0": 1136.45,
+   "src1": 1142.45,
+   "t0": 7.15,
+   "cx": 720
+  },
+  {
+   "id": "M03",
+   "src0": 1151.1,
+   "src1": 1153.7,
+   "t0": 13.15,
+   "cx": 560,
+   "kunye": "I. Elizabeth · 16. yy madalyası · The Met (CC0)"
+  },
+  {
+   "id": "M04",
+   "src0": 1154.62,
+   "src1": 1160.05,
+   "t0": 15.75,
+   "cx": 660,
+   "kunye": "VI. James, 1603'te I. James · P. de Jode · The Met (CC0)"
+  },
+  {
+   "id": "M06",
+   "src0": 1173.45,
+   "src1": 1176.7,
+   "t0": 21.18,
+   "cx": 420,
+   "fadeUst": 0.05
+  }
+ ],
+ "DUR": 27.03
+}

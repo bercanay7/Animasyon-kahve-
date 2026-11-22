@@ -1,6 +1,6 @@
 # Oscar Wilde, *Dorian Gray'in Portresi*: üretim planı
 
-Başlangıç: 19 Kasım 2026. Seri: Kitapların Sorduğu Sorular. Yayın hedefi: 30 Kasım 2026 (en geç 29 Kasım'da yüklemeye hazır). **Durum (19 Kasım gecesi): teslim edildi.** Film (8:16), iki kapak, SRT, `youtube.md`, `yayin.md` kullanıcıya gönderildi; Fable son yorumu işlendi (`geriye_bakis.md`). Yayın 30 Kasım; Shorts isteğe bağlı.
+Başlangıç: 19 Kasım 2026. Seri: Kitapların Sorduğu Sorular. Yayın hedefi: 30 Kasım 2026 (en geç 29 Kasım'da yüklemeye hazır); **22 Kasım'da 4 Aralık 2026 Cuma 18:00'e kaydırıldı** (haftada bir video). **Durum (19 Kasım gecesi): teslim edildi.** Film (8:16), iki kapak, SRT, `youtube.md`, `yayin.md` kullanıcıya gönderildi; Fable son yorumu işlendi (`geriye_bakis.md`). Yayın 30 Kasım; Shorts isteğe bağlı.
 
 **Çalışma düzeni (kullanıcının kararı, 19 Kasım):** bağımsız kurul, puanlama ve çok ajanlı akış yok. Başkan işi tek başına yapar ve denetler; CLAUDE.md ölçütleri ve kanal kuralları aynen geçerli. Fable'a yalnız takılınan yerde tek soru, tek cevap (her danışma aşağıdaki "Fable danışmaları" bölümüne konu ve gerekçesiyle yazılır). Render ve kapaklardan sonra, yayından önce Fable bütün işi bir kez yorumlar; bulgular `geriye_bakis.md`'ye.
 

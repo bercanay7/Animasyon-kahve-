@@ -13,6 +13,6 @@
 8. **Kartlar (isteğe bağlı):** 7:39 ("Güzellik bir lanet miydi?") → Narkissos videosu.
 9. **Oynatma listesi:** "Kitapların Sorduğu Sorular".
 10. **Sabit yorum:** `youtube.md` → "Sabit yorum".
-11. **Zamanlama:** 30 Kasım 2026 Pazartesi 18:00 (Mary Stuart 20 Kasım, Narkissos 24 Kasım). 48. saat = 2 Aralık 18:00, 7. gün = 7 Aralık. Tarih değişirse `CLAUDE.md`'deki ölçüm tarihleri güncellenir.
+11. **Zamanlama (22 Kasım'da kaydırıldı):** **4 Aralık 2026 Cuma 18:00** (önce 30 Kasım'dı; Narkissos 27 Kasım'a alındı, iki video arasında bir hafta). 48. saat = 6 Aralık 18:00, 7. gün = 11 Aralık. Narkissos'un 7. gün ölçümü (4 Aralık) Dorian yayına girmeden alınır. Tarih değişirse `CLAUDE.md`'deki ölçüm tarihleri güncellenir.
 12. **Telif notu:** görseller kamu malı (Met Open Access CC0; archive.org taramaları, 1872 ve 1890 basımlar); müzik ve efektler özgün sentez; portre boya motoru MIT lisanslı. Content ID itirazı gelirse açıklamadaki künye ve `kaynak/GORSELLER.md` kanıttır.
 13. **Hassasiyet notu:** cinayet ve ölüm gölgeyle anlatılır; kan, yara ve beden gösterilmez (yerdeki adam yalnız yüzüklü bir el). Dergi sayfasında "kendimi öldürürüm" satırı kadraj dışında bırakıldı. Wilde'ın mahkûmiyeti tek cümle, olgu olarak ("o dönemin İngiltere'sinde suç sayılan, erkeklerle ilişkileri yüzünden"); yargı yok.
