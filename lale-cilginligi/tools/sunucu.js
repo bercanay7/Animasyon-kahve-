@@ -7,7 +7,7 @@ exports.sayfa = async (br, port, q = '', w = 1920, h = 1080) => {
   const p = await br.newPage({ viewport: { width: w, height: h } });
   p.on('pageerror', e => console.log('[sayfa hatası]', e.message));
   p.on('console', m => { if (m.type() === 'error' || m.type() === 'warning') console.log('[konsol]', m.text()); });
-  await p.goto(`http://127.0.0.1:${port}/dorian-gray/film.html?render=1${q ? '&' + q : ''}`);
+  await p.goto(`http://127.0.0.1:${port}/lale-cilginligi/film.html?render=1${q ? '&' + q : ''}`);
   await p.waitForFunction(() => window.READY || window.HATA, null, { timeout: 300000 });
   const h_ = await p.evaluate(() => window.HATA); if (h_) throw new Error(h_);
   return p;

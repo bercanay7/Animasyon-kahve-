@@ -1,4 +1,4 @@
-// Ana döngü (milton/lib/main.js'ten): kare çizimi, canlı önizleme; hazırlık: fontlar, dokular, gerçek görseller, portre levhaları.
+// Ana döngü (Dorian'dan): kare çizimi, canlı önizleme; hazırlık: fontlar, dokular, gerçek görseller.
 'use strict';
 const cv = document.getElementById('c'), ctx = cv.getContext('2d');
 cv.width = DW; cv.height = DH;
@@ -12,16 +12,12 @@ function renderFrame(t) {
   return cv;
 }
 window.renderFrame = renderFrame;
-const GORSELLER = { sarony23: 'gorsel/wilde_sarony1882_met285691.jpg', sarony18: 'gorsel/wilde_sarony1882_met283247.jpg', lippBaslik: 'gorsel/lippincott1890_07_baslik.jpg', lippDilek: 'gorsel/lippincott1890_07_s19_dilek.jpg',
-  dore169: 'gorsel/dore1872_s169.jpg', dore245: 'gorsel/dore1872_s245.jpg', dore263: 'gorsel/dore1872_s263.jpg', dore275: 'gorsel/dore1872_s275.jpg', dore035: 'gorsel/dore1872_s035.jpg' };
 window.ready = (async () => {
   try {
-    const TR = 'AaĞğİıŞşÖöÜüÇçÂâ“”’…–·';
-    for (const f of ['400 40px Cinzel', '600 40px Cinzel', '700 40px Cinzel', 'italic 500 40px "Cormorant Garamond"', 'italic 600 40px "Cormorant Garamond"', '500 40px "Cormorant Garamond"', '600 40px "Cormorant Garamond"']) await document.fonts.load(f, TR);
+    const TR = 'AaĞğİıŞşÖöÜüÇçÂâÎîÛû“”’…–·';
+    for (const f of ['400 40px Cinzel', '600 40px Cinzel', '700 40px Cinzel', 'italic 500 40px "Cormorant Garamond"', 'italic 600 40px "Cormorant Garamond"', '500 40px "Cormorant Garamond"', '600 40px "Cormorant Garamond"', '700 40px "Cormorant Garamond"']) await document.fonts.load(f, TR);
     buildTextures();
-    await Promise.all(Object.entries(GORSELLER).map(([k, u]) => SET.yukle(k, u)));
-    while (!window.PORTRE) await new Promise(r => setTimeout(r, 30));
-    await window.PORTRE.hazir;
+    if (window.GORSELLER) await Promise.all(Object.entries(GORSELLER).map(([k, u]) => SET2.yukle(k, u)));
     if (window.initScenes) initScenes();
     window.READY = true;
     return true;
