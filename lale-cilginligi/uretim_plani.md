@@ -152,6 +152,32 @@ Art arda soyut dizi yok; köprü adayı yok. Kanca 596 karakter (≈ 44 sn; hik�
 
 **İkinci yarıda yeni adlar:** Mackay (F04), Goldgar (F08), Ahmed Refik ve Yahya Kemal (I03), Karahasanoğlu (I07). Doruğu taşıyan İbrahim Paşa ve Patrona Halil kancada (A06) ekildi. Ahmed Refik kancada adıyla ekilmez (cevabı ele verir); A07'nin görüntüsünde bir gazete sayfası ekilir. I. Mahmud, İkdam, Busbecq, Clusius, Winkel, Aktepe yalnız ekran etiketinde.
 
+## 8. Seslendirme (22 Kasım 2026)
+- **Onay:** kullanıcı (AskUserQuestion: "Onaylıyorum (2 çekim)"); yayın tarihi de aynı soruda kesinleşti: **11 Aralık 2026 Cuma 18:00**.
+- **Kayıt:** Emrullah (`DpEiQMnL9WxMsymCsjPY`, `creative_list_voices` ile doğrulandı), `eleven_v4`, 10 bölüm × 2 çekim, **15.652 kredi** (tahminle aynı). Akış `AZ5lxSbphcK9gLwe2CoA`, ayrıntı `vo/indirme.json`. Eşzamanlılık sınırına takılan çekimleri sistem kendisi yeniden denedi (ek ücret yok).
+- **Hizalama:** Scribe çağrısı (tahmin 0 kredi) otomatik izin denetleyicisince durduruldu; yerine sessizliğe dayalı cümle hizalaması (`tools/hizala_cumle.py`, Narkissos). Bütün cümle hızları 0,055–0,095 sn/harf bandında; tek aykırılık s06_a'da G04 (0,097; "Nizeyi Rummani" hızlı) → s06'da b çekimi, ötekilerde a (`vo/secim.json`).
+- **Anlatım izi:** `vo/vo.wav` **10:01,9**; hikâye B01'de **0:44,6** (kural ≤ 0:45); "ekranda" 9:45,8 (bitiş ekranı 9:45,8–10:01,9).
+- **Altyazı:** `lale-cilginligi.tr.srt` (144 satır); rakamlar altyazıda rakamla (`tools/merge_uret.py` eşleme haritasını senaryodan üretir). I05'te altyazı "1950'lerde" sesle çelişiyordu ("bin dokuz yüz elli üçte") → "1953'te".
+
+## 9. Film (22 Kasım)
+- **77 plan** (`lib/sahneler.js`; her plan `PL(id, çapa, set, ölçek, çizim)`), ardışık iki plan aynı ölçekte değil (denetim betiği plan dosyasını tarar). Her plan kamera hareketiyle açılır; sözcüğe bağlı eylemler `W_()` ile.
+- **Renk = değer:** el boyaması laleler `LALE.boya(..., renk)`; Hollanda'da fiyat yükseldikçe renk çoğalır (Switsers fiyat çizgisi), E01–E07 çöküşte söner, F bölümü (efsane) renksiz, İstanbul'da geri gelir, H05'te köşkler ve tarhlarla söner, sonda (J02) iki kitabın sayfasında yeniden boyanır.
+- **Gerçek görseller (3):** Floraes Mallewagen (1637, Rijksmuseum CC0) iki ayrıntı: D05 "Comparity der Bloemisten tot Harlem" ve E02 ikinci yarı "yere düşmüş, adları yazılı laleler"; C05 başı anonim Semper Augustus suluboyası (1640 öncesi). Lisanslar `araclar/ASSETS.md`. Leyster'in lale kitabı Commons istek sınırı yüzünden indirilemedi.
+- **Kurgu özeti iki tur** (`tools/ozet.js`): 1. turda hassasiyet (börk, mihrap, kemer), duruş (yatay kollar, X gibi eğilen bahçıvanlar) ve kadraj (P002) düzeltmeleri; tam boy karede kaftanın haç okunması bulundu ve giderildi (`geriye_bakis.md`).
+
+## 10. Ses (22 Kasım)
+- **Müzik** `audio/score.py` (özgün, numpy): FLORA (virjinal, sol majör dans; D bölümünde her cümlede hızlanır ve yukarı taşınır: balon), FLORA_MIN (çöküş ve efsane), LALE (kanun, re hicaz renkli; 1730'da yarıda kalır), sonda ikisi birlikte. Sessizlikler: E01 "kimse el kaldırmıyor" sonrası (3:45) ve H03 "Ekim'in ilk gecesi" sonrası (7:35). **Düzey eğrisi:** 601 sn'nin 558'inde müzik −60 dB üstü, medyan −28,7 dBFS (`audio/muzik_duzey.txt`).
+- **Efekt** `audio/efekt.py`: meyhane uğultusu, mezat tokmağı, sikke, kâğıt, tüy kalem, matbaa presi, rüzgâr ve nal, kapı vuruşu, mühür, dalga ve martı, gece böcekleri. Şiddet sesi yok.
+- **Miks** `tools/mix_ffmpeg.py 13 19`: **−14,2 LUFS, tepe −1,5 dBFS**.
+
+## 11. Kapaklar (22 Kasım; `lib/kapak.js`, `tools/kapak.js`, `kapak/`)
+- **A "BİR EV FİYATINA"** (karşıtlık): asılı terazi (ayaksız: süre rozeti alanı boş kalsın), kefede soğan ve renkli Semper Augustus aşağıda, ev havada. Filmin ilk karesi aynı terazi.
+- **B "HERKES ALIYORDU"** (mezat): sırtı dönük, dirsekten kırık kollarla teklif veren alıcılar; ışıkta tek renkli lale. Filmde 0:06 mezat salonu.
+- İlk taslaklarda: yazı laleyi örtüyordu (A), terazi ayağı rozet alanına giriyordu (A), kollar sopa gibi ve lale figürlerin arkasındaydı (B). Test seti `kapak/test/`: 246/168/120 px okunuyor; `odak.py` A rozet %0, B %1,2.
+
+## 12. Render ve teslim
+- `render.js` (Dorian'dan; yerel http sunucusu, 4 işçi, 24 sn'lik parçalar, BT.709). Kare başına ~0,3–0,6 sn (tek işçi); 10 dakikalık film ~30 dk.
+
 ## Fable danışmaları
 1. **Senaryo rev1, seslendirmeden önce (22 Kasım).** Neden: seslendirme kredi harcayan ve geri dönülmesi pahalı adım; Mary Stuart ve Dorian'da Fable bu kapıda engelleyici bulgu getirmişti. Tek tur, puansız bulgu listesi. Bulgular başkanca kaynakla tartıldı:
    - **Uygulananlar:** I07 bağlamı ("kışkırtıcı bir cümle") ve I08 açıklaması (laleler de köşkler de vardı; ayrı bir sefahat çağı anlatısı sonradan kuruldu: Karahasanoğlu s. 11–12); **I06 Ahmed Refik'in rolü düzeltildi**: dönemi kınamadı, "zevk ve yenilik çağı" olarak anlattı (Karahasanoğlu s. 11: İbrahim Paşa'nın "en keyif alacağı eser" Refik'in kitabı; Erimtan tanıtımı); "sefahate karşı halk öfkesi" ders kitabı anlatısı; J02 "birer kitap"; H05 ve A06 yıkım ifadesi yumuşatıldı (kapsam tartışmalı); F09–F11 Goldgar tam aktarıldı (kriz paranın değil tutulmayan sözlerin krizi; "adını saptayabildiği" kişiler); D05 "yalnız zenginler yok" (Mackay çizgisi) kaldırıldı; F04 Mackay broşürleri değil onlara dayanan kitapları kullandı (Beckmann); **A05 kapak A'nın "ev" vaadi karşılandı** (1.000 gulden = Haarlem'de küçük ev → beş küçük ev); B02 "yazdığına göre"; A06 "Nevşehirli Damat" (Pargalı ile karışmasın); kanca kısaldı; B01 "Önce seksen yıl geriye" (zaman zikzağı); I01 ve J01 çıkarıldı; E03 uzlaşma önerisi tutmadı; G02 Kâğıthane/Boğaz; G06 tarih ekrana, seste "1726 yazında"; G08 "üç yüz yevmiyeye yakın"; H04 I. Mahmud etikete; I03 İkdam etikete; okunuşlar ("En Goldgar", "Mıkay", "Ekim'in ilk gecesi", "Nizeyi Rummani", "Svitsers", "Saadabad", yıllar yazıyla); F07, J03, J05 dil.
