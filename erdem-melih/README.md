@@ -7,7 +7,7 @@ Kanal dışı iş (kullanıcının isteği). Büyük video dosyaları depoya gir
 | `tools/logo_temizle.py` | Instagram profil ekran görüntüsünden logoyu ayıklar, 5 kat büyütür, kenarları yumuşatır: `logo/em_logo_beyaz.png` (şeffaf), `logo/em_rozet.png` (siyah daire) |
 | `tools/hazirla.sh` | iPhone MOV → vidstab ile sabitlenmiş 1440x2560 ara kopya |
 | `audio/muzik.py` | Özgün müzik (numpy sentezi, 96 BPM; logo vuruşu tam 5,0 sn'de). Lisans sorunu yok |
-| `kurgu.py` | 1080x1920 Reels: renk düzeni, iPad'e doğru yavaş yaklaşma, iki yazı (Cinzel; logodaki serife yakın), zoom vuruşu, logo kartı + ışık süpürmesi + "RANDEVU İÇİN DM". `--muziksiz` ile Instagram'ın kendi müziği eklenecek sürüm; `--kare=N:dosya.png` ile tek kare |
+| `kurgu.py` | 1080x1920 Reels: renk düzeni, iPad'e doğru yavaş yaklaşma, iki yazı (Cinzel; logodaki serife yakın), zoom vuruşu, logo kartı + ışık süpürmesi + "RANDEVU İÇİN DM". `--yazisiz` ile hiç yazı ve üst logo olmadan, yalnız sonda logo (kullanıcının son tercihi, 22 Kasım); `--muziksiz` ile Instagram'ın kendi müziği eklenecek sürüm; `--kare=N:dosya.png` ile tek kare |
 | `kurgu_surec.py` | İkinci Reels (IMG_3514, 14 sn, Drive'dan): 01 KARŞILAMA → 02 TASARIM → 03 UYGULAMA. Hız eğrisi (yürüyüşler 2 kat, hareket bulanıklığıyla), yazı arkasında yumuşak koyu bant, son vuruşta mor dövme şablonuna yaklaşma (konum renkle ölçüldü). Logo 12,5 sn'de, toplam 16 sn |
 | `fonts/` | Cinzel (SIL OFL 1.1) |
 

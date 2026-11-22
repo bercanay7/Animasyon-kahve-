@@ -15,6 +15,8 @@ HERE = __file__.rsplit("/", 1)[0]
 args = [a for a in sys.argv[1:] if not a.startswith("--")]
 STAB, MUZ, OUT = args[0], args[1], args[2]
 MUZIKSIZ = "--muziksiz" in sys.argv
+YAZISIZ = "--yazisiz" in sys.argv  # hiç yazı yok, üstte küçük logo yok; yalnız sonda logo kartı
+YZ = 0.0 if YAZISIZ else 1.0
 KARE = None
 for a in sys.argv:
     if a.startswith("--kare="):
@@ -192,16 +194,16 @@ def render(i):
             cx, cy = ix, iy
         else:
             img = sample(src, cx, cy, z)
-        f = grade(img) * VIG * TOPGRAD * BOTGRAD
+        f = grade(img) * VIG * (TOPGRAD if YZ else 1.0) * BOTGRAD
         # açılış: siyahtan 0,35 sn
         f *= ease_out(t / 0.35)
         # kapanış: vuruşa doğru karart
         f *= 1 - ease_in((t - (HIT - 0.38)) / 0.38) * 0.97
         # küçük logo (üstte)
-        blit(f, LOGO_SMALL, W / 2, 245, win(t, 0.25, HIT - 0.4, 0.5, 0.25), LOGO_SMALL_SH, 0.6)
+        blit(f, LOGO_SMALL, W / 2, 245, YZ * win(t, 0.25, HIT - 0.4, 0.5, 0.25), LOGO_SMALL_SH, 0.6)
         # yazılar (koyu gömlek bölgesi; Instagram alt arayüzünün üstünde)
         for lay, (_, _, _, a0, b0) in zip(TL, BOLUM):
-            al = win(t, a0, b0, 0.45, 0.30)
+            al = YZ * win(t, a0, b0, 0.45, 0.30)
             if al > 0:
                 f *= 1 - BAND * al
                 rise = 26 * (1 - ease_out((t - a0) / 0.6))
@@ -231,7 +233,7 @@ def render(i):
         lg[..., :3] = np.clip(base + (1 - base) * 1.0 * band + 0.0, 0, 1)[..., None] if np.ndim(band) else base
         blit(f, lg, W / 2, cyL, ap, scale=sc)
         # alt yazı
-        ac = ease_io((tl - 1.2) / 0.5)
+        ac = YZ * ease_io((tl - 1.2) / 0.5)
         blit(f, ORN, W / 2, 1395, ac * 0.85)
         blit(f, CTA[0], W / 2, 1462 + 14 * (1 - ease_out((tl - 1.2) / 0.6)), ac, CTA[1], 0.5)
         # vuruş anı: kısa beyaz flaş
