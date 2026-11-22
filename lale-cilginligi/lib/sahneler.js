@@ -145,8 +145,9 @@ PL('P023', 'C04', 'ALE', 'yakin', st => ({ cam: camLerp(CAM(960, 600, 1.2), CAM(
   SET2.kesit(st.t); for (let k = 0; k < 3; k++) { const a = 1 - clamp((st.lt - 1 - k * .6) / 1.2); if (a > 0) LALE.sogan(1160 + k * 70, 900 + k * 10, .4 * a + .05, { ton: .6 }); }
 } }));
 // C05 başı: gerçek görsel. Anonim, Semper Augustus suluboyası (1640 öncesi; Norton Simon Müzesi; Commons, kamu malı). Renk lalede: kural bozulmaz
-PL('P024a', 'C05', 'SEM', 'ayrinti', st => ({ cam: camLerp(CAM(960, 470, 1.0), CAM(960, 420, 1.12), st.p), bg: [.88, 0, 10], ciz: () => { GR.fill(SET.R(-200, -200, 2400, 1500), GR.tone(.9), { th: 0, id: 10 }); },
-  sonra: (ctx, cam) => { SET2.gorsel(ctx, cam, 'semper', 700, 40, 520, { golge: true }); } }),
+PL('P024a', 'C05', 'SEM', 'ayrinti', st => ({ cam: camLerp(CAM(960, 470, 1.0), CAM(960, 420, 1.12), st.p), bg: [.06, 0, 10], ciz: () => { GR.fill(SET.R(-200, -200, 2400, 1500), GR.tone(.05), { th: 0, id: 10 }); },
+  // koyu duvar: künye (beyaz yazı) okunur; görsel künyenin altından başlar
+  sonra: (ctx, cam) => { SET2.gorsel(ctx, cam, 'semper', 725, 150, 470, { golge: true }); } }),
   { over: etk('SEMPER AUGUSTUS · ANONİM SULUBOYA, 1640 ÖNCESİ (NORTON SIMON MÜZESİ)', { px: 32 }) });
 PL('P024', 'C05@bin', 'AYN', 'orta', st => ({ cam: camLerp(CAM(960, 520, 1), CAM(960, 520, 1.12), st.p), bg: [.2, 0, 0], ciz: () => SET2.aynaKabine(st.t) }),
   { over: (ctx, st) => { const k = W_(st, 'C05', 'bin', 1); buyukYazi('1.200 GULDEN', { y: 800, px: 84, t0: k })(ctx, st); } });
