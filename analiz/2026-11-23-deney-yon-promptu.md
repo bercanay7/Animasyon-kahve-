@@ -16,6 +16,16 @@
 - Ama yön promptunda kanal kurallarından biri atlanabilir: yeni kural CLAUDE.md'nin derinindeyse.
 - Uzun ve açık uçlu yaratıcı iş için yön; maliyetli ya da geri alınamaz adımlar (kredi, yayın, telif) için açık kural. CLAUDE.md zaten bu ikinci görevi görüyor.
 
+**Karar (23 Kasım, kullanıcıyla konuşuldu): tek yön, tek değişken.**
+- Fable yalnız başta yön verdi. Üretim sırasında yeniden yön vermek için çağrılmaz.
+- Sonnet/Opus alt ajan düzeni de eklenmez; iki videoda da başkan tek başına çalışır (19 Kasım kararı).
+- Sondaki "Fable'ın tek son yorumu" iki videoda da serbest. Yön değil denetim olduğu için deneyi bozmaz.
+- Neden: aynı anda iki şey değişirse sonucun hangisinden geldiği anlaşılmaz.
+- Sonraki adaylar:
+  - (a) Fable'ın senaryo taslağından sonra ikinci kez yön vermesi;
+  - (b) Opus yönetmen + Sonnet ölçüm ajanları.
+  - Her biri ayrı bir videoda denenir.
+
 **Ölçüler:** her iki video için doldurulur.
 
 | Ölçü | Lale (ayrıntılı) | Gılgamış (yön) |
