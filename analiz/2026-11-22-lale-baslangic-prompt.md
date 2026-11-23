@@ -6,8 +6,7 @@ Yeni video: **Lale Çılgınlığı** ("Tarihin Dönüm Noktaları" serisi). Ba�
 - `CLAUDE.md` (bütün kurallar ve yayın sonrası dersler), `sisifos/README.md`, `sisifos/yayin.md`.
 - En yeni iki proje: `dorian-gray/geriye_bakis.md` ve `dorian-gray/uretim_plani.md` (karma üslup, Mary Stuart piyanosu, kapak, yayın), `narkissos/uretim_plani.md` (cümle düzeyinde hizalama).
 - `analiz/tahminler.md` ve `araclar/analiz/tempo_kontrol.py`.
-- Konunun seçim gerekçesi başka dalda; dosyaları kendi dalına al:
-  `git fetch origin claude/youtube-niche-content-9nd8cc && git checkout FETCH_HEAD -- analiz/2026-11-22-turkce-bosluk.md analiz/2026-11-21-konu-adaylari-3.md araclar/talep/iki_dil.py`
+- Konunun seçim gerekçesi: `analiz/2026-11-22-turkce-bosluk.md`, `analiz/2026-11-21-konu-adaylari-3.md`; iki dilli arama aracı `araclar/talep/iki_dil.py`.
 
 ## 2. Neden bu konu
 Kullanıcının ölçütü: dünyada yankı bulmuş, Türkçede kaynağı az, Türkiye'yi ilgilendirmesi gereken konu.

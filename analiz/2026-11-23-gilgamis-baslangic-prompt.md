@@ -9,8 +9,7 @@ Yeni video: **Gılgamış** ("Mitler ve Felsefe" serisi). Baştan sona üret.
   - `narkissos/uretim_plani.md` (mit videosu; cümle düzeyinde hizalama `tools/hizala_cumle.py`);
   - `kafka/geriye_bakis.md` ve `kafka/lib/` (ağaç baskı motoru; aşağıdaki üslup önerisinin çıkış noktası).
 - `analiz/tahminler.md` ve `araclar/analiz/tempo_kontrol.py`.
-- Araştırma başka dalda; dosyaları kendi dalına al:
-  `git fetch origin claude/youtube-niche-content-9nd8cc && git checkout FETCH_HEAD -- analiz/2026-11-23-bosluk-2-ve-gilgamis.md analiz/2026-11-23-turkce-medyan.md araclar/talep/iki_dil.py`
+- Araştırma: `analiz/2026-11-23-bosluk-2-ve-gilgamis.md`, `analiz/2026-11-23-turkce-medyan.md`; iki dilli arama aracı `araclar/talep/iki_dil.py`.
 
 ## 2. Neden bu konu
 - **İzleyici isteği:** yorumlarda 2–3 izleyici Gılgamış'ı istedi.
