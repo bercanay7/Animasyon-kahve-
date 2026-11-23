@@ -160,8 +160,8 @@ function txt(ctx, s, x, y, o = {}) {
   if (o.panel) { const wd = ctx.measureText(s).width, pp = o.px || 48, pa = o.panel === true ? .78 : o.panel, al = o.align || 'center';
     // ortalı yazıda eski elips; sola/sağa hizalı yazıda yazının tamamını örten yumuşak şerit (eski elips çapaya ortalanıyordu,
     // yazının yarısı panelsiz kalıyordu: Fable son okuması, 22 Kasım)
-    if (al === 'center') softPanel(ctx, x, y, wd * .5 + pp * 1.6, pp * 1.5, pa);
-    else { const x0 = al === 'left' ? x : x - wd; softBand(ctx, x0, x0 + wd, y, pp * 1.6, pp * 1.15, pa); } }
+    // ortalı yazı da şerit: elipste uzun yazının uçları açık zeminde panelsiz kalıyor, soluk okunuyordu (Fable yön okuması, 23 Kasım)
+    const x0 = al === 'left' ? x : al === 'right' ? x - wd : x - wd / 2; softBand(ctx, x0, x0 + wd, y, pp * 1.6, pp * 1.15, pa); }
   ctx.fillStyle = o.col || PAPER_CSS; ctx.fillText(s, x, y);
   ctx.restore();
 }
@@ -173,7 +173,11 @@ function quote(ctx, s, x, y, lt, o = {}) {
   ctx.font = FONT.alinti(px); const L = wrapLines(ctx, s, o.maxW || 1240), y0 = y - (L.length - 1) * lh / 2;
   const t0 = o.t0 || 0, per = o.per ?? .5, aAll = clamp((lt - t0) / .5);
   const kpx = Math.max(40, Math.round(px * .42)), kEk = o.kaynak ? kpx + 34 : 0;   // künye: telefon kuralı ≥ 40 px; panel künyeyi de kapsar
-  if (o.panel !== false && aAll > 0) { let wd = 0; for (const l of L) wd = Math.max(wd, ctx.measureText(l).width); ctx.globalAlpha = A0 * aAll; softPanel(ctx, x, y + kEk / 2, wd * .5 + px * 1.8, L.length * lh * .5 + px * 1.2 + kEk / 2, o.panel ?? .8); }
+  if (o.panel !== false && aAll > 0) { let wd = 0; for (const l of L) wd = Math.max(wd, ctx.measureText(l).width);
+    // panel künye satırını da örter (künye alıntıdan uzun olunca elipsin dışında soluk kalıyordu)
+    if (o.kaynak) { ctx.save(); ctx.font = FONT.baslik(kpx, 600); ctx.letterSpacing = '3px'; wd = Math.max(wd, ctx.measureText(o.kaynak).width); ctx.restore(); }
+    const ust = y0 - lh * .5, alt = o.kaynak ? y0 + (L.length - 1) * lh + px * .62 + 30 + kpx : y0 + (L.length - 1) * lh + lh * .5;
+    ctx.globalAlpha = A0 * aAll; softBand(ctx, x - wd / 2, x + wd / 2, (ust + alt) / 2, px * 1.4, (alt - ust) / 2 + px * .75, o.panel ?? .8); }
   ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillStyle = o.col || PAPER_CSS;
   L.forEach((l, i) => { const a = clamp((lt - t0 - i * per) / .6); if (a <= 0) return; ctx.globalAlpha = A0 * E.sine(a); ctx.fillText(l, x, y0 + i * lh + (1 - E.out3(a)) * 10); });
   if (o.kaynak) { const a = clamp((lt - t0 - L.length * per) / .6); ctx.globalAlpha = A0 * E.sine(a); ctx.font = FONT.baslik(kpx, 600); ctx.letterSpacing = '3px'; ctx.fillText(o.kaynak, x, y0 + (L.length - 1) * lh + px * .62 + 30 + kpx / 2); }

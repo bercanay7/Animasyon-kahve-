@@ -58,7 +58,7 @@
     }, [.06, 0, 0]);
     YAZI.bas(ctx, cam); LALE.boya(ctx, cam, 1, { kay: 2.5, alevK: 2.3, alevN: 1 });
     post(ctx, 0);
-    yazi(ctx, o.satir || ['GÖRMEDEN', 'ALDILAR'], 60, o.ty ?? 300, o.px ?? 285, { col: '#efe6d2', golge: 'rgba(0,0,0,.9)' });   // kapak merak açar, başlık tamamlar: kapak yazısı başlığın sözcüklerini tekrar etmez
+    yazi(ctx, o.satir || ['GÖRMEDEN', 'ALDILAR'], 60, o.ty ?? 268, o.px ?? 285, { col: '#efe6d2', golge: 'rgba(0,0,0,.9)' });   // kapak merak açar, başlık tamamlar: kapak yazısı başlığın sözcüklerini tekrar etmez
   }
   window.kapak = (v, o = {}) => { baseT(ctx); ctx.fillStyle = '#000'; ctx.fillRect(0, 0, W, H); (v === 'A' ? A : B)(o); return cv; };
 })();
