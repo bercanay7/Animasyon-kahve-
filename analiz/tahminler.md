@@ -45,6 +45,11 @@
 **Shorts notu:** tek bir Shorts'un 400 izlenmesi tek başına sinyal değil; Shorts dağıtımı ilk saatlerde "izlemeye devam eden / kaydıran" oranına bakar. Ölçüt: izlemeye devam eden ≥ %60 ise içerik değil dağıtım, < %50 ise ilk saniyeler sorunlu.
 **Shorts sonucu (23 Kasım, kullanıcı):** Elizabeth Shorts'u ("Elizabeth Onu İdam Ettirdi. Taht Kime Kaldı?") izlemeye devam eden **%27**: akışta gösterilen ~1.500 kişinin ~%73'ü kaydırdı, YouTube göstermeyi bıraktı. Ceza değil, ilk saniyeler. Kanalın öteki ölçülen Shorts'u da aynı bantta (Milton %32–38). Ortak yanları: yatay filmden kırpılmış kareler (dikeyde küçük figür, düşük kontrast), üstte başlık bandı, ilk saniyede hareket yok.
 
+## Dikey Shorts deneyi (Narkissos; 23 Kasım yazıldı, yayından önce)
+- **Ne değişti:** yatay filmden kırpma yerine plan başına dikey mercekle yeniden çizim (figür kadrajı dolduruyor, keskin); ilk karede yazılı ve sesli kişisel soru + telefon camında hareket; üstte künye bandı yok; altyazı ortada, sağ sütun boş; 24,5 sn.
+- **Tahmin S1:** izlemeye devam eden **≥ %60** (Elizabeth %27, Milton %32–38). Tutarsa: kırpma biçimi bırakılır, Shorts dikey merceğe geçer. %40–60: biçim yardımcı ama ilk saniye hâlâ zayıf. **< %40:** sorun kadraj değil, kanalın Shorts'taki konusu ya da ilk cümle; Shorts bir süre bırakılır.
+- **Ölçüm:** Shorts'un 48. saati (Studio → Shorts → "izlemeye devam eden" ve görüntüleme).
+
 ## Sonuçlar
 (48. saat ve 7. gün verisi geldikçe doldurulur. Üç tahminden ikisi tutmazsa araç ve kurallar gözden geçirilir.)
 - **Mary Stuart (45. saat, 22 Kasım):** M1 ve M3 tuttu, M2 tutmadı. Tempo aracının M işareti inceltilir: "göre" sözcüğü değil, olaydan kopuk açıklama kaybettiriyor (1:12–1:36 arma ve meşruiyet: 24 sn'de −11; 17:38–18:03 "Neden kırmızı?" yorumu: −7). Ayrıntı `2026-11-22-mary-stuart-45saat.md`.

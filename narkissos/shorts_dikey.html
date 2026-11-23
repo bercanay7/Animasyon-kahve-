@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="tr"><head><meta charset="utf-8"><title>Narkissos: dikey Shorts</title>
+<link rel="stylesheet" href="fonts.css">
+<style>html,body{margin:0;background:#000}canvas{display:block;height:100vh;width:auto}</style></head><body>
+<canvas id="c" width="1080" height="1920"></canvas>
+<!-- motor (kapıdan geçen vazo kodu; lib/vazo = prometheus/lib + figure.js kapı değişiklikleri) -->
+<script src="shorts/core_dikey.js"></script>
+<script src="lib/vazo/style.js"></script>
+<script src="lib/vazo/anim.js"></script>
+<script src="lib/vazo/figure.js"></script>
+<script src="lib/vazo/dipinto.js"></script>
+<script src="lib/vazo/walk.js"></script>
+<script src="lib/vazo/env.js"></script>
+<script src="lib/vazo/world.js"></script>
+<!-- zaman çizelgesi (seslendirme kesin) ve plan listesi -->
+<script src="timeline.js"></script>
+<script src="planlar.js"></script>
+<!-- çekim sistemi ve ortak ilkeller (yalnız başkan değiştirir) -->
+<script src="lib/film.js"></script>
+<script src="lib/ilkel.js"></script>
+<script src="lib/su.js"></script>
+<script src="lib/cam.js"></script>
+<script src="lib/havuz.js"></script>
+<script src="lib/yer_tutucu.js"></script>
+<!-- sahne setleri: her dosya kendi plan(...) çağrılarını yapar -->
+<!-- SETLER (tools/iskelet_uret.py yazar) -->
+<script src="lib/sahne/s1/cam.js"></script>
+<script src="lib/sahne/s1/dag.js"></script>
+<script src="lib/sahne/s1/delfi.js"></script>
+<script src="lib/sahne/s1/friz.js"></script>
+<script src="lib/sahne/s1/havuz.js"></script>
+<script src="lib/sahne/s1/kehanet.js"></script>
+<script src="lib/sahne/s1/nehir.js"></script>
+<script src="lib/sahne/s1/orman.js"></script>
+<script src="lib/sahne/s1/yanki.js"></script>
+<script src="lib/sahne/s1/yazi.js"></script>
+<script src="lib/sahne/s2/belge.js"></script>
+<script src="lib/sahne/s2/cam.js"></script>
+<script src="lib/sahne/s2/dag.js"></script>
+<script src="lib/sahne/s2/dere.js"></script>
+<script src="lib/sahne/s2/friz.js"></script>
+<script src="lib/sahne/s2/havuz.js"></script>
+<script src="lib/sahne/s2/kehanet.js"></script>
+<script src="lib/sahne/s2/orman.js"></script>
+<script src="lib/sahne/s2/son.js"></script>
+<script src="lib/sahne/s2/yanki.js"></script>
+<script src="lib/sahne/s2/yazi.js"></script>
+<script src="lib/sahne/s2/yeralti.js"></script>
+<!-- /SETLER -->
+<script src="lib/main.js"></script>
+<script src="shorts/dikey.js"></script>
+</body></html>
