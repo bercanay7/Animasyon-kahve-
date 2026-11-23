@@ -1,5 +1,5 @@
 // Dikey Shorts render: node /home/user/Animasyon-kahve-/narkissos/shorts/render_dikey.js [çıktı.mp4]
-// WORKERS=3 (ayrı Chromium'lar; aynı tarayıcıdaki sayfalar tek GPU sürecini paylaşır), MB=4 hareket bulanıklığı.
+// SADECE_KODLA=1 kareleri yeniden üretmez. WORKERS=3 (ayrı Chromium'lar; aynı tarayıcıdaki sayfalar tek GPU sürecini paylaşır), MB=4 hareket bulanıklığı.
 // Ses: audio/mix.wav (filmin son miksi) shorts/dikey.js'teki kesitlerle kesilir; kesit uçlarında 15 ms yumuşatma; kapanışta miksin
 // kuyruğu (sonraki cümle başlamadan) söner. Çıktı 1080×1920, 30 fps, H.264 CRF 18, BT.709, AAC 256k, ses dili tur.
 const { chromium } = require('playwright');
@@ -25,7 +25,8 @@ async function worker() {
 
 async function main() {
   const out = path.resolve(process.argv[2] || path.join(ROOT, 'shorts', 'narkissos_dikey.mp4'));
-  fs.rmSync(TMP, { recursive: true, force: true }); fs.mkdirSync(TMP, { recursive: true });
+  const KODLA = !!process.env.SADECE_KODLA; // kareler hazırsa yalnız ses + kodlama
+  if (!KODLA) { fs.rmSync(TMP, { recursive: true, force: true }); fs.mkdirSync(TMP, { recursive: true }); }
   const srv = await serve(); const port = srv.address().port;
   // kurgu bilgisi sayfadan (tek kaynak: shorts/dikey.js)
   const br = await chromium.launch(); const pg = await br.newPage();
@@ -35,7 +36,7 @@ async function main() {
   await br.close();
   const NF = Math.round(S.DUR * FPS); console.log(`süre ${S.DUR.toFixed(2)} sn, ${NF} kare, ${N} işçi`);
   const t0 = Date.now();
-  await Promise.all([...Array(N)].map((_, w) => new Promise((res, rej) => {
+  if (!KODLA) await Promise.all([...Array(N)].map((_, w) => new Promise((res, rej) => {
     const a = Math.floor(NF * w / N), b = Math.floor(NF * (w + 1) / N);
     const c = fork(__filename, [], { env: { ...process.env, _JOB: JSON.stringify({ a, b, port }) } });
     c.on('message', m => process.stdout.write(`\r[${w}] ${m.i}/${b}  ${((Date.now() - t0) / 1000) | 0} sn   `));
@@ -45,8 +46,8 @@ async function main() {
   // ses: kesitler + kapanış kuyruğu (sonraki cümleden 0,1 sn önce biter, son 0,6 sn söner), toplam süreye tamamlanır
   const mix = path.join(ROOT, 'audio', 'mix.wav');
   const last = S.K[S.K.length - 1][1], kuyruk = Math.max(0, Math.min(S.DUR - S.K.reduce((a, k) => a + k[1] - k[0], 0), (S.F12 || 1e9) - .1 - last));
-  const parts = S.K.map(([a, b], i) => `[0:a]atrim=${a}:${b},asetpts=PTS-STARTPTS,afade=t=in:d=.015,afade=t=out:st=${(b - a - .015).toFixed(3)}:d=.015[k${i}]`);
-  parts.push(`[0:a]atrim=${last}:${last + kuyruk},asetpts=PTS-STARTPTS,afade=t=out:st=${Math.max(0, kuyruk - .6).toFixed(3)}:d=${Math.min(.6, kuyruk).toFixed(3)}[ku]`);
+  const parts = S.K.map(([a, b], i) => `[1:a]atrim=start=${a}:end=${b},asetpts=PTS-STARTPTS,afade=t=in:d=0.015,afade=t=out:st=${(b - a - .015).toFixed(3)}:d=0.015[k${i}]`);
+  parts.push(`[1:a]atrim=start=${last}:end=${last + kuyruk},asetpts=PTS-STARTPTS,afade=t=out:st=${Math.max(0, kuyruk - .6).toFixed(3)}:d=${Math.min(.6, kuyruk).toFixed(3)}[ku]`);
   const fc = parts.join(';') + ';' + S.K.map((_, i) => `[k${i}]`).join('') + `[ku]concat=n=${S.K.length + 1}:v=0:a=1,apad=whole_dur=${S.DUR.toFixed(3)}[a]`;
   const r = spawnSync('ffmpeg', ['-y', '-loglevel', 'error', '-framerate', String(FPS), '-i', path.join(TMP, 'k%05d.jpg'), '-i', mix,
     '-filter_complex', fc, '-map', '0:v', '-map', '[a]',
