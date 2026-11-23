@@ -68,6 +68,12 @@ Yazıldı: 22 Kasım 2026, senaryo rev2 (seslendirmeden önce). Zamanlar seslend
 - **Tahmin S1:** izlemeye devam eden **≥ %60** (Elizabeth %27, Milton %32–38). Tutarsa: kırpma biçimi bırakılır, Shorts dikey merceğe geçer. %40–60: biçim yardımcı ama ilk saniye hâlâ zayıf. **< %40:** sorun kadraj değil, kanalın Shorts'taki konusu ya da ilk cümle; Shorts bir süre bırakılır.
 - **Ölçüm:** Shorts'un 48. saati (Studio → Shorts → "izlemeye devam eden" ve görüntüleme).
 
+## Şart Shorts'ları (23 Kasım yazıldı, yayından önce; `shorts-sart/`)
+- **Ne değişti:** ilk cümle kişisel soru değil, mitin içindeki tek cümlelik şart (yazılı ilk karede, sesli ≤ 1,5 sn'de); görüntüde şartı çiğnemek üzere olan figür; şart ile çiğnendiği an arası ≤ 15 sn; son kare ilk kareye döner.
+- **Tahmin S2 (açılış karşılaştırması):** Narkissos şart Shorts'unda (30 Kasım) izlemeye devam eden, aynı mitin soru Shorts'undan (26 Kasım) **en az 10 puan yüksek**. İkisi de aynı çizim hattı ve aynı sahneler; fark yalnız açılış. Tutmazsa: "şart" kalıbı kanal için ayırt edici değil, 703 binlik İkarus örneği kanalın değil konunun ya da hesabın başarısı.
+- **Tahmin S3:** Gılgamış şart Shorts'unda (4 Aralık) izlemeye devam eden **≥ %60** ve görüntüleme Narkissos şart Shorts'unun 48. saatinden yüksek (Gılgamış adı Türkçe aramada daha çok tanınıyor: `talep.py` öneri 14, Narkissos 9).
+- **Ölçüm:** her Shorts'un 48. saati (Studio → Shorts → "izlemeye devam eden" ve görüntüleme).
+
 ## Sonuçlar
 (48. saat ve 7. gün verisi geldikçe doldurulur. Üç tahminden ikisi tutmazsa araç ve kurallar gözden geçirilir.)
 - **Mary Stuart (45. saat, 22 Kasım):** M1 ve M3 tuttu, M2 tutmadı. Tempo aracının M işareti inceltilir: "göre" sözcüğü değil, olaydan kopuk açıklama kaybettiriyor (1:12–1:36 arma ve meşruiyet: 24 sn'de −11; 17:38–18:03 "Neden kırmızı?" yorumu: −7). Ayrıntı `2026-11-22-mary-stuart-45saat.md`.

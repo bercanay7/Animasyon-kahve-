@@ -250,6 +250,7 @@ Ayrıntı ve kompozisyon menüsü: `kanal/KAPAK_DERSLERI.md`.
 | `milton/` | *Kayıp Cennet* (gravür motoru, `lib/film.js` çekim sistemi, `tools/`, `lib/acts/KILAVUZ.md`) |
 | `prometheus/`, `sisifos/`, `orfeus/` | vazo ve kâğıt kesme motorları; `sisifos/README.md` komutlar, `sisifos/yayin.md` |
 | `cumhuriyet/`, `29-ekim/`, `cumhuriyet_kapak/` | 29 Ekim videosu (bayrak çizimi, donma denetimi `tools/donma.py`) |
+| `shorts-sart/` | dikey mitoloji Shorts serisi "Şart" (Narkissos, Gılgamış): filmin sesinden kesit, dikey mercek ya da dikey kil sahneleri, Shorts'a özel müzik; `README.md` hat |
 | `gunluk-shorts/` | Şarlken, Medici (Python motoru); dersler `DERSLER.md` |
 | `analiz/` | Studio analizleri, konu taramaları, `tahminler.md`, **`2026-11-22-genel-karsilastirma.md`**, `2026-11-17-kanal-ortalamasi.md` |
 | `araclar/` | `talep/` (talep ve iki dil), `analiz/` (tempo, elde tutma), `hareket/`, `kapak/odak.py`, `lemo/KATALOG.md`, `ASSETS.md`, `ADAYLAR.md` |

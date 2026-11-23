@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="tr"><head><meta charset="utf-8"><title>Şart: Gılgamış (dikey Shorts)</title>
+<!-- filmin göreli yolları (fonts) çalışsın diye taban filmin klasörü; Shorts dosyaları mutlak yolla -->
+<base href="/gilgamis/">
+<link rel="stylesheet" href="fonts.css">
+<style>html,body{margin:0;background:#000}canvas{display:block;height:100vh;width:auto}</style></head><body>
+<canvas id="c" width="1080" height="1920"></canvas>
+<!-- motor: filmin kil kabartma kodu, dikey çekirdekle -->
+<script src="/shorts-sart/gilgamis/core_dikey.js"></script>
+<script src="lib/kil.js"></script>
+<script src="lib/figur.js"></script>
+<script src="lib/dekor.js"></script>
+<script src="lib/setler.js"></script>
+<!-- Shorts zamanı (tools/ses.py) filmin çekim sistemine zaman çizelgesi olarak verilir -->
+<script src="/shorts-sart/gilgamis/kurgu.js"></script>
+<script src="/shorts-sart/gilgamis/zaman.js"></script>
+<script>window.CUES = SZ.CUES; window.WORDS = SZ.WORDS; window.DUR = SZ.DUR;</script>
+<script src="lib/film.js"></script>
+<script src="/shorts-sart/gilgamis/sahneler.js"></script>
+<script src="lib/main.js"></script>
+<script src="/shorts-sart/lib/sart.js"></script>
+</body></html>
