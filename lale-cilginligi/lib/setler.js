@@ -29,7 +29,11 @@ const SET = (() => {
     for (const k of [-9, -20]) fill(R(x - 12 * s, y + k * s, 24 * s, 3 * s), .06, { th: HV, id: 9 });
     // alev: geniş gövdeli, ucu hafif yana kıvrılan tek alev + yan yalaz + yükselen kıvılcımlar. Üç eşit dil taç ya da beyaz lale,
     // ince uzun dil bıçak gibi okunuyordu; kıvılcım ateşi en açık okutan işaret
-    const al = o.alev ?? 1; if (al < .04) return;   // o.alev: 0..1 alev boyu (sönen meşale sargılı başıyla kalır)
+    const al = o.alev ?? 1;
+    if (al < .5) { const L2 = [], R2 = [], n = 12, dh = 120 * s * (1 - al * 1.6);   // sönen meşaleden ince duman: sargılı baş tek başına topuz gibi okunabiliyordu
+      for (let k = 0; k <= n; k++) { const u = k / n, cx = x + Math.sin(u * 5.5 + t * 1.8) * 9 * s * u + u * 14 * s, cy = y - 30 * s - u * dh, hw = 3.2 * s * (1 - u * .7); L2.push([cx - hw, cy]); R2.unshift([cx + hw, cy]); }
+      if (dh > 8) GR.fill(F([...L2, ...R2]), GR.tone(.72), { th: HV, id: 3 }); }
+    if (al < .04) return;   // o.alev: 0..1 alev boyu (sönen meşale sargılı başıyla kalır)
     const yb = y - 26 * s, f = 1 + .12 * Math.sin(t * 8.3) + .06 * Math.sin(t * 13.1 + 1), w = Math.sin(t * 2.1) * .5 + .5;
     const h = 72 * s * f, lean = (6 + 9 * w) * s, lk = 1 + .25 * Math.sin(t * 10.7 + 2);
     const pts = [[x - 17 * s, yb + 4 * s], [x - 24 * s, yb - 14 * s], [x - 21 * s, yb - 34 * s], [x - 11 * s + lean * .3, yb - h * .64], [x - 2 * s + lean * .8, yb - h * .9], [x + lean, yb - h],

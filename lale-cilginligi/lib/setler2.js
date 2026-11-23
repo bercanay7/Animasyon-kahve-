@@ -52,13 +52,17 @@ const SET2 = (() => {
     for (const dx of [-90, 90]) { const cx = ax + dx, cy = ay - 30; fill(E2(cx, cy, 46, 46), .06, { th: H0, id: 9 }); fill(E2(cx, cy, 36, 36), .72, { th: H0, id: 10 });
       for (let k = 0; k < 4; k++) { const a = k * PI / 4 + t * .8, c = Math.cos(a), sn = Math.sin(a); fill(F([[cx - c * 36 - sn * 3.5, cy - sn * 36 + c * 3.5], [cx + c * 36 - sn * 3.5, cy + sn * 36 + c * 3.5], [cx + c * 36 + sn * 3.5, cy + sn * 36 - c * 3.5], [cx - c * 36 + sn * 3.5, cy - sn * 36 - c * 3.5]]), .06, { th: H0, id: 9 }); }
       fill(E2(cx, cy, 9, 9), .06, { th: H0, id: 9 }); }
+    fill(F([[ax + 116, ay - 94], [ax + 412, ay - 146], [ax + 412, ay - 138], [ax + 116, ay - 86]]), .05, { th: H0, id: 9 });   // araba oku: atı arabaya bağlar
     at(ax + 260, ay, 1, 1, t);
   }
   // at silueti (yandan): gövde, boyun, baş, dört bacak; t ile hafif adım
   function at(x, y, s = 1, yon = 1, t = 0) {
     GR.save(); GR.frame(x, y, 0, yon, s);
     const b = Math.sin(t * 4) * 6;
-    fill(Sm([[-120, -150], [-60, -175], [60, -172], [120, -160], [150, -210], [178, -262], [210, -250], [196, -220], [176, -170], [150, -120], [120, -100], [-110, -100], [-140, -120]]), .05, { th: .3, id: 9 });
+    // gövde + boyun + baş (öne eğik burun, kulak, yele): eski çizimde boyun küt bitiyor, at okunmuyordu (Fable izleyici okuması)
+    fill(Sm([[-120, -150], [-60, -176], [60, -174], [112, -186], [150, -236], [174, -268], [214, -258], [262, -218], [272, -200], [252, -194], [222, -204], [196, -198], [170, -164], [150, -120], [120, -100], [-110, -100], [-140, -120]]), .05, { th: .3, id: 9 });
+    fill(F([[170, -262], [180, -296], [194, -266]]), .05, { th: .3, id: 9 });   // kulak
+    for (let k = 0; k < 4; k++) fill(F([[118 + k * 14, -190 - k * 18], [104 + k * 14, -176 - k * 18 + Math.sin(t * 3 + k) * 3], [126 + k * 14, -184 - k * 18]]), .05, { th: .3, id: 9 });   // yele
     for (const [lx, ph] of [[-100, 0], [-70, PI], [90, PI], [120, 0]]) { const a = Math.sin(t * 4 + ph) * .25; fill(F([[lx - 9, -110], [lx + 9, -110], [lx + 9 + Math.sin(a) * 100, -2], [lx - 5 + Math.sin(a) * 100, -2]]), .05, { th: HV, id: 9 }); }
     fill(Sm([[-140, -150], [-170, -110 + b], [-160, -100 + b], [-130, -130]]), .05, { th: .2, id: 9 });   // kuyruk
     GR.restore();
@@ -282,7 +286,7 @@ const SET2 = (() => {
     for (let k = 0; k < 3; k++) { const x = 560 + k * 300; fill(R(x, 220, 240, 340), .8, { th: HV, id: 10 }); fill(R(x + 116, 220, 8, 340), .2, { th: HV, id: 9 }); }
     SET.huzme([[560, 560], [1400, 560], [1700, 1080], [300, 1080]], .25);
     fill(R(400, 640, 1120, 140), .3, { th: H0, id: 9 }); fill(R(400, 780, 1120, 60), .1, { th: H0, id: 9 });
-    for (let k = 0; k < 4; k++) { fill(Sm([[480 + k * 260, 640], [480 + k * 260, 520], [640 + k * 260, 520], [640 + k * 260, 640]]), .55, { th: .35, id: 9 }); fill(R(556 + k * 260, 536, 8, 96), .3, { th: HV, id: 9 }); }   // yastık: çapraz tarama + dikiş (halka tarama hedef tahtası gibi okunuyordu)
+    for (let k = 0; k < 4; k++) fill(Sm([[470 + k * 260, 640], [470 + k * 260, 556], [650 + k * 260, 548], [650 + k * 260, 640]]), .55, { th: .35, id: 9 });   // yastık: yassı, dikişsiz (dikişli oval sıra kalkan okunabiliyordu)   // yastık: çapraz tarama + dikiş (halka tarama hedef tahtası gibi okunuyordu)
     fill(R(-600, 840, 3100, 700), .28, { type: 'persp', y0: 840, D: 200, p0: 8, p1: 15, id: 8 });
   }
   // gazete sayfası (1913): başlık alanı, sütunlar; yazılar YAZI ile

@@ -89,12 +89,14 @@ function mezatSalonu(st, o = {}) {
   SET.isik({ x: X(970), y: 520, r1: 520, a: .85 });
   INSAN.adam({ x: X(1200), y: 900, h: 560, yon: -Yn, sapka: 'genis', yaka: 'duz', kenar: .55, kenarYan: -Yn, kolOn: { a: mk * .8 + .2 * Math.sin(t * 1.4), b: .9 + .45 * clamp(mk / 2.1) }, biyik: true, sakal: true });
   INSAN.adam({ x: X(720), y: 880, h: 480, yon: Yn, kenarYan: Yn, sapka: 'genis', yaka: 'duz', kenar: .45, kolOn: { a: .9, b: .9 } });
-  const A = [[200, 1150, 700, 1], [520, 1200, 760, -1], [1440, 1190, 740, 1], [1760, 1150, 700, -1]];
+  // o.haritaBos: sağ üstteki harita en sağdaki alıcının başını örtüyordu; o alıcı yok, komşusu sola kayar (aynalı salonda simetriği)
+  const A = !o.haritaBos ? [[200, 1150, 700, 1], [520, 1200, 760, -1], [1440, 1190, 740, 1], [1760, 1150, 700, -1]]
+    : o.ters ? [[580, 1200, 760, -1], [1440, 1190, 740, 1], [1760, 1150, 700, -1]] : [[200, 1150, 700, 1], [520, 1200, 760, -1], [1380, 1190, 740, 1]];
   const PH = [0, 3.1, 1.6, 4.7];   // karşılıklı komşular ters evrede (yan yana iki kalkık kol başsız gövde gibi okunuyordu)
   A.forEach(([x, y, h, yon], i) => { const up = (o.el ?? true) && Math.sin(t * 1.8 + PH[i]) > .2;
     INSAN.adam({ x: X(x), y, h, yon: yon * Yn, arka: true, sapka: 'genis', yaka: 'duz', kenar: .4, kenarYan: yon * Yn, giysi: 'pelerin', kolOn: up ? { a: 1.6, b: 1.5 } : { a: .25, b: .3 } }); });   // el kaldırma: üst kol öne, ön kol dik
 }
-PL('P003', 'A03', 'MEZ', 'genis', st => ({ cam: camLerp(CAM(960, 540, 1), CAM(980, 560, 1.12), st.p), bg: [.1, 0, 0], ciz: () => mezatSalonu(st) }),
+PL('P003', 'A03', 'MEZ', 'genis', st => ({ cam: camLerp(CAM(960, 540, 1), CAM(980, 560, 1.12), st.p), bg: [.1, 0, 0], ciz: () => mezatSalonu(st, { haritaBos: true }) }),
   { over: both(etk('ALKMAAR · ŞUBAT 1637'), hrt('ALKMAAR')) });
 // yedi yetim: pencere önünde yedi küçük siluet (sırtı dönük), dışarıda bahçede laleler
 function yetimler(o = {}) {
@@ -145,15 +147,16 @@ PL('P008', 'A07', 'GAZ', 'ayrinti', st => ({ cam: camLerp(CAM(960, 500, 1.25), C
 function zamanCizgisi(ctx, st, k, o = {}) {
   if (NOTEXT) return;
   const a = clamp((st.lt - (o.t0 ?? .3)) / .5) * clamp(((o.t1 ?? 4.8) - st.lt) / .6); if (a <= 0) return;
-  const x0 = 520, x1 = 1400, y = o.y ?? 178, X = yil => x0 + (yil - 1554) / (1730 - 1554) * (x1 - x0);
+  const x0 = 420, x1 = 1500, y = o.y ?? 178, X = yil => x0 + (yil - 1554) / (1730 - 1554) * (x1 - x0);
   ctx.save(); ctx.globalAlpha *= E.sine(a);
-  softBand(ctx, x0 - 30, x1 + 30, y - 6, 80, 78, .8);
+  softBand(ctx, x0 - 40, x1 + 70, y - 4, 80, 82, .82);
   ctx.strokeStyle = PAPER_CSS; ctx.lineWidth = 3; ctx.beginPath(); ctx.moveTo(x0, y); ctx.lineTo(x1, y); ctx.stroke();
-  for (const [yil, ad] of [[1554, '1554'], [1637, '1637 · HOLLANDA'], [1718, '1718 · İSTANBUL']]) { const x = X(yil); ctx.beginPath(); ctx.moveTo(x, y - 12); ctx.lineTo(x, y + 12); ctx.stroke(); txt(ctx, ad, x, y - 40, { px: 38, ls: 4 }); }
+  // yıl çentiğin üstünde, yer adı altında: '1637 · HOLLANDA 1718 · İSTANBUL' tek satır gibi okunuyor, İSTANBUL panelden taşıyordu
+  for (const [yil, ad] of [[1554, ''], [1637, 'HOLLANDA'], [1718, 'İSTANBUL']]) { const x = X(yil); ctx.beginPath(); ctx.moveTo(x, y - 12); ctx.lineTo(x, y + 12); ctx.stroke(); txt(ctx, String(yil), x, y - 38, { px: 38, ls: 4 }); if (ad) txt(ctx, ad, x, y + 38, { px: 30, ls: 5 }); }
   // imleç: 0:44'te 1637'den 1554'e (seksen yıl geriye), 5:53'te 1637'den 1718'e (seksen yıl sonra): iki yarı tek yolculuk
   const fr = o.from ?? 1637, to = o.to ?? 1554, u = E.io2(clamp((st.lt - k) / 1.4)), xc = lerp(X(fr), X(to), u);
   ctx.fillStyle = PAPER_CSS; ctx.beginPath(); ctx.arc(xc, y, 10, 0, TAU); ctx.fill();
-  if (u > .05) txt(ctx, o.yazi ?? '← SEKSEN YIL', (X(fr) + X(to)) / 2, y + 38, { px: 34, ls: 3, a: clamp(u * 2) });
+  if (u > .05) txt(ctx, o.yazi ?? '← SEKSEN YIL', (X(fr) + X(to)) / 2, y - 38, { px: 32, ls: 3, a: clamp(u * 2) });   // yıllar arasında, üst satırda (alt satır yer adlarının)
   ctx.restore();
 }
 PL('P010', 'B01', 'YOL', 'genis', st => ({ cam: camLerp(CAM(900, 560, 1), CAM(1060, 620, 1.12), st.p), bg: [.9, 0, 10], ciz: () => SET2.kisYolu({ t: st.t }) }),
@@ -164,7 +167,7 @@ PL('P011', 'B01@demet', 'YOL', 'yakin', st => ({ cam: camLerp(CAM(960, 560, 1.15
   INSAN.adam({ x: 1420, y: 1240, h: 920, yon: -1, sapka: 'genis', yaka: 'duz', giysi: 'pelerin', kenar: .4, kenarYan: -1, kolOn: { a: 1.2, b: .6 } });
   SET2.buket(960 + Math.sin(st.t) * 4, 760, 1.0, st.t);
 } }), { over: etk('OGIER GHISELIN DE BUSBECQ, HABSBURG ELÇİSİ', { x: 1770, align: 'right', px: 40 }) });
-PL('P012', 'B02', 'YOL', 'ayrinti', st => ({ cam: camLerp(CAM(960, 420, 1.7), CAM(960, 380, 1.9), st.p), bg: [.85, 0, 10], ciz: () => {
+PL('P012', 'B02', 'YOL', 'ayrinti', st => ({ cam: camLerp(CAM(960, 520, 1.7), CAM(960, 475, 1.9), st.p),   /* alıntı paneli çiçek başlarının üstüne düşüyordu */ bg: [.85, 0, 10], ciz: () => {
   GR.fill(SET.R(-200, -200, 2400, 1500), GR.tone(.9), { th: -.03, id: 10 }); SET2.buket(960, 760, 1.0, st.t); } }),
   { over: alnt('“… eorum quos Turcae Tulipan vocant”', 'BUSBECQ, 1581 · “TÜRKLERİN TULİPAN DEDİKLERİ”', { y: 750, px: 58 }) });
 PL('P013', 'B03', 'SAR', 'orta', st => ({ cam: camLerp(CAM(960, 520, 1.05), CAM(1080, 400, 1.35), st.p), bg: [.6, 0, 0], ciz: () => {
@@ -266,7 +269,7 @@ PL('P035', 'D06', 'SWI', 'ayrinti', st => { const u = io((st.lt - .5) / Math.max
   LALE.ciz(x, y - 4, 1.2 + u * .6, { sap: 0, cesit: 'switsers', ac: .2 + u * .2, renk: .4 + u * .6 });
   YAZI.ekle('31 ARALIK 1636 · 125', 300, 836, { font: 'baslik', px: 36 }); YAZI.ekle((u > .97 ? '1 ŞUBAT 1637 · ' : '') + v, 1180, 836, { font: 'baslik', px: 36 });
 } }; }, { over: etk('SWITSERS · BİR LİBRESİ KAÇ GULDEN') });
-PL('P036', 'D07', 'MEZ', 'orta', st => ({ cam: camLerp(CAM(1040, 560, 1.3), CAM(1060, 540, 1.4), st.p), bg: [.1, 0, 0], ciz: () => mezatSalonu(st, { mezatKol: 2.1 }) }), { over: hrt('ALKMAAR') });
+PL('P036', 'D07', 'MEZ', 'orta', st => ({ cam: camLerp(CAM(1040, 560, 1.3), CAM(1060, 540, 1.4), st.p), bg: [.1, 0, 0], ciz: () => mezatSalonu(st, { mezatKol: 2.1, haritaBos: true }) }), { over: hrt('ALKMAAR') });
 PL('P037', 'D08', 'LIS', 'ayrinti', st => { const k = W_(st, 'D08', 'kâğıt'); return { cam: camLerp(CAM(960, 520, 1.1), CAM(960, 540, 1.0), st.p), bg: [.2, 0, 0], ciz: () => {
   SET2.masaUst(-300, { ton: .2 }); SET2.sayfa(560, 80, 800, 720, { ton: .95, cerceve: true });
   YAZI.ekle('Lijste van eenighe Tulpaen', 960, 170, { font: 'baslik', px: 40, align: 'center' });
@@ -283,7 +286,7 @@ PL('P038', 'D09', 'KES', 'yakin', st => ({ cam: camLerp(CAM(960, 560, 1.1), CAM(
 } }), { over: buyukYazi('KÂĞIT ÜZERİNDE', { y: 150, px: 88 }) });
 
 // ═════════ 4. ÇÖKÜŞ ═════════
-PL('P040', 'E01', 'MEZ', 'genis', st => { const r = 1 - io((st.lt - 3.6) / 2.5), kk = io((st.lt - W_(st, 'E01', 'kimse')) / 1.4); return { cam: camLerp(CAM(960, 540, 1.0), CAM(970, 520, 1.15), st.p), bg: [.1, 0, 0], ciz: () => mezatSalonu(st, { el: false, mezatKol: 2.1 - kk * 1.8, cesit: 'switsers', lr: r, ters: true }), renk: 1 }; },
+PL('P040', 'E01', 'MEZ', 'genis', st => { const r = 1 - io((st.lt - 3.6) / 2.5), kk = io((st.lt - W_(st, 'E01', 'kimse')) / 1.4); return { cam: camLerp(CAM(960, 540, 1.0), CAM(970, 520, 1.15), st.p), bg: [.1, 0, 0], ciz: () => mezatSalonu(st, { el: false, mezatKol: 2.1 - kk * 1.8, cesit: 'switsers', lr: r, ters: true, haritaBos: true }), renk: 1 }; },
   { over: both(kartOver('E01'), etk('HAARLEM · ŞUBAT 1637', { t0: 3.4 }), hrt('HAARLEM', { t0: 3.4 })) });
 PL('P041', 'E02', 'BOS', 'orta', st => ({ cam: camLerp(CAM(960, 600, 1.05), CAM(900, 620, 1.15), st.p), bg: [.08, 0, 0], renk: 1 - io(st.lt / 3), ciz: () => {
   SET.meyhane({ isik: .5 });
@@ -297,7 +300,7 @@ PL('P041b', 'E02@dünün', 'MWL', 'ayrinti', st => ({ cam: camLerp(CAM(700, 540,
   { over: etk('ÇİĞNENMİŞ LALELER · FLORAES MALLEWAGEN, 1637 (RIJKSMUSEUM)', { y: 120, px: 34 }) });
 PL('P042', 'E03', 'AMS', 'yakin', st => ({ cam: camLerp(CAM(960, 620, 1.2), CAM(960, 600, 1.3), st.p), bg: [.08, 0, 0], renk: 0, ciz: () => {
   SET2.arkaOda(st.t);
-  for (let i = 0; i < 4; i++) { const x = 560 + i * 280, yon = i < 2 ? 1 : -1; INSAN.adam({ x, y: 1030, h: 600, yon, sapka: 'genis', yaka: 'duz', kenar: .45, kenarYan: yon, kolOn: { a: .5 + Math.sin(st.t * 3 + i) * .3, b: 1.0 }, biyik: i % 2 === 0 }); }
+  for (let i = 0; i < 4; i++) { const x = 460 + i * 280, yon = i < 2 ? 1 : -1; INSAN.adam({ x, y: 1030, h: 600, yon, sapka: 'genis', yaka: 'duz', kenar: .45, kenarYan: yon, kolOn: { a: .5 + Math.sin(st.t * 3 + i) * .3, b: 1.0 }, biyik: i % 2 === 0 }); }
 } }), { over: both(etk('AMSTERDAM · 23–24 ŞUBAT 1637'), hrt('AMSTERDAM')) });
 PL('P043', 'E04', 'HAZ', 'orta', st => ({ cam: camLerp(CAM(960, 560, 1.05), CAM(1060, 580, 1.15), st.p), bg: [.9, 0, 10], renk: 0, ciz: () => {
   SET.gok({ gun: 1, ufuk: 640 });
@@ -402,9 +405,10 @@ PL('P05B', 'F11@yıkımı', 'KIT', 'genis', st => ({ cam: camLerp(CAM(960, 520, 
 
 // ═════════ 6. İSTANBUL ═════════
 PL('P060', 'G01', 'IST', 'orta', st => ({ cam: camLerp(CAM(960, 560, 1), CAM(1000, 560, 1.1), st.p), bg: [.9, 0, 10], ciz: () => {
-  SET2.bogaz(st.t, { kx: 1000, kw: 700 });
-  SET2.osmanli({ x: 520, y: 1040, h: 560, yon: 1, kenar: .5, sakal: true, kolOn: { a: .3, b: .5 } });
-  SET2.osmanli({ x: 720, y: 1040, h: 520, yon: 1, kenar: .5, sakal: true, kolOn: { a: .8, b: .7 } });
+  SET2.bogaz(st.t, { kx: 1000, kw: 700, kayik: false });   // yürüyen figürün eli hizasında yüzen koyu oval
+  { const g = io((st.lt - 2.6) / 2.6), dx = -760 * (1 - g), ad = g < 1 ? st.t * 1.5 : null;   // kart bitince yürüyerek girerler; künye (4,9 sn) adlarını verir
+    if (g > 0) { SET2.osmanli({ x: 520 + dx, y: 1040, h: 560, yon: 1, kenar: .5, sakal: true, kolOn: { a: .3, b: .5 }, adim: ad });
+      SET2.osmanli({ x: 720 + dx, y: 1040, h: 520, yon: 1, kenar: .5, sakal: true, kolOn: { a: g < 1 ? .2 : .8 * io((st.lt - 5.2) / .6) + .2 * (1 - io((st.lt - 5.2) / .6)), b: .7 }, adim: ad === null ? null : ad + 1 }); } }
   for (let x = 1100; x < 1900; x += 110) LALE.ciz(x, 1000, .8, { sap: 80, tip: 'ist', cesit: x % 220 ? 'ist' : 'istSari' });
 } }), { over: both(kartOver('G01'), (ctx, st) => zamanCizgisi(ctx, st, .5, { from: 1637, to: 1718, yazi: 'EVE DÖNÜŞ →' }), etk('III. AHMED · NEVŞEHİRLİ DAMAT İBRAHİM PAŞA · 1718', { t0: 4.9, px: 38 })) });
 PL('P061', 'G02', 'SAA', 'genis', st => { const u = io(st.lt / Math.max(2, st.d - .5)); return { cam: camLerp(CAM(960, 600, 1.1), CAM(960, 580, 1.2), st.p), bg: [.9, 0, 10], ciz: () => {
@@ -530,10 +534,10 @@ PL('P086', 'I08', 'KAG', 'genis', st => { const k = W_(st, 'I08', 'sonradan'); c
   YAZI.ekle('SEFAHAT ÇAĞI', 960, 200 + d * 900, { font: 'baslik', px: 56, align: 'center', a: clamp(1 - d * 1.7) });
 } }; });
 
-PL('P086b', 'I08@ona', 'SED', 'yakin', st => { const g = io((st.lt - .3) / 3.2); return { cam: camLerp(CAM(860, 620, 1.45), CAM(980, 640, 1.6), st.p), bg: [.12, 0, 0], renk: 0, ciz: () => {
+PL('P086b', 'I08@ona', 'SED', 'yakin', st => { const g = io((st.lt - .3) / 3.2); return { cam: camLerp(CAM(960, 620, 1.15), CAM(960, 640, 1.2), st.p), bg: [.12, 0, 0], renk: 0, ciz: () => {
   SET2.sedir(st.t);
-  SET2.osmanli({ x: 120 + 330 * g, y: 1000, h: 560, yon: 1, sapka: 'kavuk', kenar: .45, kolOn: { a: .15, b: .2 }, adim: g < 1 ? st.t * 1.6 : null });
-  SET2.osmanli({ x: 1760 - 300 * g, y: 1000, h: 545, yon: -1, sapka: 'sarik', kenar: .45, kenarYan: -1, kolOn: { a: .15, b: .2 }, adim: g < 1 ? st.t * 1.6 + 1 : null });
+  SET2.osmanli({ x: 20 + 250 * g, y: 1000, h: 560, yon: 1, sapka: 'kavuk', kenar: .45, kolOn: { a: .15, b: .2 }, adim: g < 1 ? st.t * 1.6 : null });
+  SET2.osmanli({ x: 1900 - 250 * g, y: 1000, h: 545, yon: -1, sapka: 'sarik', kenar: .45, kenarYan: -1, kolOn: { a: .15, b: .2 }, adim: g < 1 ? st.t * 1.6 + 1 : null });
 } }; });   // boş sedire iki yandan iki kişi yürür: 'iktidar kavgası' olay olarak (boş sedir eylemsizdi: Fable yön okuması)
 
 // ═════════ 9. SON ═════════
