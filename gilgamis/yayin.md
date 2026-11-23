@@ -28,7 +28,7 @@ Yükleme YouTube Studio'da bilgisayardan yapılır. YouTube'un kendi zamanlamas�
    - "Değiştirilmiş veya yapay içerik" sorusu: **Hayır**. Video gerçekçi görüntü içermez; stilize kabartma animasyondur. Anlatımın yapay zekâ sesi olduğu açıklamanın "Yapım" kısmında yazılı.
 3. **Video öğeleri:**
    - Altyazı ekle → Dosya yükle → "Zamanlamalı" → `gilgamis.tr.srt`.
-   - **Bitiş ekranı:** BİTİŞ_EKRANI_TARİFİ
+   - **Bitiş ekranı:** 10:57'den sona (20 sn). Anlatımdaki "ekranda" sözcüğü 11:00'de, yani bitiş ekranının içinde. Son karede (render'dan bakıldı) **sol yarı boş** kil zemin (x < 1080); **sağ yarıda** pişmiş tuğla sur ve burçların üstünde küçük Gılgamış figürü var. Öğeler sol yarıya: video öğesi üstte, "Abone ol" altında
    - **Video öğesi:** "Belirli video: Sisifos'u Neden Mutlu Hayal Etmeliyiz?" (anlatım "Sisifos, ekranda" diyor).
    - **"Kanalda ayrıca" satırı:** açıklamadaki Sisifos satırının sonuna videonun adresini yapıştır.
 4. **Görünürlük:** Planla → 06.12.2026, 18:00 (GMT+3) → **Planla**.
