@@ -23,7 +23,7 @@ Not: Videoda bir yas sahnesi var.
 • Destan: Akadca Gılgamış Destanı. Standart Babil sürümü (Ninova kopyaları, MÖ 1. binyıl) ve Eski Babil sürümünün tabletleri (Pennsylvania, Yale, Sippar; ~MÖ 18. yüzyıl).
 • Kamu malı çeviriler: M. Jastrow ve A. T. Clay, An Old Babylonian Version of the Gilgamesh Epic (Yale, 1920); R. Campbell Thompson, The Epic of Gilgamish (Londra, 1928).
 • Satır numaraları ve 1928'den sonra okunan yerler: A. R. George, The Babylonian Gilgamesh Epic (Oxford, 2003). Videodaki çeviriler bize aittir; Türkçe çevirilerden alıntı yoktur.
-• V. tablet, Süleymaniye Müzesi parçası (2011): F. N. H. Al-Rawi ve A. R. George, "Back to the Cedar Forest", Journal of Cuneiform Studies 66 (2014).
+• V. tablet, Süleymaniye Müzesi (Irak) parçası (2011): F. N. H. Al-Rawi ve A. R. George, "Back to the Cedar Forest", Journal of Cuneiform Studies 66 (2014).
 • Hattuşa (Boğazkale, Çorum) kopyaları: G. Beckman, The Hittite Gilgamesh (2019).
 • Siduri'nin öğüdü ("Elini tutan çocuğa bak…") yalnız Eski Babil sürümünde (Sippar tableti) bulunur.
 
