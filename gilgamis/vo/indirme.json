@@ -1,0 +1,41 @@
+{
+ "flow_id": "YXpNwuCDr1CsU9a5ow64",
+ "voice": "Emrullah",
+ "voice_id": "DpEiQMnL9WxMsymCsjPY",
+ "model": "eleven_v4",
+ "not": "23 Kasım 2026: s00 için estimate_only 1.073,9 kredi (2 çekim, 537 etiketli karakter; ~1,93 kredi/karakter/2 çekim). Toplam 8796 etiketli karakter × 2 çekim ≈ 16,976 kredi. Kullanıcının açık onayı bekleniyor.",
+ "cekimler": {
+  "s00": {
+   "karakter_etiketli": 537,
+   "tahmini_kredi": 1036
+  },
+  "s01": {
+   "karakter_etiketli": 1108,
+   "tahmini_kredi": 2138
+  },
+  "s02": {
+   "karakter_etiketli": 1097,
+   "tahmini_kredi": 2117
+  },
+  "s03": {
+   "karakter_etiketli": 1410,
+   "tahmini_kredi": 2721
+  },
+  "s04": {
+   "karakter_etiketli": 1224,
+   "tahmini_kredi": 2362
+  },
+  "s05": {
+   "karakter_etiketli": 1194,
+   "tahmini_kredi": 2304
+  },
+  "s06": {
+   "karakter_etiketli": 959,
+   "tahmini_kredi": 1851
+  },
+  "s07": {
+   "karakter_etiketli": 1267,
+   "tahmini_kredi": 2445
+  }
+ }
+}
