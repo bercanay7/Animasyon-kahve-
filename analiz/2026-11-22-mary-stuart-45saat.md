@@ -79,3 +79,31 @@ Bu, `2026-11-18-sisifos-sonme.md`'deki açıklamayla uyumlu: YouTube yeni videoy
 - **Shorts şimdi yayımlanır** (plan 1–2 gün sonraydı). İkinci Shorts adayı: 19:14–19:42 ("Elizabeth kazandı. Peki tahta kim oturdu?"); ücretli üretim gerektirmez.
 - **Yayın aralığı (kullanıcıya öneri):** Narkissos 24 Kasım'da çıkarsa Mary Stuart'ın penceresi bölünür ve iki açıklama (gösterim havuzu, yayın sıklığı) yine ayrılamaz. Öneri: Narkissos 27 Kasım (Mary Stuart'ın 7. günü), Dorian Gray 4 Aralık. Karar kullanıcının.
 - **7. gün (27 Kasım) bakılacaklar:** Erişim → günlük gösterim (geç test geldi mi?), kapak testi sonucu, Kitle → abone izlenme payı ve ülkeler, 0:30, arama trafiği ("I. Elizabeth" kapısı).
+
+---
+
+# 75. saat (23 Kasım 2026, 21:02; kullanıcının ekran görüntüleri)
+- **Gösterim 2,6 B** (45. saatte 2,2 B). Eğri: ilk gün ~1,8 B'ye çıktı, sonra yavaş ve düzgün artış. **Geç test gelmedi.**
+- **TO %2,4** (45. saatte %2,3). Günlük TO ~%2,1 → ~%3,5 → ~%3,1 (son nokta günün yarısı, okunmaz). Tıklama zamanla iyileşiyor, dağıtım büyümüyor.
+- **Görüntüleme 192.** Keşif: Göz atma %64,6 · Önerilen %20,8 · Kanal sayfaları %8,3 · YouTube arama %2,1 · Diğer %4,2.
+- **Elde tutma:** ortalama 7:10 (%34,4); **0:30'da %74** ("standart değerin üzerinde"; 45. saatte %70). Beğenme %100 (kanal %98,9).
+- **Kapak testi (sürüyor):** A "RAKİBİNE SIĞINDI" %56, B "İDAMINA KIRMIZI GİYDİ" %43. Henüz net değil (eşik ≥ %60).
+- **Gösterim başına izlenme:** %2,4 × 7,2 dk ≈ **0,17 dk** (kanalın en iyisi, değişmedi).
+
+## Studio'nun "En iyi yeni videolar" tablosu (ilk 3 gün 2 saat, görüntüleme; Shorts hariç)
+| Sıra | Video | Yayın | 3 gün görüntüleme |
+|---|---|---|---|
+| 1 | Prometheus | 31 Ekim | 2.000 |
+| 2 | Sisifos | 26 Ekim | 1.500 |
+| 3 | Abdülhamid | 29 Ekim | 470 |
+| 4 | Ran | 17 Kasım | 414 |
+| 5 | Milton | 12 Kasım | 264 |
+| 6 | Medici | 5 Kasım | 207 |
+| 7 | **Mary Stuart** | 20 Kasım | **192** |
+| 8 | İkaros | 14 Kasım | 181 |
+| 9 | Kafka | 15 Kasım | 164 |
+| 10 | Orfeus | ~Ekim başı | 92 |
+
+**Okuma:** dalga alan üç video (Prometheus, Sisifos, Abdülhamid) ilk üç sırada ve hepsi Ekim sonunda, Sisifos'un havuzu dolu iken çıktı. 12 Kasım'dan sonraki altı video 164–414 bandında; aralarındaki fark tıklama ya da tutmayla açıklanmıyor (Mary Stuart tutmada ve gösterim başına izlenmede en iyi, sırada 7.). Mary Stuart'ın düşük görüntülemesi kısmen süresinden: 20:49'luk videoya tıklayan daha az, ama tıklayan daha uzun izliyor; YouTube'un ölçtüğü izlenme süresi bakımından Ran'dan geride değil. Tablo, "havuz" açıklamasını bir kez daha destekliyor; kesin sınama 26 Kasım'da Narkissos (`tahminler.md` → Dağıtım sınaması).
+
+**Karar:** paketleme değişmez (TO yükseliyor, test sürüyor). 7. gün (27 Kasım): kapak testi sonucu, abone payı, ülkeler.
