@@ -42,6 +42,7 @@ Yazıldı: 22 Kasım 2026, senaryo rev2 (seslendirmeden önce). Zamanlar seslend
 | L3 | **Türk izleyicinin kapısı:** İstanbul bölümü (G01) yeni bir "ikinci hikâye" açar; doruk kişileri kancada ekildiği ve "Lale Devri" okuldan tanıdık olduğu için G01'den sonraki 30 sn'de düşüş yok (≤ 2 puan) ya da yükseliş; "Ad" bölümü (A07'nin merakının cevabı, I03–I07) Studio'da "Önemli an" ya da yerel yükseliş. | G01 + 30 sn; I03–I07 eğri ve Studio işaretleri | |
 
 ## Gılgamış (~10:30; yayın 6 Aralık 2026 18:00 (kullanıcı, 23 Kasım); 48. saat = 8 Aralık 18:00, 7. gün = 13 Aralık; 23 Kasım yazıldı, seslendirmeden önce; zamanlar seslendirmeden sonra eklenir, tahmin değişmez)
+**Zamanlar (seslendirmeden sonra, 23 Kasım; tahminler değişmedi):** A05 0:32,1, B01 0:42,3 (hikâye başı), B03 sonu 1:05,0; D04 3:38,7 – D13 sonu 4:51,8; E09 6:23,2; H04 sonu 10:01,0; H05 10:02,5 – H10 sonu 10:51,1.
 | # | Tahmin | Nasıl sınanır | Sonuç |
 |---|---|---|---|
 | G1 | Kanca kurala uygun: kanca sorusundan (A05) sonraki ilk cümle hikâye (B01), kimlik kancanın içinde. Kancanın kendisi iki somut sahne (bitki/yılan, ölü dost) ve bir alıntı (surlar). 0:30 (48. saat) ≥ %65 ve kanca sonu → B03 arasında ≥ 3 puanlık düşüş yok. | 0:30; A05–B03 aralığı | |
