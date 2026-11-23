@@ -58,6 +58,12 @@ Bu video bir deneyin yarısıydı (`analiz/2026-11-23-deney-yon-promptu.md`): ot
 - **Reddedilen/ertelenen:** parmak izinin alt yarısını doldurmak (iç içe tam halka hedef tahtası okunur; yay biçimi korundu); ceylan ve Humbaba'nın biçim incelikleri (zevk payı); kapak A ile filmdeki gölet farkı (kanca simge olarak elde gösteriyor, kapak da öyle; doruğun kendisi gölette).
 - **Ders:** üç kişilik okuma Lale'deki gibi işe yaradı; ortak düşüşler soyutluk değil bu kez **görüntünün bilgi taşımadığı** yerlerdeydi (yüzsüz tez cümlesi, boş karede yeni ad). Ses sabitken ikisi de yeni planla karşılandı.
 
+## Render ve teslim
+- **İkinci render ilk karede çöktü:** kanca su halkasının fazı `(st.lt*.6 + k/3) % 1` ilk karede eksi çıktı (JS'te `%` eksi kalanı korur), elips yarıçapı eksi oldu. Düzeltme `((x % 1) + 1) % 1`; ardından bütün planlar tek karede tarandı. **Ders:** zaman eksi olabilen her `%` çift modla yazılır; render'dan önce her planın ilk ve son karesi çizdirilir.
+- **Zincir koşulsuz kurulmuştu:** render çöktüğü hâlde teslim betiği eski `gilgamis.mp4`'ten kopya üretti. Render → teslim zinciri `&&` ile bağlanır, kopyanın süresi ve tarihi render'la karşılaştırılır.
+- **x265 iki geçiş günlüğü** (`x265_2pass.log.cutree`, 168 MB) çalışma dizinine yazılıp commit'e girdi; push reddedilince fark edildi. `.gitignore`'a eklendi; teslim betiği günlüğü `teslim/` dışında, `-x265-params stats=` ile scratchpad'e yazmalı.
+- Son kopyalar: YouTube 255 MB (H.264 CRF 21), telefon 97 MB (H.265 2 geçiş 1000k); ikisi de 677,35 sn.
+
 ## Açık kalanlar
 - Kulakla son onay kullanıcıda (`yayin.md` → "Kulakla bakılacaklar").
 - Shorts yapılmadı (adaylar `youtube.md`).

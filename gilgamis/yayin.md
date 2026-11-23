@@ -9,8 +9,8 @@ Yükleme YouTube Studio'da bilgisayardan yapılır. YouTube'un kendi zamanlamas�
 ## Dosyalar
 | Dosya | Ne için |
 |---|---|
-| `teslim/gilgamis_youtube.mp4` | **YouTube'a yüklenecek dosya**: 1920×1080, 30 fps, H.264 + AAC, Türkçe ses (−14 LUFS), BT.709 |
-| `teslim/gilgamis_telefon.mp4` | Telefonda izlemek için küçük kopya (H.265) |
+| `teslim/gilgamis_youtube.mp4` | **YouTube'a yüklenecek dosya** (255 MB, 11:17): 1920×1080, 30 fps, H.264 CRF 21 + AAC, Türkçe ses (−14 LUFS), BT.709 |
+| `teslim/gilgamis_telefon.mp4` | Telefonda izlemek için küçük kopya (97 MB, H.265 iki geçiş 1000k; ses aynı) |
 | `kapak/A.jpg` | Kapak A: "ELİNDEYDİ" (ortadan başlamak: bitki elde, yılan kapıyor). Filmin ilk karesiyle aynı kompozisyon |
 | `kapak/B.jpg` | Kapak B: "7 GECE GÖMMEDİ" (karşıtlık: örtülü dost, başını ellerine almış adam, duvarda yedi çentik). İlk 10 saniyede karşılanıyor (A02) |
 | `gilgamis.tr.srt` | Türkçe altyazı (182 satır) |
