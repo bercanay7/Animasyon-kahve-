@@ -69,7 +69,7 @@ Kanalın asıl listesi kökteki `CLAUDE.md`'deki Kahramanın Yolculuğu tablosud
 |---|---|
 | Shorts (≤60 sn) | **Pixar omurgası:** Bir zamanlar… / Her gün… / Bir gün… / Bu yüzden… / Bu yüzden… / Sonunda… (kanca = "Bir gün…" ya da "Sonunda…"dan başla) |
 | 5–12 dk mit/felsefe | **Harmon çemberi** (aşağıda) |
-| 12–25 dk biyografi/tarih | **Kahramanın Yolculuğu** (CLAUDE.md tablosu) + bölüm başına ABT |
+| 12–25 dk biyografi/tarih | **Kahramanın Yolculuğu** (tablo: `kanal/arsiv/depo_akis_2026-11-23.md`) + bölüm başına ABT |
 | Fikir/felsefe denemesi | **Kişōtenketsu:** giriş → gelişme → dönüş (beklenmedik bilgi/bakış) → birleştirme (çatışma şart değil) |
 
 ### Dan Harmon çemberi (8 adım)
