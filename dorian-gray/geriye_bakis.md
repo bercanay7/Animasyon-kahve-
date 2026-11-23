@@ -44,3 +44,6 @@ Fable bütün kurgu özeti sayfalarına, ~30 tam boy kareye, senaryoya, SRT'ye, 
 - Kulakla son onay kullanıcıda: "Dorian Grey" ve "Oskar Vayld" okunuşu, B06 dilek tonu, G08–G11 doruk, müzik ve sessizlikler (E09 sonrası 1,8 sn, G09 "çığlık" 3,2 sn).
 - Shorts yapılmadı (isteğe bağlı; aday kesitler `youtube.md`).
 - Sonuçlar 48. saat (6 Aralık) ve 7. gün (11 Aralık; yayın 4 Aralık'a kaydırıldı) verisiyle `CLAUDE.md`'ye yazılır: talep kontrolünün dördüncü sınaması (a güçlü: "dorian gray"; b güçlü) ve kanalın ilk 4 kelimelik kapak yazısı denemesi (B).
+
+## Yayından sonra fark edilen (23 Kasım; Lale Çılgınlığı'nın Fable okumasından)
+- `lib/film.js` `txt()` koyu paneli hizadan bağımsız çapaya ortalıyordu; sola hizalı künyelerin sağ yarısı açık zeminde panelsiz kalıyordu. 12 künyeden üçü kısmen okunmuyor: 0:12 "OSCAR WILDE · 1890" (yıl portre çerçevesinde), 0:44 "LORD HENRY" (açık taramada), 6:51 "OLD BAILEY · 3 NİSAN 1895" (yıl açık sütunda). Kod düzeltildi (`softBand`), üç kare doğrulandı. Video yüklenip 4 Aralık'a zamanlandığı için yeniden yüklenmedi (kullanıcının kararı).
