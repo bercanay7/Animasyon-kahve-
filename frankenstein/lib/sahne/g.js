@@ -45,13 +45,13 @@
     DK.perde(R, 1516, 1520, 60, 700, '#B0433A', { t: 0, kivrim: 6 });
     FIG.kisi(R, 1060, 1000, 700, { tip: 'yaratik', f: 1, govde: .1, bas: .08, kolA: [1.55, .1], kolO: [1.15, .55], goz: 1 });
   }, { fener: { isik: { x: 1100, y: 420, r: 560, sic: [1, .92, .78] }, kadraj: { tip: 'daire', x: 1010, y: 520, r: 520, yum: 30 }, parlak: .8 } });
-  sahne('G03b', 'G03@şimdi', 'kamara', 'yakin', (R, st) => {
+  sahne('G03b', 'G03@şimdi', 'kamara', 'orta', (R, st) => {
     R.cam(900, 600, 1.7);
     KAMARA(R, st);
     FIG.kisi(R, 1180, 1000, 800, { tip: 'yaratik', f: -1, govde: .75, bas: .55, kolO: [1.3, .6], kolA: [.4, .5], goz: 0, sac: -.6 });
   }, { fener: { isik: { x: 900, y: 560, r: 480, sic: [.95, .94, .96] }, kadraj: { tip: 'daire', x: 960, y: 520, r: 460, yum: 40 } } });
   // G04: yaratığın yüzü saçların ardında (yakın); "soğumuş"
-  sahne('G04a', 'G04', 'kamara', 'orta', (R, st) => {
+  sahne('G04a', 'G04', 'kamara', 'yakin', (R, st) => {
     R.cam(1100, 520, 1.3 + st.lt * .015);
     KAMARA(R, st);
     FIG.kisi(R, 1180, 1000, 800, { tip: 'yaratik', f: -1, govde: .55, bas: .4, kolO: [.6, .9], kolA: [.4, .5], goz: 1, sac: -.8, kenar: 'rgba(220,228,250,.7)' });

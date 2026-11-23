@@ -63,7 +63,7 @@
   }, { fener: st => ({ isik: { x: 820, y: 460, r: 620 }, kadraj: { tip: 'kare', x: 960, y: 520, w: 1760, h: 960, r: 70, yum: 24 } }),
     over: (ctx, st) => { etiket(ctx, 'YARATIĞIN ADI YOK', 1420, 180, st.lt - .6, rel(st, 'A03@iki') - .2); } });
   // A04: Mary Shelley (on sekiz yaşında), mum ışığında; soru
-  sahne('A04a', 'A04', 'masa', 'orta', (R, st) => {
+  sahne('A04a', 'A04', 'masa', 'genis', (R, st) => {
     R.cam(900, 560, 1.0 + st.lt * .01);
     SET.masa(R, st, {});
     DK.yagmur(R, st.t, { a: .1, n: 40 });

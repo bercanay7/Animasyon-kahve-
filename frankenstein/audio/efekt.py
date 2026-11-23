@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
-"""GILGAMIŞ: efektler (numpy sentezi; örnek ses yok). python3 audio/efekt.py → audio/efekt.wav (48 kHz stereo)
-Zamanlar timeline.js (cümle/kelime) ve vo/shots.json'dan (geçişler; node tools/plan_listesi.js)."""
+"""FRANKENSTEIN: efektler (numpy sentezi; örnek ses yok; scipy yok). python3 audio/efekt.py → audio/efekt.wav (48 kHz stereo)
+Zamanlar timeline.js (cümle/kelime) ve vo/shots.json'dan (node tools/plan_listesi.js). Fener geçişlerinde slayt makinesinin tıkırtısı."""
 import json, re, wave
 from pathlib import Path
 import numpy as np
@@ -24,64 +24,98 @@ def put(t, x, g=1.0, pan=0.0):
     i = int(t * SR); n = min(len(x), N - i)
     if n <= 0 or i < 0: return
     L[i:i + n] += x[:n] * g * np.sqrt(.5 * (1 - pan)); R[i:i + n] += x[:n] * g * np.sqrt(.5 * (1 + pan))
-def lp(x, a):  # birinci derece alçak geçiren (blok döngüsü)
-    y = np.empty_like(x); acc = 0.0
-    for i in range(len(x)): acc = a * acc + (1 - a) * x[i]; y[i] = acc
-    return y
-def gurultu(d, a=.9): return lp(rng.normal(0, 1, int(d * SR)), a)
+def lp(x, fc):   # FFT ile yumuşak alçak geçiren (scipy yok)
+    X = np.fft.rfft(x); f = np.fft.rfftfreq(len(x), 1 / SR); X *= 1 / (1 + (f / fc) ** 2); return np.fft.irfft(X, len(x))
+def hp(x, fc): X = np.fft.rfft(x); f = np.fft.rfftfreq(len(x), 1 / SR); X *= (f / fc) ** 2 / (1 + (f / fc) ** 2); return np.fft.irfft(X, len(x))
+def gurultu(d, fc=2000): x = lp(rng.normal(0, 1, int(d * SR)), fc); return x / (np.abs(x).max() + 1e-9)
 def zarf(n, at=.01, rl=.2):
     t = np.arange(n) / SR; d = n / SR; return np.minimum(1, t / at) * np.minimum(1, np.maximum(0, (d - t) / rl))
-def bas(d=.5, f=55):
+def gum(d=.5, f=55):
     t = np.arange(int(d * SR)) / SR; return np.sin(2 * np.pi * f * (1 + 1.2 * np.exp(-t * 25)) * t) * np.exp(-t * 9)
-def muhur():   # kile bastırılan mühür: alçak gümleme + sürtünme
-    x = bas(.6, 48) * .9; s = gurultu(.5, .95) * 4; s *= zarf(len(s), .05, .35)
-    y = np.zeros(int(.7 * SR)); y[:len(x)] += x; y[:len(s)] += s * .35; return y
-def catirti(d, yog=12):  # meşale çıtırtısı
-    y = gurultu(d, .97) * 1.5; n = len(y)
+def yagmur(d): x = hp(rng.normal(0, 1, int(d * SR)), 1500); x = lp(x, 6000); x /= np.abs(x).max(); return x * .5 * zarf(len(x), 1.5, 1.5)
+def gok(d=4): y = gurultu(d, 120) * 1.0; t = np.arange(len(y)) / SR; return y * (np.exp(-t * 1.1) * (1 + .6 * np.sin(t * 9))) * zarf(len(y), .03, 1.5)
+def catirti(d, yog=10):
+    y = gurultu(d, 900) * .25; n = len(y)
     for _ in range(int(d * yog)):
-        i = rng.integers(0, max(1, n - 600)); k = rng.normal(0, 1, 400) * np.exp(-np.arange(400) / 60); y[i:i + 400] += k * .6
-    return y * zarf(n, 1, 1)
-def su(d, hiz=.35):  # dalga/su şıpırtısı
-    y = gurultu(d, .985) * 6; t = np.arange(len(y)) / SR; return y * (.5 + .5 * np.sin(2 * np.pi * hiz * t)) ** 2 * zarf(len(y), 1, 1)
-def ruzgar(d): y = gurultu(d, .993) * 10; t = np.arange(len(y)) / SR; return y * (.6 + .4 * np.sin(2 * np.pi * .08 * t + 1)) * zarf(len(y), 2, 2)
-def cik(f=4200, d=.08):  # kuş cıvıltısı
-    t = np.arange(int(d * SR)) / SR; return np.sin(2 * np.pi * (f + 1800 * np.sin(t * 60)) * t) * np.exp(-t * 30)
-def agustos(d): t = np.arange(int(d * SR)) / SR; return np.sin(2 * np.pi * 5200 * t) * (np.sin(2 * np.pi * 38 * t) > .2) * zarf(len(t), .3, .5) * .25
-def gurleme(d=2.5): y = gurultu(d, .997) * 18; return y * zarf(len(y), .05, 1.6)
-def tislama(d=.9): y = rng.normal(0, 1, int(d * SR)); y = y - lp(y, .6); return y * zarf(len(y), .15, .4) * .5
-def surgu(d=.6): y = gurultu(d, .8) * 2 * zarf(int(d * SR), .05, .1); x = bas(.3, 90); y[-len(x):] += x * .8; return y
-def kazi(d=.25): y = rng.normal(0, 1, int(d * SR)); y = y - lp(y, .9); return y * zarf(len(y), .01, .1) * .35
-
-# geçişler
-for s in SHOTS:
-    if s['tr'] == 'muhur': put(s['at'], muhur(), .55)
-# ortamlar
+        i = rng.integers(0, max(1, n - 800)); k = rng.normal(0, 1, 600) * np.exp(-np.arange(600) / 70); y[i:i + 600] += k * .5
+    return y * zarf(n, .8, .8)
+def ruzgar(d): y = gurultu(d, 500); t = np.arange(len(y)) / SR; return y * (.55 + .45 * np.sin(2 * np.pi * .09 * t + 1)) * zarf(len(y), 2, 2)
+def dalga(d): y = gurultu(d, 900); t = np.arange(len(y)) / SR; return y * (.4 + .6 * np.sin(2 * np.pi * .12 * t) ** 2) * zarf(len(y), 1.5, 1.5)
+def mix(*xs):
+    n = max(len(x) for x in xs); y = np.zeros(n)
+    for x in xs: y[:len(x)] += x
+    return y
+def adim(sert=1.0): return mix(gum(.12, 90) * .6, gurultu(.08, 1500) * zarf(int(.08 * SR), .002, .05) * .3) * sert
+def kos(t0, t1, ara=.3, g=.5, pan=0):
+    t = t0
+    while t < t1: put(t, adim(), g, pan); t += ara
+def kapi(): x = gum(.4, 70); y = gurultu(.25, 2500) * zarf(int(.25 * SR), .002, .2) * .5; z = np.zeros(int(.45 * SR)); z[:len(x)] += x; z[:len(y)] += y; return z
+def tik(): x = gurultu(.03, 5000) * zarf(int(.03 * SR), .001, .02); return x
+def slayt():   # fener slaytının değişimi: mandal tıkı + camın sürtünmesi
+    a = tik() * .8; b = gurultu(.35, 1200) * zarf(int(.35 * SR), .04, .2) * .35; c = tik() * .6
+    y = np.zeros(int(.5 * SR)); y[:len(a)] += a; y[int(.06 * SR):int(.06 * SR) + len(b)] += b; y[int(.42 * SR):int(.42 * SR) + len(c)] += c; return y
+def kus(f=4000, d=.09): t = np.arange(int(d * SR)) / SR; return np.sin(2 * np.pi * (f + 1500 * np.sin(t * 70)) * t) * np.exp(-t * 28)
+def kanat(d=.6): y = gurultu(d, 700); t = np.arange(len(y)) / SR; return y * (np.sin(2 * np.pi * 14 * t) > 0) * zarf(len(y), .02, .3) * .5
+def balta(): return mix(gum(.18, 120) * .7, gurultu(.06, 3000) * zarf(int(.06 * SR), .001, .05) * .6)
+def tuk(): return mix(gum(.15, 160) * .6, tik() * .4)
+def silah(): return mix(gurultu(.9, 2500) * zarf(int(.9 * SR), .001, .8), gum(.6, 50) * .9)
+def sicrama(): y = gurultu(1.2, 2500) * zarf(int(1.2 * SR), .01, 1.0); return y
+def puf(): y = gurultu(.3, 900) * zarf(int(.3 * SR), .02, .25) * .5; return y
 def ortam(a, b, f, g, pan=0):
     if b > a: put(a, f(b - a), g, pan)
-ortam(S('A01'), Ee('A01') + .3, su, .10)
-ortam(S('A02'), Ee('A02') + .5, catirti, .10, .3)
-ortam(S('B04'), Ee('B07') + .5, ruzgar, .06)
-ortam(S('C05'), Ee('C05') + 1, lambda d: ruzgar(d) * .3, .06)
-for k in range(int((Ee('C05') - S('C05')) * 4)): put(S('C05') + k * .25 + rng.random() * .2, cik(3500 + rng.random() * 2500), .05, rng.random() * 1.6 - .8)
-put(W('C05', 'ağustosböcekleri'), agustos(4), .12, .3)
-ortam(S('D01'), Ee('D13') + 1.5, catirti, .08, .3)
-ortam(S('D14'), Ee('E02') + 1, ruzgar, .07)
-ortam(S('E05'), Ee('F06') + 1, su, .08)
-ortam(S('G06'), Ee('G09') + 1, su, .08)
-ortam(S('H01'), DUR, lambda d: ruzgar(d) * .5, .05)
-# tek olaylar
-put(W('A01', 'kaptırdı') - .2, tislama(), .35, -.3)
-put(W('G07', 'aldı', 1) - .2, tislama(), .35, -.3)
-put(W('B10', 'sarstılar'), bas(.8, 40), .5)
-for k in range(5): put(W('B10', 'yıktılar') + k * .09, kazi(.12), .5, (k - 2) * .2)
-put(W('C08', 'kestiler') + .3, bas(1.2, 35), .6); put(W('C08', 'kestiler'), kazi(.6), .5)
-put(W('E05', 'sürgüledi'), surgu(), .45, -.2)
-put(S('D11') + .3, surgu(), .4, .3)
-for k in range(7): put(W('D12', 'altı') + k * .8, kazi(.2), .35, .3)
-for k in range(3): put(S('F04') + 1.5 + k * 2.6, gurleme(), .3, (k - 1) * .4)
-put(W('F04', 'kile'), bas(1.5, 30), .5)
-for k in range(7): put(W('F08', 'her') + k * .8, kazi(.15), .25, .4)
-put(S('G03') + .4, su(1.5, 1.2), .25)
-out = np.stack([L, R], 1); pk = np.abs(out).max() + 1e-9; out = out / pk * .7
+
+# fener geçişleri (bölüm kartları: iris) ve mekân sıçramaları: slayt makinesi
+for i, s in enumerate(SHOTS):
+    if s['tr'] in ('iris', 'kayma'): put(s['at'], slayt(), .5)
+# A: oda gecesi
+ortam(0, S('A04'), lambda d: yagmur(d), .06)
+kos(S('A02') + .3, S('A02') + 2.2, .22, .45, -.3); put(S('A02') + 1.6, kapi(), .5, -.6)
+# B: 1816 yağmuru ve fırtına
+ortam(S('B01') - .5, S('B03'), yagmur, .22); put(W('B02', 'şimşek') + .2, gok(4.5), .7, .2)
+ortam(S('B03'), S('B08'), yagmur, .08)
+put(W('B07', 'patladı') + .1, gok(6), .9)
+ortam(W('B07', 'bunu'), S('B08'), yagmur, .2)
+ortam(S('B08'), S('B12'), catirti, .3, -.4)
+ortam(S('B12'), S('B16'), yagmur, .07); put(S('B15') - .1, gok(3), .3)
+put(S('B16') + .5, tik(), .2)
+# C: laboratuvar (yağmur), kaçış, buzul rüzgârı, kulübe ateşi
+ortam(S('C01') - 1, S('C06'), yagmur, .08)
+kos(S('C04') + .1, S('C04') + 1.8, .22, .45, -.4); put(S('C04') + 1.6, kapi(), .5, -.7)
+ortam(S('C06') - .3, S('C09'), ruzgar, .35)
+ortam(S('C09'), S('D01') - 1, catirti, .28)
+# D: orman, ateş, köy, odunluk, ilkbahar, su
+ortam(S('D01') - .5, S('D04'), ruzgar, .15)
+for i in range(6): put(S('D03') + .2 + i * .17, kus(3600 + i * 300), .18, .4)
+put(W('D03', 'korkuttu'), kanat(.8), .3, .5)
+ortam(S('D04'), S('D05'), catirti, .35, .3); put(W('D04', 'çektim'), puf(), .4)
+for i in range(6): put(W('D05', 'taşlarla') + i * .25, tuk(), .4, .5 - i * .15)
+ortam(S('D06'), S('D08'), ruzgar, .12)
+for i in range(6): put(S('D08') + .2 + i * .45, balta(), .35, .2)
+for i in range(8): put(S('D09') + 1 + i * .9, kus(4200 + 200 * (i % 3)), .12, .5)
+ortam(S('D11'), S('D12'), dalga, .15)
+put(W('D11', 'sıçradım'), sicrama(), .25)
+ortam(S('D12'), S('D13'), catirti, .08)
+# E: kapı vuruşu, ateş, kapı açılışı, yangın, nehir, kurşun
+for i in range(3): put(W('E01', 'çaldım') + .3 + i * .35, tuk(), .5)
+ortam(S('E02'), S('E05'), catirti, .3)
+put(S('E05'), kapi(), .8, -.5); put(W('E05', 'vurdu'), gum(.3, 80), .4)
+ortam(S('E08') - .2, S('E09'), lambda d: catirti(d, 30), .55)
+ortam(S('E09'), Ee('E10') + 1, dalga, .25); put(W('E09', 'atladım') + .2, sicrama(), .45)
+put(W('E10', 'ateş') + .1, silah(), .75, .4)
+# F: çayır akşamı, madalyon, deniz, mumlar
+for i in range(5): put(S('F01') + 1 + i * 1.4, kus(3000 + 400 * i, .07), .08, -.3)
+ortam(S('F08'), S('F11'), dalga, .3)
+ortam(S('F09'), S('F11'), ruzgar, .15)
+put(W('F09', 'parçaladı'), gum(.5, 70), .6); put(W('F09', 'parçaladı') + .1, gurultu(.6, 3000) * zarf(int(.6 * SR), .01, .5), .35)
+for i in range(3): put(W('F11', 'sevdiklerini') + i * .9, puf(), .5)
+# G: buz denizi, kamara, buz salı
+ortam(S('G01') - 1, S('G05') + 8, ruzgar, .3)
+ortam(S('G05'), S('G05') + 9, dalga, .35)
+# H: önsöz, düş (ateş), bitiş
+put(S('H02') + .2, tik(), .2); put(W('H02', 'yıllar'), slayt(), .4)
+ortam(S('H06'), W('H06', 'uyandım'), catirti, .22)
+ortam(S('H11') - .5, DUR, catirti, .18)
+
+out = np.stack([L, R], 1); pk = np.abs(out).max(); out = out / pk * .8 if pk > 0 else out
 with wave.open(str(HERE / 'efekt.wav'), 'wb') as w: w.setnchannels(2); w.setsampwidth(2); w.setframerate(SR); w.writeframes((np.clip(out, -1, 1) * 32767).astype(np.int16).tobytes())
-print('efekt.wav', round(DUR, 1), 'sn; muhur geçişi:', sum(1 for s in SHOTS if s['tr'] == 'muhur'))
+print('efekt.wav', round(DUR, 1), 'sn')

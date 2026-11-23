@@ -74,7 +74,7 @@
     R.kara(g => { g.rect(1120, 560, 280, 30); g.rect(1130, 590, 40, 290); g.rect(1350, 590, 40, 290); });   // ocak
     DK.masa(R, 820, 700, 500, { h: 180 });
   };
-  sahne('D06a', 'D06', 'odunluk', 'genis', (R, st) => {
+  sahne('D06a', 'D06', 'odunluk', 'orta', (R, st) => {
     R.cam(900 + st.lt * 10, 560, 1.0);
     R.gok(-600, -400, 2600, 900, [[0, '#7A8CA8'], [1, '#B9C2CE']], { firca: 1.2 });
     R.yika(g => g.rect(-600, 880, 3200, 600), '#E2E6EC', { firca: .8 });   // kar
@@ -88,7 +88,7 @@
     const ic = clamp((st.lt - 3.2) / 1);
     if (ic < 1) FIG.kisi(R, y.x + 200, 890, 360, { tip: 'yaratik', f: 1, bacak: y.poz, govde: .1, pel: .3, kolO: [.2 + Math.sin(TAU * y.faz) * .3 * y.go, .4] });
   }, { fener: { isik: { x: 960, y: 520, r: 820, sic: [.96, .96, 1] }, kadraj: KARE } });
-  sahne('D06b', 'D06@oradan', 'yarik', 'orta', (R, st) => {
+  sahne('D06b', 'D06@oradan', 'yarik', 'yakin', (R, st) => {
     R.cam(890, 760, 1.55);
     KULUBE_IC(R, st);
     const g = n => clamp((st.lt - rel(st, n)) / .6);
@@ -97,7 +97,7 @@
     FIG.kisi(R, 1080, 980, 440, { tip: 'genc', f: -1, kolO: [.2, .4], renk: `rgba(14,9,6,${.3 + .7 * g('D06@oğlu')})` });
   }, { fener: { isik: { x: 900, y: 520, r: 520, sic: [1, .88, .66] }, kadraj: YARIK } });
   // D07: yoksul sofra; yaratık yiyecekten el çeker (yarıktan; sonra odunlukta kökler)
-  sahne('D07a', 'D07', 'yarik', 'yakin', (R, st) => {
+  sahne('D07a', 'D07', 'yarik', 'ayrinti', (R, st) => {
     R.cam(830, 760, 2.1);
     KULUBE_IC(R, st);
     FIG.kisi(R, 700, 980, 420, { tip: 'ihtiyar', f: 1, bacak: 'otur', kolO: [1.3, .8] });
@@ -144,7 +144,7 @@
     FIG.kisi(R, 900, 1000, 640, { tip: 'yaratik', f: 1, bacak: 'cok', govde: .45, bas: .45, kolO: [1.2, 1.6], kolA: [1.0, 1.7], goz: 1 });
   }, { fener: { isik: { x: 960, y: 560, r: 440 }, kadraj: { tip: 'daire', x: 960, y: 560, r: 420, yum: 40 }, parlak: .85 } });
   // D11: su yansıması; geri sıçrar (yakın)
-  sahne('D11a', 'D11', 'su', 'yakin', (R, st) => {
+  sahne('D11a', 'D11', 'su', 'orta', (R, st) => {
     const tS = rel(st, 'D11@sıçradım');
     R.cam(960, 640, 1.05);
     R.gok(-600, -400, 2600, 700, [[0, '#8FA88A'], [1, '#B9C8A6']], { firca: 1.2 });

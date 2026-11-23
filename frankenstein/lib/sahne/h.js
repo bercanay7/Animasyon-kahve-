@@ -20,7 +20,7 @@
   }, { fener: { isik: { x: 960, y: 520, r: 620, sic: [1, .92, .78] }, kadraj: { tip: 'kare', x: 960, y: 520, w: 1100, h: 940, r: 40, yum: 30 } },
     over: (ctx, st) => { kunye(ctx, 'Frankenstein, ilk baskı, 1818', st.lt - .5, st.d); } });
   // H02b: 1823 afişi: yaratığın adının yerinde çizgi
-  sahne('H02b', 'H02@yıllar', 'afis', 'ayrinti', (R, st) => {
+  sahne('H02b', 'H02@yıllar', 'afis', 'yakin', (R, st) => {
     R.cam(960, 540, 1.0 + st.lt * .015);
     sayfa(R, 860, 900);
     satir(R, 'ENGLISH OPERA HOUSE', 150, 44, { ls: 4 }); satir(R, '1823', 205, 38);
@@ -57,7 +57,7 @@
     over: (ctx, st) => { etiket(ctx, 'MARY’NİN GÜNLÜĞÜ · 13 MART 1815', 960, 150, st.lt - .3, st.d - .3, { px: 42 });
       quote(ctx, 'Bir anneydim, artık değilim.', 960, 790, st.lt - rel(st, 'H05@bir'), { px: 68, panel: .7 }); } });
   // H06: düş: ocak ateşi, küçük örtülü bohça ve dört el; "uyandım"da ateş söner, beşik boş
-  sahne('H06a', 'H06', 'dus', 'ayrinti', (R, st) => {
+  sahne('H06a', 'H06', 'dus', 'yakin', (R, st) => {
     R.cam(960, 600, 1.1 + st.lt * .015);
     R.gok(-600, -400, 2600, 1500, [[0, '#8E5A36'], [1, '#5C3A24']], { firca: 1.3 });
     DK.ates(R, 1380, 900, 260, { t: st.t });

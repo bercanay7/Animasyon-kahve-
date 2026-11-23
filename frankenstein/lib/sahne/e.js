@@ -76,7 +76,7 @@
     FIG.kisi(R, 1000, 900, 560, { tip: 'yaratik', f: 1, bacak: 'diz', govde: .45, bas: .5, kolO: [lerp(.5, 2.1, kalk), lerp(.3, 1.3, kalk)], kolA: [.6, .3], goz: 1 });
   }, { fener: { isik: { x: 960, y: 700, r: 460, sic: [1, .95, .86] }, kadraj: { tip: 'daire', x: 960, y: 620, r: 440, yum: 40 }, parlak: .9 } });
   // E07: boş kulübe, kapı açık sallanır (sabah, soğuk)
-  sahne('E07a', 'E07', 'kapi', 'orta', (R, st) => {
+  sahne('E07a', 'E07', 'kapi', 'genis', (R, st) => {
     R.cam(960, 560, 1.15 + st.lt * .02);
     R.gok(-600, -400, 2600, 900, [[0, '#9AA4AE'], [1, '#C6CCD0']], { firca: 1.2 });
     R.yika(g => g.rect(-600, 880, 3200, 600), '#7C8670', { firca: 1 });
@@ -86,7 +86,7 @@
     R.kara(g => { g.moveTo(960, 640); g.lineTo(960 + 140 * a, 660); g.lineTo(960 + 140 * a, 880); g.lineTo(960, 900); g.closePath(); });
   }, { fener: { isik: { x: 960, y: 560, r: 640, sic: [.95, .96, 1] }, kadraj: KARE, parlak: .9 } });
   // E08: gece: kulübe yanar; yaratık siluet olarak izler
-  sahne('E08a', 'E08', 'kapi', 'genis', (R, st) => {
+  sahne('E08a', 'E08', 'kapi', 'orta', (R, st) => {
     R.cam(960, 560, 1.0);
     R.gok(-600, -400, 2600, 900, [[0, '#3A2A3A'], [1, '#8A4A30']], { firca: 1.2 });
     R.yika(g => g.rect(-600, 880, 3200, 600), '#2A2020', { firca: 1 });

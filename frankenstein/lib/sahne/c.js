@@ -104,7 +104,7 @@
     FIG.kisi(R, 1180, 1000, 600, { tip: 'yaratik', f: -1, govde: .06, kolO: [lerp(.3, -.0, k), .4], kolA: [lerp(.1, 1.1, k), lerp(.4, .2, k)], goz: 1 });
   }, { fener: { isik: { x: 1000, y: 520, r: 700, sic: [.96, .96, 1] }, kadraj: KARE } });
   // C09: kulübede ateş; ışık dairesi Victor'dan yaratığa kayar ("bundan sonrası onun kendi ağzından")
-  sahne('C09a', 'C09', 'kulube', 'orta', (R, st) => {
+  sahne('C09a', 'C09', 'kulube', 'genis', (R, st) => {
     R.cam(960, 560, 1.05);
     R.gok(-600, -400, 2600, 1500, [[0, '#7A5A40'], [1, '#54402E']], { firca: 1.3 });
     R.yika(g => g.rect(-600, 880, 3200, 600), '#3E2E22', { firca: 1 });

@@ -55,7 +55,7 @@ const FIG = (() => {
     else if (tp.sac === 'sapka') { P(g, [[-9, -6], [8.4, -6.4], [8.4, -5.2], [4.6, -5.2], [4.4, -10.4], [-4.6, -10.6], [-5, -5.2], [-9, -5]], .7); g.fill(); }
     if (tp.sakal) { P(g, [[5.2, 3.4], [6, 6.6], [4.6, 11.4], [1.6, 13.4], [-1.2, 10.4], [-2.4, 6.6], [1, 7.4]], .85); g.fill(); }
     if (yr && (o.goz ?? 1) > 0) { g.fillStyle = o.gozRenk || '#C98A2E'; g.beginPath(); g.ellipse(3.3, -1.6, .85, .5 * (o.goz ?? 1), -.1, 0, TAU); g.fill(); g.fillStyle = o.renk || K(); }
-    if (o.kenar) { g.save(); g.strokeStyle = o.kenar; g.lineWidth = .5; g.lineCap = 'round'; g.beginPath(); spline(g, prof.slice(2, 8), false); g.stroke(); g.restore(); }
+    if (o.kenar) { g.save(); g.strokeStyle = o.kenar; g.lineWidth = .5; g.lineCap = 'round'; g.beginPath(); spline(g, prof.slice(4, 10), false); g.stroke(); g.restore(); }   // yalnız yüz (alından çeneye): başın tepesinde ışık yayı hale okunur
   }
   // el: avuç + başparmak (+ yaratıkta uzun ince parmaklar); a: kolun yönü
   function el(g, p, a, s, uzun) {
