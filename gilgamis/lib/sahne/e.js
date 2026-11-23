@@ -9,10 +9,10 @@
     SET.tepeler(R, -800, 1500, 820, { h: 200, z: .28 });
     SET.yer(R, -800, 1700, 820, { z: .34 });
     SET.su(R, 1700, 3000, 760, { faz: st.lt * .8 });
-    FIG.fig(R, 2500, 760, 200, { tip: 'utna', f: -1, z: .64 });
+    FIG.fig(R, 2150, 760, 280, { tip: 'utna', f: -1, z: .7 });
     FIG.fig(R, 200 + st.lt * 60, 830, 250, { tip: 'gilgamis', giysi: 'post', f: 1, ...yur(st.lt) });
     R.L.dir = [-.6, -.5, .6];
-  }, { over: (c, st) => etiket(c, 'UTNAPİŞTİM', 1500, 210, st.lt - rel(st, 'E01@utnapiştim'), 4) });
+  }, { over: (c, st) => etiket(c, 'UTNAPİŞTİM', 1640, 210, st.lt - rel(st, 'E01@utnapiştim'), 4) });
   // E02: Maşu dağı, kapıda akrep insanlar uyarır
   sahne('E02a', 'E02', 'masu', 'orta', (R, st) => {
     K(R, st, [900, 620, 1.12], [920, 640, 1.18]);
@@ -30,9 +30,10 @@
     SET.zemin(R);
     for (let i = -2; i < 12; i++) DK.tugla(R, i * 400, 140, i * 400 + 380, 260, { z: .3, bw: 80, bh: 30 });
     SET.yer(R, -900, 4900, 860, { z: .3, cimen: false });
-    FIG.fig(R, 900 + st.lt * 60, 865, 420, { tip: 'gilgamis', giysi: 'post', f: 1, ...yur(st.lt, 2.6), kol: [[1.3, .2], [.6, .3]] });
+    const tA = rel(st, 'E03@arkasını'), geri = st.lt > tA && st.lt < tA + 1.2;
+    FIG.fig(R, 900 + st.lt * 60, 865, 420 - clamp((st.lt - tA - 1.2) / 3) * 120, { tip: 'gilgamis', giysi: 'post', f: geri ? -1 : 1, ...yur(st.lt, 2.6), kol: [[1.1, .5], [.6, .3]], bas: st.lt > rel(st, 'E03@önünü') && !geri ? -.1 : .1 });
     const k = clamp((st.lt - rel(st, 'E03@karanlık')) / 1.2);
-    R.L.int = lerp(.5, .05, k); R.L.amb = lerp(.2, .035, k); R.L.dir = [.0, -.3, .9]; R.L.col = [.6, .62, .8];
+    R.L.int = lerp(.5, .08, k); R.L.amb = lerp(.2, .06, k); R.L.dir = [.0, -.3, .9]; R.L.col = [.6, .62, .8];
     R.L.pts.push({ x: 1000, y: 500, z: 500, r: 700, i: .25 * k, col: [.5, .55, .8] });
   }, { tr: { type: 'black', dur: 1.0 }, post: { vig: 1.0 } });
   // E04: karanlığın sonunda mücevher bahçesi; durmadan geçer
@@ -58,10 +59,11 @@
   }, { over: (c, st) => etiket(c, 'SİDURİ', 830, 200, st.lt - .8, 4) });
   // E06: Siduri konuşur (yakın; alıntı ekranda)
   sahne('E06a', 'E06', 'meyhane', 'orta', (R, st) => {
-    K(R, st, [880, 520, 1.25], [900, 520, 1.3]);
+    K(R, st, [860, 540, 1.15], [1000, 480, 1.5]);
     SET.zemin(R); SET.ev(R, 300, 860, 900, 640, { kapi: .55 });
     SET.yer(R, -900, 2900, 860, { z: .36 });
-    FIG.fig(R, 700, 875, 560, { tip: 'siduri', f: 1, kol: [[.9 + Math.sin(st.lt * 1.3) * .15, .7], [.2, .2]] });
+    const to = rel(st, 'E06@ölümü'), tt = rel(st, 'E06@tuttular'), ac = clamp((st.lt - to) / .6) - clamp((st.lt - tt) / .6);
+    FIG.fig(R, 700, 875, 560, { tip: 'siduri', f: 1, kol: [[lerp(.9, 1.45, ac), lerp(.8, .2, ac)], [.2, .2]], bas: lerp(.05, -.05, ac) });
     FIG.fig(R, 1260, 875, 580, { tip: 'gilgamis', giysi: 'post', f: -1, kol: [[.2, .3], [.1, .2]], bas: .1 });
     R.L.dir = [-.55, -.55, .6];
   }, { over: (c, st) => quote(c, '“Aradığın hayatı bulamayacaksın.”', 960, 170, st.lt, { t0: rel(st, 'E06@aradığın'), px: 64 }) });

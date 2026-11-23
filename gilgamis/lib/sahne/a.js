@@ -39,6 +39,7 @@
     const bas = [lerp(500, hedef[0], yg) - yc * 900, lerp(1100, hedef[1], yg) + yc * 520];
     if (yg > 0) { const pts = []; for (let i = 0; i < 22; i++) { const u = i / 21; pts.push([bas[0] - u * 260 + Math.sin(u * 6 - st.lt * 5) * 40 * u, bas[1] + u * 720]); } DK.yilan(R, pts, 78, { z: .9 }); }
     if (kp >= .5) DK.bitki(R, bas[0] + 40, bas[1] + 20, 300, { z: .96 });
+    for (let k = 0; k < 3; k++) { const ph = ((st.lt * .6 + k / 3) % 1), rr = 30 + ph * 160; if (yg < .2) { R.d.strokeStyle = dv(.55 * (1 - ph)); R.d.lineWidth = 4; R.d.beginPath(); R.d.ellipse(520, 900, rr, rr * .25, 0, 0, TAU); R.d.stroke(); } }
     R.L.dir = [-.5, -.65, .55]; R.L.col = [1.05, .95, .85];
     R.L.pts.push({ x: hedef[0], y: hedef[1] - 120, z: 260, r: 520, i: .35 * (1 - yc), col: [.55, .75, 1.1] });
   }, { tr: { type: 'cut' } });
@@ -48,6 +49,7 @@
     SET.zemin(R); SET.oda(R, { kapiX: o.kapiX ?? 1700 });
     DK.yatak(R, 260, 1180, 640, {});
     FIG.yatan(R, 300, 640, 900, { tip: 'enkidu', ortu: o.ortu || 0, kapali: o.kapali !== false });
+    if (o.gilgamis !== false) FIG.sekil(R, [[(o.gx ?? 1360) - 40, 860], [(o.gx ?? 1360) - 40, 712], [(o.gx ?? 1360) + 130, 712], [(o.gx ?? 1360) + 130, 860]], .48, .5, null, 0);
     if (o.gilgamis !== false) FIG.fig(R, o.gx ?? 1360, 860, 600, { tip: 'gilgamis', f: -1, otur: 1, egilme: o.eg ?? .35, bas: o.bas ?? .35, kol: o.kol || [[1.25, .9], [1.0, .9]] });
     if (o.centik) for (let i = 0; i < 7; i++) { const p = clamp(o.centik * 7 - i); if (p <= 0) continue; FIG.cizgi(R, [[1330 + i * 34, 210], [1330 + i * 34, 210 + 110 * p]], 9, -.95); }
     SET.mesale(R, 1560, 300, { son: o.son ?? 1 });
@@ -75,7 +77,7 @@
     K(R, st, [920, 470, 1.25], [1040, 520, 1.35]);
     SET.zemin(R);
     DK.tugla(R, -800, 560, 2800, 1400, { z: .5, bw: 120, bh: 46, renk: '#A9653F', tohum: 4 });
-    FIG.fig(R, 1180, 580, 430, { tip: 'gilgamis', f: -1, kol: [[1.2, .45], [.2, .2]], giysi: 'etek' });
+    FIG.fig(R, 1180, 580, 430, { tip: 'gilgamis', f: -1, kol: [[1.2, .45], [.2, .2]], giysi: 'cubbe' });
     FIG.fig(R, 760, 580, 410, { tip: 'ursa', f: 1, kol: [[.3, .5], [.1, .2]], bas: .25 });
     R.L.dir = [-.8, -.3, .5]; R.L.col = [1.1, .88, .7];
   });
@@ -91,8 +93,8 @@
     YAR.parmakIzi(R, 980, 560, 380, E.out3(clamp(st.lt / 1.2)));
     R.L.dir = [-.6, -.5, .6];
   });
-  sahne('A05b', 'A05@gılgamış', 'ucu', 'genis', (R, st) => {
-    K(R, st, [700, 560, .9], [1100, 560, .95]);
+  sahne('A05b', 'A05@gılgamış', 'ucu', 'orta', (R, st) => {
+    K(R, st, [560, 640, 1.35], [900, 620, 1.3]);
     SET.zemin(R); DK.friz(R, -800, 2800, 150, 930);
     SET.tepeler(R, -800, 2800, 820, { h: 200, z: .28 });
     SET.yer(R, -800, 2800, 820, { z: .34 });
@@ -103,7 +105,7 @@
   });
 
   // ---- bölüm kartları: başlık kile basılır (oyma) ----
-  const KART = [['B01', 'I', 'YABANİ ADAM'], ['C01', 'II', 'ORMANIN BEKÇİSİ'], ['D01', 'III', 'YATAĞIN BAŞI'], ['E01', 'IV', 'DÜNYANIN UCU'], ['F01', 'V', 'TUFANDAN KURTULAN ADAM'], ['G01', 'VI', 'YILAN'], ['H01', 'VII', 'SURLAR']];
+  const KART = [['C01', 'II', 'ORMANIN BEKÇİSİ'], ['D01', 'III', 'YATAĞIN BAŞI'], ['E01', 'IV', 'DÜNYANIN UCU'], ['F01', 'V', 'TUFANDAN KURTULAN ADAM'], ['G01', 'VI', 'YILAN'], ['H01', 'VII', 'SURLAR']];
   for (const [id, no, ad] of KART) sahne('K_' + id, id + '-2.0', 'kart', 'kart', (R, st) => {
     K(R, st, [960, 540, 1.0], [960, 540, 1.06]);
     SET.zemin(R);

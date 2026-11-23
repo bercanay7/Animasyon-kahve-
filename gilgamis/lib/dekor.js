@@ -37,7 +37,8 @@ const DK = {};
   // sedir: katmanlı yatay dallar (Mezopotamya kabartmasında koni biçimli)
   DK.sedir = (R, x, y, hh, o = {}) => { // Lübnan sediri: kalın gövde, yatay ve düzensiz yassı katlar, düz tepe
     const z = o.z ?? .55, k = hh / 600, n = o.kat || 6, r = rng(Math.round(x * 7 + hh));
-    uzuv(R, [x, y], [x + 10 * k, y - hh * .9], 44 * k, 24 * k, z - .05, .5);
+    const ust = .32 + .62 * (n - 1) / n;
+    uzuv(R, [x, y], [x + 8 * k, y - hh * (ust - .02)], 44 * k, 26 * k, z - .05, .5);
     for (let i = 0; i < n; i++) {
       const u = i / n, yy = y - hh * (.32 + u * .62), side = i % 2 ? 1 : -1, wd = (230 - u * 90) * k * (.8 + r() * .4), off = side * (40 + r() * 50) * k;
       const pts = [[x + off - wd, yy + 10 * k], [x + off - wd * .7, yy - 14 * k], [x + off + wd * .7, yy - 16 * k], [x + off + wd, yy + 8 * k], [x + off, yy + 18 * k]];
@@ -98,6 +99,11 @@ const DK = {};
     const bh = pts[0], b2 = pts[1], ang = Math.atan2(bh[1] - b2[1], bh[0] - b2[0]);
     R.b.save(); R.b.translate(bh[0], bh[1]); R.b.rotate(ang); R.b.fillStyle = gv(z + .03); R.b.beginPath(); R.b.moveTo(-w * .3, -w * .45); R.b.quadraticCurveTo(w * .9, -w * .55, w * 1.15, 0); R.b.quadraticCurveTo(w * .9, w * .5, -w * .3, w * .45); R.b.fill(); R.b.restore(); R.d.save(); R.d.translate(bh[0], bh[1]); R.d.rotate(ang); R.d.strokeStyle = dv(-.6); R.d.lineWidth = Math.max(1.5, w * .06); R.d.beginPath(); R.d.moveTo(w * 1.15, 0); R.d.lineTo(w * 1.5, 0); R.d.lineTo(w * 1.65, -w * .1); R.d.moveTo(w * 1.5, 0); R.d.lineTo(w * 1.65, w * .1); R.d.moveTo(w * .2, w * .05); R.d.lineTo(w * 1.05, w * .02); R.d.stroke(); R.d.restore();
     R.d.save(); R.d.translate(bh[0], bh[1]); R.d.rotate(ang); R.d.fillStyle = dv(-.9); R.d.beginPath(); R.d.arc(w * .45, -w * .2, w * .1, 0, TAU); R.d.fill(); R.d.restore();
+  };
+  // yılan derisi: başsız, içi boş, soluk kabuk (yalnız dış çizgi ve düşük kabartma)
+  DK.deri = (R, pts, w) => {
+    for (let i = pts.length - 1; i > 0; i--) { const u = i / (pts.length - 1); uzuv(R, pts[i], pts[i - 1], w * (1 - u * .8), w * (1 - (i - 1) / (pts.length - 1) * .8), .3, .25, true); }
+    R.d.strokeStyle = dv(-.25); R.d.lineWidth = 2; R.d.setLineDash([6, 8]); R.d.beginPath(); pts.forEach((p, i) => i ? R.d.lineTo(p[0], p[1]) : R.d.moveTo(p[0], p[1])); R.d.stroke(); R.d.setLineDash([]);
   };
   // dikenli bitki
   DK.bitki = (R, x, y, s, o = {}) => {

@@ -35,10 +35,10 @@
     const tk = rel(st, 'G03@kopardı'), tt = rel(st, 'G03@kesti');
     K(R, st, [1000, 620, 1.1], [1000, 680, 1.15]);
     DENIZ_KESIT(R, st);
-    DK.bitki(R, 1100, 905, 230, { z: .78 });
     const d = E.io2(clamp(st.lt / Math.max(.5, tk))), u = E.in2(clamp((st.lt - tt) / 1.4));
     const y = lerp(360, 900, d) - u * 700, x = 980;
-    FIG.fig(R, x, y, 430, { tip: 'gilgamis', f: 1, giysi: 'pecek', egilme: .2, kol: [[st.lt > tk ? 1.6 : 2.4, .3], [2.2, .3]], bacak: [[.1, 0], [-.05, 0]] });
+    if (st.lt < tk) DK.bitki(R, 1100, 905, 230, { z: .78 });
+    FIG.fig(R, x, y, 430, { tip: 'gilgamis', f: 1, giysi: 'pecek', egilme: .2, kol: [[st.lt > tk ? 1.6 : 2.4, .3], [2.2, .3]], bacak: [[.1, 0], [-.05, 0]], el: { yakin: (R, e, S) => { if (st.lt >= tk) DK.bitki(R, e[0], e[1] + S * .05, S * .5, { z: .92 }); } } });
     if (st.lt < tt) for (const dx of [-20, 40]) { R.b.fillStyle = gv(.82); R.b.beginPath(); R.b.ellipse(x + dx, y + 24, 38, 26, 0, 0, TAU); R.b.fill(); FIG.cizgi(R, [[x + dx, y - 20], [x + dx, y + 10]], 4, .5); }
     R.L.dir = [-.3, -.8, .5]; R.L.col = [.85, .92, 1.08]; R.L.int = .8;
   }, { mb: 2 });
@@ -76,21 +76,21 @@
     K(R, st, [760, 540, 1.45], [790, 545, 1.55]);
     SAHNE_GOLET(R, st);
     const g = E.out3(clamp((st.lt - tc + .3) / 1.4)), c = E.io3(clamp((st.lt - ta - .3) / 1.8));
-    const bas = [lerp(150, 620, g) - c * 700, lerp(560, 560, g) + c * 30];
+    const bas = [lerp(150, 620, g) - c * 1100, lerp(560, 560, g) + c * 30];
     if (st.lt < ta + .2) DK.bitki(R, 640, 610, 170, { z: .8 });
     // deri: geride kalan soluk kabuk (düşük kabartma)
-    if (st.lt > td) { const pts = []; for (let i = 0; i < 14; i++) pts.push([560 - i * 26, 590 + Math.sin(i * .8) * 14]); DK.yilan(R, pts, 40, { z: .45 }); }
+    if (st.lt > td) { const pts = []; for (let i = 0; i < 14; i++) pts.push([560 - i * 26, 590 + Math.sin(i * .8) * 14]); DK.deri(R, pts, 40); }
     const pts = []; for (let i = 0; i < 20; i++) pts.push([bas[0] - i * 34 * (1 - c * .3), bas[1] + 20 + Math.sin(i * .8 - st.lt * 5) * 18]);
     DK.yilan(R, pts, 52, { z: .88 });
     if (st.lt >= ta + .2) DK.bitki(R, bas[0] + 24, bas[1] + 6, 130, { z: .92 });
-    FIG.fig(R, 1180, 880, 440, { tip: 'gilgamis', f: -1, giysi: 'pecek', z: .62, kol: [[.6, .4], [.3, .3]] }); GOLET_SU(R, 740, 980, 1500);
+    FIG.fig(R, 1180, 880, 440, { tip: 'gilgamis', f: st.lt > ta + .8 ? -1 : 1, giysi: 'pecek', z: .62, kol: st.lt > ta + .8 ? [[1.3, .4], [.3, .3]] : [[2.5, .8], [2.3, .9]], bas: st.lt > ta + .8 ? 0 : .3 }); GOLET_SU(R, 740, 980, 1500);
     R.L.dir = [-.5, -.7, .55];
   });
   // G08: oturur ve ağlar (deri yanında)
   sahne('G08a', 'G08', 'golet', 'orta', (R, st) => {
     K(R, st, [800, 480, 1.3], [800, 480, 1.36]);
     SAHNE_GOLET(R, st);
-    const pts = []; for (let i = 0; i < 14; i++) pts.push([560 - i * 26, 590 + Math.sin(i * .8) * 14]); DK.yilan(R, pts, 40, { z: .45 });
+    const pts = []; for (let i = 0; i < 14; i++) pts.push([560 - i * 26, 590 + Math.sin(i * .8) * 14]); DK.deri(R, pts, 40);
     FIG.fig(R, 900, 640, 440, { tip: 'gilgamis', f: -1, giysi: 'pecek', otur: 1, egilme: .45, bas: .55, kol: [[2.2, 1.6], [2.0, 1.6]], basO: { gozyasi: (st.lt * .4) % 1 } });
     R.L.dir = [-.5, -.7, .55]; R.L.int = .8;
   });

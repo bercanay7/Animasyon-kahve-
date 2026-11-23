@@ -18,7 +18,7 @@
     for (let k = 0; k < 4; k++) FIG.cizgi(R, [[1170, 360 + k * 140], [1540, 360 + k * 140]], 6, -.6);
     for (let k = 0; k < 8; k++) FIG.sekil(R, [[1200 + (k % 2) * 180, 230 + Math.floor(k / 2) * 150], [1330 + (k % 2) * 180, 230 + Math.floor(k / 2) * 150], [1265 + (k % 2) * 180, 340 + Math.floor(k / 2) * 150]], .66, .5);
     if (st.lt > tb) for (let k = 0; k < 5; k++) FIG.cizgi(R, [[1200 + k * 80, 220], [1240 + k * 70, 500], [1190 + k * 85, 840]], 6, -.95 * clamp((st.lt - tb) / .4));
-    FIG.fig(R, 720, 870, 520, { tip: 'enkidu', f: 1, egilme: .15, kol: [[2.2 + Math.sin(st.lt * 3) * .2, .6], [.3, .3]], tohum: 4 });
+    FIG.fig(R, 720, 870, 520, { tip: 'enkidu', f: 1, egilme: .15, kol: [[1.5 + Math.sin(st.lt * 3) * .15, 1.0], [.3, .3]], tohum: 4 });
     SET.mesale(R, 400, 300, {});
     R.L.int = .35; R.L.amb = .18; R.L.col = [.62, .58, .66];
   });
@@ -28,7 +28,7 @@
     SET.zemin(R); SET.oda(R, { kapi: false });
     FIG.fig(R, 1250, 700, 420, { tip: 'samhat', f: -1, z: .42, kol: [[.4, .5], [.1, .2]] });
     DK.yatak(R, 260, 1000, 640, {});
-    FIG.fig(R, 520, 640, 520, { tip: 'enkidu', f: 1, otur: 1, egilme: .1, kol: [[1.9, .2], [.3, .3]], tohum: 4 });
+    FIG.fig(R, 520, 775, 520, { tip: 'enkidu', f: 1, otur: 1, egilme: .1, kol: [[1.5, .9], [.3, .3]], tohum: 4 });
     SET.mesale(R, 1600, 300, {});
     R.L.int = .35; R.L.amb = .18; R.L.col = [.62, .58, .66];
   });
@@ -43,8 +43,8 @@
     const xs = [1200, 1420, 1640];
     if (st.lt > ws[0]) YAR.ekmek(R, xs[0], 560, 80, 0);
     if (st.lt > ws[1]) YAR.testi(R, xs[1], 620, 190);
-    if (st.lt > ws[2]) { const x = xs[2]; FIG.sekil(R, [[x - 70, 430], [x + 70, 430], [x + 90, 620], [x - 90, 620]], .66, .5); }
-    if (st.lt > ws[3]) FIG.fig(R, 1420, 870, 220, { tip: 'gilgamis', f: -1, z: .62 });
+    if (st.lt > ws[2]) { const x = xs[2]; FIG.sekil(R, [[x - 35, 430], [x - 12, 442], [x + 12, 442], [x + 35, 430], [x + 105, 465], [x + 88, 500], [x + 50, 487], [x + 62, 620], [x - 62, 620], [x - 50, 487], [x - 88, 500], [x - 105, 465]], .68, .5, null, 0); }
+    if (st.lt > ws[3]) { FIG.fig(R, 1780, 700, 200, { tip: 'gilgamis', f: 1, z: .66 }); FIG.fig(R, 1880, 700, 200, { tip: 'enkidu', f: -1, z: .66, tohum: 4 }); }
     R.L.dir = [0, -.9, .45]; R.L.int = 1.05; R.L.amb = .26; R.L.col = [1.1, 1.0, .85];
     R.after(c => { c.globalCompositeOperation = 'screen'; const g = c.createLinearGradient(960, 150, 960, 900); g.addColorStop(0, 'rgba(255,230,170,.35)'); g.addColorStop(1, 'rgba(255,230,170,0)'); c.fillStyle = g; c.beginPath(); c.moveTo(860, 150); c.lineTo(1060, 150); c.lineTo(1500, 900); c.lineTo(300, 900); c.fill(); });
   }, { over: (c, st) => kunye(c, 'VII. tablet', st.lt, 6) });
@@ -55,7 +55,7 @@
     const p = clamp((st.lt - rel(st, 'D05@kutsadı')) / 1.5);
     FIG.fig(R, 1050, 700, 420, { tip: 'samhat', f: -1, z: .42 + p * .25, kol: [[.4, .5], [.1, .2]] });
     DK.yatak(R, 260, 1000, 640, {});
-    FIG.fig(R, 520, 640, 520, { tip: 'enkidu', f: 1, otur: 1, egilme: .1 - p * .1, kol: [[.6, .4], [.3, .3]], bas: -.05, tohum: 4 });
+    FIG.fig(R, 520, 775, 520, { tip: 'enkidu', f: 1, otur: 1, egilme: .1 - p * .1, kol: [[.6, .4], [.3, .3]], bas: -.05, tohum: 4 });
     SET.mesale(R, 1500, 300, {});
     R.L.int = .35 + p * .25; R.L.amb = .18; R.L.col = [.7, .62, .66];
   });
@@ -120,9 +120,12 @@
     K(R, st, [960, 560, .9], [1000, 560, .95]);
     SET.zemin(R); SET.tepeler(R, -600, 2700, 760, { h: 220, z: .26 }); SET.yer(R, -900, 2900, 860, { z: .33 });
     FIG.fig(R, 960, 865, 360, { tip: 'gilgamis', f: 1, kol: [[.2, .4], [.1, .3]], bas: .15, ...yur(st.lt * .4, 3) });
-    YAR.aslan(R, 1600, 860, 260, { f: -1, z: .58 });
     R.L.dir = [.8, -.3, .4]; R.L.col = [1.1, .78, .6]; R.L.int = .8; R.L.amb = .26;
   }, { tr: { type: 'black', dur: 1.0 }, over: (c, st) => kunye(c, 'IX. tablet', st.lt, 5) });
+  sahne('D14b', 'D14@ben', 'bozkir', 'yakin', (R, st) => {
+    SET.yakin(R, st, { tip: 'gilgamis', f: 1, arka: 'tepe', kay: 30, fig: { bas: lerp(.05, .3, clamp(st.lt / st.d)) } });
+    R.L.dir = [.85, -.25, .4]; R.L.col = [1.12, .76, .56]; R.L.int = .85; R.L.amb = .24;
+  });
   // D15: aslan postuna bürünür, yola çıkar
   sahne('D15a', 'D15', 'bozkir', 'orta', (R, st) => {
     K(R, st, [800, 520, 1.15], [1100, 520, 1.15]);

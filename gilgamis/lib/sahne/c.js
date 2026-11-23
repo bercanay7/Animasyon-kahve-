@@ -31,7 +31,7 @@
     FIG.fig(R, 700 + w, 885, 480, { tip: 'gilgamis', f: 1, ...yur(st.lt), kol: [[Math.sin(st.lt * 4 + 1) * .35, .4], [2.4, .2]], el: { uzak: (R, e, S) => { FIG.uzuv(R, [e[0], e[1]], [e[0] + S * .12, e[1] - S * .25], S * .03, S * .025, .68); FIG.sekil(R, [[e[0] + S * .1, e[1] - S * .3], [e[0] + S * .22, e[1] - S * .27], [e[0] + S * .15, e[1] - S * .18]], .7, .5); } } });
     FIG.fig(R, 380 + w, 885, 470, { tip: 'enkidu', f: 1, ...yur(st.lt + 1), kol: [[.3, .5], [-.2, .2]], tohum: 4 });
     R.L.dir = [-.6, -.5, .6];
-  }, { over: (c, st) => quote(c, '“Düşersem adımı bırakırım.”', 960, 190, st.lt, { t0: rel(st, 'C03@düşersem'), px: 66, kaynak: 'Eski Babil sürümü, Yale tableti' }) });
+  }, { over: (c, st) => quote(c, '“Düşersem adımı bırakmış olurum.”', 960, 190, st.lt, { t0: rel(st, 'C03@düşersem'), px: 66, kaynak: 'Eski Babil sürümü, Yale tableti' }) });
   // C04: kile basılan ad (kamış kalem çivi işaretleri basar)
   sahne('C04a', 'C04', 'ad', 'ayrinti', (R, st) => {
     K(R, st, [960, 540, 1.3], [1060, 540, 1.4]);
@@ -60,7 +60,7 @@
     SET.zemin(R);
     DK.tablet(R, 960, 540, 760, 900, { z: .5, sh: 56, sz: 19, tohum: 33, kirik: [[1340, 0], [1340, 1100], [1180, 1100], [1250, 760], [1150, 520], [1260, 300], [1170, 0]] });
     R.L.dir = [-.7, -.45, .5];
-  }, { over: (c, st) => kunye(c, 'Süleymaniye Müzesi · 2011', st.lt, 99) });
+  }, { over: (c, st) => kunye(c, 'Süleymaniye Müzesi, Irak · 2011', st.lt, 99) });
   // C06: ormanın sesi: maymunlar, kuşlar, ağustosböcekleri (2011 tableti)
   sahne('C06a', 'C05@maymunlar', 'orman', 'orta', (R, st) => {
     K(R, st, [900, 500, 1.1], [1060, 500, 1.15]);

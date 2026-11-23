@@ -61,6 +61,7 @@
   // F07: oturur ve uykuya dalar; sis
   window.UYKU = (R, st, o = {}) => {
     SET.zemin(R); SET.oda(R, { kapi: false });
+    FIG.sekil(R, [[700, 870], [700, 735], [900, 735], [900, 870]], .5, .5, null, 0); FIG.cizgi(R, [[700, 740], [900, 740]], 4, .5);
     FIG.fig(R, 820, 870, 540, { tip: 'gilgamis', giysi: 'post', f: 1, otur: 1, egilme: o.uyku ? .5 : .1, bas: o.uyku ? .6 : 0, kol: [[.8, .6], [.5, .5]], basO: { kapali: !!o.uyku } });
     if (o.ekmek) for (let i = 0; i < o.ekmek; i++) YAR.ekmek(R, 1080 + i * 110, 860, 46, [1, 2, 3, 4, 5, 0, 6][i]);
     if (o.centik) for (let i = 0; i < 7; i++) { const p = clamp(o.centik * 7 - i); if (p > 0) FIG.cizgi(R, [[1150 + i * 40, 250], [1150 + i * 40, 250 + 110 * p]], 9, -.95); }
