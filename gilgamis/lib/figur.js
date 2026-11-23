@@ -18,13 +18,14 @@ const FIG = {};
     const path = c => { c.beginPath(); c.moveTo(a[0] + nx * wa / 2, a[1] + ny * wa / 2); c.lineTo(b[0] + nx * wb / 2, b[1] + ny * wb / 2); c.arc(b[0], b[1], wb / 2, Math.atan2(ny, nx), Math.atan2(ny, nx) + PI); c.lineTo(a[0] - nx * wa / 2, a[1] - ny * wa / 2); c.arc(a[0], a[1], wa / 2, Math.atan2(-ny, -nx), Math.atan2(-ny, -nx) + PI); c.closePath(); };
     R.b.fillStyle = gv(z); path(R.b); R.b.fill();
     R.d.fillStyle = R.T.kilPd; path(R.d); R.d.fill();
+    R.m.fillStyle = R.renk || R.T.kil; path(R.m); R.m.fill();
     if (kontur) { R.d.strokeStyle = dv(-kontur); R.d.lineWidth = Math.max(1.2, wa * .07); path(R.d); R.d.stroke(); }
   }
   function sekil(R, pts, z, kontur = .55, renk = null, smoothK = 1) {
     const path = c => { c.beginPath(); spline(c, pts, true, smoothK); };
     R.b.fillStyle = gv(z); path(R.b); R.b.fill();
     R.d.fillStyle = R.T.kilPd; path(R.d); R.d.fill();
-    if (renk) { R.m.fillStyle = renk; path(R.m); R.m.fill(); }
+    R.m.fillStyle = renk || R.renk || R.T.kil; path(R.m); R.m.fill();
     if (kontur) { R.d.strokeStyle = dv(-kontur); R.d.lineWidth = R._lw; path(R.d); R.d.stroke(); }
   }
   function cizgi(R, pts, w, v) { const c = R.d; c.strokeStyle = dv(v); c.lineWidth = w; c.beginPath(); c.moveTo(pts[0][0], pts[0][1]); for (let i = 1; i < pts.length; i++) c.lineTo(pts[i][0], pts[i][1]); c.stroke(); }
@@ -77,6 +78,36 @@ const FIG = {};
   }
   FIG.bas = bas;
 
+
+  // Yatan figür (sırtüstü; baş sağda, yüz yukarı). (x, y): yatağın üstünde topukların yeri; L: boy. o: {tip, z, kapali, ortu (0..1 örtü yüzü kapatır)}
+  FIG.yatan = function (R, x, y, L, o = {}) {
+    const tip = o.tip || 'enkidu', z = o.z ?? .74; R._lw = Math.max(1.2, L * .0045);
+    // bacaklar
+    uzuv(R, [x + L * .04, y - L * .03], [x + L * .27, y - L * .045], L * .045, L * .06, z - .06);
+    uzuv(R, [x + L * .27, y - L * .045], [x + L * .5, y - L * .05], L * .07, L * .08, z - .04);
+    sekil(R, [[x, y - L * .02], [x + L * .03, y - L * .1], [x + L * .06, y - L * .06]], z - .04, .5); // ayak
+    // etek/peçe
+    const ek = [[x + L * .42, y - L * .01], [x + L * .43, y - L * .1], [x + L * .58, y - L * .11], [x + L * .6, y - L * .01]];
+    R.b.fillStyle = gv(z + .02); R.b.beginPath(); poly(R.b, ek); R.b.fill(); R.m.fillStyle = R.T.kil; R.m.beginPath(); poly(R.m, ek); R.m.fill();
+    R.d.fillStyle = R.T.kilPd; R.d.beginPath(); poly(R.d, ek); R.d.fill();
+    for (let q = 1; q < 6; q++) cizgi(R, [[x + L * (.43 + q * .025), y - L * .1], [x + L * (.43 + q * .025), y - L * .01]], Math.max(1, L * .003), -.45);
+    // gövde
+    sekil(R, [[x + L * .56, y - L * .005], [x + L * .57, y - L * .1], [x + L * .7, y - L * .12], [x + L * .79, y - L * .13], [x + L * .8, y - L * .005]], z, .55, null, .8);
+    if (tip === 'enkidu') for (let q = 0; q < 18; q++) { const u = hash(q * 9.1), v = hash(q * 3.3); const p = [x + L * (.6 + u * .18), y - L * (.02 + v * .09)]; cizgi(R, [p, [p[0] + L * .008, p[1] + L * .006]], Math.max(1, L * .003), -.55); }
+    // kol (gövde boyunca)
+    uzuv(R, [x + L * .77, y - L * .085], [x + L * .63, y - L * .075], L * .05, L * .045, z + .06);
+    uzuv(R, [x + L * .63, y - L * .075], [x + L * .5, y - L * .07], L * .045, L * .035, z + .06);
+    R.b.fillStyle = gv(z + .07); R.b.beginPath(); R.b.arc(x + L * .49, y - L * .07, L * .025, 0, TAU); R.b.fill();
+    // yastık ve baş (yüz yukarı)
+    sekil(R, [[x + L * .82, y], [x + L * .83, y - L * .08], [x + L * .98, y - L * .08], [x + L * .99, y]], z - .1, .5);
+    if ((o.ortu ?? 0) < 1) FIG.bas(R, [x + L * .885, y - L * .115], L * 1.1, tip, z + .02, -1.25, { kapali: o.kapali !== false, sakalsiz: true });
+    if (o.ortu) { // gelin gibi örtü: baştan göğse
+      const k = o.ortu, pts = [[x + L * (1.0 - .24 * k), y], [x + L * (.99 - .23 * k), y - L * .14], [x + L * .97, y - L * .2], [x + L * 1.01, y - L * .12], [x + L * 1.0, y]];
+      sekil(R, pts, z + .12, .45);
+      for (let q = 0; q < 6; q++) cizgi(R, [[x + L * (.99 - .22 * k * q / 6), y - L * .15], [x + L * (.995 - .23 * k * q / 6), y - L * .01]], Math.max(1.2, L * .003), -.4);
+    }
+  };
+
   // Figür
   FIG.fig = function (R, x, y, s, o = {}) {
     const tip = o.tip || 'adam', f = o.f ?? 1, z0 = o.z ?? .78, S = s;
@@ -126,6 +157,7 @@ const FIG = {};
       } else pts = [[bel[0] - w0, bel[1]], [bel[0] + w0, bel[1]], [bel[0] + w1 + S * .01, bel[1] + boy], [bel[0] - w1, bel[1] + boy]];
       R.b.fillStyle = gv(z0 + .02); R.b.beginPath(); poly(R.b, pts); R.b.fill();
       R.d.fillStyle = R.T.kilPd; R.d.beginPath(); poly(R.d, pts); R.d.fill();
+      R.m.fillStyle = R.renk || R.T.kil; R.m.beginPath(); poly(R.m, pts); R.m.fill();
       R.d.strokeStyle = dv(-.55); R.d.lineWidth = R._lw; R.d.beginPath(); poly(R.d, pts); R.d.stroke();
       const n = giysi === 'cubbe' ? 10 : 7, bot = [pts[pts.length - 1], pts[pts.length - 2]];
       for (let q = 1; q < n; q++) { const u = q / n; cizgi(R, [[lerp(pts[0][0], pts[1][0], u), pts[0][1] + S * .03], [lerp(bot[0][0], bot[1][0], u), lerp(bot[0][1], bot[1][1], u) - S * .015]], Math.max(1, S * .0035), -.45); }

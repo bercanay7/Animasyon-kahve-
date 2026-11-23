@@ -70,7 +70,7 @@ const KIL = (() => {
   // dünya → ekran (mantıksal 1920×1080)
   R.scr = (x, y) => [W / 2 + (x - R.cx) * R.z, H / 2 + (y - R.cy) * R.z];
   R.begin = (o = {}) => {
-    R._after = []; R.z = 1; R.cx = W / 2; R.cy = H / 2;
+    R._after = []; R.renk = null; R.z = 1; R.cx = W / 2; R.cy = H / 2;
     for (const c of [xB, xD, xM]) { c.setTransform(1, 0, 0, 1, 0, 0); c.globalAlpha = 1; c.globalCompositeOperation = 'source-over'; c.filter = 'none'; c.lineCap = 'round'; c.lineJoin = 'round'; }
     xB.fillStyle = gv(o.zemin ?? .18); xB.fillRect(0, 0, w, h);
     xD.fillStyle = 'rgb(128,128,128)'; xD.fillRect(0, 0, w, h);

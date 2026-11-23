@@ -47,8 +47,8 @@
   sahne('E05a', 'E05', 'meyhane', 'genis', (R, st) => {
     const ts = rel(st, 'E05@sürgüledi');
     K(R, st, [960, 520, .9], [980, 540, .96]);
-    SET.zemin(R); SET.su(R, -900, 2900, 760, { faz: st.lt * .7 });
-    SET.yer(R, -900, 1500, 860, { z: .36 });
+    SET.zemin(R); SET.su(R, -900, 2900, 620, { faz: st.lt * .7, alt: 160 }); R.b.fillStyle = gv(.34); R.b.fillRect(-900, 770, 3800, 600);
+    SET.yer(R, -900, 2900, 860, { z: .36 });
     SET.ev(R, 700, 860, 640, 430, { kapi: .3 });
     const kp = clamp((st.lt - ts) / .6); R.b.fillStyle = gv(.6); R.b.fillRect(892 + (1 - kp) * 80, 624, 80 * kp + 4, 236);
     DK.hurma(R, 1450, 880, 360, {});
@@ -86,7 +86,7 @@
     FIG.fig(R, 700, 875, 560, { tip: 'siduri', f: 1, kol: [[.3, .3], [.1, .2]] });
     const p = clamp(st.lt / 1.5);
     FIG.fig(R, 1260, 875, 580, { tip: 'gilgamis', giysi: 'post', f: p > .5 ? 1 : -1, kol: [[p > .5 ? 1.5 : .2, .1], [.1, .2]] });
-    SET.su(R, 1500, 2900, 700, { faz: st.lt });
+    SET.su(R, 1500, 2900, 560, { faz: st.lt, alt: 120 });
     R.L.dir = [-.55, -.55, .6];
   });
   // E09: kayıkçı Urşanabi

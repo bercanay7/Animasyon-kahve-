@@ -65,13 +65,13 @@ const DK = {};
   DK.kamis = (R, x, y, hh, n = 7, z = .5) => { for (let i = 0; i < n; i++) { const xx = x + i * 14, tt = hh * (.7 + hash(i * 3.1 + x) * .3); uzuv(R, [xx, y], [xx + (hash(i) - .5) * 20, y - tt], 6, 4, z, .5); sekil(R, [[xx - 4, y - tt], [xx + 5, y - tt - 40], [xx + 10, y - tt]], z + .03, .4); } };
   // dalga şeridi (spiral kıvrım)
   DK.dalga = (R, x0, x1, y, o = {}) => {
-    const p = o.p || 120, a = o.a || 22, z = o.z ?? .4, faz = o.faz || 0;
+    const p = o.p || 120, a = o.a || 22, z = o.z ?? .4, faz = o.faz || 0, alt = o.alt ?? 400;
     R.b.fillStyle = gv(z);
     R.b.beginPath(); R.b.moveTo(x0, y + 60);
     for (let x = x0; x <= x1; x += 6) R.b.lineTo(x, y + Math.sin((x / p) * TAU + faz) * a);
-    R.b.lineTo(x1, y + 400); R.b.lineTo(x0, y + 400); R.b.closePath(); R.b.fill();
+    R.b.lineTo(x1, y + alt); R.b.lineTo(x0, y + alt); R.b.closePath(); R.b.fill();
     for (let x = x0 - p + ((faz / TAU * p) % p); x < x1; x += p) { R.d.strokeStyle = dv(-.6); R.d.lineWidth = o.lw || 3.5; R.d.beginPath(); for (let t = 0; t < 1.7 * TAU; t += .2) { const r = 6 + t * 3.2; const px = x + p * .25 + Math.cos(t + PI) * r, py = y + 18 + Math.sin(t + PI) * r * .8; t === 0 ? R.d.moveTo(px, py) : R.d.lineTo(px, py); } R.d.stroke(); }
-    if (o.renk) { R.m.fillStyle = o.renk; R.m.beginPath(); R.m.moveTo(x0, y + 60); for (let x = x0; x <= x1; x += 6) R.m.lineTo(x, y + Math.sin((x / p) * TAU + faz) * a); R.m.lineTo(x1, y + 400); R.m.lineTo(x0, y + 400); R.m.closePath(); R.m.fill(); }
+    if (o.renk) { R.m.fillStyle = o.renk; R.m.beginPath(); R.m.moveTo(x0, y + 60); for (let x = x0; x <= x1; x += 6) R.m.lineTo(x, y + Math.sin((x / p) * TAU + faz) * a); R.m.lineTo(x1, y + alt); R.m.lineTo(x0, y + alt); R.m.closePath(); R.m.fill(); }
   };
   // kayık (yüksek pruvalı kamış kayığı)
   DK.kayik = (R, x, y, L, o = {}) => {

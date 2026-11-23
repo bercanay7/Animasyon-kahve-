@@ -133,9 +133,7 @@
   });
   // C11: Enkidu'nun yüzü; ışık söner
   sahne('C11a', 'C11', 'tanrilar', 'yakin', (R, st) => {
-    K(R, st, [1080, 640, 2.4], [1080, 650, 2.55]);
-    SET.zemin(R); SET.yer(R, -900, 2900, 900, { z: .34 });
-    FIG.fig(R, 1080, 905, 300, { tip: 'enkidu', f: -1, kol: [[.2, .2], [0, .2]], tohum: 4, bas: .1 });
+    SET.yakin(R, st, { tip: 'enkidu', f: -1, arka: 'tepe', kay: -30, fig: { tohum: 4, bas: .12 } });
     R.L.dir = [0, -.8, .6]; R.L.int = lerp(1, .35, clamp(st.lt / 2.5)); R.L.amb = lerp(.34, .2, clamp(st.lt / 2.5));
   });
 })();

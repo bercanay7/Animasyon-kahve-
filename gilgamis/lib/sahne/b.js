@@ -78,9 +78,7 @@
     else R.L.dir = [-.6, -.5, .6];
   });
   sahne('B07a', 'B07', 'bozkir', 'yakin', (R, st) => {
-    K(R, st, [880, 380, 2.2], [900, 400, 2.35]);
-    SET.zemin(R); SET.tepeler(R, -600, 2700, 700, { h: 180, z: .26 }); SET.yer(R, -900, 2900, 860, { z: .33 });
-    FIG.fig(R, 900, 865, 480, { tip: 'enkidu', f: 1, kol: [[.2, .2], [0, .2]], tohum: 4, bas: .06 });
+    SET.yakin(R, st, { tip: 'enkidu', f: 1, arka: 'tepe', kay: 40, fig: { tohum: 4, bas: .08 } });
     R.L.dir = [-.6, -.45, .6];
   });
   // B08: ekmek, yedi testi, giysi

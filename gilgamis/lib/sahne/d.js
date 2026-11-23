@@ -38,7 +38,7 @@
     SET.zemin(R); SET.oda(R, { kapi: false });
     DK.gunes(R, 960, 150, 90, { z: .6, faz: st.lt * .1 });
     DK.yatak(R, 260, 1000, 700, {});
-    FIG.fig(R, 300, 690, 760, { tip: 'enkidu', don: PI / 2, f: -1, z: .72, kol: [[.05, 0], [0, .1]], bacak: [[0, 0], [0, 0]], basO: { kapali: false }, tohum: 2 });
+    FIG.yatan(R, 300, 700, 700, { tip: 'enkidu', kapali: false });
     const ws = ['D04@ekmek', 'D04@içki', 'D04@giysi', 'D04@dost'].map(a => rel(st, a));
     const xs = [1200, 1420, 1640];
     if (st.lt > ws[0]) YAR.ekmek(R, xs[0], 560, 80, 0);
@@ -76,23 +76,20 @@
   }, { tr: { type: 'fade', dur: .6 } });
   // D08: el göğüste; kalp atmıyor
   sahne('D08a', 'D08', 'yatak', 'yakin', (R, st) => {
-    K(R, st, [760, 520, 1.6], [770, 530, 1.75]);
-    SET.zemin(R); SET.oda(R, { kapi: false });
-    DK.yatak(R, 260, 1180, 640, {});
-    FIG.fig(R, 300, 630, 860, { tip: 'enkidu', don: PI / 2, f: -1, z: .72, kol: [[.05, 0], [0, .1]], bacak: [[0, 0], [0, 0]], basO: { kapali: true }, tohum: 2 });
-    const p = E.io3(clamp(st.lt / 2.2));
-    FIG.uzuv(R, [1250, 300], [lerp(1150, 860, p), lerp(420, 560, p)], 70, 60, .86);
-    R.b.fillStyle = gv(.88); R.b.beginPath(); R.b.ellipse(lerp(1110, 820, p), lerp(440, 570, p), 52, 40, 0, 0, TAU); R.b.fill();
-    SET.mesale(R, 1500, 260, {});
-    R.L.int = .3; R.L.amb = .15; R.L.col = [.6, .56, .64];
+    K(R, st, [880, 470, 1.7], [885, 475, 1.8]);
+    SAHNE_YATAK(R, st, { kapali: true, gilgamis: false });
+    const p = E.io3(clamp(st.lt / 2.2)), el = [lerp(1150, 900, p), lerp(330, 560, p)];
+    FIG.uzuv(R, [1400, 140], [lerp(1260, 1110, p), lerp(260, 420, p)], 90, 76, .86);
+    FIG.uzuv(R, [lerp(1260, 1110, p), lerp(260, 420, p)], el, 76, 60, .88);
+    FIG.cizgi(R, [[el[0] + 40, el[1] - 50], [el[0] + 70, el[1] - 20]], 8, .6);
+    R.b.fillStyle = gv(.9); R.b.beginPath(); R.b.ellipse(el[0] - 10, el[1] + 8, 58, 42, -.5, 0, TAU); R.b.fill();
+    for (let k = 0; k < 4; k++) FIG.cizgi(R, [[el[0] - 50 + k * 22, el[1] - 10], [el[0] - 40 + k * 22, el[1] + 40]], 4, -.55);
+    R.L.int = .3; R.L.amb = .15;
   });
-  // D09: yüzü gelin gibi örttü (örtü iner)
+  // D09: yüzü gelin gibi örttü (örtü baştan göğse iner)
   sahne('D09a', 'D09', 'yatak', 'orta', (R, st) => {
-    K(R, st, [720, 520, 1.25], [700, 520, 1.3]);
-    SAHNE_YATAK(R, st, { kapali: true, gx: 1150, eg: .55, kol: [[1.6, .5], [1.3, .6]] });
-    const p = E.io3(clamp(st.lt / 2.0));
-    FIG.sekil(R, [[1180, 520 - 200 * (1 - p)], [1060, 470 - 120 * (1 - p)], [880, 470 + 60 * p], [880, 650], [1180, 650]], .76, .45);
-    for (let k = 0; k < 6; k++) FIG.cizgi(R, [[900 + k * 50, 500], [905 + k * 50, 640]], 3, -.45);
+    K(R, st, [800, 520, 1.25], [780, 520, 1.3]);
+    SAHNE_YATAK(R, st, { ortu: E.io3(clamp((st.lt - .3) / 2.0)), gx: 1300, eg: .45, kol: [[1.6, .5], [1.3, .6]] });
   });
   // D10: dişi aslan gibi bir ileri bir geri; saçını yolar, süslerini atar
   sahne('D10a', 'D10', 'yatak', 'genis', (R, st) => {
@@ -115,9 +112,10 @@
   });
   // D13: "Ta ki burnundan bir kurt düşene kadar." Karanlık; yalnız yüz; meşale söner. (Kurt gösterilmez.)
   sahne('D13a', 'D13', 'yatak', 'yakin', (R, st) => {
-    K(R, st, [1330, 400, 2.1], [1325, 405, 2.2]);
-    SAHNE_YATAK(R, st, { ortu: 1, gx: 1330, son: clamp(1 - (st.lt - 1.5) / 2.0) * .6, bas: .5 });
-    R.L.amb = .08; R.L.int = .12;
+    SET.yakin(R, st, { tip: 'gilgamis', f: -1, arka: 'oda', kay: 12, hx: 900, fig: { bas: .45 } });
+    const son = clamp(1 - (st.lt - 1.6) / 2.2);
+    R.L.int = .12; R.L.amb = .06; R.L.col = [.5, .5, .6];
+    R.L.pts.push({ x: 1600, y: 200, z: 300, r: 1800, i: 1.5 * son * (.9 + .1 * noise1(st.t * 6, 2)), col: [1.15, .7, .4] });
   }, { tr: { type: 'fade', dur: .6 } });
   // D14: bozkırda yalnız: "Ben de ölmeyecek miyim?"
   sahne('D14a', 'D14', 'bozkir', 'genis', (R, st) => {

@@ -5,7 +5,7 @@
   // G01: yıkanma, temiz giysi
   sahne('G01a', 'G01', 'yikanma', 'orta', (R, st) => {
     K(R, st, [960, 520, 1.1], [960, 520, 1.15]);
-    SET.zemin(R); SET.su(R, -900, 2900, 760, { faz: st.lt * .6 }); SET.yer(R, -900, 2900, 870, { z: .36 });
+    SET.zemin(R); SET.su(R, -900, 2900, 640, { faz: st.lt * .6, alt: 150 }); R.b.fillStyle = gv(.34); R.b.fillRect(-900, 780, 3800, 600); FIG.cizgi(R, [[-900, 780], [2900, 780]], 4, -.6); SET.yer(R, -900, 2900, 870, { z: .36 });
     const tg = rel(st, 'G01@temiz'), p = st.lt > tg ? 1 : 0;
     FIG.fig(R, 860, 880, 540, { tip: 'gilgamis', f: 1, giysi: p ? 'cubbe' : 'post', kol: [[p ? .2 : 2.6, .3], [p ? .1 : 2.4, .3]] });
     if (!p) for (let i = 0; i < 6; i++) { const u = (st.lt * 1.2 + i / 6) % 1; R.b.fillStyle = gv(.7); R.b.beginPath(); R.b.arc(830 + Math.sin(i * 2) * 50, 300 + u * 500, 9, 0, TAU); R.b.fill(); R.m.fillStyle = '#5A7FB8'; R.m.beginPath(); R.m.arc(830 + Math.sin(i * 2) * 50, 300 + u * 500, 9, 0, TAU); R.m.fill(); }
@@ -67,13 +67,13 @@
     SAHNE_GOLET(R, st);
     const p = E.io2(clamp(st.lt / 2.2));
     DK.bitki(R, 640, 610, 170, { z: .8 });
-    FIG.fig(R, lerp(820, 1150, p), lerp(610, 760, p), 360, { tip: 'gilgamis', f: 1, giysi: 'pecek', ...yur(st.lt * (1 - p)) });
+    FIG.fig(R, lerp(820, 1150, p), lerp(610, 800, p), 360, { tip: 'gilgamis', f: 1, giysi: 'pecek', ...yur(st.lt * (1 - p)) }); if (p > .3) GOLET_SU(R, 660, 980, 1500);
     R.L.dir = [-.5, -.7, .55];
   });
   // G07: yılan gelir, bitkiyi alır, derisini bırakır (A01'in cevabı)
   sahne('G07a', 'G07', 'golet', 'yakin', (R, st) => {
-    const tc = rel(st, 'G07@çıktı'), ta = rel(st, 'G07@aldı'), td = rel(st, 'G07@derisini');
-    K(R, st, [700, 520, 1.6], [740, 530, 1.75]);
+    const tc = rel(st, 'G07@çıktı'), ta = rel(st, 'G07@aldı#1'), td = rel(st, 'G07@derisini');
+    K(R, st, [760, 540, 1.45], [790, 545, 1.55]);
     SAHNE_GOLET(R, st);
     const g = E.out3(clamp((st.lt - tc + .3) / 1.4)), c = E.io3(clamp((st.lt - ta - .3) / 1.8));
     const bas = [lerp(150, 620, g) - c * 700, lerp(560, 560, g) + c * 30];
@@ -83,7 +83,7 @@
     const pts = []; for (let i = 0; i < 20; i++) pts.push([bas[0] - i * 34 * (1 - c * .3), bas[1] + 20 + Math.sin(i * .8 - st.lt * 5) * 18]);
     DK.yilan(R, pts, 52, { z: .88 });
     if (st.lt >= ta + .2) DK.bitki(R, bas[0] + 24, bas[1] + 6, 130, { z: .92 });
-    FIG.fig(R, 1300, 780, 420, { tip: 'gilgamis', f: -1, giysi: 'pecek', z: .66 });
+    FIG.fig(R, 1180, 900, 440, { tip: 'gilgamis', f: -1, giysi: 'pecek', z: .62, kol: [[.6, .4], [.3, .3]] }); GOLET_SU(R, 690, 880, 1500);
     R.L.dir = [-.5, -.7, .55];
   });
   // G08: oturur ve ağlar (deri yanında)
@@ -95,9 +95,7 @@
     R.L.dir = [-.5, -.7, .55]; R.L.int = .8;
   });
   sahne('G09a', 'G09', 'golet', 'yakin', (R, st) => {
-    K(R, st, [900, 400, 2.4], [905, 405, 2.55]);
-    SAHNE_GOLET(R, st);
-    FIG.fig(R, 900, 640, 440, { tip: 'gilgamis', f: -1, giysi: 'pecek', otur: 1, egilme: .3, bas: .3, kol: [[1.0, .9], [.8, .9]], basO: { gozyasi: (st.lt * .35) % 1 } });
+    SET.yakin(R, st, { tip: 'gilgamis', f: -1, arka: 'su', kay: 25, fig: { giysi: 'pecek', bas: .35, basO: { gozyasi: (st.lt * .35) % 1 } } });
     R.L.dir = [-.5, -.7, .55]; R.L.int = .75;
   }, { over: (c, st) => quote(c, '“Kimin için yoruldu bu kollar?”', 960, 170, st.lt, { t0: rel(st, 'G09@kimin'), px: 64 }) });
   // G10: eli boş dönüş: iki küçük figür uzun frizde

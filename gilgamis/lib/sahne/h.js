@@ -89,21 +89,26 @@
     if (tp > 0) { DK.tablet(R, 960, lerp(720, 470, tp), 420, 300, { z: .82, renk: '#2F4E95', sh: 24, sz: 9, tohum: 50 }); R.L.pts.push({ x: 960, y: 470, z: 200, r: 600 * tp, i: .5 * tp, col: [.55, .7, 1.1] }); }
     R.L.dir = [-.6, -.5, .6];
   });
-  // H08: harita kabartması: Uruk'tan Hattuşa'ya
+  // H08: harita kabartması: Uruk'tan Hattuşa'ya (kara yüksek, denizler oyuk ve lacivert)
   sahne('H08a', 'H08', 'harita', 'genis', (R, st) => {
-    const th = rel(st, 'H08@hattuşa'), p = clamp((st.lt - .3) / Math.max(1, th - .3));
-    K(R, st, [1050, 520, .95], [960, 480, 1.0]);
-    SET.zemin(R);
-    // kara (alçak kabartma), Fırat ve Dicle (lacivert oyuk), dağlar
-    FIG.sekil(R, [[200, 100], [1700, 60], [1800, 500], [1500, 980], [300, 1000], [150, 600]], .3, .4, null, .6);
-    const nehir = (pts) => { R.b.strokeStyle = gv(.18); R.b.lineWidth = 22; R.b.beginPath(); spline(R.b, pts, false); R.b.stroke(); R.m.strokeStyle = '#3B5C99'; R.m.lineWidth = 22; R.m.beginPath(); spline(R.m, pts, false); R.m.stroke(); };
-    nehir([[700, 260], [820, 420], [980, 600], [1180, 790], [1330, 900]]); nehir([[980, 230], [1080, 380], [1180, 560], [1300, 760], [1380, 900]]);
-    for (let i = 0; i < 9; i++) SET.tepeler(R, 400 + i * 80, 470 + i * 80, 330 - (i % 3) * 20, { h: 60, z: .38 });
-    const U = [1300, 860], Hp = [560, 230];
-    FIG.cizgi(R, [U, [lerp(U[0], Hp[0], p), lerp(U[1], Hp[1], p)]], 8, .8);
-    for (const [q, r] of [[U, 26], [Hp, 26 * clamp(p * 3 - 2)]]) if (r > 0) { R.b.fillStyle = gv(.6); R.b.beginPath(); R.b.arc(q[0], q[1], r, 0, TAU); R.b.fill(); }
+    const th = rel(st, 'H08@hattuşa'), p = E.io2(clamp((st.lt - .3) / Math.max(1, th - .3)));
+    K(R, st, [1000, 540, .95], [960, 520, 1.0]);
+    SET.zemin(R, {}); R.b.fillStyle = gv(.38); R.b.fillRect(-600, -400, 3200, 1900);
+    const deniz = pts => { R.b.fillStyle = gv(.12); R.b.beginPath(); spline(R.b, pts, true, .8); R.b.fill(); R.m.fillStyle = '#3B5C99'; R.m.beginPath(); spline(R.m, pts, true, .8); R.m.fill(); R.d.strokeStyle = dv(-.6); R.d.lineWidth = 4; R.d.beginPath(); spline(R.d, pts, true, .8); R.d.stroke(); };
+    deniz([[180, -60], [1150, -80], [1120, 70], [700, 130], [300, 110]]);                         // Karadeniz
+    deniz([[-600, 420], [180, 400], [420, 470], [470, 640], [420, 1500], [-600, 1500]]);            // Akdeniz
+    deniz([[1420, 980], [1620, 880], [1900, 980], [2100, 1300], [1500, 1300]]);                     // Basra Körfezi
+    const nehir = (pts) => { R.b.strokeStyle = gv(.2); R.b.lineWidth = 16; R.b.beginPath(); spline(R.b, pts, false); R.b.stroke(); R.m.strokeStyle = '#3B5C99'; R.m.lineWidth = 16; R.m.beginPath(); spline(R.m, pts, false); R.m.stroke(); };
+    nehir([[860, 300], [780, 420], [820, 560], [1060, 720], [1300, 860], [1470, 960]]);   // Fırat
+    nehir([[1060, 280], [1100, 430], [1220, 600], [1360, 780], [1480, 950]]);             // Dicle
+    for (let i = 0; i < 12; i++) SET.tepeler(R, 500 + i * 70, 590 + i * 70, 330 + Math.sin(i) * 30, { h: 70, z: .48 });
+    const U = [1330, 880], Hp = [590, 230], yol = [U, [1100, 700], [820, 500], [700, 330], Hp];
+    const n = 60, kk = Math.floor(p * n); const ptsY = [];
+    for (let k = 0; k <= kk; k++) { const u = k / n * (yol.length - 1), i = Math.min(yol.length - 2, Math.floor(u)), f = u - i; ptsY.push([lerp(yol[i][0], yol[i + 1][0], f), lerp(yol[i][1], yol[i + 1][1], f)]); }
+    for (let k = 0; k < ptsY.length; k += 3) { R.b.fillStyle = gv(.62); R.b.beginPath(); R.b.arc(ptsY[k][0], ptsY[k][1], 7, 0, TAU); R.b.fill(); }
+    for (const [q, r] of [[U, 24], [Hp, 24 * clamp(p * 4 - 3)]]) if (r > 0) { R.b.fillStyle = gv(.66); R.b.beginPath(); R.b.arc(q[0], q[1], r, 0, TAU); R.b.fill(); FIG.cizgi(R, [[q[0] - r * .5, q[1]], [q[0] + r * .5, q[1]]], 4, -.7); }
     R.L.dir = [-.6, -.5, .6];
-  }, { tr: { type: 'muhur', dur: .8 }, over: (c, st) => { etiket(c, 'URUK', 1340, 930, st.lt, 99, { px: 40 }); etiket(c, 'HATTUŞA · Çorum', 560, 160, st.lt - rel(st, 'H08@hattuşa'), 99, { px: 44 }); } });
+  }, { tr: { type: 'muhur', dur: .8 }, over: (c, st) => { etiket(c, 'URUK', 1400, 820, st.lt, 99, { px: 40 }); etiket(c, 'HATTUŞA · Çorum', 600, 330, st.lt - rel(st, 'H08@hattuşa'), 99, { px: 44 }); } });
   // H09: sur üstünde yabancı; sonra yer boşalır ve kile bir parmak izi basılır ("o yabancı sensin")
   sahne('H09a', 'H09', 'surustu', 'orta', (R, st) => {
     const ts = rel(st, 'H09@sensin') - .4, p = clamp((st.lt - ts) / 1.2);

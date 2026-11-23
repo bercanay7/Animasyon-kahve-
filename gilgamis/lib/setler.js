@@ -23,7 +23,7 @@ const SET = {}, YAR = {};
     for (let x = x0 + 30; x < x1; x += 70) for (let yy = y - 20; yy > y - (o.h || 120) * .5; yy -= 34) { R.d.strokeStyle = dv(-.35); R.d.lineWidth = 2; R.d.beginPath(); R.d.arc(x + (yy % 68 ? 35 : 0), yy, 16, PI, TAU); R.d.stroke(); }
   };
   // su (lacivert taş): dalgalı yüzey + renk
-  SET.su = (R, x0, x1, y, o = {}) => DK.dalga(R, x0, x1, y, { renk: o.renk || '#3E5F96', faz: o.faz || 0, z: o.z ?? .3, a: o.a || 14, p: o.p || 140 });
+  SET.su = (R, x0, x1, y, o = {}) => DK.dalga(R, x0, x1, y, { renk: o.renk || '#3E5F96', faz: o.faz || 0, z: o.z ?? .3, a: o.a || 14, p: o.p || 140, alt: o.alt });
   // gölet (yukarıdan bakılmış oval, lacivert)
   SET.golet = (R, x, y, rx, ry, o = {}) => {
     R.b.fillStyle = gv(o.z ?? .12); R.b.beginPath(); R.b.ellipse(x, y, rx, ry, 0, 0, TAU); R.b.fill();
@@ -86,6 +86,19 @@ const SET = {}, YAR = {};
     sekil(R, [[x - s * .35, y], [x + s * .35, y], [x + s * .3, y - s * .3], [x - s * .3, y - s * .3]], .55, .5);
     for (let k = 0; k < 3; k++) { const yy = y - s * .32 - k * s * .17; sekil(R, [[x - s * .28, yy], [x - s * .36, yy - s * .14], [x - s * .2, yy - s * .1], [x + s * .2, yy - s * .1], [x + s * .36, yy - s * .14], [x + s * .28, yy]], .62, .5); }
     R.b.fillStyle = gv(.66); R.b.beginPath(); R.b.arc(x, y - s * .9, s * .1, 0, TAU); R.b.fill();
+  };
+
+
+  // yakın yüz: figürü büyük çizer (kamera z≈1; ayrıntı keskin kalır). baş ekranda (hx, hy). o: {tip, f, arka: 'tugla'|'tepe'|'oda'|'su'|'karanlik', fig: ek figür seçenekleri, renk}
+  SET.yakin = (R, st, o = {}) => {
+    const S = o.S || 1500, f = o.f ?? 1, hx = o.hx ?? 960, hy = o.hy ?? 470;
+    const kx = o.kay ? o.kay * clamp(st.lt / Math.max(1, st.d)) : 0;
+    R.cam(960 + kx, 540, 1);
+    SET.zemin(R);
+    if (o.arka === 'tugla' || o.arka === 'oda') DK.tugla(R, -400, -400, 2400, 1500, { z: .28, bw: 260, bh: 100, lw: 5, renk: o.tuglaRenk });
+    if (o.arka === 'tepe') { SET.tepeler(R, -400, 2400, 1200, { h: 500, p: 700, z: .26 }); }
+    if (o.arka === 'su') { DK.dalga(R, -400, 2400, 760, { renk: '#41639E', faz: st.lt * .6, z: .2, a: 30, p: 300, lw: 7 }); }
+    FIG.fig(R, hx - f * S * .015, hy + S * .9, S, { tip: o.tip || 'gilgamis', f, kol: o.kol || [[.15, .3], [.05, .2]], ...(o.fig || {}) });
   };
 
   // ---- yaratıklar ----

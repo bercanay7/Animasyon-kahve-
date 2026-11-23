@@ -2,7 +2,7 @@
 'use strict';
 (() => {
   const K = SET.kam, rel = (st, at) => A(at) - st.at;
-  const kiyi = (R, st) => { SET.zemin(R); SET.su(R, -900, 2900, 760, { faz: st.lt * .6 }); SET.yer(R, -900, 2900, 870, { z: .36 }); };
+  const kiyi = (R, st) => { SET.zemin(R); SET.su(R, -900, 2900, 640, { faz: st.lt * .6, alt: 150 }); R.b.fillStyle = gv(.34); R.b.fillRect(-900, 780, 3800, 600); FIG.cizgi(R, [[-900, 780], [2900, 780]], 4, -.6); SET.yer(R, -900, 2900, 880, { z: .36 }); };
   // F01: kıyıda Utnapiştim; ikisi yüz yüze, aynı boyda
   sahne('F01a', 'F01', 'utna', 'orta', (R, st) => {
     K(R, st, [960, 520, 1.1], [960, 520, 1.16]);
@@ -12,9 +12,7 @@
     R.L.dir = [-.55, -.55, .6];
   }, { tr: { type: 'muhur', dur: .8 } });
   sahne('F02a', 'F02', 'utna', 'yakin', (R, st) => {
-    K(R, st, [760, 330, 2.2], [770, 335, 2.35]);
-    kiyi(R, st);
-    FIG.fig(R, 720, 880, 550, { tip: 'gilgamis', giysi: 'post', f: 1, kol: [[.6, .5], [.1, .2]], bas: -.05 });
+    SET.yakin(R, st, { tip: 'gilgamis', f: 1, arka: 'su', kay: 30, fig: { giysi: 'post', bas: -.05 } });
     R.L.dir = [-.55, -.55, .6];
   });
   // F03: hatıra: tanrıların kararı, kamış duvardan fısıltı, ev söküldü, gemi
@@ -83,8 +81,8 @@
   });
   // F09: uyanır
   sahne('F09a', 'F09', 'uyku', 'yakin', (R, st) => {
-    K(R, st, [840, 380, 2.0], [850, 380, 2.1]);
-    UYKU(R, st, { uyku: st.lt < .6, ekmek: 7, centik: 1 });
+    SET.yakin(R, st, { tip: 'gilgamis', f: 1, arka: 'oda', kay: 25, fig: { giysi: 'post', bas: lerp(.5, 0, clamp((st.lt - .4) / .6)), basO: { kapali: st.lt < .6 } } });
+    R.L.dir = [-.5, -.6, .6];
   });
   // F10: yedi ekmek (ayrıntı; kamera soldan sağa)
   sahne('F10a', 'F10', 'ekmekler', 'ayrinti', (R, st) => {
@@ -101,8 +99,7 @@
   });
   // F12: "Yatak odamda ölüm oturuyor": yakın yüz, oda kararır
   sahne('F12a', 'F12', 'uyku', 'yakin', (R, st) => {
-    K(R, st, [840, 420, 2.0], [830, 430, 2.2]);
-    UYKU(R, st, { ekmek: 7, centik: 1 });
-    R.L.int = lerp(.7, .3, clamp(st.lt / st.d)); R.L.amb = .18;
+    SET.yakin(R, st, { tip: 'gilgamis', f: 1, arka: 'oda', kay: -30, fig: { giysi: 'post', bas: .2 } });
+    R.L.dir = [-.5, -.6, .6]; R.L.int = lerp(.75, .3, clamp(st.lt / st.d)); R.L.amb = .18;
   });
 })();
