@@ -143,9 +143,18 @@ const FIG = (() => {
     const nf = o.nefes || 0;
     P(g, [[-44, -3], [-40, -10], [-28, -12 - nf], [-14, -11.5 - nf * 1.2], [-2, -8], [10, -8.5], [24, -7], [40, -5.6], [48, -9], [52, -8], [52, 0], [-44, 0]], .8); g.fill();
     g.beginPath(); g.ellipse(-51, -6.4, 7, 6, 0, 0, TAU); g.fill();
+    P(g, [[-53, -11], [-52, -14.6], [-49.6, -13.2], [-47.6, -15.6], [-46.4, -12.6], [-44.6, -10.4], [-45, -6]], .8); g.fill();   // yukarı bakan profil (alın, burun, çene)
+    if (o.kadin) { P(g, [[-57, -9], [-62, -12], [-68, -8], [-70, -1], [-62, 2], [-55, -1]], .8); g.fill(); }
     if (o.sac) { P(g, [[-58, -8], [-53, -13], [-46, -11], [-47, -2], [-56, 1.5], [-64, 0], [-62, -5]], .8); g.fill(); }
     if (o.goz) { g.fillStyle = '#C98A2E'; g.beginPath(); g.ellipse(-49, -11.6, .9, .5 * o.goz, 0, 0, TAU); g.fill(); }
     g.restore();
   }
-  return { kisi, yatan, uzuv };
+  // yakın plan el (ön kol + avuç + parmaklar): f yön, uzun: yaratığın ince uzun parmakları, kap: parmakların kapanması 0..1
+  function elYakin(R, x, y, sc, f = 1, uzun = false, kap = 0) {
+    const g = R.g; g.save(); g.translate(x, y); g.scale(f * sc, sc); g.fillStyle = FENER.KARA;
+    uzuv(g, [-26, 3], [-4, 0], 6.4, 5.2); g.beginPath(); g.ellipse(0, 0, 4.2, 2.6, 0, 0, TAU); g.fill();
+    for (let i = 0; i < 4; i++) uzuv(g, [2.6, -1.4 + i * 1.1], [uzun ? 9.5 : 6.6, -2.4 + i * 1.6 + kap * (2 + i * .5)], 1.1, .8);
+    uzuv(g, [0, -2], [2.6, -4.6], 1.3, 1); g.restore();
+  }
+  return { kisi, yatan, uzuv, elYakin };
 })();

@@ -24,14 +24,15 @@ const DK = (() => {
   }
   // çam ve kayın siluetleri: düzensiz, sarkık dallı (kat kat sivri koni değil)
   function cam(R, x, y, h, o = {}) {
-    const r = rng(o.tohum || Math.round(x * 7 + h)), g = R.g, sw = o.sal || 0;
-    R.kara(g => { g.moveTo(x - h * .02, y); g.lineTo(x - h * .012, y - h); g.lineTo(x + h * .012, y - h); g.lineTo(x + h * .02, y); g.closePath(); });
-    const n = 7 + Math.floor(r() * 3);
+    // düzensiz, sarkık dallı köknar: tek parça dış hat (katlar asimetrik, uçlar aşağı sarkar)
+    const r = rng(o.tohum || Math.round(x * 7 + h)), sw = o.sal || 0, n = 8 + Math.floor(r() * 3), sol = [], sag = [];
     for (let i = 0; i < n; i++) {
-      const u = i / n, yy = y - h * (.2 + u * .78), w = h * (.26 * (1 - u) + .05) * (.75 + r() * .5), dk = (r() - .5) * h * .04, sl = sw * (1 - u) * 6;
-      for (const sd of [-1, 1]) { const ww = w * (.7 + r() * .5);
-        R.kara(g => { g.moveTo(x, yy - h * .02); g.quadraticCurveTo(x + sd * ww * .5 + sl, yy - h * .015 + dk, x + sd * ww + sl, yy + h * .05); g.lineTo(x + sd * ww * .8 + sl, yy + h * .02); g.lineTo(x + sd * ww * .6 + sl, yy + h * .045); g.quadraticCurveTo(x + sd * ww * .3, yy + h * .02, x, yy + h * .02); g.closePath(); }); }
+      const u = i / n, yy = y - h * (.12 + u * .84), w = h * (.27 * Math.pow(1 - u, 1.1) + .03), sl = sw * (1 - u) * 5;
+      const wl = w * (.65 + r() * .55), wr = w * (.65 + r() * .55), dr = h * (.035 + r() * .03);
+      sol.push([x - wl * .35 + sl, yy - h * .05], [x - wl + sl, yy + dr], [x - wl * .55 + sl, yy + dr * .2]);
+      sag.push([x + wr * .35 + sl, yy - h * .05], [x + wr + sl, yy + dr], [x + wr * .55 + sl, yy + dr * .2]);
     }
+    R.kara(g => { g.moveTo(x - h * .025, y); for (let i = 0; i < sol.length; i++) g.lineTo(sol[i][0], sol[i][1]); g.lineTo(x + sw * 5, y - h); for (let i = sag.length - 1; i >= 0; i--) g.lineTo(sag[i][0], sag[i][1]); g.lineTo(x + h * .025, y); g.closePath(); });
   }
   function kayin(R, x, y, h, o = {}) {
     const r = rng(o.tohum || Math.round(x * 3 + h)), sw = o.sal || 0;
@@ -105,5 +106,35 @@ const DK = (() => {
     R.yika(g => { g.moveTo(x0, ust); g.lineTo(x1, ust); for (let i = n; i >= 0; i--) { const u = i / n; g.lineTo(x0 + w * u + Math.sin(i * 1.9 + t) * 6, alt + (i % 2) * 14); } g.closePath(); }, renk, { firca: 1, fa: PI / 2 });
     for (let i = 1; i < n; i++) { const xx = x0 + w * i / n; R.cizgi([[xx, ust + 10], [xx + Math.sin(i + t) * 8, (ust + alt) / 2], [xx + Math.sin(i * 1.9 + t) * 6, alt]], 3.2, { egri: true, a: .55 }); }
   }
-  return { daglar, ay, gol, cam, kayin, villa, mum, ates, yagmur, simsek, pencere, perde, P };
+  // ---- eşyalar ----
+  function masa(R, x, y, w, o = {}) { R.kara(g => { g.rect(x - w / 2, y, w, 22); g.rect(x - w / 2 + 20, y + 18, 18, o.h || 300); g.rect(x + w / 2 - 38, y + 18, 18, o.h || 300); }); }
+  function sandalye(R, x, y, s, f = 1) { R.kara(g => { g.rect(x - 60 * s * f - (f < 0 ? 0 : 14 * s), y - 140 * s, 14 * s, 290 * s); g.rect(x - 60 * s, y, 120 * s, 14 * s); g.rect(x - 56 * s, y, 12 * s, 150 * s); g.rect(x + 44 * s, y, 12 * s, 150 * s); }); }
+  // kitap ya da defter (açık): sayfalar saydam krem, satırlar ince
+  function defter(R, x, y, w, o = {}) { const h = w * .62; R.kara(g => g.rect(x - w / 2 - 6, y - 4, w + 12, 8));
+    R.isikli(g => { g.moveTo(x - w / 2, y); g.quadraticCurveTo(x - w / 4, y - h * .12, x, y - 2); g.quadraticCurveTo(x + w / 4, y - h * .12, x + w / 2, y); g.lineTo(x + w / 2, y - h * .06); g.lineTo(x - w / 2, y - h * .06); g.closePath(); }, o.renk || '#EFE4C6'); }
+  // beşik (boş ya da örtülü): sallanma a
+  function besik(R, x, y, s, o = {}) { const a = o.a || 0; R.g.save(); R.g.translate(x, y); R.g.rotate(a);
+    R.kara(g => { g.moveTo(-90 * s, -60 * s); g.lineTo(90 * s, -60 * s); g.lineTo(80 * s, 0); g.lineTo(-80 * s, 0); g.closePath(); g.moveTo(-100 * s, 0); g.quadraticCurveTo(0, 50 * s, 100 * s, 0); g.lineTo(100 * s, 10 * s); g.quadraticCurveTo(0, 60 * s, -100 * s, 10 * s); g.closePath(); });
+    R.kara(g => { g.moveTo(-90 * s, -60 * s); g.quadraticCurveTo(-100 * s, -130 * s, -40 * s, -130 * s); g.lineTo(-40 * s, -110 * s); g.quadraticCurveTo(-78 * s, -108 * s, -72 * s, -60 * s); g.closePath(); });
+    if (o.ortu) R.yika(g => { g.moveTo(-70 * s, -60 * s); g.quadraticCurveTo(0, -84 * s, 70 * s, -60 * s); g.closePath(); }, o.ortu, { kay: 1 });
+    R.g.restore(); }
+  // oval çerçeveli siluet portre (1790'ların siluet portresi): kadın profili, saçları başlıklı
+  function portre(R, x, y, s, o = {}) {
+    R.yika(g => g.ellipse(x, y, 120 * s, 150 * s, 0, 0, TAU), o.zemin || '#E9DFC6', { kay: 0 });
+    const g = R.g; g.save(); g.beginPath(); g.ellipse(x, y, 120 * s, 150 * s, 0, 0, TAU); g.clip();
+    const b = 900 * s, k = b * .93 / 100;   // baş ovalin ortasında
+    FIG.kisi(R, x - 10 * s, y + 92.6 * k - 4 * s, b, { tip: o.tip || 'mary', f: o.f || 1, kolO: [0, 0], kolA: [0, 0] });
+    g.restore();
+    g.save(); g.strokeStyle = R.KARA; g.lineWidth = 16 * s; g.beginPath(); g.ellipse(x, y, 128 * s, 158 * s, 0, 0, TAU); g.stroke(); g.restore();
+  }
+  // yanardağ (Tambora): koni + kül bulutu (p: patlamanın gelişimi 0..1)
+  function yanardag(R, x, y, s, p, t = 0) {
+    R.kara(g => { g.moveTo(x - 520 * s, y); g.lineTo(x - 90 * s, y - 300 * s); g.lineTo(x + 90 * s, y - 300 * s); g.lineTo(x + 520 * s, y); g.closePath(); });
+    if (p <= 0) return;
+    for (let i = 0; i < 14; i++) { const u = i / 13, rr = (60 + u * 260) * s * (.4 + .6 * p), yy = y - 300 * s - u * 900 * s * p, xx = x + Math.sin(i * 1.7 + t * .3) * 80 * s * u + u * 160 * s * p;
+      R.yika(g => g.ellipse(xx, yy, rr * 1.3, rr, 0, 0, TAU), `rgba(${110 - u * 30},${90 - u * 30},${80 - u * 20},.85)`, { kay: 0 }); }
+    R.isikli(g => { g.moveTo(x - 60 * s, y - 300 * s); g.lineTo(x, y - 360 * s - 60 * s * p); g.lineTo(x + 60 * s, y - 300 * s); g.closePath(); }, '#FFC870');
+    R.yika(g => g.ellipse(x, y - 320 * s, 110 * s, 60 * s, 0, 0, TAU), 'rgba(230,110,40,.9)', { kay: 0, firca: 0 });
+  }
+  return { daglar, ay, gol, cam, kayin, villa, mum, ates, yagmur, simsek, pencere, perde, masa, sandalye, defter, besik, portre, yanardag, P };
 })();
