@@ -139,6 +139,13 @@ function softPanel(ctx, x, y, rx, ry, a = .78) {
   g.addColorStop(0, `rgba(${GR.INK},${a})`); g.addColorStop(.62, `rgba(${GR.INK},${a * .9})`); g.addColorStop(1, `rgba(${GR.INK},0)`);
   ctx.save(); ctx.translate(x, y); ctx.scale(rx, ry); ctx.fillStyle = g; ctx.beginPath(); ctx.arc(0, 0, 1, 0, TAU); ctx.fill(); ctx.restore();
 }
+// yumuşak şerit: x0..x1 arası düz, uçlarda pad genişliğinde yumuşak elips; dikey profil softPanel'le aynı
+function softBand(ctx, x0, x1, y, pad, ry, a = .78) {
+  const ink = `rgba(${GR.INK},`, g = ctx.createLinearGradient(0, y - ry, 0, y + ry);
+  g.addColorStop(0, ink + '0)'); g.addColorStop(.19, ink + a * .9 + ')'); g.addColorStop(.5, ink + a + ')'); g.addColorStop(.81, ink + a * .9 + ')'); g.addColorStop(1, ink + '0)');
+  ctx.save(); ctx.fillStyle = g; ctx.fillRect(x0, y - ry, x1 - x0, ry * 2); ctx.restore();
+  for (const [cx, sg] of [[x0, -1], [x1, 1]]) { ctx.save(); ctx.beginPath(); ctx.rect(sg < 0 ? cx - pad - 2 : cx, y - ry - 2, pad + 2, ry * 2 + 4); ctx.clip(); softPanel(ctx, cx, y, pad, ry, a); ctx.restore(); }
+}
 // satır kırma: en çok maxW genişliğinde satırlar
 function wrapLines(ctx, s, maxW) {
   const out = []; for (const par of String(s).split('\n')) { let ln = ''; for (const w of par.split(' ')) { const tt = ln ? ln + ' ' + w : w; if (ctx.measureText(tt).width > maxW && ln) { out.push(ln); ln = w; } else ln = tt; } out.push(ln); }
@@ -150,7 +157,11 @@ function txt(ctx, s, x, y, o = {}) {
   ctx.save(); ctx.font = o.font || FONT.baslik(o.px || 48); ctx.textAlign = o.align || 'center'; ctx.textBaseline = 'middle';
   if (o.ls) ctx.letterSpacing = o.ls + 'px';
   ctx.globalAlpha *= clamp(o.a ?? 1);
-  if (o.panel) { const wd = ctx.measureText(s).width; softPanel(ctx, x, y, wd * .5 + (o.px || 48) * 1.6, (o.px || 48) * 1.5, o.panel === true ? .78 : o.panel); }
+  if (o.panel) { const wd = ctx.measureText(s).width, pp = o.px || 48, pa = o.panel === true ? .78 : o.panel, al = o.align || 'center';
+    // ortalı yazıda eski elips; sola/sağa hizalı yazıda yazının tamamını örten yumuşak şerit (eski elips çapaya ortalanıyordu,
+    // yazının yarısı panelsiz kalıyordu: Lale Çılgınlığı'nda Fable bulgusu, 22 Kasım; aynı kod burada da vardı)
+    if (al === 'center') softPanel(ctx, x, y, wd * .5 + pp * 1.6, pp * 1.5, pa);
+    else { const x0 = al === 'left' ? x : x - wd; softBand(ctx, x0, x0 + wd, y, pp * 1.6, pp * 1.15, pa); } }
   ctx.fillStyle = o.col || PAPER_CSS; ctx.fillText(s, x, y);
   ctx.restore();
 }

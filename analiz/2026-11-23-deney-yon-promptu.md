@@ -16,6 +16,16 @@
 - Ama yön promptunda kanal kurallarından biri atlanabilir: yeni kural CLAUDE.md'nin derinindeyse.
 - Uzun ve açık uçlu yaratıcı iş için yön; maliyetli ya da geri alınamaz adımlar (kredi, yayın, telif) için açık kural. CLAUDE.md zaten bu ikinci görevi görüyor.
 
+**Karar (23 Kasım, kullanıcıyla konuşuldu): tek yön, tek değişken.**
+- Fable yalnız başta yön verdi. Üretim sırasında yeniden yön vermek için çağrılmaz.
+- Alt ajanlar iki videoda da aynı kurala bağlı: başkanın takdirinde (kullanıcının 23 Kasım açıklaması: 19 Kasım kararı kurulu ve puanlamayı kaldırdı, alt ajanları değil). Yani bu da iki videoda sabit.
+- Sondaki "Fable'ın tek son yorumu" iki videoda da serbest. Yön değil denetim olduğu için deneyi bozmaz.
+- Neden: aynı anda iki şey değişirse sonucun hangisinden geldiği anlaşılmaz.
+- Sonraki adaylar:
+  - (a) Fable'ın senaryo taslağından sonra ikinci kez yön vermesi;
+  - (b) Opus yönetmen + Sonnet ölçüm ajanlarının kurallı bir düzen olarak kurulması.
+  - Her biri ayrı bir videoda denenir.
+
 **Ölçüler:** her iki video için doldurulur.
 
 | Ölçü | Lale (ayrıntılı) | Gılgamış (yön) |
@@ -25,5 +35,10 @@
 | Kullanıcının kendi notu (1–10, "videoyu beğendin mi") | | |
 | 48. saat: 0:30'da kalan, ortalama izlenme %, TO | | |
 | 7. gün: aynı ölçüler | | |
+
+**Ortam (23 Kasım):**
+- İki oturum da sadeleştirmeden önce açıldı, ikisi de eski CLAUDE.md'yle (93 KB) çalışıyor. Ortam sabit; değişen yalnız ilk metin.
+- Gılgamış oturumu üretimin başında `main`'i alıp sadeleştirilmiş CLAUDE.md'yi okuyacak. İçinde Lale'nin yeni kuralları da var: fikir sorma, yeni hassasiyet simgeleri, `film.js`. Lale bunları kendi üretti; Gılgamış hazır alıyor. Fark küçük ama kayıtta dursun.
+- İkisine de aynı ortam notu verildi: CLAUDE.md'ye dokunma, alt ajanlar takdirinde, yayın tarihi. Not yaratıcı yön değil, ikisinde de aynı.
 
 **Uyarı:** konular farklı olduğu için bu kontrollü bir deney değil. Tek çiftten kural çıkmaz; ipucu çıkar. Sonuç iki üç çiftte aynı yöne giderse CLAUDE.md'ye yazılır.

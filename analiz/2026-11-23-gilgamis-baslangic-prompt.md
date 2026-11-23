@@ -1,5 +1,5 @@
 Yeni video: **Gılgamış** ("Mitler ve Felsefe" serisi). Baştan sona üret.
-- Kararlar senin, başkan sensin. Kurul, puanlama ve çok ajanlı akış yok (19 Kasım kararı); bir konuda emin değilsen bana sor.
+- Kararlar senin, başkan sensin. Kurul ve puanlama yok (19 Kasım kararı); alt ajanları gerekirse kendi takdirinle aç. Bir konuda emin değilsen bana sor.
 - ElevenLabs ve görsel üretim gibi kredi harcayan her çağrıdan önce karakter × çekim hesabını bana bildir ve onay al.
 
 ## 1. Önce oku
@@ -75,6 +75,6 @@ Hepsi `gilgamis/` klasöründe, CLAUDE.md'deki sırayla.
    - Shorts yayından birkaç gün sonra.
    - İstersen sonda Fable'a tek son yorum yaptır.
    - Gılgamış'ı isteyen yorumlara verilecek yanıt metnini `yayin.md`'ye yaz; yorumlara ben cevap veririm.
-10. **Yayın tarihi:** sırada Dorian Gray (30 Kasım) ve Lale Çılgınlığı var; aralık en az 5–7 gün. Tarihi benimle kesinleştir.
+10. **Yayın tarihi:** takvim dört günde bir (Dorian Gray 28 Kasım, Lale Çılgınlığı 2 Aralık); Gılgamış için ilk boş gün 6 Aralık. Tarihi benimle kesinleştir.
 
 Her iş parçasından sonra commit ve push yap. Video bitince dal `main`'e birleştirilir. CLAUDE.md'ye "Gılgamış dersleri" bölümünü ve tablo satırını ekle.

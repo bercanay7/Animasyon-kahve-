@@ -1,0 +1,69 @@
+# Kitle, kanal yönü ve eski konu planları (Prometheus, Milton)
+
+> CLAUDE.md'den taşındı (23 Kasım 2026 sadeleştirmesi); metin değiştirilmeden. Geçerli kurallar CLAUDE.md'de; bu dosya ayrıntı ve geçmiş kayıttır.
+
+## Kitle (Sisifos, 5. gün) ve kanal yönü
+- **Kitle verileri:**
+  - Ülke: Türkiye %73,6.
+  - Altyazı: izleyicilerin %38,4'ü Türkçe altyazıyla izliyor. Her videoya doğru SRT şart. İngilizce altyazı %1,2, bu yüzden İngilizce dublaj düşük öncelikli.
+  - Bağlılık: izlenme süresinin %98,8'i abone olmayanlardan, izleyicilerin %95,5'i yeni. Abone çağrısı doruk anına (~son dakika) ve bitiş ekranına konmalı.
+  - Cihaz: telefon %48, bilgisayar %23, TV %22, tablet %6.
+  - Cinsiyet: kadın %22,5.
+- **Kanal yönü (kullanıcının kararı):** yalnız mitoloji değil, geniş bir alan: tarih, felsefe, psikoloji ve kitap, film ve dizi. Örnek aldığı kanal TED-Ed. Kanal kullanıcının arka bahçesi: amaç yalnız izlenme değil, ilgisini çeken fikirleri ve bakış açısını paylaşıp etkileşim almak. Hızlı büyüme için konu ve kaliteden ödün verilmez; büyüme kaldıracı paketleme, düzenli yayın ve her videoda tek soru biçimidir. Kanalı bir arada tutan konu değil biçim olacak:
+  - animasyonlu anlatım;
+  - tek bir büyük soru;
+  - Emrullah sesi;
+  - "geçmişten bugüne soru taşıyan kurye" fikri.
+- **Bölümler** (her biri ayrı oynatma listesi):
+  - Mitler ve Felsefe;
+  - Tarihin Dönüm Noktaları;
+  - Kitapların Sorduğu Sorular;
+  - Ekrandaki Felsefe.
+- **Süre (kullanıcının kararı):** sabit bir süre sınırı yok. Hikâye ne kadar gerektiriyorsa o kadar anlatılır; izlenme için içerik kırpılmaz. Kanal kullanıcının hobi alanıdır. Uzun videoda tutmayı sağlayan süre değil temposudur:
+  - her bölüm kendi küçük merak sorusuyla açılır;
+  - YouTube bölüm zaman damgaları konur;
+  - açılış kuralı (ilk 5 saniyede kapağın vaadi) değişmez;
+  - kurul "bu sahne hikâyeye bir şey katıyor mu?" diye sorar, "kısa mı?" diye değil.
+- **Prometheus** (kullanıcının kararı). Durum: üretildi ve yayımlandı (`prometheus/yayin.md`, karar kaydı `prometheus/kurul/kararlar.md`, geriye bakış `prometheus/geriye_bakis.md`).
+  - **Çıkış noktası:** Aiskhylos'un *Zincire Vurulmuş Prometheus*'u (İş Bankası Kültür Yayınları, Hasan Âli Yücel Klasikler). Kullanıcıyı asıl etkileyen, kitabın kendisinden çok Azra Erhat'ın önsözü; onun Prometheus'a bakışı videonun omurgası olacak.
+  - **Önsözden yorum uydurma:** Erhat'a ait her görüş ve alıntı yalnız kullanıcının verdiği önsöz sayfalarından (fotoğraf ya da metin) alınır. Kaynak yoksa sorulur.
+  - **Telif:** önsöz ve çeviri telif kapsamında (Erhat 1982'de öldü). Fikirler kendi cümlelerimizle anlatılır; kısa alıntılar kaynak gösterilerek yapılır. Açıklamaya künye yazılır.
+  - **Konu yapısı:** Hesiodos'taki düzenbaz Prometheus, Aiskhylos'taki insanlığın velinimeti ve Zeus'un zorbalığına direnen Prometheus, ve Erhat'ın okuması.
+  - **Üslup (kullanıcının kararı):** Sisifos'taki Yunan vazo resmi üslubu. Motor `sisifos/lib` yeniden kullanılır: `figure.js`, `style.js`, `core.js`, `anim.js`, `render.js` ve ses hattı. Proje `prometheus/` klasöründe kurulur, Sisifos dosyalarına dokunulmaz. Bu üslup "Mitler ve Felsefe" serisinin görsel kimliğidir. Prometheus ve kartal antik vazolarda gerçekten tasvir edilmiştir.
+  - **Üslubun sınırı:** kodla çizimin güçlü olduğu alan siluet, profil figür, sahne kurgusu, ışık ve dönüşüm efektleridir; yüz, el ve karmaşık beden hareketleri zayıf yandır. Sahneleri buna göre kur: güçlü kompozisyon, az ama anlamlı hareket.
+  - **Köprü:** Prometheus yeni alanlara köprü olarak kullanılabilir:
+    - Mary Shelley'nin *Frankenstein*'ının alt başlığı "Modern Prometheus"tur (kitap bölümü).
+    - Nolan'ın *Oppenheimer* filmi, *American Prometheus* biyografisine dayanır (film bölümü).
+- **Milton, *Kayıp Cennet* ve Şeytan** (kullanıcıyla konuşularak netleşti, 1 Kasım 2026). **Durum (12 Kasım 2026):** film, iki kapak ve yayın paketi hazır (`milton/`, `milton/yayin.md`); kurgu kurulunun gerileme turu, Shorts ve yayın yapılmadı.
+  - **Amaç:** "Şeytan haklı mıydı?" diye sormak değil. İzleyiciyi Şeytan'la empati kurduran bir **iç yolculuk** anlatmak.
+  - **Ağırlık:** ağırlık Şeytan'da. Milton'ın hayatı kısa tutulur; yalnız eseri kör olduktan sonra kızlarına ve yardımcılarına yazdırması öne çıkar (kullanıcıyı en çok etkileyen ayrıntı).
+    - Çerçeve fikri: kör bir şair, göremediği ışığı ve cehennemi anlatıyor. III. kitabın açılışındaki ışığa yakarış bunun için kullanılabilir.
+  - **İki okuma çarpışır, karar izleyiciye kalır:**
+    - Blake ve Romantikler: "Milton farkında olmadan Şeytan'ın tarafındaydı" (kullanıcı da buna yakın).
+    - C. S. Lewis: Şeytan gururuyla küçülür; başmelekten karabataka, kurbağaya, en sonunda yılana döner.
+  - **Başkaldırı teması:** kanalın ortak damarı (Sisifos, Prometheus, Şeytan).
+    - Kullanıcının görüşü: tarihteki başkaldırıların çoğu kısıtlanan hak ve özgürlüklere karşıdır, ama istisnalar var (ör. Mussolini, İran 1979). "Başkaldırı her zaman özgürlük müdür?" sorusu bu inceliği taşır.
+  - **Yalnız edebi okuma (kullanıcının kararı):** dinî karşılaştırma, ör. İblis, yapılmaz; video başta bunun Milton'ın destanının okuması olduğunu söyler.
+    - Tanrı ve Oğul figürle çizilmez, ışık olarak gösterilir (Doré de böyle yapar).
+  - **İç yolculuk planı (öneri; Kahramanın Yolculuğu kontrol listesiyle):**
+    - **0. Kanca:** destan da olayın ortasında başlar. İlk 5 saniye yanan gölde açılan gözler ve bir merak sorusu.
+    - **1. Sıradan dünya:** Cennet, Lucifer ("ışık taşıyan").
+    - **2. Çağrı:** Oğul'un yüceltilmesi; kıskançlık ve gurur; isyan.
+    - **3. Sınavlar:** cennetteki savaş, dokuz gün süren düşüş, Pandemonium ve şeytanlar meclisi.
+      - **"Cennette köle olacağıma cehennemde kral olurum"** (I. kitap, 263) 1. perdenin sonunda menteşe olur.
+    - **4. Büyük sınav ve duygusal doruk:** IV. kitaptaki Nifates Dağı iç konuşması, "Hangi yöne kaçsam cehennem; cehennem benim". Pişmanlık var ama gururdan eğilemiyor. Empatinin kurulduğu an burası.
+    - **5. Bedel ve ödül:** Aden'e sızma, Havva; kazanırken kaybetmek.
+    - **6. Kırılma:** X. kitapta şeytanlar yılana dönüşür (Lewis'in okuması).
+    - **7. İksir:** Milton'dan sonra Şeytan "insanlaştı": Romantikler ve Cabanel'in *Düşmüş Melek*'i (1847, gözünde bir damla yaş). Son soru izleyiciye: o gözyaşı pişmanlık mı, gurur mu? Başkaldırı ne zaman özgürlük, ne zaman insanın kendi cehennemi?
+  - **Üslup (kullanıcı bana bıraktı):** Gustave Doré'nin *Kayıp Cennet* gravürleri (1866).
+    - Siyah-beyaz çelik/ağaç baskı, yoğun tarama ve çapraz tarama, ışık huzmeleri, düşen melek siluetleri.
+    - Kodla çizime uygun: çizgi alanları, kontrast, siluet.
+    - Yeni ilkeller kurulacak: tarama motoru, kanat, alev ve bulut gravürü. Önce tek üslup karesi kurula onaylatılır.
+    - Cabanel tablosu kapanış sahnesi ve kapak adayıdır; telifli bir eser değil (1847).
+    - Yüz yakın planları azdır ve gravür diliyle stilize edilir.
+  - **Kaynak:**
+    - Kullanıcı eseri Türkçe çeviriden okudu, çevirmeni hatırlamıyor.
+    - Türkçe çeviriler telifli olabilir. Dizeler İngilizce özgün metinden (1674, kamu malı) kendi çevirimizle verilir; açıklamada kaynak yazılır.
+    - Tarihler, kitap ve dize numaraları ve Milton'ın hayatına dair ayrıntılar senaryo kurulunda kaynaktan doğrulanır.
+  - **Süre:** hikâye ne kadar gerektiriyorsa o kadar.
+- **Film ve dizi videolarında:** film görüntüsü kullanma; oyuncuya benzeyen gerçekçi çizimden ve telifli karakter tasarımlarını kopyalamaktan kaçın. Kendi animasyonunla fikri anlat.

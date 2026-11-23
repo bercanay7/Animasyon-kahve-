@@ -1,0 +1,19 @@
+{
+ "flow_id": "AZ5lxSbphcK9gLwe2CoA",
+ "voice": "Emrullah",
+ "voice_id": "DpEiQMnL9WxMsymCsjPY",
+ "model": "eleven_v4",
+ "not": "22 Kasım 2026: kullanıcı onayı (AskUserQuestion: 'Onaylıyorum (2 çekim)'); 10 bölüm × 2 çekim, toplam 15.652 kredi.",
+ "cekimler": {
+  "s00": {"node": "mVhVJi7KpAwkd8y9iB39", "session": ["shsXtsBPkff60Uy9iqcn", "3bEe0wW3HEehoWoL9SgI"], "kredi_cekim": 596},
+  "s01": {"node": "YxEzeqgq447LMGhAMnLs", "session": ["RIKLwVDI8uR0dOemeaOn", "4Abc8fsGfenamm3dtwdv"], "kredi_cekim": 771},
+  "s02": {"node": "hU6KhLPobmzuoDpzYcTu", "session": ["Yxpc4xmkAyqX7I8Zn9I5", "VDbENfJ3DvVomvznc1KM"], "kredi_cekim": 651},
+  "s03": {"node": "wc214M5FKQZEbGQqDfNi", "session": ["n7SzyMcwAxJTZ48qhdYZ", "Ya3u4RUmqZkJ6BvxmMHn"], "kredi_cekim": 888},
+  "s04": {"node": "ehAJ24Xv43yTra2HgJS8", "session": ["m2E7IWJnmEcvamXeksxr", "Wml2Zd8BlYJbceo98iBD"], "kredi_cekim": 612},
+  "s05": {"node": "GEV9kax5vlfy2Pzo6w1Z", "session": ["tORxIABetBdTG4xzBDDC", "Rm3Sv9MCZpNDfwqyUMzj"], "kredi_cekim": 1181},
+  "s06": {"node": "UfbgofBwV3E3awtzKLHn", "session": ["eCUZnfbF91frZSWUFIQ5", "hPTeozUCPO9lq6Vp594P"], "kredi_cekim": 1010},
+  "s07": {"node": "xR7Sq7KlGILABnXMrIPf", "session": ["Nk9FqNdjFHiJFJXjQypE", "Ai1bQvQMA1P4fcgGRCEP"], "kredi_cekim": 571},
+  "s08": {"node": "MG4z130SHTNH4N4fLwZN", "session": ["GizfurVwppxc900ngQVP", "OKVeiLmgxzb8fr4wAp0z"], "kredi_cekim": 980},
+  "s09": {"node": "HONURfcVA2Sb1uEY5ySK", "session": ["EDdPUhesB6UlWKPGPkcf", "O6xStmKiR8pyRGcIFJTp"], "kredi_cekim": 566}
+ }
+}

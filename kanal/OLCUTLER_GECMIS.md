@@ -1,0 +1,132 @@
+# Ölçütler: video video yayın sonrası kayıtlar (Ekim–Kasım 2026)
+
+> CLAUDE.md'den taşındı (23 Kasım 2026 sadeleştirmesi); metin değiştirilmeden. Geçerli kurallar CLAUDE.md'de; bu dosya ayrıntı ve geçmiş kayıttır.
+
+## Ölçütler (YouTube Analytics)
+- **Gösterim tıklama oranı (TO):** kanalların yarısı %2–10 arasında.
+  - Göz at trafiğinde %3–5 iyi, Önerilen'de %4–8 normal.
+  - Geniş kitleye açılırken TO'nun düşmesi normaldir.
+- **İzleme süresi:** 5–10 dakikalık videoda ortalama izlenme %40 iyi, %50+ çok iyi. 0:30'da kalan izleyici %65–70 iyi.
+- **Sisifos, ilk 18 saat:** 4,7 B gösterim, TO %1,6, izlenmelerin %84,5'i Göz at trafiğinden. Ortalama izleme 2:55 (%41) olduğu için YouTube gösterimi hızla artırdı.
+- **Sisifos, 3. gün:**
+  - Erişim: 22,2 B gösterim, 1.554 görüntüleme, 27,7 saat izlenme.
+  - İzleme: ortalama 3:07, izleyici tutma %44,3.
+  - Trafik: Göz at %75, Önerilen %20,6.
+  - Gösterim basamak basamak arttı (ikinci dalga); Orfeus'un ~92 görüntülemesine göre yaklaşık 17 kat.
+  - Zayıf halka TO (%1 küsur). Güçlü yanı tutma: açılış kancası ve bölüm yapısı korunmalı.
+- **Sisifos, 5. gün:** kanalın en çok izlenen ve en çok etkileşim alan videosu oldu.
+  - Erişim: 43,7 B gösterim, TO %2,2 (yükseliyor), 3.452 görüntüleme, 75,7 saat izlenme.
+  - İzleme: tutma %44,8 (3:10).
+  - Büyüme 5. günde hızlandı (üçüncü dalga).
+  - **Giriş dersi:** 0:30'da izleyicilerin %63'ü kalıyor ("standart"), ama kayıp ilk 10–15 saniyede.
+    - Yeni videolarda ilk 5 saniye kapağın vaadini hemen karşılamalı. Kapak "NEDEN GÜLÜYOR?" diye sorarken açılış başka bir sahneyle başlıyordu.
+    - Merak sorusunu ilk cümlede sor, cevabı sona sakla.
+  - **Son:** sondaki düşüş bitiş ekranından (6:51), normal. Sona doğru (~6:10) küçük bir artış var: doruk anı. Shorts için en iyi aday bu an.
+  - **Gövde:** YouTube'un "Önemli an" işareti yaklaşık 1:00–6:15 aralığını kapsıyor: izleyiciyi normalden uzun tutuyor. Bölümlü hikâye yapısı çalışıyor, korunmalı.
+  - **Kanala etkisi:** Orfeus, "ARKANA BAKMA!" kapağıyla ve Sisifos'tan gelen önerilerle 7. günde ~92'den 244 görüntülemeye çıktı.
+- **Sisifos, 8. gün:**
+  - Erişim: toplam ~9.500 görüntüleme (5. günde 3.452'ydi), 99,7 B gösterim, TO %2,4 (hâlâ yükseliyor).
+  - İzleme: tutma %41 (2:54), 0:30'da kalan %61.
+  - Trafik: Göz at %78,4. Beğenme oranı %98,7.
+  - Gösterim eğrisi 100 B civarında yavaşlıyor.
+  - Bu video artık kanalın kapısı: Prometheus ve diğer videolar bitiş ekranı, sabit yorum ve oynatma listesiyle buraya bağlanır.
+- **Kanaldaki diğer videolar:**
+  - "Cumhuriyet'i Kuran Kuşak Nasıl Yetişti?" (29 Ekim; 6:20; kapak "KURUCU KADRO / AYNI SIRADA"): 15 saatte 61 görüntüleme.
+  - "Şarlken: Dünyayı Teslim Eden İmparator" (21:27): 11 günde 147 görüntüleme.
+    - 14. gün: toplam 1,0 B gösterim, TO %9,9.
+    - Trafik: önerilen %44,7, kanal sayfası %29,5, göz at yalnız %13,2.
+    - Yorum: YouTube videoyu hiç geniş bir göz atma testine sokmadı. Yayın sırasında kanalın kitlesi yoktu; şimdiki kitle (Sisifos) mit ve felsefe izleyicisi.
+    - Paketleme fırsatı: videoda Kanuni ve 1529 Viyana bölümü var. Türk izleyici "Şarlken"i tanımıyor ama Kanuni'yi tanıyor. "Kanuni'nin rakibi tahtı neden bıraktı?" açısı doğru ve geniş kitleye açılır.
+    - Doğruluk notu: 1529'da Viyana'yı savunan Şarlken değil, kardeşi Ferdinand'dı. Başlıkta "Kanuni'yi durduran" gibi bir iddia kullanılmaz.
+    - Proje: `gunluk-shorts/sarlken-uzun-dosya/` klasöründe (Python motoru).
+    - **Yeni paket (2 Kasım):** `sarlken_kapak/`.
+      - Kapaklar: "KANUNİ'NİN RAKİBİ / TAHTI BIRAKTI" (madalyalar + bırakılmış taç), salon versiyonu ve mevcut kapak (kontrol).
+      - Başlık: "Osmanlı'nın 'İspanya Kralı' Dediği İmparator: Şarlken Neden Vazgeçti?"
+      - 11:03 bölümü "Kanuni" adını taşıyacak şekilde yeniden adlandırıldı.
+      - Kurul dersleri: YouTube'un gerçek süre rozeti "önerilen" listesinde x 1440–1874, y 829–1034 alanını kaplar, bu bölgeye yazı konmaz. Çatlak taç "tahttan indirildi" anlamı verir; gönüllü bırakma için bütün, yere bırakılmış taç kullanılır. Şimdiye kadar en iyi sonucu mit ve felsefe videoları verdi. Bu bir süre kuralı değil; aşağıdaki "Süre" maddesine bak.
+- **Prometheus ("Prometheus: Asıl Tutsak Ki…", kapak "BİLE BİLE ÇALDI"), yayından 5 saat sonra:**
+  - Erişim: 484 gösterim, TO %5,8, 73 görüntüleme, 7,0 saat izlenme.
+  - İzleme: ortalama 9:02. Kanalın en güçlü başlangıcı.
+  - Trafik: Göz at %58,9, kanal sayfası %17,8, Önerilen %13,7. Kanal sayfası payı yüksek, yani Sisifos'la gelen izleyici geri dönüyor.
+  - İlk saatlerin TO'su ve izleme süresi sadık kitleden geldiği için şişkin. Geniş kitleye açıldıkça ikisi de düşer; asıl karşılaştırma 3. ve 5. günde yapılır.
+- **Prometheus, 45. saat:**
+  - Erişim: yaklaşık 20. saatte büyük bir göz atma testi geldi; gösterim birkaç saatte ~1 B'den 18 B'ye çıktı, sonra düz kaldı.
+  - TO %1,6 (ilk saatlerdeki %5,8 sadık kitledendi); Sisifos'un aynı aşamadaki oranıyla aynı.
+  - Gösterim başına izlenme süresi (TO × ortalama izleme) 1,6 % × 6,7 dk ≈ 0,11 dk. Sisifos'ta 1,6 % × 2,9 dk ≈ 0,05 dk. Prometheus gösterim başına iki kattan fazla izlenme süresi getiriyor. Uzun videolarda bu ölçüt TO'dan daha anlamlı.
+  - İzleme: 23:55'lik videoda ortalama 6:43 (%28,1). 0:30'da izleyicilerin %70'i kalıyor ("standart"), ama ilk dakikada ~%55'e iniyor.
+  - Yorum: yükseliş durdu, çünkü geniş kitle testinde tıklama düşük kaldı. Sisifos'ta da dalgalar arasında ~1 günlük duraklama olmuştu.
+  - Kural: 2–3 gün yeni dalga gelmezse paketleme (kapak ve başlık) kurulla yenilenir. Cumhuriyet'te bu yöntem işe yaradı.
+- **Dört video yan yana (1 Kasım 2026):**
+
+  | Video | Süre | 0:30'da kalan | Ort. izleme | TO | Gösterim |
+  |---|---|---|---|---|---|
+  | Sisifos (7. gün) | 7:05 | %63 | 3:10 (%44,8) | %2,2 | 85 B, hâlâ hızlanıyor |
+  | Şarlken (13. gün) | 21:27 | **%79** | 8:58 (%41,8) | %10 (az gösterimde) | ~0,8 B; önerilen %38,6, kanal sayfası %35,1 |
+  | Cumhuriyet (2. gün) | 6:20 | %65 | 2:45 (%43,5) | **%1,1** | 14,2 B'de durdu |
+  | Prometheus (5. saat) | 24:00 | – | 9:02 (%37,6) | %5,8 | 484 (erken) |
+
+  - **Tutma her uzunlukta %42–45:** anlatım ve görsel kalite darboğaz değil. Uzun video aynı oranı tutuyor, izlenme başına ~3 kat izlenme süresi getiriyor.
+  - **Paketleme değişikliğinin sonucu (Cumhuriyet):**
+    - Değişiklik: kapak "SULTANIN ÖĞRENCİSİ", başlık "Abdülhamid, Kendi Sonunu Getiren Kuşağı Nasıl Yetiştirdi?".
+    - Sonuç: duran video yeniden açıldı. Görüntüleme 372'den 1.101'e, gösterim 14,2 B'den 18,5 B'ye çıktı.
+    - Ömür boyu TO %1,1'den %1,5'e çıktı. Değişiklikten sonraki gösterimlerde TO kabaca %2,5–3 (tahmin).
+    - Tutma %42,2'de korundu, yani yeni kapak yanıltmıyor.
+    - Ders: yayından sonra kapak ve başlık düzeltmek ölü bir videoyu diriltebilir.
+  - **Darboğaz paketleme (kapak ve başlık):** Sisifos'un gösterimi büyüdü, Cumhuriyet'inki %1,1 TO ile 14 B'de durdu (konusu da güne bağlıydı). Her videoda en az iki kapak hazırlanır ve "Test ve karşılaştır" ile denenir. Kapak kurulu "ilk bakışta anlaşılıyor mu?" sorusuna öncelik verir.
+  - **En iyi açılış Şarlken'de (%79):** yeni videoların açılışı onunla karşılaştırılır.
+  - **Kanal vitrin gibi çalışıyor:** diğer videolarda trafiğin %17–35'i kanal sayfasından geliyor. Sisifos kapı açıyor, izleyici kanala dağılıyor.
+- **Milton ("Kayıp Cennet: Şeytan Cehennemden Neden Kaçamadı? | Milton"; 25:46; kapak "BEN CEHENNEMİM"), yayından ~15–18 saat sonra (12 Kasım 21:00'de yayımlandı):**
+  - Erişim: 1,2 B gösterim, TO %1,7, 95 görüntüleme, ~15 saat izlenme.
+  - İzleme: ortalama 9:30 (%37). Kanalın en yüksek ortalama izlemesi (Prometheus 5. saatte 9:02).
+  - Gösterim başına izlenme süresi ≈ %1,7 × 9,5 dk ≈ 0,16 dk (Prometheus 0,11, Sisifos 0,05): kanalın en iyisi.
+  - Yorum: ilk saatlerde bile TO düşük (Prometheus'un ilk saatlerinde %5,8'di); sadık kitle tıklamakta isteksiz ya da gösterim erkenden geniş kitleye gitti. Büyük göz atma testi henüz gelmedi (Prometheus'ta ~20. saatte geldi). Bakılacak: 48. saatte trafik kaynakları, 0:30'da kalan, ilk 3 sn (açılıştaki sessiz göz planı), "Test ve karşılaştır" sonucu.
+- **Milton, ~1. gün sonu (13 Kasım akşamı):** 4,5 B gösterim, 171 görüntüleme (görüntüleme/gösterim ≈ %3,8; Studio'daki TO ayrıca bakılacak), ortalama 6:33 (%25). İzlenmenin %60'ı abonelerden: büyük göz atma testi henüz gelmedi (Prometheus'ta ~20. saatte gelmişti). Gösterim başına izlenme ≈ 0,25 dk (Prometheus 45. saatte 0,11). Ortalamanın 9:30'dan düşmesi kitle genişledikçe beklenen düşüş. Karar noktası 3. gün: yeni dalga yoksa paketleme kurulla yenilenir.
+- **Milton Shorts** (37 sn; açılış: durağan büst + "O hâlde kimi suçlayacaksın?", en güçlü cümle "Ben cehennemim" 10. sn'de): 20. dakikada izlemeye devam eden %32; ~1.000 izlenmede %38, ortalama izleme 16 sn (%43). Ders: Shorts'ta en güçlü cümle ve en güçlü kare ilk saniyede olur; bağlam isteyen soru kanca değildir; 25–30 sn'lik sıkı kesit tercih edilir.
+- **Kanal, 14 Kasım 2026:** ~500 abone. **Abone getiren videolar (kullanıcının Studio verisi):** Sisifos ~450, Prometheus ~90 küsur. `analiz/2026-11-11-studio-analizi.md`'deki "1000 görüntülemede abone" tablosu (Sisifos 9,1, Orfeus 24,7) dışa aktarım dönemine (13 Ekim–10 Kasım) bağlıdır ve Orfeus'unki küçük örnektir (689 görüntüleme); mutlak sayıda açık ara birinci Sisifos'tur. Abone sayısını Studio'nun video bazındaki "Kazanılan aboneler" kartından al. Sisifos 200 B gösterimi geçti, ~25 B görüntüleme. Medici (1/7) 8. günde ~300 görüntüleme, ~5 B gösterim, TO ~%1,5, ortalama 3:05 / 10:02 (~%30). Düşük tutmanın nedeni kanal cezası değil videonun kendisi: kullanıcı da "ne başı var ne sonu, isimlerden beynim allak bullak" dedi (`gunluk-shorts/DERSLER.md`). YouTube kanala değil videoya puan verir; Sisifos aynı kanalda 200 B gösterim aldı.
+- **Milton, ~40. saat (14 Kasım 13:20; Studio'daki başlık artık "Milton'ın Şeytanı: "Ben Ceh…"; kullanıcı kapak testi sürerken yanlışlıkla değiştirmiş, 40. saat verisi iki başlığı karıştırır):**
+  - Erişim: 4,5 B gösterim (1. gün sonuyla aynı), ömür boyu TO %1,4; günlük TO ~%1,5'ten ~%0,9–1,0'a indi. 189 görüntüleme (gerçek zamanlı; izlenme saati kartı ~10 saat gösteriyor, yani Analytics verisi gerçek zamanlıdan geride).
+  - **Büyük göz atma testi gelmedi.** ~22.–26. saatte küçük bir test geldi (~2 B → 4,4 B), TO düşük kaldı, ~27. saatten beri gösterim düz. Karşılaştırma: Prometheus ~20. saatte 1 B → 18 B; Sisifos 18. saatte 4,7 B, 3. günde 22,2 B.
+  - İzleme: ortalama 6:43 (%26,1); Prometheus'un 45. saatiyle dakikası dakikasına aynı (6:43, %28,1). 0:30'da kalan %68 (Prometheus %70, Sisifos %63, Şarlken %79). 1:00'da ~%58 (Prometheus ~%55). Eğri 5. dakikadan sonra yavaş iniyor: ~%40 (9–12 dk), Nifates (10:56–14:09) %39 → %37 düz, 18–25 dk ~%28–30, bitiş ekranında düşüş. Küçük artışlar ~3:25, ~6:15, ~8:25, ~22:00. **İçerik tutuyor; darboğaz ilk 10 saniye ve paketleme.**
+  - Trafik: Göz atma %64 (abonelik akışı dahil; abonelik akışı tek başına 33 görüntüleme, %17), Önerilen %14,8, kanal sayfası %9, arama %4,8. İzlenme süresinin %54,7'si abonelerden (1. gün %60; Sisifos'ta %1,2). Türkiye payı %48,1 (Sisifos %73,6); altyazısız %33,5, Türkçe altyazı %20. Örnek küçük, diğer ülkelere ve altyazı dillerine ayrıca bakılacak.
+  - Gösterim başına izlenme süresi = TO × ort. izleme = %1,4 × 6,7 dk ≈ **0,09 dk** (Prometheus 0,11). 1. gün sonundaki "0,25 dk" hesabı yanlıştı: TO yerine görüntüleme/gösterim kullanılmıştı; görüntüleme/gösterim TO değildir (abonelik bildirimi, kanal sayfası, dış kaynak gösterimsiz görüntüleme getirir).
+  - Shorts A'nın (~1.000 izlenme) uzun videoya katkısı görünmüyor: trafik kaynaklarında "Shorts" satırı yok, en çok "Diğer" (15) içinde. Ders: Shorts kendi başına izlenme getirir ama 25 dk'lık videoya izleyici taşımıyor; Shorts uzun videonun tanıtımı sayılmaz, ayrı içerik sayılır.
+  - **Karar (yayın sonrası analiz, 40. saat):** paketleme şimdi değiştirilmez. Kapak testi sürüyor ve 3. gün (15 Kasım akşamı, ~72. saat) kuralı geçerli. 72. saatte gösterim hâlâ ~4,5 B'deyse paketleme kurulu açılır. Kurulun başlangıç noktası: TO kapağın vaadinde değil ilk bakışta anlaşılmasında; "Milton" adı Türk izleyiciye Şarlken gibi yabancı. Konunun tanıdık kapısı Milton değil Şeytan'dır. Bu arada maliyetsiz kaldıraç: Sisifos'un (kanalın kapısı, ~100 B gösterim) bitiş ekranı, açıklaması ve sabit yorumu Milton'a bağlanır.
+- **Milton, ~4. gün (17 Kasım, kullanıcının ekran görüntüleri):** 5,8 B gösterim (40. saatte 4,5 B; büyük göz atma testi yine gelmedi), TO %1,6. Ortalama 6:57 (%27,0). **0:30'da kalan %56** (40. saatte %68; Studio "standart değerin altında" diyor): kitle abonelerden yabancılara genişledikçe giriş kaybı büyüdü. Trafik: Göz atma %63, Önerilen %13,9, kanal sayfası %10,6, arama %5,3, diğer %7,3. Ders: ilk 48 saatin 0:30 değeri sadık kitleden şişer; videolar arası karşılaştırma aynı yaştaki (≥4. gün) veriyle yapılır.
+- **İkaros ("İkaros: "Güneşe Yaklaşma." Peki Öteki Uyarı Neydi?"; 5:55; kapak "İKİ UYARI VARDI"), 47. saat:**
+  - Erişim: 9,5 B gösterim (~10.–20. saatte küçük test, sonra düz), TO **%0,8** (kanalın en düşüğü), ~150 görüntüleme.
+  - Trafik: Önerilen %39,1 (çoğu alakasız dizi/eğlence videoları), Göz at %38,5, arama %8,3, kanal sayfası %7.
+  - İzleme: ortalama 2:12 (%37,3); **0:30'da kalan ~%40** (kanalda %63–79). Düşüş ilk 20 sn'de (A03 kancasından B02 "Romalı şair Ovidius'a göre…" serimine geçiş). 0:40–4:00 arası ~%33'te dümdüz: kalan izleyici F08'deki ifşaya kadar kalıyor. İki düşüş: ~4:06 (G01 "Bu hikâyede üç uçuş var": hikâye bitip yorum başlıyor) ve ~4:45 (G05–G06, soyut yorum).
+  - **Düzeltilmiş okuma (17 Kasım, Studio "Kitleyi elde tutma" grafiği, ömür boyu ortalama yine 2:12, %37,3):** 47. saatteki eğri okuması fazla kötümserdi; ortalama %37,3 ile %33'lük bir düzlük birbirini tutmaz. Eğri: 0:20'de ~%53 (düşüş B02 Ovidius serimine geçişte), **0:30'da ~%48–50**, 1:00'da ~%41, **1:00–4:00 arası ~%40–42 düz**, G01–G05 yorumunda yalnız ~%42 → ~%35 (~5–7 puan), 5:15'ten sonra bitiş ekranı düşüşü. YouTube'un **"Önemli an" bölgesi ~1:07–2:31** (C04–E02): kanatların denenmesi, **kancanın cevabı (C06 "İşte unutulan uyarı", 1:23)**, babanın gözyaşı, uçuş ve düşüş. Yani: kancanın vaadi karşılandığı an izleyiciyi normalden uzun tutuyor; kayıp kancadan sonraki bağlam anlatısında; ifşadan sonraki yorumun bedeli küçük. Ortalama değişmediği için bu bir iyileşme değil, daha doğru okuma.
+  - Ders: (1) İlk kez açılışta kayıp var; kanca sorusu cevaplanmadan bağlam anlatısına (kim, nerede) geçmek izleyiciyi düşürüyor. (2) İfşadan sonra yorum bölümü kısa tutulur ya da hikâyenin içine dağıtılır. (3) Önerilen trafiği alakasız videolardan gelince giriş düşüşü şişer; YouTube kitleyi bulamamış, bu da paketlemenin belirsizliğine işaret. (4) Kişisel soru başlıkta yoktu (talep kontrolü, bkz. son konuşmanın analizi).
+- **Kafka ("Kafka'nın Dönüşüm'ü: İşe Yaramasan da Seni Severler miydi?"; 6:39; kapak testi "ARTIK O DEĞİL" / "SEVGİ KOŞULLU MU?"), 48. saat (ayrıntı `analiz/2026-11-18-kafka-48saat.md`):**
+  - 2,8 B gösterim (10.–13. saatte küçük test, sonra düz), TO %1,9, 144 görüntüleme. Ortalama 3:01 (**%45,4, kanalın şu anki en iyisi**), 0:30'da %64, 0:10'da ≈%74. Abonelerden gelen izlenme süresi %46,8; Türkiye %75,4.
+  - Talep kontrolünün ilk sınaması: TO İkaros ve Milton'dan yüksek, medyanda; tutma en iyi; ama büyük göz atma testi gelmedi. Ortalama TO tek başına dalgaya yetmiyor; tek videodan kesin hüküm çıkmaz.
+  - Giriş: kancanın ardından *Dönüşüm*'ün bilinen ilk cümlesi okunurken 0:08–0:20'de kayıp (→ %63), "böceği hiç görmeyeceksiniz" merak sorusuyla 0:30'da %65'e geri çıkış. İkaros dersiyle aynı: kancanın hemen arkasına bilinen bağlam ya da alıntı konmaz.
+  - Karar (48. saat): paketleme değişmez (TO medyanda, kapak testi sürüyor); karar noktaları 4. ve 7. gün. Maliyetsiz kaldıraç önerisi: Sisifos'tan Kafka'ya bağlantı (Camus'nün Kafka denemesi köprüsü).
+- **Ran ("Yaptıkların Sana Döner mi? | Kurosawa'nın Kral Lear'ı"; 8:03; kapak testi "EKTİĞİNİ BİÇTİ" / "OĞULLARI SALDIRDI!"), 44. saat (19 Kasım 14:10; ayrıntı `analiz/2026-11-19-ran-48saat.md`):**
+  - 2,2 B gösterim (6.–9. saatte küçük test, sonra yavaş artış), **TO %3,0** (aynı yaştaki en yüksek; Kafka %1,9), 248 görüntüleme (son ~8 saatte ~100; eğri yukarı kıvrılıyor). Ortalama 3:10 (%39,3), 0:10'da ≈%80, 0:30'da %66. Abonelerden gelen izlenme süresi **%65,8** (kanalın en yükseği), Türkiye %44,8. Analytics gerçek zamanlıdan geride (izlenme süresi kartı ~5 sa; eğri ~100 izleyicilik, 1 izleyici ≈ 1 puan).
+  - Talep kontrolünün (a) şartı tıklamada işe yaradı ama dalga yine gelmedi: darboğaz bu kez gösterim havuzu (en az gösterimle en çok görüntüleme). Sisifos sönmesiyle ilişki güçleniyor, kanıt değil.
+  - Eğri (pikselden, `araclar/analiz/elde_tutma.py`): kanca tutuyor; **0:31–0:42 Shakespeare köprüsünde %65 → %56** (İkaros ve Kafka'dan sonra üçüncü kez aynı yer), hikâye başlayınca %64'e geri. **Yükselişler bölüm damgalarında** (0:42, 1:51, 4:17): izleyici bölüm sonundaki karşılaştırma kuyruğunu ve yapım bölümünü atlıyor. **En büyük gövde düşüşü 4:45–5:35 (%47 → %29):** Nō yorumu + 5. dakikada iki yeni ad (Tsurumaru, Sue) ve geçmişleri. Doruk 5:40–7:15 düz (%29–27), iksir ve abone çağrısında yalnız 2 puan.
+  - Karar: paketleme değişmez (TO en iyi, test sürüyor); Mary Stuart 20 Kasım'da çıkar. 72. saatte günlük gösterim (son 8 saatteki kıvrım test mi?), 7. günde kapak testi, 0:30, abone payı, ülke listesi.
+  - **67. saat (20 Kasım 13:25):** 2,9 B gösterim (kıvrım küçük bir ana sayfa itişiymiş, büyük test yok), TO %3,0, ~400 görüntüleme, ortalama 3:05 (%38,2), abone izlenme payı %55,0, Göz atma %87,2. **YouTube'un "Önemli an"ı 3:25–4:54: yapım bölümü** (Fuji'de yakılan kale, tek çekim, resimler) + Lear'ın fırtınası; 44. saatteki "yapım bölümü atlanıyor" okuması yanlıştı. Studio düşüşü 2:20–2:32: merak sorusunun soyut cevabı ("eklediği şey: geçmiş"). Büyük gövde düşüşü Tsurumaru ile başlıyor (4:54 %39 → 5:33 %28); Nō yorumu suçsuz. Karar: paketleme değişmez (TO en iyi; sorun gösterim havuzu, "2–3 gün kuralı" düşük TO içindir).
+- **Mary Stuart ("Kalbinle mi Yaşarsın, Aklınla mı? | I. Elizabeth ve Mary Stuart"; 20:49; kapak testi "RAKİBİNE SIĞINDI" / "İDAMINA KIRMIZI GİYDİ"), 45. saat (22 Kasım; ayrıntı `analiz/2026-11-22-mary-stuart-45saat.md`):**
+  - 2,2 B gösterim (iki küçük basamak, ~25. saatten beri düz; büyük test yok), TO %2,3, ~145 görüntüleme (YouTube önerileri 106, abonelik akışı 19, kanal 10, arama yok). Ortalama 7:24 (%35,6). **0:10'da ≈%88, 0:30'da %70: kanalın en iyi açılışı.** Gösterim başına izlenme %2,3 × 7,4 dk ≈ **0,17 dk: kanalın en iyisi.**
+  - Okuma: tıklama, açılış ve gösterim başına izlenme medyanın üstünde, gösterim yine 2,2 B (Ran'la aynı). Dört video üst üste aynı örüntü: darboğaz gösterim havuzu, video değil. İkinci sınanabilir etken yayın sıklığı (12–20 Kasım arası beş uzun video).
+  - Eğri: en büyük içerik kaybı **1:12–1:36 arma ve meşruiyet açıklaması (24 sn'de −11)**; somut olaylarda gövde dümdüz (Rizzio, kaçış, Babington: 0 puan/dk). "Zweig'a göre" yargıları kaybettirmedi; kaybettiren olaydan kopuk açıklama ("Neden kırmızı?" yorumu −7). Studio artışları belge ve dönüm anlarında; en büyüğü "bugünkü kraliyet ailesi Mary'nin soyundan" (19:17–19:42). Tahminler: M1 ve M3 tuttu, M2 tutmadı (`analiz/tahminler.md`).
+  - Karar: paketleme değişmez (TO medyanın üstünde, test sürüyor). Kullanıcıya öneri: Narkissos'u 27 Kasım'a (Mary Stuart'ın 7. günü) alıp her videoya tek başına bir hafta vermek; iki açıklamayı (havuz, sıklık) ayırmanın tek yolu bu.
+- **Genel karşılaştırma (22 Kasım 2026, 11 uzun video; ayrıntı `analiz/2026-11-22-genel-karsilastirma.md`):**
+  - Dağıtım: göz atma testi 2. gün gelir ya da hiç gelmez; gelen üç video (Sisifos, Abdülhamid, Prometheus) 24–31 Ekim'de çıktı, 12 Kasım'dan beri altı video almadı. Elenen açıklamalar: zayıf paketleme (son üç TO %1,9–3,0), kötü video (Mary Stuart'ın açılışı en iyisi), uzunluk (Prometheus 24 dk ile en büyük test), tek başına yayın sıklığı (Prometheus, Abdülhamid'den iki gün sonra test aldı). Kalan iki açıklama: Sisifos'un sönen havuzu ve kapının gücü (Sisifos havuz yokken dalga aldı). İkisi de aynı yere çıkıyor: büyüme yeni bir kapıya bağlı (Narkissos denemesi).
+  - En güçlü dersler (kanıt sayısıyla): somut olay tutar, soyut açıklama düşürür (3 video, 8 nokta); talep kontrolü TO'yu medyanın üstüne taşır (10 video); kancadan hikâyeye köprü sıfır cümle (4 video); hikâye bitince izleyici gider (3 video); uzunluk tutmayı bozmaz (10 video).
+- **Yayın takvimi (kullanıcının kararı, 23 Kasım 2026; 22 Kasım'daki "haftada bir" kararının yerine): dört günde bir uzun video, 18:00.** Mary Stuart 20 Kasım, Narkissos 24 Kasım, Dorian Gray 28 Kasım, Lale Çılgınlığı 2 Aralık. 48. saat ölçümleri temiz kalır (yeni video 4. gün gelir, göz atma testi 2. gün gelir ya da hiç gelmez); 7. gün pencereleri üst üste biner, 7. gün verisi bunu bilerek okunur. Önceki videonun ölçümü yeni video yayına girmeden alınır. Eski gerekçe (22 Kasım): Neden: her video ilk haftasını tek başına geçirsin; "havuz" ve "kapı" açıklamaları ancak böyle ayrılır (`analiz/2026-11-22-genel-karsilastirma.md`). Önceki videonun 7. gün ölçümü yeni video yayına girmeden alınır.
+- **Kanalın motoru Sisifos'tu ve sönüyor (18 Kasım 2026; ayrıntı `analiz/2026-11-18-sisifos-sonme.md`).** Kullanıcının sorusu: YouTube yapay zekâ videolarını geri plana mı atıyor? Cevap: veri buna uymuyor.
+  - Sisifos'un günlük gösterimi 4 Kasım'daki 26,9 B'lik tepeden 16 Kasım'da 1,3 B'ye, ~3 günde bir yarılanarak indi. Uçurum değil sönme; düşüş 12 Kasım'daki yayın sıklaşmasından önce başladı. YouTube'un yazılı politikası da yapay zekâ etiketinin erişimi etkilemediğini söylüyor.
+  - Dalga alan videolar (Abdülhamid 29 Ekim, Prometheus 31 Ekim) Sisifos günde 18–22 B gösterimdeyken yayımlandı. Milton (5,7 B), İkaros (3,6 B) ve Kafka (1,3 B) Sisifos sönerken çıktı; büyük test gelmedi, Kafka'nın tutması en iyi olduğu hâlde. İlişki, kanıt değil; mantığı: yeni video önce kanalı izlemiş kişilere gösterilir, onların çoğu Sisifos'tan geldi.
+  - Sonuç: kanalın yeni bir kapıya ihtiyacı var. Sonraki videoda talep kontrolünün (a) ve (b) şartları Sisifos kadar güçlü olmalı. Yayın aralığı en az 5–7 gün (deneme); Shorts uzun videodan birkaç gün sonra.
+- "Test ve karşılaştır" kazananı TO'ya göre değil izlenme süresi payına göre seçer. Test sürerken başlık değiştirilmez.
+- **Kanal ortalaması (17 Kasım 2026, 9 uzun video; ayrıntı `analiz/2026-11-17-kanal-ortalamasi.md`).** Yeni video tek bir videoyla değil bu medyanlarla, aynı yaştaki veriyle karşılaştırılır:
+  - Medyanlar: TO %1,8 (ilk 7 gün %1,7), ortalama izlenme %39,8, 0:10'da ≈%77, 0:30'da %61, ilk 7 gün gösterim ~25 B.
+  - Göz atma testi yayından sonraki gün gelir (Sisifos 11,7 B, Prometheus 17,6 B, Abdülhamid 7,0 B); gelmezse video düz kalır. 48. saat ölçümü karar noktasıdır.
+  - Son dört videoda (Medici, Milton, İkaros, Kafka) izlenme süresinin %36–56'sı abonelerden: YouTube bunları yeni izleyiciye götürmedi. Tutma bandı aynı kaldığı için sorun içerik değil, paketleme ve ilk 10 saniye (İkaros 0:10'da ≈%66).
+  - Kapak testlerinin çoğu berabere bitti (Prometheus, Abdülhamid, Medici ~%50/%50); tek net kazanan Sisifos (%62,5), ardından ikinci dalga geldi. Test edilen kapaklar aynı fikrin iki yazılışı değil, iki ayrı vaat olur.
+  - Abone sayısı Studio gelişmiş moddan alınır: Sisifos +240, Prometheus +44, Orfeus +17 (1000 görüntülemede 19,6), Milton +5 (16,6). Önceki "Sisifos ~450, Prometheus ~90" ekran okumasıydı.
+- **Geniş kitle dersi (kullanıcının çıkarımı, 15 Kasım 2026):** kanalda geniş kitleye açılan tek video Sisifos oldu. Prometheus, Milton, Cumhuriyet ve Medici'de tutma iyiydi (0:30'da %63–70), ama geniş gösterim testinde TO %1–1,6'da kaldı ve dalga gelmedi; Cumhuriyet ancak kapak ve başlık değişince yeniden açıldı. Sisifos'ta iki şey birlikteydi: (a) Türk izleyicinin zaten tanıdığı popüler bir ad (Camus'nün Sisifos Söyleni), (b) izleyicinin kendi hayatına sorulan bir soru ("Neden mutlu hayal etmeliyiz?"). Milton'da (a) eksikti (ad yabancı; "milton" araması kasırgaya ve futbolcuya gidiyor), İkaros'ta (b) zayıftı ("ikaros" araması işaret fişeğine gidiyor; bilgi merakı vardı, kişisel soru yoktu). Bu yüzden her videoda senaryodan önce talep kontrolü yapılır ("Uçtan uca iş akışı", 1. adım). İlk sınama: Kafka, *Dönüşüm* (a güçlü, b güçlü); ikinci: Ran (a: tanıdık kapı "Kral Lear" başlıkta, b güçlü); üçüncü: Mary Stuart (a: "I. Elizabeth" başlıkta önde, b: "Kalbinle mi yaşarsın, aklınla mı?"). **Üç sınamanın 48. saat sonucu:** TO üçünde de medyanın üstünde (Kafka %1,9, Mary Stuart %2,3, Ran %3,0), tutma iyi, ama üçünde de büyük göz atma testi gelmedi (2,2–2,8 B). Talep kontrolü tıklamayı düzeltiyor; dalga için yetmiyor. 7. gün verisiyle güncellenecek.
