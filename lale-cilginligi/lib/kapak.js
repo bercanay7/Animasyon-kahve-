@@ -1,6 +1,6 @@
 // Kapaklar (1920×1080 çizilir, 1280×720 kaydedilir). kapak.html?render=1 → window.kapak('A'|'B', o)
 // A "karşıtlık": terazi; kefede renkli lale (tek renk) ve soğan ağır basar, öbür kefede ev havada. Yazı: BİR EV FİYATINA (iki satır).
-// B "hareket oku": karanlık meyhane; dirsekten kırık, yukarı uzanan eller tek renkli laleye; lalenin sapı yukarı tırmanan bir fiyat çizgisi. Yazı: HERKES ALIYORDU.
+// B "hareket oku": karanlık meyhane; dirsekten kırık, yukarı uzanan eller kâğıda boyanmış tek renkli laleye. Yazı: GÖRMEDEN ALDILAR (23 Kasım; eski HERKES ALIYORDU başlığı tekrar ediyordu).
 // Kurallar: renk yalnız lalede; harf yüksekliği ≥ %18 (Bebas büyük harf ≈ 0,70 em → font ≥ 280 px); sağ alt süre rozeti (x 1440–1874, y 829–1034) boş.
 'use strict';
 (function () {
@@ -45,7 +45,12 @@
     levha(ctx, cam, () => {
       GR.fill(SET.R(-400, -400, 2800, 1900), GR.tone(.06), { th: 0, id: 0 });
       for (let x = -300; x < 2400; x += 260) GR.fill(INSAN.F([[x, -60], [x + 70, -60], [x + 50, 150], [x + 20, 150]]), GR.tone(.03), { th: Math.PI / 2, id: 9 });
-      SET.masa(1000, 640, 420); SET.saksi(1210, 640, 1.25); LALE.ciz(1210, 480, 1.95, { sap: 90, cesit: 'semper', ac: .3 });
+      // masada saksı değil, kâğıda boyanmış lale (lale kitabı sayfası): alıcılar soğanı görmeden, resme bakarak teklif veriyor ("GÖRMEDEN ALDILAR")
+      SET.masa(1000, 640, 420);
+      GR.fill(INSAN.F([[1086, 640], [1100, 318], [1334, 318], [1348, 640]]), GR.tone(.25), { th: 0, id: 9 });   // sayfa arkasındaki dayanak
+      GR.fill(SET.R(1094, 300, 232, 330), GR.tone(.94), { th: .02, id: 10 }); GR.fill(SET.R(1094, 300, 232, 330), null, null);
+      for (const [x, y, w, h] of [[1094, 300, 232, 6], [1094, 624, 232, 6], [1094, 300, 6, 330], [1320, 300, 6, 330]]) GR.fill(SET.R(x, y, w, h), GR.tone(.2), { th: 0, id: 9 });
+      LALE.ciz(1210, 470, 1.55, { sap: 130, cesit: 'semper', ac: .3 });
       SET.isik({ x: 1210, y: 500, r1: 560, a: 1 });
       INSAN.adam({ x: 1500, y: 900, h: 560, yon: -1, sapka: 'genis', yaka: 'duz', kenar: .6, kenarYan: -1, kolOn: { a: 2.0, b: .9 }, biyik: true, sakal: true });
       const A = [[850, 1180, 760, 1, 2.1, 1.0], [1040, 1230, 820, -1, 2.55, .55], [1700, 1220, 800, 1, 2.15, .95], [1960, 1180, 760, -1, 2.05, 1.0]];
@@ -53,7 +58,7 @@
     }, [.06, 0, 0]);
     YAZI.bas(ctx, cam); LALE.boya(ctx, cam, 1, { kay: 2.5, alevK: 2.3, alevN: 1 });
     post(ctx, 0);
-    yazi(ctx, ['HERKES', 'ALIYORDU'], 60, o.ty ?? 300, o.px ?? 285, { col: '#efe6d2', golge: 'rgba(0,0,0,.9)' });
+    yazi(ctx, o.satir || ['GÖRMEDEN', 'ALDILAR'], 60, o.ty ?? 300, o.px ?? 285, { col: '#efe6d2', golge: 'rgba(0,0,0,.9)' });   // kapak merak açar, başlık tamamlar: kapak yazısı başlığın sözcüklerini tekrar etmez
   }
   window.kapak = (v, o = {}) => { baseT(ctx); ctx.fillStyle = '#000'; ctx.fillRect(0, 0, W, H); (v === 'A' ? A : B)(o); return cv; };
 })();

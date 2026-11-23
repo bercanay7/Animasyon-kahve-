@@ -173,6 +173,7 @@ Art arda soyut dizi yok; köprü adayı yok. Kanca 596 karakter (≈ 44 sn; hik�
 ## 11. Kapaklar (22 Kasım; `lib/kapak.js`, `tools/kapak.js`, `kapak/`)
 - **A "BİR EV FİYATINA"** (karşıtlık): asılı terazi (ayaksız: süre rozeti alanı boş kalsın), kefede soğan ve renkli Semper Augustus aşağıda, ev havada. Filmin ilk karesi aynı terazi.
 - **B "HERKES ALIYORDU"** (mezat): sırtı dönük, dirsekten kırık kollarla teklif veren alıcılar; ışıkta tek renkli lale. Filmde 0:06 mezat salonu.
+- **B → "GÖRMEDEN ALDILAR" (23 Kasım; kullanıcının getirdiği formül: "kapak merak uyandırır, başlık merakı tamamlar").** A formüle zaten uyuyordu (terazide ev ile lale "bir çiçeğe ev mi?" merakını açar; başlık adını verir ve soruyu izleyiciye çevirir). B uymuyordu: "HERKES ALIYORDU" başlığın sözcüklerini tekrarlıyordu (Fable'ın paketleme okuması da işaretlemişti). Yeni yazı filmin kendi bulgusu (D03 "soğanı gören yok", J03; Grout: soğan toprağın altındayken senetle satıldı) ve A'nın fiyat vaadinden ayrı bir vaat (mekanizma: görmeden alınan kâğıt). Yazıyla çelişmesin diye masadaki saksılı lale yerine kâğıda boyanmış lale (lale kitabı sayfası: alıcılar soğanı değil resmi görürdü); renk kuralı korunur. 120 px'te okunuyor; odak lale (x %61).
 - İlk taslaklarda: yazı laleyi örtüyordu (A), terazi ayağı rozet alanına giriyordu (A), kollar sopa gibi ve lale figürlerin arkasındaydı (B). Test seti `kapak/test/`: 246/168/120 px okunuyor; `odak.py` A rozet %0, B %1,2.
 
 ## 12. Render ve teslim

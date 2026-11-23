@@ -178,6 +178,7 @@ Campbell'ın (Vogler uyarlamasıyla) Kahramanın Yolculuğu bir kalıp değil, k
 - **Üslup:** videonun üslubundan sapma; kapak izleyiciyi yanıltmamalı.
 - **Türkçe kelime seçimi:** "SAKIN DÖNME!" yerine "ARKANA BAKMA!" kullanıldı, çünkü "dönme" argo bir hakaret olarak da okunur. "TEK BAKIŞ YETTİ" önce "ilk görüşte aşk" gibi okunuyor.
 - Art arda iki videoda aynı kalıbı ("NEDEN …?") kullanma.
+- **Kapak merak açar, başlık merakı tamamlar (öneri, kullanıcının getirdiği formül, 23 Kasım 2026):** kapak ve başlık bir ekip gibi çalışır; kapak yazısı başlığın sözcüklerini tekrar etmez, başlığın cevaplayacağı ayrı bir merak açar. Lale'de A ("BİR EV FİYATINA" + terazi) zaten uyuyordu; B "HERKES ALIYORDU" başlığı ("Herkes Alıyorsa Alır mısın?") tekrarladığı için "GÖRMEDEN ALDILAR" oldu. Kapak taslağı yazılırken bu bir eleme sorusu olarak sorulur: "kapak yazısı başlıkta zaten var mı?"
 - Duruşta T pozundan kaçın. "Geri dönme" gibi bir anı gövde ile başın yön zıtlığıyla göster.
 - **Cumhuriyet kapağı (5 tur):**
   - Gerçek kişinin silueti (kalpaklı Atatürk profili) 168 px'te ancak doğru biçimle tanınıyor:

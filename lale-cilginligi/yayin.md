@@ -14,7 +14,7 @@ Yükleme YouTube Studio'da bilgisayardan yapılır. YouTube'un kendi zamanlamas�
 | `lale-cilginligi_youtube.mp4` | Aynı film, <100 MB yükleme kopyası (H.265); büyük dosya inmezse bu |
 | `lale-cilginligi_telefon.mp4` | Telefonda izlemek için küçük kopya |
 | `kapak/kapak_a.jpg` | Kapak A: "BİR EV FİYATINA" (karşıtlık: terazide soğan ve ev) |
-| `kapak/kapak_b.jpg` | Kapak B: "HERKES ALIYORDU" (mezat: teklif veren eller ve tek renkli lale) |
+| `kapak/kapak_b.jpg` | Kapak B: "GÖRMEDEN ALDILAR" (mezat: teklif veren eller, kâğıda boyanmış tek renkli lale) |
 | `lale-cilginligi.tr.srt` | Türkçe altyazı (143 satır) |
 | `youtube.md` | Başlık, açıklama (bölümler, kaynaklar, görsel künyeleri), etiketler, sabit yorum |
 
