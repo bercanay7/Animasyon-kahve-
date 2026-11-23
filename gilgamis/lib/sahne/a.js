@@ -39,7 +39,7 @@
     const bas = [lerp(500, hedef[0], yg) - yc * 900, lerp(1100, hedef[1], yg) + yc * 520];
     if (yg > 0) { const pts = []; for (let i = 0; i < 22; i++) { const u = i / 21; pts.push([bas[0] - u * 260 + Math.sin(u * 6 - st.lt * 5) * 40 * u, bas[1] + u * 720]); } DK.yilan(R, pts, 78, { z: .9 }); }
     if (kp >= .5) DK.bitki(R, bas[0] + 40, bas[1] + 20, 300, { z: .96 });
-    for (let k = 0; k < 3; k++) { const ph = ((st.lt * .6 + k / 3) % 1), rr = 30 + ph * 160; if (yg < .2) { R.d.strokeStyle = dv(.55 * (1 - ph)); R.d.lineWidth = 4; R.d.beginPath(); R.d.ellipse(520, 900, rr, rr * .25, 0, 0, TAU); R.d.stroke(); } }
+    for (let k = 0; k < 3; k++) { const ph = (((st.lt * .6 + k / 3) % 1) + 1) % 1, rr = 30 + ph * 160; if (yg < .2) { R.d.strokeStyle = dv(.55 * (1 - ph)); R.d.lineWidth = 4; R.d.beginPath(); R.d.ellipse(520, 900, rr, rr * .25, 0, 0, TAU); R.d.stroke(); } }
     R.L.dir = [-.5, -.65, .55]; R.L.col = [1.05, .95, .85];
     R.L.pts.push({ x: hedef[0], y: hedef[1] - 120, z: 260, r: 520, i: .35 * (1 - yc), col: [.55, .75, 1.1] });
   }, { tr: { type: 'cut' } });
