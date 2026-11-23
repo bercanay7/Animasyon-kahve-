@@ -164,5 +164,22 @@ Kullanıcının cevapları: çeviri İş Bankası Kültür Yayınları (Hasan Â
 - `render.js` (Narkissos'tan; yerel http sunucusu, 4 işçi, hareket bulanıklığı yok, portre `?ss=1.5`). Portreli kareler 2–7 sn, ötekiler 0,3–1 sn.
 - 19 Kasım öğleden sonra render, Mary Stuart'ın düzeltilmiş kopyası için durduruldu (bitmiş parçalar önbellekte) ve sonra sürdürüldü.
 
+## 13. Kapakların "kapak merak açar, başlık tamamlar" formülüyle değerlendirmesi (23 Kasım 2026)
+Başlık: "Dorian Gray: Kimse Görmeseydi Ne Yapardın?" (42 karakter). Formül: `kanal/KAPAK_DERSLERI.md` (kapak yazısı başlığın sözcüklerini tekrar etmez, başlığın cevaplayacağı ayrı bir merak açar). Ölçüm: `araclar/kapak/odak.py`, 246/168/120 px küçültmeler.
+
+| Ölçüt | A (eski) "KİMSE GÖRMEDİ" | A2 "GERÇEK YÜZÜ BURADA" | B "HER ŞEY BİR CÜMLEYLE BAŞLADI" |
+|---|---|---|---|
+| Başlığı tekrar etmiyor | **kalır**: "kimse" ve "gör-" başlıkta | geçer | geçer |
+| Kendi merakını açıyor | zayıf: başlığın sorusunu düz cümleyle söylüyor | güçlü: kimin yüzü, neden örtülü? "burada" görüntüdeki örtüyü gösterir | güçlü: hangi cümle? |
+| Başlık tamamlıyor | hayır, aynı şeyi söylüyor | evet: kim (Dorian Gray) ve neden saklı (kimse görmeseydi); soru izleyiciye döner | kısmen: kim; cümleyi film verir (0:49, B04) |
+| Vaat filmde | A03 (0:17) | 0:00 oda ve örtü, A03 (0:17); D03 iki yüz (3:21); G16 (7:39) "bir yere yazıldı"; "gerçek yüz" deyimi anlatımda yok ama A01 "yüzüne değil de bir tabloya" aynı fikir | B04 (0:49) |
+| Harf yüksekliği | %18,8 | %18,8 (üç satır, satır aralığı 1,0; Ç çengeli Ü noktalarına değmiyor) | %12 (4 kelime denemesi) |
+| Odak (`odak.py`) | yazı, 2./1. 0,83 | yazı (x%22 y%32), ikinci odak yüz 0,84 | değişmedi |
+| Hassasiyet | temiz | temiz ("gerçek yüz" deyimi; dinî ya da argo okuması yok) | temiz |
+
+- **Karar:** A2 eski A'nın yerine geçer (`kapak/kapak_a2.jpg`; kod `lib/kapak.js`, eski yazı `o.satir` ile). Görüntü aynı, yalnız yazı değişti. B formüle uyuyor, değişmedi. Test iki ayrı vaadi karşılaştırır: gizlenen yüz (A2) ile başlatan cümle (B).
+- **Başlık değişmez:** formüle uyuyor (tanıdık kapı önde, kişisel soru, 42 karakter) ve filmin ilk ve son cümlesi. Sorun başlıkta değil, onu tekrar eden kapak yazısındaydı.
+- Video YouTube'a yüklü (28 Kasım); kapak dosyası Studio'da "Test ve karşılaştır"a yayından önce değiştirilir, video yeniden yüklenmez.
+
 ## Fable danışmaları
 - Üretim sırasında yok (takılınan yer olmadı). Son yorum `geriye_bakis.md`'de.

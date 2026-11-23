@@ -1,5 +1,5 @@
 // Kapaklar (1920×1080 çizilir, 1280×720 kaydedilir). Kullanım: kapak.html?render=1 → window.kapak('A'|'B', o)
-// A "ortadan başlamak": kilitli odada örtünün köşesi kalkmış; altında renkli tuvalde çökmüş yüzün bir gözü (tek renk = portre). Yazı: KİMSE GÖRMEDİ.
+// A "ortadan başlamak": kilitli odada örtünün köşesi kalkmış; altında renkli tuvalde çökmüş yüzün bir gözü (tek renk = portre). Yazı: GERÇEK YÜZÜ BURADA (23 Kasım; eskisi KİMSE GÖRMEDİ).
 // B "A, B'yi etkiliyor": Lord Henry'nin sigara dumanı genç Dorian'ın kulağına uzanır; arkada şövalede genç portre. Yazı (4–6 kelime denemesi): HER ŞEY BİR CÜMLEYLE BAŞLADI.
 'use strict';
 (function () {
@@ -46,7 +46,7 @@
       GR.restore();
       
     });
-    yazi(ctx, ['KİMSE', 'GÖRMEDİ'], o.tx ?? 44, o.ty ?? 430, o.px ?? 290, { ls: o.ls ?? -7 });   // İ çerçeve kenarına binmesin (Fable)
+    yazi(ctx, o.satir || ['GERÇEK', 'YÜZÜ', 'BURADA'], o.tx ?? 44, o.ty ?? 310, o.px ?? 290, { ls: o.ls ?? -4, lh: o.lh ?? 1.0 });   // 23 Kasım: 'KİMSE GÖRMEDİ' başlığı tekrar ediyordu (kapak merak açar, başlık tamamlar); eski yazı o.satir ile   // İ çerçeve kenarına binmesin (Fable)
   }
   function kapakB(ctx, o) {
     const cam = CAM(o.cx ?? 1040, o.cy ?? 420, o.z ?? .95); let Mf;

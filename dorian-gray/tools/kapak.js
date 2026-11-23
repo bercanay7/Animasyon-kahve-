@@ -7,7 +7,7 @@ const { chromium } = require('playwright'); const fs = require('fs'), path = req
     const p = await br.newPage({ viewport: { width: 1920, height: 1080 } }); p.on('pageerror', e => console.log('[hata]', e.message));
     await p.goto(`http://127.0.0.1:${srv.address().port}/dorian-gray/kapak.html?render=1`);
     await p.waitForFunction(() => window.READY || window.HATA, null, { timeout: 300000 });
-    await p.evaluate(() => document.fonts.load('400 200px "Bebas Neue"', 'KİMSE GÖRMEDİ ŞÜ'));
+    await p.evaluate(() => document.fonts.load('400 200px "Bebas Neue"', 'KİMSE GÖRMEDİ GERÇEK YÜZÜ BURADA ŞÜÇ'));
     for (let i = 0; i < args.length; i += 2) {
       const v = args[i], o = JSON.parse(args[i + 1] || '{}'), ad = (o.ad || v);
       const b64 = await p.evaluate(([v, o]) => window.kapak(v, o).toDataURL('image/png').split(',')[1], [v, o]);
