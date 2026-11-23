@@ -46,7 +46,7 @@
 - Kulakla son onay kullanıcıda (`yayin.md` → "Kulakla bakılacaklar").
 - Shorts yapılmadı (isteğe bağlı; aday kesitler `youtube.md`).
 - Leyster'in lale kitabı indirilemedi; ileride C bölümüne ikinci gerçek görsel olarak eklenebilir.
-- Sonuçlar 48. saat (4 Aralık) ve 7. gün (9 Aralık) verisiyle bu dosyaya ve `analiz/tahminler.md`'ye (L1–L3) yazılır: Türkçe boşluk ölçütünün ilk sınaması.
+- Sonuçlar 48. saat (8 Aralık) ve 7. gün (13 Aralık; yayın Gılgamış öne alındığı için 6 Aralık'a kaydı) verisiyle bu dosyaya ve `analiz/tahminler.md`'ye (L1–L3) yazılır: Türkçe boşluk ölçütünün ilk sınaması.
 
 ## Dersler (kanal için; 23 Kasım'a kadar CLAUDE.md'deydi, kullanıcının kararıyla buraya taşındı)
 CLAUDE.md başka bir oturumda sadeleştirildi (93 KB → 22 KB; ayrıntı `kanal/` altında). Bu videonun dersleri burada tutulur.

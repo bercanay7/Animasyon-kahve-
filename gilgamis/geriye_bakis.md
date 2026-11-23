@@ -67,4 +67,4 @@ Bu video bir deneyin yarısıydı (`analiz/2026-11-23-deney-yon-promptu.md`): ot
 ## Açık kalanlar
 - Kulakla son onay kullanıcıda (`yayin.md` → "Kulakla bakılacaklar").
 - Shorts yapılmadı (adaylar `youtube.md`).
-- Yayın: 6 Aralık 2026 18:00. Sonuçlar 48. saat (8 Aralık) ve 7. gün (13 Aralık) verisiyle `analiz/tahminler.md` (G1–G3) ve deney tablosuna (`analiz/2026-11-23-deney-yon-promptu.md`) yazılır.
+- Yayın: 2 Aralık 2026 18:00 (kullanıcı, 23 Kasım: Lale'den önce; ilk karar 6 Aralık'tı). Sonuçlar 48. saat (4 Aralık) ve 7. gün (9 Aralık) verisiyle `analiz/tahminler.md` (G1–G3) ve deney tablosuna (`analiz/2026-11-23-deney-yon-promptu.md`) yazılır.

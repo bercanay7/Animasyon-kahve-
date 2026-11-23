@@ -3,8 +3,8 @@
 Yükleme YouTube Studio'da bilgisayardan yapılır. YouTube'un kendi zamanlaması kullanıldığı için yükleme bittikten sonra bilgisayarın açık kalması gerekmez.
 
 ## Zamanlama (Europe/Istanbul)
-- **Uzun video:** 6 Aralık 2026 Cumartesi, 18:00 (kullanıcının kararı, 23 Kasım; Lale Çılgınlığı 2 Aralık'tan dört gün sonra).
-- **Ölçüm:** 48. saat 8 Aralık 18:00; 7. gün 13 Aralık. Lale'nin 48. saat ölçümü (4 Aralık) bu video yayına girmeden alınır.
+- **Uzun video:** 2 Aralık 2026 Çarşamba, 18:00 (kullanıcının kararı, 23 Kasım: Gılgamış Lale Çılgınlığı'ndan önce çıkar; dört günde bir: Narkissos 24 Kasım, Dorian Gray 28 Kasım, Gılgamış 2 Aralık, Lale Çılgınlığı 6 Aralık).
+- **Ölçüm:** 48. saat 4 Aralık 18:00; 7. gün 9 Aralık (6 Aralık'ta çıkan Lale'yle üst üste biner; bilerek okunur). Dorian Gray'in 48. saat ölçümü (30 Kasım) bu video yayına girmeden alınır.
 
 ## Dosyalar
 | Dosya | Ne için |
@@ -31,11 +31,11 @@ Yükleme YouTube Studio'da bilgisayardan yapılır. YouTube'un kendi zamanlamas�
    - **Bitiş ekranı:** 10:57'den sona (20 sn). Anlatımdaki "ekranda" sözcüğü 11:00'de, yani bitiş ekranının içinde. Son karede (render'dan bakıldı) **sol yarı boş** kil zemin (x < 1080); **sağ yarıda** pişmiş tuğla sur ve burçların üstünde küçük Gılgamış figürü var. Öğeler sol yarıya: video öğesi üstte, "Abone ol" altında
    - **Video öğesi:** "Belirli video: Sisifos'u Neden Mutlu Hayal Etmeliyiz?" (anlatım "Sisifos, ekranda" diyor).
    - **"Kanalda ayrıca" satırı:** açıklamadaki Sisifos satırının sonuna videonun adresini yapıştır.
-4. **Görünürlük:** Planla → 06.12.2026, 18:00 (GMT+3) → **Planla**.
+4. **Görünürlük:** Planla → 02.12.2026, 18:00 (GMT+3) → **Planla**.
 
 ## 2. Yayından sonra
 - **Sabit yorum:** `youtube.md` → "Sabit yorum" (tufanla ilgili dinî karşılaştırma tartışmasını önceden çerçeveler).
-- **Ölçüm:** 48. saatte (8 Aralık) `analiz/tahminler.md` → "Gılgamış" (G1–G3) ve `analiz/2026-11-23-deney-yon-promptu.md` deney tablosu doldurulur.
+- **Ölçüm:** 48. saatte (4 Aralık) `analiz/tahminler.md` → "Gılgamış" (G1–G3) ve `analiz/2026-11-23-deney-yon-promptu.md` deney tablosu doldurulur.
 
 ## Kulakla bakılacaklar (kullanıcı)
 Sessizliğe dayalı hizalama kullanıldı; seslendirme kelime kelime dinlenmedi.

@@ -13,6 +13,6 @@
 8. **Kartlar (isteğe bağlı):** 7:39 ("Güzellik bir lanet miydi?") → Narkissos videosu.
 9. **Oynatma listesi:** "Kitapların Sorduğu Sorular".
 10. **Sabit yorum:** `youtube.md` → "Sabit yorum".
-11. **Zamanlama (kullanıcının kararı, 23 Kasım):** **28 Kasım 2026, 18:00** (Narkissos 24 Kasım, Lale Çılgınlığı 2 Aralık; dört günde bir). 48. saat = 30 Kasım 18:00, 7. gün = 5 Aralık. **Studio'da zamanlanmışsa tarihi orada da değiştir.**
+11. **Zamanlama (kullanıcının kararı, 23 Kasım):** **28 Kasım 2026, 18:00** (Narkissos 24 Kasım, Gılgamış 2 Aralık, Lale Çılgınlığı 6 Aralık; dört günde bir). 48. saat = 30 Kasım 18:00, 7. gün = 5 Aralık. **Studio'da zamanlanmışsa tarihi orada da değiştir.**
 12. **Telif notu:** görseller kamu malı (Met Open Access CC0; archive.org taramaları, 1872 ve 1890 basımlar); müzik ve efektler özgün sentez; portre boya motoru MIT lisanslı. Content ID itirazı gelirse açıklamadaki künye ve `kaynak/GORSELLER.md` kanıttır.
 13. **Hassasiyet notu:** cinayet ve ölüm gölgeyle anlatılır; kan, yara ve beden gösterilmez (yerdeki adam yalnız yüzüklü bir el). Dergi sayfasında "kendimi öldürürüm" satırı kadraj dışında bırakıldı. Wilde'ın mahkûmiyeti tek cümle, olgu olarak ("o dönemin İngiltere'sinde suç sayılan, erkeklerle ilişkileri yüzünden"); yargı yok.

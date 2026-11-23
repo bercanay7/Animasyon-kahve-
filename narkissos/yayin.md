@@ -15,5 +15,5 @@
 8. **Kart (isteğe bağlı):** 7:13'te ("Freud") ya da 8:16'da → Sisifos videosu.
 9. **Oynatma listesi:** "Mitler ve Felsefe".
 10. **Sabit yorum:** `youtube.md` → "Sabit yorum".
-11. **Zamanlama (kullanıcının kararı, 23 Kasım):** **24 Kasım 2026, 18:00.** 48. saat = 26 Kasım 18:00, 7. gün = 1 Aralık. Ran'ın 7. gün ölçümü (24 Kasım) bu video yayına girmeden alınır. Sonraki: Dorian Gray 28 Kasım, Lale Çılgınlığı 2 Aralık (dört günde bir). **Studio'da zamanlanmışsa tarihi orada da değiştir.**
+11. **Zamanlama (kullanıcının kararı, 23 Kasım):** **24 Kasım 2026, 18:00.** 48. saat = 26 Kasım 18:00, 7. gün = 1 Aralık. Ran'ın 7. gün ölçümü (24 Kasım) bu video yayına girmeden alınır. Sonraki: Dorian Gray 28 Kasım, Gılgamış 2 Aralık, Lale Çılgınlığı 6 Aralık (dört günde bir). **Studio'da zamanlanmışsa tarihi orada da değiştir.**
 12. **48. saat ve 7. gün:** TO, 0:30'da kalan, ilk 10 saniye, göz atma testi. Kanal medyanlarıyla karşılaştır (`analiz/2026-11-17-kanal-ortalamasi.md`). Bu video "yeni kapı" sınaması: talep (a) güçlü, (b) güçlü.

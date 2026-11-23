@@ -153,7 +153,7 @@ Art arda soyut dizi yok; köprü adayı yok. Kanca 596 karakter (≈ 44 sn; hik�
 **İkinci yarıda yeni adlar:** Mackay (F04), Goldgar (F08), Ahmed Refik ve Yahya Kemal (I03), Karahasanoğlu (I07). Doruğu taşıyan İbrahim Paşa ve Patrona Halil kancada (A06) ekildi. Ahmed Refik kancada adıyla ekilmez (cevabı ele verir); A07'nin görüntüsünde bir gazete sayfası ekilir. I. Mahmud, İkdam, Busbecq, Clusius, Winkel, Aktepe yalnız ekran etiketinde.
 
 ## 8. Seslendirme (22 Kasım 2026)
-- **Onay:** kullanıcı (AskUserQuestion: "Onaylıyorum (2 çekim)"); yayın tarihi de aynı soruda kesinleşti: **11 Aralık 2026 Cuma 18:00**. **23 Kasım'da kullanıcı takvimi dört günde bire çekti: yayın 2 Aralık 2026 18:00.**
+- **Onay:** kullanıcı (AskUserQuestion: "Onaylıyorum (2 çekim)"); yayın tarihi de aynı soruda kesinleşti: **11 Aralık 2026 Cuma 18:00**. **23 Kasım'da kullanıcı takvimi dört günde bire çekti: yayın 2 Aralık 2026 18:00.** Aynı gün Gılgamış öne alındı: **yayın 6 Aralık 2026 18:00.**
 - **Kayıt:** Emrullah (`DpEiQMnL9WxMsymCsjPY`, `creative_list_voices` ile doğrulandı), `eleven_v4`, 10 bölüm × 2 çekim, **15.652 kredi** (tahminle aynı). Akış `AZ5lxSbphcK9gLwe2CoA`, ayrıntı `vo/indirme.json`. Eşzamanlılık sınırına takılan çekimleri sistem kendisi yeniden denedi (ek ücret yok).
 - **Hizalama:** Scribe çağrısı (tahmin 0 kredi) otomatik izin denetleyicisince durduruldu; yerine sessizliğe dayalı cümle hizalaması (`tools/hizala_cumle.py`, Narkissos). Bütün cümle hızları 0,055–0,095 sn/harf bandında; tek aykırılık s06_a'da G04 (0,097; "Nizeyi Rummani" hızlı) → s06'da b çekimi, ötekilerde a (`vo/secim.json`).
 - **Anlatım izi:** `vo/vo.wav` **10:01,9**; hikâye B01'de **0:44,6** (kural ≤ 0:45); "ekranda" 9:45,8 (bitiş ekranı 9:45,8–10:01,9).
