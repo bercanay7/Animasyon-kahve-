@@ -36,4 +36,8 @@
 | 48. saat: 0:30'da kalan, ortalama izlenme %, TO | | |
 | 7. gün: aynı ölçüler | | |
 
+**İkinci fark (23 Kasım, sonradan oldu):**
+- Lale oturumu eski CLAUDE.md'yle (93 KB) açıldı. Gılgamış sadeleştirilmiş CLAUDE.md'yle (22 KB) açılacak.
+- Yani deney artık "ayrıntılı ortam + ayrıntılı prompt" ile "sade ortam + yön" arasında. Bir sonuç çıkarsa yalnız prompta bağlanmaz.
+
 **Uyarı:** konular farklı olduğu için bu kontrollü bir deney değil. Tek çiftten kural çıkmaz; ipucu çıkar. Sonuç iki üç çiftte aynı yöne giderse CLAUDE.md'ye yazılır.
