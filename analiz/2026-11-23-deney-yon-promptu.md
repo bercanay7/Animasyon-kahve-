@@ -38,6 +38,7 @@
 
 **Ortam (23 Kasım):**
 - İki oturum da sadeleştirmeden önce açıldı, ikisi de eski CLAUDE.md'yle (93 KB) çalışıyor. Ortam sabit; değişen yalnız ilk metin.
+- Gılgamış oturumu üretimin başında `main`'i alıp sadeleştirilmiş CLAUDE.md'yi okuyacak. İçinde Lale'nin yeni kuralları da var: fikir sorma, yeni hassasiyet simgeleri, `film.js`. Lale bunları kendi üretti; Gılgamış hazır alıyor. Fark küçük ama kayıtta dursun.
 - İkisine de aynı ortam notu verildi: CLAUDE.md'ye dokunma, alt ajanlar takdirinde, yayın tarihi. Not yaratıcı yön değil, ikisinde de aynı.
 
 **Uyarı:** konular farklı olduğu için bu kontrollü bir deney değil. Tek çiftten kural çıkmaz; ipucu çıkar. Sonuç iki üç çiftte aynı yöne giderse CLAUDE.md'ye yazılır.
