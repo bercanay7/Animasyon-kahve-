@@ -26,7 +26,7 @@ Gılgamış için `gilgamis/vo/vo.wav` önce filmin kendi aracıyla üretilir (`
 - `gilgamis/core_dikey.js`: filmin `core.js`'i, yalnız W×H = 1080×1920. `gilgamis/sahneler.js`: altı dikey plan.
 
 ## Kurallar (bu serinin)
-- **Şart ilk saniyede:** yazı ilk karede tam görünür (giriş animasyonu yok); ses en geç 1,5 sn'de şartın sözcüğüne girer.
+- **Şart ilk saniyede:** yazı ilk karede tam görünür (giriş animasyonu yok). Sesin şarta girdiği an eldeki kayda bağlı: Gılgamış'ta "altı gün" 1,0 sn'de, Narkissos'ta "şarttır" 1,6 sn'de, "Kendini tanımazsa" 3,0 sn'de (kayıtlı cümle böyle başlıyor; yeni seslendirme yapılmadı, bkz. `geriye_bakis.md`).
 - **Ses filmden, müzik yeni:** anlatım kesitleri gerçek duraklamalarda kesilir (`ses.py` kelime bölünürse uyarır). Müzik her Shorts için o Shorts'un zaman çizelgesine yazılır; filmin müziğini kesmek kesit uçlarında sıçrar.
 - **Döngü:** son kare ile ilk kare aynı mekânda/tonda; müzik son 0,8 sn söner, ilk 20 ms'de açılır (tıkırtısız başa dönüş).
 - **Güvenli alan:** yazılar x 140–940, y 220–1440 (üstte arama çubuğu, sağda düğmeler, altta başlık ve kanal adı).
