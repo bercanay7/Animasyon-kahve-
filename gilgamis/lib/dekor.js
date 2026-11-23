@@ -13,7 +13,7 @@ const DK = {};
   DK.tugla = (R, x0, y0, x1, y1, o = {}) => {
     const bw = o.bw || 64, bh = o.bh || 26, z = o.z ?? .45;
     R.b.fillStyle = gv(z); R.b.fillRect(x0, y0, x1 - x0, y1 - y0);
-    if (o.renk) { R.m.fillStyle = o.renk; R.m.fillRect(x0, y0, x1 - x0, y1 - y0); }
+    R.m.fillStyle = o.renk || R.T.kil; R.m.fillRect(x0, y0, x1 - x0, y1 - y0);
     const r = rng(o.tohum || 3);
     R.d.strokeStyle = dv(-.75); R.d.lineWidth = o.lw || 3;
     for (let y = y0, row = 0; y < y1; y += bh, row++) {

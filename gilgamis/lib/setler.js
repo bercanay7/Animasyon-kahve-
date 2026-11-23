@@ -34,7 +34,7 @@ const SET = {}, YAR = {};
   // ev (düz damlı kerpiç), kapılı
   SET.ev = (R, x, y, w, h, o = {}) => {
     const z = o.z ?? .45;
-    R.b.fillStyle = gv(z); R.b.fillRect(x, y - h, w, h);
+    R.b.fillStyle = gv(z); R.b.fillRect(x, y - h, w, h); R.m.fillStyle = R.T.kil; R.m.fillRect(x, y - h, w, h); R.d.fillStyle = R.T.kilPd; R.d.fillRect(x, y - h, w, h);
     cizgi(R, [[x, y - h], [x + w, y - h]], 4, .6); cizgi(R, [[x, y - h], [x, y]], 3, -.6); cizgi(R, [[x + w, y - h], [x + w, y]], 3, -.6);
     R.b.fillStyle = gv(z - .2); const dx = x + w * (o.kapi ?? .35), dw = Math.min(70, w * .25); R.b.fillRect(dx, y - h * .55, dw, h * .55);
     for (let k = 0; k < (o.kiris ?? 5); k++) { R.b.fillStyle = gv(z + .06); R.b.beginPath(); R.b.arc(x + 20 + k * (w - 40) / 4, y - h + 14, 7, 0, TAU); R.b.fill(); } // dam kirişleri

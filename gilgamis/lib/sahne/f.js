@@ -20,7 +20,7 @@
     const tk = rel(st, 'F03@fısıldadı'), tg = rel(st, 'F03@gemi');
     K(R, st, [1250, 640, 1.2], [1300, 640, 1.25]);
     SET.zemin(R); DK.friz(R, -600, 2600, 120, 960);
-    for (let i = 0; i < 4; i++) SET.tac(R, 400 + i * 230, 470, 180);
+    for (let i = 0; i < 4; i++) { const [sx, sy] = R.scr(400 + i * 230, 330); R.L.pts.push({ x: sx, y: sy, z: 260 * R.z, r: 420 * R.z, i: .45, col: [1.15, 1.0, .8] }); R.after(c => { c.globalCompositeOperation = 'screen'; const g = c.createRadialGradient(400 + i * 230, 330, 4, 400 + i * 230, 330, 120); g.addColorStop(0, 'rgba(255,236,190,.6)'); g.addColorStop(1, 'rgba(255,200,120,0)'); c.fillStyle = g; c.fillRect(280 + i * 230, 210, 240, 240); }); }
     DK.kamis(R, 1250, 870, 330, 9, .55);
     const p = clamp((st.lt - tg) / 2);
     if (p < .5) SET.ev(R, 1450, 870, 360, 300, {}); else DK.kayik(R, 1640, 860, 600 * E.out3((p - .5) * 2), {});
@@ -70,7 +70,7 @@
     K(R, st, [900, 540, 1.1], [880, 560, 1.2]);
     const p = clamp(st.lt / 1.5); UYKU(R, st, { uyku: p > .5 });
     R.L.int = lerp(1, .55, p);
-    R.after(c => { c.globalCompositeOperation = 'screen'; c.fillStyle = `rgba(220,210,200,${.25 * p})`; for (let i = 0; i < 5; i++) { c.beginPath(); c.ellipse(500 + i * 300 + Math.sin(st.t * .3 + i) * 60, 600 + Math.sin(i) * 120, 340, 120, 0, 0, TAU); c.fill(); } });
+    R.after(c => { c.globalCompositeOperation = 'screen'; for (let i = 0; i < 4; i++) { const yy = 420 + i * 140 + Math.sin(st.t * .4 + i) * 20, g = c.createLinearGradient(0, yy - 90, 0, yy + 90); g.addColorStop(0, 'rgba(220,210,200,0)'); g.addColorStop(.5, `rgba(220,210,200,${.13 * p})`); g.addColorStop(1, 'rgba(220,210,200,0)'); c.fillStyle = g; c.fillRect(-500, yy - 90, 2900, 180); } });
   });
   // F08: karısı her gün bir ekmek pişirir, duvara çizer
   sahne('F08a', 'F08', 'uyku', 'genis', (R, st) => {

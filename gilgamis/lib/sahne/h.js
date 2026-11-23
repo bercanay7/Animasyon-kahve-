@@ -108,7 +108,7 @@
     for (let k = 0; k < ptsY.length; k += 3) { R.b.fillStyle = gv(.62); R.b.beginPath(); R.b.arc(ptsY[k][0], ptsY[k][1], 7, 0, TAU); R.b.fill(); }
     for (const [q, r] of [[U, 24], [Hp, 24 * clamp(p * 4 - 3)]]) if (r > 0) { R.b.fillStyle = gv(.66); R.b.beginPath(); R.b.arc(q[0], q[1], r, 0, TAU); R.b.fill(); FIG.cizgi(R, [[q[0] - r * .5, q[1]], [q[0] + r * .5, q[1]]], 4, -.7); }
     R.L.dir = [-.6, -.5, .6];
-  }, { tr: { type: 'muhur', dur: .8 }, over: (c, st) => { etiket(c, 'URUK', 1400, 820, st.lt, 99, { px: 40 }); etiket(c, 'HATTUŞA · Çorum', 600, 330, st.lt - rel(st, 'H08@hattuşa'), 99, { px: 44 }); } });
+  }, { tr: { type: 'muhur', dur: .8 }, over: (c, st) => { etiket(c, 'URUK', 1400, 820, st.lt, 99, { px: 40 }); etiket(c, 'HATTUŞA · Boğazkale, Çorum', 600, 330, st.lt - rel(st, 'H08@hattuşa'), 99, { px: 44 }); } });
   // H09: sur üstünde yabancı; sonra yer boşalır ve kile bir parmak izi basılır ("o yabancı sensin")
   sahne('H09a', 'H09', 'surustu', 'orta', (R, st) => {
     const ts = rel(st, 'H09@sensin') - .4, p = clamp((st.lt - ts) / 1.2);
