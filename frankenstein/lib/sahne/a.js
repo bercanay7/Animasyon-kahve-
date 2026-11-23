@@ -66,10 +66,9 @@
   sahne('A04a', 'A04', 'masa', 'genis', (R, st) => {
     R.cam(900, 560, 1.0 + st.lt * .01);
     SET.masa(R, st, {});
-    DK.yagmur(R, st.t, { a: .1, n: 40 });
+    DK.yagmur(R, st.t, { a: .14, n: 40, kutu: [1250, 110, 340, 500] });
     const yaz = Math.sin(st.lt * 6) * .04;
     FIG.kisi(R, 560, 960, 500, { tip: 'mary', f: 1, bacak: 'otur', govde: .25, bas: .3, kolO: [1.3 + yaz, 1.0], kolA: [1.0, 1.2] });
-    DK.sandalye(R, 470, 700, .9);
     R.isikli(g => g.rect(720, 626, 170, 12), '#F1E6C9');
     DK.mum(R, 1080, 640, 150, { t: st.t });
   }, { fener: { isik: { x: 820, y: 560, r: 620, sic: [1, .88, .66] }, kadraj: { tip: 'oval', x: 900, y: 540, w: 1500, h: 960, yum: 40 } },

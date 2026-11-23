@@ -33,17 +33,17 @@ const FIG = (() => {
     koylu: { olc: 1, giysi: 'yelek', sac: 'sapka', ince: 1.08 },
     ihtiyar: { olc: .95, giysi: 'cubbe', sac: 'uzun2', ince: 1, sakal: 1, kambur: .12 },
     mary: { olc: .93, giysi: 'elbise', sac: 'topuz', ince: .88, kadin: 1 },
-    kiz: { olc: .91, giysi: 'elbise2', sac: 'ortu', ince: .9, kadin: 1 },
+    kiz: { olc: .91, giysi: 'elbise2', sac: 'topuz2', ince: .9, kadin: 1 },
     cocuk: { olc: .58, giysi: 'yelek', sac: 'kisa', ince: 1.05, cocuk: 1 },
   };
   // baş (yerel; merkez 0,0, yaklaşık yarıçap 6,4; +x yüz). yr: yaratık (uzun çene, çökük yanak)
   function bas(g, tp, o, yr) {
-    const prof = yr ? [[-6.2, -1.5], [-5, -6.8], [-1, -8.6], [3.2, -7.6], [5.6, -4.6], [5.9, -2.4], [7.2, .4], [6, 1.2], [6.2, 2.4], [5.5, 3.1], [5.7, 4.6], [5, 6.4], [2.6, 8.2], [-.4, 7.6], [-3.6, 5.2], [-5.8, 2.4]]
+    const prof = yr ? [[-6.2, -1.5], [-5, -6.8], [-1, -8.6], [3.2, -7.6], [5.6, -4.6], [5.9, -2.4], [7.2, .4], [6, 1.2], [6.1, 2.3], [5.4, 2.8], [5.5, 4], [4.6, 5.4], [2.2, 6.4], [-.8, 6], [-3.8, 4.4], [-5.8, 2]]
       : tp.cocuk ? [[-6.4, -.8], [-5.4, -6.6], [-1, -8.4], [3.4, -7], [5.6, -3.8], [5.8, -1.6], [6.8, .8], [5.6, 1.6], [5.8, 2.6], [5, 3.4], [5, 4.6], [2.6, 6.2], [-1.6, 6], [-5, 3]]
       : [[-6, -1.4], [-4.8, -6.6], [-.8, -8.2], [3.2, -7.2], [5.3, -4.4], [5.6, -2], [7, .6], [5.7, 1.4], [5.9, 2.6], [5.2, 3.2], [5.3, 4.6], [4.4, 6], [2, 7.2], [-1.4, 6.6], [-4.6, 3.8]];
     P(g, prof, .95); g.fill();
     const sw = o.sac || 0;
-    if (tp.sac === 'uzun') { P(g, [[-6.4, -2.6], [-4.6, -8.2], [.6, -9.8], [4.4, -8.2], [5.6, -6.2], [2.6, -6.6], [-.8, -5.6], [-2.4, -1], [-2.8, 6], [-4 - sw * 2, 13], [-6.4 - sw * 4, 19], [-8.6 - sw * 5, 16], [-9.4 - sw * 4, 9], [-8.4, 2]], .85); g.fill(); }
+    if (tp.sac === 'uzun') { P(g, [[-6.4, -2.6], [-4.6, -8.2], [.6, -9.8], [4.4, -8.2], [5.6, -6.2], [2.6, -6.6], [-.8, -5.6], [-2.6, -1], [-3.2, 5], [-4.4 - sw * 2, 10.5], [-6.6 - sw * 3, 13], [-8.6 - sw * 4, 10], [-8.8 - sw * 2, 4], [-8, 0]], .85); g.fill(); }
     else if (tp.sac === 'uzun2') { P(g, [[-6.4, -2.4], [-4.8, -7.8], [.4, -9], [3.6, -7.6], [1.4, -6.6], [-1.6, -5], [-3, 1], [-4.6, 8], [-7.8, 9], [-8.4, 3]], .85); g.fill(); }
     else if (tp.sac === 'kisa') { P(g, [[-6.4, -1.4], [-5.2, -7.6], [.6, -9.4], [4.6, -7.6], [5.2, -5.6], [2.4, -6.4], [.4, -5], [-2.4, -4.4], [-4.6, .8]], .85); g.fill(); }
     else if (tp.sac === 'daginik') { P(g, [[-6.8, -.6], [-6.8, -6.4], [-3.4, -10], [1, -10.6], [4.6, -9.2], [6.4, -6.6], [3.6, -6.2], [.4, -5.2], [-2.8, -3.4], [-4.6, 2.6]], .8); g.fill(); }
@@ -51,6 +51,7 @@ const FIG = (() => {
     else if (tp.sac === 'topuz') { P(g, [[-6.2, -1], [-5, -7.4], [.8, -9.2], [4.4, -7.6], [5.2, -5.6], [2.6, -6], [-.4, -4.6], [-3, -.6], [-4, 3]], .85); g.fill();
       g.beginPath(); g.ellipse(-6.6, -6.4, 3.4, 3.1, .3, 0, TAU); g.fill();
       for (let i = 0; i < 3; i++) { g.beginPath(); g.ellipse(4.6 - i * .5, -4.8 + i * 2.2, 1.2, 1.5, 0, 0, TAU); g.fill(); } }
+    else if (tp.sac === 'topuz2') { P(g, [[-6.2, -1], [-5, -7.4], [.8, -9.2], [4.4, -7.6], [5.2, -5.6], [2.6, -6], [-.4, -4.6], [-3, -.6], [-4, 2]], .85); g.fill(); g.beginPath(); g.ellipse(-6.8, -3.6, 3, 2.8, .3, 0, TAU); g.fill(); }
     else if (tp.sac === 'ortu') { P(g, [[-6.8, -.4], [-5.4, -8.4], [1, -10], [4.8, -8.2], [5.8, -5.6], [3.6, -5.6], [-1.6, -4.2], [-3.4, 3], [-5.6, 8], [-8.4, 6]], .85); g.fill(); }
     else if (tp.sac === 'sapka') { P(g, [[-9, -6], [8.4, -6.4], [8.4, -5.2], [4.6, -5.2], [4.4, -10.4], [-4.6, -10.6], [-5, -5.2], [-9, -5]], .7); g.fill(); }
     if (tp.sakal) { P(g, [[5.2, 3.4], [6, 6.6], [4.6, 11.4], [1.6, 13.4], [-1.2, 10.4], [-2.4, 6.6], [1, 7.4]], .85); g.fill(); }
@@ -82,6 +83,7 @@ const FIG = (() => {
     const basM = rot([gx + 2.6, omuzY - 10.6]);
     const kA = o.kolA || [-.12, .28], kO = o.kolO || [.1, .32], L1 = 16, L2 = 14.5, elS = tp.el || 1;
     const kolCiz = (kk, arka) => {
+      if (kk[0] < .32 && !o.serbest) kk = [Math.min(kk[0], -.04), Math.min(kk[1], .12)];
       const sp = [omuz[0] + (arka ? -1 : 1), omuz[1] + 1.5];
       const [d, e] = kol(sp, kk[0] - govde, kk[1], L1, L2);
       const w = (yr ? 3.4 : tp.kadin ? 3.2 : 4.2) * ince;
@@ -96,6 +98,9 @@ const FIG = (() => {
     // ---- bacaklar (etekli değilse) ----
     const ayakkabi = (a, uz = 1) => { g.beginPath(); g.moveTo(a[0] - 2.6, a[1] - 1.4); g.quadraticCurveTo(a[0] + 2, a[1] - 2.2, a[0] + 6.6 * uz, a[1] + 1.6); g.lineTo(a[0] + 6.6 * uz, a[1] + 2.8); g.lineTo(a[0] - 2.4, a[1] + 2.8); g.closePath(); g.fill(); };
     const bacak = (k, d, a, w) => { uzuv(g, k, d, w * 1.25, w * .9); uzuv(g, d, a, w * .9, w * .55); ayakkabi(a, yr ? 1.15 : 1); };
+    if (b === 'otur' && o.sandalye !== false) { g.save(); g.fillStyle = o.sandalyeRenk || renk;
+      g.fillRect(kalca[0] - 9, kalca[1] + 2, 20, 2.6); g.fillRect(kalca[0] - 8.6, kalca[1] + 4, 2, -kalca[1] - 4); g.fillRect(kalca[0] + 8.4, kalca[1] + 4, 2, -kalca[1] - 4);
+      g.fillRect(kalca[0] - 10.6, kalca[1] - 26, 2.2, 30); g.restore(); }
     const etekli = tp.kadin || tp.giysi === 'cubbe';
     if (!etekli) { const w = (yr ? 4.2 : 5) * ince; bacak([kalca[0] - .5, kalca[1]], diz[1], ayak[1], w); bacak([kalca[0] + .5, kalca[1]], diz[0], ayak[0], w); }
     // ---- gövde ----
@@ -120,8 +125,8 @@ const FIG = (() => {
       if (tp.giysi === 'palto') P2(g, [[gx - 10, kalca[1] + 30], T(-5.6, 18), T(5.6, 18), [gx + 9, kalca[1] + 30]], []), g.fill();
       if (tp.yaka) P(g, [T(.6, -3), T(5.6, -7.2), T(5.8, -2), T(3.8, .6)], .85), g.fill();                           // açık yaka (şair)
       if (yr) { // yırtık pelerin: omuzlardan sırta, dize kadar; saçaklı kenar; salınım
-        const sw = (o.pel || 0) * 4, alt = []; for (let i = 0; i <= 9; i++) { const u = i / 9; alt.push([lerp(gx + 7, gx - 12, u) + sw * u, kalca[1] + 24 + (i % 2 ? -5 : 1.5) + Math.sin(i * 2.3) * 1.6]); }
-        P(g, [T(-6.4, 0), T(-1.6, -1.6), T(1.6, 1.4), T(2.6, 12), [gx + 5.4, kalca[1] + 12], ...alt, T(-9.4, 22), T(-8.4, 8)], .7); g.fill();   // pelerin sırtta; göğüs ve bel önden görünür
+        const sw = (o.pel || 0) * 4, alt = []; for (let i = 0; i <= 9; i++) { const u = i / 9; alt.push([lerp(gx + 6, gx - 11, u) + sw * u, kalca[1] + 12 + (i % 2 ? -4 : 1.5) + Math.sin(i * 2.3) * 1.4]); }
+        P(g, [T(-6.4, 0), T(-1.6, -1.6), T(1.6, 1.4), T(2.6, 12), [gx + 5, kalca[1] + 4], ...alt, T(-9, 22), T(-8.4, 8)], .7); g.fill();   // pelerin sırtta; göğüs ve bel önden görünür
       }
     }
     // ---- boyun ve baş ----
@@ -143,7 +148,7 @@ const FIG = (() => {
     const nf = o.nefes || 0;
     P(g, [[-44, -3], [-40, -10], [-28, -12 - nf], [-14, -11.5 - nf * 1.2], [-2, -8], [10, -8.5], [24, -7], [40, -5.6], [48, -9], [52, -8], [52, 0], [-44, 0]], .8); g.fill();
     g.beginPath(); g.ellipse(-51, -6.4, 7, 6, 0, 0, TAU); g.fill();
-    P(g, [[-53, -11], [-52, -14.6], [-49.6, -13.2], [-47.6, -15.6], [-46.4, -12.6], [-44.6, -10.4], [-45, -6]], .8); g.fill();   // yukarı bakan profil (alın, burun, çene)
+    if (o.profil !== false) { P(g, [[-55, -10], [-52, -12.2], [-49, -12.4], [-47.8, -13.6], [-46.2, -11.6], [-45.2, -9], [-45.6, -5]], .9); g.fill(); }   // yukarı bakan profil (alın, burun, çene)
     if (o.kadin) { P(g, [[-57, -9], [-62, -12], [-68, -8], [-70, -1], [-62, 2], [-55, -1]], .8); g.fill(); }
     if (o.sac) { P(g, [[-58, -8], [-53, -13], [-46, -11], [-47, -2], [-56, 1.5], [-64, 0], [-62, -5]], .8); g.fill(); }
     if (o.goz) { g.fillStyle = '#C98A2E'; g.beginPath(); g.ellipse(-49, -11.6, .9, .5 * o.goz, 0, 0, TAU); g.fill(); }

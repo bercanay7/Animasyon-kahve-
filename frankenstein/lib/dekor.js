@@ -82,7 +82,8 @@ const DK = (() => {
   // yağmur: ekrana sabit eğik ince çizgiler (slaytın üstündeki ikinci hareketli cam gibi) — kaydırmalı slayt
   function yagmur(R, t, o = {}) {
     const r = rng(o.tohum || 9), n = o.n || 160, a = o.a ?? .32;
-    R.sonra(ctx => { ctx.globalCompositeOperation = 'screen'; ctx.strokeStyle = `rgba(200,210,230,${a})`; ctx.lineWidth = 1.6; ctx.beginPath();
+    const kutu = o.kutu ? [...R.ekr(o.kutu[0], o.kutu[1]), o.kutu[2] * R._cam.s, o.kutu[3] * R._cam.s] : null;   // yalnız pencerede (dünya koordinatı)
+    R.sonra(ctx => { if (kutu) { ctx.beginPath(); ctx.rect(...kutu); ctx.clip(); } ctx.globalCompositeOperation = 'screen'; ctx.strokeStyle = `rgba(200,210,230,${a})`; ctx.lineWidth = 1.6; ctx.beginPath();
       for (let i = 0; i < n; i++) { const x0 = r() * 2200 - 100, sp = 900 + r() * 500, y0 = ((r() * 1300 + t * sp) % 1300) - 110, l = 30 + r() * 40; ctx.moveTo(x0 - y0 * .18, y0); ctx.lineTo(x0 - (y0 + l) * .18, y0 + l); } ctx.stroke(); });
   }
   // şimşek: gökte kırık ışık çizgisi + bütün slaytın parlaması; p 0..1 (çakış anından itibaren)
@@ -113,11 +114,13 @@ const DK = (() => {
   function defter(R, x, y, w, o = {}) { const h = w * .62; R.kara(g => g.rect(x - w / 2 - 6, y - 4, w + 12, 8));
     R.isikli(g => { g.moveTo(x - w / 2, y); g.quadraticCurveTo(x - w / 4, y - h * .12, x, y - 2); g.quadraticCurveTo(x + w / 4, y - h * .12, x + w / 2, y); g.lineTo(x + w / 2, y - h * .06); g.lineTo(x - w / 2, y - h * .06); g.closePath(); }, o.renk || '#EFE4C6'); }
   // beşik (boş ya da örtülü): sallanma a
-  function besik(R, x, y, s, o = {}) { const a = o.a || 0; R.g.save(); R.g.translate(x, y); R.g.rotate(a);
-    R.kara(g => { g.moveTo(-90 * s, -60 * s); g.lineTo(90 * s, -60 * s); g.lineTo(80 * s, 0); g.lineTo(-80 * s, 0); g.closePath(); g.moveTo(-100 * s, 0); g.quadraticCurveTo(0, 50 * s, 100 * s, 0); g.lineTo(100 * s, 10 * s); g.quadraticCurveTo(0, 60 * s, -100 * s, 10 * s); g.closePath(); });
-    R.kara(g => { g.moveTo(-90 * s, -60 * s); g.quadraticCurveTo(-100 * s, -130 * s, -40 * s, -130 * s); g.lineTo(-40 * s, -110 * s); g.quadraticCurveTo(-78 * s, -108 * s, -72 * s, -60 * s); g.closePath(); });
-    if (o.ortu) R.yika(g => { g.moveTo(-70 * s, -60 * s); g.quadraticCurveTo(0, -84 * s, 70 * s, -60 * s); g.closePath(); }, o.ortu, { kay: 1 });
-    R.g.restore(); }
+  function besik(R, x, y, s, o = {}) { const a = o.a || 0, g = R.g; g.save(); g.translate(x, y); g.rotate(a); g.scale(s, s);
+    R.kara(g2 => { g2.rect(-110, -80, 220, 12); g2.rect(-110, -12, 220, 14); g2.rect(-116, -150, 14, 160); g2.rect(102, -100, 14, 110); });   // kenarlar, baş ve ayak tahtası
+    for (let i = 0; i < 9; i++) R.kara(g2 => g2.rect(-96 + i * 24, -78, 7, 70));                                                       // çıtalar
+    R.kara(g2 => { g2.moveTo(-130, 10); g2.quadraticCurveTo(0, 60, 130, 10); g2.lineTo(130, 20); g2.quadraticCurveTo(0, 72, -130, 20); g2.closePath(); });   // sallanma kızağı
+    R.kara(g2 => { g2.moveTo(-116, -150); g2.quadraticCurveTo(-60, -190, -20, -150); g2.lineTo(-20, -80); g2.lineTo(-102, -80); g2.closePath(); });   // başlık
+    if (o.ortu) R.yika(g2 => g2.rect(-90, -60, 170, 40), o.ortu, { kay: 1 });
+    g.restore(); }
   // oval çerçeveli siluet portre (1790'ların siluet portresi): kadın profili, saçları başlıklı
   function portre(R, x, y, s, o = {}) {
     R.yika(g => g.ellipse(x, y, 120 * s, 150 * s, 0, 0, TAU), o.zemin || '#E9DFC6', { kay: 0 });
@@ -129,12 +132,12 @@ const DK = (() => {
   }
   // yanardağ (Tambora): koni + kül bulutu (p: patlamanın gelişimi 0..1)
   function yanardag(R, x, y, s, p, t = 0) {
-    R.kara(g => { g.moveTo(x - 520 * s, y); g.lineTo(x - 90 * s, y - 300 * s); g.lineTo(x + 90 * s, y - 300 * s); g.lineTo(x + 520 * s, y); g.closePath(); });
+    // içbükey yamaçlı, düzensiz tepeli dağ (piramit okunmasın); ağız ışığı geniş ve alçak
+    R.kara(g => { g.moveTo(x - 560 * s, y); g.quadraticCurveTo(x - 260 * s, y - 60 * s, x - 150 * s, y - 250 * s); g.lineTo(x - 90 * s, y - 280 * s); g.lineTo(x - 40 * s, y - 262 * s); g.lineTo(x + 20 * s, y - 286 * s); g.lineTo(x + 100 * s, y - 266 * s); g.quadraticCurveTo(x + 260 * s, y - 60 * s, x + 600 * s, y); g.closePath(); });
     if (p <= 0) return;
-    for (let i = 0; i < 14; i++) { const u = i / 13, rr = (60 + u * 260) * s * (.4 + .6 * p), yy = y - 300 * s - u * 900 * s * p, xx = x + Math.sin(i * 1.7 + t * .3) * 80 * s * u + u * 160 * s * p;
-      R.yika(g => g.ellipse(xx, yy, rr * 1.3, rr, 0, 0, TAU), `rgba(${110 - u * 30},${90 - u * 30},${80 - u * 20},.85)`, { kay: 0 }); }
-    R.isikli(g => { g.moveTo(x - 60 * s, y - 300 * s); g.lineTo(x, y - 360 * s - 60 * s * p); g.lineTo(x + 60 * s, y - 300 * s); g.closePath(); }, '#FFC870');
-    R.yika(g => g.ellipse(x, y - 320 * s, 110 * s, 60 * s, 0, 0, TAU), 'rgba(230,110,40,.9)', { kay: 0, firca: 0 });
+    for (let i = 0; i < 16; i++) { const u = i / 15, rr = (70 + u * 300) * s * (.4 + .6 * p), yy = y - 300 * s - u * 900 * s * p, xx = x + Math.sin(i * 1.7 + t * .3) * 90 * s * u + u * 220 * s * p;
+      R.yika(g => g.ellipse(xx, yy, rr * 1.4, rr * .9, 0, 0, TAU), `rgba(${150 - u * 30},${125 - u * 25},${110 - u * 20},.75)`, { kay: 0 }); }
+    R.yika(g => g.ellipse(x, y - 284 * s, 130 * s, 26 * s, 0, 0, TAU), 'rgba(235,120,50,.85)', { kay: 0, firca: 0 });
   }
   return { daglar, ay, gol, cam, kayin, villa, mum, ates, yagmur, simsek, pencere, perde, masa, sandalye, defter, besik, portre, yanardag, P };
 })();

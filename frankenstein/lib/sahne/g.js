@@ -13,48 +13,48 @@
   };
   // G01: buz denizinde sıkışmış gemi; uzakta kızak ve kovalayan
   sahne('G01a', 'G01+2.2', 'buz', 'genis', (R, st) => {
-    R.cam(960 + st.lt * 12, 560, 1.0);
+    R.cam(900 + st.lt * 12, 640, 1.6);
     BUZ_DENIZ(R, st);
     R.kara(g => { g.moveTo(1100, 720); g.lineTo(1700, 720); g.lineTo(1640, 800); g.lineTo(1160, 800); g.closePath(); g.rect(1380, 340, 14, 380); g.rect(1240, 420, 10, 300); });
     R.yika(g => { g.moveTo(1394, 360); g.lineTo(1560, 420); g.lineTo(1394, 560); g.closePath(); }, '#C8C4B4', {});
-    const x = 200 + st.lt * 60;
-    R.kara(g => { g.rect(x, 700, 60, 8); g.ellipse(x + 80, 690, 16, 10, 0, 0, TAU); });
-    FIG.kisi(R, x - 30, 700, 70, { tip: 'victor', f: 1, govde: .3 });
+    const x = 500 + st.lt * 50;
+    R.kara(g => { g.rect(x, 700, 110, 12); g.rect(x + 100, 680, 10, 30); });
+    FIG.kisi(R, x - 40, 712, 150, { tip: 'victor', f: 1, govde: .3, kolO: [1.2, .3] });
   }, { fener: { isik: { x: 960, y: 520, r: 820, sic: [.95, .96, 1] }, kadraj: KARE } });
   // G02: kamara: tabut, üstüne eğilmiş karaltı, uzun dağınık saç; "bir eli uzanmıştı" (kapak A'nın halkası)
   window.KAMARA = (R, st) => {
     R.gok(-600, -400, 2600, 1500, [[0, '#5A5A6E'], [1, '#3E3E50']], { firca: 1.3 });
     R.yika(g => g.rect(-600, 880, 3200, 600), '#3A3030', { firca: 1 });
-    R.isikli(g => g.ellipse(330, 330, 80, 80, 0, 0, TAU), '#C8D4EA');   // lomboz (ay ışığı; başın yanında değil: hale okunmasın)
+    R.isikli(g => g.ellipse(1480, 330, 80, 80, 0, 0, TAU), '#C8D4EA');   // lomboz (ay ışığı; başın yanında değil: hale okunmasın)
     R.kara(g => { g.rect(500, 680, 900, 140); g.rect(520, 820, 30, 80); g.rect(1350, 820, 30, 80); });   // tabut (düz kapak, haç yok)
-    FIG.yatan(R, 960, 680, 760, { f: 1 });
+    FIG.yatan(R, 960, 680, 760, { f: 1, profil: false });
+    R.yika(g => { g.moveTo(640, 676); g.quadraticCurveTo(900, 610, 1380, 650); g.lineTo(1390, 690); g.lineTo(630, 690); g.closePath(); }, '#D0CEDA', { firca: .8 });   // örtü (boyna kadar)
   };
   sahne('G02a', 'G02', 'kamara', 'orta', (R, st) => {
     const tE = rel(st, 'G02@uzanmıştı');
-    R.cam(960, 560, 1.0 + st.lt * .012);
+    R.cam(820, 560, 1.0 + st.lt * .012);
     KAMARA(R, st);
     const u = E.io3(clamp((st.lt - tE + .4) / 1.4));
-    FIG.kisi(R, 1180, 1000, 800, { tip: 'yaratik', f: -1, govde: .75, bas: .55, kolO: [lerp(.5, 1.3, u), lerp(.3, .6, u)], kolA: [.4, .5], goz: 0, sac: -.6 });
-    R.isikli(g => g.rect(1720, 200, 140, 700), 'rgba(240,210,150,.9)');   // kapıdan giren kaptanın feneri
+    FIG.kisi(R, 380, 1000, 700, { tip: 'yaratik', f: 1, bacak: 'diz', govde: .35, bas: .45, kolO: [lerp(.4, 1.45, u), lerp(.3, .35, u)], goz: 0, sac: .3 });
+    R.isikli(g => g.rect(1760, 200, 120, 700), 'rgba(240,210,150,.9)');   // kapıdan giren kaptanın feneri
   }, { fener: { isik: { x: 860, y: 540, r: 640, sic: [.95, .94, .96] }, kadraj: KARE } });
   // G03: halka: ilk gece (A01) ↔ şimdi; aynı el, aynı yön
   sahne('G03a', 'G03', 'oda', 'yakin', (R, st) => {
     R.cam(1200, 520, 1.02);
     ODA_GECE(R, st);
     FIG.yatan(R, 1600, 662, 560, { f: 1 });
-    DK.perde(R, 1516, 1520, 60, 700, '#B0433A', { t: 0, kivrim: 6 });
-    FIG.kisi(R, 1060, 1000, 700, { tip: 'yaratik', f: 1, govde: .1, bas: .08, kolA: [1.55, .1], kolO: [1.15, .55], goz: 1 });
+    FIG.kisi(R, 1060, 1000, 700, { tip: 'yaratik', f: 1, govde: .1, bas: .08, kolO: [1.15, .55], goz: 1 });
   }, { fener: { isik: { x: 1100, y: 420, r: 560, sic: [1, .92, .78] }, kadraj: { tip: 'daire', x: 1010, y: 520, r: 520, yum: 30 }, parlak: .8 } });
   sahne('G03b', 'G03@şimdi', 'kamara', 'orta', (R, st) => {
-    R.cam(900, 600, 1.7);
+    R.cam(620, 640, 1.35);
     KAMARA(R, st);
-    FIG.kisi(R, 1180, 1000, 800, { tip: 'yaratik', f: -1, govde: .75, bas: .55, kolO: [1.3, .6], kolA: [.4, .5], goz: 0, sac: -.6 });
-  }, { fener: { isik: { x: 900, y: 560, r: 480, sic: [.95, .94, .96] }, kadraj: { tip: 'daire', x: 960, y: 520, r: 460, yum: 40 } } });
+    FIG.kisi(R, 380, 1000, 700, { tip: 'yaratik', f: 1, bacak: 'diz', govde: .35, bas: .45, kolO: [1.45, .35], goz: 0, sac: .3 });
+  }, { fener: { isik: { x: 900, y: 560, r: 480, sic: [.95, .94, .96] }, kadraj: { tip: 'daire', x: 960, y: 520, r: 460, yum: 40 }, parlak: 1.2 } });
   // G04: yaratığın yüzü saçların ardında (yakın); "soğumuş"
   sahne('G04a', 'G04', 'kamara', 'yakin', (R, st) => {
-    R.cam(1100, 520, 1.3 + st.lt * .015);
+    R.cam(520, 560, 1.6 + st.lt * .015);
     KAMARA(R, st);
-    FIG.kisi(R, 1180, 1000, 800, { tip: 'yaratik', f: -1, govde: .55, bas: .4, kolO: [.6, .9], kolA: [.4, .5], goz: 1, sac: -.8, kenar: 'rgba(220,228,250,.7)' });
+    FIG.kisi(R, 380, 1000, 700, { tip: 'yaratik', f: 1, bacak: 'diz', govde: .3, bas: .35, kolO: [.6, 1.0], goz: 1, sac: .5, kenar: 'rgba(220,228,250,.7)' });
   }, { fener: { isik: { x: 1100, y: 480, r: 520, sic: [.95, .94, .96] }, kadraj: { tip: 'oval', x: 1000, y: 500, w: 1300, h: 900, yum: 40 } } });
   // G05: buz salı karanlıkta uzaklaşır; fener iris gibi kapanır
   sahne('G05a', 'G05', 'buz', 'genis', (R, st) => {

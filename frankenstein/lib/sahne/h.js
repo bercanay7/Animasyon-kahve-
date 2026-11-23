@@ -18,7 +18,7 @@
     const k = clamp((st.lt - rel(st, 'H02@kapağında')) / .6);
     if (k > 0) R.ekran(g => { g.save(); g.setLineDash([14, 12]); g.strokeStyle = `rgba(160,60,40,${k})`; g.lineWidth = 4; g.strokeRect(700, 590, 520, 90); g.restore(); });
   }, { fener: { isik: { x: 960, y: 520, r: 620, sic: [1, .92, .78] }, kadraj: { tip: 'kare', x: 960, y: 520, w: 1100, h: 940, r: 40, yum: 30 } },
-    over: (ctx, st) => { kunye(ctx, 'Frankenstein, ilk baskı, 1818', st.lt - .5, st.d); } });
+    over: (ctx, st) => { kunye(ctx, 'Frankenstein, ilk baskı, 1818', st.lt - .5, st.d); etiket(ctx, 'YAZARIN ADI YOK', 960, 635, st.lt - rel(st, 'H02@kapağında') - .3, rel(st, 'H02@yıllar') - st.lt + 99, { px: 40, col: '#F2C4A0' }); } });
   // H02b: 1823 afişi: yaratığın adının yerinde çizgi
   sahne('H02b', 'H02@yıllar', 'afis', 'yakin', (R, st) => {
     R.cam(960, 540, 1.0 + st.lt * .015);
@@ -35,7 +35,6 @@
     R.cam(900, 560, 1.0 + st.lt * .01);
     SET.masa(R, st, { gece: '#B8C0CC' });
     FIG.kisi(R, 560, 960, 500, { tip: 'mary', f: 1, bacak: 'otur', govde: .25, bas: .3, kolO: [1.3 + Math.sin(st.lt * 6) * .04, 1.0], kolA: [1.0, 1.2] });
-    DK.sandalye(R, 470, 700, .9);
     R.isikli(g => g.rect(720, 626, 170, 12), '#F1E6C9');
     DK.mum(R, 1080, 640, 150, { t: st.t });
   }, { fener: { isik: { x: 820, y: 560, r: 640, sic: [1, .92, .8] }, kadraj: { tip: 'oval', x: 900, y: 540, w: 1500, h: 960, yum: 40 } },
@@ -117,10 +116,9 @@
   // H11: bitiş: sol üçte birde Prometheus'un ateşi (küçük alev), sağ taraf bitiş ekranı öğelerine boş
   sahne('H11a', 'H11', 'son', 'orta', (R, st) => {
     R.cam(960, 560, 1.0);
-    R.kara(g => g.rect(-2000, -2000, 6000, 6000), { renk: '#140C07' });
-    R.gok(80, 160, 760, 900, [[0, '#4A3A50'], [1, '#2A2030']], { firca: 1.2 });
+    R.gok(0, 40, 860, 1000, [[0, '#A08EA6'], [1, '#6E6078']], { firca: 1.2 });
     DK.ates(R, 420, 760, 220, { t: st.t });
-    FIG.kisi(R, 300, 820, 420, { tip: 'yaratik', f: 1, bacak: 'cok', govde: .2, kolO: [1.2, .6], goz: 1 });
-    SET.camYazi(R, 'MODERN PROMETHEUS', 420, 300, { px: 56, ls: 6, p: clamp((st.lt - .4) / 1) });
-  }, { fener: { isik: { x: 420, y: 520, r: 520, sic: [1, .86, .62] }, kadraj: { tip: 'oval', x: 420, y: 520, w: 700, h: 820, yum: 40 } } });
+    FIG.kisi(R, 260, 820, 420, { tip: 'yaratik', f: 1, bacak: 'cok', govde: .2, kolO: [1.2, .6], goz: 1 });
+    SET.camYazi(R, 'MODERN PROMETHEUS', 420, 300, { px: 56, ls: 6, p: clamp((st.lt - .4) / 1), renk: '#2A1A10' });
+  }, { fener: { isik: { x: 420, y: 520, r: 520, sic: [1, .86, .62] }, kadraj: { tip: 'oval', x: 420, y: 520, w: 700, h: 820, yum: 40 }, parlak: 1.6 } });
 })();

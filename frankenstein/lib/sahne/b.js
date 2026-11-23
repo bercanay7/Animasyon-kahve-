@@ -38,8 +38,8 @@
   sahne('B03a', 'B03', 'salon', 'orta', (R, st) => {
     R.cam(1150, 560, 1.0 + st.lt * .012);
     SET.salon(R, st);
-    DK.yagmur(R, st.t, { a: .08, n: 40 });
-    FIG.kisi(R, 1320, 960, 470, { tip: 'mary', f: 1, bas: -.08, kolO: [.6, 1.3], kolA: [.4, 1.2] });
+    DK.yagmur(R, st.t, { a: .14, n: 40, kutu: [1315, 125, 330, 470] });
+    FIG.kisi(R, 1320, 960, 470, { tip: 'mary', f: 1, bas: -.08, kolO: [.9, 1.0], kolA: [0, 0] });
     FIG.kisi(R, 1060, 960, 500, { tip: 'percy', f: 1, govde: .04, kolO: [.2, .4], kolA: [-.1, .3] });
   }, { fener: { isik: { x: 1220, y: 500, r: 560, sic: [1, .9, .72] }, kadraj: { tip: 'oval', x: 1080, y: 520, w: 1500, h: 960, yum: 40 } },
     over: (ctx, st) => { etiket(ctx, 'MARY · 18', 1420, 230, st.lt - .3, st.d - .3); etiket(ctx, 'PERCY SHELLEY', 820, 300, rel(st, 'B03@pörsi'), st.d - .3); } });
@@ -85,8 +85,6 @@
     const p = E.out3(clamp((st.lt - tP + .3) / 3.5));
     R.cam(960 + st.lt * 8, 540 - p * 40, 1.0 - p * .08);
     R.gok(-600, -600, 2600, 700, [[0, '#7E8EA8'], [1, '#D7B98C']], { firca: 1.2 });
-    R.isikli(g => g.arc(1500, 220, 70, 0, TAU), '#FFF3D2');
-    R.yika(g => g.arc(1500, 220, 72, 0, TAU), `rgba(60,40,30,${p * .9})`, { kay: 0, firca: 0 });
     DK.gol(R, -600, 2600, 700, 1400, '#5E7C96', '#2C4258', { t: st.t, yx: 900, yw: 300, n: 18, yansima: 'rgba(255,200,130,.5)' });
     DK.yanardag(R, 820, 720, .8, p, st.lt);
   }, { fener: { isik: { x: 900, y: 460, r: 820, sic: [1, .9, .76] }, kadraj: KARE },
@@ -95,7 +93,7 @@
     R.cam(1500, 360, 1.45 + st.lt * .02);
     R.gok(-400, -300, 2400, 1400, [[0, '#7A5638'], [1, '#5A3E2A']], { firca: 1.2 });
     DK.pencere(R, 1500, 300, 420, 560, { gece: '#647698' });
-    DK.yagmur(R, st.t, { a: .35, n: 120 });
+    DK.yagmur(R, st.t, { a: .35, n: 120, kutu: [1290, 20, 420, 560] });
     FIG.kisi(R, 1240, 1000, 560, { tip: 'mary', f: 1, bas: -.12, kolO: [.4, 1.4], kolA: [.2, 1.3] });
   }, { fener: { isik: { x: 1100, y: 420, r: 520, sic: [.95, .9, .8] }, kadraj: { tip: 'oval', x: 960, y: 480, w: 1300, h: 900, yum: 40 } } });
   // B08: hayalet hikâyeleri kitabı (ayrıntı): Fantasmagoriana
@@ -116,28 +114,28 @@
     R.cam(760, 560, 1.0);
     SET.salon(R, st);
     FIG.kisi(R, 700, 960, 480, { tip: 'byron', f: 1, kolO: [lerp(.2, 1.2, k), lerp(.4, 1.0, k)], kolA: [-.1, .4], bas: -.05 });
-    FIG.kisi(R, 1080, 960, 470, { tip: 'percy', f: -1, bacak: 'otur' }); DK.sandalye(R, 1140, 700, .8, -1);
-    FIG.kisi(R, 1340, 960, 440, { tip: 'mary', f: -1, bacak: 'otur' }); DK.sandalye(R, 1400, 700, .8, -1);
+    FIG.kisi(R, 1080, 960, 470, { tip: 'percy', f: -1, bacak: 'otur' });
+    FIG.kisi(R, 1340, 960, 440, { tip: 'mary', f: -1, bacak: 'otur' });
   }, { fener: { isik: { x: 760, y: 470, r: 600, sic: [1, .86, .62] }, kadraj: KARE } });
   // B10: sabahlar: ötekiler yazar, Mary'nin kâğıdı boş; "her sabah"ta başını sallar (yakın)
   sahne('B10a', 'B10', 'masa', 'genis', (R, st) => {
     R.cam(960 + st.lt * 10, 560, .95);
     R.gok(-600, -400, 2600, 1500, [[0, '#A9A49A'], [1, '#7E766A']], { firca: 1.2 });
     DK.pencere(R, 1600, 340, 360, 480, { gece: '#B7C2CF' });
-    DK.yagmur(R, st.t, { a: .12, n: 40 });
-    DK.masa(R, 960, 680, 1300, { h: 260 });
+    DK.yagmur(R, st.t, { a: .14, n: 40, kutu: [1420, 100, 360, 480] });
+    DK.masa(R, 960, 760, 1300, { h: 220 });
     const yaz = Math.sin(st.lt * 7);
     FIG.kisi(R, 420, 980, 460, { tip: 'byron', f: 1, bacak: 'otur', govde: .3, bas: .3, kolO: [1.4 + yaz * .04, 1.0] });
     FIG.kisi(R, 1500, 980, 470, { tip: 'percy', f: -1, bacak: 'otur', govde: .3, bas: .3, kolO: [1.4 - yaz * .04, 1.0] });
     FIG.kisi(R, 960, 980, 430, { tip: 'mary', f: 1, bacak: 'otur', govde: .05, bas: .2, kolO: [1.2, 1.3], kolA: [1.1, 1.4] });
-    R.isikli(g => { g.rect(560, 664, 140, 10); g.rect(1220, 664, 140, 10); g.rect(1040, 664, 150, 10); }, '#EFE6CC');
+    R.isikli(g => { g.rect(560, 744, 140, 10); g.rect(1220, 744, 140, 10); g.rect(1040, 744, 150, 10); }, '#EFE6CC');
   }, { fener: { isik: { x: 960, y: 520, r: 760, sic: [.98, .95, .88] }, kadraj: KARE } });
   sahne('B10b', 'B10@ve', 'masa', 'yakin', (R, st) => {
     R.cam(1000, 560, 1.7);
     R.gok(-600, -400, 2600, 1500, [[0, '#A9A49A'], [1, '#7E766A']], { firca: 1.2 });
     const s = Math.sin(st.lt * 5) * clamp(1 - st.lt / 2.5) * .18;
     FIG.kisi(R, 960, 980, 430, { tip: 'mary', f: 1, bacak: 'otur', govde: .05, bas: .2 + s, kolO: [1.2, 1.3], kolA: [1.1, 1.4] });
-    DK.masa(R, 960, 680, 1300, { h: 260 }); R.isikli(g => g.rect(1040, 664, 150, 10), '#EFE6CC');
+    DK.masa(R, 960, 760, 1300, { h: 220 }); R.isikli(g => g.rect(1040, 744, 150, 10), '#EFE6CC');
   }, { fener: { isik: { x: 1000, y: 470, r: 440 }, kadraj: { tip: 'daire', x: 960, y: 500, r: 440, yum: 30 } } });
   // B11: gece konuşması: Byron ve Percy ateşin önünde (ışık onlarda), Mary kenarda, karanlıkta dinler
   sahne('B11a', 'B11', 'salon', 'orta', (R, st) => {
@@ -145,7 +143,7 @@
     SET.salon(R, st);
     const j = Math.sin(st.lt * 2.2);
     FIG.kisi(R, 720, 960, 470, { tip: 'byron', f: 1, bacak: 'otur', govde: .1, kolO: [.9 + j * .2, 1.1] }); DK.sandalye(R, 650, 700, .8);
-    FIG.kisi(R, 1080, 960, 480, { tip: 'percy', f: -1, bacak: 'otur', govde: .15, kolO: [.9 - j * .2, 1.0] }); DK.sandalye(R, 1140, 700, .8, -1);
+    FIG.kisi(R, 1080, 960, 480, { tip: 'percy', f: -1, bacak: 'otur', govde: .15, kolO: [.9 - j * .2, 1.0] });
     FIG.kisi(R, 1420, 960, 440, { tip: 'mary', f: -1, bacak: 'otur', bas: .1, kolO: [.6, 1.6], kolA: [.5, 1.6] });
     if (st.lt > rel(st, 'B11@ölü')) { const k = clamp((st.lt - rel(st, 'B11@ölü')) / .6); DK.ates(R, 360, 870, 200 + 120 * Math.sin(k * PI), { t: st.t }); }
   }, { fener: { isik: { x: 880, y: 520, r: 520, sic: [1, .84, .6] }, kadraj: KARE } });
@@ -155,11 +153,10 @@
     R.gok(-400, -300, 2400, 1400, [[0, '#7182AE'], [1, '#56628A']], { firca: 1.2 });
     R.yika(g => { g.moveTo(1500, 0); g.lineTo(1560, 0); g.lineTo(1100, 1100); g.lineTo(980, 1100); g.closePath(); }, 'rgba(230,236,250,.7)', { kay: 0, firca: 0 });
     R.yika(g => g.rect(500, 660, 1000, 300), '#C9C0B0', { firca: .7 });
-    R.kara(g => { g.ellipse(640, 640, 120, 40, 0, 0, TAU); });
-    // baş yastıkta (profil, yukarı bakar): yatan figür
-    FIG.yatan(R, 900, 676, 460, { f: 1, kadin: 1, nefes: Math.sin(st.lt * 1.4) * 1 });
-    R.yika(g => { g.moveTo(760, 650); g.quadraticCurveTo(1100, 600, 1480, 660); g.lineTo(1480, 760); g.lineTo(760, 760); g.closePath(); }, '#D9D0BE', { firca: .8 });
-  }, { fener: { isik: { x: 860, y: 600, r: 460, sic: [.9, .92, 1] }, kadraj: { tip: 'daire', x: 900, y: 600, r: 440, yum: 30 } } });
+    R.yika(g => g.ellipse(700, 640, 150, 46, 0, 0, TAU), '#E8E2D4', { kay: 0 });   // yastık
+    R.g.save(); R.g.translate(1300, 640); R.g.rotate(-PI / 2); FIG.kisi(R, 0, 0, 640, { tip: 'mary', f: -1, bas: -.1 }); R.g.restore();   // sırtüstü, yüz yukarı
+    R.yika(g => { g.moveTo(860, 610); g.quadraticCurveTo(1150, 570, 1500, 620); g.lineTo(1500, 760); g.lineTo(860, 760); g.closePath(); }, '#D9D0BE', { firca: .8 });   // yorgan
+  }, { fener: { isik: { x: 760, y: 600, r: 460, sic: [.9, .92, 1] }, kadraj: { tip: 'daire', x: 820, y: 600, r: 440, yum: 30 } } });
   // B13: uyanık düş: Mary'nin üstünde ikinci, küçük bir fener dairesi açılır: öğrenci, örtülü beden kıpırdar, öğrenci kaçar
   sahne('B13a', 'B13', 'dus', 'orta', (R, st) => {
     const tK = rel(st, 'B13@kıpırdıyor'), tKc = rel(st, 'B13@kaçıyor');
@@ -186,16 +183,16 @@
     R.cam(980, 600, 1.15);
     R.gok(-400, -300, 2400, 1400, [[0, '#7182AE'], [1, '#56628A']], { firca: 1.2 });
     R.yika(g => { g.moveTo(1500, 0); g.lineTo(1560, 0); g.lineTo(1100, 1100); g.lineTo(980, 1100); g.closePath(); }, 'rgba(230,236,250,.7)', { kay: 0, firca: 0 });
-    R.yika(g => g.rect(500, 700, 1000, 280), '#C9C0B0', { firca: .7 });
-    FIG.kisi(R, 860, 990, 470, { tip: 'mary', f: 1, bacak: 'otur', govde: lerp(-.9, .05, k), bas: lerp(-.4, .1, k), kolO: [lerp(.2, .9, k), .8] });
-    R.yika(g => { g.moveTo(700, 760); g.quadraticCurveTo(1100, 720, 1480, 760); g.lineTo(1480, 990); g.lineTo(700, 990); g.closePath(); }, '#D9D0BE', { firca: .8 });
+    R.kara(g => { g.rect(480, 560, 30, 440); g.rect(480, 960, 1060, 40); g.rect(1510, 760, 30, 240); });   // karyola
+    R.yika(g => g.ellipse(640, 740, 120, 40, 0, 0, TAU), '#E8E2D4', { kay: 0 });   // yastık
+    FIG.kisi(R, 860, 990, 470, { tip: 'mary', f: 1, bacak: 'otur', sandalye: false, govde: lerp(-.9, .05, k), bas: lerp(-.4, .1, k), kolO: [lerp(.2, .9, k), .8] });
+    R.yika(g => { g.moveTo(780, 800); g.quadraticCurveTo(1100, 760, 1510, 800); g.lineTo(1510, 960); g.lineTo(780, 960); g.closePath(); }, '#D9D0BE', { firca: .8 });
   }, { fener: { isik: { x: 900, y: 560, r: 500, sic: [.9, .92, 1] }, kadraj: KARE } });
   // B16: ertesi sabah: Mary yazar; kâğıtta ilk cümle
   sahne('B16a', 'B16', 'masa', 'genis', (R, st) => {
     R.cam(900, 560, 1.0 + st.lt * .015);
     SET.masa(R, st, { gece: '#C4CCD6' });
     FIG.kisi(R, 560, 960, 500, { tip: 'mary', f: 1, bacak: 'otur', govde: .25, bas: .3, kolO: [1.3 + Math.sin(st.lt * 6) * .04, 1.0], kolA: [1.0, 1.2] });
-    DK.sandalye(R, 470, 700, .9);
     R.isikli(g => g.rect(720, 626, 170, 12), '#F1E6C9');
   }, { fener: { isik: { x: 900, y: 520, r: 760, sic: [1, .97, .9] }, kadraj: KARE } });
   sahne('B16b', 'B16@yazdığı', 'mektup', 'ayrinti', (R, st) => {

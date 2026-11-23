@@ -16,7 +16,7 @@
     const y = HAREKET.yuruyusYolu(g, { t0: 0, t1: 6, x0: 1200, olcek: 3.6, go: () => 1 })(st.lt);
     ['genc', 'kiz'].forEach((tp, i) => FIG.kisi(R, y.x + 400 + i * 120, 900, 300, { tip: tp, f: 1, bacak: y.poz, kolO: [Math.sin(TAU * y.faz) * .3, .3] }));
     const k = HAREKET.yuruyusYolu(g, { t0: 0, t1: 6, x0: -200, olcek: 4.6, go: t => HAREKET.rampa(t, .8, 1.2) * (1 - HAREKET.rampa(t, 2.6, 3)) })(st.lt);
-    FIG.kisi(R, k.x, 910, 470, { tip: 'yaratik', f: 1, bacak: k.poz, govde: .1, pel: .3, kolO: [st.lt > rel(st, 'E01@kapıyı') ? 1.5 + Math.sin(st.lt * 14) * .1 : .2, .9] });
+    FIG.kisi(R, k.x, 910, 470, { tip: 'yaratik', f: 1, bacak: k.poz, govde: .1, pel: .3, kolO: [st.lt > rel(st, 'E01@kapıyı') ? 1.1 + Math.sin(st.lt * 14) * .08 : .2, st.lt > rel(st, 'E01@kapıyı') ? 1.6 : .2] });
   }, { fener: { isik: { x: 900, y: 560, r: 760, sic: [1, .97, .9] }, kadraj: KARE } });
   // E02–E03: ihtiyar ve yaratık ateşin iki yanında; tek sıcak daire (ışık ikisini kapsar)
   sahne('E02a', 'E02', 'kulube', 'orta', (R, st) => {
@@ -69,7 +69,7 @@
   // E06: yerde, yumruk sıkılır ama kalkmaz (yakın)
   sahne('E06a', 'E06', 'kulube', 'yakin', (R, st) => {
     const tK = rel(st, 'E06@kaldırmadım');
-    R.cam(980, 760, 1.8);
+    R.cam(1000, 700, 1.4);
     R.gok(-600, -400, 2600, 1500, [[0, '#B09070'], [1, '#8A6A50']], { firca: 1.3 });
     R.yika(g => g.rect(-600, 880, 3200, 600), '#5A4232', { firca: 1 });
     const kalk = st.lt < tK ? E.io3(clamp(st.lt / 1.4)) * .5 : .5 * (1 - E.io3(clamp((st.lt - tK) / .7)));
@@ -102,14 +102,14 @@
     R.gok(-600, -400, 2600, 700, [[0, '#9CB894'], [1, '#D2DEB4']], { firca: 1.2 });
     R.yika(g => { g.moveTo(-600, 640); g.lineTo(2600, 600); g.lineTo(2600, 1500); g.lineTo(-600, 1500); g.closePath(); }, '#5E8296', { firca: 1 });
     for (let i = 0; i < 10; i++) { const y = 660 + i * 40, x = ((st.lt * 120 + i * 230) % 2400) - 400; R.kazi([[x, y], [x + 120, y]], 3, 'rgba(235,245,250,.5)'); }
-    R.kara(g => { g.moveTo(-600, 900); g.quadraticCurveTo(300, 860, 700, 900); g.lineTo(700, 1500); g.lineTo(-600, 1500); g.closePath(); });   // sol kıyı
-    for (const x of [-200, 120]) DK.kayin(R, x, 900, 520, { sal: Math.sin(st.t * .5) });
+    R.yika(g => { g.moveTo(-600, 880); g.quadraticCurveTo(300, 840, 760, 880); g.lineTo(760, 1500); g.lineTo(-600, 1500); g.closePath(); }, '#8EA676', { firca: 1 });   // sol kıyı (açık: üstünde yatan kız görünür)
+    for (const x of [-500, -260]) DK.kayin(R, x, 900, 520, { sal: Math.sin(st.t * .5) });
     if (st.lt < tA) { FIG.kisi(R, 900, 720, 320, { tip: 'kiz', f: 1, govde: -.9, kolO: [2.2, .6], kolA: [2.4, .5] }); }
     const k = E.io3(clamp((st.lt - tK) / 1.2));
     if (st.lt >= tA) {
-      const x = lerp(1000, 360, k), y = lerp(760, 900, k);
+      const x = lerp(1000, 420, k), y = lerp(760, 880, k);
       FIG.kisi(R, x, y, 560, { tip: 'yaratik', f: -1, bacak: st.lt > tU ? 'diz' : 'dur', govde: st.lt > tU ? .6 : .15, kolO: [1.2, 1.0], goz: 1 });
-      if (st.lt > tU) FIG.yatan(R, x - 260, 900, 280, { f: 1, kadin: 1 });
+      if (st.lt > tU) FIG.yatan(R, x - 300, 880, 300, { f: 1, kadin: 1 });
     }
   }, { fener: { isik: { x: 760, y: 560, r: 760, sic: [1, .97, .9] }, kadraj: KARE } });
   // E10: adam tüfek kaldırır; namlu alevi; yaratık omzunu tutarak düşer; ışık kararır
@@ -117,12 +117,12 @@
     const tA = rel(st, 'E10@ateş');
     R.cam(980, 600, 1.2);
     R.gok(-600, -400, 2600, 920, [[0, '#9CB894'], [1, '#D2DEB4']], { firca: 1.2 });
-    R.kara(g => g.rect(-600, 900, 3200, 600));
+    R.yika(g => g.rect(-600, 900, 3200, 600), '#5A6E4A', { firca: 1 });
     const kalk = E.io3(clamp((st.lt - tA + 1.2) / .8));
     FIG.kisi(R, 1500, 900, 440, { tip: 'koylu', f: -1, govde: -.05, kolO: [lerp(.3, 1.45, kalk), lerp(.4, .25, kalk)], kolA: [lerp(.2, 1.3, kalk), lerp(.3, .7, kalk)],
       el: { on: (R2, e) => FIG.uzuv(R2.g, [e.e[0] - Math.sin(e.a) * 8, e.e[1] - Math.cos(e.a) * 8], [e.e[0] + Math.sin(e.a) * 30, e.e[1] + Math.cos(e.a) * 30], 2.2, 1.6) } });
     if (st.lt > tA && st.lt < tA + .12) R.isikli(g => g.arc(1320, 640, 40, 0, TAU), '#FFF4C0');
     const d = E.io3(clamp((st.lt - tA) / .9));
-    FIG.kisi(R, 640, 900, 600, { tip: 'yaratik', f: 1, bacak: d > .5 ? 'diz' : 'dur', govde: d * .5, bas: d * .3, kolO: [lerp(.3, 2.2, d), lerp(.4, 1.6, d)], goz: 1 });
+    FIG.kisi(R, 640, 900, 600, { tip: 'yaratik', f: 1, bacak: d > .5 ? 'diz' : 'dur', govde: d * .5, bas: d * .3, kolO: [lerp(.3, .9, d), lerp(.4, 2.0, d)], goz: 1 });
   }, { fener: st => ({ isik: { x: 960, y: 560, r: 700, sic: [1, .97, .9] }, kadraj: KARE, parlak: 1 - .6 * E.io3(clamp((st.lt - (A('E10@iyiliğimin') - st.at)) / 2.5)) }) });
 })();
