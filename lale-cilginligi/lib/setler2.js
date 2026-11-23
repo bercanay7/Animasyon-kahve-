@@ -48,14 +48,21 @@ const SET2 = (() => {
     const ax = 1060 + Math.sin(t * .6) * 4, ay = 860;
     fill(R(ax - 120, ay - 170, 240, 130), .08, { th: HV, id: 9 }); fill(R(ax - 90, ay - 150, 70, 60), .7, { th: HV, id: 10 });
     fill(F([[ax - 140, ay - 180], [ax + 140, ay - 180], [ax + 120, ay - 196], [ax - 120, ay - 196]]), .04, { th: H0, id: 9 });
-    for (const dx of [-90, 90]) { fill(E2(ax + dx, ay - 30, 46, 46), .06, { type: 'rad', cx: ax + dx, cy: ay - 30, id: 9 }); fill(E2(ax + dx, ay - 30, 30, 30), .6, { type: 'rad', cx: ax + dx, cy: ay - 30, id: 9 }); }
+    // tekerlek: koyu çember + parmaklar + göbek (halka tarama hedef tahtası gibi okunuyordu: Fable yön okuması, hassasiyet)
+    for (const dx of [-90, 90]) { const cx = ax + dx, cy = ay - 30; fill(E2(cx, cy, 46, 46), .06, { th: H0, id: 9 }); fill(E2(cx, cy, 36, 36), .72, { th: H0, id: 10 });
+      for (let k = 0; k < 4; k++) { const a = k * PI / 4 + t * .8, c = Math.cos(a), sn = Math.sin(a); fill(F([[cx - c * 36 - sn * 3.5, cy - sn * 36 + c * 3.5], [cx + c * 36 - sn * 3.5, cy + sn * 36 + c * 3.5], [cx + c * 36 + sn * 3.5, cy + sn * 36 - c * 3.5], [cx - c * 36 + sn * 3.5, cy - sn * 36 - c * 3.5]]), .06, { th: H0, id: 9 }); }
+      fill(E2(cx, cy, 9, 9), .06, { th: H0, id: 9 }); }
+    fill(F([[ax + 116, ay - 94], [ax + 412, ay - 146], [ax + 412, ay - 138], [ax + 116, ay - 86]]), .05, { th: H0, id: 9 });   // araba oku: atı arabaya bağlar
     at(ax + 260, ay, 1, 1, t);
   }
   // at silueti (yandan): gövde, boyun, baş, dört bacak; t ile hafif adım
   function at(x, y, s = 1, yon = 1, t = 0) {
     GR.save(); GR.frame(x, y, 0, yon, s);
     const b = Math.sin(t * 4) * 6;
-    fill(Sm([[-120, -150], [-60, -175], [60, -172], [120, -160], [150, -210], [178, -262], [210, -250], [196, -220], [176, -170], [150, -120], [120, -100], [-110, -100], [-140, -120]]), .05, { th: .3, id: 9 });
+    // gövde + boyun + baş (öne eğik burun, kulak, yele): eski çizimde boyun küt bitiyor, at okunmuyordu (Fable izleyici okuması)
+    fill(Sm([[-120, -150], [-60, -176], [60, -174], [112, -186], [150, -236], [174, -268], [214, -258], [262, -218], [272, -200], [252, -194], [222, -204], [196, -198], [170, -164], [150, -120], [120, -100], [-110, -100], [-140, -120]]), .05, { th: .3, id: 9 });
+    fill(F([[170, -262], [180, -296], [194, -266]]), .05, { th: .3, id: 9 });   // kulak
+    for (let k = 0; k < 4; k++) fill(F([[118 + k * 14, -190 - k * 18], [104 + k * 14, -176 - k * 18 + Math.sin(t * 3 + k) * 3], [126 + k * 14, -184 - k * 18]]), .05, { th: .3, id: 9 });   // yele
     for (const [lx, ph] of [[-100, 0], [-70, PI], [90, PI], [120, 0]]) { const a = Math.sin(t * 4 + ph) * .25; fill(F([[lx - 9, -110], [lx + 9, -110], [lx + 9 + Math.sin(a) * 100, -2], [lx - 5 + Math.sin(a) * 100, -2]]), .05, { th: HV, id: 9 }); }
     fill(Sm([[-140, -150], [-170, -110 + b], [-160, -100 + b], [-130, -130]]), .05, { th: .2, id: 9 });   // kuyruk
     GR.restore();
@@ -66,9 +73,9 @@ const SET2 = (() => {
     // nergisler: altı yapraklı beyaz yıldız + göbek
     for (const [dx, dy] of [[-120, -240], [110, -250], [-40, -300]]) { const cx = x + dx * s, cy = y + dy * s;
       for (let k = 0; k < 6; k++) { const a = k * PI / 3 + .2; fill(Sm([[cx, cy], [cx + Math.cos(a - .25) * 34 * s, cy + Math.sin(a - .25) * 34 * s], [cx + Math.cos(a) * 46 * s, cy + Math.sin(a) * 46 * s], [cx + Math.cos(a + .25) * 34 * s, cy + Math.sin(a + .25) * 34 * s]]), .93, { type: 'rad', cx, cy, id: 10 }); }
-      fill(E2(cx, cy, 13 * s, 13 * s), .55, { type: 'rad', cx, cy, id: 9 }); }
+      fill(E2(cx, cy, 13 * s, 13 * s), .55, { th: .7, id: 9 }); }
     // sümbül: küçük çan dizisi
-    { const cx = x + 40 * s, cy = y - 330 * s; for (let k = 0; k < 9; k++) fill(E2(cx + (k % 2 ? 12 : -12) * s, cy + k * 16 * s, 11 * s, 9 * s), .6, { type: 'rad', cx, cy, id: 9 }); }
+    { const cx = x + 40 * s, cy = y - 330 * s; for (let k = 0; k < 9; k++) fill(E2(cx + (k % 2 ? 12 : -12) * s, cy + k * 16 * s, 11 * s, 9 * s), .6, { th: .7, id: 9 }); }
     // laleler (renkli)
     LALE.ciz(x - 60 * s, y - 330 * s, .75 * s, { sap: 0, tip: 'ist', cesit: 'ist', egim: -.15 + Math.sin(t) * .02 });
     LALE.ciz(x + 150 * s, y - 320 * s, .7 * s, { sap: 0, tip: 'ist', cesit: 'istSari', egim: .2 });
@@ -206,8 +213,9 @@ const SET2 = (() => {
   function bacaci(x, y, t) {
     fill(F([[x + 60, y], [x + 80, y], [x + 300, y - 700], [x + 280, y - 700]]), .1, { th: 1.25, id: 9 });
     for (let k = 1; k < 10; k++) { const p = k / 10; fill(F([[x + 60 + p * 220, y - p * 700], [x + 80 + p * 220 + 40, y - p * 700 - 6], [x + 84 + p * 220 + 40, y - p * 700], [x + 64 + p * 220, y - p * 700 + 6]]), .1, { th: 0, id: 9 }); }
-    INSAN.adam({ x, y, h: 600, yon: 1, sapka: true, kenar: .45, kolOn: { a: 2.0, b: .9 }, kolArka: { a: .2, b: .2 } });
-    LALE.ciz(x + 130, y - 690, .9, { sap: 90, cesit: 'semper', egim: .2 });
+    const r = INSAN.adam({ x, y, h: 600, yon: 1, sapka: true, kenar: .45, kolOn: { a: 1.35, b: 1.6 }, kolArka: { a: .2, b: .2 } }), [ex, ey] = r.el;
+    LALE.ciz(ex + 4, ey - 78, .9, { sap: 104, cesit: 'semper', egim: .06 });
+    fill(E2(ex, ey + 10, 9, 13), .3, { th: .6, id: 5 });   // yumruk sapın önünde
   }
   // kitap: kapalı (sırt) ya da açık; o.acik
   function kitap(x, y, w, h, o = {}) {
@@ -232,7 +240,7 @@ const SET2 = (() => {
     fill(R(-600, 560, 3100, 400), o.gece ? .12 : .7, { th: .01, id: 8 });
     // kayık bir servinin önünden ya da arkasından geçmez: dikey servi + yatay kayık haç silueti verir (Fable son okuması, 22 Kasım)
     const servis = o.servi || [[300, 480], [520, 420], [1950, 500]];
-    for (let k = 0; k < 3; k++) { const x = 300 + k * 600 + Math.sin(t * .5 + k) * 20; if (servis.some(([sx]) => Math.abs(sx - x) < 190)) continue; fill(Sm([[x - 90, 640 + k * 30], [x + 90, 640 + k * 30], [x + 60, 660 + k * 30], [x - 60, 660 + k * 30]]), .08, { th: H0, id: 9 }); }
+    for (let k = 0; k < (o.kayik === false ? 0 : 3); k++) { const x = 300 + k * 600 + Math.sin(t * .5 + k) * 20; if (servis.some(([sx]) => Math.abs(sx - x) < 190)) continue; fill(Sm([[x - 90, 640 + k * 30], [x + 90, 640 + k * 30], [x + 60, 660 + k * 30], [x - 60, 660 + k * 30]]), .08, { th: H0, id: 9 }); }
     if (o.kosk !== false) SET.kosk(o.kx ?? 1100, 900, o.kw ?? 700, 260, { gece: o.gece });
     for (const [x, h] of servis) SET.servi(x, 960, h);
     fill(R(-600, 900, 3100, 600), o.gece ? .1 : .35, { type: 'persp', y0: 900, D: 200, p0: 7, p1: 14, id: 8 });
@@ -257,8 +265,8 @@ const SET2 = (() => {
   // kalabalık: sırtı dönük siluetler, meşale ışıkları (şiddet yok); o.n kişi, o.t
   function kalabalik(t, o = {}) {
     const n = o.n ?? 14;
-    for (let i = 0; i < n; i++) { const r = i % 3, x = 100 + (i * 137) % 1800, y = 980 + r * 60; INSAN.adam({ x, y, h: 420 + r * 70, yon: i % 2 ? 1 : -1, arka: o.karisik ? i % 3 !== 1 : true, giysi: 'kaftan', sapka: i % 3 === 0 ? 'kavuk' : 'sarik', sarikTon: .45, kenar: .35, kolOn: { a: .3 + Math.sin(t * 2 + i) * .1, b: .4 } }); }
-    for (let k = 0; k < (o.mesale ?? 3); k++) { const x = 400 + k * 520, y = 520 + Math.sin(t + k) * 6; fill(R(x - 4, y, 8, 140), .1, { th: HV, id: 9 }); SET.alev(x, y, t + k, 1.4); SET.isik({ x, y: y - 20, r1: 340, a: .7 }); }
+    for (let i = 0; i < n; i++) { const r = i % 3, x = 100 + (i * 137) % 1800, y = 980 + r * 60; INSAN.adam({ x, y, h: 420 + r * 70, yon: i % 2 ? 1 : -1, arka: o.karisik ? i % 3 !== 1 : true, giysi: 'kaftan', sapka: i % 3 === 0 ? 'kavuk' : 'sarik', sarikTon: .45, kenar: .35, kolOn: { a: .1 + Math.sin(t * 2 + i) * .04, b: .15 } }); }   // kollar gövdede: öne uzanan ışıklı kol ucundaki el sopa gibi okunuyordu
+    for (let k = 0; k < (o.mesale ?? 3); k++) { const x = 400 + k * 520, y = 520 + Math.sin(t + k) * 6; SET.mesale(x, y, t + k, 1.5); SET.isik({ x, y: y - 40, r1: 340, a: .7 }); }
   }
   // saray kapısı (gece): iki kule arasında kemerli kapı; kandil
   function sarayKapi(t, o = {}) {
@@ -268,8 +276,9 @@ const SET2 = (() => {
     fill(R(760, 520, 400, 440), .03, { th: HV, id: 9 }); fill(R(956, 520, 8, 440), .25, { th: HV, id: 9 });   // düz, kapalı çift kanat ahşap kapı
     for (let k = 0; k < 4; k++) fill(R(760, 560 + k * 110, 400, 6), .2, { th: H0, id: 9 });
     fill(R(-600, 960, 3100, 600), .12, { type: 'persp', y0: 960, D: 200, p0: 7, p1: 14, id: 8 });
-    const a = o.kandil ?? 1; fill(R(1250, 560, 10, 140), .2, { th: HV, id: 9 });
-    if (a > .05) { SET.kandil(1255, 540, t, o.kandilS ?? 1.4); SET.isik({ x: 1255, y: 540, r1: (o.kandilR ?? 420) * a, a: .8 * a }); }
+    // duvar meşalesi: demir kol duvardan çıkar, meşale halkasız kucakta durur (direk üstündeki kandil mızrak gibi okunuyordu)
+    const a = o.kandil ?? 1; fill(F([[1210, 650], [1262, 628], [1262, 638], [1210, 660]]), .06, { th: H0, id: 9 }); fill(R(1204, 600, 10, 80), .06, { th: HV, id: 9 });
+    SET.mesale(1255, 560, t, (o.kandilS ?? 1.4) * .75, { boy: 110, alev: a }); if (a > .05) SET.isik({ x: 1255, y: 520, r1: (o.kandilR ?? 420) * a, a: .8 * a });
   }
   // sedir (boş taht yerine sivil oturma): uzun minder, yastıklar, pencere ışığı
   function sedir(t, o = {}) {
@@ -277,7 +286,7 @@ const SET2 = (() => {
     for (let k = 0; k < 3; k++) { const x = 560 + k * 300; fill(R(x, 220, 240, 340), .8, { th: HV, id: 10 }); fill(R(x + 116, 220, 8, 340), .2, { th: HV, id: 9 }); }
     SET.huzme([[560, 560], [1400, 560], [1700, 1080], [300, 1080]], .25);
     fill(R(400, 640, 1120, 140), .3, { th: H0, id: 9 }); fill(R(400, 780, 1120, 60), .1, { th: H0, id: 9 });
-    for (let k = 0; k < 4; k++) { fill(Sm([[480 + k * 260, 640], [480 + k * 260, 520], [640 + k * 260, 520], [640 + k * 260, 640]]), .55, { th: .35, id: 9 }); fill(R(556 + k * 260, 536, 8, 96), .3, { th: HV, id: 9 }); }   // yastık: çapraz tarama + dikiş (halka tarama hedef tahtası gibi okunuyordu)
+    for (let k = 0; k < 4; k++) fill(Sm([[470 + k * 260, 640], [470 + k * 260, 556], [650 + k * 260, 548], [650 + k * 260, 640]]), .55, { th: .35, id: 9 });   // yastık: yassı, dikişsiz (dikişli oval sıra kalkan okunabiliyordu)   // yastık: çapraz tarama + dikiş (halka tarama hedef tahtası gibi okunuyordu)
     fill(R(-600, 840, 3100, 700), .28, { type: 'persp', y0: 840, D: 200, p0: 8, p1: 15, id: 8 });
   }
   // gazete sayfası (1913): başlık alanı, sütunlar; yazılar YAZI ile

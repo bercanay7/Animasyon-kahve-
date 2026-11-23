@@ -20,6 +20,28 @@ const SET = (() => {
     p.bezierCurveTo(x + 12 * s, y - 24 * s * f, x + 11 * s, y - 6 * s, x + 9 * s, y + 8); p.closePath();
     GR.fill(p, GR.tone(1), { th: HV, id: 3 });
   }
+  // meşale: sapın ucunda sargılı baş + üç dilli, ayrı ayrı titreyen alev. Tek dilli beyaz alev sopa ucunda simetrik sivri uç
+  // verip mızrak gibi okunuyordu (Fable yön okuması, hassasiyet, 23 Kasım). o.boy sap boyu, o.sapsiz
+  function mesale(x, y, t, s = 1, o = {}) {
+    const L = (o.boy ?? 140) * s;
+    if (!o.sapsiz) fill(F([[x - 4 * s, y], [x + 4 * s, y], [x + 5 * s, y + L], [x - 5 * s, y + L]]), .1, { th: HV, id: 9 });
+    fill(F([[x - 13 * s, y + 2 * s], [x + 13 * s, y + 2 * s], [x + 10 * s, y - 30 * s], [x - 10 * s, y - 30 * s]]), .3, { th: .8, id: 9 });   // sargı
+    for (const k of [-9, -20]) fill(R(x - 12 * s, y + k * s, 24 * s, 3 * s), .06, { th: HV, id: 9 });
+    // alev: geniş gövdeli, ucu hafif yana kıvrılan tek alev + yan yalaz + yükselen kıvılcımlar. Üç eşit dil taç ya da beyaz lale,
+    // ince uzun dil bıçak gibi okunuyordu; kıvılcım ateşi en açık okutan işaret
+    const al = o.alev ?? 1;
+    if (al < .5) { const L2 = [], R2 = [], n = 12, dh = 120 * s * (1 - al * 1.6);   // sönen meşaleden ince duman: sargılı baş tek başına topuz gibi okunabiliyordu
+      for (let k = 0; k <= n; k++) { const u = k / n, cx = x + Math.sin(u * 5.5 + t * 1.8) * 9 * s * u + u * 14 * s, cy = y - 30 * s - u * dh, hw = 3.2 * s * (1 - u * .7); L2.push([cx - hw, cy]); R2.unshift([cx + hw, cy]); }
+      if (dh > 8) GR.fill(F([...L2, ...R2]), GR.tone(.72), { th: HV, id: 3 }); }
+    if (al < .04) return;   // o.alev: 0..1 alev boyu (sönen meşale sargılı başıyla kalır)
+    const yb = y - 26 * s, f = 1 + .12 * Math.sin(t * 8.3) + .06 * Math.sin(t * 13.1 + 1), w = Math.sin(t * 2.1) * .5 + .5;
+    const h = 72 * s * f, lean = (6 + 9 * w) * s, lk = 1 + .25 * Math.sin(t * 10.7 + 2);
+    const pts = [[x - 17 * s, yb + 4 * s], [x - 24 * s, yb - 14 * s], [x - 21 * s, yb - 34 * s], [x - 11 * s + lean * .3, yb - h * .64], [x - 2 * s + lean * .8, yb - h * .9], [x + lean, yb - h],
+      [x + 9 * s + lean * .5, yb - h * .68], [x + 15 * s, yb - h * .5], [x + 25 * s + lean * .3, yb - h * .56 * lk], [x + 23 * s, yb - 26 * s], [x + 21 * s, yb - 8 * s], [x + 17 * s, yb + 4 * s]];
+    const sc = .35 + .65 * al; GR.fill(Sm(pts.map(([px, py]) => [x + (px - x) * sc, yb + (py - yb) * sc])), GR.tone(1), { th: HV, id: 3 });
+    if (al > .5) for (let k = 0; k < 3; k++) { const ph = (t * .9 + k * .37 + x * .001) % 1, ex = x + lean * .6 + Math.sin(k * 7 + t * 3) * 10 * s + (k - 1) * 9 * s, ey = yb - h - ph * 70 * s, r = 3.2 * s * (1 - ph);
+      if (r > .6) GR.fill(E2(ex, ey, r, r), GR.tone(1), { th: HV, id: 3 }); }
+  }
   function mum(x, y, t, s = 1) { fill(R(x - 6 * s, y, 12 * s, 40 * s), .85, { th: HV, id: 9 }); alev(x, y, t, s * .7); }
   // ── HOLLANDA ──
   // basamaklı alınlıklı kanal evi (trapgevel); x sol, y taban, w genişlik, h gövde boyu; o.ton cephe, o.pen pencere ışığı
@@ -139,7 +161,7 @@ const SET = (() => {
     fill(E2(x + 72 * s, y - 6 * s + Math.sin(t * 2) * 2, 14 * s, 9 * s), .2, { th: 0, id: 9 });
     if (o.mum !== false) mum(x - 4 * s, y - 86 * s, t, s);
   }
-  function kandil(x, y, t, s = 1) { fill(E2(x, y, 12 * s, 8 * s), .7, { type: 'rad', cx: x, cy: y, id: 9 }); alev(x, y - 6 * s, t, s * .5); }
+  function kandil(x, y, t, s = 1) { fill(E2(x, y, 12 * s, 8 * s), .7, { th: .5, id: 9 }); alev(x, y - 6 * s, t, s * .5); }   // halka tarama hedef gibi okunuyordu
   // köşk (Sadabad tipi): ince sütunlu ön cephe, geniş saçak, kubbe değil (sivil yapı)
   function kosk(x, y, w, h, o = {}) {
     fill(R(x, y - h, w, h), .2, { th: HV, id: 9 });
@@ -149,5 +171,5 @@ const SET = (() => {
     for (let i = 0; i < n; i++) fill(Sm([[x + i * w / n + 10, y - h * .25], [x + i * w / n + 10, y - h * .8], [x + (i + .5) * w / n, y - h * .92], [x + (i + 1) * w / n - 10, y - h * .8], [x + (i + 1) * w / n - 10, y - h * .25]]), o.gece ? .06 : .7, { th: HV, id: o.gece ? 9 : 10 });
     fill(R(x - 40, y, w + 80, 24), .3, { th: H0, id: 9 });
   }
-  return { isik, huzme, alev, mum, ev, kasaba, gok, degirmen, tarla, meyhane, masa, saksi, terazi, servi, kaplumbaga, kandil, kosk, E2, R, rnd };
+  return { isik, huzme, alev, mesale, mum, ev, kasaba, gok, degirmen, tarla, meyhane, masa, saksi, terazi, servi, kaplumbaga, kandil, kosk, E2, R, rnd };
 })();

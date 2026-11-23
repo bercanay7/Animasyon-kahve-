@@ -29,6 +29,19 @@
 - Ayrıca: grafiğin ilk saniyesinde eğri aşağı iniyordu (fiyat artarken düşüş), İkdam manşetinden sütun çizgisi geçiyordu, iki gerçek görsel künyesi sağ kenara 30 px kalıyordu, düz uzanan üç kol, gemi gövdesi yürüyen figürün arkasından geçiyordu (servi + kayığın figürle tekrarı).
 - **Teslim:** gravürün ince taraması kodlayıcıyı şişiriyor: x265 CRF 26 "100 MB kopyası" 266 MB çıktı. 100 MB altı kopya iki geçişli sabit bit hızıyla (1,15 Mbps) üretildi; YouTube kopyası H.264 CRF 22 (~345 MB, gönderim sınırı 400 MiB).
 
+## Fable yön okuması (23 Kasım; kullanıcının isteği: "detay detay değil, geneli anla, yönü belirle")
+- **Yön:** Fable'ın izleyici günlüklerindeki dağınık düşüşler tek bir köke indi: izleyici **zamanda ve yerde kayboluyor** (1554, 1637, 1718 ve beş Hollanda şehri), **belge bölümünde olay yok** ve **etiket dili yabancı**. Buna göre üç iş yapıldı: zaman çizgisi (0:44 seksen yıl geriye, 5:53 eve dönüş) ve köşede gravür Hollanda haritası; belge bölümünde rivayetin üstü çizilir, belgenin rakamı kırmızı yazılır; yabancı ad ve kelime yerine sahneyi anlatan Türkçe etiket.
+- **Doğrulama turu** (iki izleyici + hassasiyet okuyucusu, yeni render üstünde): 8:10–9:02, 5:42, 7:04, künyeler, 0:38 ve 3:05 düzelmiş bulundu. Yeni bulgular ve yapılanlar:
+  - **Engelleyici: meşale uçları mızrak** okunuyordu (sopa ucunda simetrik beyaz sivri alev). İlk düzeltmede üç eşit alev dili taç ya da **beyaz lale** gibi, ikincide ince uzun dil **bıçak** gibi okundu. Tutan biçim: sargılı baş, geniş gövdeli ve ucu hafif yana kıvrılan tek alev, alçak bir yan yalaz ve yükselen kıvılcımlar. Kıvılcım ateşi en açık okutan işaret. Sönen meşale sargılı başıyla kalır (sapla demir kol tek başına "H" harfi gibi duruyordu).
+  - Zaman çizgisi arabayla (0:44) ve figürlerle (5:53) çakışıyordu → kadrajın üstüne, gökyüzüne; künyelerin zamanı kaydırıldı. Ekrandaki "SEKSEN YIL SONRA" anlatımdaki "doksan yıl sonra" ile çelişiyordu → sayı yok, "EVE DÖNÜŞ".
+  - Harita küçük ve adsızdı → 1,3 kat ve anılan şehrin adı noktanın yanında, şehir şehir yerleştirilmiş (Leiden ile Den Haag birbirine yakın); plan içinde sönmüyor.
+  - Ortalı etiketler açık zeminde soluktu: elips panel uzun yazının uçlarını örtmüyordu → bütün etiket ve alıntılarda şerit panel (alıntıda künye satırı da içeride).
+  - Araba tekerleğinde halka tarama (hedef) → parmaklı tekerlek. Bacacının dik kalkık kolu (selam) → dirsekten bükük, sap yumruğun içinden.
+  - Eylemsiz planlar: senet masaya iner ve yırtık yukarıdan ilerler; boş sedire iki yandan iki kişi yürür ("iktidar kavgası" olay olarak); Ahmed Refik adı anılınca girer (iki ad tek figüre düşmüyordu).
+  - Kancadaki 5.200 gulden listede aranıyordu → listeye "mezattan önce, ayrı satış" notu. Semper Augustus görseli 2,8 sn'den 7 sn'ye. Tek kalan para (karalama) ve el hizasında yüzen kayık (tepsi) kaldırıldı.
+- **Son okuma** (değişen planların tam boy kareleri; Fable hassasiyet + Fable izleyici, her bulgu ayrı doğrulayıcıyla): hassasiyette engelleyici yok. İzleyicinin doğrulanan bulguları düzeltmelerin kendi yan etkileriydi: büyüyen harita sağdaki figürlerin başını örttü; zaman çizgisinde "1637 · HOLLANDA 1718 · İSTANBUL" tek satır gibi okundu ve panelden taştı; üste taşınan zaman çizgisi boşalan yere bölüm kartını değil figür başlarını bıraktı (5:53'te figürler artık karttan sonra yürüyerek giriyor). Eski bir bulgu da ilk kez yakalandı: arabayı çeken atın başı yoktu. Doğrulayıcı dört iddiayı çürüttü (soluk etiket aslında sönme anı; yastık "fıçı" değil).
+- **Süreç dersi:** önceki turun x265 kodlaması bir saattir arka planda sürüyordu; yeni render onunla aynı çekirdekleri paylaştı ve ikisi aynı günlüğe yazdı. Uzun iş başlatmadan önce `ps` ile eski render ve kodlama süreçleri aranır.
+
 ## Açık kalanlar
 - Kulakla son onay kullanıcıda (`yayin.md` → "Kulakla bakılacaklar").
 - Shorts yapılmadı (isteğe bağlı; aday kesitler `youtube.md`).
@@ -53,6 +66,11 @@ CLAUDE.md başka bir oturumda sadeleştirildi (93 KB → 22 KB; ayrıntı `kanal
 - **Her düzeltme yeni bir simge üretebilir:** bu turda düzeltme sırasında başın yanında açık bohça (hale), belde çizgili oval (kalkan), alna giden el (selam), halka taramalı kabuk ve yastık (hedef tahtası) çıktı. Düzeltilen her plan tam boy karede yeniden bakılır; halka tarama ("rad") yuvarlak nesnede hedef okunur. Gerileme okuması (23 Kasım) aynı deseni sarık, kese, para, halat, mühür ve sandıktaki soğanlarda da buldu; kök nedeninden kaldırıldı (soğanda boyuna kabuk çizgisi). **Yeni sette yuvarlak nesneye halka tarama verilmez.**
 - **Gravür videosunda teslim kopyası:** ince tarama kodlayıcıyı şişirir; x265 CRF 26 10 dakikada 266 MB verdi. 100 MB altı kopya iki geçişli sabit bit hızıyla üretilir (`-b:v 1150k`, 2 pass); YouTube kopyası H.264 CRF 22 (~345 MB).
 - **Kullanıcının renk önerisi ("daha renkli olsa?") kapakta uygulandı, filmde değil:** izleyicilerin üçü de filmdeki renk kuralını övdü, kapak A'yı soluk buldu. Kapakta lale büyük, alevler kalın, iki kat boya.
+
+- **Ekrandaki sayı anlatımdaki sayıyla aynı olur ya da hiç olmaz:** 0:28'de "doksan yıl sonra", 5:53'te ekranda "SEKSEN YIL SONRA" (ikisi de yaklaşık doğru, farklı başlangıçlardan) izleyiciye çelişki gibi geldi. Kancada verilen sayı (5.200) sonra bir listede görünmüyorsa nedeni ekranda bir satırla söylenir.
+- **Ateş kodla nasıl çizilir:** tek sivri simetrik alev sopa ucunda mızrak, üç eşit dil taç ya da lale, ince uzun dil bıçak okunur. Geniş gövde + yana kıvrılan uç + alçak yan yalaz + kıvılcım (`lib/setler.js` → `mesale`). Şiddet içermeyen kalabalık sahnelerinde meşale en riskli nesne.
+- **Etiket paneli her hizada şerittir** (`softBand`); elips panel uzun yazıda uçları açık bırakır. Alıntının paneli künye satırını da örter.
+- **Köşe haritası:** adsız küçük harita okunmaz; anılan yer adı noktanın yanında yazılır ve öbür noktaları örtmeyecek yere konur.
 
 ### Kapak
 - **Kapak merak açar, başlık merakı tamamlar (öneri, kullanıcının getirdiği formül, 23 Kasım 2026):** kapak ve başlık bir ekip gibi çalışır; kapak yazısı başlığın sözcüklerini tekrar etmez, başlığın cevaplayacağı ayrı bir merak açar. Lale'de A ("BİR EV FİYATINA" + terazi) zaten uyuyordu; B "HERKES ALIYORDU" başlığı ("Herkes Alıyorsa Alır mısın?") tekrarladığı için "GÖRMEDEN ALDILAR" oldu. Kapak taslağı yazılırken bu bir eleme sorusu olarak sorulur: "kapak yazısı başlıkta zaten var mı?"

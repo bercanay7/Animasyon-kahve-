@@ -10,9 +10,9 @@ Yükleme YouTube Studio'da bilgisayardan yapılır. YouTube'un kendi zamanlamas�
 ## Dosyalar
 | Dosya | Ne için |
 |---|---|
-| `teslim/lale-cilginligi_youtube.mp4` | **YouTube'a yüklenecek dosya**: 1920×1080, 30 fps, H.264 (CRF 22) + AAC, Türkçe ses (−14 LUFS), BT.709; ~345 MB. Bilgisayardan indir ve yükle |
-| `teslim/lale-cilginligi_telefon_100mb_alti.mp4` | Telefonda izlemek için ve büyük dosya inmezse yükleme yedeği: H.265 (iki geçiş, 1,15 Mbps), 100 MB'ın altında; gravür taraması düşük bit hızında biraz yumuşar |
-| `lale-cilginligi.mp4` | Render ana kopyası (H.264 CRF 18, ~565 MB; gönderim sınırının üstünde, depoda kalmaz) |
+| `teslim/lale-cilginligi_youtube.mp4` | **YouTube'a yüklenecek dosya**: 1920×1080, 30 fps, H.264 (CRF 22) + AAC, Türkçe ses (−14 LUFS), BT.709; 340 MB. Bilgisayardan indir ve yükle |
+| `teslim/lale-cilginligi_telefon_100mb_alti.mp4` | Telefonda izlemek için ve büyük dosya inmezse yükleme yedeği: H.265 (iki geçiş, 1,15 Mbps), 94,8 MB; gravür taraması düşük bit hızında biraz yumuşar |
+| `lale-cilginligi.mp4` | Render ana kopyası (H.264 CRF 18, 558 MB; gönderim sınırının üstünde, depoda kalmaz) |
 | `kapak/kapak_a.jpg` | Kapak A: "BİR EV FİYATINA" (karşıtlık: terazide soğan ve ev) |
 | `kapak/kapak_b.jpg` | Kapak B: "GÖRMEDEN ALDILAR" (mezat: teklif veren eller, kâğıda boyanmış tek renkli lale) |
 | `lale-cilginligi.tr.srt` | Türkçe altyazı (143 satır) |
