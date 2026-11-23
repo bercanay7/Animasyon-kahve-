@@ -50,10 +50,14 @@ narsisizm, narsisizm nedir, narsist, kendini sevmek, Narkissos, Narkissos ve Eko
 ## Sabit yorum (cevabı vermez)
 Narkissos sudaki yüzün kendisi olduğunu anladı ve yine de kalkamadı. Sence bilmek bir şeyi değiştirmeye yeter mi, yoksa bir şey daha mı gerekir?
 
-## Shorts (sonra; uzun videodan birkaç gün sonra)
-- **Aday an:** 4:20–4:45 ("Kollarını uzatınca sudaki de uzatır … O benim."). Dikey kadraj kapıda denendi (`kapi/vazo`, dikey_D).
-- **Başlık:** Narkissos Bunu Anladığı Anda… #Narsisizm #Mitoloji
-- **İlgili video:** uzun video.
+## Shorts: ilk dikey deneme (23 Kasım; `shorts/narkissos_dikey.mp4`, 24,5 sn, 1080×1920)
+Kırpma değil: filmin planları dikey tuvale yeniden çizildi (`shorts_dikey.html`, `shorts/dikey.js`, `shorts/core_dikey.js`; render `node /home/user/Animasyon-kahve-/narkissos/shorts/render_dikey.js`). Ses filmin miksinden, yeni seslendirme yok.
+- **Kurgu:** 0:00 "Bugün bir camda kendine kaç kez baktın?" (telefon camı; ilk karede yazılı soru) → kolunu uzatır, yansıma da uzatır → "Ve anlar. O benim." → "Artık yanılmıyor. Ama yine de gidemiyor." → telefon camı: "Peki bilmek, gözünü ayırmaya yeter mi? Cevabını yorumlara yaz." → kart "BİLMEK YETER Mİ?".
+- **Başlık:** Narkissos Bunu Anladı, Yine de Gidemedi #narsisizm #mitoloji
+- **Açıklama:** Herkes Narkissos'un suda kendine âşık olduğunu bilir. Unutulan şu: sudaki yüzün kendisi olduğunu sonunda anladı ve yine de kalkıp gidemedi (Ovidius, Dönüşümler III). Tam hikâye kanalda: Narkissos ve Eko. #narsisizm #Narkissos #mitoloji
+- **İlgili video:** uzun video (Narkissos ve Eko).
+- **Yayın zamanı:** Narkissos'un 48. saat ölçümü alındıktan sonra (26 Kasım 18:00'den sonra), Dorian'dan (28 Kasım) önce; öneri **26 Kasım akşamı**. Böylece Narkissos'un "havuz mu, kanal mı" sınaması Shorts'tan etkilenmez.
+- **Ölçüt (`analiz/tahminler.md`):** Studio'da Shorts → "izlemeye devam eden" ≥ %60 (Elizabeth %27, Milton %32–38). 48. saatte bakılır.
 
 ## Studio ek adımları
 - **Dosya adı** yüklemeden önce: `narsisizm-narkissos-ve-eko.mp4`.

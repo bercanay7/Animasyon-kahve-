@@ -94,3 +94,8 @@ Metin denetiminde kayda geçen beş anlatım sapması yeniden seslendirildi (Emr
 - **Düzeltme:** `dec = max(.3, .55 + .05*(m-48)) * (1 + k*.55)`. Müzik, efekt ve miks yeniden üretildi: müzik medyanı −36 dB, 1.249 saniyenin 1.167'sinde −60 dB üstü; miks −14,3 LUFS / −1,5 dBFS. Seslendirme ve zaman çizelgesi aynı (ipuçları commit'tekiyle birebir).
 - **Teslim:** film baştan render edildi (görüntü aynı; konteyner yenilendiği için usta kopya yoktu), YouTube ve telefon kopyaları ile Shorts yeni sesle yeniden üretildi.
 - **Ders:** her müzik üretiminden sonra saniye saniye düzey eğrisi basılır (medyan ve "−60 dB üstü saniye" sayısı). Ses kurulu da müziği ayrı dosyada ölçer, miksin içinde değil.
+
+## Shorts sesi yeniden bağlandı (22 Kasım 2026)
+- **Bulgu:** bu oturumun kabında `audio/music.wav` 18 Kasım'dan kalmıştı (müzik düzeltmesinden önce: 1.249 saniyenin 16'sında −60 dB üstü). 22 Kasım'da üretilen ikinci Shorts ("taht") ve yerelde duran birinci Shorts bu sessiz müzikle yapılmıştı. Yayımlanan film doğru (19 Kasım'da başka oturum yeniden render etti).
+- **Düzeltme:** `score.py` (düzeltilmiş) → müzik 1.171 sn −60 dB üstü, medyan −33 dB; efekt, miks (−14,30 LUFS / −1,50 dBFS), iki Shorts'un sesi yeniden üretildi; görüntü parçaları aynı, yalnız ses bağlandı. Shorts 1: −14,0 LUFS / −1,3 dBFS; Shorts 2: −13,9 LUFS / −1,6 dBFS; kelime aralarında bile en sessiz saniye −45 dB (müzik sürüyor).
+- **Ders:** kodda düzeltme `main`'den çekildiğinde, o koddan türeyen yerel dosyalar (müzik, miks, render) kendiliğinden düzelmez. Eski bir kapta sesle ilgili bir şey üretmeden önce düzey eğrisi yeniden ölçülür.

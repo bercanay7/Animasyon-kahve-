@@ -3,9 +3,9 @@
 Yükleme YouTube Studio'da bilgisayardan yapılır. YouTube'un kendi zamanlaması kullanıldığı için yükleme bittikten sonra bilgisayarın açık kalması gerekmez.
 
 ## Zamanlama (Europe/Istanbul)
-- **Uzun video:** 11 Aralık 2026 Cuma, 18:00 (kullanıcının kararı, 22 Kasım; haftalık takvim: Narkissos 27 Kasım, Dorian Gray 4 Aralık).
-- **Ölçüm:** 48. saat 13 Aralık 18:00; 7. gün 18 Aralık. Dorian Gray'in 7. gün ölçümü (11 Aralık) bu video yayına girmeden alınır.
-- **Shorts (isteğe bağlı):** 13–14 Aralık; aday kesitler `youtube.md`.
+- **Uzun video:** 2 Aralık 2026 Çarşamba, 18:00 (kullanıcının kararı, 23 Kasım; dört günde bir: Narkissos 24 Kasım, Dorian Gray 28 Kasım, sonraki video 6 Aralık).
+- **Ölçüm:** 48. saat 4 Aralık 18:00; 7. gün 9 Aralık (6 Aralık'taki videoyla üst üste biner; bilerek okunur). Dorian Gray'in 48. saat ölçümü (30 Kasım) bu video yayına girmeden alınır.
+- **Shorts (isteğe bağlı):** 4–5 Aralık (48. saat ölçümünden sonra); aday kesitler `youtube.md`.
 
 ## Dosyalar
 | Dosya | Ne için |
@@ -31,14 +31,14 @@ Yükleme YouTube Studio'da bilgisayardan yapılır. YouTube'un kendi zamanlamas�
 3. **Video öğeleri:**
    - Altyazı ekle → Dosya yükle → "Zamanlamalı" → `lale-cilginligi.tr.srt`.
    - **Bitiş ekranı:** 9:44'ten sona (17,9 sn; YouTube sınırı 20 sn). Anlatımdaki "ekranda" sözcüğü 9:44,8–9:45,5'te, yani bitiş ekranının içinde. Filmde **sol yarıda** başlık kartı ve lale tarlası var (x < 840); **sağ yarı boş**. Öğeler sağ yarıya (x ≥ 900): video öğesi üstte, "Abone ol" altında.
-   - **Video öğesi:** ilk hafta "İzleyici için en iyisi" ya da "Belirli video: Dorian Gray"; 18 Aralık'tan (sonraki video çıkınca) "En yeni video". Anlatım "bir sonraki hikâye" diyor; en yeni video o zaman gerçekten sonraki hikâye olur.
+   - **Video öğesi:** ilk dört gün "İzleyici için en iyisi" ya da "Belirli video: Dorian Gray"; 6 Aralık'tan (sonraki video çıkınca) "En yeni video". Anlatım "bir sonraki hikâye" diyor; en yeni video o zaman gerçekten sonraki hikâye olur.
    - **"Kanalda ayrıca" satırı:** yüklemeden önce açıklamadaki "Kanalda ayrıca: Dorian Gray…" satırının sonuna Dorian'ın adresini yapıştır.
-4. **Görünürlük:** Planla → 11.12.2026, 18:00 (GMT+3) → **Planla**.
+4. **Görünürlük:** Planla → 02.12.2026, 18:00 (GMT+3) → **Planla**.
 
 ## 2. Yayından sonra
 - **Sabit yorum:** `youtube.md` → "Sabit yorum".
 - **Dorian Gray'den bağlantı** (maliyetsiz kaldıraç): Dorian'ın bitiş ekranına bu video "Belirli bir video" olarak eklenebilir.
-- **Ölçüm:** 48. saatte `analiz/tahminler.md` → "Lale Çılgınlığı" (L1–L3) doldurulur; Türkçe boşluk ölçütüyle seçilen ilk videonun sonucu `analiz/2026-11-22-turkce-bosluk.md`'nin "Ders" bölümüne yazılır.
+- **Ölçüm:** 48. saatte (4 Aralık) `analiz/tahminler.md` → "Lale Çılgınlığı" (L1–L3) doldurulur; Türkçe boşluk ölçütüyle seçilen ilk videonun sonucu `analiz/2026-11-22-turkce-bosluk.md`'nin "Ders" bölümüne yazılır.
 
 ## Kulakla bakılacaklar (kullanıcı)
 Sessizliğe dayalı hizalama kullanıldı (Scribe çağrısı otomatik izin denetleyicisince durduruldu); seslendirme kelime kelime dinlenmedi.
