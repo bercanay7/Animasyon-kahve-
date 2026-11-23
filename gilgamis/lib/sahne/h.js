@@ -60,8 +60,8 @@
     R.L.dir = [-.6, -.5, .6]; R.L.col = [1.07, .95, .82];
   });
   // H05–H07: destanın ilk tableti; sandık, kilit, lacivert tablet
-  sahne('H05a', 'H05', 'tablet', 'orta', (R, st) => {
-    K(R, st, [960, 540, 1.2], [960, 540, 1.0]);
+  sahne('H05a', 'H05', 'tablet', 'genis', (R, st) => {
+    K(R, st, [960, 540, .95], [960, 540, .85]);
     SET.zemin(R);
     DK.tablet(R, 960, 540, 820, 1000, { z: .5, sh: 52, sz: 18, tohum: 41 });
     kilYazi(R, 'I', 960, 90, { px: 60 });
@@ -129,7 +129,7 @@
     R.L.dir = [-.9, -.15, .4]; R.L.col = [1.15, .78, .55]; R.L.int = .95;
   }, { over: (c, st) => quote(c, 'Sen hangi suru göstereceksin?', 960, 180, st.lt, { t0: rel(st, 'H10@peki'), px: 70 }) });
   // H11: bitiş ekranı zemini (son ~20 sn): sol yarı boş (bitiş öğeleri), sağda sur ve küçük figür
-  sahne('H11a', 'H11', 'son', 'genis', (R, st) => {
+  sahne('H11a', 'H11', 'son', 'son', (R, st) => {
     K(R, st, [960, 540, .9], [960, 540, .92]);
     SET.zemin(R); DK.friz(R, -800, 2800, 120, 960);
     DK.sur(R, 1100, 2800, 860, 470, { z: .44, renk: TUGLA, kayma: 120, ara: 420 });

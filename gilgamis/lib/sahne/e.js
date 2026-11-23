@@ -14,8 +14,8 @@
     R.L.dir = [-.6, -.5, .6];
   }, { over: (c, st) => etiket(c, 'UTNAPİŞTİM', 1500, 210, st.lt - rel(st, 'E01@utnapiştim'), 4) });
   // E02: Maşu dağı, kapıda akrep insanlar uyarır
-  sahne('E02a', 'E02', 'masu', 'genis', (R, st) => {
-    K(R, st, [960, 520, .78], [960, 540, .86]);
+  sahne('E02a', 'E02', 'masu', 'orta', (R, st) => {
+    K(R, st, [900, 620, 1.12], [920, 640, 1.18]);
     SET.zemin(R); SET.masu(R, 960, 880, {});
     SET.yer(R, -900, 2900, 880, { z: .36 });
     const ku = rel(st, 'E02@uyardı'), k = clamp((st.lt - ku) / .6);
@@ -66,8 +66,8 @@
     R.L.dir = [-.55, -.55, .6];
   }, { over: (c, st) => quote(c, '“Aradığın hayatı bulamayacaksın.”', 960, 170, st.lt, { t0: rel(st, 'E06@aradığın'), px: 64 }) });
   // E07: öğüdün görüntüsü: sofra, temiz giysi, elini tutan çocuk
-  sahne('E07a', 'E07', 'aile', 'orta', (R, st) => {
-    K(R, st, [960, 520, 1.05], [960, 540, 1.12]);
+  sahne('E07a', 'E07', 'aile', 'genis', (R, st) => {
+    K(R, st, [960, 540, .88], [960, 540, .93]);
     SET.zemin(R); DK.friz(R, -600, 2600, 130, 940);
     SET.yer(R, -900, 2900, 890, { z: .36, cimen: false });
     const tk = rel(st, 'E07@karnını'), tc = rel(st, 'E07@çocuğa');
@@ -79,8 +79,8 @@
     R.L.dir = [-.55, -.55, .6]; R.L.col = [1.05, .97, .85];
   }, { over: (c, st) => kunye(c, 'Eski Babil sürümü · Sippar tableti, ~MÖ 1700', st.lt, 99) });
   // E08: dinlemedi, yolu sordu
-  sahne('E08a', 'E08', 'meyhane', 'orta', (R, st) => {
-    K(R, st, [940, 520, 1.2], [960, 520, 1.25]);
+  sahne('E08a', 'E08', 'meyhane', 'yakin', (R, st) => {
+    K(R, st, [1240, 420, 1.7], [1250, 420, 1.78]);
     SET.zemin(R); SET.ev(R, 300, 860, 900, 640, { kapi: .55 });
     SET.yer(R, -900, 2900, 860, { z: .36 });
     FIG.fig(R, 700, 875, 560, { tip: 'siduri', f: 1, kol: [[.3, .3], [.1, .2]] });

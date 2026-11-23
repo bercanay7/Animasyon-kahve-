@@ -74,9 +74,9 @@
     R.L.dir = [-.45, -.65, .6];
   }, { over: (c, st) => kunye(c, 'V. tablet, Süleymaniye Müzesi tableti (2011)', st.lt, 6) });
   // C07: Humbaba diz çöker, aman diler; Enkidu "Dinleme onu"
-  sahne('C07a', 'C07', 'humbaba', 'orta', (R, st) => {
+  sahne('C07a', 'C07', 'humbaba', 'genis', (R, st) => {
     const to = rel(st, 'C07@öldürdüler');
-    K(R, st, [960, 520, 1.0], [960, 500, 1.06]);
+    K(R, st, [960, 540, .86], [960, 530, .9]);
     SET.zemin(R); SET.orman(R, -200, 2400, 960, { h: 900, ara: 330, z: .3 }); SET.yer(R, -900, 2900, 880, { z: .34 });
     YAR.humbaba(R, 1350, 560, 420, { agiz: .3 });
     FIG.uzuv(R, [1350, 760], [1350, 880], 180, 220, .74);
@@ -107,9 +107,9 @@
     R.L.dir = [-.55, -.55, .6];
   });
   // C09: Gök Boğası
-  sahne('C09a', 'C09', 'boga', 'genis', (R, st) => {
+  sahne('C09a', 'C09', 'boga', 'orta', (R, st) => {
     const to = rel(st, 'C09@öldürdüler'), p = clamp((st.lt - to) / .8);
-    K(R, st, [960, 540, .9], [960, 540, .95]);
+    K(R, st, [900, 560, 1.15], [920, 560, 1.2]);
     SET.zemin(R); DK.friz(R, -600, 2600, 120, 960);
     SET.yer(R, -900, 2900, 860, { z: .36 });
     DK.gunes(R, 300, 300, 60, { z: .48 });

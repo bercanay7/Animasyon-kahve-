@@ -23,8 +23,8 @@
     R.L.int = .35; R.L.amb = .18; R.L.col = [.62, .58, .66];
   });
   // D03: Şamhat'ı lanetler: duvarda soluk Şamhat (hatıra, alçak kabartma)
-  sahne('D03a', 'D03', 'yatak', 'orta', (R, st) => {
-    K(R, st, [760, 500, 1.15], [740, 500, 1.2]);
+  sahne('D03a', 'D03', 'yatak', 'yakin', (R, st) => {
+    K(R, st, [700, 440, 1.6], [690, 440, 1.68]);
     SET.zemin(R); SET.oda(R, { kapi: false });
     FIG.fig(R, 1250, 700, 420, { tip: 'samhat', f: -1, z: .42, kol: [[.4, .5], [.1, .2]] });
     DK.yatak(R, 260, 1000, 640, {});
@@ -101,9 +101,11 @@
     if (st.lt > rel(st, 'D10@süsleri')) for (let k = 0; k < 5; k++) { const u = clamp((st.lt - rel(st, 'D10@süsleri') - k * .15) / .8); R.b.fillStyle = gv(.8); R.b.beginPath(); R.b.arc(x + (k - 2) * 30, lerp(500, 860, u * u), 12, 0, TAU); R.b.fill(); }
   }, { mb: 2 });
   // D11: gömdürmedi: kapalı kapı, oturan adam (geniş, durgun)
-  sahne('D11a', 'D11', 'yatak', 'genis', (R, st) => {
-    K(R, st, [960, 520, .8], [960, 520, .84]);
+  sahne('D11a', 'D11', 'kapi_oda', 'ayrinti', (R, st) => {
+    K(R, st, [1810, 600, 1.9], [1810, 610, 2.0]);
     SAHNE_YATAK(R, st, { ortu: 1, kapiX: 1700, gx: 1330 });
+    R.b.fillStyle = gv(.5); R.b.fillRect(1700, 360, 220, 500); for (let k = 0; k < 6; k++) FIG.cizgi(R, [[1700 + k * 40, 370], [1700 + k * 40, 850]], 4, -.5);
+    FIG.uzuv(R, [1680, 600], [1950, 600], 34, 34, .7); // sürgü
   });
   // D12: altı gün yedi gece: duvara çentikler, meşale kısalır
   sahne('D12a', 'D12@altı', 'yatak', 'orta', (R, st) => {

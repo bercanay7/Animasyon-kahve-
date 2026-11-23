@@ -130,8 +130,8 @@
     R.L.dir = [-.6, -.5, .6];
   }, { mb: 3 });
   // B11: öfke diner, yan yana dost
-  sahne('B11a', 'B11', 'kapi', 'orta', (R, st) => {
-    K(R, st, [960, 540, 1.1], [960, 520, 1.15]);
+  sahne('B11a', 'B11', 'kapi', 'yakin', (R, st) => {
+    K(R, st, [960, 420, 1.65], [960, 410, 1.75]);
     SET.zemin(R); DK.tugla(R, 300, 120, 1700, 860, { z: .3, bw: 100, bh: 40 });
     SET.yer(R, 200, 1800, 860, { z: .36, cimen: false });
     const p = E.io3(clamp(st.lt / 2.5));
