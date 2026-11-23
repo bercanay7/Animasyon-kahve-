@@ -23,6 +23,12 @@
 - **Kod çizimi yine simge üretti:** servi + kayık (haç), kapı + pencere (bomba), kabuk ve yastıkta halka tarama (hedef tahtası), başın yanında açık bohça (hale), belde çizgili oval (kalkan), alna giden el (selam). Son üçü düzeltme sırasında başkanın kare kontrolünde çıktı: **her düzeltme kendisi yeni bir simge üretebilir; düzeltilen her plan tam boy karede yeniden bakılır.**
 - **Kullanıcının renk önerisi:** filmde değil kapakta uygulandı (kanıt: izleyicilerin üçü de filmde renk kuralını övdü, kapağı soluk buldu).
 
+## Gerileme okuması (23 Kasım; iki Fable hassasiyet okuyucusu + düzeltme doğrulayıcısı, yeni render üstünde)
+- 29 düzeltmeden 25'i tam; engelleyici yok. Kalan dört: kaftanın önünde ince açık çizgi (kenar ışığı dar redingotun hattını izliyordu, geniş kaftanın içine düşüyordu), Patrona'nın çıkını (üçüncü biçimde de kalkan okundu → kaldırıldı), liste satırından geçen kâğıt tarama çizgisi (satırların arkasına temiz kâğıt), sandıktaki soğanlar.
+- **Halka tarama ("rad") yuvarlak nesnede hedef tahtası okunuyor; tek tek değil kök nedeninden düzeltildi:** sarık, soğan, kese, para, halat, hokka, mühür. Soğan artık boyuna kabuk çizgisiyle (soğana daha çok benziyor). Çark, güneş, kandil gibi doğası gereği halkalı küçük şeyler kaldı.
+- Ayrıca: grafiğin ilk saniyesinde eğri aşağı iniyordu (fiyat artarken düşüş), İkdam manşetinden sütun çizgisi geçiyordu, iki gerçek görsel künyesi sağ kenara 30 px kalıyordu, düz uzanan üç kol, gemi gövdesi yürüyen figürün arkasından geçiyordu (servi + kayığın figürle tekrarı).
+- **Teslim:** gravürün ince taraması kodlayıcıyı şişiriyor: x265 CRF 26 "100 MB kopyası" 266 MB çıktı. 100 MB altı kopya iki geçişli sabit bit hızıyla (1,15 Mbps) üretildi; YouTube kopyası H.264 CRF 22 (~345 MB, gönderim sınırı 400 MiB).
+
 ## Açık kalanlar
 - Kulakla son onay kullanıcıda (`yayin.md` → "Kulakla bakılacaklar").
 - Shorts yapılmadı (isteğe bağlı; aday kesitler `youtube.md`).
