@@ -1,41 +1,105 @@
 {
- "flow_id": "YXpNwuCDr1CsU9a5ow64",
+ "flow_id": "uGtysgpvRLx6Knz0ntJH",
  "voice": "Emrullah",
  "voice_id": "DpEiQMnL9WxMsymCsjPY",
  "model": "eleven_v4",
- "not": "23 Kasım 2026: s00 için estimate_only 1.073,9 kredi (2 çekim, 537 etiketli karakter; ~1,93 kredi/karakter/2 çekim). Toplam 8796 etiketli karakter × 2 çekim ≈ 16,976 kredi. Kullanıcının açık onayı bekleniyor. Kullanıcının onayı (23 Kasım, açık cümle): \"Onaylıyorum\" (~17.000 kredi, Fable senaryo okumasından sonra gönderilecek).",
+ "not": "23 Kasım 2026: s00 için estimate_only 1.073,9 kredi (2 çekim, 537 etiketli karakter; ~1,93 kredi/karakter/2 çekim). Toplam 8796 etiketli karakter × 2 çekim ≈ 16,976 kredi. Kullanıcının açık onayı bekleniyor. Kullanıcının onayı (23 Kasım, açık cümle): \"Onaylıyorum\" (~17.000 kredi, Fable senaryo okumasından sonra gönderilecek). Gönderildi (rev1, 23 Kasım): 8 bölüm × 2 çekim, toplam 17336 kredi.",
  "cekimler": {
   "s00": {
-   "karakter_etiketli": 537,
-   "tahmini_kredi": 1036
+   "node": "6iUvWDSvrykKsw3ErS4G",
+   "session": [
+    "XWNLh0yvEx4IgMMM8A3E",
+    "sdihKrC9x46HSp1P2ito"
+   ],
+   "gen": [
+    "VGwKctRr66WRgo92pm3O",
+    "JguCz0ckN5usAzjRJkzy"
+   ],
+   "kredi_cekim": 543
   },
   "s01": {
-   "karakter_etiketli": 1108,
-   "tahmini_kredi": 2138
+   "node": "CArN9GjGf3QfD9xfJwLE",
+   "session": [
+    "5fwVCA1GIXXMRaNwx1d4",
+    "XV9CUumFaPGt9NV8WLpz"
+   ],
+   "gen": [
+    "jfx5zODHQwCKHmNftDN8",
+    "Q9gNP2cqBXymtdCLsMH0"
+   ],
+   "kredi_cekim": 1112
   },
   "s02": {
-   "karakter_etiketli": 1097,
-   "tahmini_kredi": 2117
+   "node": "JlzFHrgFQP1Qrnyq2Z6X",
+   "session": [
+    "evP3S0efRXAtNpfjy7mm",
+    "9b2BxMOn9w9S4omMzIbF"
+   ],
+   "gen": [
+    "VRRGp0jpcNSXObesw4s4",
+    "I7JvWyrbTuGWTEe5MONH"
+   ],
+   "kredi_cekim": 1028
   },
   "s03": {
-   "karakter_etiketli": 1410,
-   "tahmini_kredi": 2721
+   "node": "Bv3FKBSGh5HzOzZCgdAX",
+   "session": [
+    "19nrqstuth55qlH6zGEm",
+    "RgGwKw2zc59n4Q7JC1TQ"
+   ],
+   "gen": [
+    "PfxnQNUDnKNpwknyyVlF",
+    "iU6yR8Kljnw8j1putP4Q"
+   ],
+   "kredi_cekim": 1403
   },
   "s04": {
-   "karakter_etiketli": 1224,
-   "tahmini_kredi": 2362
+   "node": "kpP7m0JyelgsceYOEXWA",
+   "session": [
+    "EamQQWzLIIGjjvD0lLeq",
+    "WH6zh1aufnEtMN8ZlAJe"
+   ],
+   "gen": [
+    "bXmKlcZzvH6LqECWx24R",
+    "LYrK1U5Ni0uTWrArWY7y"
+   ],
+   "kredi_cekim": 1235
   },
   "s05": {
-   "karakter_etiketli": 1194,
-   "tahmini_kredi": 2304
+   "node": "MvVIJmSfs5ZICpQnkl1P",
+   "session": [
+    "kt6kFmjTgXvuYWgexU67",
+    "ITe6IYrJWi8VFA5RarBt"
+   ],
+   "gen": [
+    "Vfi6ReF9Luolh07RHW7h",
+    "A5LvEqB0gu4KdZJ8pFWM"
+   ],
+   "kredi_cekim": 1193
   },
   "s06": {
-   "karakter_etiketli": 959,
-   "tahmini_kredi": 1851
+   "node": "J8XdnmDFIyKStVzkePQ2",
+   "session": [
+    "VCZ25DuWm4iYm3x2oQT5",
+    "rR6tFuW1DAyBI4qEJuj4"
+   ],
+   "gen": [
+    "FagMvUKqoz3n4yQAsVSr",
+    "IfKqWSX4PlJeDlZQy5kp"
+   ],
+   "kredi_cekim": 968
   },
   "s07": {
-   "karakter_etiketli": 1267,
-   "tahmini_kredi": 2445
+   "node": "6S2apwpeWJ1lOsfQiEIH",
+   "session": [
+    "EnzZ8YMlLrL46lPNZe0U",
+    "3pEibHiZheh4u6At6tlY"
+   ],
+   "gen": [
+    "lBIW49IS4lb75GCmbMTZ",
+    "2ve9qFTntgsVgNuocgEw"
+   ],
+   "kredi_cekim": 1186
   }
  }
 }
