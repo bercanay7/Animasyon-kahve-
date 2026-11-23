@@ -37,3 +37,15 @@
   - Sokrates: "Kaçabilirdi, neden kaçmadı?" Platon'un *Kriton*'u, kamu malı; kanalın çekirdek kitlesi.
   - Napolyon ve Akka.
 - **Maliyetsiz sinyal toplama:** Gılgamış'ın (2 Aralık) sabit yorumuna "Sırada hangisi olsun?" sorusu konabilir: üç aday, yorumla seçim. İzleyici isteğini tahmin etmek yerine ölçmek için.
+
+## Ek (24 Kasım gecesi): Studio → Araştırma, "kitlenizin izlediği videolar"
+Kaynak: kullanıcının telefonla çektiği 38 sn'lik ekran kaydı. Başlıkların çoğu bulanık; okunabilenler aşağıda, sayımlar kaba.
+- **Çoğunluk futbol:** Galatasaray, Beşiktaş, Barcelona, Real Madrid, Premier Lig, Şampiyonlar Ligi özetleri. Ardından eğlence (Güldür Güldür, magazin) ve gündem/ekonomi ("Ekonomik Kıyamet", "Türkiye kaçaklara savaş açtı").
+- **Bizim türümüze yakın olanlar:** "Zeki insanlar neden kalabalıktan kaçar?", "Türkiye'de tarikatlar neden güçlü?", "Film gibi ama gerçek: savaş…", Martin Eden, Hitler, "En garip cezalar", Celal Şengör söyleşisi.
+  - Ortak kalıp: "neden …?" sorusu, izleyicinin kendi hayatına ya da Türkiye'ye dokunan konu.
+- **Okuma:**
+  - Kitlemiz felsefe nişinden değil geniş Türk YouTube izleyicisinden geliyor: erkek ağırlıklı (kadın %22,5), futbol ve gündem izleyen, ara sıra "neden" anlatısına giren.
+  - Bu, talep kontrolünün (b) şartını (izleyicinin kendi hayatına soru) ve somut olay kuralını destekliyor.
+  - Ekonomi ilgisi Lale'nin "Herkes alıyorsa alır mısın?" sorusunu doğrudan karşılıyor.
+- **Kapak dili:** akıştaki kapaklar büyük yüz + 2–3 kelimelik sarı ya da kırmızı yazı + "NEDEN …?". Gravür kapaklarımız bu akışta ya sıyrılır ya kaybolur; kapak testleri bunu ölçer.
+- **Daha iyi veri:** aynı Araştırma sekmesindeki **"Kitlenizin aramaları"** ve **"İçerik boşlukları"** kartları. Bunlar yazı olduğu için ekran görüntüsüyle okunabilir; konu seçiminde doğrudan kullanılır.
