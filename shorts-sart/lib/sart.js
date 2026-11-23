@@ -44,9 +44,21 @@
     ctx.fillStyle = col; ctx.fillText(s, x, y);
   }
   window.SART_YAZ = yaz;
+  // ara yazılar: KURGU.yazilar = [{t0, t1, satir: [[metin, renk, px], ...], y, ara, altyok (sn; bu zamana dek altyazı gizli)}]
+  // Kancanın tipografisiyle aynı: şart Shorts içinde geri döndüğünde ilk kareyle aynı görünür (döngü ve hatırlatma).
+  function arayazi(ctx, ts) {
+    for (const Y of (K.yazilar || [])) {
+      if (ts < Y.t0 || ts > Y.t1) continue;
+      const a = E.out3(clamp((ts - Y.t0) / .15)) * (1 - E.in2(clamp((ts - (Y.t1 - .3)) / .3)));
+      ctx.save(); ctx.globalAlpha = a; let y = Y.y ?? 300;
+      Y.satir.forEach(([s, c, px], i) => { if (i) y += px * (Y.ara ?? .9); yaz(ctx, s, 540, y, px, c === 'vurgu' ? VURGU : KREM); });
+      ctx.restore();
+    }
+  }
+  const altGizli = ts => (K.yazilar || []).some(Y => ts >= Y.t0 && ts < (Y.altyok ?? -1));
   function altyazi(ctx, ts) {
     const A = K.altyazi || {};
-    if (ts < (A.bas ?? 0)) return;
+    if (ts < (A.bas ?? 0) || altGizli(ts)) return;
     const o = OBEK.find(o => ts >= o.a && ts < o.b); if (!o) return;
     const k = eslem(ts).k; const px = A.px || 100, y = k.altY ?? A.y ?? 1300, gap = px * .28;
     ctx.font = `400 ${px}px "Bebas Neue"`;
@@ -88,7 +100,7 @@
     else cv = renderAt(ts, mb);
     const c = cv.getContext('2d');
     c.save(); c.setTransform(RS, 0, 0, RS, 0, 0); c.globalAlpha = 1; c.globalCompositeOperation = 'source-over'; c.filter = 'none';
-    if (!window.SART_YAZISIZ) { kanca(c, ts); altyazi(c, ts); kapanis(c, ts); }
+    if (!window.SART_YAZISIZ) { kanca(c, ts); arayazi(c, ts); altyazi(c, ts); kapanis(c, ts); }
     c.restore();
     return cv;
   };

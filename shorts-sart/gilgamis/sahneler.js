@@ -27,9 +27,12 @@ postHazirla = function () {
     sekil(R, [[FX - 120 * KK, FY], [FX - 120 * KK, FY - 135 * KK], [FX + 80 * KK, FY - 135 * KK], [FX + 80 * KK, FY]], .5, .5, null, 0);
     cizgi(R, [[FX - 120 * KK, FY - 130 * KK], [FX + 80 * KK, FY - 130 * KK]], 5, .5);
     SET.mesale(R, 120, 760, { son: o.mesale ?? 1, i: 1.4 });
-    // çentikler: duvarda yedi dikey çizgi (geçen günler), sağ üstte
+    // çentikler: geçen günler, başın sağında duvara kazınmış kısa, eğik, düzensiz izler.
+    // (İlk sürümde yedi uzun dikey oluk parmaklıklı hücre penceresi okundu; bağımsız okuma, 23 Kasım.)
     const c = o.centik || 0;
-    for (let i = 0; i < 7; i++) { const p = clamp(c * 7 - i); if (p > 0) cizgi(R, [[640 + i * 52, 330], [640 + i * 52, 330 + 190 * E.out2(p)]], 12, -.95); }
+    for (let i = 0; i < 7; i++) { const p = clamp(c * 7 - i); if (p <= 0) continue;
+      const x = 660 + i * 34 + (hash(i * 3.7) - .5) * 10, y = 800 + (hash(i * 5.1) - .5) * 22, L = 62 + hash(i * 2.3) * 26, eg = (hash(i * 7.9) - .3) * .35;
+      cizgi(R, [[x, y], [x + Math.sin(eg) * L * E.out2(p), y + Math.cos(eg) * L * E.out2(p)]], 7, -.9); }
     // ekmekler: önde, zeminde tek sıra (gün gün belirir: kabartma zeminden yükselir)
     const n = o.ekmek || 0;
     for (let i = 0; i < 7; i++) { const p = clamp(n - i); if (p > 0) YAR.ekmek(R, 130 + i * 136, FY + 170, 52 * (.6 + .4 * E.outBack(p)), EKMEK[i]); }
@@ -55,8 +58,10 @@ postHazirla = function () {
   // P1 · orta · F06 · şart: dik oturuyor, gözleri açık; nefes; bir kez ağır kırpar (u≈2,2). Üstte kanca yazısı için boş tuğla duvar.
   KAYIT(0, 'G1', 'orta', (R, st) => {
     kay(R, st, [520, 880, 1.0], [520, 930, 1.06]);
-    const nef = Math.sin(st.t * 2.1) * .015, kirp = st.lt > 2.15 && st.lt < 2.5;
-    oda(R, st, { poz: { egilme: .08 + nef, bas: .02 + (kirp ? .08 : 0), kapali: kirp } });
+    // uykuyla boğuşma: baş yavaşça düşer, silkinip kalkar (u 0,9–1,9); ikinci düşüş şartın sonunda başlar (P2'ye bağlanır)
+    const nef = Math.sin(st.t * 2.1) * .012, u = st.lt;
+    const dus = ramp(u, .9, 1.75, E.in2) * (1 - ramp(u, 1.75, 1.95, E.out3)) + ramp(u, 2.6, 3.3, E.in2) * .55;
+    oda(R, st, { poz: { egilme: .08 + nef + dus * .12, bas: .02 + dus * .38, kapali: dus > .55 } });
   });
   // P2 · yakın · F07 · 'uyku'da baş düşer; 'sis'te sis yukarıdan iner; meşale söner
   KAYIT(1, 'G2', 'yakin', (R, st) => {
@@ -96,10 +101,18 @@ postHazirla = function () {
     let y = RY(0);
     for (let i = 1; i < 7; i++) y = lerp(y, RY(i), ramp(st.t, T[i] - .55, T[i] - .05, E.io3));
     const cur = T.reduce((k, t, i) => (st.t >= t - .3 ? i : k), 0);
-    R.cam(545, y + 40, 1.55);
+    R.cam(545, clamp(y + 40, 120 - 30 + 960 / 1.55, 1560), 1.55);   // tabletin üstünden ve kor yatağının altından dışarı bakmaz
     SET.zemin(R);
     R.b.fillStyle = gv(.34); R.b.fillRect(80, 120, 940, 1720);                       // tablet yüzü (hafif kabarık)
     cizgi(R, [[80, 120], [1020, 120], [1020, 1840], [80, 1840], [80, 120]], 6, -.7);
+    // kor yatağı: tabletin altında ocak; yedincisi bunun üstünde
+    R.b.fillStyle = gv(.22); R.b.fillRect(60, 1840, 980, 420); R.m.fillStyle = '#5A3422'; R.m.fillRect(60, 1840, 980, 420);
+    for (let k = 0; k < 26; k++) { const x = 120 + hash(k * 1.3) * 860, yy = 1880 + hash(k * 2.9) * 300, r = 14 + hash(k * 4.1) * 22;
+      R.b.fillStyle = gv(.3 + hash(k) * .1); R.b.beginPath(); R.b.arc(x, yy, r, 0, TAU); R.b.fill(); }
+    R.after(c => { c.globalCompositeOperation = 'screen'; const fl = .8 + .2 * Math.sin(st.t * 5.3);
+      for (let k = 0; k < 26; k++) { const x = 120 + hash(k * 1.3) * 860, yy = 1880 + hash(k * 2.9) * 300, r = 10 + hash(k * 4.1) * 16;
+        const g = c.createRadialGradient(x, yy, 0, x, yy, r * 2.2); g.addColorStop(0, `rgba(255,140,50,${(.55 * fl * (.5 + hash(k * 9) * .5)).toFixed(3)})`); g.addColorStop(1, 'rgba(255,90,20,0)');
+        c.fillStyle = g; c.beginPath(); c.arc(x, yy, r * 2.2, 0, TAU); c.fill(); } });
     for (let i = 0; i < 7; i++) {
       const yy = RY(i);
       cizgi(R, [[100, yy + 85], [1000, yy + 85]], 5, -.85);                          // sıra çizgisi (tabletin satırı)
@@ -107,7 +120,7 @@ postHazirla = function () {
       YAR.ekmek(R, RX, yy + 70, 150, EKMEK[i]);
     }
     const [sx, sy] = R.scr(RX, RY(cur));
-    R.L.pts.push({ x: sx, y: sy - 120, z: 260 * R.z, r: 700 * R.z, i: .9, col: [1.15, .78, .45] });
+    R.L.pts.push({ x: sx, y: sy - 120, z: 260 * R.z, r: 700 * R.z, i: .6, col: [1.15, .78, .45] });   // anılan ekmek (beyazda parlayan kemerli niş okunmasın diye ölçülü)
     // yedincisi közde: kor ışığı anıldığında büyür
     const kor = ramp(st.t, T[6] - .3, T[6] + .6, E.io2);
     if (kor > 0) { const [kx, ky] = R.scr(RX, RY(6) + 85); R.L.pts.push({ x: kx, y: ky, z: 50 * R.z, r: 520 * R.z, i: 1.6 * kor, col: [1.3, .5, .15] }); }

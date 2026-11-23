@@ -111,7 +111,7 @@ window.KURGU = {
    "v": 276.0
   },
   {
-   "ad": "E10a kâhinin şartını hatırla: kendini tanımazsa (görüntü: Tiresias, hatıra)",
+   "ad": "E10a kâhinin şartını hatırla: kendini tanımazsa (görüntü: gözünde yaş, P051 ayrıntı; ilk sürümdeki Tiresias planı kırpık ve bağlamsızdı)",
    "a": [
     312.95,
     316.85
@@ -119,30 +119,19 @@ window.KURGU = {
    "lens": [
     [
      0,
-     820,
-     540,
-     1.78
-    ],
-    [
-     1.9,
-     830,
-     535,
-     1.8
-    ],
-    [
-     3.4,
      1000,
-     530,
-     1.82
+     480,
+     2.15
     ],
     [
      3.9,
-     1010,
-     530,
-     1.85
+     960,
+     440,
+     2.45
     ]
    ],
-   "v": 313.5
+   "v": 268.0,
+   "hiz": 0.85
   },
   {
    "ad": "E10b şimdi tanıdı, ve bilmek onu kurtarmadı (görüntü: P062 gözyaşı halkası, yüz dağılır)",
@@ -214,5 +203,47 @@ window.KURGU = {
   "y": 1300,
   "px": 100,
   "bas": 4.1
- }
+ },
+ "yazilar": [
+  {
+   "not": "E10@kendini 21,48 → tanımazsa sonu 22,69 (Shorts sn); kesitler değişirse yeniden hesapla",
+   "t0": 21.42,
+   "t1": 23.26,
+   "altyok": 23.26,
+   "y": 330,
+   "ara": 0.9,
+   "satir": [
+    [
+     "KENDİNİ",
+     "vurgu",
+     180
+    ],
+    [
+     "TANIMAZSA.",
+     "vurgu",
+     180
+    ]
+   ]
+  },
+  {
+   "not": "E10@tanıdı 23,67; 'Ve bilmek' 24,56",
+   "t0": 23.6,
+   "t1": 25.0,
+   "altyok": 24.5,
+   "y": 330,
+   "ara": 0.9,
+   "satir": [
+    [
+     "KENDİNİ",
+     "krem",
+     180
+    ],
+    [
+     "TANIDI.",
+     "vurgu",
+     180
+    ]
+   ]
+  }
+ ]
 };
