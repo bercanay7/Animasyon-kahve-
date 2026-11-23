@@ -1,6 +1,6 @@
 {
  "voice": "Emrullah (ElevenLabs; voice_id creative_list_voices ile bulunur)",
- "revizyon": "rev0 (23 Kasım 2026)",
+ "revizyon": "rev1 (23 Kasım 2026): Fable senaryo okuması uygulandı (uretim_plani.md §8)",
  "not": "Kaynak: Frankenstein (1818, 1831 önsöz), Mary Shelley günlüğü 1815 (Dowden 1886), Six Weeks' Tour (1817), Godwin Memoirs (1798). Çeviriler bizim. 1818 = kaynak/frankenstein_1818_gutenberg41445.txt satır; 1831ö = kaynak/frankenstein_1831_gutenberg42324.txt (önsöz) satır. İskelet: iç içe çerçeve (uretim_plani.md).",
  "segments": [
   {
@@ -8,35 +8,35 @@
    "bolum": "Kanca",
    "tts": "[softly] On sekiz yaşında bir kızın yazdığı bir sahne: bir yaratık, hayatının ilk gecesinde onu yapan adamın yatağının başına geliyor, perdeyi aralıyor ve ona elini uzatıyor.",
    "alt": "On sekiz yaşında bir kızın yazdığı bir sahne: bir yaratık, hayatının ilk gecesinde onu yapan adamın yatağının başına geliyor, perdeyi aralıyor ve ona elini uzatıyor.",
-   "kaynak": "Kapak A (ELİNİ UZATTI) ve kapak B (18 YAŞINDAYDI) ilk cümlede. 1818: 1464-1469 (perdeyi kaldırır, bir eli uzanmış)"
+   "kaynak": "Kapak A (ELİNİ UZATTI) ve kapak B (18 YAŞINDA YAZDI) ilk cümlede. 1818: 1464-1469 (perdeyi kaldırır, bir eli uzanmış)"
   },
   {
    "id": "A02",
    "bolum": "Kanca",
-   "tts": "[calmly] Adam o eli tutmuyor; kaçıyor. Yaratık gözünü ilk açtığında da kaçmıştı.",
-   "alt": "Adam o eli tutmuyor; kaçıyor. Yaratık gözünü ilk açtığında da kaçmıştı.",
+   "tts": "[calmly] Adam o eli tutmuyor; kaçıyor.",
+   "alt": "Adam o eli tutmuyor; kaçıyor.",
    "kaynak": "1818: 1469-1470 (I escaped); 1449-1450 (I rushed out of the room). L3 açılır"
   },
   {
    "id": "A03",
    "bolum": "Kanca",
-   "tts": "[calmly] Yaratığın adı yok; onu yapan, ona bir ad bile koymadı. İki yüz yıldır ona, kaçan adamın adıyla sesleniyoruz: Frankenstein.",
+   "tts": "[calmly] Yaratığın adı yok; onu yapan, ona bir ad bile koymadı. İki yüz yıldır ona, kaçan adamın adıyla sesleniyoruz: Frankenştayn.",
    "alt": "Yaratığın adı yok; onu yapan, ona bir ad bile koymadı. İki yüz yıldır ona, kaçan adamın adıyla sesleniyoruz: Frankenstein.",
    "kaynak": "Romanda yaratık hiç adlandırılmaz (creature, wretch, daemon, monster). L4 açılır"
   },
   {
    "id": "A04",
    "bolum": "Kanca",
-   "tts": "[curious] Kitap çıkınca Mary'ye yıllarca aynı şeyi sordular: genç bir kız böyle korkunç bir fikri nereden buldu?",
-   "alt": "Kitap çıkınca Mary'ye yıllarca aynı şeyi sordular: genç bir kız böyle korkunç bir fikri nereden buldu?",
+   "tts": "[curious] Kitap çıkınca yazarına, Meri Şelli'ye, yıllarca aynı şeyi sordular: genç bir kız böyle korkunç bir fikri nereden buldu?",
+   "alt": "Kitap çıkınca yazarına, Mary Shelley'ye, yıllarca aynı şeyi sordular: genç bir kız böyle korkunç bir fikri nereden buldu?",
    "kaynak": "1831ö: 66-68 (\"How I, when a young girl, came to think of… so very hideous an idea?\"). L1 açılır, H01-H09 kapatır"
   },
   {
    "id": "A05",
    "bolum": "Kanca",
-   "tts": "[thoughtful] Bir gün yaratık konuşacak ve hikâyesini kendi ağzından anlatacak. Dinleyince karar sen ver: canavar doğulur mu, yoksa terk edilince mi olunur?",
-   "alt": "Bir gün yaratık konuşacak ve hikâyesini kendi ağzından anlatacak. Dinleyince karar sen ver: canavar doğulur mu, yoksa terk edilince mi olunur?",
-   "kaynak": "1818: 2974 (Listen to my tale), L6. Başlığın sorusu. L2; cevap olaylarla D-F, kendi sözü F07, halka G03"
+   "tts": "[thoughtful] Birazdan yaratık konuşacak ve hikâyesini kendi ağzından anlatacak. Dinleyince kararı sen ver: canavar doğulur mu, yoksa terk edilince mi olunur?",
+   "alt": "Birazdan yaratık konuşacak ve hikâyesini kendi ağzından anlatacak. Dinleyince kararı sen ver: canavar doğulur mu, yoksa terk edilince mi olunur?",
+   "kaynak": "1818: 2974 (Listen to my tale), L6. Başlığın sorusu. L2; cevap olaylarla D-F, kendi sözü C09/F07, halka G03"
   },
   {
    "id": "B01",
@@ -48,121 +48,114 @@
   {
    "id": "B02",
    "bolum": "Yazsız yıl",
-   "tts": "[calmly] Mary bir mektubunda yazıyor: neredeyse hiç dinmeyen bir yağmur bizi eve kapatıyor. Şimşek bir an gölü aydınlatıyor, sonra zifiri karanlık.",
+   "tts": "[calmly] Meri bir mektubunda yazıyor: neredeyse hiç dinmeyen bir yağmur bizi eve kapatıyor. Şimşek bir an gölü aydınlatıyor, sonra zifiri karanlık.",
    "alt": "Mary bir mektubunda yazıyor: neredeyse hiç dinmeyen bir yağmur bizi eve kapatıyor. Şimşek bir an gölü aydınlatıyor, sonra zifiri karanlık.",
-   "kaynak": "Six Weeks' Tour 1817, Mektup II (1 Haziran 1816): kaynak/six_weeks_tour_1817_archive.txt 2501-2528 (almost perpetual rain confines us…; pitchy blackness)"
+   "kaynak": "Six Weeks' Tour 1817, Mektup II (Mary, 1 Haziran 1816): kaynak/six_weeks_tour_1817_archive.txt 2501-2528"
   },
   {
    "id": "B03",
    "bolum": "Yazsız yıl",
-   "tts": "[calmly] Gölün kıyısındaki büyük villada Lord Byron oturuyor. O yaz bir şiir yazacak: Bir düş gördüm, hepsi düş değildi. Parlak güneş sönmüştü.",
-   "alt": "Gölün kıyısındaki büyük villada Lord Byron oturuyor. O yaz bir şiir yazacak: Bir düş gördüm, hepsi düş değildi. Parlak güneş sönmüştü.",
-   "kaynak": "Byron, 'Darkness', Temmuz 1816 Diodati (kamu malı), 1-2. dizeler; çeviri bizim"
+   "tts": "[softly] Meri on sekiz yaşında. Yanında sevgilisi, genç şair Pörsi Şelli var.",
+   "alt": "Mary on sekiz yaşında. Yanında sevgilisi, genç şair Percy Shelley var.",
+   "kaynak": "Mary d. 30 Ağustos 1797 (Godwin 1798: 2141) → Haziran 1816'da 18. Percy d. 4 Ağustos 1792 (23)"
   },
   {
    "id": "B04",
    "bolum": "Yazsız yıl",
-   "tts": "[calmly] Odadakilerin bilmediği bir şey var. Bir yıl önce dünyanın öbür ucunda, Endonezya'da Tambora yanardağı patladı. Göğe savrulan kül ve gaz, ertesi yıl Avrupa'nın yazını söndürdü.",
-   "alt": "Odadakilerin bilmediği bir şey var. Bir yıl önce dünyanın öbür ucunda, Endonezya'da Tambora yanardağı patladı. Göğe savrulan kül ve gaz, ertesi yıl Avrupa'nın yazını söndürdü.",
-   "kaynak": "Tambora 10-11 Nisan 1815 (Oppenheimer 2003, Progress in Physical Geography 27:2). Odadakilere bilgi verilmez (yön notu)"
+   "tts": "[softly] Annesi de yazardı. Meri'yi doğurduktan on bir gün sonra öldü; Meri onu hiç tanımadı.",
+   "alt": "Annesi de yazardı. Mary'yi doğurduktan on bir gün sonra öldü; Mary onu hiç tanımadı.",
+   "kaynak": "Godwin, Memoirs 1798: 2141 (30 Ağustos), 2390 (10 Eylül 1797). Ad (Mary Wollstonecraft) yalnız ekranda"
   },
   {
    "id": "B05",
    "bolum": "Yazsız yıl",
-   "tts": "[calmly] Bu bağ ancak yüz yıl sonra kurulacak. O odadakiler için yaz, nedensizce gelmeyen bir şey.",
-   "alt": "Bu bağ ancak yüz yıl sonra kurulacak. O odadakiler için yaz, nedensizce gelmeyen bir şey.",
-   "kaynak": "Bağ 1910'larda (W. J. Humphreys) kuruldu, Stommel 1979 pekiştirdi. 'Yüz yıl kadar' güvenli"
+   "tts": "[softly] Geçen kış Meri de anne olmuştu. Erken doğan kızı on iki gün yaşadı. Şimdi yanında beş aylık bir oğlu var.",
+   "alt": "Geçen kış Mary de anne olmuştu. Erken doğan kızı on iki gün yaşadı. Şimdi yanında beş aylık bir oğlu var.",
+   "kaynak": "Günlük (Dowden 1886 c.1): 29700-29720 (22 Şubat 1815 doğum, 6 Mart 'Find my baby dead'); oğlu William d. 24 Ocak 1816 (Dowden 31064). L5 ekilir"
   },
   {
    "id": "B06",
    "bolum": "Yazsız yıl",
-   "tts": "[softly] Mary on sekiz yaşında. Yanında sevgilisi, genç şair Percy Shelley var.",
-   "alt": "Mary on sekiz yaşında. Yanında sevgilisi, genç şair Percy Shelley var.",
-   "kaynak": "Mary d. 30 Ağustos 1797 (Godwin 1798: kaynak/godwin_memoirs 2141) → Haziran 1816'da 18. Kapak B'nin vaadi"
+   "tts": "[calmly] Gölün kıyısındaki büyük villada Lord Bayrın kalıyor. O yaz bir şiir yazacak: Bir düş gördüm, hepsi düş değildi. Parlak güneş sönmüştü.",
+   "alt": "Gölün kıyısındaki büyük villada Lord Byron kalıyor. O yaz bir şiir yazacak: Bir düş gördüm, hepsi düş değildi. Parlak güneş sönmüştü.",
+   "kaynak": "Byron, 'Darkness' (1816), kaynak/byron_darkness_1816_wikisource1901.txt 19-20; çeviri bizim"
   },
   {
    "id": "B07",
    "bolum": "Yazsız yıl",
-   "tts": "[softly] Mary annesini hiç tanımadı. Annesi, yazar Mary Wollstonecraft, kızını doğurduktan on bir gün sonra öldü.",
-   "alt": "Mary annesini hiç tanımadı. Annesi, yazar Mary Wollstonecraft, kızını doğurduktan on bir gün sonra öldü.",
-   "kaynak": "Godwin, Memoirs 1798 (Gutenberg 16199): 2141 doğum 30 Ağustos; 2390 ölüm 10 Eylül 1797"
+   "tts": "[calmly] O kıyıdakilerin bilmediği bir şey var. Bir yıl önce dünyanın öbür ucunda, Endonezya'da Tambora yanardağı patladı. Göğe savrulan kül ve gaz, ertesi yıl Avrupa'nın yazını söndürdü; bunu ancak yüz yıl kadar sonra anlayacağız.",
+   "alt": "O kıyıdakilerin bilmediği bir şey var. Bir yıl önce dünyanın öbür ucunda, Endonezya'da Tambora yanardağı patladı. Göğe savrulan kül ve gaz, ertesi yıl Avrupa'nın yazını söndürdü; bunu ancak yüz yıl kadar sonra anlayacağız.",
+   "kaynak": "Tambora 10-11 Nisan 1815 (Oppenheimer 2003, Progress in Physical Geography 27:2); bağ 1910'larda (W. J. Humphreys), Stommel 1979. Odadakilere bilgi verilmez (yön notu)"
   },
   {
    "id": "B08",
-   "bolum": "Yazsız yıl",
-   "tts": "[softly] Bir yıl önce Mary de anne olmuştu. Erken doğan kızı on iki gün yaşadı.",
-   "alt": "Bir yıl önce Mary de anne olmuştu. Erken doğan kızı on iki gün yaşadı.",
-   "kaynak": "Mary'nin günlüğü (Dowden 1886 c.1: kaynak/dowden 29700-29720): 22 Şubat 1815 doğum (7 aylık), 6 Mart 'Find my baby dead'. L5 ekilir"
-  },
-  {
-   "id": "B09",
    "bolum": "Yazsız yıl",
    "tts": "[calmly] Yağmurlu akşamlardan birinde ellerine Almancadan çevrilmiş bir hayalet hikâyeleri kitabı geçiyor.",
    "alt": "Yağmurlu akşamlardan birinde ellerine Almancadan çevrilmiş bir hayalet hikâyeleri kitabı geçiyor.",
    "kaynak": "1831ö: 126-128 (Fantasmagoriana; Polidori 1911 notu 4321)"
   },
   {
+   "id": "B09",
+   "bolum": "Yazsız yıl",
+   "tts": "[firmly] Bayrın öneriyor: her birimiz bir hayalet hikâyesi yazacağız.",
+   "alt": "Byron öneriyor: her birimiz bir hayalet hikâyesi yazacağız.",
+   "kaynak": "1831ö: 145 (\"We will each write a ghost story\")"
+  },
+  {
    "id": "B10",
    "bolum": "Yazsız yıl",
-   "tts": "[firmly] Byron bir öneri yapıyor: her birimiz bir hayalet hikâyesi yazacağız.",
-   "alt": "Byron bir öneri yapıyor: her birimiz bir hayalet hikâyesi yazacağız.",
-   "kaynak": "1831ö: 145 (\"We will each write a ghost story\")"
+   "tts": "[calmly] Ötekiler başlıyor. Meri bulamıyor. Her sabah ona soruyorlar: bir hikâye buldun mu? Ve her sabah, diye yazacak, utanarak hayır diyorum.",
+   "alt": "Ötekiler başlıyor. Mary bulamıyor. Her sabah ona soruyorlar: bir hikâye buldun mu? Ve her sabah, diye yazacak, utanarak hayır diyorum.",
+   "kaynak": "1831ö: 165-169 (mortifying negative). Polidori 17 Haziran 'begun by all but me' (4282-4283): zamanlama farkı DOGRULAMA'da"
   },
   {
    "id": "B11",
    "bolum": "Yazsız yıl",
-   "tts": "[calmly] Ötekiler başlıyor. Mary bulamıyor. Her sabah ona soruyorlar: bir hikâye buldun mu? Ve her sabah, diye yazacak, utanarak hayır diyorum.",
-   "alt": "Ötekiler başlıyor. Mary bulamıyor. Her sabah ona soruyorlar: bir hikâye buldun mu? Ve her sabah, diye yazacak, utanarak hayır diyorum.",
-   "kaynak": "1831ö: 165-169 (mortifying negative). Polidori 17 Haziran: 'begun by all but me' (zamanlama farkı DOGRULAMA'da)"
+   "tts": "[calmly] Meri'nin anlattığına göre geceleri Bayrın ile Pörsi konuşuyor, o sessizce dinliyor: bir ölü yeniden canlandırılabilir mi?",
+   "alt": "Mary'nin anlattığına göre geceleri Byron ile Percy konuşuyor, o sessizce dinliyor: bir ölü yeniden canlandırılabilir mi?",
+   "kaynak": "1831ö: 184-196. Anlatım Mary'nin 1831 anlatımı olarak çerçevelenir"
   },
   {
    "id": "B12",
-   "bolum": "Yazsız yıl",
-   "tts": "[calmly] Geceleri Byron ile Percy konuşuyor, Mary sessizce dinliyor: bir ölü yeniden canlandırılabilir mi?",
-   "alt": "Geceleri Byron ile Percy konuşuyor, Mary sessizce dinliyor: bir ölü yeniden canlandırılabilir mi?",
-   "kaynak": "1831ö: 184-196 (devout but nearly silent listener; Perhaps a corpse would be re-animated)"
-  },
-  {
-   "id": "B13",
    "bolum": "Yazsız yıl",
    "tts": "[softly] Bir gece başını yastığa koyuyor ve uyuyamıyor. Gözleri kapalı, bir sahne görüyor.",
    "alt": "Bir gece başını yastığa koyuyor ve uyuyamıyor. Gözleri kapalı, bir sahne görüyor.",
    "kaynak": "1831ö: 198-203"
   },
   {
+   "id": "B13",
+   "bolum": "Yazsız yıl",
+   "tts": "[slowly] Soluk bir öğrenci, bir araya getirdiği şeyin başında diz çökmüş. O şey kıpırdıyor. Öğrenci dehşet içinde kaçıyor; unutmak için uykuya sığınıyor.",
+   "alt": "Soluk bir öğrenci, bir araya getirdiği şeyin başında diz çökmüş. O şey kıpırdıyor. Öğrenci dehşet içinde kaçıyor; unutmak için uykuya sığınıyor.",
+   "kaynak": "1831ö: 203-216"
+  },
+  {
    "id": "B14",
    "bolum": "Yazsız yıl",
-   "tts": "[slowly] Soluk bir öğrenci, bir araya getirdiği şeyin başında diz çökmüş. O şey kıpırdıyor. Öğrenci dehşet içinde kaçıyor ve uyuyor.",
-   "alt": "Soluk bir öğrenci, bir araya getirdiği şeyin başında diz çökmüş. O şey kıpırdıyor. Öğrenci dehşet içinde kaçıyor ve uyuyor.",
-   "kaynak": "1831ö: 203-216"
+   "tts": "[slowly] Uyandığında o şey yatağının başında: perdeyi aralamış, sarı, ıslak ama düşünen gözlerle ona bakıyor.",
+   "alt": "Uyandığında o şey yatağının başında: perdeyi aralamış, sarı, ıslak ama düşünen gözlerle ona bakıyor.",
+   "kaynak": "1831ö: 216-218 (yellow, watery, but speculative eyes)"
   },
   {
    "id": "B15",
    "bolum": "Yazsız yıl",
-   "tts": "[slowly] Uyandığında o şey yatağının başında: perdeyi aralamış, sarı, sulu ama düşünen gözlerle ona bakıyor.",
-   "alt": "Uyandığında o şey yatağının başında: perdeyi aralamış, sarı, sulu ama düşünen gözlerle ona bakıyor.",
-   "kaynak": "1831ö: 216-218 (yellow, watery, but speculative eyes)"
+   "tts": "[softly] Ben de korkuyla gözlerimi açtım, diye yazacak Meri on beş yıl sonra.",
+   "alt": "Ben de korkuyla gözlerimi açtım, diye yazacak Mary on beş yıl sonra.",
+   "kaynak": "1831ö: 220 (I opened mine in terror)"
   },
   {
    "id": "B16",
    "bolum": "Yazsız yıl",
-   "tts": "[softly] Ben de korkuyla gözlerimi açtım, diye yazacak Mary on beş yıl sonra.",
-   "alt": "Ben de korkuyla gözlerimi açtım, diye yazacak Mary on beş yıl sonra.",
-   "kaynak": "1831ö: 220 (I opened mine in terror). Anlatım Mary'nin 1831'deki anlatımı olarak çerçevelenir"
-  },
-  {
-   "id": "B17",
-   "bolum": "Yazsız yıl",
-   "tts": "[calmly] Ertesi sabah hikâyesini bulmuştu. İlk cümlesi şuydu: Kasım'ın kasvetli bir gecesiydi.",
-   "alt": "Ertesi sabah hikâyesini bulmuştu. İlk cümlesi şuydu: Kasım'ın kasvetli bir gecesiydi.",
-   "kaynak": "1831ö: 233-236; 1818: 1425. Kancanın (A01) kaynağı kapanır"
+   "tts": "[calmly] Ertesi sabah hikâyesini bulmuştu. Yazdığı ilk cümle şuydu: Kasım'ın kasvetli bir gecesiydi.",
+   "alt": "Ertesi sabah hikâyesini bulmuştu. Yazdığı ilk cümle şuydu: Kasım'ın kasvetli bir gecesiydi.",
+   "kaynak": "1831ö: 233-236; 1818: 1425 (IV. bölümün başı). Kancanın (A01) kaynağı kapanır"
   },
   {
    "id": "C01",
    "bolum": "Kasım gecesi",
-   "tts": "[calmly] Mary'nin romanında öğrencinin adı Victor Frankenstein. İki yıl boyunca uykusuz, kimseyle görüşmeden çalıştı.",
-   "alt": "Mary'nin romanında öğrencinin adı Victor Frankenstein. İki yıl boyunca uykusuz, kimseyle görüşmeden çalıştı.",
-   "kaynak": "1818: 1445-1447 (worked hard for nearly two years… deprived myself of rest)"
+   "tts": "[calmly] Meri'nin romanında öğrencinin adı Viktor Frankenştayn. İki yıla yakın, dinlenmeden çalıştı.",
+   "alt": "Mary'nin romanında öğrencinin adı Victor Frankenstein. İki yıla yakın, dinlenmeden çalıştı.",
+   "kaynak": "1818: 1445-1447 (nearly two years… deprived myself of rest)"
   },
   {
    "id": "C02",
@@ -174,57 +167,50 @@
   {
    "id": "C03",
    "bolum": "Kasım gecesi",
-   "tts": "[slowly] Ama yaratık gözünü açınca gördü: sarı deri kasları zor örtüyor; saçlar uzun ve parlak siyah, dişler inci gibi; gözler sulu, göz çukurlarıyla neredeyse aynı renk.",
-   "alt": "Ama yaratık gözünü açınca gördü: sarı deri kasları zor örtüyor; saçlar uzun ve parlak siyah, dişler inci gibi; gözler sulu, göz çukurlarıyla neredeyse aynı renk.",
+   "tts": "[slowly] Ama yaratık gözünü açınca Viktor ne yaptığını gördü: sarı deri kasları zor örtüyor; saçlar uzun ve parlak siyah, dişler inci gibi; gözler ıslak, göz çukurlarıyla neredeyse aynı renk.",
+   "alt": "Ama yaratık gözünü açınca Victor ne yaptığını gördü: sarı deri kasları zor örtüyor; saçlar uzun ve parlak siyah, dişler inci gibi; gözler ıslak, göz çukurlarıyla neredeyse aynı renk.",
    "kaynak": "1818: 1437-1442. Yaratık roman tarifiyle çizilir (1931 tasarımı değil)"
   },
   {
    "id": "C04",
    "bolum": "Kasım gecesi",
-   "tts": "[calmly] Victor odadan kaçtı. Yaratığa ne bir ad verdi, ne bir söz söyledi.",
+   "tts": "[calmly] Viktor odadan kaçtı. Yaratığa ne bir ad verdi, ne bir söz söyledi.",
    "alt": "Victor odadan kaçtı. Yaratığa ne bir ad verdi, ne bir söz söyledi.",
    "kaynak": "1818: 1449-1450. L3 kapanır"
   },
   {
    "id": "C05",
    "bolum": "Kasım gecesi",
-   "tts": "[calmly] Romanın geri kalanında da ona bir ad yerine hep bir sıfatla seslenecek: zavallı, iblis, canavar.",
-   "alt": "Romanın geri kalanında da ona bir ad yerine hep bir sıfatla seslenecek: zavallı, iblis, canavar.",
-   "kaynak": "1818: wretch, daemon, monster (her yerde)"
+   "tts": "[calmly] Romanın geri kalanında da ona bir ad yerine hep bir sıfatla seslenecek: sefil, alçak, canavar.",
+   "alt": "Romanın geri kalanında da ona bir ad yerine hep bir sıfatla seslenecek: sefil, alçak, canavar.",
+   "kaynak": "1818: wretch, villain, monster (her yerde)"
   },
   {
    "id": "C06",
    "bolum": "Kasım gecesi",
-   "tts": "[calmly] Yıllar sonra roman sahneye konunca, afişte yaratığın adının yerinde yalnızca bir çizgi vardı. Mary bunu bir mektubunda çok beğendi.",
-   "alt": "Yıllar sonra roman sahneye konunca, afişte yaratığın adının yerinde yalnızca bir çizgi vardı. Mary bunu bir mektubunda çok beğendi.",
-   "kaynak": "Presumption (Peake), English Opera House, Temmuz 1823; Mary 29 Ağustos 1823'te izledi; Leigh Hunt'a mektup, Eylül 1823 ('this nameless mode of naming the unnameable is rather good'). L4"
+   "tts": "[calmly] Yaratık onu yıllar sonra, Mon Blan'ın eteğinde, bir buzulun üstünde buldu.",
+   "alt": "Yaratık onu yıllar sonra, Mont Blanc'ın eteğinde, bir buzulun üstünde buldu.",
+   "kaynak": "1818: 2888 (Mer de Glace); 2900-2952"
   },
   {
    "id": "C07",
    "bolum": "Kasım gecesi",
-   "tts": "[calmly] Victor yaratıkla yüz yüze konuşmayı çok sonra, Mont Blanc'ın eteğinde, bir buzulun üstünde yapabildi.",
-   "alt": "Victor yaratıkla yüz yüze konuşmayı çok sonra, Mont Blanc'ın eteğinde, bir buzulun üstünde yapabildi.",
-   "kaynak": "1818: 2888 (Mer de Glace); konuşma 2938-2980"
+   "tts": "[firmly] İyiydim, dedi, iyi yürekliydim; çektiğim acı beni canavara çevirdi. Beni mutlu et, yine iyi olurum.",
+   "alt": "İyiydim, dedi, iyi yürekliydim; çektiğim acı beni canavara çevirdi. Beni mutlu et, yine iyi olurum.",
+   "kaynak": "1818: 2949-2951 (I was benevolent and good; misery made me a fiend. Make me happy, and I shall again be virtuous). Yaratığın iddiası; kanıtı D-F"
   },
   {
    "id": "C08",
    "bolum": "Kasım gecesi",
-   "tts": "[calmly] Mary o buzulda, 1816 Temmuz'unda kendisi yürümüştü.",
-   "alt": "Mary o buzulda, 1816 Temmuz'unda kendisi yürümüştü.",
-   "kaynak": "Six Weeks' Tour 1817, Mektup IV (Chamouni, 25 Temmuz 1816): 4061 'We have returned from visiting the glacier of Montanvert'"
+   "tts": "[firmly] Beni dinle. Dinledikten sonra istersen terk et, istersen acı bana.",
+   "alt": "Beni dinle. Dinledikten sonra istersen terk et, istersen acı bana.",
+   "kaynak": "1818: 2974-2975 (Listen to my tale: when you have heard that, abandon or commiserate me)"
   },
   {
    "id": "C09",
    "bolum": "Kasım gecesi",
-   "tts": "[firmly] Yaratık Victor'un önüne çıktı: Beni dinle, dedi. Dinledikten sonra istersen bırak beni, istersen acı bana.",
-   "alt": "Yaratık Victor'un önüne çıktı: Beni dinle, dedi. Dinledikten sonra istersen bırak beni, istersen acı bana.",
-   "kaynak": "1818: 2974-2975 (Listen to my tale: when you have heard that, abandon or commiserate me)"
-  },
-  {
-   "id": "C10",
-   "bolum": "Kasım gecesi",
-   "tts": "[calmly] Romanın tam ortasında yaratık konuşur. Bundan sonrası onun kendi sözleri.",
-   "alt": "Romanın tam ortasında yaratık konuşur. Bundan sonrası onun kendi sözleri.",
+   "tts": "[calmly] Romanın tam ortasında yaratık konuşur. Bundan sonrası onun kendi ağzından.",
+   "alt": "Romanın tam ortasında yaratık konuşur. Bundan sonrası onun kendi ağzından.",
    "kaynak": "Romanın II. cildi yaratığın anlatısı. Anlatım birinci tekile geçer (D01-F05)"
   },
   {
@@ -232,7 +218,7 @@
    "bolum": "Duvardaki yarık",
    "tts": "[slowly] Önce hiçbir şeyi birbirinden ayıramıyordum. Işık, karanlık, açlık, soğuk; hepsi bir aradaydı.",
    "alt": "Önce hiçbir şeyi birbirinden ayıramıyordum. Işık, karanlık, açlık, soğuk; hepsi bir aradaydı.",
-   "kaynak": "1818: 3060-3062 (I felt light, and hunger, and thirst, and darkness)"
+   "kaynak": "1818: 3060-3062"
   },
   {
    "id": "D02",
@@ -265,9 +251,9 @@
   {
    "id": "D06",
    "bolum": "Duvardaki yarık",
-   "tts": "[calmly] Bir kulübenin duvarına yaslı bir barakaya sığındım. Duvarda küçük bir yarık vardı. Oradan bir aileyi izledim: kör bir ihtiyar, kızı ve oğlu.",
-   "alt": "Bir kulübenin duvarına yaslı bir barakaya sığındım. Duvarda küçük bir yarık vardı. Oradan bir aileyi izledim: kör bir ihtiyar, kızı ve oğlu.",
-   "kaynak": "1818: 3164 vd. (hovel, chink). Ad yükü azaltıldı: De Lacey, Agatha, Felix adsız"
+   "tts": "[calmly] Bir eve bitişik alçak bir odunluğa sığındım. Duvarda küçük bir yarık vardı. Oradan bir aileyi izledim: kör bir ihtiyar, kızı ve oğlu.",
+   "alt": "Bir eve bitişik alçak bir odunluğa sığındım. Duvarda küçük bir yarık vardı. Oradan bir aileyi izledim: kör bir ihtiyar, kızı ve oğlu.",
+   "kaynak": "1818: 3164 vd. (hovel, chink). De Lacey, Agatha, Felix adsız"
   },
   {
    "id": "D07",
@@ -293,8 +279,8 @@
   {
    "id": "D10",
    "bolum": "Duvardaki yarık",
-   "tts": "[sad] Onları dinleyerek konuşmayı öğrendim. Baba, anne, kardeş. Benim babam, annem neredeydi? Hiçbir baba bebekliğimi gözetmedi; hiçbir anne bana gülümsemedi.",
-   "alt": "Onları dinleyerek konuşmayı öğrendim. Baba, anne, kardeş. Benim babam, annem neredeydi? Hiçbir baba bebekliğimi gözetmedi; hiçbir anne bana gülümsemedi.",
+   "tts": "[sad] Onları dinleyerek konuşmayı öğrendim. Baba, anne, kardeş. Benim babam, annem neredeydi? Bebekliğimde başımda bekleyen bir baba, bana gülümseyen bir anne olmadı.",
+   "alt": "Onları dinleyerek konuşmayı öğrendim. Baba, anne, kardeş. Benim babam, annem neredeydi? Bebekliğimde başımda bekleyen bir baba, bana gülümseyen bir anne olmadı.",
    "kaynak": "1818: 3674-3680 (No father had watched my infant days, no mother had blessed me with smiles)"
   },
   {
@@ -307,23 +293,16 @@
   {
    "id": "D12",
    "bolum": "Duvardaki yarık",
-   "tts": "[calmly] Ormanda yerde bir deri çanta buldum; içinde kitaplar vardı. Biri Kayıp Cennet'ti. Onu gerçek bir tarih gibi okudum.",
-   "alt": "Ormanda yerde bir deri çanta buldum; içinde kitaplar vardı. Biri Kayıp Cennet'ti. Onu gerçek bir tarih gibi okudum.",
-   "kaynak": "1818: 3896-3900; 3957-3958 (I read it… as a true history)"
+   "tts": "[sad] Laboratuvardan aldığım giysinin cebinde kâğıtlar vardı: Viktor'un günlüğü. Nasıl yapıldığımı orada okudum. Beni yapan bile benden tiksinip yüz çevirmişti.",
+   "alt": "Laboratuvardan aldığım giysinin cebinde kâğıtlar vardı: Victor'un günlüğü. Nasıl yapıldığımı orada okudum. Beni yapan bile benden tiksinip yüz çevirmişti.",
+   "kaynak": "1818: 3971-3988 (papers in the pocket… even you turned from me in disgust)"
   },
   {
    "id": "D13",
    "bolum": "Duvardaki yarık",
-   "tts": "[sad] Laboratuvardan aldığım giysinin cebinde de kâğıtlar vardı: Victor'un günlüğü. Nasıl yapıldığımı orada okudum. Beni yapan bile benden tiksinip yüz çevirmişti.",
-   "alt": "Laboratuvardan aldığım giysinin cebinde de kâğıtlar vardı: Victor'un günlüğü. Nasıl yapıldığımı orada okudum. Beni yapan bile benden tiksinip yüz çevirmişti.",
-   "kaynak": "1818: 3971-3988 (papers in the pocket… even you turned from me in disgust)"
-  },
-  {
-   "id": "D14",
-   "bolum": "Duvardaki yarık",
    "tts": "[calmly] Yine de bir umudum vardı: yüzümü görmeden önce sesimi duysunlar. Ve o evde beni göremeyecek biri vardı.",
    "alt": "Yine de bir umudum vardı: yüzümü görmeden önce sesimi duysunlar. Ve o evde beni göremeyecek biri vardı.",
-   "kaynak": "1818: Cilt II bölüm 6 sonu (yaşlı adamla yalnız konuşma planı). L7 açılır"
+   "kaynak": "1818: Cilt II bölüm 6 sonu. L7 açılır"
   },
   {
    "id": "E01",
@@ -344,14 +323,14 @@
    "bolum": "Kör adam",
    "tts": "[softly] Hayatımda ilk kez bir insan sesi bana iyilikle konuşuyordu.",
    "alt": "Hayatımda ilk kez bir insan sesi bana iyilikle konuşuyordu.",
-   "kaynak": "1818: 4154-4155 (from your lips first have I heard the voice of kindness)"
+   "kaynak": "1818: 4154-4155"
   },
   {
    "id": "E04",
    "bolum": "Kör adam",
    "tts": "[calmly] Ayak sesleri yaklaşınca ihtiyarın elini tuttum. Beni bırakma, dedim. Aradığım dostlar sizsiniz.",
    "alt": "Ayak sesleri yaklaşınca ihtiyarın elini tuttum. Beni bırakma, dedim. Aradığım dostlar sizsiniz.",
-   "kaynak": "1818: 4164-4167 (seizing the hand of the old man… Do not you desert me)"
+   "kaynak": "1818: 4164-4167"
   },
   {
    "id": "E05",
@@ -365,21 +344,21 @@
    "bolum": "Kör adam",
    "tts": "[sad] Onu paramparça edebilirdim. Ama yüreğim içime çöktü. Elimi kaldırmadım.",
    "alt": "Onu paramparça edebilirdim. Ama yüreğim içime çöktü. Elimi kaldırmadım.",
-   "kaynak": "1818: 4178-4179 (I could have torn him limb from limb… I refrained)"
+   "kaynak": "1818: 4178-4179"
   },
   {
    "id": "E07",
    "bolum": "Kör adam",
-   "tts": "[calmly] Birkaç gün sonra aile kulübeyi bırakıp gitti. Bir daha dönmediler.",
-   "alt": "Birkaç gün sonra aile kulübeyi bırakıp gitti. Bir daha dönmediler.",
-   "kaynak": "1818: Cilt II bölüm 8 (aile evi terk eder)"
+   "tts": "[calmly] Ertesi gün kulübe boştu. Bir daha dönmediler.",
+   "alt": "Ertesi gün kulübe boştu. Bir daha dönmediler.",
+   "kaynak": "1818: 4242-4270"
   },
   {
    "id": "E08",
    "bolum": "Kör adam",
    "tts": "[firmly] O gece kulübeyi ateşe verdim.",
    "alt": "O gece kulübeyi ateşe verdim.",
-   "kaynak": "1818: 4298"
+   "kaynak": "1818: 4283-4298"
   },
   {
    "id": "E09",
@@ -405,84 +384,78 @@
   {
    "id": "F02",
    "bolum": "Ben de yaratabilirim",
-   "tts": "[firmly] Çocuk gözlerini elleriyle kapattı ve çığlık attı: Bırak beni, canavar! Babam kim, biliyor musun? Frankenstein!",
-   "alt": "Çocuk gözlerini elleriyle kapattı ve çığlık attı: Bırak beni, canavar! Babam kim, biliyor musun? Frankenstein!",
+   "tts": "[firmly] Çocuk gözlerini elleriyle kapattı ve çığlık attı: Bırak beni, canavar! Babama söylerim. Babam Bay Frankenştayn!",
+   "alt": "Çocuk gözlerini elleriyle kapattı ve çığlık attı: Bırak beni, canavar! Babama söylerim. Babam Bay Frankenstein!",
    "kaynak": "1818: 4420-4432"
   },
   {
    "id": "F03",
    "bolum": "Ben de yaratabilirim",
-   "tts": "[slowly] Düşmanımın adıydı. Çocuğu susturmak istedim. Bir an sonra ayaklarımın dibinde kıpırtısız yatıyordu.",
-   "alt": "Düşmanımın adıydı. Çocuğu susturmak istedim. Bir an sonra ayaklarımın dibinde kıpırtısız yatıyordu.",
-   "kaynak": "1818: 4433-4439. Hassasiyet: şiddet gösterilmez, ima edilir"
+   "tts": "[slowly] Düşmanımın adıydı. İlk kurbanım sen olacaksın, dedim. Susturmak için boğazına sarıldım; bir an sonra ayaklarımın dibinde kıpırtısız yatıyordu.",
+   "alt": "Düşmanımın adıydı. İlk kurbanım sen olacaksın, dedim. Susturmak için boğazına sarıldım; bir an sonra ayaklarımın dibinde kıpırtısız yatıyordu.",
+   "kaynak": "1818: 4433-4439 (you shall be my first victim; I grasped his throat). Hassasiyet: şiddet gösterilmez"
   },
   {
    "id": "F04",
    "bolum": "Ben de yaratabilirim",
-   "tts": "[firmly] Ben de yaratabilirim, diye bağırdım: yıkım yaratabilirim.",
-   "alt": "Ben de yaratabilirim, diye bağırdım: yıkım yaratabilirim.",
-   "kaynak": "1818: 4441 (I, too, can create desolation)"
+   "tts": "[firmly] Ellerimi çırptım ve bağırdım: Ben de yıkım yaratabilirim!",
+   "alt": "Ellerimi çırptım ve bağırdım: Ben de yıkım yaratabilirim!",
+   "kaynak": "1818: 4440-4442 (clapping my hands… I, too, can create desolation)"
   },
   {
    "id": "F05",
    "bolum": "Ben de yaratabilirim",
    "tts": "[sad] Çocuğun göğsünde parıldayan bir şey vardı: güzel bir kadının resmi. Bir an ona baktım ve öfkem dindi. Sonra o gözlerin bana nasıl bakacağını düşündüm.",
    "alt": "Çocuğun göğsünde parıldayan bir şey vardı: güzel bir kadının resmi. Bir an ona baktım ve öfkem dindi. Sonra o gözlerin bana nasıl bakacağını düşündüm.",
-   "kaynak": "1818: 4445-4454 (portrait of a most lovely woman)"
+   "kaynak": "1818: 4445-4454"
   },
   {
    "id": "F06",
    "bolum": "Ben de yaratabilirim",
-   "tts": "[calmly] Öldürülen çocuk, Victor'un küçük kardeşiydi.",
-   "alt": "Öldürülen çocuk, Victor'un küçük kardeşiydi.",
-   "kaynak": "1818: Cilt I bölüm 6-7 (William). Anlatım yeniden üçüncü tekil"
+   "tts": "[calmly] Yaratığın sözünü ettiği çocuk, Viktor'un küçük kardeşiydi.",
+   "alt": "Yaratığın sözünü ettiği çocuk, Victor'un küçük kardeşiydi.",
+   "kaynak": "Anlatım yeniden üçüncü tekil (öncesinde duraklama)",
+   "vo_parca": true
   },
   {
    "id": "F07",
    "bolum": "Ben de yaratabilirim",
-   "tts": "[thoughtful] Yaratık anlatmaya başlamadan önce Victor'a tek bir cümle söylemişti: İyiydim, iyi yürekliydim; mutsuzluk beni bir iblise çevirdi. Beni mutlu et, yine iyi olurum.",
-   "alt": "Yaratık anlatmaya başlamadan önce Victor'a tek bir cümle söylemişti: İyiydim, iyi yürekliydim; mutsuzluk beni bir iblise çevirdi. Beni mutlu et, yine iyi olurum.",
-   "kaynak": "1818: 2950-2951 (I was benevolent and good; misery made me a fiend). Başlığın sorusuna yaratığın kendi sözü"
+   "tts": "[thoughtful] Hikâyesini bitirince dedi ki: Kötüyüm, çünkü mutsuzum. Bana benim gibi bir eş yap; insanlardan uzağa gideriz.",
+   "alt": "Hikâyesini bitirince dedi ki: Kötüyüm, çünkü mutsuzum. Bana benim gibi bir eş yap; insanlardan uzağa gideriz.",
+   "kaynak": "1818: 4508 (I am malicious because I am miserable); Cilt II bölüm 8-9"
   },
   {
    "id": "F08",
    "bolum": "Ben de yaratabilirim",
-   "tts": "[calmly] Hikâyesinin sonunda tek bir şey istedi: bana bir eş yap, benim gibi biri. İnsanlardan uzağa gideriz.",
-   "alt": "Hikâyesinin sonunda tek bir şey istedi: bana bir eş yap, benim gibi biri. İnsanlardan uzağa gideriz.",
-   "kaynak": "1818: Cilt II bölüm 8-9"
-  },
-  {
-   "id": "F09",
-   "bolum": "Ben de yaratabilirim",
-   "tts": "[calmly] Victor kabul etti. Uzak bir adada ikinci yaratığı yapmaya başladı.",
+   "tts": "[calmly] Viktor kabul etti. Uzak bir adada ikinci yaratığı yapmaya başladı.",
    "alt": "Victor kabul etti. Uzak bir adada ikinci yaratığı yapmaya başladı.",
    "kaynak": "1818: Cilt III bölüm 2-3 (Orkney)"
   },
   {
-   "id": "F10",
+   "id": "F09",
    "bolum": "Ben de yaratabilirim",
    "tts": "[slowly] Yarısına gelmişti ki pencerede, ay ışığında onu izleyen yüzü gördü. Ve yarım kalan bedeni parçaladı.",
    "alt": "Yarısına gelmişti ki pencerede, ay ışığında onu izleyen yüzü gördü. Ve yarım kalan bedeni parçaladı.",
    "kaynak": "1818: 5262-5271. L8 açılır (H10)"
   },
   {
-   "id": "F11",
+   "id": "F10",
    "bolum": "Ben de yaratabilirim",
-   "tts": "[firmly] Yaratık geri döndü ve tek bir söz söyledi: Düğün gecende yanında olacağım.",
-   "alt": "Yaratık geri döndü ve tek bir söz söyledi: Düğün gecende yanında olacağım.",
-   "kaynak": "1818: 5342"
+   "tts": "[firmly] Yaratık giderken şunu söyledi: Düğün gecende yanında olacağım.",
+   "alt": "Yaratık giderken şunu söyledi: Düğün gecende yanında olacağım.",
+   "kaynak": "1818: 5342-5343"
   },
   {
-   "id": "F12",
+   "id": "F11",
    "bolum": "Ben de yaratabilirim",
-   "tts": "[calmly] Sözünü tuttu. Victor'un sevdikleri birer birer öldü.",
-   "alt": "Sözünü tuttu. Victor'un sevdikleri birer birer öldü.",
-   "kaynak": "1818: Clerval, Elizabeth (düğün gecesi), baba. Ayrıntı ve şiddet gösterilmez"
+   "tts": "[calmly] Sözünü tuttu. Viktor'un sevdiklerini birer birer elinden aldı.",
+   "alt": "Sözünü tuttu. Victor'un sevdiklerini birer birer elinden aldı.",
+   "kaynak": "1818: Clerval, Elizabeth (düğün gecesi). Ayrıntı ve şiddet gösterilmez"
   },
   {
    "id": "G01",
    "bolum": "Buzların arasında",
-   "tts": "[calmly] Victor onu kuzeye, buzların arasına kadar kovaladı. Orada bir gemiye alındı ve gemide öldü.",
+   "tts": "[calmly] Viktor onu kuzeye, buzların arasına kadar kovaladı. Orada bir gemiye alındı ve gemide öldü.",
    "alt": "Victor onu kuzeye, buzların arasına kadar kovaladı. Orada bir gemiye alındı ve gemide öldü.",
    "kaynak": "1818: Walton mektupları"
   },
@@ -496,22 +469,22 @@
   {
    "id": "G03",
    "bolum": "Buzların arasında",
-   "tts": "[softly] Hikâyenin ilk gecesinde yaratık elini uzatmış, Victor kaçmıştı. Şimdi Victor kaçamıyordu.",
+   "tts": "[softly] Hikâyenin ilk gecesinde yaratık elini uzatmış, Viktor kaçmıştı. Şimdi Viktor kaçamıyordu.",
    "alt": "Hikâyenin ilk gecesinde yaratık elini uzatmış, Victor kaçmıştı. Şimdi Victor kaçamıyordu.",
    "kaynak": "Halka: A01 ↔ G02"
   },
   {
    "id": "G04",
    "bolum": "Buzların arasında",
-   "tts": "[sad] Yaratık ölüye eğildi. Soğumuş, dedi. Artık bana cevap veremez.",
-   "alt": "Yaratık ölüye eğildi. Soğumuş, dedi. Artık bana cevap veremez.",
-   "kaynak": "1818: 7133 (Alas! he is cold; he may not answer me)"
+   "tts": "[sad] Bu da benim kurbanım, dedi yaratık. Soğumuş; artık bana cevap veremez.",
+   "alt": "Bu da benim kurbanım, dedi yaratık. Soğumuş; artık bana cevap veremez.",
+   "kaynak": "1818: 7128-7133 (That is also my victim!… Alas! he is cold; he may not answer me)"
   },
   {
    "id": "G05",
    "bolum": "Buzların arasında",
-   "tts": "[slowly] Sonra pencereden buz salının üstüne atladı. Dalgalar onu karanlığa ve uzaklığa götürdü.",
-   "alt": "Sonra pencereden buz salının üstüne atladı. Dalgalar onu karanlığa ve uzaklığa götürdü.",
+   "tts": "[slowly] Sonra pencereden buz salının üstüne atladı. Dalgalar onu aldı; karanlıkta, uzakta kayboldu.",
+   "alt": "Sonra pencereden buz salının üstüne atladı. Dalgalar onu aldı; karanlıkta, uzakta kayboldu.",
    "kaynak": "1818: 7276-7278 (romanın son cümlesi). Ölüm yakma planı anlatılmaz (hassasiyet)"
   },
   {
@@ -524,70 +497,70 @@
   {
    "id": "H02",
    "bolum": "Çirkin evladım",
-   "tts": "[calmly] Kitap 1818'de çıktı. Kapağında yazarın adı yoktu.",
-   "alt": "Kitap 1818'de çıktı. Kapağında yazarın adı yoktu.",
-   "kaynak": "1818 baskısı adsız yayımlandı (kaynak dosyası başlık sayfası). L4"
+   "tts": "[calmly] Kitap 1818'de çıktı. Kapağında yazarın adı yoktu. Yıllar sonra sahneye konunca, afişte yaratığın adının yerinde de yalnızca bir çizgi vardı.",
+   "alt": "Kitap 1818'de çıktı. Kapağında yazarın adı yoktu. Yıllar sonra sahneye konunca, afişte yaratığın adının yerinde de yalnızca bir çizgi vardı.",
+   "kaynak": "1818 başlık sayfası adsız (kaynak/frankenstein_1818 36-60). Afiş: Mary'nin mektubu, Eylül 1823 (Marshall 1889 c.2: kaynak/marshall_1889_cilt2_archive.txt 4286-4293). L4 kapanır"
   },
   {
    "id": "H03",
    "bolum": "Çirkin evladım",
-   "tts": "[calmly] On beş yıl sonra, yeni baskıya yazdığı önsözde Mary o soruya cevap verdi: bir düş gördüm, dedi, ve o düşü yazdım.",
-   "alt": "On beş yıl sonra, yeni baskıya yazdığı önsözde Mary o soruya cevap verdi: bir düş gördüm, dedi, ve o düşü yazdım.",
-   "kaynak": "1831ö: 231-236"
+   "tts": "[calmly] 1831'de, yeni baskıya yazdığı önsözde Meri o soruya cevap verdi: gözlerim kapalı ama uyanıkken bir şey gördüm, dedi; onu kâğıda geçirdim.",
+   "alt": "1831'de, yeni baskıya yazdığı önsözde Mary o soruya cevap verdi: gözlerim kapalı ama uyanıkken bir şey gördüm, dedi; onu kâğıda geçirdim.",
+   "kaynak": "1831ö: 198-236 (I did not sleep… my waking dream)"
   },
   {
    "id": "H04",
    "bolum": "Çirkin evladım",
    "tts": "[calmly] O yazı mutlu günler diye andı: ölüm ve keder, o zaman benim için yalnızca sözcüklerdi.",
    "alt": "O yazı mutlu günler diye andı: ölüm ve keder, o zaman benim için yalnızca sözcüklerdi.",
-   "kaynak": "1831ö: 246-248 (happy days, when death and grief were but words)"
+   "kaynak": "1831ö: 246-248"
   },
   {
    "id": "H05",
    "bolum": "Çirkin evladım",
-   "tts": "[calmly] Ama on yedi yaşında tuttuğu günlükte, bebeğini kaybettikten iki hafta sonra yazdığı bir satır var.",
-   "alt": "Ama on yedi yaşında tuttuğu günlükte, bebeğini kaybettikten iki hafta sonra yazdığı bir satır var.",
-   "kaynak": "Günlük 19 Mart 1815 (Dowden 1886 c.1: 29742-29744); Mary 17 yaşında"
+   "tts": "[calmly] Ama on yedi yaşında tuttuğu günlükte, bebeğini kaybettiği haftalardan satırlar var. Ne zaman yalnız kalsam, düşüncelerim hep aynı yere dönüyor: bir anneydim, artık değilim.",
+   "alt": "Ama on yedi yaşında tuttuğu günlükte, bebeğini kaybettiği haftalardan satırlar var. Ne zaman yalnız kalsam, düşüncelerim hep aynı yere dönüyor: bir anneydim, artık değilim.",
+   "kaynak": "Günlük 13 Mart 1815 (Dowden 1886 c.1: 29733-29738: \"that I was a mother, and am so no longer\")"
   },
   {
    "id": "H06",
    "bolum": "Çirkin evladım",
    "tts": "[softly] Düşümde bebeğim yeniden canlandı. Yalnızca üşümüştü; onu ateşin önünde ovduk ve yaşadı. Uyandım; bebek yok.",
    "alt": "Düşümde bebeğim yeniden canlandı. Yalnızca üşümüştü; onu ateşin önünde ovduk ve yaşadı. Uyandım; bebek yok.",
-   "kaynak": "Günlük 19 Mart 1815, kelimesi kelimesine çeviri (\"Dream that my little baby came to life again; that it had only been cold, and that we rubbed it before the fire, and it lived. Awake and find no baby.\"). L5 kapanır"
+   "kaynak": "Günlük 19 Mart 1815 (Dowden 29742-29746), kelimesi kelimesine. L5 kapanır"
   },
   {
    "id": "H07",
    "bolum": "Çirkin evladım",
-   "tts": "[calmly] Mary bu iki şeyi hiçbir yerde birbirine bağlamadı. Biz de bağlamıyoruz; yalnızca yan yana koyuyoruz.",
-   "alt": "Mary bu iki şeyi hiçbir yerde birbirine bağlamadı. Biz de bağlamıyoruz; yalnızca yan yana koyuyoruz.",
+   "tts": "[calmly] Meri bu iki kaydı bildiğimiz hiçbir yazısında yan yana getirmedi. Biz yalnızca yan yana koyuyoruz.",
+   "alt": "Mary bu iki kaydı bildiğimiz hiçbir yazısında yan yana getirmedi. Biz yalnızca yan yana koyuyoruz.",
    "kaynak": "Yön notu: 'bu yüzden yazdı' olgu diye söylenmez"
   },
   {
    "id": "H08",
    "bolum": "Çirkin evladım",
-   "tts": "[warmly] O önsözün sonunda Mary kitabına seslendi: çirkin evladım, git ve iyi yaşa. Onu seviyorum.",
-   "alt": "O önsözün sonunda Mary kitabına seslendi: çirkin evladım, git ve iyi yaşa. Onu seviyorum.",
+   "tts": "[warmly] O önsözün sonunda şöyle yazdı: Çirkin evladıma bir kez daha, git ve yolun açık olsun, diyorum. Ona karşı bir sevgim var.",
+   "alt": "O önsözün sonunda şöyle yazdı: Çirkin evladıma bir kez daha, git ve yolun açık olsun, diyorum. Ona karşı bir sevgim var.",
    "kaynak": "1831ö: 246-247 (I bid my hideous progeny go forth and prosper. I have an affection for it)"
   },
   {
    "id": "H09",
    "bolum": "Çirkin evladım",
-   "tts": "[calmly] Victor yarattığından kaçtı. Mary ise yarattığını on beş yıl sonra yeniden eline aldı ve onu dünyaya bir kez daha gönderdi.",
-   "alt": "Victor yarattığından kaçtı. Mary ise yarattığını on beş yıl sonra yeniden eline aldı ve onu dünyaya bir kez daha gönderdi.",
+   "tts": "[calmly] Viktor yarattığından kaçtı. Meri ise yarattığını yıllar sonra yeniden eline aldı ve onu dünyaya bir kez daha gönderdi.",
+   "alt": "Victor yarattığından kaçtı. Mary ise yarattığını yıllar sonra yeniden eline aldı ve onu dünyaya bir kez daha gönderdi.",
    "kaynak": "İksir: olay (1831 baskısı ve önsözü). L1 kapanır"
   },
   {
    "id": "H10",
    "bolum": "Çirkin evladım",
-   "tts": "[thoughtful] Senin de yarım bırakıp yüzüne bakamadığın bir şey var mı? Ona dönüp bir ad koymak için geç mi? Yorumlara yaz.",
-   "alt": "Senin de yarım bırakıp yüzüne bakamadığın bir şey var mı? Ona dönüp bir ad koymak için geç mi? Yorumlara yaz.",
+   "tts": "[thoughtful] Senin de yarım bırakıp yüzüne bakamadığın bir iş, bir söz, bir insan var mı? Yorumlara yaz.",
+   "alt": "Senin de yarım bırakıp yüzüne bakamadığın bir iş, bir söz, bir insan var mı? Yorumlara yaz.",
    "kaynak": "Başlığın sorusu izleyiciye döner; L8 (yarım kalan) kapanır"
   },
   {
    "id": "H11",
    "bolum": "Çirkin evladım",
-   "tts": "[warmly] Mary romanına bir ad daha vermişti: Modern Prometheus. Geçmişten bir soru daha getirmemiz için Zaman Kuryesi'ne abone ol. İlk Prometheus ekranda.",
+   "tts": "[warmly] Meri romanına bir ad daha vermişti: Modern Prometheus. Geçmişten bir soru daha getirmemiz için Zaman Kuryesi'ne abone ol. İlk Prometheus ekranda.",
    "alt": "Mary romanına bir ad daha vermişti: Modern Prometheus. Geçmişten bir soru daha getirmemiz için Zaman Kuryesi'ne abone ol. İlk Prometheus ekranda.",
    "kaynak": "Romanın alt başlığı. Abone çağrısı son anın içinde; 'ekranda' bitiş ekranının (son 20 sn) içinde; bitiş ekranı: Prometheus videosu"
   }
