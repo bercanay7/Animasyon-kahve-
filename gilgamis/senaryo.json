@@ -1,0 +1,609 @@
+{
+ "voice": "Emrullah (ElevenLabs; voice_id creative_list_voices ile bulunur)",
+ "revizyon": "rev0 (23 Kasım 2026)",
+ "not": "Kaynak: Gılgamış destanı. Kamu malı çeviriler kaynak/ altında (Jastrow ve Clay 1920; Thompson 1928). Standart sürümün satır numaraları George 2003 (olgu kaynağı). Çeviriler bizim. İskelet: Harmon çemberi (uretim_plani.md §5).",
+ "segments": [
+  {
+   "id": "A01",
+   "bolum": "Kanca",
+   "tts": "[calmly] Dört bin yıllık bir destanda bir kral, ölmemenin yolunu buldu, eline aldı… ve bir yılana kaptırdı.",
+   "alt": "Dört bin yıllık bir destanda bir kral, ölmemenin yolunu buldu, eline aldı… ve bir yılana kaptırdı.",
+   "kaynak": "Kanca, kapak A'nın vaadi ilk saniyede: bitki elde, yılan. SB XI 305-307. \"Dört bin yıllık\": en eski Sümerce Gılgamış şiirleri ~MÖ 2100, Eski Babil destanı ~MÖ 1800"
+  },
+  {
+   "id": "A02",
+   "bolum": "Kanca",
+   "tts": "[softly] Onu oraya getiren bir ölüydü: en yakın dostu. Altı gün yedi gece başından kalkamamıştı.",
+   "alt": "Onu oraya getiren bir ölüydü: en yakın dostu. Altı gün yedi gece başından kalkamamıştı.",
+   "kaynak": "Kapak B'nin vaadi ilk 10 sn'de. SB X 58-60; OB S ii. L2 açılır (D11-D13 kapatır)"
+  },
+  {
+   "id": "A03",
+   "bolum": "Kanca",
+   "tts": "[calmly] Kral eve eli boş döndü. Kapıda, yolda tanıştığı yabancı bir kayıkçıya ilk iş şunu söyledi: “Çık şu surların üstüne. Tuğlalarına bak.”",
+   "alt": "Kral eve eli boş döndü. Kapıda, yolda tanıştığı yabancı bir kayıkçıya ilk iş şunu söyledi: “Çık şu surların üstüne. Tuğlalarına bak.”",
+   "kaynak": "SB XI 322-324. Yabancı: kayıkçı Urşanabi; rolü (kayıkçı) ve görüntüsü kancada ekilir, adı E09'da"
+  },
+  {
+   "id": "A04",
+   "bolum": "Kanca",
+   "tts": "[curious] Her şeyini kaybetmiş bir adam neden övünür?",
+   "alt": "Her şeyini kaybetmiş bir adam neden övünür?",
+   "kaynak": "L1 (yönün sorusu) açılır; cevap olay: H01-H09"
+  },
+  {
+   "id": "A05",
+   "bolum": "Kanca",
+   "tts": "[thoughtful] Sen de bir gün öleceğini biliyorsun. Bunu bile bile nasıl yaşanır? Gılgamış bu sorudan kaçarak dünyanın ucuna kadar gitti.",
+   "alt": "Sen de bir gün öleceğini biliyorsun. Bunu bile bile nasıl yaşanır? Gılgamış bu sorudan kaçarak dünyanın ucuna kadar gitti.",
+   "kaynak": "Başlığın sorusu. Ad kancanın içinde (kimlik); sonraki cümle hikâye (köprü yok)"
+  },
+  {
+   "id": "B01",
+   "bolum": "Yabani adam",
+   "tts": "[calmly] Gılgamış, Uruk şehrinin kralıydı: üçte ikisi tanrı, üçte biri insan.",
+   "alt": "Gılgamış, Uruk şehrinin kralıydı: üçte ikisi tanrı, üçte biri insan.",
+   "kaynak": "SB I 48; IX 51"
+  },
+  {
+   "id": "B02",
+   "bolum": "Yabani adam",
+   "tts": "[calmly] Gücüne denk kimse yoktu ve şehir bunu canıyla ödüyordu: kral, babasına oğul, annesine kız bırakmıyordu.",
+   "alt": "Gücüne denk kimse yoktu ve şehir bunu canıyla ödüyordu: kral, babasına oğul, annesine kız bırakmıyordu.",
+   "kaynak": "SB I 67-76 (olgu)"
+  },
+  {
+   "id": "B03",
+   "bolum": "Yabani adam",
+   "tts": "[calmly] Halk tanrılara yakardı. Ana tanrıça bir parça kil kopardı, bozkıra attı. Kilden, krala denk biri doğdu: Enkidu.",
+   "alt": "Halk tanrılara yakardı. Ana tanrıça bir parça kil kopardı, bozkıra attı. Kilden, krala denk biri doğdu: Enkidu.",
+   "kaynak": "SB I 101-104 (Aruru kili koparıp bozkıra atar). Kil üslubun kendisi"
+  },
+  {
+   "id": "B04",
+   "bolum": "Yabani adam",
+   "tts": "[calmly] Enkidu bozkırda ceylanlarla otluyor, hayvanlarla aynı sudan içiyordu. Bedeni kıl içindeydi; insan nedir bilmiyordu.",
+   "alt": "Enkidu bozkırda ceylanlarla otluyor, hayvanlarla aynı sudan içiyordu. Bedeni kıl içindeydi; insan nedir bilmiyordu.",
+   "kaynak": "SB I 105-112; OB P iii (\"with the cattle to drink water\")"
+  },
+  {
+   "id": "B05",
+   "bolum": "Yabani adam",
+   "tts": "[calmly] Onu insanların arasına bir kadın getirdi: Şamhat.",
+   "alt": "Onu insanların arasına bir kadın getirdi: Şamhat.",
+   "kaynak": "SB I 145-190. Şamhat ilk perdede adı ve görüntüsüyle (D03-D05'i taşıyacak)"
+  },
+  {
+   "id": "B06",
+   "bolum": "Yabani adam",
+   "tts": "[softly] Altı gün yedi gece onunla kaldı. Sonra ceylanlarının yanına döndü; ama ceylanlar ondan kaçtı.",
+   "alt": "Altı gün yedi gece onunla kaldı. Sonra ceylanlarının yanına döndü; ama ceylanlar ondan kaçtı.",
+   "kaynak": "OB P ii 4-6 (\"six days and seven nights\"); SB I 194-199. Cinsellik yalnız imayla. \"Altı gün yedi gece\" kalıbı üç kez döner (B06, D12, F06); anlatılmaz"
+  },
+  {
+   "id": "B07",
+   "bolum": "Yabani adam",
+   "tts": "[softly] Artık onlardan biri değildi.",
+   "alt": "Artık onlardan biri değildi.",
+   "kaynak": "SB I 200-202"
+  },
+  {
+   "id": "B08",
+   "bolum": "Yabani adam",
+   "tts": "[warmly] Şamhat ona ekmek verdi; Enkidu ekmek yemeyi bilmiyordu. Bira verdi; yedi testi içti, yüzü parladı. Sonra kendi giysisini ikiye bölüp onu giydirdi.",
+   "alt": "Şamhat ona ekmek verdi; Enkidu ekmek yemeyi bilmiyordu. Bira verdi; yedi testi içti, yüzü parladı. Sonra kendi giysisini ikiye bölüp onu giydirdi.",
+   "kaynak": "OB P ii 27-iii 25 (Jastrow \"wine\"; şikarum bugün \"bira\" okunur). Giysi: OB P ii 27-30 (\"She stripped off a garment, clothed him with one\")"
+  },
+  {
+   "id": "B09",
+   "bolum": "Yabani adam",
+   "tts": "[thoughtful] Ekmek, bira, bir giysi. Küçük şeyler. Enkidu ölüm döşeğinde onları hatırlayacaktı.",
+   "alt": "Ekmek, bira, bir giysi. Küçük şeyler. Enkidu ölüm döşeğinde onları hatırlayacaktı.",
+   "kaynak": "Ekme: D04 ödenir. L3 açılır"
+  },
+  {
+   "id": "B10",
+   "bolum": "Yabani adam",
+   "tts": "[firmly] Enkidu Uruk'a geldi ve kapıyı ayağıyla tutup kralın yolunu kesti. İki boğa gibi boğuştular; eşiği yıktılar, duvarı sarstılar.",
+   "alt": "Enkidu Uruk'a geldi ve kapıyı ayağıyla tutup kralın yolunu kesti. İki boğa gibi boğuştular; eşiği yıktılar, duvarı sarstılar.",
+   "kaynak": "OB P vi (\"Enkidu blocked the gate with his foot… like oxen they fought, the threshold they demolished, the wall they impaired\")"
+  },
+  {
+   "id": "B11",
+   "bolum": "Yabani adam",
+   "tts": "[warmly] Sonunda Gılgamış'ın öfkesi dindi. O günden sonra iki düşman, iki dost oldu.",
+   "alt": "Sonunda Gılgamış'ın öfkesi dindi. O günden sonra iki düşman, iki dost oldu.",
+   "kaynak": "OB P vi (\"his wrath was appeased\"); SB II"
+  },
+  {
+   "id": "C01",
+   "bolum": "Ormanın bekçisi",
+   "tts": "[calmly] Bir gün Gılgamış dostuna bir yolculuk önerdi: uzaktaki Sedir Ormanı'na gidip bekçisi Humbaba'yı öldürmek.",
+   "alt": "Bir gün Gılgamış dostuna bir yolculuk önerdi: uzaktaki Sedir Ormanı'na gidip bekçisi Humbaba'yı öldürmek.",
+   "kaynak": "OB Y iii; SB II. Humbaba ilk perdede"
+  },
+  {
+   "id": "C02",
+   "bolum": "Ormanın bekçisi",
+   "tts": "[firmly] Enkidu ormanı biliyordu. “Humbaba'nın kükremesi tufandır,” dedi. “Ağzı ateştir, nefesi ölümdür.”",
+   "alt": "Enkidu ormanı biliyordu. “Humbaba'nın kükremesi tufandır,” dedi. “Ağzı ateştir, nefesi ölümdür.”",
+   "kaynak": "OB Y iii (\"whose roar is a flood, whose mouth is fire, whose breath is death\"), Jastrow ve Clay 1920"
+  },
+  {
+   "id": "C03",
+   "bolum": "Ormanın bekçisi",
+   "tts": "[firmly] Gılgamış'ın cevabı hazırdı: “Ölümden mi korkuyorsun? Ben önden giderim. Düşersem adımı bırakırım. İnsanlar kapılarda bundan söz eder.”",
+   "alt": "Gılgamış'ın cevabı hazırdı: “Ölümden mi korkuyorsun? Ben önden giderim. Düşersem adımı bırakırım. İnsanlar kapılarda bundan söz eder.”",
+   "kaynak": "OB Y iv 4-10 / 143-148 (\"Mankind will speak of it at the gates… Thou, forsooth, art in fear of death… I will go before thee… If I fall, I will establish my name\")"
+  },
+  {
+   "id": "C04",
+   "bolum": "Ormanın bekçisi",
+   "tts": "[thoughtful] Gılgamış'ın ölüme ilk cevabı buydu: geride bir ad bırakmak.",
+   "alt": "Gılgamış'ın ölüme ilk cevabı buydu: geride bir ad bırakmak.",
+   "kaynak": "Tek soyut cümle, olaydan (C03) hemen sonra"
+  },
+  {
+   "id": "C05",
+   "bolum": "Ormanın bekçisi",
+   "tts": "[calmly] Ormana vardılar. Burası bir canavarın ıssız ini değildi.",
+   "alt": "Ormana vardılar. Burası bir canavarın ıssız ini değildi.",
+   "kaynak": "Geçiş; C06 somut"
+  },
+  {
+   "id": "C06",
+   "bolum": "Ormanın bekçisi",
+   "tts": "[curious] İki bin on birde Irak'ta bir müze, bir kaçakçıdan kırık bir tablet satın aldı. Tablet bu ormanın sesini geri getirdi: maymunlar bağırıyor, ağustosböcekleri ötüyor, kuşlar şakıyordu.",
+   "alt": "İki bin on birde Irak'ta bir müze, bir kaçakçıdan kırık bir tablet satın aldı. Tablet bu ormanın sesini geri getirdi: maymunlar bağırıyor, ağustosböcekleri ötüyor, kuşlar şakıyordu.",
+   "kaynak": "Süleymaniye Müzesi tableti, SB V, 2011 (Al-Rawi ve George 2014, JCS 66). Tablet bilgisi ilgili sahnenin yanında, tek cümle"
+  },
+  {
+   "id": "C07",
+   "bolum": "Ormanın bekçisi",
+   "tts": "[firmly] Humbaba yenildi ve aman diledi. Enkidu, “Dinleme onu,” dedi. Öldürdüler.",
+   "alt": "Humbaba yenildi ve aman diledi. Enkidu, “Dinleme onu,” dedi. Öldürdüler.",
+   "kaynak": "SB V (Humbaba yalvarır, Enkidu öldürmesini söyler)"
+  },
+  {
+   "id": "C08",
+   "bolum": "Ormanın bekçisi",
+   "tts": "[calmly] Sonra ormanın en yüksek sedirini kestiler. Enkidu ondan tanrıların tapınağına dev bir kapı yaptı.",
+   "alt": "Sonra ormanın en yüksek sedirini kestiler. Enkidu ondan tanrıların tapınağına dev bir kapı yaptı.",
+   "kaynak": "SB V 293-302 (Nippur'daki Enlil tapınağına kapı). Ekme: D02"
+  },
+  {
+   "id": "C09",
+   "bolum": "Ormanın bekçisi",
+   "tts": "[calmly] Eve döndüklerinde, tanrıların gökten saldığı bir boğayı da öldürdüler.",
+   "alt": "Eve döndüklerinde, tanrıların gökten saldığı bir boğayı da öldürdüler.",
+   "kaynak": "SB VI (Gök Boğası; İştar adı anılmaz, ad yükü)"
+  },
+  {
+   "id": "C10",
+   "bolum": "Ormanın bekçisi",
+   "tts": "[slowly] Tanrılar toplandı. Ormanın bekçisini ve göğün boğasını öldüren iki dosttan biri ölmeliydi.",
+   "alt": "Tanrılar toplandı. Ormanın bekçisini ve göğün boğasını öldüren iki dosttan biri ölmeliydi.",
+   "kaynak": "SB VII; Hitit sürümü (Th VII i: \"These who the heavenly Bull have kill'd and Humbaba have smitten… Enkidu shall die\")"
+  },
+  {
+   "id": "C11",
+   "bolum": "Ormanın bekçisi",
+   "tts": "[slowly] Seçtikleri Enkidu oldu.",
+   "alt": "Seçtikleri Enkidu oldu.",
+   "kaynak": "Th VII i (Hititçe parça)"
+  },
+  {
+   "id": "D01",
+   "bolum": "Yatağın başı",
+   "tts": "[softly] Enkidu kararı rüyasında duydu ve yatağa düştü.",
+   "alt": "Enkidu kararı rüyasında duydu ve yatağa düştü.",
+   "kaynak": "SB VII 1-"
+  },
+  {
+   "id": "D02",
+   "bolum": "Yatağın başı",
+   "tts": "[firmly] İlk öfkesi kendi elleriyle yaptığı kapıyaydı: “Bunu bilseydim, baltamı alır, seni paramparça ederdim.”",
+   "alt": "İlk öfkesi kendi elleriyle yaptığı kapıyaydı: “Bunu bilseydim, baltamı alır, seni paramparça ederdim.”",
+   "kaynak": "SB VII 37-64 (George 2003; olgu, çeviri bizim). Th'de yok (1928'de bilinmiyordu)"
+  },
+  {
+   "id": "D03",
+   "bolum": "Yatağın başı",
+   "tts": "[firmly] Sonra Şamhat'ı lanetledi: onu insanların arasına getiren kadını.",
+   "alt": "Sonra Şamhat'ı lanetledi: onu insanların arasına getiren kadını.",
+   "kaynak": "SB VII 100-131; Th VII ii özet"
+  },
+  {
+   "id": "D04",
+   "bolum": "Yatağın başı",
+   "tts": "[slowly] Güneş tanrısı Şamaş gökten seslendi: “Enkidu, neden lanet ediyorsun? Sana tanrılara layık ekmek yediren, krallara layık içki içiren, sırtına giysi geçiren o değil mi? Sana Gılgamış gibi bir dost veren o değil mi?”",
+   "alt": "Güneş tanrısı Şamaş gökten seslendi: “Enkidu, neden lanet ediyorsun? Sana tanrılara layık ekmek yediren, krallara layık içki içiren, sırtına giysi geçiren o değil mi? Sana Gılgamış gibi bir dost veren o değil mi?”",
+   "kaynak": "Th VII iii 34-40 (\"She 'twas who made thee eat bread, for divinity proper… wine… a generous mantle… and for comrade did give to thee Gilgamish\"). B08-B09'un ödemesi"
+  },
+  {
+   "id": "D05",
+   "bolum": "Yatağın başı",
+   "tts": "[softly] Enkidu'nun öfkesi dindi. Lanetini geri aldı ve Şamhat'ı kutsadı.",
+   "alt": "Enkidu'nun öfkesi dindi. Lanetini geri aldı ve Şamhat'ı kutsadı.",
+   "kaynak": "Th VII iii 49-iv (\"his wrath was appeased… relenting, regrets his curse, and blesses the Hetaera\")"
+  },
+  {
+   "id": "D06",
+   "bolum": "Yatağın başı",
+   "tts": "[thoughtful] Ekmek, bira, bir giysi, bir dost. Ölümle ödenen bir hayat. Ölmek üzere olan adam, o hayatı kutsadı.",
+   "alt": "Ekmek, bira, bir giysi, bir dost. Ölümle ödenen bir hayat. Ölmek üzere olan adam, o hayatı kutsadı.",
+   "kaynak": "Yorum, tek; olaydan (D05) hemen sonra. L3 kapanır; L2'ye ilk cevap (olayla)"
+  },
+  {
+   "id": "D07",
+   "bolum": "Yatağın başı",
+   "tts": "[softly] On iki gün yattı. Gılgamış başından hiç ayrılmadı.",
+   "alt": "On iki gün yattı. Gılgamış başından hiç ayrılmadı.",
+   "kaynak": "SB VII 252-255 (on iki gün)"
+  },
+  {
+   "id": "D08",
+   "bolum": "Yatağın başı",
+   "tts": "[slowly] On ikinci gün Gılgamış elini dostunun göğsüne koydu. Kalbi atmıyordu.",
+   "alt": "On ikinci gün Gılgamış elini dostunun göğsüne koydu. Kalbi atmıyordu.",
+   "kaynak": "Th VIII ii 15-17 (\"his heart… made no beat\"); SB VIII 57-58"
+  },
+  {
+   "id": "D09",
+   "bolum": "Yatağın başı",
+   "tts": "[slowly] Yüzünü bir gelin gibi örttü.",
+   "alt": "Yüzünü bir gelin gibi örttü.",
+   "kaynak": "Th VIII ii 17 (\"Then he veil'd (his) friend like a bride\"); SB VIII 59"
+  },
+  {
+   "id": "D10",
+   "bolum": "Yatağın başı",
+   "tts": "[sad] Sonra yavrusu elinden alınmış bir dişi aslan gibi ölünün önünde bir ileri bir geri yürüdü. Saçlarını yoldu, üstündeki süsleri söküp attı.",
+   "alt": "Sonra yavrusu elinden alınmış bir dişi aslan gibi ölünün önünde bir ileri bir geri yürüdü. Saçlarını yoldu, üstündeki süsleri söküp attı.",
+   "kaynak": "Th VIII ii 18-21 (\"Roar'd like a lioness robb'd of her whelps… Paced he backwards and forwards, tearing and casting his ringlets\"); SB VIII 60-64"
+  },
+  {
+   "id": "D11",
+   "bolum": "Yatağın başı",
+   "tts": "[softly] Onu gömdürmedi.",
+   "alt": "Onu gömdürmedi.",
+   "kaynak": "SB X 58; OB S ii 4 (\"unto the tomb I have not consign'd him\")"
+  },
+  {
+   "id": "D12",
+   "bolum": "Yatağın başı",
+   "tts": "[sad] Sonradan kendisi anlatacaktı: “Altı gün yedi gece başında ağladım. Gömülmesine izin vermedim. Dostum çığlığıma kalkar diye.”",
+   "alt": "Sonradan kendisi anlatacaktı: “Altı gün yedi gece başında ağladım. Gömülmesine izin vermedim. Dostum çığlığıma kalkar diye.”",
+   "kaynak": "SB X 56-59; OB S ii (George okuması \"My friend will surely rise at my cry\"). Alıntı Siduri'ye anlatılır (E05); burada öne alındı"
+  },
+  {
+   "id": "D13",
+   "bolum": "Yatağın başı",
+   "tts": "[whispers] “Ta ki burnundan bir kurt düşene kadar.”",
+   "alt": "“Ta ki burnundan bir kurt düşene kadar.”",
+   "kaynak": "SB X 60; OB S ii (\"until a maggot fell from his nostril\"; Th 1928 bunu \"like a worm hath lain on his face\" okur, eski okuma). L2 kapanır. Sonra 1,5 sn sessizlik"
+  },
+  {
+   "id": "D14",
+   "bolum": "Yatağın başı",
+   "tts": "[slowly] Sonra bozkıra çıktı ve kendi kendine sordu: “Ben de ölmeyecek miyim? Enkidu gibi olmayacak mıyım? İçime bir dert girdi. Ölümden korkuyorum; bozkırlarda dolaşıyorum.”",
+   "alt": "Sonra bozkıra çıktı ve kendi kendine sordu: “Ben de ölmeyecek miyim? Enkidu gibi olmayacak mıyım? İçime bir dert girdi. Ölümden korkuyorum; bozkırlarda dolaşıyorum.”",
+   "kaynak": "Th IX i 3-5 (\"I, too—shall I not die like Enkidu also? Sorrow hath enter'd my heart; I fear death as I range o'er the desert\"); SB IX 3-5"
+  },
+  {
+   "id": "D15",
+   "bolum": "Yatağın başı",
+   "tts": "[calmly] Bir aslan postuna büründü ve kaçmaya başladı.",
+   "alt": "Bir aslan postuna büründü ve kaçmaya başladı.",
+   "kaynak": "Th VII iii 43 / VIII iii 7 (\"will put on the skin of a lion, and range o'er the desert\"); SB IX"
+  },
+  {
+   "id": "E01",
+   "bolum": "Dünyanın ucu",
+   "tts": "[curious] Bir tek insanın ölümsüz olduğunu biliyordu: tufandan kurtulan Utnapiştim. Dünyanın ucunda yaşıyordu.",
+   "alt": "Bir tek insanın ölümsüz olduğunu biliyordu: tufandan kurtulan Utnapiştim. Dünyanın ucunda yaşıyordu.",
+   "kaynak": "Th IX i 6-7; SB IX 6-7. Utnapiştim filmin ilk yarısında"
+  },
+  {
+   "id": "E02",
+   "bolum": "Dünyanın ucu",
+   "tts": "[calmly] Güneşin battığı dağa vardı. Kapıyı bekleyen akrep insanlar onu uyardı; dinlemedi.",
+   "alt": "Güneşin battığı dağa vardı. Kapıyı bekleyen akrep insanlar onu uyardı; dinlemedi.",
+   "kaynak": "SB IX ii-iii (Maşu dağı, akrep insanlar). Canavar tek cümle"
+  },
+  {
+   "id": "E03",
+   "bolum": "Dünyanın ucu",
+   "tts": "[slowly] Güneşin geceleri geçtiği yola girdi. Karanlık o kadar koyuydu ki ne önünü görüyordu ne arkasını. Öyle yürüdü.",
+   "alt": "Güneşin geceleri geçtiği yola girdi. Karanlık o kadar koyuydu ki ne önünü görüyordu ne arkasını. Öyle yürüdü.",
+   "kaynak": "SB IX iv-v (\"dense was the darkness, there was no light, he could see nothing ahead or behind\"); Th IX"
+  },
+  {
+   "id": "E04",
+   "bolum": "Dünyanın ucu",
+   "tts": "[calmly] Karanlığın sonunda, ağaçlarında taş mücevherler yetişen bir bahçe vardı. Gılgamış durmadı.",
+   "alt": "Karanlığın sonunda, ağaçlarında taş mücevherler yetişen bir bahçe vardı. Gılgamış durmadı.",
+   "kaynak": "SB IX v-vi; Th IX notu (\"numerous minerals and stones\")"
+  },
+  {
+   "id": "E05",
+   "bolum": "Dünyanın ucu",
+   "tts": "[calmly] Deniz kıyısında bir meyhane buldu. Meyhaneci Siduri onu görünce kapısını sürgüledi: karşısında yüzü yanmış, aslan postlu bir yabancı vardı.",
+   "alt": "Deniz kıyısında bir meyhane buldu. Meyhaneci Siduri onu görünce kapısını sürgüledi: karşısında yüzü yanmış, aslan postlu bir yabancı vardı.",
+   "kaynak": "SB X 1-20; Th X ii (\"Barr'd she her postern\"). Gılgamış da bir yabancı (H09'un yankısı)"
+  },
+  {
+   "id": "E06",
+   "bolum": "Dünyanın ucu",
+   "tts": "[warmly] Siduri ona şöyle dedi: “Gılgamış, nereye koşuyorsun? Aradığın hayatı bulamayacaksın. Tanrılar insanı yarattığında ona ölümü verdiler; hayatı kendi ellerinde tuttular.”",
+   "alt": "Siduri ona şöyle dedi: “Gılgamış, nereye koşuyorsun? Aradığın hayatı bulamayacaksın. Tanrılar insanı yarattığında ona ölümü verdiler; hayatı kendi ellerinde tuttular.”",
+   "kaynak": "OB S iii 1-5 (Jastrow ve Clay 1920: \"Why, O Gish, does thou run about? The life that thou seekest, thou wilt not find. When the gods created mankind, Death they imposed on mankind; Life they kept in their power.\")"
+  },
+  {
+   "id": "E07",
+   "bolum": "Dünyanın ucu",
+   "tts": "[warmly] “Sen karnını doyur. Gece gündüz sevin. Giysilerin temiz olsun, başını yıka. Elini tutan çocuğa bak. Karın koynunda sevinsin.”",
+   "alt": "“Sen karnını doyur. Gece gündüz sevin. Giysilerin temiz olsun, başını yıka. Elini tutan çocuğa bak. Karın koynunda sevinsin.”",
+   "kaynak": "OB S iii 6-13 (\"Thou, O Gish, fill thy belly, Day and night do thou rejoice… Let thy clothes be clean, Wash thy head… Care for the little one who takes hold of thy hand! Let the wife rejoice in thy bosom!\"). Yalnız Eski Babil sürümünde (ekran künyesi, anlatılmaz)"
+  },
+  {
+   "id": "E08",
+   "bolum": "Dünyanın ucu",
+   "tts": "[calmly] Gılgamış dinlemedi. Utnapiştim'in yolunu sordu.",
+   "alt": "Gılgamış dinlemedi. Utnapiştim'in yolunu sordu.",
+   "kaynak": "Th X ii 16 (\"which is the way unto Uta-Napishtim?\")"
+  },
+  {
+   "id": "E09",
+   "bolum": "Dünyanın ucu",
+   "tts": "[calmly] Siduri onu kayıkçı Urşanabi'ye gönderdi: ölüm sularını geçebilen tek kişiye.",
+   "alt": "Siduri onu kayıkçı Urşanabi'ye gönderdi: ölüm sularını geçebilen tek kişiye.",
+   "kaynak": "SB X 80-90. Urşanabi adı ve görüntüsüyle ilk yarıda ekilir (H'yi taşır)"
+  },
+  {
+   "id": "E10",
+   "bolum": "Dünyanın ucu",
+   "tts": "[calmly] Ölüm sularına eli değen ölürdü. Gılgamış ormandan uzun sırıklar kesti; her birini suya bir kez daldırıp bıraktılar.",
+   "alt": "Ölüm sularına eli değen ölürdü. Gılgamış ormandan uzun sırıklar kesti; her birini suya bir kez daldırıp bıraktılar.",
+   "kaynak": "Th X iii 40-iv 9; SB X 160-180. Sayı (120/300) kaynaklarda ayrışıyor, söylenmez"
+  },
+  {
+   "id": "E11",
+   "bolum": "Dünyanın ucu",
+   "tts": "[calmly] Sırıklar bitince Gılgamış giysisini çıkarıp yelken diye kaldırdı.",
+   "alt": "Sırıklar bitince Gılgamış giysisini çıkarıp yelken diye kaldırdı.",
+   "kaynak": "SB X 181-183; Th X iv 9-10"
+  },
+  {
+   "id": "F01",
+   "bolum": "Tufandan kurtulan adam",
+   "tts": "[calmly] Kıyıda Utnapiştim bekliyordu. Gılgamış ona baktı: kendisinden hiçbir farkı olmayan, yaşlı bir adamdı.",
+   "alt": "Kıyıda Utnapiştim bekliyordu. Gılgamış ona baktı: kendisinden hiçbir farkı olmayan, yaşlı bir adamdı.",
+   "kaynak": "SB XI 2-6"
+  },
+  {
+   "id": "F02",
+   "bolum": "Tufandan kurtulan adam",
+   "tts": "[curious] “Sen nasıl ölümsüz oldun?”",
+   "alt": "“Sen nasıl ölümsüz oldun?”",
+   "kaynak": "SB XI 7"
+  },
+  {
+   "id": "F03",
+   "bolum": "Tufandan kurtulan adam",
+   "tts": "[calmly] Utnapiştim anlattı. Bir zamanlar tanrılar insanlığı bir tufanla silmeye karar vermişti. Bir tanrı ona fısıldadı: “Evini yık, bir gemi yap.”",
+   "alt": "Utnapiştim anlattı. Bir zamanlar tanrılar insanlığı bir tufanla silmeye karar vermişti. Bir tanrı ona fısıldadı: “Evini yık, bir gemi yap.”",
+   "kaynak": "SB XI 14-31 (Ea uyarır). Dinî karşılaştırma yapılmaz"
+  },
+  {
+   "id": "F04",
+   "bolum": "Tufandan kurtulan adam",
+   "tts": "[slowly] Altı gün yedi gece fırtına esti. Dindiğinde bütün insanlık kile dönmüştü.",
+   "alt": "Altı gün yedi gece fırtına esti. Dindiğinde bütün insanlık kile dönmüştü.",
+   "kaynak": "SB XI 128-135 (\"all the people had turned to clay\"). Kil: B03'ün yankısı"
+  },
+  {
+   "id": "F05",
+   "bolum": "Tufandan kurtulan adam",
+   "tts": "[calmly] Ölümsüzlüğü tanrılar ona bir kez vermişti; yalnız ona.",
+   "alt": "Ölümsüzlüğü tanrılar ona bir kez vermişti; yalnız ona.",
+   "kaynak": "SB XI 203-206"
+  },
+  {
+   "id": "F06",
+   "bolum": "Tufandan kurtulan adam",
+   "tts": "[firmly] “Peki senin için tanrıları kim toplayacak?” dedi Utnapiştim. “Haydi: altı gün yedi gece uyumadan dur.”",
+   "alt": "“Peki senin için tanrıları kim toplayacak?” dedi Utnapiştim. “Haydi: altı gün yedi gece uyumadan dur.”",
+   "kaynak": "Th XI 197-199 (\"Who will assemble the gods for thy (need)… Come, fall not asleep for six days, aye, a se'nnight!\")"
+  },
+  {
+   "id": "F07",
+   "bolum": "Tufandan kurtulan adam",
+   "tts": "[softly] Gılgamış oturdu ve uyku hemen bir sis gibi üstüne çöktü.",
+   "alt": "Gılgamış oturdu ve uyku hemen bir sis gibi üstüne çöktü.",
+   "kaynak": "Th XI 200-201 (\"a sleep like a breeze breathed upon him\"; George \"like a mist\")"
+  },
+  {
+   "id": "F08",
+   "bolum": "Tufandan kurtulan adam",
+   "tts": "[calmly] Utnapiştim karısına döndü: “İnsan yalancıdır, uyumadım diyecek. Her gün bir ekmek pişir, başucuna koy. Geçen günleri duvara çiz.”",
+   "alt": "Utnapiştim karısına döndü: “İnsan yalancıdır, uyumadım diyecek. Her gün bir ekmek pişir, başucuna koy. Geçen günleri duvara çiz.”",
+   "kaynak": "SB XI 209-214; Th XI (\"on the house-wall do thou mark it\")"
+  },
+  {
+   "id": "F09",
+   "bolum": "Tufandan kurtulan adam",
+   "tts": "[calmly] Gılgamış uyandığında, “Gözüm daha yeni kapanmıştı,” dedi.",
+   "alt": "Gılgamış uyandığında, “Gözüm daha yeni kapanmıştı,” dedi.",
+   "kaynak": "SB XI 219-222; Th XI"
+  },
+  {
+   "id": "F10",
+   "bolum": "Tufandan kurtulan adam",
+   "tts": "[slowly] Utnapiştim ekmekleri gösterdi. Birincisi taş gibi kurumuştu, ikincisi bozulmuş, üçüncüsü yumuşamış, dördüncüsü beyazlamış, beşincisi küflenmiş, altıncısı tazeydi. Yedincisi hâlâ közdeydi.",
+   "alt": "Utnapiştim ekmekleri gösterdi. Birincisi taş gibi kurumuştu, ikincisi bozulmuş, üçüncüsü yumuşamış, dördüncüsü beyazlamış, beşincisi küflenmiş, altıncısı tazeydi. Yedincisi hâlâ közdeydi.",
+   "kaynak": "SB XI 225-230 (George okuması; Th 1928 eski okuma: \"unu toplandı, elendi…\"). Somut kanıt"
+  },
+  {
+   "id": "F11",
+   "bolum": "Tufandan kurtulan adam",
+   "tts": "[thoughtful] Ölümü yenmeye gelen adam, bir uykuyu yenememişti.",
+   "alt": "Ölümü yenmeye gelen adam, bir uykuyu yenememişti.",
+   "kaynak": "Yorum, tek"
+  },
+  {
+   "id": "F12",
+   "bolum": "Tufandan kurtulan adam",
+   "tts": "[sad] “Ne yapayım Utnapiştim? Nereye gideyim? Yatak odamda ölüm oturuyor. Nereye ayak bassam, ölüm orada.”",
+   "alt": "“Ne yapayım Utnapiştim? Nereye gideyim? Yatak odamda ölüm oturuyor. Nereye ayak bassam, ölüm orada.”",
+   "kaynak": "Th XI 243-246 (\"O, how shall I act, (or) where shall I hie me… Death in my bed-chamber broodeth, and Death is wherever I listen\"); SB XI 244-246"
+  },
+  {
+   "id": "G01",
+   "bolum": "Yılan",
+   "tts": "[calmly] Utnapiştim onu yıkattı. Gılgamış başını yıkadı, temiz giysiler giydi; tıpkı meyhanecinin öğüdündeki gibi.",
+   "alt": "Utnapiştim onu yıkattı. Gılgamış başını yıkadı, temiz giysiler giydi; tıpkı meyhanecinin öğüdündeki gibi.",
+   "kaynak": "Th XI 250-270 (\"Lead him to where he may bathe… garb himself in a mantle\"); E07'nin yankısı (anlatıcının gözlemi)"
+  },
+  {
+   "id": "G02",
+   "bolum": "Yılan",
+   "tts": "[curious] Tam yola çıkarken Utnapiştim bir sır verdi: denizin dibinde dikenli bir bitki vardı. Onu yiyen gençliğine dönerdi.",
+   "alt": "Tam yola çıkarken Utnapiştim bir sır verdi: denizin dibinde dikenli bir bitki vardı. Onu yiyen gençliğine dönerdi.",
+   "kaynak": "Th XI 266-270 (\"a plant like a thorn… deep down in the ocean\"); SB XI 278-286"
+  },
+  {
+   "id": "G03",
+   "bolum": "Yılan",
+   "tts": "[firmly] Gılgamış ayaklarına taş bağlayıp dibe daldı. Bitkiyi kopardı; dikenler elini kanattı. Taşları kesti, deniz onu kıyıya attı.",
+   "alt": "Gılgamış ayaklarına taş bağlayıp dibe daldı. Bitkiyi kopardı; dikenler elini kanattı. Taşları kesti, deniz onu kıyıya attı.",
+   "kaynak": "Th XI 271-278 (\"Bound heavy stones on his feet… its prickles did scratch him… Cut he the heavy stones from his feet\")"
+  },
+  {
+   "id": "G04",
+   "bolum": "Yılan",
+   "tts": "[warmly] Bitkiye bir ad verdi: “Yaşlı adam gençleşir.”",
+   "alt": "Bitkiye bir ad verdi: “Yaşlı adam gençleşir.”",
+   "kaynak": "Th XI 283 (\"'Greybeard-who-turneth-to-man-in-his-prime' is its name\"); SB XI 298"
+  },
+  {
+   "id": "G05",
+   "bolum": "Yılan",
+   "tts": "[calmly] Hemen yemedi. “Uruk'a götüreceğim,” dedi Urşanabi'ye. “Önce bir yaşlıya deneyeceğim, sonra ben yiyeceğim.”",
+   "alt": "Hemen yemedi. “Uruk'a götüreceğim,” dedi Urşanabi'ye. “Önce bir yaşlıya deneyeceğim, sonra ben yiyeceğim.”",
+   "kaynak": "Th XI 280-284; SB XI 296-299"
+  },
+  {
+   "id": "G06",
+   "bolum": "Yılan",
+   "tts": "[calmly] Yolda serin sulu bir gölet gördü ve yıkanmak için içine indi.",
+   "alt": "Yolda serin sulu bir gölet gördü ve yıkanmak için içine indi.",
+   "kaynak": "Th XI 286-288 (\"a pool of cool water, (and) therein descending Bathed\")"
+  },
+  {
+   "id": "G07",
+   "bolum": "Yılan",
+   "tts": "[slowly] Bir yılan bitkinin kokusunu aldı. Sessizce çıktı, bitkiyi aldı götürdü. Giderken derisini geride bıraktı.",
+   "alt": "Bir yılan bitkinin kokusunu aldı. Sessizce çıktı, bitkiyi aldı götürdü. Giderken derisini geride bıraktı.",
+   "kaynak": "SB XI 305-307 (George: \"as it went back it sloughed its skin\"); Th 1928 eski okuma. L ana (A01) cevabı"
+  },
+  {
+   "id": "G08",
+   "bolum": "Yılan",
+   "tts": "[sad] Gılgamış oturdu ve ağladı. Gözyaşları yanaklarından aktı.",
+   "alt": "Gılgamış oturdu ve ağladı. Gözyaşları yanaklarından aktı.",
+   "kaynak": "Th XI 290-291 (\"Then Gilgamish sate him, (and) burst into weeping. Over his cheeks flow'd his tears\")"
+  },
+  {
+   "id": "G09",
+   "bolum": "Yılan",
+   "tts": "[sad] “Urşanabi, kimin için yoruldu bu kollar? Kimin için tükendi yüreğimin kanı? Kendime hiçbir iyilik yapamadım. Bir yılana yaptım.”",
+   "alt": "“Urşanabi, kimin için yoruldu bu kollar? Kimin için tükendi yüreğimin kanı? Kendime hiçbir iyilik yapamadım. Bir yılana yaptım.”",
+   "kaynak": "Th XI 292-295 (\"for whom have toiléd mine arms, O Ur-Shanabi… for whom hath my heart's blood been spent?… 'tis for an earth-lion (only)\"); \"toprak aslanı\" = yılan (SB XI 311-314)"
+  },
+  {
+   "id": "G10",
+   "bolum": "Yılan",
+   "tts": "[slowly] Ve eve eli boş döndü.",
+   "alt": "Ve eve eli boş döndü.",
+   "kaynak": "A03'ün yankısı"
+  },
+  {
+   "id": "H01",
+   "bolum": "Surlar",
+   "tts": "[calmly] Uruk'a vardıklarında Gılgamış kayıkçıya döndü.",
+   "alt": "Uruk'a vardıklarında Gılgamış kayıkçıya döndü.",
+   "kaynak": "Th XI 303-305 (\"to the middle of Erech, the high-wall'd, arrivéd. Gilgamish spake… to the boatman Ur-Shanabi\")"
+  },
+  {
+   "id": "H02",
+   "bolum": "Surlar",
+   "tts": "[warmly] “Çık Urşanabi, Uruk'un surlarına, yürü. Temeline bak, tuğlalarını yokla. Tuğlaları fırında pişmemiş mi? Temelini yedi bilge atmamış mı?”",
+   "alt": "“Çık Urşanabi, Uruk'un surlarına, yürü. Temeline bak, tuğlalarını yokla. Tuğlaları fırında pişmemiş mi? Temelini yedi bilge atmamış mı?”",
+   "kaynak": "Th XI 306-308 (\"go up and walk on the ramparts of Erech, Look on its base, and take heed of its bricks, if its bricks be not kiln-burnt\"); SB XI 323-326 (yedi bilge)"
+  },
+  {
+   "id": "H03",
+   "bolum": "Surlar",
+   "tts": "[warmly] “Bir parça şehir, bir parça hurma bahçesi, bir parça kil çukuru. Hepsi Uruk.”",
+   "alt": "“Bir parça şehir, bir parça hurma bahçesi, bir parça kil çukuru. Hepsi Uruk.”",
+   "kaynak": "SB XI 327-328; Th XI 309-310 (\"One shar the city, (and) one shar the gardens…\")"
+  },
+  {
+   "id": "H04",
+   "bolum": "Surlar",
+   "tts": "[softly] Surun içinde ölümsüzlük yoktu. Ekmek pişiren fırınlar, hurma bahçeleri, birbirinin elini tutan insanlar vardı.",
+   "alt": "Surun içinde ölümsüzlük yoktu. Ekmek pişiren fırınlar, hurma bahçeleri, birbirinin elini tutan insanlar vardı.",
+   "kaynak": "Görüntü E07 ve D04'ün yankısı (fırın, çocuk eli). Metin değil, anlatıcının görüntüsü"
+  },
+  {
+   "id": "H05",
+   "bolum": "Surlar",
+   "tts": "[calmly] Destan burada biter. Ve aynı sözlerle başlar.",
+   "alt": "Destan burada biter. Ve aynı sözlerle başlar.",
+   "kaynak": "Halka yapı: SB I 18-23 = XI 323-328"
+  },
+  {
+   "id": "H06",
+   "bolum": "Surlar",
+   "tts": "[warmly] İlk tablette bu davet okuyana yapılır: Çık Uruk'un surlarına, yürü, tuğlalarına bak.",
+   "alt": "İlk tablette bu davet okuyana yapılır: Çık Uruk'un surlarına, yürü, tuğlalarına bak.",
+   "kaynak": "SB I 18-21 (ikinci tekil kişiye emir)"
+  },
+  {
+   "id": "H07",
+   "bolum": "Surlar",
+   "tts": "[warmly] Ve: “Surun dibindeki sedir sandığı bul. Tunç kilidini aç. Lacivert taştan tableti çıkar ve oku: Gılgamış'ın bütün çektiklerini.”",
+   "alt": "Ve: “Surun dibindeki sedir sandığı bul. Tunç kilidini aç. Lacivert taştan tableti çıkar ve oku: Gılgamış'ın bütün çektiklerini.”",
+   "kaynak": "SB I 24-28 (George 2003; olgu, çeviri bizim). Th I 10 (\"Graved on a table of stone all the travail\")"
+  },
+  {
+   "id": "H08",
+   "bolum": "Surlar",
+   "tts": "[calmly] O tablet kâtipten kâtibe, dilden dile geçti. Üç bin yıldan da önce, Hititlerin başkenti Hattuşa'da, bugünkü Çorum'da, üç ayrı dilde okundu.",
+   "alt": "O tablet kâtipten kâtibe, dilden dile geçti. Üç bin yıldan da önce, Hititlerin başkenti Hattuşa'da, bugünkü Çorum'da, üç ayrı dilde okundu.",
+   "kaynak": "Hattuşa (Boğazköy): Akadca, Hurrice, Hititçe parçalar, MÖ 14.-13. yy (Beckman 2019). Türkiye kapısı, tek cümle"
+  },
+  {
+   "id": "H09",
+   "bolum": "Surlar",
+   "tts": "[slowly] Her okuyan, o yabancı gibi surun üstüne çıktı. Bugün, dört bin yıl sonra, o yabancı sensin.",
+   "alt": "Her okuyan, o yabancı gibi surun üstüne çıktı. Bugün, dört bin yıl sonra, o yabancı sensin.",
+   "kaynak": "L1'in cevabı: yabancı = sonra gelen herkes"
+  },
+  {
+   "id": "H10",
+   "bolum": "Surlar",
+   "tts": "[thoughtful] Gılgamış ölümsüzlüğü bir yılana kaptırdı. Ama bir yabancıya gösterecek bir suru vardı. Peki sen bir gün bir yabancıya hangi suru göstereceksin? Cevabını yorumlara yaz.",
+   "alt": "Gılgamış ölümsüzlüğü bir yılana kaptırdı. Ama bir yabancıya gösterecek bir suru vardı. Peki sen bir gün bir yabancıya hangi suru göstereceksin? Cevabını yorumlara yaz.",
+   "kaynak": "Başlığın sorusuna izleyicinin kendi cevabı; iksir"
+  },
+  {
+   "id": "H11",
+   "bolum": "Surlar",
+   "tts": "[warmly] Geçmişten bir tablet daha getirmemiz için Zaman Kuryesi'ne abone ol. Ölümün karşısında gülümseyen bir başka adam, Sisifos, ekranda.",
+   "alt": "Geçmişten bir tablet daha getirmemiz için Zaman Kuryesi'ne abone ol. Ölümün karşısında gülümseyen bir başka adam, Sisifos, ekranda.",
+   "kaynak": "Abone çağrısı son sahnenin içinde; bitiş ekranı (son 20 sn) \"ekranda\" sözcüğünü içerir"
+  }
+ ]
+}
