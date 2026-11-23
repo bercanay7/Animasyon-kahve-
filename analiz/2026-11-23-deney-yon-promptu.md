@@ -18,12 +18,12 @@
 
 **Karar (23 Kasım, kullanıcıyla konuşuldu): tek yön, tek değişken.**
 - Fable yalnız başta yön verdi. Üretim sırasında yeniden yön vermek için çağrılmaz.
-- Sonnet/Opus alt ajan düzeni de eklenmez; iki videoda da başkan tek başına çalışır (19 Kasım kararı).
+- Alt ajanlar iki videoda da aynı kurala bağlı: başkanın takdirinde (kullanıcının 23 Kasım açıklaması: 19 Kasım kararı kurulu ve puanlamayı kaldırdı, alt ajanları değil). Yani bu da iki videoda sabit.
 - Sondaki "Fable'ın tek son yorumu" iki videoda da serbest. Yön değil denetim olduğu için deneyi bozmaz.
 - Neden: aynı anda iki şey değişirse sonucun hangisinden geldiği anlaşılmaz.
 - Sonraki adaylar:
   - (a) Fable'ın senaryo taslağından sonra ikinci kez yön vermesi;
-  - (b) Opus yönetmen + Sonnet ölçüm ajanları.
+  - (b) Opus yönetmen + Sonnet ölçüm ajanlarının kurallı bir düzen olarak kurulması.
   - Her biri ayrı bir videoda denenir.
 
 **Ölçüler:** her iki video için doldurulur.

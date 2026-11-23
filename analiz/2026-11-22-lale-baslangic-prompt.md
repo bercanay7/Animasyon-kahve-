@@ -1,5 +1,5 @@
 Yeni video: **Lale Çılgınlığı** ("Tarihin Dönüm Noktaları" serisi). Baştan sona üret.
-- Kararlar senin, başkan sensin. Kurul, puanlama ve çok ajanlı akış yok (19 Kasım kararı); bir konuda emin değilsen bana sor.
+- Kararlar senin, başkan sensin. Kurul ve puanlama yok (19 Kasım kararı); alt ajanları gerekirse kendi takdirinle aç. Bir konuda emin değilsen bana sor.
 - ElevenLabs ve görsel üretim gibi kredi harcayan her çağrıdan önce karakter × çekim hesabını bana bildir ve onay al.
 
 ## 1. Önce oku
@@ -67,6 +67,6 @@ Hepsi `lale-cilginligi/` klasöründe, CLAUDE.md'deki sırayla.
    - Render, iki kapak, `yayin.md` (bölüm damgaları, künye, kaynaklar), SRT, üç teslim kopyası (`SendUserFile`).
    - Shorts yayından birkaç gün sonra.
    - İstersen sonda Fable'a tek son yorum yaptır.
-10. **Yayın tarihi:** Dorian Gray 30 Kasım'da çıkıyor; aralık en az 5–7 gün. Tarihi benimle kesinleştir.
+10. **Yayın tarihi:** 2 Aralık 18:00 (takvim dört günde bir; 23 Kasım kararı). Gecikme olursa benimle kesinleştir.
 
 Her iş parçasından sonra commit ve push yap. Video bitince dal `main`'e birleştirilir. CLAUDE.md'ye "Lale Çılgınlığı dersleri" bölümünü ve tablo satırını ekle.
