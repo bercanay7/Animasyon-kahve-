@@ -107,7 +107,7 @@ const FENER = (() => {
     xO.setTransform(1, 0, 0, 1, 0, 0); xO.globalAlpha = 1; xO.globalCompositeOperation = 'source-over';
     const gr = xO.createRadialGradient(L.x * RS, L.y * RS, 0, L.x * RS, L.y * RS, L.r * RS * 1.55);
     const c = (k) => `rgb(${Math.min(255, sr * k * 255) | 0},${Math.min(255, sg * k * 255) | 0},${Math.min(255, sb * k * 255) | 0})`;
-    gr.addColorStop(0, c(1.08 * P)); gr.addColorStop(.35, c(1.0 * P)); gr.addColorStop(.7, c(.72 * P)); gr.addColorStop(1, c(.38 * P));
+    gr.addColorStop(0, c(1.15 * P)); gr.addColorStop(.4, c(1.05 * P)); gr.addColorStop(.75, c(.85 * P)); gr.addColorStop(1, c(.55 * P));
     xO.fillStyle = gr; xO.fillRect(0, 0, w, h);
     // perde dokusu (ekrana sabit)
     if (R.perdeA > 0) { xO.globalCompositeOperation = 'multiply'; xO.globalAlpha = R.perdeA; xO.fillStyle = pPerde; xO.fillRect(0, 0, w, h); xO.globalAlpha = 1; }

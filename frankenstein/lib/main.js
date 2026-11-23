@@ -1,4 +1,4 @@
-// Ana döngü (Gılgamış; narkissos/lib/main.js'ten). ORTAK DOSYA (başkan).
+// Ana döngü (Frankenstein; narkissos/lib/main.js'ten). ORTAK DOSYA (başkan).
 // film.html?t=…&mb=… tek kare; window.renderAt(t, mb) → tuval; window.READY (true olunca hazır). ?notext=1 ekran yazısız; ?rs=0.5 animatik çözünürlüğü.
 // Hareket bulanıklığı: 180° obtüratör, kare süresinin yarısında mb alt kare ortalaması; alt kareler kesmenin öbür yanına taşmaz.
 // Çekim kendi mb'sini verebilir (plan(..., {mb: 8}): hızlı hareket); yazılar (drawOver) bulanıklıktan sonra bir kez çizilir.
@@ -36,7 +36,7 @@ window.ready = (async () => {
   const TR = 'AaĞğİıŞşÖöÜüÇçÂâ“”’…–·';
   for (const f of ['400 40px "Bebas Neue"', '400 40px Cinzel', '600 40px Cinzel', '700 40px Cinzel',
     'italic 500 40px "Cormorant Garamond"', 'italic 600 40px "Cormorant Garamond"', '500 40px "Cormorant Garamond"', '600 40px "Cormorant Garamond"']) await document.fonts.load(f, TR);
-  KIL.init();
+  FENER.init();
   postHazirla();
   shotsReady();
   window.READY = true;

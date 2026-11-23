@@ -23,7 +23,7 @@ const { serve } = require('./sunucu');
   for (const j of jobs) {
     let [ad, spec] = j.includes('=') ? j.split('=') : [null, j];
     let t;
-    const m = spec.match(/^(P\d{3})(?::([\d.]+))?$/);
+    const m = spec.match(/^([A-Z][A-Za-z0-9_]+)(?::([\d.]+))?$/);
     if (m) { const s = shots.find(x => x.id === m[1]); if (!s) { console.log('plan yok:', m[1]); continue; } const r = m[2] != null ? +m[2] : .5; t = s.at + (s.end - s.at) * r; ad = ad || `${m[1]}_${r.toFixed(2)}`; }
     else { t = +spec; ad = ad || 't' + t.toFixed(2).padStart(6, '0'); }
     const t0 = Date.now();

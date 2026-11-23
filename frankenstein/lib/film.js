@@ -1,4 +1,4 @@
-// Çekim sistemi (Gılgamış; narkissos/lib/film.js ve milton/lib/film.js ve prometheus/lib/film.js'ten uyarlandı). ORTAK DOSYA: yalnız başkan değiştirir.
+// Çekim sistemi (Frankenstein; gilgamis/lib/film.js'ten: fener motoruna bağlandı, geçişler kayma ve iris). ORTAK DOSYA: yalnız başkan değiştirir.
 // Çekimler anlatım işaretlerine bağlanır (timeline.js: window.CUES, window.WORDS, window.DUR; seslendirme kesin).
 // Plan listesi planlar.js (window.PLAN; kaynak tools/planlar_kaynak.py). Her set dosyası kendi plan('Pxxx', draw, o) çağrılarını yapar.
 'use strict';
@@ -70,17 +70,19 @@ function shotState(i, t) {
   const sh = SHOTS[i], end = (SHOTS[i + 1] ? SHOTS[i + 1].at : (window.DUR || sh.at + 10));
   return { t, at: sh.at, lt: t - sh.at, d: end - sh.at, p: clamp((t - sh.at) / (end - sh.at)), end, id: sh.id };
 }
-// Çekim çizimi: sahne kil tuvallerine çizer (R = KIL), sonra ışıkla birleştirilir. o.duz: doğrudan 2B çizim (kart, belge).
-function drawShot(ctx, i, t) {
+// Çekim çizimi: sahne fener slaytına çizer (R = FENER), sonra ışıkla perdeye düşer. o.duz: doğrudan 2B çizim (kart, belge).
+// sh.fener: {isik, kadraj, parlak, toz} ya da st → nesne. Geçiş sırasında iris çarpanı R.iris'e yazılır.
+function drawShot(ctx, i, t, iris = 1) {
   const sh = SHOTS[i]; if (!sh) return;
   window.FIG_T = t; const st = shotState(i, t);
   if (sh.duz) { ctx.save(); baseT(ctx); ctx.globalAlpha = 1; ctx.globalCompositeOperation = 'source-over'; ctx.filter = 'none'; sh.draw(ctx, st); ctx.restore(); return; }
-  KIL.begin(typeof sh.kil === 'function' ? sh.kil(st) : (sh.kil || {}));
-  sh.draw(KIL, st);
-  KIL.compose(ctx);
+  FENER.begin(typeof sh.fener === 'function' ? sh.fener(st) : (sh.fener || {}));
+  sh.draw(FENER, st);
+  FENER.iris = iris;
+  FENER.compose(ctx, t);
 }
 
-// ── geçişler: 'cut' | 'fade' (gürültü eşikli çözülme) | 'black' | 'muhur' (silindir mühür yuvarlanır: yeni sahne sağdan kile basılır) ──
+// ── geçişler: 'cut' | 'fade' (gürültü eşikli çözülme) | 'black' | 'kayma' (slayt değişimi: mekân sıçraması) | 'iris' (fener kapanıp açılır: zaman sıçraması) ──
 const bufA = makeCanvas(DW, DH), bufAx = bufA.getContext('2d');
 const maskC = makeCanvas(480, 270), maskX = maskC.getContext('2d');
 let NOISE_MASK = null;
@@ -107,18 +109,18 @@ function drawFilm(ctx, t) {
       drawShot(ctx, p < .5 ? i - 1 : i, t);
       ctx.save(); ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.fillStyle = '#0B0603';
       ctx.globalAlpha = p < .5 ? E.sine(p * 2) : 1 - E.sine((p - .5) * 2); ctx.fillRect(0, 0, DW, DH); ctx.restore();
-    } else if (tr.type === 'muhur') { // yeni sahne sağdan sola yuvarlanan mühürle basılır
-      drawShot(ctx, i - 1, t);
+    } else if (tr.type === 'kayma') { // slayt değişimi: yeni cam sağdan itilir, eski sola kayar; arada çerçevenin koyu kenarı
+      const e = E.io3(p), dx = DW * e, bant = 46 * RS;
       bufAx.setTransform(1, 0, 0, 1, 0, 0); bufAx.globalAlpha = 1; bufAx.globalCompositeOperation = 'source-over'; bufAx.clearRect(0, 0, DW, DH);
-      drawShot(bufAx, i, t);
-      const e = E.io3(p), xk = DW * (1 - e), bant = 70 * RS;
-      ctx.save(); ctx.setTransform(1, 0, 0, 1, 0, 0);
-      ctx.drawImage(bufA, xk, 0, DW - xk, DH, xk, 0, DW - xk, DH);
-      // mührün kenarı: basınç gölgesi ve parlak sırt
-      const g = ctx.createLinearGradient(xk - bant, 0, xk + bant, 0);
-      g.addColorStop(0, 'rgba(0,0,0,0)'); g.addColorStop(.45, 'rgba(30,14,4,.55)'); g.addColorStop(.55, 'rgba(255,220,170,.35)'); g.addColorStop(1, 'rgba(0,0,0,0)');
-      if (p > 0 && p < 1) { ctx.fillStyle = g; ctx.fillRect(xk - bant, 0, bant * 2, DH); }
-      ctx.restore();
+      drawShot(bufAx, i - 1, t);
+      ctx.save(); ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.fillStyle = '#080503'; ctx.fillRect(0, 0, DW, DH);
+      ctx.drawImage(bufA, -dx, 0); ctx.restore();
+      bufAx.clearRect(0, 0, DW, DH); drawShot(bufAx, i, t);
+      ctx.save(); ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.drawImage(bufA, DW - dx + bant, 0);
+      ctx.fillStyle = '#050302'; ctx.fillRect(DW - dx, 0, bant, DH); ctx.restore();
+    } else if (tr.type === 'iris') { // fener kapanır, yenisi açılır (zaman sıçraması)
+      const k = p < .5 ? 1 - E.io2(p * 2) : E.io2((p - .5) * 2);
+      drawShot(ctx, p < .5 ? i - 1 : i, t, Math.max(0, k));
     } else { // fade: eşikli çözülme
       drawShot(ctx, i, t);
       bufAx.setTransform(1, 0, 0, 1, 0, 0); bufAx.globalAlpha = 1; bufAx.globalCompositeOperation = 'source-over'; bufAx.clearRect(0, 0, DW, DH);
@@ -242,13 +244,6 @@ function txtDipinto(ctx, s, x, y, px, p, o = {}) {
 
 
 // kil yazısı: harfler kile basılmış (kabartma ya da oyma). Sahnenin parçası (notext'te de kalır). o: {px, font, z (taban yüksekliği; verilmezse oyma), ls, align}
-function kilYazi(R, s, x, y, o = {}) {
-  const px = o.px || 90, font = o.font || FONT.baslik(px, o.w || 700);
-  for (const c of [R.b, R.d]) { c.save(); c.font = font; c.textAlign = o.align || 'center'; c.textBaseline = 'middle'; if (o.ls) c.letterSpacing = o.ls + 'px'; }
-  if (o.z != null) { R.b.fillStyle = gv(o.z); R.b.fillText(s, x, y); R.d.fillStyle = R.T.kilPd; R.d.fillText(s, x, y); }
-  else { R.d.fillStyle = dv(-(o.derin ?? .95)); R.d.fillText(s, x, y); }
-  for (const c of [R.b, R.d]) c.restore();
-}
 // sahne(id, çapa, set, ölçek, çizim, o): plan kaydı + çekim. ölçek: 'genis' | 'orta' | 'yakin' | 'ayrinti' | 'kart' (ardışık iki plan aynı ölçekte olmaz; tools/kontrol.js)
 window.PLAN = window.PLAN || {};
 function sahne(id, at, set, olcek, draw, o = {}) {
