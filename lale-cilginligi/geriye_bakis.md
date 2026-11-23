@@ -39,6 +39,8 @@
   - Araba tekerleğinde halka tarama (hedef) → parmaklı tekerlek. Bacacının dik kalkık kolu (selam) → dirsekten bükük, sap yumruğun içinden.
   - Eylemsiz planlar: senet masaya iner ve yırtık yukarıdan ilerler; boş sedire iki yandan iki kişi yürür ("iktidar kavgası" olay olarak); Ahmed Refik adı anılınca girer (iki ad tek figüre düşmüyordu).
   - Kancadaki 5.200 gulden listede aranıyordu → listeye "mezattan önce, ayrı satış" notu. Semper Augustus görseli 2,8 sn'den 7 sn'ye. Tek kalan para (karalama) ve el hizasında yüzen kayık (tepsi) kaldırıldı.
+- **Son okuma** (değişen planların tam boy kareleri; Fable hassasiyet + Fable izleyici, her bulgu ayrı doğrulayıcıyla): hassasiyette engelleyici yok. İzleyicinin doğrulanan bulguları düzeltmelerin kendi yan etkileriydi: büyüyen harita sağdaki figürlerin başını örttü; zaman çizgisinde "1637 · HOLLANDA 1718 · İSTANBUL" tek satır gibi okundu ve panelden taştı; üste taşınan zaman çizgisi boşalan yere bölüm kartını değil figür başlarını bıraktı (5:53'te figürler artık karttan sonra yürüyerek giriyor). Eski bir bulgu da ilk kez yakalandı: arabayı çeken atın başı yoktu. Doğrulayıcı dört iddiayı çürüttü (soluk etiket aslında sönme anı; yastık "fıçı" değil).
+- **Süreç dersi:** önceki turun x265 kodlaması bir saattir arka planda sürüyordu; yeni render onunla aynı çekirdekleri paylaştı ve ikisi aynı günlüğe yazdı. Uzun iş başlatmadan önce `ps` ile eski render ve kodlama süreçleri aranır.
 
 ## Açık kalanlar
 - Kulakla son onay kullanıcıda (`yayin.md` → "Kulakla bakılacaklar").
