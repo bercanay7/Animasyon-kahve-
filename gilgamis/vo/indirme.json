@@ -3,7 +3,7 @@
  "voice": "Emrullah",
  "voice_id": "DpEiQMnL9WxMsymCsjPY",
  "model": "eleven_v4",
- "not": "23 Kasım 2026: s00 için estimate_only 1.073,9 kredi (2 çekim, 537 etiketli karakter; ~1,93 kredi/karakter/2 çekim). Toplam 8796 etiketli karakter × 2 çekim ≈ 16,976 kredi. Kullanıcının açık onayı bekleniyor.",
+ "not": "23 Kasım 2026: s00 için estimate_only 1.073,9 kredi (2 çekim, 537 etiketli karakter; ~1,93 kredi/karakter/2 çekim). Toplam 8796 etiketli karakter × 2 çekim ≈ 16,976 kredi. Kullanıcının açık onayı bekleniyor. Kullanıcının onayı (23 Kasım, açık cümle): \"Onaylıyorum\" (~17.000 kredi, Fable senaryo okumasından sonra gönderilecek).",
  "cekimler": {
   "s00": {
    "karakter_etiketli": 537,

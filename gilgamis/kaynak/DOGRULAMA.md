@@ -26,13 +26,13 @@
 | B10 | kapıyı ayağıyla tutar, boğalar gibi boğuşurlar, eşik yıkılır, duvar sarsılır | OB P vi (Jastrow "Enkidu blocked the gate With his foot… Like oxen they fought. The threshold they demolished; The wall they impaired") | ✓ |
 | B11 | öfke diner | OB P vi ("His wrath was appeased") | ✓ |
 | C02 | kükremesi tufan, ağzı ateş, nefesi ölüm | OB Y iii (Jastrow) | ✓ |
-| C03 | ölümden mi korkuyorsun, önden giderim, düşersem adımı bırakırım, kapılarda söz edilir | OB Y iv (Jastrow s. "Mankind will speak of it at the gates… Thou, forsooth, art in fear of death… I will go before thee… If I fall, I will establish my name") | ✓ |
+| C03 | insanın günleri sayılıdır, ne yapsa yeldir; ölümden mi korkuyorsun; önden giderim; düşersem adımı bırakmış olurum | OB Y iv 140–148, Akadca harf çevirisi Jastrow ve Clay 1920 satır ~3490–3500: *a-we-lu-tum ma-nu-ú ú-tam-mu-ša / mi-im-ma ša i-te-ni-pu-šu ša-ru-ma / at-ta an-na-nu-um-ma ta-dar mu-tam* | ✓ (rev1). **rev0 yanlıştı:** Jastrow 1920 "ba-ba-nu" okuyup "Mankind will speak of it at the gates" çevirmiş; bugünkü okuma "manû ūmūša" (günleri sayılıdır). Fable yakaladı, başkan Akadca satırda doğruladı |
 | C06 | 2011, Süleymaniye Müzesi, kaçakçıdan alınan V. tablet parçası; maymun, ağustosböceği, kuş sesleri | Al-Rawi ve George 2014 | ✓G; "Irak'ta bir müze" (Kürdistan Bölgesi, Süleymaniye) |
 | C07 | Humbaba aman diler, Enkidu öldürmesini söyler | SB V; OB Ishchali | ✓G |
 | C08 | en yüksek sedirden Enlil'in tapınağına kapı | SB V 293–302 | ✓G ("tanrıların tapınağı") |
 | C09 | Gök Boğası | Th VI; SB VI | ✓ (İştar anılmaz; "tanrıların gökten saldığı") |
 | C10–C11 | tanrılar: boğayı ve Humbaba'yı öldürenlerden Enkidu ölecek | Th VII i (Hititçe: "These who the heavenly Bull have kill'd and Humbaba have smitten… Enkidu shall die: but Gilgamish shall not die") | ✓ |
-| D02 | kapıya lanet: bilseydim baltayla parçalardım | SB VII 37–64 | ✓G; Th 1928'de yok |
+| D02 | kapıya lanet: bilseydim baltayla parçalardım | Th VII ("O, if I had but known, O Gate… then either an axe had I lifted"); SB VII 37–64 | ✓ (önceki kayıtta "Th'de yok" yazıyordu; yanlıştı, Fable düzeltti) |
 | D03–D05 | Şamhat'ı lanetler, Şamaş'ın sözü (ekmek, içki, giysi, dost), öfke diner, kutsar | Th VII ii–iv ("She 'twas who made thee eat bread, for divinity proper: (aye), wine (too), She made thee drink, ('twas) for royalty proper: a generous mantle Put on thee, (aye), and for comrade did give to thee Gilgamish splendid"; "his wrath was appeased"; "blesses the Hetaera") | ✓ |
 | D07 | on iki gün hasta yatar | SB VII 252–255 | ✓G |
 | D08 | kalbi atmıyor | Th VIII ii ("his heart… Made no beat") | ✓ |
@@ -53,7 +53,7 @@
 | E10–E11 | ölüm suyu, sırıklar, giysi yelken | Th X iii–iv; SB X 160–183 | ✓; sırık sayısı (300 / 120 itiş) söylenmez |
 | F01 | Utnapiştim'in farkı yok | SB XI 2–6 | ✓G |
 | F03 | tanrılar tufan, bir tanrı uyarır: evini yık gemi yap | SB XI 14–31 | ✓G |
-| F04 | altı gün yedi gece fırtına; insanlık kile döndü | SB XI 128–135 | ✓G |
+| F04 | altı gün yedi gece fırtına; insanlık kile döndü | Th XI ("all human Back to (its) clay was return'd"); SB XI 128–135 | ✓ |
 | F05 | ölümsüzlük bir kez verildi | SB XI 203–206 | ✓G |
 | F06 | kim toplayacak tanrıları; altı gün yedi gece uyuma | Th XI 197–199 | ✓ |
 | F07 | uyku sis/esinti gibi | Th XI 200 ("a sleep like a breeze") | ✓ |
@@ -83,3 +83,10 @@
 
 ## Seslendirmeden önce tırnak içi çevirilerin aslıyla karşılaştırılması (Dorian dersi)
 Yapıldı: C02, C03, D04, D09, D10, D14, E06, E07, F06, F12, G09, H02 yukarıdaki satırlarla. Anlam kayması bulunmadı. Bilerek yapılan seçimler: D04'te "wine" yerine "içki" (Akadca šikarum bira; Jastrow'un 1920 okuması şarap); E07'de "Day and night do thou rejoice / Daily make a rejoicing / Day and night a renewal of jollification" üç satırı tek "Gece gündüz sevin"e indirildi.
+
+## rev1 (Fable senaryo okuması, 23 Kasım) ile değişenler
+- A01/H10: bitki ölümsüzlük değil gençlik verir; "ölmemenin yolu" → "ölüme karşı aradığı"; "ölümsüzlüğü kaptırdı" → "aradığını kaptırdı".
+- D07/D08: "başından hiç ayrılmadı" ve "on ikinci gün elini koydu" metinde yok; çıkarıldı.
+- D12/D13: iki sürümün birleşimi (süre Standart sürümden, "çığlığıma kalkar diye" Eski Babil Sippar tabletinden); ekran künyesi ikisini de anar.
+- F01: "yaşlı" metinde yok. F08: "uyumadım diyecek" metinde yok → "İnsan aldatıcıdır; seni de aldatır." F10: sıfatlar George okumasına yaklaştırıldı (kösele, nemli).
+- H05: destan bu sözlerle başlamaz; davet ilk tabletin 18. satırından itibaren. H07: "surun dibindeki" tırnak dışına (görüntüde). H08: dolaşan şey lacivert tablet değil destan; Hattuşa = Boğazkale; surlu önsözün Hattuşa nüshalarında olduğu iddia edilmez.

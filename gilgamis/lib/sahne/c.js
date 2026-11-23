@@ -31,7 +31,7 @@
     FIG.fig(R, 700 + w, 885, 480, { tip: 'gilgamis', f: 1, ...yur(st.lt), kol: [[Math.sin(st.lt * 4 + 1) * .35, .4], [2.4, .2]], el: { uzak: (R, e, S) => { FIG.uzuv(R, [e[0], e[1]], [e[0] + S * .12, e[1] - S * .25], S * .03, S * .025, .68); FIG.sekil(R, [[e[0] + S * .1, e[1] - S * .3], [e[0] + S * .22, e[1] - S * .27], [e[0] + S * .15, e[1] - S * .18]], .7, .5); } } });
     FIG.fig(R, 380 + w, 885, 470, { tip: 'enkidu', f: 1, ...yur(st.lt + 1), kol: [[.3, .5], [-.2, .2]], tohum: 4 });
     R.L.dir = [-.6, -.5, .6];
-  }, { over: (c, st) => quote(c, '“Düşersem adımı bırakırım.”', 960, 190, st.lt, { t0: rel(st, 'C03@düşersem'), px: 66, kaynak: 'Eski Babil, Yale tableti' }) });
+  }, { over: (c, st) => quote(c, '“Düşersem adımı bırakırım.”', 960, 190, st.lt, { t0: rel(st, 'C03@düşersem'), px: 66, kaynak: 'Eski Babil sürümü, Yale tableti' }) });
   // C04: kile basılan ad (kamış kalem çivi işaretleri basar)
   sahne('C04a', 'C04', 'ad', 'ayrinti', (R, st) => {
     K(R, st, [960, 540, 1.3], [1060, 540, 1.4]);
@@ -55,14 +55,14 @@
     R.L.dir = [-.4, -.7, .55]; R.L.int = .85;
   });
   // C06 başı: kaçakçıdan alınan kırık tablet
-  sahne('C06t', 'C06', 'tablet', 'ayrinti', (R, st) => {
+  sahne('C06t', 'C05@bu', 'tablet', 'ayrinti', (R, st) => {
     K(R, st, [960, 540, 1.0], [960, 540, 1.1]);
     SET.zemin(R);
     DK.tablet(R, 960, 540, 760, 900, { z: .5, sh: 56, sz: 19, tohum: 33, kirik: [[1340, 0], [1340, 1100], [1180, 1100], [1250, 760], [1150, 520], [1260, 300], [1170, 0]] });
     R.L.dir = [-.7, -.45, .5];
   }, { over: (c, st) => kunye(c, 'Süleymaniye Müzesi · 2011', st.lt, 99) });
   // C06: ormanın sesi: maymunlar, kuşlar, ağustosböcekleri (2011 tableti)
-  sahne('C06a', 'C06@tablet#1', 'orman', 'orta', (R, st) => {
+  sahne('C06a', 'C05@maymunlar', 'orman', 'orta', (R, st) => {
     K(R, st, [900, 500, 1.1], [1060, 500, 1.15]);
     SET.zemin(R); SET.orman(R, -200, 2400, 980, { h: 980, ara: 360, z: .42 });
     const t = st.lt;
@@ -72,7 +72,7 @@
     for (let i = 0; i < 6; i++) YAR.kus(R, 300 + i * 260 + Math.sin(t + i) * 40, 200 + (i % 3) * 90 + Math.sin(t * 2 + i) * 20, 70, { kanat: t * 12 + i, z: .8 });
     for (let i = 0; i < 5; i++) YAR.agustos(R, 420 + i * 330, 760 + (i % 2) * 60, 46);
     R.L.dir = [-.45, -.65, .6];
-  }, { over: (c, st) => kunye(c, 'V. tablet, Süleymaniye Müzesi tableti (2011)', st.lt, 6) });
+  }, { over: (c, st) => kunye(c, 'V. tablet', st.lt, 6) });
   // C07: Humbaba diz çöker, aman diler; Enkidu "Dinleme onu"
   sahne('C07a', 'C07', 'humbaba', 'yakin', (R, st) => {
     const to = rel(st, 'C07@öldürdüler');

@@ -41,9 +41,9 @@ const KAPAK = {
     SET.mesale(R, 1720, 420, { i: 1.9 });
     R.L.int = .3; R.L.amb = .13; R.L.col = [.6, .56, .64]; R.L.dir = [-.4, -.6, .7];
     R.compose(ctx);
-    if (!o.yazisiz) yazi(ctx, o.satir || ['7 GÜN', 'GÖMMEDİ'], 80, 300, o.px || 280);
+    if (!o.yazisiz) yazi(ctx, o.satir || ['7 GECE', 'GÖMMEDİ'], 80, 300, o.px || 280);
     return cv;
   },
 };
 window.kapak = (v, o = {}) => KAPAK[v](o);
-(async () => { await document.fonts.load('400 200px "Bebas Neue"', 'ELİNDEYDİ GÜN GÖMMEDİ ŞÜ'); KIL.init(); window.READY = true; })();
+(async () => { await document.fonts.load('400 200px "Bebas Neue"', 'ELİNDEYDİ GECE GÜN GÖMMEDİ ŞÜ'); KIL.init(); window.READY = true; })();

@@ -111,7 +111,7 @@
   sahne('D12a', 'D12@altı', 'yatak', 'orta', (R, st) => {
     K(R, st, [1100, 420, 1.2], [1150, 440, 1.25]);
     SAHNE_YATAK(R, st, { ortu: 1, centik: clamp(st.lt / Math.max(2, st.d * .6)), gx: 1330, son: lerp(1, .6, clamp(st.lt / st.d)) });
-  });
+  }, { over: (c, st) => kunye(c, 'Eski Babil Sippar tableti; Standart sürüm, X. tablet', st.lt, 99) });
   // D13: "Ta ki burnundan bir kurt düşene kadar." Karanlık; yalnız yüz; meşale söner. (Kurt gösterilmez.)
   sahne('D13a', 'D13', 'yatak', 'yakin', (R, st) => {
     SET.yakin(R, st, { tip: 'gilgamis', f: -1, arka: 'oda', kay: 12, hx: 900, fig: { bas: .45 } });

@@ -8,9 +8,9 @@
    "A04",
    "A05"
   ],
-  "metin": "[calmly] Dört bin yıllık bir destanda bir kral, ölmemenin yolunu buldu, eline aldı… ve bir yılana kaptırdı. [softly] Onu oraya getiren bir ölüydü: en yakın dostu. Altı gün yedi gece başından kalkamamıştı. [calmly] Kral eve eli boş döndü. Kapıda, yolda tanıştığı yabancı bir kayıkçıya ilk iş şunu söyledi: “Çık şu surların üstüne. Tuğlalarına bak.” [curious] Her şeyini kaybetmiş bir adam neden övünür? [thoughtful] Sen de bir gün öleceğini biliyorsun. Bunu bile bile nasıl yaşanır? Gılgamış bu sorudan kaçarak dünyanın ucuna kadar gitti.",
+  "metin": "[calmly] Dört bin yıllık bir destanda bir kral, ölüme karşı aradığını buldu, eline aldı… ve bir yılana kaptırdı. [softly] Onu bu yola düşüren bir ölümdü: en yakın dostunun ölümü. Altı gün yedi gece başından kalkmamış, onu gömdürmemişti. [calmly] Kral eve eli boş döndü. Ve yanındaki yabancıya ilk sözü şu oldu: “Çık şu surların üstüne. Tuğlalarına bak.” [curious] Her şeyini kaybetmiş bir adam neden övünür? [thoughtful] Sen de bir gün öleceğini biliyorsun. Bunu bile bile nasıl yaşanır? Gılgamış bu sorudan kaçarak dünyanın ucuna kadar gitti.",
   "onek": "s00",
-  "karakter": 487
+  "karakter": 493
  },
  {
   "ad": "Yabani adam",
@@ -27,9 +27,9 @@
    "B10",
    "B11"
   ],
-  "metin": "[calmly] Gılgamış, Uruk şehrinin kralıydı: üçte ikisi tanrı, üçte biri insan. [calmly] Gücüne denk kimse yoktu ve şehir bunu canıyla ödüyordu: kral, babasına oğul, annesine kız bırakmıyordu. [calmly] Halk tanrılara yakardı. Ana tanrıça bir parça kil kopardı, bozkıra attı. Kilden, krala denk biri doğdu: Enkidu. [calmly] Enkidu bozkırda ceylanlarla otluyor, hayvanlarla aynı sudan içiyordu. Bedeni kıl içindeydi; insan nedir bilmiyordu. [calmly] Onu insanların arasına bir kadın getirdi: Şamhat. [softly] Altı gün yedi gece onunla kaldı. Sonra ceylanlarının yanına döndü; ama ceylanlar ondan kaçtı. [softly] Artık onlardan biri değildi. [warmly] Şamhat ona ekmek verdi; Enkidu ekmek yemeyi bilmiyordu. Bira verdi; yedi testi içti, yüzü parladı. Sonra kendi giysisini ikiye bölüp onu giydirdi. [thoughtful] Ekmek, bira, bir giysi. Küçük şeyler. Enkidu ölüm döşeğinde onları hatırlayacaktı. [firmly] Enkidu Uruk'a geldi ve kapıyı ayağıyla tutup kralın yolunu kesti. İki boğa gibi boğuştular; eşiği yıktılar, duvarı sarstılar. [warmly] Sonunda Gılgamış'ın öfkesi dindi. O günden sonra iki düşman, iki dost oldu.",
+  "metin": "[calmly] Gılgamış, Uruk şehrinin kralıydı: üçte ikisi tanrı, üçte biri insan. [calmly] Gücüne denk kimse yoktu ve bedelini şehir ödüyordu: kral, babasına oğul, annesine kız bırakmıyordu. [calmly] Halk tanrılara yakardı. Ana tanrıça bir parça kil kopardı, bozkıra attı. Kilden, krala denk biri doğdu: Enkidu. [calmly] Enkidu bozkırda ceylanlarla otluyor, hayvanlarla aynı sudan içiyordu. Bedeni baştan ayağa tüylüydü; insan nedir bilmiyordu. [calmly] Onu insanların arasına bir kadın getirdi: Şamhat. [softly] Enkidu altı gün yedi gece onunla kaldı. Sonra ceylanlarının yanına döndü; ama ceylanlar ondan kaçtı. [softly] Artık onlardan biri değildi. [warmly] Şamhat kendi giysisini ikiye bölüp onu giydirdi. Ona ekmek verdi; Enkidu ekmek yemeyi bilmiyordu. Bira verdi; yedi testi içti, yüzü parladı. [thoughtful] Ekmek, bira, bir giysi. Küçük şeyler. Ölüm döşeğinde bunlar ona hatırlatılacaktı. [firmly] Enkidu Uruk'a geldi ve kapıyı ayağıyla tutup kralın yolunu kesti. İki boğa gibi boğuştular; eşiği yıktılar, duvarı sarstılar. [warmly] Sonunda Gılgamış'ın öfkesi dindi. O günden sonra iki düşman, iki dost oldu.",
   "onek": "s01",
-  "karakter": 1005
+  "karakter": 1009
  },
  {
   "ad": "Ormanın bekçisi",
@@ -39,16 +39,15 @@
    "C03",
    "C04",
    "C05",
-   "C06",
    "C07",
    "C08",
    "C09",
    "C10",
    "C11"
   ],
-  "metin": "[calmly] Bir gün Gılgamış dostuna bir yolculuk önerdi: uzaktaki Sedir Ormanı'na gidip bekçisi Humbaba'yı öldürmek. [firmly] Enkidu ormanı biliyordu. “Humbaba'nın kükremesi tufandır,” dedi. “Ağzı ateştir, nefesi ölümdür.” [firmly] Gılgamış'ın cevabı hazırdı: “Ölümden mi korkuyorsun? Ben önden giderim. Düşersem adımı bırakırım. İnsanlar kapılarda bundan söz eder.” [thoughtful] Gılgamış'ın ölüme ilk cevabı buydu: geride bir ad bırakmak. [calmly] Ormana vardılar. Burası bir canavarın ıssız ini değildi. [curious] İki bin on birde Irak'ta bir müze, bir kaçakçıdan kırık bir tablet satın aldı. Tablet bu ormanın sesini geri getirdi: maymunlar bağırıyor, ağustosböcekleri ötüyor, kuşlar şakıyordu. [firmly] Humbaba yenildi ve aman diledi. Enkidu, “Dinleme onu,” dedi. Öldürdüler. [calmly] Sonra ormanın en yüksek sedirini kestiler. Enkidu ondan tanrıların tapınağına dev bir kapı yaptı. [calmly] Eve döndüklerinde, tanrıların gökten saldığı bir boğayı da öldürdüler. [slowly] Tanrılar toplandı. Ormanın bekçisini ve göğün boğasını öldüren iki dosttan biri ölmeliydi. [slowly] Seçtikleri Enkidu oldu.",
+  "metin": "[calmly] Bir gün Gılgamış dostuna bir yolculuk önerdi: uzaktaki Sedir Ormanı'na gidip bekçisi Humbaba'yı öldürmek. [firmly] Enkidu ormanı biliyordu. “Humbaba'nın kükremesi tufandır,” dedi. “Ağzı ateştir, nefesi ölümdür.” [firmly] Gılgamış'ın cevabı hazırdı: “İnsanın günleri sayılıdır; ne yapsa yeldir. Sen şimdiden ölümden mi korkuyorsun? Ben önden giderim. Düşersem adımı bırakmış olurum.” [thoughtful] Gılgamış'ın ölüme ilk cevabı buydu: geride bir ad bırakmak. [calmly] Ormana vardılar. Maymunlar bağırıyor, ağustosböcekleri ötüyor, kuşlar şakıyordu. Bu sesleri iki bin on birde ortaya çıkan kırık bir tabletten biliyoruz. [firmly] Humbaba yenildi ve aman diledi. Enkidu, “Dinleme onu,” dedi. Öldürdüler. [calmly] Sonra ormanın en yüksek sedirini kestiler. Enkidu ondan tanrıların tapınağına dev bir kapı yaptı. [calmly] Eve döndüklerinde, tanrıların gökten saldığı bir boğayı da öldürdüler. [slowly] Tanrılar toplandı. Ormanın bekçisini ve göğün boğasını öldüren iki dosttan biri ölmeliydi. [slowly] Seçtikleri Enkidu oldu.",
   "onek": "s02",
-  "karakter": 993
+  "karakter": 934
  },
  {
   "ad": "Yatağın başı",
@@ -69,9 +68,9 @@
    "D14",
    "D15"
   ],
-  "metin": "[softly] Enkidu kararı rüyasında duydu ve yatağa düştü. [firmly] İlk öfkesi kendi elleriyle yaptığı kapıyaydı: “Bunu bilseydim, baltamı alır, seni paramparça ederdim.” [firmly] Sonra Şamhat'ı lanetledi: onu insanların arasına getiren kadını. [slowly] Güneş tanrısı Şamaş gökten seslendi: “Enkidu, neden lanet ediyorsun? Sana tanrılara layık ekmek yediren, krallara layık içki içiren, sırtına giysi geçiren o değil mi? Sana Gılgamış gibi bir dost veren o değil mi?” [softly] Enkidu'nun öfkesi dindi. Lanetini geri aldı ve Şamhat'ı kutsadı. [thoughtful] Ekmek, bira, bir giysi, bir dost. Ölümle ödenen bir hayat. Ölmek üzere olan adam, o hayatı kutsadı. [softly] On iki gün yattı. Gılgamış başından hiç ayrılmadı. [slowly] On ikinci gün Gılgamış elini dostunun göğsüne koydu. Kalbi atmıyordu. [slowly] Yüzünü bir gelin gibi örttü. [sad] Sonra yavrusu elinden alınmış bir dişi aslan gibi ölünün önünde bir ileri bir geri yürüdü. Saçlarını yoldu, üstündeki süsleri söküp attı. [softly] Onu gömdürmedi. [sad] Sonradan kendisi anlatacaktı: “Altı gün yedi gece başında ağladım. Gömülmesine izin vermedim. Dostum çığlığıma kalkar diye.” [whispers] “Ta ki burnundan bir kurt düşene kadar.” [slowly] Sonra bozkıra çıktı ve kendi kendine sordu: “Ben de ölmeyecek miyim? Enkidu gibi olmayacak mıyım? İçime bir dert girdi. Ölümden korkuyorum; bozkırlarda dolaşıyorum.” [calmly] Bir aslan postuna büründü ve kaçmaya başladı.",
+  "metin": "[softly] Enkidu kararı rüyasında duydu ve yatağa düştü. [firmly] İlk öfkesi kendi elleriyle yaptığı kapıyaydı: “Bunu bilseydim, baltamı alır, seni paramparça ederdim.” [firmly] Sonra Şamhat'ı lanetledi: onu insanların arasına getiren kadını. [slowly] Güneş tanrısı gökten seslendi: “Enkidu, neden lanet ediyorsun? Sana tanrılara layık ekmek yediren, krallara layık içki içiren, sırtına giysi geçiren o değil mi? Sana Gılgamış gibi bir dost veren o değil mi?” [softly] Enkidu'nun öfkesi dindi. Lanetini geri aldı ve Şamhat'ı kutsadı. [thoughtful] Ekmek, bira, bir giysi, bir dost. Ölümle ödenen bir hayat. Ölmek üzere olan adam, o hayatı kutsadı. [softly] On iki gün yattı; her gün biraz daha kötüledi. [slowly] Gılgamış elini dostunun göğsüne koydu. Kalbi atmıyordu. [slowly] Dostunun yüzünü, bir gelinin yüzü gibi örttü. [sad] Sonra yavrusu elinden alınmış bir dişi aslan gibi ölünün önünde bir ileri bir geri yürüdü. Saçlarını yoldu, üstündeki süsleri söküp attı. [softly] Onu gömdürmedi. [sad] Sonradan kendisi anlatacaktı: “Altı gün yedi gece başında ağladım. Gömülmesine izin vermedim. Dostum çığlığıma kalkar diye.” [whispers] “Ta ki burnundan bir kurt düşene kadar.” [slowly] Sonra bozkıra çıktı ve kendi kendine sordu: “Ben de ölmeyecek miyim? Enkidu gibi olmayacak mıyım? İçime bir dert girdi. Ölümden korkuyorum; bozkırlarda dolaşıyorum.” [calmly] Bir aslan postuna büründü ve kaçmaya başladı.",
   "onek": "s03",
-  "karakter": 1275
+  "karakter": 1268
  },
  {
   "ad": "Dünyanın ucu",
@@ -88,9 +87,9 @@
    "E10",
    "E11"
   ],
-  "metin": "[curious] Bir tek insanın ölümsüz olduğunu biliyordu: tufandan kurtulan Utnapiştim. Dünyanın ucunda yaşıyordu. [calmly] Güneşin battığı dağa vardı. Kapıyı bekleyen akrep insanlar onu uyardı; dinlemedi. [slowly] Güneşin geceleri geçtiği yola girdi. Karanlık o kadar koyuydu ki ne önünü görüyordu ne arkasını. Öyle yürüdü. [calmly] Karanlığın sonunda, ağaçlarında taş mücevherler yetişen bir bahçe vardı. Gılgamış durmadı. [calmly] Deniz kıyısında bir meyhane buldu. Meyhaneci Siduri onu görünce kapısını sürgüledi: karşısında yüzü yanmış, aslan postlu bir yabancı vardı. [warmly] Siduri ona şöyle dedi: “Gılgamış, nereye koşuyorsun? Aradığın hayatı bulamayacaksın. Tanrılar insanı yarattığında ona ölümü verdiler; hayatı kendi ellerinde tuttular.” [warmly] “Sen karnını doyur. Gece gündüz sevin. Giysilerin temiz olsun, başını yıka. Elini tutan çocuğa bak. Karın koynunda sevinsin.” [calmly] Gılgamış dinlemedi. Utnapiştim'in yolunu sordu. [calmly] Siduri onu kayıkçı Urşanabi'ye gönderdi: ölüm sularını geçebilen tek kişiye. [calmly] Ölüm sularına eli değen ölürdü. Gılgamış ormandan uzun sırıklar kesti; her birini suya bir kez daldırıp bıraktılar. [calmly] Sırıklar bitince Gılgamış giysisini çıkarıp yelken diye kaldırdı.",
+  "metin": "[curious] Bir tek insanın ölümsüz olduğunu biliyordu: tufandan kurtulan Utnapiştim. Dünyanın ucunda yaşıyordu. [calmly] Güneşin doğup battığı ikiz dağa vardı. Kapıyı bekleyen akrep insanlar onu uyardı; dinlemedi. [slowly] Güneşin geceleri geçtiği yola girdi. Karanlık o kadar koyuydu ki ne önünü görüyordu ne arkasını. Öyle yürüdü. [calmly] Karanlığın sonunda, ağaçlarında taş mücevherler yetişen bir bahçe vardı. Gılgamış durmadı. [calmly] Deniz kıyısında bir meyhane buldu. Meyhaneci Siduri onu görünce kapısını sürgüledi: karşısında yüzü yanmış, aslan postlu bir yabancı vardı. [warmly] Siduri ona şöyle dedi: “Gılgamış, nereye koşuyorsun? Aradığın hayatı bulamayacaksın. Tanrılar insanı yarattığında ona ölümü verdiler; hayatı kendi ellerinde tuttular.” [warmly] “Sen karnını doyur. Gece gündüz sevin. Giysilerin temiz olsun, başını yıka. Elini tutan çocuğa bak. Karın koynunda sevinsin.” [calmly] Gılgamış dinlemedi. Utnapiştim'in yolunu sordu. [calmly] Siduri onu kayıkçı Urşanabi'ye gönderdi: ölüm sularını geçebilen tek kişiye. [calmly] Ölüm sularına eli değen ölürdü. Gılgamış ormandan uzun sırıklar kesti; her birini suya bir kez daldırıp bıraktılar. [calmly] Sırıklar bitince Gılgamış giysisini çıkarıp yelken diye kaldırdı.",
   "onek": "s04",
-  "karakter": 1124
+  "karakter": 1135
  },
  {
   "ad": "Tufandan kurtulan adam",
@@ -108,9 +107,9 @@
    "F11",
    "F12"
   ],
-  "metin": "[calmly] Kıyıda Utnapiştim bekliyordu. Gılgamış ona baktı: kendisinden hiçbir farkı olmayan, yaşlı bir adamdı. [curious] “Sen nasıl ölümsüz oldun?” [calmly] Utnapiştim anlattı. Bir zamanlar tanrılar insanlığı bir tufanla silmeye karar vermişti. Bir tanrı ona fısıldadı: “Evini yık, bir gemi yap.” [slowly] Altı gün yedi gece fırtına esti. Dindiğinde bütün insanlık kile dönmüştü. [calmly] Ölümsüzlüğü tanrılar ona bir kez vermişti; yalnız ona. [firmly] “Peki senin için tanrıları kim toplayacak?” dedi Utnapiştim. “Haydi: altı gün yedi gece uyumadan dur.” [softly] Gılgamış oturdu ve uyku hemen bir sis gibi üstüne çöktü. [calmly] Utnapiştim karısına döndü: “İnsan yalancıdır, uyumadım diyecek. Her gün bir ekmek pişir, başucuna koy. Geçen günleri duvara çiz.” [calmly] Gılgamış uyandığında, “Gözüm daha yeni kapanmıştı,” dedi. [slowly] Utnapiştim ekmekleri gösterdi. Birincisi taş gibi kurumuştu, ikincisi bozulmuş, üçüncüsü yumuşamış, dördüncüsü beyazlamış, beşincisi küflenmiş, altıncısı tazeydi. Yedincisi hâlâ közdeydi. [thoughtful] Ölümü yenmeye gelen adam, bir uykuyu yenememişti. [sad] “Ne yapayım Utnapiştim? Nereye gideyim? Yatak odamda ölüm oturuyor. Nereye ayak bassam, ölüm orada.”",
+  "metin": "[calmly] Kıyıda Utnapiştim bekliyordu. Gılgamış ona baktı: kendisinden hiçbir farkı olmayan bir adamdı. [curious] “Sen nasıl ölümsüz oldun?” [calmly] Utnapiştim anlattı. Bir zamanlar tanrılar insanlığı bir tufanla silmeye karar vermişti. Bir tanrı ona fısıldadı: “Evini yık, bir gemi yap.” [slowly] Altı gün yedi gece fırtına esti. Dindiğinde bütün insanlık kile dönmüştü. [calmly] Ölümsüzlüğü tanrılar ona bir kez vermişti; yalnız ona. [firmly] “Peki senin için tanrıları kim toplayacak?” dedi Utnapiştim. “Haydi: altı gün yedi gece uyumadan dur.” [softly] Gılgamış oturdu ve uyku hemen bir sis gibi üstüne çöktü. [calmly] Utnapiştim karısına döndü: “İnsan aldatıcıdır; seni de aldatır. Her gün bir ekmek pişir, başucuna koy. Geçen günleri duvara çiz.” [calmly] Gılgamış uyandığında, “Gözüm daha yeni kapanmıştı,” dedi. [slowly] Utnapiştim ekmekleri gösterdi. Birincisi taş gibi kurumuştu, ikincisi kösele gibiydi, üçüncüsü nemlenmiş, dördüncüsü beyazlamış, beşincisi küflenmiş, altıncısı tazeydi. Yedincisi hâlâ közdeydi. [thoughtful] Ölümü yenmeye gelen adam, bir uykuyu yenememişti. [sad] “Ne yapayım Utnapiştim? Nereye gideyim? Yatak odamda ölüm oturuyor. Nereye ayak bassam, ölüm orada.”",
   "onek": "s05",
-  "karakter": 1084
+  "karakter": 1083
  },
  {
   "ad": "Yılan",
@@ -126,9 +125,9 @@
    "G09",
    "G10"
   ],
-  "metin": "[calmly] Utnapiştim onu yıkattı. Gılgamış başını yıkadı, temiz giysiler giydi; tıpkı meyhanecinin öğüdündeki gibi. [curious] Tam yola çıkarken Utnapiştim bir sır verdi: denizin dibinde dikenli bir bitki vardı. Onu yiyen gençliğine dönerdi. [firmly] Gılgamış ayaklarına taş bağlayıp dibe daldı. Bitkiyi kopardı; dikenler elini kanattı. Taşları kesti, deniz onu kıyıya attı. [warmly] Bitkiye bir ad verdi: “Yaşlı adam gençleşir.” [calmly] Hemen yemedi. “Uruk'a götüreceğim,” dedi Urşanabi'ye. “Önce bir yaşlıya deneyeceğim, sonra ben yiyeceğim.” [calmly] Yolda serin sulu bir gölet gördü ve yıkanmak için içine indi. [slowly] Bir yılan bitkinin kokusunu aldı. Sessizce çıktı, bitkiyi aldı götürdü. Giderken derisini geride bıraktı. [sad] Gılgamış oturdu ve ağladı. Gözyaşları yanaklarından aktı. [sad] “Urşanabi, kimin için yoruldu bu kollar? Kimin için tükendi yüreğimin kanı? Kendime hiçbir iyilik yapamadım. Bir yılana yaptım.” [slowly] Ve eve eli boş döndü.",
+  "metin": "[calmly] Utnapiştim onu yıkanmaya gönderdi. Gılgamış başını yıkadı, temiz giysiler giydi; tıpkı meyhanecinin öğüdündeki gibi. [curious] Tam yola çıkarken Utnapiştim bir sır verdi: denizin dibinde dikenli bir bitki vardı. Onu yiyen gençliğine dönerdi. [firmly] Gılgamış ayaklarına taş bağlayıp dibe daldı. Bitkiyi kopardı; dikenler elini kanattı. Taşları kesti, deniz onu kıyıya attı. [warmly] Bitkiye bir ad verdi: “Yaşlı adam gençleşir.” [calmly] Hemen yemedi. “Uruk'a götüreceğim,” dedi kayıkçıya. “Önce bir yaşlıya deneyeceğim, sonra ben yiyeceğim.” [calmly] Yolda serin sulu bir gölet gördü ve yıkanmak için içine indi. [slowly] Bir yılan bitkinin kokusunu aldı. Sessizce çıktı, bitkiyi aldı götürdü. Giderken derisini geride bıraktı. [sad] Gılgamış oturdu ve ağladı. Gözyaşları yanaklarından aktı. [sad] “Urşanabi, kimin için yoruldu bu kollar? Kimin için tükendi yüreğimin kanı? Kendime hiçbir iyilik yapamadım. Bir yılana yaptım.” [slowly] Ve eve eli boş döndü.",
   "onek": "s06",
-  "karakter": 874
+  "karakter": 883
  },
  {
   "ad": "Surlar",
@@ -138,15 +137,14 @@
    "H03",
    "H04",
    "H05",
-   "H06",
    "H07",
    "H08",
    "H09",
    "H10",
    "H11"
   ],
-  "metin": "[calmly] Uruk'a vardıklarında Gılgamış kayıkçıya döndü. [warmly] “Çık Urşanabi, Uruk'un surlarına, yürü. Temeline bak, tuğlalarını yokla. Tuğlaları fırında pişmemiş mi? Temelini yedi bilge atmamış mı?” [warmly] “Bir parça şehir, bir parça hurma bahçesi, bir parça kil çukuru. Hepsi Uruk.” [softly] Surun içinde ölümsüzlük yoktu. Ekmek pişiren fırınlar, hurma bahçeleri, birbirinin elini tutan insanlar vardı. [calmly] Destan burada biter. Ve aynı sözlerle başlar. [warmly] İlk tablette bu davet okuyana yapılır: Çık Uruk'un surlarına, yürü, tuğlalarına bak. [warmly] Ve: “Surun dibindeki sedir sandığı bul. Tunç kilidini aç. Lacivert taştan tableti çıkar ve oku: Gılgamış'ın bütün çektiklerini.” [calmly] O tablet kâtipten kâtibe, dilden dile geçti. Üç bin yıldan da önce, Hititlerin başkenti Hattuşa'da, bugünkü Çorum'da, üç ayrı dilde okundu. [slowly] Her okuyan, o yabancı gibi surun üstüne çıktı. Bugün, dört bin yıl sonra, o yabancı sensin. [thoughtful] Gılgamış ölümsüzlüğü bir yılana kaptırdı. Ama bir yabancıya gösterecek bir suru vardı. Peki sen bir gün bir yabancıya hangi suru göstereceksin? Cevabını yorumlara yaz. [warmly] Geçmişten bir tablet daha getirmemiz için Zaman Kuryesi'ne abone ol. Ölümün karşısında gülümseyen bir başka adam, Sisifos, ekranda.",
+  "metin": "[calmly] Uruk'a vardıklarında Gılgamış kayıkçıya döndü. [warmly] “Çık Urşanabi, Uruk'un surlarına, yürü. Temeline bak, tuğlalarını yokla. Tuğlaları fırında pişmemiş mi? Temelini yedi bilge atmamış mı?” [warmly] “Bir parça şehir, bir parça hurma bahçesi, bir parça kil çukuru. Hepsi Uruk.” [softly] Surun içinde ekmek pişiren fırınlar, hurma bahçeleri, birbirinin elini tutan insanlar vardı. [warmly] Destan bu sözleri iki kez söyler: sonda kayıkçıya, ilk tablette de okuyana. “Çık Uruk'un surlarına, yürü, tuğlalarına bak.” [warmly] Ve: “Sedir sandığı bul. Tunç kilidini aç. Lacivert taştan tableti çıkar ve oku: Gılgamış'ın bütün çektiklerini.” [calmly] Bu hikâye kâtipten kâtibe, dilden dile geçti. Üç bin yıldan da önce, Hitit başkenti Hattuşa'da, bugün Çorum'un Boğazkale'sinde, üç ayrı dilde kopyaları yazıldı. [slowly] Onu her okuyan, o yabancının yerine geçti. Bugün o yabancı sensin. [thoughtful] Gılgamış aradığını bir yılana kaptırdı. Sen de öleceğini biliyorsun. Bir gün bir yabancıya hangi suru göstereceksin? Cevabını yorumlara yaz. [warmly] Geçmişten bir tablet daha getirmemiz için Zaman Kuryesi'ne abone ol. Ölümün karşısında gülümseyen bir başka adam, Sisifos, ekranda.",
   "onek": "s07",
-  "karakter": 1164
+  "karakter": 1092
  }
 ]

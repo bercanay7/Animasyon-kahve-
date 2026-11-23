@@ -41,7 +41,7 @@ Yazıldı: 22 Kasım 2026, senaryo rev2 (seslendirmeden önce). Zamanlar seslend
 | L2 | **Doğal deney (Mary Stuart M2 ile aynı soru):** efsanenin çürütülmesi (F08–F11, Goldgar) bir yorum değil, olay olarak kuruldu (arşive dönüş, "bulamıyor", "tutulmayan sözler"). Tahmin: F08–F11 dik değil (< 1,5 × gövde ortalaması). Tutmazsa: izleyici çürütmeyi olay değil açıklama sayıyor. | F08 başı – F11 sonu, dakika başına kayıp / gövde | |
 | L3 | **Türk izleyicinin kapısı:** İstanbul bölümü (G01) yeni bir "ikinci hikâye" açar; doruk kişileri kancada ekildiği ve "Lale Devri" okuldan tanıdık olduğu için G01'den sonraki 30 sn'de düşüş yok (≤ 2 puan) ya da yükseliş; "Ad" bölümü (A07'nin merakının cevabı, I03–I07) Studio'da "Önemli an" ya da yerel yükseliş. | G01 + 30 sn; I03–I07 eğri ve Studio işaretleri | |
 
-## Gılgamış (~10:30; yayın tarihi kullanıcının; 23 Kasım yazıldı, seslendirmeden önce; zamanlar seslendirmeden sonra eklenir, tahmin değişmez)
+## Gılgamış (~10:30; yayın 6 Aralık 2026 18:00 (kullanıcı, 23 Kasım); 48. saat = 8 Aralık 18:00, 7. gün = 13 Aralık; 23 Kasım yazıldı, seslendirmeden önce; zamanlar seslendirmeden sonra eklenir, tahmin değişmez)
 | # | Tahmin | Nasıl sınanır | Sonuç |
 |---|---|---|---|
 | G1 | Kanca kurala uygun: kanca sorusundan (A05) sonraki ilk cümle hikâye (B01), kimlik kancanın içinde. Kancanın kendisi iki somut sahne (bitki/yılan, ölü dost) ve bir alıntı (surlar). 0:30 (48. saat) ≥ %65 ve kanca sonu → B03 arasında ≥ 3 puanlık düşüş yok. | 0:30; A05–B03 aralığı | |

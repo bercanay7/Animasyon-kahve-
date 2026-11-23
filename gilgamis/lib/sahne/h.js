@@ -67,12 +67,12 @@
     kilYazi(R, 'I', 960, 90, { px: 60 });
     R.L.dir = [-.65, -.5, .55];
   }, { tr: { type: 'fade', dur: .6 }, over: (c, st) => kunye(c, 'I. tablet, ilk satırlar', st.lt, 99) });
-  sahne('H06a', 'H06', 'tablet', 'yakin', (R, st) => {
+  sahne('H06a', 'H05@çık', 'tablet', 'yakin', (R, st) => {
     K(R, st, [960, 460, 1.6], [960, 480, 1.7]);
     SET.zemin(R);
     DK.tablet(R, 960, 540, 820, 1000, { z: .5, sh: 52, sz: 18, tohum: 41 });
     R.L.dir = [-.65, -.5, .55];
-  }, { over: (c, st) => quote(c, '“Çık Uruk\'un surlarına, yürü.”', 960, 200, st.lt, { t0: rel(st, 'H06@çık'), px: 66 }) });
+  }, { over: (c, st) => quote(c, '“Çık Uruk\'un surlarına, yürü.”', 960, 200, st.lt, { t0: 0, px: 66 }) });
   sahne('H07a', 'H07', 'sandik', 'ayrinti', (R, st) => {
     const tk = rel(st, 'H07@kilidini'), tt = rel(st, 'H07@tableti');
     K(R, st, [960, 600, 1.05], [960, 560, 1.25]);
@@ -127,7 +127,7 @@
     for (let i = 0; i < 8; i++) DK.hurma(R, -600 + i * 460, 880, 250 + (i % 3) * 40, { z: .52, meyve: true });
     FIG.fig(R, 1100, 330, 150, { tip: 'gilgamis', giysi: 'cubbe', f: -1, z: .62 });
     R.L.dir = [-.9, -.15, .4]; R.L.col = [1.15, .78, .55]; R.L.int = .95;
-  }, { over: (c, st) => quote(c, 'Sen hangi suru göstereceksin?', 960, 180, st.lt, { t0: rel(st, 'H10@peki'), px: 70 }) });
+  }, { over: (c, st) => quote(c, 'Sen hangi suru göstereceksin?', 960, 180, st.lt, { t0: rel(st, 'H10@bir'), px: 70 }) });
   // H11: bitiş ekranı zemini (son ~20 sn): sol yarı boş (bitiş öğeleri), sağda sur ve küçük figür
   sahne('H11a', 'H11', 'son', 'son', (R, st) => {
     K(R, st, [960, 540, .9], [960, 540, .92]);
