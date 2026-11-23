@@ -4,7 +4,7 @@
 2. **Ayrıntılar:** başlık, açıklama ve etiketler `youtube.md`'de. Bölüm damgaları açıklamada, 0:00 ile başlıyor.
 3. **Kapak ("Test ve karşılaştır"):** iki ayrı vaat, iki ayrı kompozisyon.
    - **A** `kapak/kapak_a.jpg` "O BENİM": yüz ve yansıması, tek odak yansımadaki gözde. Film ilk 15 saniyede bu sözü söylüyor.
-   - **B** `kapak/kapak_b.jpg` "ANLADI. YİNE DE KALKAMADI.": parmağın suya değdiği an. 4–6 kelimelik kapak yazısı denemesi (CLAUDE.md kapak araştırması); film bu sözü 0:13'te ve 4:20'de karşılıyor.
+   - **B** `kapak/kapak_b2.jpg` "ANLADI. YİNE DE GİDEMEDİ.": parmağın suya değdiği an. 4–6 kelimelik kapak yazısı denemesi (CLAUDE.md kapak araştırması); film bu sözü 0:13'te (A04 "neden kalkıp gitmedi?") ve 4:20'de (E05 "Ama yine de gidemiyor") karşılıyor. Eski `kapak_b.jpg` ("KALKAMADI") kullanılmaz: anlatımda geçmiyor ve argo okumaya açık (23 Kasım değerlendirmesi, `uretim_plani.md` §14).
    - Kazananı YouTube izlenme süresi payıyla seçer. Test sürerken başlık değiştirilmez.
 4. **Kitle:** "Hayır, çocuklara özel değil".
 5. **Değiştirilmiş ya da sentetik içerik:** gerçekçi bir kişi ya da olay göstermiyor; bu bir animasyon, gerçek belgeler değiştirilmeden kullanıldı. Sesin yapay zekâ olduğu açıklamada yazılı. YouTube'un o günkü sorusunu oku; gerçekçi içerik değilse "Hayır".

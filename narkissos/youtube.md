@@ -48,7 +48,7 @@ Sisifos: kanaldaki "Sisifos'u Neden Mutlu Hayal Etmeliyiz?" videosu (bağlantıy
 narsisizm, narsisizm nedir, narsist, kendini sevmek, Narkissos, Narkissos ve Eko, Narcissus, Eko, Echo, Narkissos efsanesi, Narkissos hikayesi, Yunan mitolojisi, mitoloji, Ovidius, Dönüşümler, Metamorphoses, Freud, Freud narsisizm, Narsisizm Üzerine, Havelock Ellis, nergis, kendini tanı, Delfi, psikoloji tarihi, Mitler ve Felsefe, Zaman Kuryesi
 
 ## Sabit yorum (cevabı vermez)
-Narkissos sudaki yüzün kendisi olduğunu anladı ve yine de kalkamadı. Sence bilmek bir şeyi değiştirmeye yeter mi, yoksa bir şey daha mı gerekir?
+Narkissos sudaki yüzün kendisi olduğunu anladı ve yine de gidemedi. Sence bilmek bir şeyi değiştirmeye yeter mi, yoksa bir şey daha mı gerekir?
 
 ## Shorts: ilk dikey deneme (23 Kasım; `shorts/narkissos_dikey.mp4`, 24,5 sn, 1080×1920)
 Kırpma değil: filmin planları dikey tuvale yeniden çizildi (`shorts_dikey.html`, `shorts/dikey.js`, `shorts/core_dikey.js`; render `node /home/user/Animasyon-kahve-/narkissos/shorts/render_dikey.js`). Ses filmin miksinden, yeni seslendirme yok.

@@ -344,3 +344,20 @@ Dört bağımsız mercek: kaynak (8/10), hassasiyet (7,5), Türkçe seslendirme 
 - Başkan işleri kendisi yapar; doğrulamayı kendi ölçümüyle ve kareye bakarak kendisi yapar.
 - Çalışmakta olan animatik düzeltme turu (iki set sahibi + birleştirme) tamamlanır.
 - Sonraki adımları (müzik, miks, son render, altyazı, kapak, yayın paketi) başkan tek başına yapar.
+
+## 14. Kapakların "kapak merak açar, başlık tamamlar" formülüyle değerlendirmesi (23 Kasım 2026)
+Başlık: "Kendini Sevmek Ne Zaman Narsisizme Döner? | Narkissos'un Hikâyesi". Ölçüm: `araclar/kapak/odak.py`, 246/168/120 px küçültmeler, harf yüksekliği pikselden.
+
+| Ölçüt | A "O BENİM" | B "ANLADI. YİNE DE GİDEMEDİ." |
+|---|---|---|
+| Kapak yazısı başlığın sözcüklerini tekrar etmiyor | geçer | geçer |
+| Kapak kendi merakını açıyor | zayıf: bir soru sormuyor, ifşayı söylüyor; mitin sonunu bilen izleyiciye yeni bir şey vaat etmiyor. Sahiplenme ("o benim sevgilim") okumasına açık | güçlü: "neyi anladı, neden gidemedi?" açığı, cevabı videoda |
+| Başlık kapağın merakını tamamlıyor | kısmen: başlıktaki soru kapağı "kendini sevmek" diye çerçeveliyor | evet: başlık kim ve hangi konu sorusunu cevaplıyor, "neden" videoya kalıyor |
+| İzleyicinin kendi hayatı (talep b) | yok | var: "bildiğin hâlde bırakamamak" (telefon) |
+| Vaat filmde karşılanıyor | 0:10–0:15 (A03 "O benim"): çok iyi | 0:13 (A04) ve 4:20 (E05) |
+| Harf yüksekliği ≥ %18 | ~%21 | %18,8 / %14,3 / %14,3 (4–6 kelime denemesinin bilinen bedeli; 168 px'te okunuyor) |
+| Odak | 1. odak parlayan yansıma gözünde, ikinci güçlü odak yazı (0,88): amaçlanan yerde | dağınık: en güçlü tepe başın üst kenarda kesildiği yer; tek parlak odak yok |
+| Süre rozeti bölgesi | boş | boş |
+
+- **Düzeltme (uygulandı):** B'deki "KALKAMADI" → "GİDEMEDİ" (`kapak_b2.html/jpg`). Anlatım hiçbir yerde "kalkamadı" demiyor; "gidemez/gidemiyor" (A04, D10, D11, E05) ve Ovidius'un kendi sözü "eğer sen gidebilirsen" (III 479). "Kalkamadı" genç bir erkek figürün yanında argo okumaya da açık ("dönme" dersiyle aynı tuzak). Shorts başlığı da "Yine de Gidemedi"; kapak, Shorts ve sabit yorum aynı kelimede birleşti.
+- **Karar:** iki kapak da test edilir. Formüle göre B güçlü aday, A filmin ilk 15 saniyesiyle en sıkı eşleşen kapak. İkisi aynı kompozisyonda (yüz + yansıma) olduğu için test kompozisyonu değil yazıyı karşılaştırır: 2 kelimelik ifşa ile 4 kelimelik açık soru. Sonuç 7. günde (1 Aralık) `kanal/KAPAK_DERSLERI.md`'ye yazılır.
