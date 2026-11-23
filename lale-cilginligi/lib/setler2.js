@@ -29,12 +29,12 @@ const SET2 = (() => {
   function masaUst(y, o = {}) { fill(R(-600, y, 3100, 900), o.ton ?? .22, { th: .03, id: 9 }); for (let k = 0; k < 9; k++) fill(R(-600, y + 40 + k * 70 + rnd(k) * 20, 3100, 3), .08, { th: .03, id: 9 }); }
   // tüy kalem ve hokka
   function kalem(x, y, a = -.6, s = 1) { const c = Math.cos(a), sn = Math.sin(a); fill(F([[x, y], [x + c * 260 * s - sn * 10, y + sn * 260 * s + c * 10], [x + c * 260 * s + sn * 18, y + sn * 260 * s - c * 18]]), .85, { th: a, id: 6 }); fill(F([[x - 4, y - 2], [x + c * 30, y + sn * 30], [x + 4, y + 2]]), .05, { th: a, id: 9 }); }
-  function hokka(x, y, s = 1) { fill(Sm([[x - 40 * s, y], [x + 40 * s, y], [x + 34 * s, y - 50 * s], [x + 14 * s, y - 62 * s], [x - 14 * s, y - 62 * s], [x - 34 * s, y - 50 * s]]), .08, { type: 'rad', cx: x - 10 * s, cy: y - 40 * s, id: 9 }); }
+  function hokka(x, y, s = 1) { fill(Sm([[x - 40 * s, y], [x + 40 * s, y], [x + 34 * s, y - 50 * s], [x + 14 * s, y - 62 * s], [x - 14 * s, y - 62 * s], [x - 34 * s, y - 50 * s]]), .08, { th: HV, id: 9 }); }
   function mumluk(x, y, t, s = 1) { fill(Sm([[x - 40 * s, y], [x + 40 * s, y], [x + 20 * s, y - 14 * s], [x - 20 * s, y - 14 * s]]), .3, { th: H0, id: 9 }); SET.mum(x, y - 54 * s, t, s); }
   // para: gulden yığını (n sikke)
-  function para(x, y, n, s = 1) { for (let i = 0; i < n; i++) { const cx = x + (rnd(i * 3) - .5) * 30 * s, cy = y - i * 7 * s; fill(E2(cx, cy, 26 * s, 9 * s), .7 + (i % 2) * .1, { type: 'rad', cx, cy, id: 9 }); fill(E2(cx, cy, 26 * s, 9 * s), .3, { th: H0, id: 9 }); fill(E2(cx, cy - 2 * s, 22 * s, 7 * s), .82, { type: 'rad', cx, cy, id: 9 }); } }
+  function para(x, y, n, s = 1) { for (let i = 0; i < n; i++) { const cx = x + (rnd(i * 3) - .5) * 30 * s, cy = y - i * 7 * s; fill(E2(cx, cy, 26 * s, 9 * s), .7 + (i % 2) * .1, { th: 0, id: 9 }); fill(E2(cx, cy, 26 * s, 9 * s), .3, { th: H0, id: 9 }); fill(E2(cx, cy - 2 * s, 22 * s, 7 * s), .82, { type: 'rad', cx, cy, id: 9 }); } }
   // kese
-  function kese(x, y, s = 1) { fill(Sm([[x - 50 * s, y], [x + 50 * s, y], [x + 60 * s, y - 50 * s], [x + 20 * s, y - 90 * s], [x - 20 * s, y - 90 * s], [x - 60 * s, y - 50 * s]]), .3, { type: 'rad', cx: x - 15 * s, cy: y - 50 * s, id: 9 }); fill(R(x - 22 * s, y - 100 * s, 44 * s, 12 * s), .1, { th: H0, id: 9 }); }
+  function kese(x, y, s = 1) { fill(Sm([[x - 50 * s, y], [x + 50 * s, y], [x + 60 * s, y - 50 * s], [x + 20 * s, y - 90 * s], [x - 20 * s, y - 90 * s], [x - 60 * s, y - 50 * s]]), .3, { th: Math.PI / 2 + .25, id: 9 }); for (const d of [-26, 0, 26]) fill(R(x + d * s - 2, y - 84 * s, 4, 70 * s), .12, { th: H0, id: 9 }); /* kese: büzgüden inen kıvrımlar */ fill(R(x - 22 * s, y - 100 * s, 44 * s, 12 * s), .1, { th: H0, id: 9 }); }
   // ── KIŞ YOLU: karlı tepeler, yol, araba (kupa), atlı silueti; o.t
   function kisYolu(o = {}) {
     const t = o.t || 0;
@@ -82,7 +82,7 @@ const SET2 = (() => {
     fill(Sm([[x - 260 * s, y + 420 * s], [x - 200 * s, y + 200 * s], [x - 110 * s, y + 120 * s], [x + 130 * s, y + 120 * s], [x + 220 * s, y + 200 * s], [x + 280 * s, y + 420 * s]]), .05, { th: HV, id: 9 });
     fill(Sm([[x - 110 * s, y + 140 * s], [x - 130 * s, y + 20 * s], [x - 90 * s, y - 40 * s], [x + 90 * s, y - 40 * s], [x + 130 * s, y + 20 * s], [x + 110 * s, y + 140 * s]]), .05, { th: .9, id: 6 });
     // tülbent: yuvarlak kütle, sargı bantları
-    fill(Sm([[x - 200 * s, y - 20 * s], [x - 210 * s, y - 120 * s], [x - 140 * s, y - 220 * s], [x, y - 250 * s], [x + 150 * s, y - 220 * s], [x + 215 * s, y - 120 * s], [x + 200 * s, y - 20 * s], [x, y + 10 * s]]), .9, { type: 'rad', cx: x, cy: y - 100 * s, id: 9 });
+    fill(Sm([[x - 200 * s, y - 20 * s], [x - 210 * s, y - 120 * s], [x - 140 * s, y - 220 * s], [x, y - 250 * s], [x + 150 * s, y - 220 * s], [x + 215 * s, y - 120 * s], [x + 200 * s, y - 20 * s], [x, y + 10 * s]]), .9, { th: -.15, id: 9 });   // sargı yönünde tarama (halka tarama hedef tahtası okunuyordu)
     for (let k = 0; k < 6; k++) { const yy = y - 30 * s - k * 36 * s, ww = 200 * s * (1 - k * .1); fill(Sm([[x - ww, yy], [x - ww * .3, yy - 20 * s], [x + ww * .6, yy - 34 * s], [x + ww, yy - 26 * s], [x + ww * .6, yy - 22 * s], [x - ww * .3, yy - 8 * s]]), .62, { th: -.15, id: 9 }); }
     LALE.ciz(x + 150 * s, y - 150 * s, 1.1 * s, { sap: 40 * s, tip: 'ist', cesit: 'ist', egim: .55, yaprakYok: true });
   }
@@ -200,7 +200,7 @@ const SET2 = (() => {
     fill(R(560, 40, 12, 460), .06, { th: HV, id: 9 });
     fill(R(-600, 840, 3100, 700), .32, { type: 'persp', y0: 840, D: 220, p0: 7, p1: 14, id: 8 });
     for (let x = -300; x < 2400; x += 260) fill(R(x, 760, 26, 120), .08, { th: HV, id: 9 });
-    fill(E2(1200, 900, 120, 40), .35, { type: 'rad', cx: 1200, cy: 900, id: 9 }); fill(E2(1200, 880, 90, 30), .45, { type: 'rad', cx: 1200, cy: 880, id: 9 });   // halat yığını
+    for (let k = 0; k < 4; k++) fill(E2(1200 + (k % 2) * 8, 905 - k * 14, 120 - k * 14, 16), .4 + (k % 2) * .12, { th: .35, id: 9 });   // halat yığını: üst üste kangallar (halka tarama hedef okunuyordu)
   }
   // bacacı: merdiven, uzun fırça; elinde boyalı lale (Mackay'in iddiası)
   function bacaci(x, y, t) {

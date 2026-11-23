@@ -87,7 +87,7 @@ const LALE = (() => {
     const Sm = INSAN.Sm, fill = INSAN.fill;
     const g = Sm([[x, y - 70 * s], [x + 22 * s, y - 44 * s], [x + 46 * s, y - 14 * s], [x + 44 * s, y + 18 * s], [x + 20 * s, y + 34 * s], [x - 20 * s, y + 34 * s], [x - 44 * s, y + 18 * s], [x - 46 * s, y - 14 * s], [x - 22 * s, y - 44 * s]]);
     GR.save(); GR.tx.lineWidth = 4 * s; GR.px.lineWidth = 4 * s; GR.tx.strokeStyle = GR.tone(.05); GR.tx.stroke(g); GR.px.strokeStyle = GR.hatch({ th: 0, id: 9 }); GR.px.stroke(g); GR.restore();
-    fill(g, o.ton ?? .5, { type: 'rad', cx: x - 18 * s, cy: y - 18 * s, id: 9 });
+    fill(g, o.ton ?? .5, { type: 'bend', ox: x, oy: y + 34 * s, a: -PI / 2, k: .0035 / s, id: 9 });   // boyuna kabuk çizgileri (halka tarama küçük boyda hedef tahtası okunuyordu)
     for (const d of [-1, 1]) { const k = new Path2D(); k.moveTo(x, y - 66 * s); k.quadraticCurveTo(x + d * 34 * s, y - 20 * s, x + d * 14 * s, y + 30 * s); k.lineTo(x + d * 10 * s, y + 30 * s); k.quadraticCurveTo(x + d * 28 * s, y - 20 * s, x, y - 60 * s); fill(k, .12, { th: PI / 2, id: 9 }); }
     // kökler
     for (let i = -3; i <= 3; i++) { const r = new Path2D(); r.moveTo(x + i * 8 * s, y + 32 * s); r.quadraticCurveTo(x + i * 12 * s, y + 46 * s, x + i * 15 * s + rnd(i) * 6, y + 58 * s); r.lineTo(x + i * 15 * s + 2, y + 58 * s); r.quadraticCurveTo(x + i * 12 * s + 2, y + 46 * s, x + i * 8 * s + 3, y + 32 * s); fill(r, .2, { th: PI / 2, id: 9 }); }

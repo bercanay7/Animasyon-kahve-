@@ -54,10 +54,11 @@ const INSAN = (() => {
       : pl ? [[-70, -646], [-30, -664], [34, -664], [76, -646], [112, -560], [124, -420], [132, -330], [-126, -330], [-118, -420], [-108, -560]]
       : [[-64, -642], [-30, -662], [34, -662], [70, -642], [84, -604], [80, -540], [64, -470], [70, -420], [92, et], [-86, et], [-66, -420], [-58, -470], [-70, -540], [-78, -604]];
     fill(Sm(govde), ton);
-    if (kn != null) { const yanX = ks > 0 ? [[70, -642], [84, -604], [80, -540], [64, -470], [70, -420], [92, et]] : [[-64, -642], [-78, -604], [-70, -540], [-58, -470], [-66, -420], [-86, et]]; serit(yanX, 7, kn, ks); }
+    if (kn != null) { const yanX = kf ? (ks > 0 ? [[70, -642], [88, -604], [90, -520], [84, -420], [104, -200], [124, et]] : [[-64, -642], [-80, -604], [-82, -520], [-80, -420], [-98, -200], [-118, et]])   // kaftanda kenar ışığı kaftanın kendi kenarında (redingot hattı kaftanın içine düşüp önde dikey çizgi oluyordu)
+      : ks > 0 ? [[70, -642], [84, -604], [80, -540], [64, -470], [70, -420], [92, et]] : [[-64, -642], [-78, -604], [-70, -540], [-58, -470], [-66, -420], [-86, et]]; serit(yanX, 7, kn, ks); }
     // kıvrımlar (beyaz vuruşlar) ve önden yaka açıklığı / arkadan yırtmaç
     if (o.arka) { vurus(4, -430, 6, et + 10, 4, .5); if (kn != null) { vurus(40 * ks, -560, 28 * ks, -470, 4, kn * .9); vurus(30 * ks, -440, 50 * ks, et + 40, 3, kn * .8); } }
-    else { fill(F([[0, -654], [16, -654], [30, -480], [8, -440], [-14, -480]]), .16, { th: PI / 2, id: 9 }); if (!kf) vurus(10, -460, 34, et + 20, 3, .7); /* kaftanda önden eteğe inen açık çizgi yok: kuşakla haç okunuyordu (Fable son okuması) */ if (kn != null) vurus(46 * ks, -600, 40 * ks, -500, 4, kn); }
+    else { if (!kf) fill(F([[0, -654], [16, -654], [30, -480], [8, -440], [-14, -480]]), .16, { th: PI / 2, id: 9 }); if (!kf) vurus(10, -460, 34, et + 20, 3, .7); /* kaftanda önden eteğe inen açık çizgi yok: kuşakla haç okunuyordu (Fable son okuması) */ if (kn != null) vurus(46 * ks, -600, 40 * ks, -500, 4, kn); }
     // yaka (beyaz) ve boyun
     if (o.yaka === 'duz') fill(Sm([[-70, -650], [-40, -690], [44, -690], [78, -650], [70, -606], [20, -598], [-10, -598], [-64, -606]]), o.arka ? .78 : .92, { th: 0, id: 5 });   // 1630'lar Hollanda: omuza yayılan düz beyaz yaka
     else if (kf) { fill(F([[-20, -684], [26, -684], [30, -660], [-24, -660]]), .35, { th: 0, id: 9 }); if (!o.arka) { fill(F([[-4, -662], [10, -662], [2, -600]]), .3, { th: PI / 2, id: 9 }); fill(Sm([[-74, -470], [78, -470], [84, -400], [-80, -400]]), .07, { th: .15, id: 9 }); } }   // kaftan: önde açık şerit yok (haç okunmasın, 22 Kasım); yalnız boyunda küçük yaka ve geniş koyu şal kuşak
