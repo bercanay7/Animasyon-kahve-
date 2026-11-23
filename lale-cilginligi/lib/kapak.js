@@ -52,8 +52,8 @@
       for (const [x, y, w, h] of [[1094, 300, 232, 6], [1094, 624, 232, 6], [1094, 300, 6, 330], [1320, 300, 6, 330]]) GR.fill(SET.R(x, y, w, h), GR.tone(.2), { th: 0, id: 9 });
       LALE.ciz(1210, 470, 1.55, { sap: 130, cesit: 'semper', ac: .3 });
       SET.isik({ x: 1210, y: 500, r1: 560, a: 1 });
-      INSAN.adam({ x: 1500, y: 900, h: 560, yon: -1, sapka: 'genis', yaka: 'duz', kenar: .6, kenarYan: -1, kolOn: { a: 2.0, b: .9 }, biyik: true, sakal: true });
-      const A = [[850, 1180, 760, 1, 2.1, 1.0], [1040, 1230, 820, -1, 2.55, .55], [1700, 1220, 800, 1, 2.15, .95], [1960, 1180, 760, -1, 2.05, 1.0]];
+      INSAN.adam({ x: 1500, y: 900, h: 560, yon: -1, sapka: 'genis', yaka: 'duz', kenar: .6, kenarYan: -1, kolOn: { a: 1.7, b: 1.35 }, biyik: true, sakal: true });
+      const A = [[850, 1180, 760, 1, 1.6, 1.5], [1040, 1230, 820, -1, 1.55, 1.55], [1700, 1220, 800, 1, 1.6, 1.45], [1960, 1180, 760, -1, 1.65, 1.5]];   // el kaldırma: üst kol öne, ön kol dik (düz çapraz kalkık kol selam okunabiliyordu)
       A.forEach(([x, y, h, yon, a, b]) => INSAN.adam({ x, y, h, yon, arka: true, sapka: 'genis', yaka: 'duz', kenar: .5, kenarYan: yon, giysi: 'pelerin', kolOn: { a, b } }));
     }, [.06, 0, 0]);
     YAZI.bas(ctx, cam); LALE.boya(ctx, cam, 1, { kay: 2.5, alevK: 2.3, alevN: 1 });
