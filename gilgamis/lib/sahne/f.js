@@ -33,7 +33,8 @@
     const tk = rel(st, 'F04@kile'), p = clamp((st.lt - tk + .3) / 1.6);
     K(R, st, [960, 540, .88], [960, 540, .95]);
     SET.zemin(R);
-    for (let i = 0; i < 8; i++) FIG.fig(R, 150 + i * 220, 840, 230, { tip: i % 3 ? 'adam' : 'kadin', f: i % 2 ? 1 : -1, z: lerp(.68, .2, E.in2(p)), kol: [[1.2, .4], [.2, .2]] });
+    const POZ = [[[2.6, .5], [.4, .6]], [[.6, 1.4], [.2, .3]], [[2.9, .2], [2.4, .6]], [[1.0, 1.6], [.5, 1.2]], [[.3, .2], [2.7, .4]], [[2.2, 1.0], [.1, .2]]];
+    for (let i = 0; i < 6; i++) FIG.fig(R, 180 + i * 300 + (i % 2) * 60, 820 + (i % 3) * 45, 210 + (i % 2) * 30, { tip: i % 3 ? 'adam' : 'kadin', f: i % 2 ? 1 : -1, z: lerp(.68, .2, E.in2(p)), kol: POZ[i], bas: (i % 3 - 1) * .3, egilme: (i % 2 ? .3 : -.2) });
     const wy = lerp(980, 700, clamp(st.lt / 3));
     SET.su(R, -900, 2900, wy, { faz: st.lt * 2.5, a: 34, p: 220 });
     DK.kayik(R, 960 + Math.sin(st.lt) * 80, wy - 10 + Math.sin(st.lt * 2) * 20, 520, { z: .7 });
@@ -44,16 +45,16 @@
   sahne('F05a', 'F05', 'utna', 'orta', (R, st) => {
     K(R, st, [960, 520, 1.05], [960, 500, 1.1]);
     kiyi(R, st);
-    DK.gunes(R, 960, 230, 100, { z: .55 });
-    FIG.fig(R, 860, 880, 500, { tip: 'utna', f: 1, kol: [[.2, .3], [.1, .2]] });
-    FIG.fig(R, 1080, 880, 470, { tip: 'kadin', f: -1, kol: [[.2, .3], [.1, .2]] });
+    DK.gunes(R, 960, 150, 70, { z: .55 });
+    FIG.fig(R, 740, 880, 500, { tip: 'utna', f: 1, kol: [[.2, .3], [.1, .2]] });
+    FIG.fig(R, 1180, 880, 470, { tip: 'kadin', f: -1, kol: [[.2, .3], [.1, .2]] });
     R.L.dir = [0, -.85, .5]; R.L.int = 1.1;
   });
   // F06: sınav
   sahne('F06a', 'F06', 'utna', 'yakin', (R, st) => {
     K(R, st, [1150, 470, 1.6], [1140, 470, 1.68]);
     kiyi(R, st);
-    FIG.fig(R, 1200, 880, 540, { tip: 'utna', f: -1, kol: [[1.4 + Math.sin(st.lt * 2) * .1, .2], [.1, .2]] });
+    FIG.fig(R, 1200, 880, 540, { tip: 'utna', f: -1, kol: [[1.2 + Math.sin(st.lt * 2) * .1, .5], [.1, .2]] });
     FIG.fig(R, 720, 880, 550, { tip: 'gilgamis', giysi: 'post', f: 1, kol: [[.2, .3], [.1, .2]] });
     R.L.dir = [-.55, -.55, .6];
   }, { over: (c, st) => quote(c, '“Altı gün yedi gece uyumadan dur.”', 960, 170, st.lt, { t0: rel(st, 'F06@haydi'), px: 62 }) });

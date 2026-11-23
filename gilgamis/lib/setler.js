@@ -66,7 +66,7 @@ const SET = {}, YAR = {};
     if (o.kapi !== false) { const kx = o.kapiX ?? 1650; R.b.fillStyle = gv(.16); R.b.fillRect(kx, 360, 220, 500); cizgi(R, [[kx, 860], [kx, 360], [kx + 220, 360], [kx + 220, 860]], 6, .7); }
   };
   // orman: sedirler sırası
-  SET.orman = (R, x0, x1, y, o = {}) => { for (let x = x0, i = 0; x < x1; x += o.ara || 260, i++) DK.sedir(R, x + hash(i * 7.3) * 60, y, (o.h || 640) * (.8 + hash(i * 3.1) * .35), { z: (o.z ?? .5) + (i % 2) * .05, kat: 7 + (i % 3) }); };
+  SET.orman = (R, x0, x1, y, o = {}) => { for (let x = x0, i = 0; x < x1; x += o.ara || 260, i++) DK.sedir(R, x + hash(i * 7.3) * 60, y, (o.h || 640) * (.8 + hash(i * 3.1) * .35), { z: (o.z ?? .5) + (i % 2) * .05, kat: 4 + (i % 2) }); };
   // dağ (Maşu): çift tepe, ortada kapı
   SET.masu = (R, x, y, o = {}) => {
     const tepe = (cx, h) => { const pts = [[cx - 380, y], [cx - 200, y - h * .6], [cx - 60, y - h], [cx + 60, y - h * .95], [cx + 220, y - h * .5], [cx + 380, y]]; sekil(R, pts, .42, .5, null, .7); for (let yy = y - 40; yy > y - h * .85; yy -= 44) for (let xx = cx - 300; xx < cx + 300; xx += 60) if (Math.abs(xx - cx) < (y - yy) * .55) { R.d.strokeStyle = dv(-.4); R.d.lineWidth = 2.5; R.d.beginPath(); R.d.arc(xx + ((yy / 44) % 2) * 30, yy, 20, PI, TAU); R.d.stroke(); } };
@@ -78,7 +78,7 @@ const SET = {}, YAR = {};
   SET.mucevherAgaci = (R, x, y, h, o = {}) => {
     uzuv(R, [x, y], [x, y - h * .6], 26, 16, .55, .6);
     for (let i = 0; i < 5; i++) { const a = -PI / 2 + (i - 2) * .45, e = [x + Math.cos(a) * h * .4, y - h * .55 + Math.sin(a) * h * .4]; uzuv(R, [x, y - h * .5], e, 12, 6, .57, .5);
-      for (let k = 0; k < 4; k++) { const p = [lerp(x, e[0], .55 + k * .15) + (k % 2 ? 14 : -14), lerp(y - h * .5, e[1], .55 + k * .15)], r = 16 + (k % 2) * 4, col = (i + k) % 3 === 0 ? '#B5452E' : (i + k) % 3 === 1 ? '#2E4E9A' : '#5B7FC4';
+      for (let k = 0; k < 4; k++) { const p = [lerp(x, e[0], .55 + k * .15) + (k % 2 ? 14 : -14), lerp(y - h * .5, e[1], .55 + k * .15)], r = 16 + (k % 2) * 4, col = (i + k) % 3 === 0 ? '#2A4590' : (i + k) % 3 === 1 ? '#3E63B0' : '#6A8CCB';
         R.b.fillStyle = gv(.8); R.b.beginPath(); R.b.arc(p[0], p[1], r, 0, TAU); R.b.fill(); R.m.fillStyle = col; R.m.beginPath(); R.m.arc(p[0], p[1], r, 0, TAU); R.m.fill(); R.d.fillStyle = dv(.5); R.d.beginPath(); R.d.arc(p[0] - r * .3, p[1] - r * .3, r * .25, 0, TAU); R.d.fill(); } }
   };
   // tanrı işaretleri: boynuzlu taç kaideler (Mezopotamya sınır taşlarındaki gibi); insan biçimi yok
@@ -139,27 +139,37 @@ const SET = {}, YAR = {};
     R.b.fillStyle = gv(z - .2); R.b.beginPath(); R.b.ellipse(x, y + s * .2, s * .17, s * (.06 + (o.agiz || 0) * .08), 0, 0, TAU); R.b.fill();
     for (let q = -3; q <= 3; q++) cizgi(R, [[x + q * s * .045, y + s * .15], [x + q * s * .045, y + s * .2]], Math.max(2, s * .015), .7);
   };
-  YAR.maymun = (R, x, y, s, o = {}) => {
+  YAR.maymun = (R, x, y, s, o = {}) => { // dala oturmuş maymun, profil; (x, y) dalın üstü
     const z = o.z ?? .7, f = o.f ?? 1; for (const c of [R.b, R.d, R.m]) { c.save(); c.translate(x, y); c.scale(f, 1); }
-    sekil(R, [[-s * .2, 0], [-s * .25, -s * .4], [0, -s * .55], [s * .2, -s * .4], [s * .15, 0]], z, .5);
-    R.b.fillStyle = gv(z + .04); R.b.beginPath(); R.b.arc(s * .05, -s * .68, s * .17, 0, TAU); R.b.fill(); R.d.strokeStyle = dv(-.5); R.d.lineWidth = 2; R.d.beginPath(); R.d.arc(s * .05, -s * .68, s * .17, 0, TAU); R.d.stroke();
-    R.d.fillStyle = dv(-.9); R.d.beginPath(); R.d.arc(s * .12, -s * .7, s * .025, 0, TAU); R.d.fill();
-    const kol = o.kol || 0; uzuv(R, [s * .1, -s * .45], [s * .35, -s * (.6 + kol * .4)], s * .08, s * .06, z + .03);
-    uzuv(R, [-s * .2, -s * .1], [-s * .5, -s * .3 + Math.sin((FIG_T || 0) * 3 + x) * s * .1], s * .05, s * .03, z - .03);
+    const t = FIG_T || 0;
+    // kuyruk: daldan aşağı sarkan S eğrisi
+    const kp = []; for (let i = 0; i <= 10; i++) { const u = i / 10; kp.push([-s * .25 - Math.sin(u * 3 + t) * s * .08, s * (.05 + u * .7)]); }
+    for (let i = 0; i < 10; i++) uzuv(R, kp[i], kp[i + 1], s * .045, s * .04, z - .05, 0);
+    sekil(R, [[-s * .3, 0], [-s * .32, -s * .3], [-s * .12, -s * .48], [s * .12, -s * .42], [s * .2, -s * .15], [s * .15, 0]], z, .5, null, .7); // gövde (çömelmiş)
+    sekil(R, [[s * .05, -s * .45], [s * .1, -s * .65], [s * .25, -s * .7], [s * .42, -s * .6], [s * .45, -s * .5], [s * .3, -s * .42]], z + .04, .55, null, .8); // baş ve burun
+    R.d.fillStyle = dv(-.9); R.d.beginPath(); R.d.arc(s * .3, -s * .6, s * .025, 0, TAU); R.d.fill();
+    cizgi(R, [[s * .38, -s * .5], [s * .44, -s * .5 + (o.kol || 0) * s * .05]], Math.max(1.5, s * .02), -.8); // açık ağız
+    R.d.strokeStyle = dv(-.5); R.d.lineWidth = Math.max(1.5, s * .012); R.d.beginPath(); R.d.arc(s * .12, -s * .62, s * .05, 0, TAU); R.d.stroke(); // kulak
+    uzuv(R, [s * .1, -s * .35], [s * .32, -s * (.38 + (o.kol || 0) * .3)], s * .07, s * .05, z + .03, .5, true); // kol
+    uzuv(R, [s * .05, -s * .05], [s * .22, 0], s * .09, s * .06, z + .03, .5, true); // bacak
     for (const c of [R.b, R.d, R.m]) c.restore();
   };
   YAR.kus = (R, x, y, s, o = {}) => { const z = o.z ?? .7, k = Math.sin(o.kanat || 0); sekil(R, [[x - s * .4, y], [x, y - s * .12], [x + s * .45, y - s * .05], [x + s * .5, y + s * .03], [x, y + s * .1]], z, .5); sekil(R, [[x - s * .1, y - s * .05], [x + s * .1, y - s * .05], [x - s * .05, y - s * (.2 + k * .35)]], z + .04, .5); };
   YAR.agustos = (R, x, y, s) => { sekil(R, [[x - s * .5, y], [x - s * .2, y - s * .2], [x + s * .5, y - s * .1], [x + s * .3, y + s * .1]], .72, .5); cizgi(R, [[x - s * .3, y - s * .1], [x + s * .4, y - s * .05]], 2, -.6); };
   // akrep insan: insan gövdesi, akrep kuyruğu ve kuş ayakları (Mezopotamya mühürlerindeki gibi)
   YAR.akrep = (R, x, y, s, o = {}) => {
-    const f = o.f ?? 1; const r = FIG.fig(R, x, y, s, { tip: 'adam', f, z: .74, kol: o.kol || [[2.6, .3], [2.3, .4]], bacak: [[.1, 0], [-.1, 0]], giysi: 'etek' });
+    const f = o.f ?? 1; const r = FIG.fig(R, x, y, s, { tip: 'adam', f, z: .74, kol: o.kol || [[1.2, 1.0], [.3, .3]], bacak: [[.1, 0], [-.1, 0]], giysi: 'etek' });
     for (const c of [R.b, R.d, R.m]) { c.save(); c.translate(x, y); c.scale(f, 1); }
-    const pts = []; for (let i = 0; i <= 10; i++) { const u = i / 10; pts.push([-s * (.08 + u * .3) - Math.sin(u * 3) * s * .05, -s * (.45 + Math.sin(u * PI * .9) * .4) + u * s * .05]); }
-    for (let i = 0; i < 10; i++) uzuv(R, pts[i], pts[i + 1], s * (.07 - i * .004), s * (.066 - i * .004), .7, .5);
-    sekil(R, [pts[10], [pts[10][0] + s * .08, pts[10][1] + s * .02], [pts[10][0] + s * .02, pts[10][1] + s * .1]], .74, .6);
+    // kuyruk: kalçadan çıkıp sırtın üstünde öne kıvrılan, kalınlığı azalan, boğumlu akrep kuyruğu ve kanca iğne
+    const pts = []; for (let i = 0; i <= 24; i++) { const u = i / 24, a = PI * .78 + u * PI * .95, rr = s * (.32 - u * .06); pts.push([-s * .06 + Math.cos(a) * rr, -s * .78 + Math.sin(a) * rr * 1.1]); }
+    for (let i = 0; i < 24; i++) uzuv(R, pts[i], pts[i + 1], s * (.085 - i * .0022), s * (.083 - i * .0022), .7, 0);
+    for (let i = 3; i < 24; i += 3) { const p = pts[i], q = pts[i + 1], an = Math.atan2(q[1] - p[1], q[0] - p[0]) + PI / 2, ww = s * (.085 - i * .0022) * .5; cizgi(R, [[p[0] + Math.cos(an) * ww, p[1] + Math.sin(an) * ww], [p[0] - Math.cos(an) * ww, p[1] - Math.sin(an) * ww]], Math.max(1.5, s * .006), -.6); }
+    const e = pts[24], e2 = pts[22];
+    sekil(R, [e, [e[0] + s * .09, e[1] + s * .02], [e[0] + s * .13, e[1] + s * .1], [e[0] + s * .05, e[1] + s * .06]], .76, .6);
     for (const c of [R.b, R.d, R.m]) c.restore();
     return r;
   };
+
   // ekmek: durum 0 taze, 1 kuru (çatlak), 2 bozuk, 3 yumuşak (çökmüş), 4 beyaz, 5 küflü, 6 korda (parlıyor)
   YAR.ekmek = (R, x, y, r, d = 0) => {
     const z = .7 - (d === 3 ? .15 : 0), ry = r * (d === 3 ? .45 : .7);

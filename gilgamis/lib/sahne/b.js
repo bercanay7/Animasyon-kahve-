@@ -29,13 +29,14 @@
     K(R, st, [960, 540, 1.0], [960, 560, 1.08]);
     SET.zemin(R);
     const tk = rel(st, 'B03@kopardı'), ta = rel(st, 'B03@attı'), tE = rel(st, 'B03@doğdu');
-    // gök bandında el (tanrıçanın eli; yalnız el)
+    // tanrıça figürle değil ışıkla: gökten inen ışık, kil yığınından bir parça koparır (CLAUDE.md: tanrı ışıkla gösterilir)
     const hp = clamp((st.lt - tk) / 1.2), yp = clamp((st.lt - ta) / 1.0);
-    FIG.uzuv(R, [-100, 120], [600 + hp * 120, 300], 160, 130, .7);
-    R.b.fillStyle = gv(.74); R.b.beginPath(); R.b.ellipse(700 + hp * 120, 300, 90, 70, 0, 0, TAU); R.b.fill();
-    for (let k = 0; k < 4; k++) FIG.cizgi(R, [[660 + hp * 120 + k * 22, 260], [668 + hp * 120 + k * 22, 330]], 4, -.55);
+    FIG.sekil(R, [[560, 885], [640, 760], [760, 730], [860, 770], [920, 885]], .5, .5, null, .8); // kil yığını
+    if (hp > 0 && yp <= 0) { R.b.fillStyle = gv(.6 + .2 * hp); R.b.beginPath(); R.b.arc(760, 730 - hp * 80, 34, 0, TAU); R.b.fill(); }
+    const [lx, ly] = R.scr(760, 300); R.L.pts.push({ x: lx, y: ly, z: 400 * R.z, r: 900 * R.z, i: .7 * clamp(st.lt / 1.0), col: [1.15, 1.0, .82] });
+    R.after(c => { c.globalCompositeOperation = 'screen'; const g = c.createLinearGradient(760, 0, 760, 760); g.addColorStop(0, `rgba(255,235,190,${.45 * clamp(st.lt / 1.0)})`); g.addColorStop(1, 'rgba(255,235,190,0)'); c.fillStyle = g; c.beginPath(); c.moveTo(700, 0); c.lineTo(820, 0); c.lineTo(900, 760); c.lineTo(620, 760); c.fill(); });
     // atılan kil topağı yayla düşer
-    if (yp > 0 && yp < 1) { const x = lerp(780, 1180, yp), y = lerp(330, 840, yp * yp); R.b.fillStyle = gv(.8); R.b.beginPath(); R.b.arc(x, y, 34, 0, TAU); R.b.fill(); }
+    if (yp > 0 && yp < 1) { const x = lerp(760, 1180, yp), y = lerp(650, 840, yp) - Math.sin(yp * PI) * 220; R.b.fillStyle = gv(.8); R.b.beginPath(); R.b.arc(x, y, 34, 0, TAU); R.b.fill(); }
     SET.tepeler(R, -600, 2600, 880, { h: 160, z: .26 }); SET.yer(R, -900, 2900, 880, { z: .3 });
     // Enkidu kilden yükselir: kabartma yüksekliği zeminden figüre
     const ez = clamp((st.lt - tE + .8) / 1.8);
@@ -98,7 +99,7 @@
   window.UC_NESNE = (R, k = 3, x0 = 560) => {
     if (k > 0) YAR.ekmek(R, x0, 640, 120, 0);
     if (k > 1) YAR.testi(R, x0 + 400, 700, 280);
-    if (k > 2) { const x = x0 + 800; FIG.sekil(R, [[x - 110, 450], [x + 110, 450], [x + 140, 700], [x - 140, 700]], .7, .55); for (let q = 0; q < 8; q++) FIG.cizgi(R, [[x - 100 + q * 28, 470], [x - 120 + q * 34, 690]], 3, -.45); for (let q = 0; q < 14; q++) FIG.cizgi(R, [[x - 140 + q * 20, 700], [x - 140 + q * 20, 730]], 3, .6); }
+    if (k > 2) { const x = x0 + 800; FIG.sekil(R, [[x - 60, 420], [x - 20, 440], [x + 20, 440], [x + 60, 420], [x + 190, 480], [x + 160, 540], [x + 90, 515], [x + 110, 720], [x - 110, 720], [x - 90, 515], [x - 160, 540], [x - 190, 480]], .7, .55, null, 0); for (let q = 0; q < 6; q++) FIG.cizgi(R, [[x - 80 + q * 32, 540], [x - 90 + q * 36, 710]], 3, -.45); for (let q = 0; q < 12; q++) FIG.cizgi(R, [[x - 110 + q * 20, 720], [x - 110 + q * 20, 748]], 3, .6); }
   };
   sahne('B09a', 'B09', 'nesne', 'ayrinti', (R, st) => {
     K(R, st, [960, 560, 1.0], [960, 560, 1.12]);

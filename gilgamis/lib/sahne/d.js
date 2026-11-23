@@ -64,27 +64,21 @@
     K(R, st, [960, 560, 1.05], [960, 560, 1.15]);
     SET.zemin(R); DK.tablet(R, 960, 590, 1700, 560, { z: .4, yazi: false });
     UC_NESNE(R, 3, 360);
-    const x = 1560; FIG.uzuv(R, [x - 200, 760], [x - 30, 610], 70, 60, .74); FIG.uzuv(R, [x + 200, 760], [x + 30, 610], 70, 60, .78);
-    R.b.fillStyle = gv(.8); R.b.beginPath(); R.b.ellipse(x, 600, 70, 50, 0, 0, TAU); R.b.fill();
+    FIG.fig(R, 1500, 790, 330, { tip: 'gilgamis', f: 1, z: .74, kol: [[.5, .3], [.1, .2]] }); FIG.fig(R, 1660, 790, 330, { tip: 'enkidu', f: -1, z: .74, kol: [[.5, .3], [.1, .2]], tohum: 4 });
     const k = clamp((st.lt - rel(st, 'D06@ölmek')) / 1.5);
     R.L.dir = [-.7, -.4, .5]; R.L.int = lerp(1, .7, k); R.L.col = [1, lerp(.97, .85, k), lerp(.9, .72, k)];
   });
   // D07: on iki gün: başında oturan Gılgamış, gün ışığı döner
   sahne('D07a', 'D07', 'yatak', 'genis', (R, st) => {
     K(R, st, [800, 520, .88], [820, 540, .92]);
-    SAHNE_YATAK(R, st, { kapali: true, gx: 1300 });
+    SAHNE_YATAK(R, st, { kapali: true, gx: 1420, eg: .15, bas: .45, kol: [[.9, .9], [.7, .9]] });
   }, { tr: { type: 'fade', dur: .6 } });
   // D08: el göğüste; kalp atmıyor
   sahne('D08a', 'D08', 'yatak', 'yakin', (R, st) => {
-    K(R, st, [880, 470, 1.7], [885, 475, 1.8]);
-    SAHNE_YATAK(R, st, { kapali: true, gilgamis: false });
-    const p = E.io3(clamp(st.lt / 2.2)), el = [lerp(1150, 900, p), lerp(330, 560, p)];
-    FIG.uzuv(R, [1400, 140], [lerp(1260, 1110, p), lerp(260, 420, p)], 90, 76, .86);
-    FIG.uzuv(R, [lerp(1260, 1110, p), lerp(260, 420, p)], el, 76, 60, .88);
-    FIG.cizgi(R, [[el[0] + 40, el[1] - 50], [el[0] + 70, el[1] - 20]], 8, .6);
-    R.b.fillStyle = gv(.9); R.b.beginPath(); R.b.ellipse(el[0] - 10, el[1] + 8, 58, 42, -.5, 0, TAU); R.b.fill();
-    for (let k = 0; k < 4; k++) FIG.cizgi(R, [[el[0] - 50 + k * 22, el[1] - 10], [el[0] - 40 + k * 22, el[1] + 40]], 4, -.55);
-    R.L.int = .3; R.L.amb = .15;
+    SET.yakin(R, st, { tip: 'gilgamis', f: -1, arka: 'oda', kay: 15, hx: 1000, fig: { bas: .5, kol: [[.7, .7], [.4, .4]] } });
+    const ta = rel(st, 'D08@atmıyordu'), k = clamp((st.lt - ta) / 1.2);
+    R.L.int = .15; R.L.amb = .08; R.L.col = [.55, .52, .6];
+    R.L.pts.push({ x: 1650, y: 200, z: 300, r: 1800, i: lerp(1.5, .9, k) * (.92 + .08 * noise1(st.t * 6, 2)), col: [1.15, .72, .42] });
   });
   // D09: yüzü gelin gibi örttü (örtü baştan göğse iner)
   sahne('D09a', 'D09', 'yatak', 'orta', (R, st) => {
@@ -104,8 +98,10 @@
   sahne('D11a', 'D11', 'kapi_oda', 'ayrinti', (R, st) => {
     K(R, st, [1810, 600, 1.9], [1810, 610, 2.0]);
     SAHNE_YATAK(R, st, { ortu: 1, kapiX: 1700, gx: 1330 });
-    R.b.fillStyle = gv(.5); R.b.fillRect(1700, 360, 220, 500); for (let k = 0; k < 6; k++) FIG.cizgi(R, [[1700 + k * 40, 370], [1700 + k * 40, 850]], 4, -.5);
-    FIG.uzuv(R, [1680, 600], [1950, 600], 34, 34, .7); // sürgü
+    // kapalı kapı: opak tahta kanat, iki sürgü (biri yukarıda, biri aşağıda; haç biçimi olmasın)
+    R.b.fillStyle = gv(.52); R.b.fillRect(1700, 360, 220, 500); R.d.fillStyle = R.T.kilPd; R.d.fillRect(1700, 360, 220, 500); R.m.fillStyle = '#9C6E48'; R.m.fillRect(1700, 360, 220, 500);
+    for (let k = 1; k < 5; k++) FIG.cizgi(R, [[1700 + k * 44, 370], [1700 + k * 44, 850]], 4, -.5);
+    FIG.uzuv(R, [1680, 470], [1950, 470], 30, 30, .72); FIG.uzuv(R, [1680, 760], [1950, 760], 30, 30, .72);
   });
   // D12: altı gün yedi gece: duvara çentikler, meşale kısalır
   sahne('D12a', 'D12@altı', 'yatak', 'orta', (R, st) => {

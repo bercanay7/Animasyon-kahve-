@@ -35,15 +35,15 @@ const DK = {};
     for (let b = x0; b < x1; b += burc * 1.6) { R.b.fillStyle = gv(z); R.b.fillRect(b, yUst - burc, burc, burc); cizgi(R, [[b, yUst], [b, yUst - burc], [b + burc, yUst - burc], [b + burc, yUst]], 3, -.7); if (o.renk) { R.m.fillStyle = o.renk; R.m.fillRect(b, yUst - burc, burc, burc); } }
   };
   // sedir: katmanlı yatay dallar (Mezopotamya kabartmasında koni biçimli)
-  DK.sedir = (R, x, y, hh, o = {}) => {
-    const z = o.z ?? .55, k = hh / 600;
-    uzuv(R, [x, y], [x, y - hh * .95], 30 * k, 14 * k, z - .05);
-    const n = o.kat || 8;
+  DK.sedir = (R, x, y, hh, o = {}) => { // Lübnan sediri: kalın gövde, yatay ve düzensiz yassı katlar, düz tepe
+    const z = o.z ?? .55, k = hh / 600, n = o.kat || 6, r = rng(Math.round(x * 7 + hh));
+    uzuv(R, [x, y], [x + 10 * k, y - hh * .9], 44 * k, 24 * k, z - .05, .5);
     for (let i = 0; i < n; i++) {
-      const u = i / n, yy = y - hh * (.2 + u * .78), wd = (1 - u) * 190 * k + 30 * k;
-      const pts = [[x - wd, yy + 14 * k], [x - wd * .6, yy - 22 * k], [x, yy - 40 * k], [x + wd * .6, yy - 22 * k], [x + wd, yy + 14 * k], [x, yy + 4 * k]];
-      sekil(R, pts, z + u * .05, .5);
-      for (let q = -3; q <= 3; q++) cizgi(R, [[x + q * wd * .12, yy - 8 * k], [x + q * wd * .27, yy + 8 * k]], Math.max(1, 2.5 * k), -.5);
+      const u = i / n, yy = y - hh * (.32 + u * .62), side = i % 2 ? 1 : -1, wd = (230 - u * 90) * k * (.8 + r() * .4), off = side * (40 + r() * 50) * k;
+      const pts = [[x + off - wd, yy + 10 * k], [x + off - wd * .7, yy - 14 * k], [x + off + wd * .7, yy - 16 * k], [x + off + wd, yy + 8 * k], [x + off, yy + 18 * k]];
+      uzuv(R, [x, yy + 12 * k], [x + off * .8, yy + 4 * k], 12 * k, 8 * k, z, .4);
+      sekil(R, pts, z + u * .05, .5, null, .7);
+      for (let q = -4; q <= 4; q++) cizgi(R, [[x + off + q * wd * .2, yy - 8 * k], [x + off + q * wd * .22 + 6 * k, yy + 10 * k]], Math.max(1, 2.5 * k), -.45);
     }
   };
   // hurma (palmet)
@@ -91,13 +91,12 @@ const DK = {};
   DK.yilan = (R, pts, w, o = {}) => {
     const z = o.z ?? .72, n = pts.length;
     for (let i = n - 1; i > 0; i--) { const u = i / (n - 1); uzuv(R, pts[i], pts[i - 1], w * (1 - u * .85), w * (1 - (i - 1) / (n - 1) * .85), z, i % 2 ? .35 : 0); }
-    // pullar: sıra sıra küçük yaylar
-    for (let i = 1; i < n - 1; i++) { const a = pts[i], b = pts[i + 1], ang = Math.atan2(b[1] - a[1], b[0] - a[0]), ww = w * (1 - i / (n - 1) * .85);
-      R.d.save(); R.d.translate(a[0], a[1]); R.d.rotate(ang); R.d.strokeStyle = dv(-.55); R.d.lineWidth = Math.max(1, ww * .08);
-      for (let q = -1; q <= 1; q++) { R.d.beginPath(); R.d.arc(0, q * ww * .25, ww * .18, -PI / 2, PI / 2); R.d.stroke(); }
-      R.d.restore(); }
+    // sırt: tek sıra küçük baklava (tırtıl bacağı okunmasın)
+    for (let i = 1; i < n - 1; i += 2) { const a = pts[i], b = pts[i + 1], ang = Math.atan2(b[1] - a[1], b[0] - a[0]), ww = w * (1 - i / (n - 1) * .85);
+      R.d.save(); R.d.translate(a[0], a[1]); R.d.rotate(ang); R.d.strokeStyle = dv(-.5); R.d.lineWidth = Math.max(1, ww * .07);
+      R.d.beginPath(); R.d.moveTo(-ww * .3, 0); R.d.lineTo(0, -ww * .18); R.d.lineTo(ww * .3, 0); R.d.lineTo(0, ww * .18); R.d.closePath(); R.d.stroke(); R.d.restore(); }
     const bh = pts[0], b2 = pts[1], ang = Math.atan2(bh[1] - b2[1], bh[0] - b2[0]);
-    R.b.save(); R.b.translate(bh[0], bh[1]); R.b.rotate(ang); R.b.fillStyle = gv(z + .03); R.b.beginPath(); R.b.ellipse(w * .25, 0, w * .75, w * .5, 0, 0, TAU); R.b.fill(); R.b.restore();
+    R.b.save(); R.b.translate(bh[0], bh[1]); R.b.rotate(ang); R.b.fillStyle = gv(z + .03); R.b.beginPath(); R.b.moveTo(-w * .3, -w * .45); R.b.quadraticCurveTo(w * .9, -w * .55, w * 1.15, 0); R.b.quadraticCurveTo(w * .9, w * .5, -w * .3, w * .45); R.b.fill(); R.b.restore(); R.d.save(); R.d.translate(bh[0], bh[1]); R.d.rotate(ang); R.d.strokeStyle = dv(-.6); R.d.lineWidth = Math.max(1.5, w * .06); R.d.beginPath(); R.d.moveTo(w * 1.15, 0); R.d.lineTo(w * 1.5, 0); R.d.lineTo(w * 1.65, -w * .1); R.d.moveTo(w * 1.5, 0); R.d.lineTo(w * 1.65, w * .1); R.d.moveTo(w * .2, w * .05); R.d.lineTo(w * 1.05, w * .02); R.d.stroke(); R.d.restore();
     R.d.save(); R.d.translate(bh[0], bh[1]); R.d.rotate(ang); R.d.fillStyle = dv(-.9); R.d.beginPath(); R.d.arc(w * .45, -w * .2, w * .1, 0, TAU); R.d.fill(); R.d.restore();
   };
   // dikenli bitki

@@ -9,7 +9,7 @@
     SET.tepeler(R, 900, 2600, 760, { h: 260, z: .27 });
     SET.orman(R, 1300, 2500, 760, { h: 340, ara: 170, z: .34 });
     SET.yer(R, -900, 2900, 860, { z: .34 });
-    FIG.fig(R, 520, 870, 420, { tip: 'gilgamis', f: 1, kol: [[1.55, .05], [.1, .2]] });
+    FIG.fig(R, 520, 870, 420, { tip: 'gilgamis', f: 1, kol: [[1.2, .45], [.1, .2]] });
     FIG.fig(R, 300, 870, 420, { tip: 'enkidu', f: 1, kol: [[.2, .3], [0, .2]], tohum: 4 });
     R.L.dir = [-.55, -.55, .6];
   }, { over: (c, st) => etiket(c, 'SEDİR ORMANI', 1450, 210, st.lt - 1.5, 4) });
@@ -66,9 +66,8 @@
     K(R, st, [900, 500, 1.1], [1060, 500, 1.15]);
     SET.zemin(R); SET.orman(R, -200, 2400, 980, { h: 980, ara: 360, z: .42 });
     const t = st.lt;
-    YAR.maymun(R, 560, 470 + Math.abs(Math.sin(t * 3)) * -30, 150, { kol: Math.abs(Math.sin(t * 3)), z: .78 });
-    YAR.maymun(R, 1250, 380 + Math.abs(Math.sin(t * 2.5 + 1)) * -26, 130, { f: -1, kol: .5 + .5 * Math.sin(t * 4), z: .78 });
-    YAR.maymun(R, 1700, 560, 120, { kol: .3, z: .76 });
+    YAR.maymun(R, 560, 560 + Math.abs(Math.sin(t * 3)) * -24, 230, { kol: Math.abs(Math.sin(t * 3)), z: .78 });
+    YAR.maymun(R, 1300, 600 + Math.abs(Math.sin(t * 2.5 + 1)) * -20, 210, { f: -1, kol: .5 + .5 * Math.sin(t * 4), z: .78 });
     for (let i = 0; i < 6; i++) YAR.kus(R, 300 + i * 260 + Math.sin(t + i) * 40, 200 + (i % 3) * 90 + Math.sin(t * 2 + i) * 20, 70, { kanat: t * 12 + i, z: .8 });
     for (let i = 0; i < 5; i++) YAR.agustos(R, 420 + i * 330, 760 + (i % 2) * 60, 46);
     R.L.dir = [-.45, -.65, .6];
@@ -124,8 +123,8 @@
     SET.zemin(R); DK.friz(R, -600, 2600, 90, 980);
     FIG.cizgi(R, [[-600, 520], [2600, 520]], 8, .6);
     const n = 5, p = clamp(st.lt / 2.5);
-    for (let i = 0; i < n; i++) { const pp = clamp(p * n - i); if (pp > 0) SET.tac(R, 360 + i * 300, 500, 240 * (.7 + .3 * pp)); }
-    DK.gunes(R, 1560, 330, 110, { z: .55 });
+    for (let i = 0; i < n; i++) { const pp = clamp(p * n - i); if (pp <= 0) continue; const [sx, sy] = R.scr(360 + i * 300, 300); R.L.pts.push({ x: sx, y: sy, z: 300 * R.z, r: 520 * R.z, i: .55 * pp, col: [1.15, 1.0, .8] });
+      R.after(c => { c.globalCompositeOperation = 'screen'; const g = c.createRadialGradient(360 + i * 300, 300, 4, 360 + i * 300, 300, 150); g.addColorStop(0, `rgba(255,236,190,${.7 * pp})`); g.addColorStop(1, 'rgba(255,200,120,0)'); c.fillStyle = g; c.fillRect(210 + i * 300, 150, 300, 300); }); }
     SET.yer(R, -900, 2900, 900, { z: .34 });
     FIG.fig(R, 850, 905, 300, { tip: 'gilgamis', f: 1, kol: [[.2, .2], [0, .2]] });
     FIG.fig(R, 1080, 905, 300, { tip: 'enkidu', f: -1, kol: [[.2, .2], [0, .2]], tohum: 4 });

@@ -46,9 +46,9 @@
   sahne('G04a', 'G04', 'bitki', 'ayrinti', (R, st) => {
     K(R, st, [960, 520, 1.5], [960, 500, 1.6]);
     SET.zemin(R); SET.su(R, -900, 2900, 860, { faz: st.lt * .6 });
-    FIG.uzuv(R, [1700, 980], [1120, 640], 130, 100, .78); R.b.fillStyle = gv(.84); R.b.beginPath(); R.b.ellipse(1040, 620, 70, 56, 0, 0, TAU); R.b.fill();
-    for (let k = 0; k < 3; k++) FIG.cizgi(R, [[1005 + k * 25, 585], [1015 + k * 25, 650]], 4, -.6);
-    DK.bitki(R, 1000, 620, 380, { z: .9 });
+    FIG.uzuv(R, [1700, 1000], [1150, 680], 130, 100, .78, .5, true); FIG.cizgi(R, [[1200, 650], [1235, 740]], 9, .6);
+    DK.bitki(R, 1010, 650, 380, { z: .88 });
+    FIG.el(R, 1150, 680, 170, PI + .5, { kapali: true, z: .9 });
     for (let k = 0; k < 4; k++) FIG.cizgi(R, [[1060 + k * 18, 640], [1064 + k * 18, 660]], 4, -.95); // diken çizikleri
     R.L.dir = [-.55, -.55, .6];
   }, { over: (c, st) => buyukSoz(c, 'YAŞLI ADAM GENÇLEŞİR', st.t, A('G04@yaşlı'), { px: 110, y: 170 }) });
@@ -83,7 +83,7 @@
     const pts = []; for (let i = 0; i < 20; i++) pts.push([bas[0] - i * 34 * (1 - c * .3), bas[1] + 20 + Math.sin(i * .8 - st.lt * 5) * 18]);
     DK.yilan(R, pts, 52, { z: .88 });
     if (st.lt >= ta + .2) DK.bitki(R, bas[0] + 24, bas[1] + 6, 130, { z: .92 });
-    FIG.fig(R, 1180, 900, 440, { tip: 'gilgamis', f: -1, giysi: 'pecek', z: .62, kol: [[.6, .4], [.3, .3]] }); GOLET_SU(R, 690, 880, 1500);
+    FIG.fig(R, 1180, 880, 440, { tip: 'gilgamis', f: -1, giysi: 'pecek', z: .62, kol: [[.6, .4], [.3, .3]] }); GOLET_SU(R, 740, 980, 1500);
     R.L.dir = [-.5, -.7, .55];
   });
   // G08: oturur ve ağlar (deri yanında)

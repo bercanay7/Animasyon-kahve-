@@ -13,13 +13,15 @@ const FIG = {};
   // yardımcı: üç tuvale aynı yolu farklı stillerle uygula
   const P = (R, f) => { for (const c of [R.b, R.d, R.m]) { c.save(); f(c); c.restore(); } };
   // uzuv: kalınlığı değişen kapsül (a → b, wa → wb), tabana yükseklik z, ayrıntıya kontur oyuğu
-  function uzuv(R, a, b, wa, wb, z, kontur = .5) {
+  function uzuv(R, a, b, wa, wb, z, kontur = .5, acik = false) {
     const dx = b[0] - a[0], dy = b[1] - a[1], L = Math.hypot(dx, dy) || 1, nx = -dy / L, ny = dx / L;
     const path = c => { c.beginPath(); c.moveTo(a[0] + nx * wa / 2, a[1] + ny * wa / 2); c.lineTo(b[0] + nx * wb / 2, b[1] + ny * wb / 2); c.arc(b[0], b[1], wb / 2, Math.atan2(ny, nx), Math.atan2(ny, nx) + PI); c.lineTo(a[0] - nx * wa / 2, a[1] - ny * wa / 2); c.arc(a[0], a[1], wa / 2, Math.atan2(-ny, -nx), Math.atan2(-ny, -nx) + PI); c.closePath(); };
     R.b.fillStyle = gv(z); path(R.b); R.b.fill();
     R.d.fillStyle = R.T.kilPd; path(R.d); R.d.fill();
     R.m.fillStyle = R.renk || R.T.kil; path(R.m); R.m.fill();
-    if (kontur) { R.d.strokeStyle = dv(-kontur); R.d.lineWidth = Math.max(1.2, wa * .07); path(R.d); R.d.stroke(); }
+    if (kontur) { R.d.strokeStyle = dv(-kontur); R.d.lineWidth = Math.max(1.2, wa * .07);
+      if (acik) { const c = R.d; c.beginPath(); c.moveTo(a[0] + nx * wa / 2, a[1] + ny * wa / 2); c.lineTo(b[0] + nx * wb / 2, b[1] + ny * wb / 2); c.arc(b[0], b[1], wb / 2, Math.atan2(ny, nx), Math.atan2(ny, nx) + PI); c.lineTo(a[0] - nx * wa / 2, a[1] - ny * wa / 2); c.stroke(); }
+      else { path(R.d); R.d.stroke(); } }
   }
   function sekil(R, pts, z, kontur = .55, renk = null, smoothK = 1) {
     const path = c => { c.beginPath(); spline(c, pts, true, smoothK); };
@@ -30,6 +32,13 @@ const FIG = {};
   }
   function cizgi(R, pts, w, v) { const c = R.d; c.strokeStyle = dv(v); c.lineWidth = w; c.beginPath(); c.moveTo(pts[0][0], pts[0][1]); for (let i = 1; i < pts.length; i++) c.lineTo(pts[i][0], pts[i][1]); c.stroke(); }
   const pol = (o, ang, r) => [o[0] + Math.sin(ang) * r, o[1] + Math.cos(ang) * r];
+  // el: (x, y) bilek; a: yön (rad, parmakların gösterdiği yön); s: el boyu; kapali: tutan el (parmaklar kıvrık)
+  FIG.el = (R, x, y, s, a, o = {}) => {
+    const z = o.z ?? .86, ca = Math.cos(a), sa = Math.sin(a), T = (u, v) => [x + u * ca - v * sa, y + u * sa + v * ca];
+    sekil(R, [T(0, -s * .22), T(s * .45, -s * .26), T(s * .5, s * .2), T(0, s * .22)], z, .5, null, .7);
+    for (let k = 0; k < 4; k++) { const v = -s * .2 + k * s * .13, L = (o.kapali ? .25 : .5) * (k === 0 || k === 3 ? .85 : 1); uzuv(R, T(s * .45, v), T(s * (.45 + L), v + (o.kapali ? s * .12 : 0)), s * .12, s * .1, z + .02, .45, true); }
+    uzuv(R, T(s * .12, s * .2), T(s * .38, s * .42), s * .13, s * .1, z + .03, .45, true);
+  };
   FIG.uzuv = uzuv; FIG.sekil = sekil; FIG.cizgi = cizgi; FIG.pol = pol;
 
   // Baş (profil, sağa bakar; birim: boy). c: merkez, s: ölçek, tip
@@ -54,7 +63,7 @@ const FIG = {};
       const rows = tip === 'utna' ? 7 : tip === 'gilgamis' ? 4 : 5;
       for (let r = 0; r < rows; r++) for (let q = 0; q < 3; q++) {
         const p = T(-.025 + q * .025, .06 + r * (tip === 'utna' ? .028 : .022));
-        if (tip === 'gilgamis') { R.d.strokeStyle = dv(-.7); R.d.lineWidth = Math.max(1, s * .004); R.d.beginPath(); R.d.arc(p[0], p[1], s * .008, 0, TAU); R.d.stroke(); }
+        if (tip === 'gilgamis') { const pq = T(-.03 + q * .024 + (r % 2) * .012, .055 + r * .023); R.d.strokeStyle = dv(-.7); R.d.lineWidth = Math.max(1, s * .004); R.d.beginPath(); R.d.arc(pq[0], pq[1], s * .007, a + .6, a + .6 + PI * 1.5); R.d.stroke(); }
         else cizgi(R, [p, T(-.02 + q * .025, .07 + r * .022), T(-.025 + q * .025, .08 + r * .022)], Math.max(1, s * .004), -.6);
       }
     }
@@ -101,10 +110,13 @@ const FIG = {};
     // yastık ve baş (yüz yukarı)
     sekil(R, [[x + L * .82, y], [x + L * .83, y - L * .08], [x + L * .98, y - L * .08], [x + L * .99, y]], z - .1, .5);
     if ((o.ortu ?? 0) < 1) FIG.bas(R, [x + L * .885, y - L * .115], L * 1.1, tip, z + .02, -1.25, { kapali: o.kapali !== false, sakalsiz: true });
-    if (o.ortu) { // gelin gibi örtü: baştan göğse
-      const k = o.ortu, pts = [[x + L * (1.0 - .24 * k), y], [x + L * (.99 - .23 * k), y - L * .14], [x + L * .97, y - L * .2], [x + L * 1.01, y - L * .12], [x + L * 1.0, y]];
-      sekil(R, pts, z + .12, .45);
-      for (let q = 0; q < 6; q++) cizgi(R, [[x + L * (.99 - .22 * k * q / 6), y - L * .15], [x + L * (.995 - .23 * k * q / 6), y - L * .01]], Math.max(1.2, L * .003), -.4);
+    if (o.ortu) { // gelin gibi örtü: baştan göğse, yatağın kenarından sarkar, saçaklı
+      const k = o.ortu, x0 = x + L * (1.0 - .26 * k), x1 = x + L * 1.0;
+      const pts = [[x0, y + L * .045], [x0 + L * .01, y - L * .1], [x0 + L * .06, y - L * .14], [x1 - L * .05, y - L * .17], [x1, y - L * .12], [x1 + L * .01, y + L * .045]];
+      R.b.fillStyle = gv(z + .1); R.b.beginPath(); poly(R.b, pts); R.b.fill(); R.m.fillStyle = R.T.kil; R.m.beginPath(); poly(R.m, pts); R.m.fill(); R.d.fillStyle = R.T.kilPd; R.d.beginPath(); poly(R.d, pts); R.d.fill();
+      R.d.strokeStyle = dv(-.5); R.d.lineWidth = R._lw; R.d.beginPath(); poly(R.d, pts); R.d.stroke();
+      for (let q = 1; q < 5; q++) cizgi(R, [[x0 + (x1 - x0) * q / 5, y - L * (.12 + .03 * Math.sin(q))], [x0 + (x1 - x0) * q / 5 + L * .01, y + L * .03]], Math.max(1.2, L * .0025), -.35);
+      for (let q = 0; q <= 14; q++) { const xx = lerp(x0, x1 + L * .01, q / 14); cizgi(R, [[xx, y + L * .045], [xx, y + L * .065]], Math.max(1.2, L * .003), .5); }
     }
   };
 
@@ -126,10 +138,10 @@ const FIG = {};
       const kc = [kalca[0] + dx, kalca[1]], diz = pol(kc, h0, UY), ay = pol(diz, h0 + d0, AL); return [kc, diz, ay]; };
     const zL = z0 - .14, zN = z0 + .05;
     const bacakCiz = (kc, diz, ay, z) => {
-      uzuv(R, kc, diz, S * .1, S * .072, z);
+      uzuv(R, kc, diz, S * .1, S * .072, z, .5, true);
       // baldır kası (Asur kabartması gibi belirgin)
       const m = [lerp(diz[0], ay[0], .35), lerp(diz[1], ay[1], .35)];
-      uzuv(R, diz, m, S * .072, S * .074, z); uzuv(R, m, ay, S * .074, S * .045, z);
+      uzuv(R, diz, m, S * .072, S * .074, z, .5, true); uzuv(R, m, ay, S * .074, S * .045, z, 0);
       uzuv(R, [ay[0] - S * .01, ay[1] - S * .012], [ay[0] + S * .07, ay[1] + S * .004], S * .035, S * .024, z);
     };
     const giysi = o.giysi || (kadin || tip === 'utna' ? 'cubbe' : tip === 'enkidu' ? 'pecek' : 'etek');
@@ -137,7 +149,7 @@ const FIG = {};
     const [kU, dU, aU] = ayak(bacak[1], -S * .02);
     if (giysi !== 'cubbe' || ot > .3) bacakCiz(kU, dU, aU, zL);
     const omU = TF(-.05, .29), [dkU, elU] = kolC(kol[1], omU);
-    uzuv(R, omU, dkU, S * .07, S * .058, zL + .03); uzuv(R, dkU, elU, S * .058, S * .045, zL + .03);
+    uzuv(R, omU, dkU, S * .07, S * .058, zL + .03, .5, true); uzuv(R, dkU, elU, S * .058, S * .045, zL + .03, .5, true);
     R.b.fillStyle = gv(zL + .04); R.b.beginPath(); R.b.arc(elU[0], elU[1], S * .03, 0, TAU); R.b.fill();
     if (o.el && o.el.uzak) o.el.uzak(R, elU, S);
     // --- gövde
@@ -164,7 +176,7 @@ const FIG = {};
       for (let q = 0; q <= 16; q++) { const u = q / 16, p = [lerp(bot[0][0], bot[1][0], u), lerp(bot[0][1], bot[1][1], u)]; cizgi(R, [p, [p[0], p[1] + S * .025]], Math.max(1, S * .004), .6); }
       cizgi(R, [[pts[0][0], pts[0][1] + S * .014], [pts[1][0], pts[1][1] + S * .014]], Math.max(1.5, S * .009), .7);
     }
-    if (giysi === 'post') { const pp = [TF(-.12, .3), TF(-.17, .1), TF(-.15, -.1), TF(-.08, -.04), TF(-.07, .2)]; sekil(R, pp, z0 + .04, .5); for (let q = 0; q < 14; q++) { const p = TF(-.14 + hash(q) * .06, -.05 + q * .025); cizgi(R, [p, [p[0] - S * .02, p[1] + S * .015]], Math.max(1, S * .004), -.6); } }
+    if (giysi === 'post') { const pp = [TF(-.08, .33), TF(-.13, .25), TF(-.14, .05), TF(-.17, -.12), TF(-.12, -.06), TF(-.1, -.14), TF(-.07, -.02), TF(-.05, .2)]; sekil(R, pp, z0 + .04, .5, null, .6); for (let q = 0; q < 9; q++) { const p = TF(-.13 + hash(q * 3) * .05, .25 - q * .035); cizgi(R, [p, [p[0] - S * .012, p[1] + S * .01]], Math.max(1, S * .0035), -.5); } const pc = TF(-.14, -.13), pc2 = TF(-.1, -.15); for (const pw of [pc, pc2]) { R.b.fillStyle = gv(z0 + .05); R.b.beginPath(); R.b.arc(pw[0], pw[1], S * .018, 0, TAU); R.b.fill(); for (let k = -1; k <= 1; k++) cizgi(R, [[pw[0] + k * S * .009, pw[1] + S * .008], [pw[0] + k * S * .011, pw[1] + S * .02]], Math.max(1, S * .003), -.6); } }
     if (giysi === 'cubbe') cizgi(R, [TF(.11, .29), TF(-.06, .05)], Math.max(1.5, S * .007), .6);
     // --- baş
     bas(R, TF(.015, .43), S * 1.18, tip, z0 + .03, (o.bas || 0) + eg * .6, o.basO || {});
@@ -174,7 +186,7 @@ const FIG = {};
     else uzuv(R, [aN[0] + S * .01, aN[1] - S * .03], [aN[0] + S * .07, aN[1] + S * .004], S * .035, S * .024, zN);
     // --- yakın kol
     const omN = TF(.07, .29), [dkN, elN] = kolC(kol[0], omN);
-    uzuv(R, omN, dkN, S * .078, S * .062, zN + .04); uzuv(R, dkN, elN, S * .062, S * .048, zN + .04);
+    uzuv(R, omN, dkN, S * .078, S * .062, zN + .04, .5, true); uzuv(R, dkN, elN, S * .062, S * .048, zN + .04, .5, true);
     R.b.fillStyle = gv(zN + .05); R.b.beginPath(); R.b.arc(elN[0], elN[1], S * .032, 0, TAU); R.b.fill();
     const bl = [lerp(dkN[0], elN[0], .8), lerp(dkN[1], elN[1], .8)], ang = Math.atan2(elN[1] - dkN[1], elN[0] - dkN[0]) + PI / 2;
     cizgi(R, [[bl[0] - Math.cos(ang) * S * .028, bl[1] - Math.sin(ang) * S * .028], [bl[0] + Math.cos(ang) * S * .028, bl[1] + Math.sin(ang) * S * .028]], Math.max(1.5, S * .008), .6); // bilezik

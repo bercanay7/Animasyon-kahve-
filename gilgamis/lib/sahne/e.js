@@ -19,8 +19,8 @@
     SET.zemin(R); SET.masu(R, 960, 880, {});
     SET.yer(R, -900, 2900, 880, { z: .36 });
     const ku = rel(st, 'E02@uyardı'), k = clamp((st.lt - ku) / .6);
-    YAR.akrep(R, 760, 885, 330, { f: 1, kol: [[lerp(2.6, 1.6, k), .3], [2.3, .4]] });
-    YAR.akrep(R, 1160, 885, 330, { f: -1, kol: [[lerp(2.6, 1.6, k), .3], [2.3, .4]] });
+    YAR.akrep(R, 760, 885, 330, { f: 1, kol: [[lerp(.3, 1.3, k), lerp(.3, 1.0, k)], [.3, .3]] });
+    YAR.akrep(R, 1160, 885, 330, { f: -1, kol: [[lerp(.3, 1.3, k), lerp(.3, 1.0, k)], [.3, .3]] });
     FIG.fig(R, 300 + Math.min(st.lt, 2.5) * 80, 885, 280, { tip: 'gilgamis', giysi: 'post', f: 1, ...yur(Math.min(st.lt, 2.5)) });
     R.L.dir = [.75, -.4, .45]; R.L.col = [1.1, .76, .55]; R.L.int = .85;
   }, { tr: { type: 'muhur', dur: .8 } });
@@ -85,7 +85,7 @@
     SET.yer(R, -900, 2900, 860, { z: .36 });
     FIG.fig(R, 700, 875, 560, { tip: 'siduri', f: 1, kol: [[.3, .3], [.1, .2]] });
     const p = clamp(st.lt / 1.5);
-    FIG.fig(R, 1260, 875, 580, { tip: 'gilgamis', giysi: 'post', f: p > .5 ? 1 : -1, kol: [[p > .5 ? 1.5 : .2, .1], [.1, .2]] });
+    FIG.fig(R, 1260, 875, 580, { tip: 'gilgamis', giysi: 'post', f: p > .5 ? 1 : -1, kol: [[p > .5 ? 1.25 : .2, .35], [.1, .2]] });
     SET.su(R, 1500, 2900, 560, { faz: st.lt, alt: 120 });
     R.L.dir = [-.55, -.55, .6];
   });
@@ -96,7 +96,7 @@
     SET.su(R, 800, 2900, 820, { faz: st.lt * .8 });
     DK.kayik(R, 1450, 840 + Math.sin(st.lt * 1.5) * 6, 640, {});
     FIG.fig(R, 1450, 790 + Math.sin(st.lt * 1.5) * 6, 360, { tip: 'ursa', f: -1, kol: [[2.7, .2], [2.5, .3]], el: { yakin: (R, e, S) => FIG.uzuv(R, [e[0] + S * .25, e[1] + S * .65], [e[0] - S * .1, e[1] - S * .55], S * .03, S * .025, .88) } });
-    FIG.fig(R, 520, 870, 360, { tip: 'gilgamis', giysi: 'post', f: 1, kol: [[1.2, .1], [.1, .2]] });
+    FIG.fig(R, 520, 870, 360, { tip: 'gilgamis', giysi: 'post', f: 1, kol: [[.9, .5], [.1, .2]] });
     R.L.dir = [-.55, -.55, .6];
   }, { over: (c, st) => etiket(c, 'KAYIKÇI URŞANABİ', 1450, 200, st.lt - .8, 4.5) });
   // E10: ölüm suları: sırıklar birer birer bırakılır
@@ -120,7 +120,7 @@
     const x = 900 + st.lt * 60, p = E.out3(clamp(st.lt / 1.8));
     DK.kayik(R, x, 760, 620, {});
     FIG.uzuv(R, [x, 740], [x, 260], 18, 14, .62);
-    FIG.sekil(R, [[x + 8, 290], [x + 8 + 260 * p, 320], [x + 8 + 240 * p, 620], [x + 8, 640]], .7, .5);
+    FIG.uzuv(R, [x - 150 * p, 300], [x + 150 * p, 300], 14, 14, .7); FIG.sekil(R, [[x - 140 * p, 306], [x + 140 * p, 306], [x + 165 * p, 600], [x - 165 * p, 600]], .64, .5); for (let k = -2; k <= 2; k++) FIG.cizgi(R, [[x + k * 50 * p, 310], [x + k * 58 * p, 595]], 3, -.4);
     FIG.fig(R, x - 120, 715, 320, { tip: 'gilgamis', f: 1, giysi: 'pecek', kol: [[2.8, .2], [.3, .2]] });
     FIG.fig(R, x - 260, 715, 310, { tip: 'ursa', f: 1 });
     R.L.dir = [-.4, -.6, .6]; R.L.int = .75; R.L.amb = .25; R.L.col = [.88, .92, 1.05];

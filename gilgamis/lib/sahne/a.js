@@ -75,7 +75,7 @@
     K(R, st, [920, 470, 1.25], [1040, 520, 1.35]);
     SET.zemin(R);
     DK.tugla(R, -800, 560, 2800, 1400, { z: .5, bw: 120, bh: 46, renk: '#A9653F', tohum: 4 });
-    FIG.fig(R, 1180, 580, 430, { tip: 'gilgamis', f: -1, kol: [[1.55, .05], [.2, .2]], giysi: 'etek' });
+    FIG.fig(R, 1180, 580, 430, { tip: 'gilgamis', f: -1, kol: [[1.2, .45], [.2, .2]], giysi: 'etek' });
     FIG.fig(R, 760, 580, 410, { tip: 'ursa', f: 1, kol: [[.3, .5], [.1, .2]], bas: .25 });
     R.L.dir = [-.8, -.3, .5]; R.L.col = [1.1, .88, .7];
   });

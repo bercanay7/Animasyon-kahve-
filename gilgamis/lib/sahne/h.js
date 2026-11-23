@@ -18,7 +18,7 @@
     K(R, st, [960, 470, 1.15], [1000, 480, 1.22]);
     SET.zemin(R); DK.tugla(R, -800, 560, 2800, 1400, { z: .5, bw: 120, bh: 46, renk: TUGLA, tohum: 4 });
     for (let b = -800; b < 2800; b += 120) { R.b.fillStyle = gv(.55); R.b.fillRect(b, 500, 70, 60); R.m.fillStyle = TUGLA; R.m.fillRect(b, 500, 70, 60); }
-    FIG.fig(R, 1180, 500, 430, { tip: 'gilgamis', giysi: 'cubbe', f: -1, kol: [[1.4 + Math.sin(st.lt * .8) * .2, .1], [.2, .2]] });
+    FIG.fig(R, 1180, 500, 430, { tip: 'gilgamis', giysi: 'cubbe', f: -1, kol: [[1.15 + Math.sin(st.lt * .8) * .15, .45], [.2, .2]] });
     FIG.fig(R, 760, 500, 410, { tip: 'ursa', f: 1, kol: [[.3, .5], [.1, .2]], bas: .3 });
     R.L.dir = [-.8, -.3, .5]; R.L.col = [1.1, .9, .74];
   }, { over: (c, st) => kunye(c, 'XI. tablet, son satırlar', st.lt, 5) });
@@ -114,7 +114,7 @@
     const ts = rel(st, 'H09@sensin') - .4, p = clamp((st.lt - ts) / 1.2);
     K(R, st, [960, 520, 1.1], [960, 540, 1.16]);
     SET.zemin(R); DK.tugla(R, -800, 560, 2800, 1400, { z: .5, bw: 120, bh: 46, renk: TUGLA, tohum: 4 });
-    FIG.fig(R, 1180, 560, 430, { tip: 'gilgamis', giysi: 'cubbe', f: -1, kol: [[1.4, .1], [.2, .2]] });
+    FIG.fig(R, 1180, 560, 430, { tip: 'gilgamis', giysi: 'cubbe', f: -1, kol: [[1.15, .45], [.2, .2]] });
     if (p < 1) FIG.fig(R, 760, 560, 410, { tip: 'ursa', f: 1, z: lerp(.78, .18, E.in2(p)), kol: [[.3, .5], [.1, .2]] });
     if (p > .5) YAR.parmakIzi(R, 760, 360, 260, E.out3((p - .5) * 2));
     R.L.dir = [-.85, -.25, .45]; R.L.col = [1.12, .86, .66];
@@ -125,7 +125,7 @@
     SET.zemin(R); DK.sur(R, -800, 2800, 820, 420, { z: .45, renk: TUGLA });
     SET.yer(R, -900, 2900, 820, { z: .36 });
     for (let i = 0; i < 8; i++) DK.hurma(R, -600 + i * 460, 880, 250 + (i % 3) * 40, { z: .52, meyve: true });
-    FIG.fig(R, 1100, 330, 150, { tip: 'gilgamis', giysi: 'cubbe', f: -1, z: .62 });
+    FIG.fig(R, 1080, 388, 150, { tip: 'gilgamis', giysi: 'cubbe', f: -1, z: .62 });
     R.L.dir = [-.9, -.15, .4]; R.L.col = [1.15, .78, .55]; R.L.int = .95;
   }, { over: (c, st) => quote(c, 'Sen hangi suru göstereceksin?', 960, 180, st.lt, { t0: rel(st, 'H10@bir'), px: 70 }) });
   // H11: bitiş ekranı zemini (son ~20 sn): sol yarı boş (bitiş öğeleri), sağda sur ve küçük figür
@@ -134,7 +134,7 @@
     SET.zemin(R); DK.friz(R, -800, 2800, 120, 960);
     DK.sur(R, 1100, 2800, 860, 470, { z: .44, renk: TUGLA, kayma: 120, ara: 420 });
     SET.yer(R, -900, 2900, 860, { z: .34 });
-    FIG.fig(R, 1500, 380, 120, { tip: 'gilgamis', giysi: 'cubbe', f: -1, z: .6 });
+    FIG.fig(R, 1540, 438, 120, { tip: 'gilgamis', giysi: 'cubbe', f: -1, z: .6 });
     R.L.dir = [-.85, -.25, .45]; R.L.col = [1.1, .82, .62]; R.L.int = .9;
   }, { tr: { type: 'fade', dur: .7 } });
 })();
