@@ -41,9 +41,22 @@ Bu video bir deneyin yarısıydı (`analiz/2026-11-23-deney-yon-promptu.md`): ot
   - Güneş diskinin başın hemen üstünde durması **hale**; güneş yukarı ve iki figürün arasına alındı.
   - Tanrıları simgeleyen boynuzlu taçlar "pasta, arı kovanı" okundu; kanal kuralına da uygun olarak tanrılar **ışık** oldu (C10, B03'teki yaratılış).
   - **Ders (Lale'yle aynı):** her düzeltme yeni bir simge üretebilir; akrep kuyruğu düzeltmesi halkaya döndü, tam boy karede yeniden bakıldı.
-- **Fable'ın senaryo okuması** bir engelleyici bulgu getirdi: C03'teki "İnsanlar kapılarda bundan söz eder", Jastrow ve Clay'in 1920'deki eskimiş okumasıydı (*ba-ba-nu*). Bugünkü okuma "insanın günleri sayılıdır; ne yapsa yeldir"; Akadca harf çevirisinde (depodaki kaynak dosyası) başkan doğruladı. **Ders:** kamu malı çeviri lisans için güvenli, ama okuması eskimiş olabilir; tırnak içi her dize bugünkü okumayla karşılaştırılır. Ayrıca kayıtta Thompson'da "yok" yazılan iki yer (kapıya lanet, kile dönüş) aslında vardı.
+- **Fable'ın senaryo okuması** (seslendirmeden önce) bir engelleyici bulgu getirdi: C03'teki "İnsanlar kapılarda bundan söz eder", Jastrow ve Clay'in 1920'deki eskimiş okumasıydı (*ba-ba-nu*). Bugünkü okuma "insanın günleri sayılıdır; ne yapsa yeldir"; Akadca harf çevirisinde (depodaki kaynak dosyası) başkan doğruladı. **Ders:** kamu malı çeviri lisans için güvenli, ama okuması eskimiş olabilir; tırnak içi her dize bugünkü okumayla karşılaştırılır. Ayrıca kayıtta Thompson'da "yok" yazılan iki yer (kapıya lanet, kile dönüş) aslında vardı.
 - **Kil/kıl:** "kilden doğdu"nun hemen ardından "kıl içindeydi" seste aynı sözcük gibi duyulurdu (Fable). Filmin ana motifine yakın sözcükler seste ayrı tutulur.
 - **Yer tutucu ses dosyası depoya girdi:** `build_vo.py` çekim yokken sessizlikten 70 MB'lık `vo.wav` yazıyor; ilk commit'te girdi, sonraki commit'te çıkarıldı (`gilgamis/.gitignore`). Geçmişi temizlemek için zorla push izni yoktu; birleştirmede sıkıştırılırsa geçmişten de çıkar.
+
+
+## İzleyici gözüyle son okuma (Fable, ilk render üstünde; üç kişilik: telefonda öğrenci, TV'de abone öğretmen, yas içindeki izleyici)
+- **Ortak düşüşler iki yerde, ikisi de kanalın kendi derslerinin yerinde:**
+  - **4:55 "Ben de ölmeyecek miyim?":** filmin tez cümlesi 12 sn geniş planda, yüzsüz; arkadaki aslan "tasmalı köpek" okundu. Düzeltme: aslan çıktı, "Ben de"den itibaren yakın yüz (akşam ışığı).
+  - **5:12–5:37:** yeni ve zor ad (Utnapiştim) neredeyse boş karede, ardından 8 sn tek pozlu karanlık. Düzeltme: Utnapiştim adıyla birlikte kıyıda görünür; karanlıkta "ne önünü… ne arkasını"da baş döner, figür küçülür; karanlık telefon için bir kademe açıldı.
+- **Doruğun sürekliliği** (kapak A'nın vaadi): bitki dipte kalıyordu (koparılınca ele bağlandı); "derisini bıraktı" denirken kıyıda başlı bir yılan yatıyordu (başsız, içi boş kabuk); Gılgamış yılana bakıp bir şey yapmıyordu (yıkanırken sırtı dönük, bitki gidince döner).
+- **Yazı:** kart sesten farklı cümleydi ("bırakırım" / "bırakmış olurum"); "Süleymaniye Müzesi" İstanbul sanılır (", Irak" eklendi); altyazıda sayı yazıyla kalmıştı ("2011'de", `tools/merge.json`).
+- **Bölüm kartı I kaldırıldı:** kancanın sorusundan 4 sn sonra gelen kart "ders başlıyor" hissi veriyordu (köprü kuralı). Öteki kartlar kaldı.
+- **Hassasiyet:** sedir gövdesinin en üst katı aşması ağaç tepelerinde haç okuması üretiyordu; gövde en üst katın altında bitiyor. Havada oturan figürlere tabure ve yatak kenarı.
+- **Yas içindeki izleyici için:** okuyucunun hükmü "kötü gelmez, büyük ihtimalle iyi gelir; teselli vaaz değil kanıt olarak (ekmek, giysi, dost, sur)". İki keskin yer kaynağın kendi sözü ("burnundan kurt", "karın koynunda sevinsin"); değiştirilmedi, kurt gösterilmiyor. Açıklamaya tek satırlık not eklendi.
+- **Reddedilen/ertelenen:** parmak izinin alt yarısını doldurmak (iç içe tam halka hedef tahtası okunur; yay biçimi korundu); ceylan ve Humbaba'nın biçim incelikleri (zevk payı); kapak A ile filmdeki gölet farkı (kanca simge olarak elde gösteriyor, kapak da öyle; doruğun kendisi gölette).
+- **Ders:** üç kişilik okuma Lale'deki gibi işe yaradı; ortak düşüşler soyutluk değil bu kez **görüntünün bilgi taşımadığı** yerlerdeydi (yüzsüz tez cümlesi, boş karede yeni ad). Ses sabitken ikisi de yeni planla karşılandı.
 
 ## Açık kalanlar
 - Kulakla son onay kullanıcıda (`yayin.md` → "Kulakla bakılacaklar").

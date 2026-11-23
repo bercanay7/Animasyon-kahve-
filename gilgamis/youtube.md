@@ -17,6 +17,8 @@ Gılgamış Destanı, dört bin yıl önce yazılmış bir hikâye: ölümsüzl�
 
 Sen bir gün bir yabancıya hangi suru göstereceksin? Cevabını yorumlara yaz.
 
+Not: Videoda bir yas sahnesi var.
+
 📜 Kaynaklar
 • Destan: Akadca Gılgamış Destanı. Standart Babil sürümü (Ninova kopyaları, MÖ 1. binyıl) ve Eski Babil sürümünün tabletleri (Pennsylvania, Yale, Sippar; ~MÖ 18. yüzyıl).
 • Kamu malı çeviriler: M. Jastrow ve A. T. Clay, An Old Babylonian Version of the Gilgamesh Epic (Yale, 1920); R. Campbell Thompson, The Epic of Gilgamish (Londra, 1928).
