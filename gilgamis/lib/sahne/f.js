@@ -41,8 +41,8 @@
     R.L.dir = [sim ? .3 : -.3, -.8, .5]; R.L.int = .45 + sim * 1.1; R.L.amb = .16; R.L.col = [.75, .8, .95];
   }, { mb: 2 });
   // F05: tanrılar ölümsüzlüğü bir kez verdi: güneşin altında Utnapiştim ve karısı
-  sahne('F05a', 'F05', 'utna', 'genis', (R, st) => {
-    K(R, st, [960, 540, .86], [960, 520, .9]);
+  sahne('F05a', 'F05', 'utna', 'orta', (R, st) => {
+    K(R, st, [960, 520, 1.05], [960, 500, 1.1]);
     kiyi(R, st);
     DK.gunes(R, 960, 230, 100, { z: .55 });
     FIG.fig(R, 860, 880, 500, { tip: 'utna', f: 1, kol: [[.2, .3], [.1, .2]] });
@@ -50,8 +50,8 @@
     R.L.dir = [0, -.85, .5]; R.L.int = 1.1;
   });
   // F06: sınav
-  sahne('F06a', 'F06', 'utna', 'orta', (R, st) => {
-    K(R, st, [960, 520, 1.12], [960, 520, 1.18]);
+  sahne('F06a', 'F06', 'utna', 'yakin', (R, st) => {
+    K(R, st, [1150, 470, 1.6], [1140, 470, 1.68]);
     kiyi(R, st);
     FIG.fig(R, 1200, 880, 540, { tip: 'utna', f: -1, kol: [[1.4 + Math.sin(st.lt * 2) * .1, .2], [.1, .2]] });
     FIG.fig(R, 720, 880, 550, { tip: 'gilgamis', giysi: 'post', f: 1, kol: [[.2, .3], [.1, .2]] });
@@ -65,8 +65,8 @@
     if (o.centik) for (let i = 0; i < 7; i++) { const p = clamp(o.centik * 7 - i); if (p > 0) FIG.cizgi(R, [[1150 + i * 40, 250], [1150 + i * 40, 250 + 110 * p]], 9, -.95); }
     R.L.dir = [-.5, -.6, .6];
   };
-  sahne('F07a', 'F07', 'uyku', 'yakin', (R, st) => {
-    K(R, st, [840, 560, 1.55], [830, 580, 1.65]);
+  sahne('F07a', 'F07', 'uyku', 'orta', (R, st) => {
+    K(R, st, [900, 540, 1.1], [880, 560, 1.2]);
     const p = clamp(st.lt / 1.5); UYKU(R, st, { uyku: p > .5 });
     R.L.int = lerp(1, .55, p);
     R.after(c => { c.globalCompositeOperation = 'screen'; c.fillStyle = `rgba(220,210,200,${.25 * p})`; for (let i = 0; i < 5; i++) { c.beginPath(); c.ellipse(500 + i * 300 + Math.sin(st.t * .3 + i) * 60, 600 + Math.sin(i) * 120, 340, 120, 0, 0, TAU); c.fill(); } });
