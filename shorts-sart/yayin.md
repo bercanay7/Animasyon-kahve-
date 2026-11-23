@@ -15,7 +15,7 @@ Neden iki Narkissos Shorts'u: aynı mit, aynı çizim hattı, aynı sahneler; de
 ---
 
 ## 1) Narkissos: "Kendini tanımazsa" (30 Kasım, 20:00)
-- **Dosya:** `narkissos/narkissos_sart.mp4` (29,0 sn, 1080×1920, 30 fps, H.264, −14,7 LUFS, 15 MB). Yüklemeden önce adı: `narkissos-kendini-tanimazsa.mp4`.
+- **Dosya:** `narkissos/narkissos_sart.mp4` (29,0 sn, 1080×1920, 30 fps, H.264, −14,7 LUFS, 14,6 MB). Yüklemeden önce adı: `narkissos-kendini-tanimazsa.mp4`.
 - **Başlık (34 karakter):** `Narkissos'a Uzun Ömür İçin Tek Şart`
   - İlk karedeki yazı şartın kendisi ("KENDİNİ TANIMAZSA"); başlık onu tekrar etmez, kimin için ve neyin karşılığı olduğunu söyler. Seri başlık kalıbı: "<Ad>'a … İçin Tek Şart".
 - **Açıklama:**
@@ -32,7 +32,7 @@ Neden iki Narkissos Shorts'u: aynı mit, aynı çizim hattı, aynı sahneler; de
 - **Kapak karesi:** Shorts'ta mobil akışta kapak seçilmez; uygulamada "Kapak" seçilebiliyorsa **0:00** karesi (şart yazısı + suya eğilmiş Narkissos).
 
 ## 2) Gılgamış: "Altı gün yedi gece uyuma" (4 Aralık, 20:00)
-- **Dosya:** `gilgamis/gilgamis_sart.mp4` (34,5 sn, 1080×1920). Yüklemeden önce adı: `gilgamis-alti-gun-yedi-gece-uyuma.mp4`.
+- **Dosya:** `gilgamis/gilgamis_sart.mp4` (34,5 sn, 1080×1920, 30 fps, H.264, −14,5 LUFS, 27,3 MB). Yüklemeden önce adı: `gilgamis-alti-gun-yedi-gece-uyuma.mp4`.
 - **Başlık (35 karakter):** `Gılgamış'a Ölümsüzlük İçin Tek Şart`
 - **Açıklama:**
   ```

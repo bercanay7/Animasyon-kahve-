@@ -55,10 +55,10 @@ Sonuç: iki Shorts. **Narkissos** "Kendini tanımazsa" (29,0 sn) ve **Gılgamı�
 ## Ölçüler
 - **Kullanıcının üretim sırasındaki düzeltmesi:** 0.
 - **Kredi:** 0. ElevenLabs çağrılmadı. Gılgamış'ın `vo.wav`'ı filmin kendi aracıyla yeniden kuruldu.
-- **Render** (3 işçi, mb 4): Narkissos 870 kare ≈ 5,5 dk. Gılgamış 1034 kare ≈ 11 dk; kil motoru kare başına ~2 sn.
+- **Render** (3 işçi, mb 4, ikisi art arda): Narkissos 870 kare ≈ 5,5 dk. Gılgamış 1034 kare 6,3 dk; kil motoru kare başına ~1,1 sn. Dosyalar: Narkissos 14,6 MB (−14,7 LUFS), Gılgamış 27,3 MB (−14,5 LUFS).
 - **Miks:**
   - Narkissos −14,7 LUFS; müzik 29 saniyenin 29'unda −60 dB üstünde, medyan −42 dB.
-  - Gılgamış −14,4 LUFS; müzik 35 saniyenin 34'ünde −60 dB üstünde (sonuncusu döngü sönüşü).
+  - Gılgamış −14,5 LUFS; müzik 35 saniyenin 34'ünde −60 dB üstünde (sonuncusu döngü sönüşü).
   - Gılgamış'ın ilk müziğinde 13–14. saniyede −63/−76 dB'lik bir boşluk vardı (iki dron arası); kapatıldı.
 - **48. saat:** S2, S3 (`analiz/tahminler.md`).
 
