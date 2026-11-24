@@ -4,6 +4,7 @@
 //   B.l  ÇİZGİ plakası (dizgi, çizgi, düz siluet: siyah = mürekkep) → tramsız, düz mürekkep
 //   B.c  ÇAY plakası   (renk B.cay(yoğunluk, ton): R = yoğunluk, G = ton 0 yeşil → .5 bakır → 1 kehribar) → 15°'lik tram, siyahın üstüne kayık basılır
 // Görüntünün kuralları (uretim_plani.md §4): radyasyon hiç çizilmez (yalnız sayı); renk yalnız çayda; her söz bir kupür.
+// DİKKAT: plakada silmek için beyaz boya (B.k, B.l) ya da siyah boya (B.c); destination-out kullanılmaz (saydam piksel tam mürekkep basılır).
 // Dünya koordinatı W×H (1920×1080). B.cam(x, y, z, r): kamera (x,y görüntünün ortasına gelen dünya noktası, z yakınlık) üç plakaya birden.
 // Tram ızgarası ekrana sabittir (kamera kayınca görüntü ızgaranın altından geçer: her kare yeniden basılmış gibi).
 'use strict';

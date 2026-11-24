@@ -184,7 +184,7 @@ const FIG = (() => {
     const d = B.l._desen; if (!d) return; B.l._desen = null;
     const k = B.k, l = B.l, tr = p => [d.x + p[0] * d.s * d.f, d.y + p[1] * d.s];
     const pts = d.etek.map(tr);
-    l.save(); l.globalCompositeOperation = 'destination-out'; l.beginPath(); poly(l, pts, true); l.fill(); l.restore();   // eteği çizgi plakasından çıkar
+    l.save(); l.fillStyle = '#fff'; l.beginPath(); poly(l, pts, true); l.fill(); l.restore();   // eteği çizgi plakasından çıkar (beyaz = mürekkepsiz; saydam piksel siyah basılır)
     k.save(); k.beginPath(); poly(k, pts, true); k.fillStyle = B.ton(o.zemin ?? .62); k.fill(); k.clip();
     k.fillStyle = B.ton(.95); const r = rng(o.tohum || 7), sx = d.s * 3.4;
     for (let yy = -40; yy < 40; yy += sx) for (let xx = -40; xx < 40; xx += sx) { k.beginPath(); k.arc(d.x + xx * d.s + (r() - .5) * d.s, d.y - 15 * d.s + yy * d.s, d.s * .9, 0, TAU); k.fill(); }
