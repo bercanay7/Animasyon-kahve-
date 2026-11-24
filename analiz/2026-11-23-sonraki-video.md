@@ -49,3 +49,25 @@ Kaynak: kullanıcının telefonla çektiği 38 sn'lik ekran kaydı. Başlıklar�
   - Ekonomi ilgisi Lale'nin "Herkes alıyorsa alır mısın?" sorusunu doğrudan karşılıyor.
 - **Kapak dili:** akıştaki kapaklar büyük yüz + 2–3 kelimelik sarı ya da kırmızı yazı + "NEDEN …?". Gravür kapaklarımız bu akışta ya sıyrılır ya kaybolur; kapak testleri bunu ölçer.
 - **Daha iyi veri:** aynı Araştırma sekmesindeki **"Kitlenizin aramaları"** ve **"İçerik boşlukları"** kartları. Bunlar yazı olduğu için ekran görüntüsüyle okunabilir; konu seçiminde doğrudan kullanılır.
+
+## Frankenstein'dan sonra (24 Kasım): 14 Aralık yuvası
+- **Kuyruk:** Narkissos 24 Kasım, Dorian 28 Kasım, Gılgamış 2 Aralık, Lale 6 Aralık, Frankenstein 10 Aralık (CLAUDE.md takviminde Frankenstein henüz yok). Üretim yayından ~3 hafta önde.
+- **Ölçüm:**
+
+| Sorgu | Sonuç |
+|---|---|
+| "çernobil çay radyasyon" (TR) | 4 öneri, konuya ait Türkçe video yok denecek kadar az (Cahit Aral klibi 3,6 B) |
+| "çernobil faciası" (TR) | medyan 855 B (23 Kasım) |
+| "sokratesin ölümü" (TR) | medyan 15 B; "Niçin ölümü seçti?" 121 B ile anlatılmış |
+| "sokrates kriton" (TR) | çoğu sesli kitap |
+
+- **Başkanın önerisi: Çernobil'in Türkiye'deki yüzü, "radyasyonlu çay" (Tarihin Dönüm Noktaları).**
+  - Kapı kanalın ölçtüğü en büyüğü; çay açısı Türkçede boş.
+  - Kitlenin izlediği popüler bilim ve "ülkenin karanlık yüzü" türüne düşüyor.
+  - Son beş video mit ve kitap ağırlıklı; denge için tarih.
+- **Riskler:**
+  - Yaşamış siyasetçilerin sözleri yalnız gazete arşivinden.
+  - Karadeniz'de kanser artışı gibi sağlık iddiaları yalnız bilimsel kaynakla ve tartışmalı olduğu söylenerek.
+  - Siyasi taraf tutulmaz.
+  - HBO dizisinin görüntüsü ve tasarımı kullanılmaz.
+- **Yedek:** Sokrates, "Kaçabilirdi, neden kaçmadı?" (Kriton'un şafak ziyareti, Delos gemisi, son söz "Asklepios'a bir horoz borçluyuz").
