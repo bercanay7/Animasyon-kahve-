@@ -79,14 +79,22 @@ def mary(t0, t1, ara=.34, v=.16, ak=MARY):
     while t < t1:
         ch = ak[(i // 8) % len(ak)]; n = ch[[0, 1, 2, 3, 2, 1, 2, 3][i % 8]]
         put(t, piyano(n, 2.4, v * (1.15 if i % 8 == 0 else 1)), pan=.25); t += ara; i += 1
+def ust(n):   # aynı nota, telefon hoparlörünün çalabildiği bölgeye (≥ 280 Hz) oktavla taşınır
+    k = int(n[-1])
+    while hz(n[:-1] + str(k)) < 280: k += 1
+    return n[:-1] + str(k)
+UST = .30    # 24 Kasım müzik denetimi: dron 70–150 Hz'deydi; telefonda (izleyicinin %48'i) uzun aralıklar müziksiz duyuluyordu
 def pad(t0, t1, notes, v=.08):
-    for k, n in enumerate(notes): put(t0, dron(n, t1 - t0, v, .45), pan=(k - 1) * .3)
+    for k, n in enumerate(notes):
+        put(t0, dron(n, t1 - t0, v, .45), pan=(k - 1) * .3)
+        put(t0, dron(ust(n), t1 - t0, v * UST, .5), pan=-(k - 1) * .3)
 
 # ---------------------------------------------------------------- A: kanca
 pad(0, S('A02'), ['D2', 'A2'], .10)
 el(W('A01', 'elini') - .2, v=.3)
 kume(S('A02') + .1, ['C#5', 'D5', 'G#4'], 2.5, .1); put(S('A02') + .1, bas('D2', .45))
 put(S('A03'), armonika('F4', 6, .14)); put(W('A03', 'frankenştayn'), armonika('E4', 5, .16), pan=.3)
+pad(S('A02') + 1, S('A04') + .5, ['D2', 'A2'], .07)   # 0:21–0:23 kancada istenmemiş boşluk vardı
 pad(S('A04'), Ee('A05') + 1.5, ['D2', 'F2'], .08)
 for i, n in enumerate(['A4', 'D5', 'E5']): put(W('A05', 'canavar') + i * .7, armonika(n, 4, .22))
 # ---------------------------------------------------------------- B: 1816 (Mary teması; fırtına; uyanık düş)
@@ -121,6 +129,7 @@ mary(S('D08'), S('D11'), ara=.36, v=.12, ak=FA)
 for i, k in enumerate(['baba', 'anne', 'kardeş']): put(W('D10', k), armonika(['C5', 'A4', 'F4'][i], 2.5, .14))
 put(W('D10', 'benim'), bas('D2', .4, 4)); pad(W('D10', 'benim'), S('D11'), ['D2', 'A2'], .08)
 kume(W('D11', 'sıçradım'), ['Eb5', 'D5', 'A4'], 3, .1)
+pad(S('D11') - .5, S('D12') + 1, ['D2', 'A2'], .06)   # sudaki yüz: 5:30–5:32 boşluğu
 pad(S('D12'), S('E01'), ['D2', 'F2', 'A2'], .07)
 el(S('D13') + 1, v=.22)
 # ---------------------------------------------------------------- E: kör adam (en sıcak an; sonra kırılma)
