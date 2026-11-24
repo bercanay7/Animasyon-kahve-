@@ -49,3 +49,9 @@
 - **Alt ajanlar:** Fable'ın seslendirme öncesi senaryo okuması (6 engelleyici) ve ayrı bir okuyucunun yazısız kare okuması (9 engelleyici). İkisi de denetim; yön vermedi.
 - **Başkanın seçtikleri ve yönün yetmediği yerler:** `frankenstein/geriye_bakis.md`.
 - **Ölçüler** (Lale ve Gılgamış tablosuyla aynı): kullanıcının üretim sırasındaki düzeltmesi 0 (geriye bakış yazılırken); atlanan kanal kuralı: yok bulundu (kullanıcının fikrini sorma adımı yön metniyle karşılandı, Gılgamış'taki gibi); 48. saat ve 7. gün `analiz/tahminler.md` F1–F3.
+
+## Ek: Çernobil'in çayı, üçüncü yön videosu (24 Kasım 2026)
+- **Yön:** kullanıcının yazdığı yön (bu oturumun ilk mesajı; malzeme `analiz/2026-11-24-cernobil-yon-notlari.md`). Tek yön, sonradan yön yok.
+- **Alt ajanlar:** hakemli kaynak araştırması (sağlık, çökelme takvimi, TAEK yeterlilik testi); Fable'ın seslendirme öncesi senaryo okuması (bardağın tarihi, gerekçe hükmü, iki çayın birleştirilmesi); ayrı bir okuyucunun yazısız kare okuması (darağacı, kamp, mezar taşı, hedef tahtası). Üçü de denetim; yön vermedi.
+- **Başkanın seçtikleri ve yönün yetmediği yerler:** `cernobil/geriye_bakis.md`.
+- **Ölçüler:** kullanıcının üretim sırasındaki düzeltmesi 0 (tek etkileşim: seslendirme kredisi onayı); atlanan kanal kuralı: yok bulundu (fikir sorma adımı yön metniyle karşılandı); 48. saat ve 7. gün `analiz/tahminler.md` Ç1-Ç3.

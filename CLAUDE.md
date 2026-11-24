@@ -241,6 +241,7 @@ Ayrıntı ve kompozisyon menüsü: `kanal/KAPAK_DERSLERI.md`.
 ## Depo dizini
 | Yer | Ne |
 |---|---|
+| `cernobil/` | Çernobil'in çayı, 1986 (gazete baskısı motoru `lib/baski.js`: tram + tek renk; Milliyet arşivi aracı `tools/arsiv.py`; yön usulünün üçüncü videosu) |
 | `lale-cilginligi/` | Lale Çılgınlığı (gravür + yalnız laleler el boyaması; Türkçe boşluk ölçütüyle seçilen ilk video; Fable'ın izleyici okuması; en yeni `film.js`) |
 | `dorian-gray/` | *Dorian Gray'in Portresi* (karma üslup: gravür + yalnız portre yağlıboya; en yeni tam hat: film, müzik, kapak, render) |
 | `narkissos/` | Narkissos → narsisizm (vazo; cümle düzeyinde hizalama; **ilk dikey Shorts hattı**) |

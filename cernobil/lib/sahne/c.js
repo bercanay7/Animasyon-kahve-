@@ -66,11 +66,13 @@ sahne('P58', 'F07', 'koy', 'orta', (B, st) => {
 // ── V. DEPO ──
 // P59 vadi (1988): boş bir dere yatağı, sis
 sahne('P59', 'E01', 'vadi', 'genis', (B, st) => {
-  B.cam(960 - st.lt * 10, 540, 1.04);
+  B.cam(960 - st.lt * 14, 540, 1.04 + st.lt * .004);
+  D.bulutlar(B, st.t, { y: 150, d: .3, hiz: 60 });
   D.daglar(B, { y: 300, kat: [[.25, 0], [.4, 160], [.55, 330]] });
   const l = B.l; l.save(); l.strokeStyle = '#000'; l.lineWidth = 3; l.beginPath(); for (let y = 1100; y > 600; y -= 20) l.lineTo(960 + Math.sin(y / 70) * 60 * (y - 500) / 600, y); l.stroke(); l.restore();
+  // vadiye inen yolda bir kamyon (çay yüklü), yavaşça ilerler
+  const u = clamp(st.lt / 9), x = lerp(1700, 1150, u), y = lerp(760, 900, u); l.save(); l.fillStyle = '#000'; l.fillRect(x, y - 70, 170, 70); l.fillRect(x - 60, y - 50, 60, 50); l.beginPath(); l.arc(x + 30, y + 4, 18, 0, TAU); l.arc(x + 140, y + 4, 18, 0, TAU); l.fill(); l.restore();
   D.tarihBandi(B, '1988', 110, clamp(st.lt / .5));
-  D.yigin(B, 960, 980, .6, { kat: 3, gen: 5 });
 }, { tr: { type: 'merdane', dur: .9 } });
 // P60 başlık: valilerin çay savaşı
 sahne('P60', 'E02', 'kupur', 'ayrinti', (B, st) => {
@@ -203,7 +205,7 @@ sahne('P73', 'E14', 'hesap', 'kart', (B, st) => {
   B.cam(960, 540, 1 + st.lt * .006);
   SET.zemin(B, .05, 2000);
   D.sayi(B, '58.070 TON', 960, 330, { px: 120, p: ramp(st.t, A('E14@elli') - .2, A('E14@elli') + .8) });
-  SET.cubuklar(B, 560, 820, 800, 300, [['İMHA', .61, .7], ['DEPODA', .39, .4]], ramp(st.t, A('E14@otuz') - .3, A('E14@yirmi') + .6));
+  SET.cubuklar(B, 560, 720, 800, 260, [['İMHA', .61, .7], ['DEPODA', .39, .4]], ramp(st.t, A('E14@otuz') - .3, A('E14@yirmi') + .6));
   D.tarihBandi(B, 'HAZİRAN 1990', 110, clamp(st.lt / .5));
 }, { over: KU3('Milliyet, 11 Haziran 1990, s. 15 (35.456 + 22.614)') });
 // P74 İç Anadolu'da satın alınmış arazi: kazık ve şerit, "izin yok"

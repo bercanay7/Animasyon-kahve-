@@ -73,14 +73,21 @@ sahne('P83', 'G08', 'bugun', 'orta', (B, st) => {
 sahne('P84', 'G09', 'bugun', 'yakin', (B, st) => {
   B.cam(980, 560, 1.06 + st.lt * .008);
   SET.zemin(B, .2, 2000);
-  const kalk = E.io3(clamp(st.lt / 3)), y = 900 - kalk * 90;
-  D.bardak(B, 880, y, 3.2, { buhar: st.t });
-  SET.el(B, 940, y - 140, 1.25, .5, { kav: .9 });
+  // bardak kalkar ("içebilir"), iner ("söylemez"); sonra üç soru sırayla dizgiyle basılır
+  const kalk = ramp(st.t, st.at + .3, A('G09@içebilir'), E.io3) * (1 - ramp(st.t, A('G09@söylemez') - .3, A('G09@söylemez') + .6, E.io3)), y = 900 - kalk * 110;
+  D.bardak(B, 700, y, 3.2, { buhar: st.t });
+  SET.el(B, 760, y - 140, 1.25, .5, { kav: .9 });
+  const S3 = [['Sayıyı kim ölçtü?', 'G09@sayıyı'], ['Sana söyledi mi?', 'G09@sana'], ['Geri kalan çaya ne yaptı?', 'G09@geri']];
+  S3.forEach(([s, at], i) => D.sayi(B, s, 1120, 360 + i * 150, { px: 54, align: 'left', p: ramp(st.t, A(at) - .2, A(at) + .9) }));
 });
 // P85 izleyicinin bardağı: dem yüzeyi yukarıdan; bitiş ekranı (son 20 sn)
 sahne('P85', 'G10', 'bugun', 'ayrinti', (B, st) => {
-  B.cam(960, 520, 1 + Math.min(st.lt, 8) * .008);
+  B.cam(960, 520, 1 + Math.min(st.lt, 10) * .008);
   SET.zemin(B, .1, 640, .22);
-  D.bardak(B, 960, 760, 3.6, { buhar: st.t, kasik: true });
-  const l = B.l, p = ramp(st.t, Se('G10') + .5, Se('G10') + 1.5); if (p > 0) { l.save(); l.globalAlpha = p; l.fillStyle = '#000'; l.font = FONT.manset(60); l.textAlign = 'center'; l.fillText('ZAMAN KURYESİ', 960, 160); l.restore(); }
+  D.bardak(B, 820, 760, 3.6, { buhar: st.t, kasik: false });
+  // kaşık demde döner (sürekli küçük hareket)
+  const a = st.t * 2.2, l = B.l; l.save(); l.strokeStyle = '#000'; l.lineWidth = 9; l.lineCap = 'round'; l.beginPath(); l.moveTo(820 + Math.cos(a) * 30, 520); l.lineTo(820 + Math.cos(a) * 60, 360); l.stroke(); l.restore();
+  D.sayi(B, '39 Bq/kg', 1380, 560, { px: 90, p: ramp(st.t, A('G10@sayıyı') - .2, A('G10@sayıyı') + .8) });
+  D.sayi(B, 'kim ölçtü? · nerede yazıyor?', 1380, 660, { px: 34, p: ramp(st.t, A('G10@sor') - .2, A('G10@sor') + .9) });
+  const p = ramp(st.t, Se('G10') + .5, Se('G10') + 1.5); if (p > 0) { l.save(); l.globalAlpha = p; l.fillStyle = '#000'; l.font = FONT.manset(60); l.textAlign = 'center'; l.fillText('ZAMAN KURYESİ', 960, 160); l.restore(); }
 });

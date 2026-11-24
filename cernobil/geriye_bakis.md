@@ -37,6 +37,15 @@ Bu video yön usulünün üçüncü örneği (`analiz/2026-11-23-deney-yon-promp
   - **Ders (Lale, Gılgamış, Frankenstein'la aynı):** ilk düzeltme yeni sorun doğurdu (çanta ölçeği yanlış, dev kara bloklar; sızıntı şeritleri direk). Her düzeltilen plan tam boy karede yeniden bakıldı.
 - **Arşivle çalışmak:** OCR metni sütunları birbirine karıştırıyor (bir haberin devamı başka sütunun ortasında); alıntıyı kısa bir arama penceresiyle çıkaran araç (`ARSIV.md` üreticisi) cümleleri kesiyordu, Fable bu yüzden var olan sözleri "yok" saydı. Tam metinle yeniden sınandı; ARSIV.md'ye eklendi. Ders: alıntı özetini okuyana tam metnin yerini de ver.
 
+## Render ve denetimler
+- **Alt bant** (`tools/alt_bant.js`): iki ihlal (haritada "RİZE", son karede kanal adı) düzeltildi; sonra temiz.
+- **Ölçek kuralı** (`tools/plan_listesi.js`): ilk yazımda dört ardışık aynı ölçek; düzeltildi, 85 plan.
+- **Donma taraması** (`tools/donma.py`): ilk render'da 5 sn'yi aşan üç aralık: P59 vadi (6,2 sn), P84 izleyicinin bardağı (12 sn), P85 son cümle (13,6 sn). Sözcüğe bağlı eylem eklendi: vadiye inen kamyon; bardağın kalkıp inmesi ve üç sorunun ("Sayıyı kim ölçtü?" …) sırayla basılması; dönen kaşık ve "39 Bq/kg". Yalnız dört parça yeniden üretildi (ONLY=). Son render'da 5 sn'yi aşan tek aralık bitiş ekranı (son 21 sn).
+- **Ses:** −14,2 LUFS, tepe −1,5 dBFS. Müzik 703 saniyenin ~690'ında −60 dB üstü; sessiz saniyeler bilerek (C10 sözü).
+- **Render süresi:** 21.088 kare, 4 işçi, kare başına 0,5 sn: 44 dk. Hareket bulanıklığı yok (tramı ezer).
+- **Dosya boyu:** tram dokusu yüzünden CRF 18 render 897 MB (Frankenstein 301 MB). Teslim kopyaları sabit bit hızıyla: YouTube için iki geçişli H.264 3,7 Mbps, telefon için H.265 1 Mbps. Ders: tram ya da gravür gibi ince doku varsa render'ın kendisi ara dosyadır; teslim boyu bit hızıyla seçilir.
+- **Bırakılan denetim:** Fable'ın izleyici gözüyle son okuması (Frankenstein'da üç kişiyle yapılmıştı) bu videoda yapılmadı; ilk render'dan sonra istenirse yapılabilir.
+
 ## Açık kalanlar
 - Dört gazete sayfasının görüntüyle doğrulanması kullanıcıda (`yayin.md`).
 - Kulakla son onay kullanıcıda.
