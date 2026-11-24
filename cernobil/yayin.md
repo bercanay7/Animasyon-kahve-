@@ -16,13 +16,14 @@ Videodaki bütün sözler Milliyet arşivinin **OCR metninden** alındı (`kayna
 ## Dosyalar
 | Dosya | Ne için |
 |---|---|
-| `teslim/cernobil_youtube.mp4` | **YouTube'a yüklenecek dosya** (348 MB, 11:43): 1920×1080, 30 fps, H.264 iki geçiş 3,7 Mbps + AAC 256k, Türkçe ses (−14,2 LUFS, tepe −1,0 dBFS), BT.709. Tram dokusu yüzünden CRF 18 ara render 897 MB'tı; teslim bit hızıyla küçültüldü |
+| `teslim/cernobil_youtube.mp4` | **YouTube'a yüklenecek dosya** (351 MB, 11:43; Fable'ın son okumasından sonraki sürüm): 1920×1080, 30 fps, H.264 iki geçiş 3,7 Mbps + AAC 256k, Türkçe ses (−14,2 LUFS, tepe −1,0 dBFS), BT.709. Tram dokusu yüzünden CRF 18 ara render 900 MB'ı aşıyordu; teslim bit hızıyla küçültüldü |
 | `teslim/cernobil_telefon.mp4` | Telefonda izlemek için küçük kopya (~93 MB; H.265 iki geçiş 920k, AAC 128k) |
 | `kapak/A.jpg` | Kapak A: "BAKAN İÇTİ" (kaldırılan bardak, mikrofonlar; yüz yok). İlk 5 sn'de karşılanıyor |
 | `kapak/B.jpg` | Kapak B: "58 BİN TON NEREYE?" (naylonla örtülü çuvallar, dökülen çay). 0:09'da açılıyor, 7:04-9:42'de karşılanıyor, sayı 9:11'de duyuluyor |
 | `cernobil.tr.srt` | Türkçe altyazı (177 satır) |
 | `kapak/test/` | Kapak odak ölçümü (`araclar/kapak/odak.py`): A tek odak (yazının "İÇTİ" satırı); B dört tepe (yazı ve dökülen çay), test ve karşılaştır kararı verir |
-| `youtube.md` | Başlık, açıklama (bölümler, kaynaklar, yapım notu), etiketler, sabit yorum |
+| `youtube.md` | Başlık, açıklama (bölümler, kaynaklar, yapım notu; 56/58 bin ton ve canlandırma notu), etiketler, sabit yorum |
+| `fable_son_okuma/` | Üç izleyicili son okuma ve başkanın doğrulaması: neyin neden değiştiği |
 
 ## 1. Yükleme
 1. Dosya adını `cernobil-cayini-icer-miydin.mp4` yap, **Oluştur → Video yükle**.
