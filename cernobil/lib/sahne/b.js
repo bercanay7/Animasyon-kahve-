@@ -136,15 +136,20 @@ sahne('P40', 'D03', 'ofis', 'orta', (B, st) => {
   D.bardak(B, 1000, 760, 1.6, { dolu: .2 + p * .65, buhar: st.t });
   D.kupur(B, 1460, 300, { w: 720, h: 400, a: .03, alinti: '"Ben göstermelik olsun diye çay içmiyorum. Hem ben hem de aile fertlerim rahatlıkla içiyoruz."', px: 38, ah: 300, sutun: 0, ust: 'MİLLİYET · 6 OCAK 1987', p: ramp(st.t, A('D03@ben'), Se('D03')) });
 });
-// P41 harman: iki yığın kürekle karıştırılır; ortalama 10.000
+// P41 harman: yüksek ve düşük iki yığından yapraklar ortadaki yığına akar; ortalama 10.000 (kürek yok: dik saplanmış kürek + tek tümsek mezar okunuyordu)
 sahne('P41', 'D04', 'harman', 'yakin', (B, st) => {
-  B.cam(960, 560, 1.06 + st.lt * .01);
-  SET.zemin(B, .2, 760, .35);
-  const m = ramp(st.t, st.at + .5, st.at + 4);
-  SET.cayYigini(B, lerp(620, 860, m), 900, 260, 180, .92, 3); SET.cayYigini(B, lerp(1300, 1060, m), 900, 260, 160, .85, 8);
-  const kx = 960 + Math.sin(st.t * 3) * 120; const l = B.l; l.save(); l.strokeStyle = '#000'; l.lineWidth = 16; l.beginPath(); l.moveTo(kx + 200, 300); l.lineTo(kx + 30, 700); l.stroke(); l.lineWidth = 6; l.beginPath(); l.moveTo(kx + 175, 290); l.lineTo(kx + 235, 300); l.stroke(); l.fillStyle = '#000'; l.beginPath(); l.moveTo(kx - 40, 700); l.lineTo(kx + 90, 700); l.lineTo(kx + 70, 800); l.lineTo(kx - 20, 800); l.closePath(); l.fill(); l.restore();   // kürek (sap, tutamak, düz ağız)
-  D.sayi(B, 'ort. 10.000', 960, 300, { px: 90, birim: 'Bq/kg', p: ramp(st.t, A('D04@ortalama') - .2, A('D04@ortalama') + .8) });
-}, { over: KU2('ODTÜ\'lü dört bilim insanının bildirisi, Milliyet, 4 Mart 1987, s. 9') });
+  B.cam(960, 560, 1.04 + st.lt * .008);
+  SET.zemin(B, .3, 700, .42);
+  { const k = B.k; k.save(); k.fillStyle = B.ton(.5); for (let x = 0; x < W; x += 240) k.fillRect(x, 700, 3, 380); k.restore(); }   // fabrika döşemesi: beton levha derzleri
+  const m = ramp(st.t, st.at + .4, Se('D04') - .5);
+  SET.cayYigini(B, 430, 900, 250, 190 - 70 * m, .95, 3); SET.cayYigini(B, 1490, 900, 250, 170 - 60 * m, .35, 8);
+  if (m > 0) SET.cayYigini(B, 960, 900, 60 + 170 * m, 30 + 120 * m, .65, 5);
+  // akan yapraklar: iki yandan ortaya yay çizerek
+  { const yol = g => { for (let i = 0; i < 36; i++) { const u = (st.t * .7 + i / 36) % 1, sol = i % 2 === 0, x0 = sol ? 520 : 1400, x = lerp(x0, 960, u), y = 760 - Math.sin(u * PI) * 190 + u * 60; g.moveTo(x + 7, y); g.ellipse(x, y, 7, 3.5, i, 0, TAU); } };
+    if (m > 0 && m < 1) { B.cayBoya(yol, 1, .7); const k = B.k; k.save(); k.fillStyle = B.ton(.55); k.beginPath(); yol(k); k.fill(); k.restore(); } }
+  D.sayi(B, 'YÜKSEK', 430, 640, { px: 34 }); D.sayi(B, 'DÜŞÜK', 1490, 660, { px: 34 });
+  D.sayi(B, 'ort. 10.000', 960, 330, { px: 90, birim: 'Bq/kg', p: ramp(st.t, A('D04@ortalama') - .2, A('D04@ortalama') + .8) });
+}, { over: KU2('ODTÜ\'lü dört bilim insanının bildirisi, Milliyet, 4 Mart 1987, s. 9', { y: 96 }) });
 // P42 mektup: zarf ve daktilo satırı
 sahne('P42', 'D05', 'mektup', 'ayrinti', (B, st) => {
   B.cam(960, 520, 1.0 + st.lt * .014);
@@ -162,7 +167,7 @@ sahne('P43', 'D06', 'masa', 'genis', (B, st) => {
   for (let i = 0; i < n; i++) D.bardak(B, 560 + r() * 800, 720 + r() * 70, .7, { dolu: .3 + r() * .5, tabak: true });
   SET.saat(B, 960, 300, 110, 10 + st.lt * 2.4);
   D.tarihBandi(B, 'ŞUBAT 1987 · İSTANBUL', 110, clamp(st.lt / .5));
-}, { over: KU2('Milliyet, 15 Şubat 1987, s. 1') });
+}, { over: KU2('Milliyet, 15 Şubat 1987, s. 1', { y: 300 }) });
 // P44 masanın bir yanı boşalır (gergin bitti): sandalyeler boş
 sahne('P44', 'D06@gergin', 'masa', 'orta', (B, st) => {
   B.cam(1200, 620, 1.3);

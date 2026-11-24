@@ -44,7 +44,11 @@ Bu video yön usulünün üçüncü örneği (`analiz/2026-11-23-deney-yon-promp
 - **Ses:** −14,2 LUFS, tepe −1,5 dBFS. Müzik 703 saniyenin ~690'ında −60 dB üstü; sessiz saniyeler bilerek (C10 sözü).
 - **Render süresi:** 21.088 kare, 4 işçi, kare başına 0,5 sn: 44 dk. Hareket bulanıklığı yok (tramı ezer).
 - **Dosya boyu:** tram dokusu yüzünden CRF 18 render 897 MB (Frankenstein 301 MB). Teslim kopyaları sabit bit hızıyla: YouTube için iki geçişli H.264 3,7 Mbps, telefon için H.265 1 Mbps. Ders: tram ya da gravür gibi ince doku varsa render'ın kendisi ara dosyadır; teslim boyu bit hızıyla seçilir.
-- **Bırakılan denetim:** Fable'ın izleyici gözüyle son okuması (Frankenstein'da üç kişiyle yapılmıştı) bu videoda yapılmadı; ilk render'dan sonra istenirse yapılabilir.
+- **Fable'ın son okuması (izleyici gözüyle, üç kişi):** `fable_son_okuma/`. İlk teslimde üçünün ortak düşüşleri: dönen rakamlar ("1 Bq = saniyede 9 bozunma" ara karede), kürekli tek tümsek (taze mezar okuması), figür üstündeki künyeler, "7 AY ÖNCE" (yanlış göreli süre), F bölümünün olaysız 52 saniyesi. Hepsi kodla düzeltildi, kredi harcanmadı; ayrıca altı depo, 56/58 notu, zincirde "HÜKÜMET", tarih bandının arkası kâğıt. Tam yeniden render + iki teslim kopyası.
+  - **Ders (rakam):** sayıyı "sayar gibi dönerek" belirtmek ölçüm konusunda yanlış rakam gösteriyor; duraklatılan kare bir iddiadır. Sayı soldan sağa basılır, ara karede hiç yanlış rakam olmaz.
+  - **Ders (simge):** hassasiyet taraması tek nesneye bakıyordu (çuval, vinç); "toprakta tek tümsek + dik saplanmış kürek" birleşimi mezar okundu. Kural listesine birleşim olarak girdi.
+  - **Ders (künye):** künyenin sabit yeri (sol alt) figürlerin en sık durduğu yer. Künye konumu plan başına seçilir; kurgu özetinde künyeli karelere ayrıca bakılır.
+  - **Ders (alt bant):** haritadaki "RİZE" ikinci bir planda (P09) yeniden alt banda girmişti; araç her yeniden render'dan önce çalıştırılır.
 
 ## Açık kalanlar
 - Dört gazete sayfasının görüntüyle doğrulanması kullanıcıda (`yayin.md`).

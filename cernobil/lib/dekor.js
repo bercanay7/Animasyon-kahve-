@@ -107,9 +107,11 @@ const D = (() => {
     const l = B.l, px = o.px || 180; const p = clamp(o.p ?? 1); if (p <= 0) return;
     l.save(); l.translate(x, y); l.fillStyle = '#000'; l.textAlign = o.align || 'center'; l.textBaseline = 'alphabetic';
     l.font = FONT.daktilo(px, 700);
-    let gs = s; if (p < 1) { const r = rng(Math.floor(p * 40) + 3); gs = [...s].map((ch, i) => /\d/.test(ch) && i / s.length > p ? String(Math.floor(r() * 10)) : ch).join(''); }
-    l.fillText(gs, 0, 0);
-    if (o.birim) { const wd = l.measureText(gs).width; l.font = FONT.daktilo(Math.round(px * .3), 700); l.textAlign = 'left'; const bx = (o.align || 'center') === 'center' ? wd / 2 + 16 : (o.align === 'left' ? wd + 16 : 16); l.fillText(o.birim, bx, 0); }
+    // belirme: dizgi soldan sağa daktilo gibi basılır; ara karede hiçbir zaman yanlış rakam görünmez (Fable son okuması)
+    const gs = s, wd = l.measureText(s).width, al = o.align || 'center', x0 = al === 'center' ? -wd / 2 : al === 'right' ? -wd : 0;
+    const nGor = p < 1 ? Math.floor(p * s.length + .5) : s.length;
+    if (nGor > 0) { l.textAlign = 'left'; l.fillText([...s].slice(0, nGor).join(''), x0, 0); l.textAlign = al; }
+    if (o.birim && p >= 1) { l.font = FONT.daktilo(Math.round(px * .3), 700); l.textAlign = 'left'; const bx = (o.align || 'center') === 'center' ? wd / 2 + 16 : (o.align === 'left' ? wd + 16 : 16); l.fillText(o.birim, bx, 0); }
     l.restore();
   }
   // ince belli çay bardağı (yakın plan): cam kenarı çizgi, dem çay plakasında (kehribar), tabak ve kaşık; dolu: 0..1, buhar: t
@@ -247,7 +249,9 @@ const D = (() => {
   function tarihBandi(B, s, y = 120, p = 1) {
     if (p <= 0) return; const l = B.l; l.save(); baseT(l); l.globalAlpha = clamp(p);
     l.fillStyle = '#000'; l.fillRect(140, y - 30, W - 280, 3); l.fillRect(140, y + 30, W - 280, 3);
-    l.font = FONT.daktilo(36, 700); l.textAlign = 'center'; l.textBaseline = 'middle'; l.letterSpacing = '6px'; l.fillText(s, W / 2, y + 2); l.restore();
+    l.font = FONT.daktilo(36, 700); l.textAlign = 'center'; l.textBaseline = 'middle'; l.letterSpacing = '6px';
+    { const wd = l.measureText(s).width + 48; for (const g of [B.k, l]) { g.save(); baseT(g); g.globalAlpha = clamp(p); g.fillStyle = '#fff'; g.fillRect(W / 2 - wd / 2, y - 26, wd, 52); g.restore(); } B.c.save(); baseT(B.c); B.c.globalAlpha = clamp(p); B.c.fillStyle = '#000'; B.c.fillRect(W / 2 - wd / 2, y - 26, wd, 52); B.c.restore(); }   // yazının arkası kâğıt: arkadaki çizgiler okunurluğu bozmasın
+    l.fillText(s, W / 2, y + 2); l.restore();
   }
   return { daglar, bahce, ev, yaprak, yagmur, bulutlar, kupur, sayi, bardak, mikrofonlar, flas, kamera, cuval, yigin, fabrika, depoIc, cit, sera, lab, harita, sehir, hp, bulutGolge, tarihBandi };
 })();

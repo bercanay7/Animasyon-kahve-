@@ -31,7 +31,7 @@ sahne('P03', 'A02', 'depo', 'genis', (B, st) => {
   D.yigin(B, 700, 980, 1.1, { kat: 6, gen: 11 }); D.yigin(B, 1500, 1000, 1.25, { kat: 5, gen: 8 });
   D.tarihBandi(B, 'OCAK 1987', 110, clamp(st.lt / .6));
   D.sayi(B, '56.000', 1240, 330, { px: 150, birim: 'TON', p: ramp(st.t, A('A02@elli'), A('A02@elli') + 1.2) });
-}, { over: KU('Çaykur açıklaması, Milliyet, 6 Ocak 1987, s. 11') });
+}, { over: KU('Çaykur açıklaması, Milliyet, 6 Ocak 1987, s. 11', { y: 640 }) });
 // P04 kupür: 6 Ocak 1987 başlığı
 sahne('P04', 'A02@insan', 'depo', 'ayrinti', (B, st) => {
   B.cam(960, 540 - st.lt * 5, 1.12 + st.lt * .01);
@@ -62,7 +62,7 @@ sahne('P07', 'B01', 'yamac', 'genis', (B, st) => {
   D.daglar(B, { y: 360, kat: [[.22, 0], [.34, 110], [.46, 220]] });
   D.bahce(B, { y0: 560, sira: 10, surgun: .9 });
   for (const [x, y, s] of [[300, 520, .8], [1500, 470, .6], [1720, 540, .9]]) D.ev(B, x, y, s);
-  D.tarihBandi(B, '7 AY ÖNCE · MAYIS 1986 · RİZE', 110, clamp(st.lt / .6) * clamp((st.d - st.lt) / .4));
+  D.tarihBandi(B, 'MAYIS 1986 · RİZE', 110, clamp(st.lt / .6) * clamp((st.d - st.lt) / .4));
 }, { tr: { type: 'merdane', dur: .9 } });
 // P08 kahraman yaprak: sürgün ucunda iki yaprak bir tomurcuk; esinti
 sahne('P08', 'B02', 'yaprak', 'ayrinti', (B, st) => {
@@ -79,7 +79,7 @@ sahne('P08', 'B02', 'yaprak', 'ayrinti', (B, st) => {
 sahne('P09', 'B03', 'harita', 'genis', (B, st) => {
   B.cam(1000 + st.lt * 5, 520, .92 + st.lt * .005);
   D.harita(B, { kara: .3 });
-  const c = D.sehir(B, 'Cernobil', 'ÇERNOBİL', { px: 40 }), r = D.sehir(B, 'Rize', 'RİZE', { px: 40 });
+  const c = D.sehir(B, 'Cernobil', 'ÇERNOBİL', { px: 40 }), r = D.sehir(B, 'Rize', 'RİZE', { px: 40, dy: -40, dx: -10 });
   const p = ramp(st.t, A('B03@kilometre') - .6, A('B03@kilometre') + .6), l = B.l;
   l.save(); l.strokeStyle = '#000'; l.lineWidth = 4; l.setLineDash([16, 12]); l.beginPath(); l.moveTo(c[0], c[1]); l.lineTo(lerp(c[0], r[0], p), lerp(c[1], r[1], p)); l.stroke(); l.restore();
   D.sayi(B, '1.400 km', (c[0] + r[0]) / 2 + 160, (c[1] + r[1]) / 2, { px: 64, p });
@@ -157,7 +157,7 @@ sahne('P15', 'B07', 'sahil', 'orta', (B, st) => {
   D.tarihBandi(B, '11 MAYIS 1986 · SİNOP', 110, clamp(st.lt / .5));
   D.sayi(B, '30-40 µR/sa', 1440, 380, { px: 70, p: ramp(st.t, A('B07@buldukları'), A('B07@buldukları') + 1) });
   D.sayi(B, 'TRAKYA 20-30', 1440, 470, { px: 44, p: ramp(st.t, A('B07@trakya') - .3, A('B07@trakya') + .6) });
-}, { over: KU('Milliyet, 19 Şubat 1988, s. 9 (o günlerin belgeleri)') });
+}, { over: KU('Milliyet, 19 Şubat 1988, s. 9 (o günlerin belgeleri)', { y: 200 }) });
 // P16 harita: Edirne damgalı, Rize boş
 sahne('P16', 'B08', 'harita', 'genis', (B, st) => {
   B.cam(960, 640, 1.0 + st.lt * .01);
@@ -170,10 +170,10 @@ sahne('P16', 'B08', 'harita', 'genis', (B, st) => {
 sahne('P17', 'B08@kurumun', 'tv', 'orta', (B, st) => {
   B.cam(960, 560, 1.04 + st.lt * .012);
   SET.zemin(B, .45, 760, .62);
-  SET.tv(B, 960, 460, 1.4, (x, y, w, h) => { const k = B.k; k.fillStyle = B.ton(.15); k.fillRect(x, y, w, h); FIG.kisi(k, x + w * .5, y + h + 60, h * .95, { tip: 'takim', f: 1, renk: B.ton(.75), bas: .05 + Math.sin(st.t * 3) * .03, kolO: [.2, 1.0], kolA: [.1, .6] }); });
+  SET.tv(B, 960, 460, 1.4, (x, y, w, h) => { const k = B.k; k.fillStyle = B.ton(.15); k.fillRect(x, y, w, h); FIG.kisi(k, x + w * .5, y + h + 60, h * .95, { tip: 'takim', f: 1, renk: B.ton(.75), bas: .05 + Math.sin(st.t * 3) * .03, kolO: [.75 + Math.sin(st.t * 2) * .12, 1.2], kolA: [-.05, .15] }); });
   SET.bust(B, 560, 1160, 1.5, .05); SET.bust(B, 1360, 1180, 1.35, -.05);
   D.bardak(B, 1500, 980, 1.6, { buhar: st.t, renk: 1 });
-}, { over: KU('"Korkulacak bir durum olmadığını…" — Milliyet, 19 Şubat 1988, s. 9') });
+}, { over: KU('"Korkulacak bir durum olmadığını…" — Milliyet, 19 Şubat 1988, s. 9', { y: 96 }) });
 // P18 toplayıcılar yamaçta, sırtlarında küfe; yürüyüş
 sahne('P18', 'B09', 'yamac', 'genis', (B, st) => {
   B.cam(960, 560, 1.06);

@@ -12,7 +12,7 @@ sahne('P76', 'G01', 'kupur', 'ayrinti', (B, st) => {
 sahne('P77', 'G02', 'zincir', 'orta', (B, st) => {
   B.cam(800 + st.lt * 60, 560, 1.0);
   SET.zemin(B, .1, 760, .25);
-  const etik = ['ÖLÇÜM', 'BAKAN', 'CUMHURBAŞKANI', 'HALK'];
+  const etik = ['ÖLÇÜM', 'HÜKÜMET', 'CUMHURBAŞKANI', 'HALK'];
   for (let i = 0; i < 4; i++) { const x = 360 + i * 480, p = ramp(st.t, st.at + i * .9, st.at + i * .9 + .6);
     if (p <= 0) continue; D.bardak(B, x, 820, 1.8, { buhar: i === 3 ? st.t : null, dolu: .85 * p });
     D.sayi(B, etik[i], x, 420, { px: 40, p }); if (i < 3) { const l = B.l; l.save(); l.strokeStyle = '#000'; l.lineWidth = 4; l.globalAlpha = p; l.beginPath(); l.moveTo(x + 110, 700); l.lineTo(x + 370, 700); l.stroke(); l.beginPath(); l.moveTo(x + 350, 685); l.lineTo(x + 370, 700); l.lineTo(x + 350, 715); l.stroke(); l.restore(); } }
@@ -68,7 +68,7 @@ sahne('P83', 'G08', 'bugun', 'orta', (B, st) => {
   D.sayi(B, '39', 1360, 520, { px: 200, birim: 'Bq/kg', p: ramp(st.t, A('G08@otuz') - .2, A('G08@otuz') + .8) });
   D.sayi(B, 'sınır 600', 1360, 680, { px: 56, p: ramp(st.t, A('G08@altı') - .2, A('G08@altı') + .6) });
   D.tarihBandi(B, '2017', 110, clamp(st.lt / .5));
-}, { over: KU4('Ağuş (TAEK), Karaelmas Fen ve Mühendislik Dergisi, 2017') });
+}, { over: KU4('Ağuş (TAEK), Karaelmas Fen ve Mühendislik Dergisi, 2017', { y: 220 }) });
 // P84 kapak A'nın halkası: el bardağı kaldırır (açılıştaki kompozisyon), ama flaş yok, mikrofon yok
 sahne('P84', 'G09', 'bugun', 'yakin', (B, st) => {
   B.cam(980, 560, 1.06 + st.lt * .008);

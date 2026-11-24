@@ -27,9 +27,9 @@ Kaynaklar:
 - Sağlık: Sağlık Bakanlığı, Karadeniz Bölgesi Kanser ve Kanser Risk Faktörleri Araştırması (2006); Acar ve ark., ISRN Surgery (2011); Şahin, World Journal of Oncology (2013); Kocakuşak, Acta Endocrinologica (2016); Emral ve ark., European Journal of Endocrinology (2003). Türkiye kanser kaydı: Türkiye Kanser Kayıt ve İnsidans projesi (1992).
 - UNSCEAR 1988 Raporu, Ek D.
 
-Not: Videodaki sözler gazetelerin aktardığı biçimiyle verildi. Kişilerin sonraki yıllardaki açıklamaları ve gerekçeleri ayrı kaynaklarda bulunabilir. Videoda hastalık hakkında bilimin bildiğinden fazlası söylenmiyor: bölgede kanserle Çernobil arasındaki bağ bugün tartışmalı, çünkü o yıllarda kimin ne kadar aldığı ölçülmedi ya da biz bunun kaydını bulamadık.
+Not: Videodaki sözler gazetelerin aktardığı biçimiyle verildi. Ekrandaki resmî yazı ve rapor kâğıtları canlandırmadır; üstlerindeki cümleler gazetelerin aktardığı metinden alındı. Depolanan çayın miktarı kaynaklarda 56 bin ile 58 bin ton arasında değişiyor: Çaykur Ocak 1987'de 56 bin ton açıkladı, Haziran 1990'daki hesap 58.070 ton (35.456 ton imha + 22.614 ton depoda). Kişilerin sonraki yıllardaki açıklamaları ve gerekçeleri ayrı kaynaklarda bulunabilir. Videoda hastalık hakkında bilimin bildiğinden fazlası söylenmiyor: bölgede kanserle Çernobil arasındaki bağ bugün tartışmalı, çünkü o yıllarda kimin ne kadar aldığı ölçülmedi ya da biz bunun kaydını bulamadık.
 
-Yapım: Animasyon kodla çizildi (1986 gazete baskısı üslubu: tram noktaları, tek renk çayda). Radyasyon görüntüde hiç çizilmedi; yalnız sayı olarak var. Müzik ve efektler özgün sentez. Anlatım: Emrullah (ElevenLabs yapay zekâ sesi).
+Yapım: Animasyon kodla çizildi (1986 gazete baskısı üslubu: tram noktaları, tek renk çayda). Bulutun yolu haritada gösterildi; radyasyonun kendisi görüntüde hiç çizilmedi, yalnız sayı olarak var. Müzik ve efektler özgün sentez. Anlatım: Emrullah (ElevenLabs yapay zekâ sesi).
 
 #Çernobil #Çay #ZamanKuryesi
 
@@ -37,4 +37,4 @@ Yapım: Animasyon kodla çizildi (1986 gazete baskısı üslubu: tram noktaları
 çernobil, çernobil çay, radyasyonlu çay, çernobil türkiye, çernobil karadeniz, cahit aral, çay içen bakan, radyasyonlu çay içen bakan, çaykur, 1986, rize, karadeniz, radyasyon, taek, atom enerjisi kurumu, odtü, türkiye tarihi, tarih belgeseli, zaman kuryesi
 
 ## Sabit yorum
-Senin evinde 1986'nın çayından bir hikâye anlatılır mı? Bir büyüğün o yılı nasıl hatırlıyor? (Lütfen yalnız hatıra; hastalık iddiaları için kaynak gösterilmeyen yorumlar gizlenebilir.)
+Senin evinde 1986'nın çayından bir hikâye anlatılır mı? Bir büyüğün o yılı nasıl hatırlıyor? Hatıranı yaz. Hastalık konusunda videoda söylediğimizden fazlasını biz de bilmiyoruz; bir araştırma biliyorsan künyesiyle paylaş.

@@ -33,7 +33,7 @@ sahne('P54', 'F03', 'sayim', 'yakin', (B, st) => {
 sahne('P55', 'F04', 'harita', 'genis', (B, st) => {
   B.cam(1290 + st.lt * 6, 820, 1.7);
   D.harita(B, { kara: .3 });
-  const r = rng(6), l = B.l; for (let i = 0; i < 26; i++) { const lon = 36.5 + r() * 5, lat = 40.2 + r() * .7, q = D.hp([lon, lat]); l.save(); l.strokeStyle = '#000'; l.lineWidth = 2; l.beginPath(); l.arc(q[0], q[1], 5, 0, TAU); l.stroke(); l.restore(); }   // köyler: içi boş halka (ölçüm yok)
+  const r = rng(6), l = B.l; const nK = Math.floor(26 * ramp(st.t, st.at + .3, st.at + 7)); for (let i = 0; i < nK; i++) { const lon = 36.5 + r() * 5, lat = 40.2 + r() * .7, q = D.hp([lon, lat]); l.save(); l.strokeStyle = '#000'; l.lineWidth = 2; l.beginPath(); l.arc(q[0], q[1], 5, 0, TAU); l.stroke(); l.restore(); }   // köyler: içi boş halka (ölçüm yok)
   B.cam(); SET.daktilo(B, 1200, 200, 560, 280, ['!TARAMA', 'Kişi: ......', 'Doz:  ......'], 1, { px: 34 });
   D.sayi(B, '1992: kanser kaydı başlıyor', 1480, 560, { px: 34, p: ramp(st.t, A('F04@türkiyenin') - .2, A('F04@türkiyenin') + 1.2) });
 });
@@ -55,7 +55,7 @@ sahne('P57', 'F06', 'arsiv', 'yakin', (B, st) => {
 }, { over: KU3('Kocakuşak 2016 · Şahin 2013 · Emral 2003') });
 // P58 akşam Karadeniz köyü, yağmur; ışıklı pencereler; insan yüzü yok
 sahne('P58', 'F07', 'koy', 'orta', (B, st) => {
-  B.cam(960 + st.lt * 6, 540, 1.02);
+  { const z = E.io3(clamp(st.lt / Math.max(1, st.d))); B.cam(lerp(960, 1000 - 32 * 2.4 + 7 * 2.4, z), lerp(540, 780 - 43 * 2.4, z), lerp(1.02, 1.9, z)); }   // ortadaki evin ışıklı penceresine yavaş yaklaşma
   SET.zemin(B, .45, 2000);
   D.bulutlar(B, st.t, { y: 200, d: .6, hiz: 20 });
   D.daglar(B, { y: 420, kat: [[.55, 0], [.68, 170]] });
@@ -92,7 +92,7 @@ sahne('P61', 'E03', 'firin', 'orta', (B, st) => {
   D.cuval(B, kk.elO[0] + 40, kk.elO[1] + 30, 1.1, { d: .6 });
   SET.saat(B, 1550, 300, 90, 4.0);
   D.tarihBandi(B, 'AĞUSTOS 1988 · RİZE, TRABZON', 110, clamp(st.lt / .5));
-}, { over: KU3('Milliyet, 18 Ağustos 1988, s. 14') });
+}, { over: KU3('Milliyet, 18 Ağustos 1988, s. 14', { x: 1800, align: 'right' }) });
 // P62 valinin sözü
 sahne('P62', 'E03@valisi', 'kupur', 'yakin', (B, st) => {
   B.cam(960, 520, 1.04 + st.lt * .01);
@@ -110,7 +110,7 @@ sahne('P63', 'E04', 'cit', 'genis', (B, st) => {
     const kk = FIG.kisi(B.l, x, 1020 - yuru * 60, 330, { tip: i ? 'gazeteci' : 'kadin', f: 1, desen: false, govde: .12, bas: .08, kolO: [.5 + Math.sin(st.t * 4 + i) * .2, .5], kolA: [-.2, .3] });
     if (i) D.kamera(B.l, kk.elO[0], kk.elO[1], kk.s * .5); }
   D.tarihBandi(B, 'EKİM 1988 · ANKARA YAKINLARI', 110, clamp(st.lt / .5));
-}, { over: KU3('Milliyet, 17 Ekim 1988, s. 12') });
+}, { over: KU3('Milliyet, 17 Ekim 1988, s. 12', { y: 210 }) });
 // P64 seranın içi: kırık camlar, branda dalgalanır, koli açılır: bakır renkli çay
 sahne('P64', 'E05', 'sera', 'orta', (B, st) => {
   B.cam(960, 600, 1.2 + st.lt * .01);
@@ -126,9 +126,12 @@ sahne('P65', 'E06', 'depo2', 'genis', (B, st) => {
   B.cam(960 + st.lt * 8, 560, 1.0);
   SET.zemin(B, .15, 720, .4);
   const k = B.k, l = B.l;
-  for (let i = 0; i < 3; i++) { const x = 220 + i * 560; k.save(); k.fillStyle = B.ton(.45); k.fillRect(x, 420, 480, 320); k.fillStyle = B.ton(.7); k.beginPath(); k.moveTo(x - 20, 420); k.lineTo(x + 240, 330); k.lineTo(x + 500, 420); k.closePath(); k.fill(); k.restore();
-    l.save(); l.strokeStyle = '#000'; l.lineWidth = 3; l.strokeRect(x, 420, 480, 320); l.fillStyle = '#000'; l.fillRect(x + 190, 560, 100, 180); l.restore();
-    for (const [sx, dir] of [[x + 6, 1], [x + 474, -1]]) { const L = 160 + ((st.lt * 14 + i * 40) % 120); k.save(); k.fillStyle = B.ton(.7); k.beginPath(); k.moveTo(sx, 440); for (let u = 0; u <= 1; u += .1) k.lineTo(sx + dir * (22 + 10 * Math.sin(u * 9 + i)), 440 + u * L); k.lineTo(sx, 440 + L); k.closePath(); k.fill(); k.restore(); } }   // duvarın kenarlarından sızan yapışkan leke (köşeden aşağı, direk okunmasın)
+  // altı depo (anlatım "altı büyük depo"): iki sıra, arka sıra küçük ve soluk
+  for (let i = 0; i < 6; i++) { const arka = i < 3, j = i % 3, sc = arka ? .62 : 1, w = 480 * sc, h = 320 * sc, x = arka ? 400 + j * 510 : 160 + j * 600, yT = arka ? 240 : 420, tn = arka ? .3 : .45;
+    k.save(); k.fillStyle = B.ton(tn); k.fillRect(x, yT, w, h); k.fillStyle = B.ton(tn + .2); k.beginPath(); k.moveTo(x - 20 * sc, yT); k.lineTo(x + w / 2, yT - 90 * sc); k.lineTo(x + w + 20 * sc, yT); k.closePath(); k.fill(); k.restore();
+    if (!arka) { l.save(); l.fillStyle = '#fff'; l.beginPath(); l.moveTo(x - 20 * sc, yT); l.lineTo(x + w / 2, yT - 90 * sc); l.lineTo(x + w + 20 * sc, yT); l.lineTo(x + w + 20 * sc, yT + h); l.lineTo(x - 20 * sc, yT + h); l.closePath(); l.fill(); l.restore(); }   // öndeki depo arkadakinin çizgilerini örter
+    l.save(); l.strokeStyle = '#000'; l.lineWidth = 3 * sc; l.strokeRect(x, yT, w, h); l.fillStyle = '#000'; l.fillRect(x + w / 2 - 50 * sc, yT + h - 180 * sc, 100 * sc, 180 * sc); l.restore();
+    for (const [sx, dir] of [[x + 6 * sc, 1], [x + w - 6 * sc, -1]]) { const L = (160 + ((st.lt * 14 + i * 40) % 120)) * sc; k.save(); k.fillStyle = B.ton(tn + .25); k.beginPath(); k.moveTo(sx, yT + 20 * sc); for (let u = 0; u <= 1; u += .1) k.lineTo(sx + dir * (22 + 10 * Math.sin(u * 9 + i)) * sc, yT + 20 * sc + u * L); k.lineTo(sx, yT + 20 * sc + L); k.closePath(); k.fill(); k.restore(); } }   // duvarın kenarlarından sızan yapışkan leke (köşeden aşağı, direk okunmasın)
   D.tarihBandi(B, 'NİSAN 1989 · RİZE', 110, clamp(st.lt / .5));
 }, { over: KU3('Milliyet, 22 Nisan 1989, s. 3') });
 // P66 açıkta istif: tahtalar, naylon rüzgârda
@@ -139,7 +142,7 @@ sahne('P66', 'E07', 'acik', 'orta', (B, st) => {
   const k = B.k; k.save(); k.fillStyle = B.ton(.55); k.fillRect(200, 930, 1520, 26); k.restore();
   D.yigin(B, 960, 930, 1.15, { kat: 6, gen: 12, naylon: true, t: st.t });
   D.fabrika(B, 1650, 760, .5, { d: .4 });
-}, { over: KU3('Milliyet, 25 Haziran 1989, s. 10') });
+}, { over: KU3('Milliyet, 25 Haziran 1989, s. 10', { y: 240 }) });
 // P67 fabrika bahçesi, alacakaranlık: çukur, çuvallar indirilir (Aralık 1989)
 sahne('P67', 'E08', 'bahce', 'genis', (B, st) => {
   B.cam(960 - st.lt * 6, 540, 1.0);
@@ -151,7 +154,7 @@ sahne('P67', 'E08', 'bahce', 'genis', (B, st) => {
   FIG.kisi(B.l, 1180, 1000, 420, { tip: 'isci', f: -1, govde: .4, bas: .3, kolO: [1.2, .5], kolA: [1, .6] });
   D.tarihBandi(B, 'ARALIK 1989', 110, clamp(st.lt / .5));
   D.sayi(B, '25.000 TON', 600, 330, { px: 100, p: ramp(st.t, A('E08@yirmi') - .2, A('E08@yirmi') + 1) });
-}, { over: KU3('Milliyet, 25 Aralık 1989, s. 3 ve 12 (ANKA)'), tr: { type: 'merdane', dur: .9 } });
+}, { over: KU3('Milliyet, 25 Aralık 1989, s. 3 ve 12 (ANKA)', { x: 1800, y: 200, align: 'right' }), tr: { type: 'merdane', dur: .9 } });
 // P68 kürekle toprak; çuvalın ağzındaki çay rengi söner
 sahne('P68', 'E09', 'bahce', 'yakin', (B, st) => {
   B.cam(960, 600, 1.08 + st.lt * .01);
@@ -183,7 +186,7 @@ sahne('P70', 'E11', 'of', 'genis', (B, st) => {
   const r = rng(3); k.save(); k.fillStyle = '#fff'; for (let i = 0; i < 40; i++) { k.beginPath(); k.ellipse(r() * W, 680 + r() * 360, 30 + r() * 60, 8 + r() * 10, 0, 0, TAU); k.fill(); } k.restore();   // kar lekeleri
   for (let i = 0; i < 3; i++) FIG.kisi(B.l, 260 + i * 120, 1040 - i * 20, 330 - i * 20, { tip: i === 1 ? 'kadin' : 'koylu', f: 1, govde: .1, bas: .3, kolO: [.15, .3], kolA: [.1, .3] });
   D.tarihBandi(B, 'MART 1990 · TRABZON', 110, clamp(st.lt / .5));
-}, { over: KU3('Milliyet, 31 Mart 1990, s. 12') });
+}, { over: KU3('Milliyet, 31 Mart 1990, s. 12', { y: 220 }) });
 // P71 Kurum raporu: "sızıntıya rastlanmamıştır"
 sahne('P71', 'E12', 'rapor2', 'ayrinti', (B, st) => {
   B.cam(960, 520, 1.06 + st.lt * .012);
@@ -205,6 +208,7 @@ sahne('P73', 'E14', 'hesap', 'kart', (B, st) => {
   B.cam(960, 540, 1 + st.lt * .006);
   SET.zemin(B, .05, 2000);
   D.sayi(B, '58.070 TON', 960, 330, { px: 120, p: ramp(st.t, A('E14@elli') - .2, A('E14@elli') + .8) });
+  D.sayi(B, 'Ocak 1987 açıklaması: 56.000 ton', 960, 430, { px: 30, p: ramp(st.t, A('E14@elli') + .6, A('E14@elli') + 1.6) });
   SET.cubuklar(B, 560, 720, 800, 260, [['İMHA', .61, .7], ['DEPODA', .39, .4]], ramp(st.t, A('E14@otuz') - .3, A('E14@yirmi') + .6));
   D.tarihBandi(B, 'HAZİRAN 1990', 110, clamp(st.lt / .5));
 }, { over: KU3('Milliyet, 11 Haziran 1990, s. 15 (35.456 + 22.614)') });
