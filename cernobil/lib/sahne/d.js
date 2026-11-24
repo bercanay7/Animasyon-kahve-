@@ -86,5 +86,5 @@ sahne('P85', 'G10', 'bugun', 'ayrinti', (B, st) => {
   l.save(); l.strokeStyle = '#000'; l.lineWidth = 8; l.beginPath(); l.arc(960, 470, 300, 0, TAU); l.stroke(); l.lineWidth = 3; l.beginPath(); l.arc(960, 470, 380, 0, TAU); l.stroke();
   l.lineWidth = 2; for (let i = 1; i < 4; i++) { const r = ((st.lt * .2 + i / 4) % 1); l.globalAlpha = 1 - r; l.beginPath(); l.arc(960, 470, 290 * r, 0, TAU); l.stroke(); } l.restore();
   // bitiş ekranı: son anın içinde kanal adı
-  const p = ramp(st.t, Se('G10') + .5, Se('G10') + 1.5); if (p > 0) { l.save(); l.globalAlpha = p; l.fillStyle = '#000'; l.font = FONT.manset(64); l.textAlign = 'center'; l.fillText('ZAMAN KURYESİ', 960, 960 - 120); l.restore(); }
+  const p = ramp(st.t, Se('G10') + .5, Se('G10') + 1.5); if (p > 0) { l.save(); l.globalAlpha = p; l.fillStyle = '#000'; l.font = FONT.manset(64); l.textAlign = 'center'; l.fillText('ZAMAN KURYESİ', 960, 790); l.restore(); }
 });

@@ -1,0 +1,8 @@
+{
+ "_not": "Duraklar (sn): gap cümleden sonraki sessizlik; secGap bölüm sonu eki; once açılış; sonra bitiş ekranı kuyruğu (son 20 sn).",
+ "once": 0.4,
+ "varsayilan": 0.45,
+ "secGap": 1.5,
+ "sonra": 20.0,
+ "gap": {"A01": 0.6, "A02": 0.7, "A03": 1.0, "B02": 0.8, "B06": 0.8, "C04": 0.8, "C09": 0.8, "C10": 1.2, "C11": 1.0, "D02": 0.7, "D08": 0.8, "E09": 0.8, "E10": 1.2, "E12": 0.8, "E13": 1.4, "F07": 1.0, "G02": 0.9, "G06": 0.8, "G07": 1.0, "G09": 1.2}
+}

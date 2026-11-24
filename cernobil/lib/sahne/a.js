@@ -77,7 +77,7 @@ sahne('P08', 'B02', 'yaprak', 'ayrinti', (B, st) => {
 });
 // P09 harita: Çernobil ve Rize; mesafe çizgisi
 sahne('P09', 'B03', 'harita', 'genis', (B, st) => {
-  B.cam(1000 + st.lt * 5, 440, .92 + st.lt * .005);
+  B.cam(1000 + st.lt * 5, 520, .92 + st.lt * .005);
   D.harita(B, { kara: .3 });
   const c = D.sehir(B, 'Cernobil', 'ÇERNOBİL', { px: 40 }), r = D.sehir(B, 'Rize', 'RİZE', { px: 40 });
   const p = ramp(st.t, A('B03@kilometre') - .6, A('B03@kilometre') + .6), l = B.l;
@@ -197,7 +197,7 @@ sahne('P19', 'B09@yapraklar', 'yaprak', 'ayrinti', (B, st) => {
   SET.el(B, lx + 70, ly + 20, 1.2, .5 - git * .3, { kav: .3 + kop * .6, f: 1 });
 });
 // P20 sepetler patikadan fabrikaya
-sahne('P20', 'B09@sepetler', 'yol', 'orta', (B, st) => {
+sahne('P20', 'B09@fabrikaya', 'yol', 'orta', (B, st) => {
   B.cam(960 - st.lt * 14, 520, 1.0);
   D.daglar(B, { y: 300, kat: [[.25, 0], [.4, 160]] });
   D.fabrika(B, 1500, 640, .8, { duman: st.t, d: .45 });

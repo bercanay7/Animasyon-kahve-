@@ -145,20 +145,29 @@ const D = (() => {
   }
   // fotoğraf makinesi tutan eller ve gövde (gazeteci siluetinin önünde)
   function kamera(g, x, y, s) { g.save(); g.fillStyle = '#000'; g.fillRect(x - 22 * s, y - 14 * s, 44 * s, 28 * s); g.beginPath(); g.arc(x, y, 11 * s, 0, TAU); g.fill(); g.fillRect(x - 8 * s, y - 22 * s, 16 * s, 9 * s); g.restore(); }
-  // çuval: yuvarlak köşeli, bağlı ağız; ton gövde + çizgi; o.cay: ağızdan görünen çay (çay plakası)
+  // çuval: YATIK jüt çuvalı (yastık biçimi, köşelerde kulak, ortada dikiş). Dik, yuvarlak tepeli çuval sıra hâlinde mezar taşı okunur: kullanılmaz.
+  // (x, y) çuvalın alt orta noktası. o.cay: ağzından görünen çay (çay plakası)
   function cuval(B, x, y, s, o = {}) {
-    const k = B.k, l = B.l, yol = g => { g.moveTo(x - 26 * s, y); g.quadraticCurveTo(x - 32 * s, y - 34 * s, x - 18 * s, y - 52 * s); g.lineTo(x - 6 * s, y - 60 * s); g.lineTo(x + 6 * s, y - 60 * s); g.lineTo(x + 18 * s, y - 52 * s); g.quadraticCurveTo(x + 32 * s, y - 34 * s, x + 26 * s, y); g.closePath(); };
-    k.save(); k.beginPath(); yol(k); k.fillStyle = T(B, o.d ?? .55); k.fill(); k.clip(); k.strokeStyle = T(B, (o.d ?? .55) + .2); k.lineWidth = 1.2; for (let i = -30; i < 30; i += 5) { k.beginPath(); k.moveTo(x + i * s, y); k.lineTo(x + i * s + 6 * s, y - 60 * s); k.stroke(); } k.restore();
-    l.save(); l.strokeStyle = '#000'; l.lineWidth = 1.6 * s; l.beginPath(); yol(l); l.stroke(); l.beginPath(); l.moveTo(x - 8 * s, y - 55 * s); l.lineTo(x + 8 * s, y - 55 * s); l.lineWidth = 3 * s; l.stroke(); l.restore();
-    if (o.cay) B.cayBoya(g => { g.ellipse(x, y - 61 * s, 7 * s, 3 * s, 0, 0, TAU); }, o.cay, o.ton ?? .55);
+    const k = B.k, l = B.l, w = 34 * s, h = 15 * s, cy = y - h;
+    const yol = g => { g.moveTo(x - w, cy - h * .7); g.quadraticCurveTo(x - w * .5, cy - h * 1.25, x, cy - h * 1.1); g.quadraticCurveTo(x + w * .5, cy - h * 1.25, x + w, cy - h * .7);
+      g.quadraticCurveTo(x + w * 1.12, cy, x + w, cy + h * .75); g.quadraticCurveTo(x, cy + h * 1.1, x - w, cy + h * .75); g.quadraticCurveTo(x - w * 1.12, cy, x - w, cy - h * .7); g.closePath(); };
+    const d = o.d ?? .55;
+    k.save(); k.beginPath(); yol(k); k.fillStyle = T(B, d); k.fill(); k.clip(); k.strokeStyle = T(B, Math.min(1, d + .18)); k.lineWidth = 1.1;
+    for (let i = -8; i <= 8; i++) { k.beginPath(); k.moveTo(x + i * 4.2 * s, cy - h * 1.3); k.lineTo(x + i * 4.2 * s + 3 * s, cy + h * 1.2); k.stroke(); }
+    const g2 = k.createLinearGradient(0, cy - h, 0, cy + h); g2.addColorStop(0, 'rgba(255,255,255,.35)'); g2.addColorStop(1, 'rgba(255,255,255,0)'); k.fillStyle = g2; k.fillRect(x - w * 1.2, cy - h * 1.3, w * 2.4, h * 1.4); k.restore();
+    l.save(); l.strokeStyle = '#000'; l.lineWidth = 1.5 * s; l.beginPath(); yol(l); l.stroke();
+    l.lineWidth = 1 * s; l.setLineDash([3 * s, 3 * s]); l.beginPath(); l.moveTo(x - w * .8, cy - h * .1); l.quadraticCurveTo(x, cy + h * .15, x + w * .8, cy - h * .1); l.stroke(); l.setLineDash([]);
+    l.lineWidth = 2.4 * s; l.beginPath(); l.moveTo(x + w * .95, cy - h * .75); l.lineTo(x + w * 1.12, cy - h * 1.05); l.moveTo(x - w * .95, cy - h * .75); l.lineTo(x - w * 1.12, cy - h * 1.05); l.stroke(); l.restore();   // kulaklar
+    if (o.cay) B.cayBoya(g => { g.ellipse(x + w * .95, cy, 4 * s, 7 * s, 0, 0, TAU); }, o.cay, o.ton ?? .55);
   }
-  // çuval yığını: piramit istif (kat kat), naylon örtü isteğe bağlı (ton plakasında yarı saydam kıvrımlar)
+  // çuval yığını: yatık çuvallar tuğla düzeninde (kat kat), naylon örtü isteğe bağlı (buruşuk, kubbe değil)
   function yigin(B, x, y, s, o = {}) {
-    const kat = o.kat || 5, gen = o.gen || 9;
-    for (let j = 0; j < kat; j++) for (let i = 0; i < gen - j; i++) cuval(B, x + (i - (gen - j - 1) / 2) * 50 * s, y - j * 44 * s, s, { d: .5 + ((i + j) % 3) * .07, cay: o.cay && j === kat - 1 && i === 1 ? o.cay : 0 });
-    if (o.naylon) { const k = B.k, w = gen * 52 * s, h = kat * 46 * s + 30 * s, t = o.t || 0;
-      k.save(); k.globalAlpha = .55; k.beginPath(); k.moveTo(x - w / 2 - 20 * s, y + 4); k.quadraticCurveTo(x - w / 2, y - h, x, y - h - 20 * s); k.quadraticCurveTo(x + w / 2, y - h, x + w / 2 + 20 * s, y + 4); k.closePath(); k.fillStyle = T(B, .25); k.fill();
-      k.strokeStyle = T(B, .05); k.lineWidth = 6 * s; for (let i = 0; i < 9; i++) { const u = i / 8; k.beginPath(); k.moveTo(x - w / 2 + u * w, y); k.quadraticCurveTo(x - w / 2 + u * w + Math.sin(t * 2 + i) * 14 * s, y - h * .6, x + (u - .5) * w * .3, y - h - 10 * s); k.stroke(); } k.restore(); }
+    const kat = o.kat || 5, gen = o.gen || 9, r = rng(o.tohum || 3);
+    for (let j = 0; j < kat; j++) { const n = gen - Math.floor(j / 2); for (let i = 0; i < n; i++) cuval(B, x + (i - (n - 1) / 2) * 66 * s + (j % 2) * 33 * s + (r() - .5) * 6 * s, y - j * 28 * s, s * (.95 + r() * .1), { d: .5 + r() * .25, cay: o.cay && j === kat - 1 && i === 1 ? o.cay : 0 }); }
+    if (o.naylon) { const k = B.k, w = gen * 66 * s, h = kat * 28 * s + 20 * s, t = o.t || 0;
+      k.save(); k.globalAlpha = .5; k.fillStyle = T(B, .18); k.beginPath(); k.moveTo(x - w / 2 - 20 * s, y - h * .25);
+      for (let u = 0; u <= 1; u += .04) k.lineTo(x - w / 2 + u * w, y - h - 14 * s * Math.sin(u * 17 + t * 2) - 10 * s * Math.sin(u * 5));
+      k.lineTo(x + w / 2 + 20 * s, y - h * .25); for (let u = 1; u >= 0; u -= .05) k.lineTo(x - w / 2 + u * w, y - h * .3 + 12 * s * Math.sin(u * 11 + t)); k.closePath(); k.fill(); k.restore(); }
   }
   // fabrika: çay fabrikası cephesi (uzun yapı, baca, pencere sıraları); ton + çizgi
   function fabrika(B, x, y, s, o = {}) {

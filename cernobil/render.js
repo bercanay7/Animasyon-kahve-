@@ -1,4 +1,4 @@
-// Render (Frankenstein): node /home/user/Animasyon-kahve-/frankenstein/render.js [çıktı.mp4]   (mutlak yolla başlat: depo kökünde ilgisiz bir render.js var)
+// Render (Çernobil'in çayı): node /home/user/Animasyon-kahve-/cernobil/render.js [çıktı.mp4]   (mutlak yolla başlat: depo kökünde ilgisiz bir render.js var)
 // Ortam:
 //   WORKERS=4  paralel Chromium işçisi        MB=4  hareket bulanıklığı alt karesi (180° obtüratör)
 //   CRF=18  PRESET=slow  CHUNK=24 (sn)       ONLY=3,7  yalnız bu parçaları yeniden üret (öbür parçalar eski anahtarla da olsa korunur; uyarı yazılır)
@@ -64,7 +64,7 @@ function renderKey() {
 }
 
 async function master() {
-  const out = path.resolve(process.argv[2] || path.join(ROOT, ANIM ? 'frankenstein_animatik.mp4' : 'frankenstein.mp4'));
+  const out = path.resolve(process.argv[2] || path.join(ROOT, ANIM ? 'cernobil_animatik.mp4' : 'cernobil.mp4'));
   const DUR = +fs.readFileSync(path.join(ROOT, 'timeline.js'), 'utf8').match(/window\.DUR\s*=\s*([\d.]+)/)[1];
   const [ra, rb] = process.env.ARALIK ? process.env.ARALIK.split('-').map(Number) : [0, DUR];
   const f0 = Math.round(ra * FPS), f1 = Math.min(Math.round(rb * FPS), Math.round(DUR * FPS)), CH = Math.round((+process.env.CHUNK || 24) * FPS);

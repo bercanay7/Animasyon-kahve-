@@ -151,7 +151,7 @@ const SET = (() => {
   function gomu(B, x, y, w, h, son, o = {}) {
     const k = B.k, r = rng(o.tohum || 55);
     k.save(); k.fillStyle = T(B, .62); k.fillRect(x - w / 2, y, w, h); k.fillStyle = T(B, .78); for (let i = 0; i < 400; i++) { k.beginPath(); k.arc(x - w / 2 + r() * w, y + r() * h, 1 + r() * 3, 0, TAU); k.fill(); } k.restore();
-    for (let i = 0; i < (o.n || 7); i++) D.cuval(B, x - w * .35 + i * w * .7 / Math.max(1, (o.n || 7) - 1), y + h * .75 + (i % 2) * 20, .9, { d: .7, cay: 1 - son, ton: .7 });
+    for (let i = 0; i < (o.n || 7); i++) D.cuval(B, x - w * .35 + i * w * .7 / Math.max(1, (o.n || 7) - 1), y + h * .75 + (i % 2) * 20, 1.6, { d: .7, cay: 1 - son, ton: .7 });
     const l = B.l; l.save(); ink(l, 3); l.beginPath(); l.moveTo(x - w / 2, y); l.lineTo(x + w / 2, y); l.stroke(); l.restore();
   }
   // çubuk grafik (gazete grafiği): değerler [etiket, oran 0..1], p büyüme
