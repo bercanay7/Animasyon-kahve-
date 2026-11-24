@@ -132,8 +132,8 @@
     DK.yagmur(R, st.t, { a: .14, n: 40, kutu: [1420, 100, 360, 480] });
     DK.masa(R, 960, 760, 1300, { h: 220 });
     const yaz = Math.sin(st.lt * 7);
-    FIG.kisi(R, 420, 980, 460, { tip: 'byron', f: 1, bacak: 'otur', govde: .3, bas: .3, kolO: [1.4 + yaz * .04, 1.0] });
-    FIG.kisi(R, 1500, 980, 470, { tip: 'percy', f: -1, bacak: 'otur', govde: .3, bas: .3, kolO: [1.4 - yaz * .04, 1.0] });
+    FIG.kisi(R, 420, 980, 460, { tip: 'byron', f: 1, bacak: 'otur', govde: .3, bas: .3, kolO: [.8 + yaz * .04, .8] });
+    FIG.kisi(R, 1500, 980, 470, { tip: 'percy', f: -1, bacak: 'otur', govde: .3, bas: .3, kolO: [.8 - yaz * .04, .8] });
     FIG.kisi(R, 960, 980, 430, { tip: 'mary', f: 1, bacak: 'otur', govde: .05, bas: .2, kolO: [1.2, 1.3], kolA: [1.1, 1.4] });
     R.isikli(g => { g.rect(560, 744, 140, 10); g.rect(1220, 744, 140, 10); g.rect(1040, 744, 150, 10); }, '#EFE6CC');
   }, { fener: { isik: { x: 960, y: 520, r: 760, sic: [.98, .95, .88] }, kadraj: KARE } });
@@ -201,7 +201,7 @@
   sahne('B16a', 'B16', 'masa', 'genis', (R, st) => {
     R.cam(900, 560, 1.0 + st.lt * .015);
     SET.masa(R, st, { gece: '#C4CCD6' });
-    FIG.kisi(R, 560, 960, 500, { tip: 'mary', f: 1, bacak: 'otur', govde: .25, bas: .3, kolO: [1.3 + Math.sin(st.lt * 6) * .04, 1.0], kolA: [1.0, 1.2] });
+    FIG.kisi(R, 560, 960, 500, { tip: 'mary', f: 1, bacak: 'otur', govde: .25, bas: .3, kolO: [.7 + Math.sin(st.lt * 6) * .04, .8], kolA: [.5, .9] });
     R.isikli(g => g.rect(720, 626, 170, 12), '#F1E6C9');
   }, { fener: { isik: { x: 900, y: 520, r: 760, sic: [1, .97, .9] }, kadraj: KARE } });
   sahne('B16b', 'B16@yazdığı', 'mektup', 'ayrinti', (R, st) => {

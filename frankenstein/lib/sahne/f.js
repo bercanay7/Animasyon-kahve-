@@ -82,7 +82,7 @@
     R.cam(640, 700, 1.6);
     R.gok(-600, -400, 2600, 1500, [[0, '#7A5A40'], [1, '#54402E']], { firca: 1.3 });
     DK.ates(R, 960, 880, 200, { t: st.t });
-    FIG.kisi(R, 560, 990, 450, { tip: 'victor', f: 1, bacak: 'otur', govde: .3 + E.io3(clamp(st.lt / 2)) * .2, bas: .4, kolO: [1.6, 1.6], kenar: 'rgba(255,200,130,.9)' });
+    FIG.kisi(R, 560, 990, 450, { tip: 'victor', f: 1, bacak: 'otur', govde: .3 + E.io3(clamp(st.lt / 2)) * .2, bas: .4, kolO: [.25, .9], kolA: [.15, 1.0], kenar: 'rgba(255,200,130,.9)' });
   }, { fener: { isik: { x: 900, y: 520, r: 460, sic: [1, .86, .6] }, kadraj: { tip: 'daire', x: 900, y: 520, r: 430, yum: 40 } } });
   // F07: "bana bir eş yap": yaratık yanındaki boşluğu gösterir (orta)
   sahne('F07a', 'F07', 'buzul', 'orta', (R, st) => {

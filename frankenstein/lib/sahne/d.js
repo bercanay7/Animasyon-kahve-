@@ -100,7 +100,7 @@
   sahne('D07a', 'D07', 'yarik', 'ayrinti', (R, st) => {
     R.cam(830 + st.lt * 8, 760, 2.0 + st.lt * .03);
     KULUBE_IC(R, st);
-    FIG.kisi(R, 700, 980, 420, { tip: 'ihtiyar', f: 1, bacak: 'otur', kolO: [1.3, .8] });
+    FIG.kisi(R, 700, 980, 420, { tip: 'ihtiyar', f: 1, bacak: 'otur', kolO: [.9, .7] });
     FIG.kisi(R, 960, 980, 400, { tip: 'kiz', f: -1, bacak: 'otur', kolO: [1.2, .9] });
     const al = E.io3(clamp((st.lt - rel(st, 'D07@çalıyordum') + .4) / .9)) * (1 - E.io3(clamp((st.lt - rel(st, 'D07@bıraktım') + .2) / .9)));
     R.isikli(g => g.ellipse(830 + al * 260, 762 - al * 30, 30, 8, 0, 0, TAU), '#E8D6A8');   // tek parça ekmek

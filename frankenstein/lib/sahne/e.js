@@ -108,7 +108,7 @@
     const k = E.io3(clamp((st.lt - tK) / 1.2));
     if (st.lt >= tA) {
       const x = lerp(1000, 420, k), y = lerp(760, 880, k);
-      FIG.kisi(R, x, y, 560, { tip: 'yaratik', f: -1, bacak: st.lt > tU ? 'diz' : 'dur', govde: st.lt > tU ? .6 : .15, kolO: [1.2, 1.0], goz: 1 });
+      FIG.kisi(R, x, y, 560, { tip: 'yaratik', f: -1, bacak: st.lt > tU ? 'diz' : 'dur', govde: st.lt > tU ? .6 : .15, kolO: st.lt > tU ? [.5, .5] : [1.0, 1.0], goz: 1 });
       if (st.lt > tU) FIG.yatan(R, x - 300, 880, 300, { f: 1, kadin: 1 });
     }
   }, { fener: { isik: { x: 760, y: 560, r: 760, sic: [1, .97, .9] }, kadraj: KARE } });

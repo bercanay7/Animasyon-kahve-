@@ -6,7 +6,7 @@
   sahne('H01a', 'H01-.8', 'masa', 'orta', (R, st) => {
     R.cam(900 + st.lt * 10, 560, 1.0 + st.lt * .02);
     SET.masa(R, st, { gece: '#B8C0CC' });
-    FIG.kisi(R, 560, 960, 500, { tip: 'mary', f: 1, bacak: 'otur', govde: .25, bas: .3, kolO: [1.3 + Math.sin(st.lt * 6) * .04, 1.0], kolA: [1.0, 1.2] });
+    FIG.kisi(R, 560, 960, 500, { tip: 'mary', f: 1, bacak: 'otur', govde: .25, bas: .3, kolO: [.7 + Math.sin(st.lt * 6) * .04, .8], kolA: [.5, .9] });
     R.isikli(g => g.rect(720, 626, 170, 12), '#F1E6C9');
     DK.mum(R, 1080, 640, 150, { t: st.t });
   }, { fener: { isik: { x: 820, y: 560, r: 640, sic: [1, .92, .8] }, kadraj: { tip: 'oval', x: 900, y: 540, w: 1500, h: 960, yum: 40 } }, tr: { type: 'iris', dur: 1.2 },

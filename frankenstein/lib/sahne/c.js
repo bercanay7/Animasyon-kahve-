@@ -21,7 +21,7 @@
   sahne('C01a', 'C01+2.2', 'lab', 'orta', (R, st) => {
     R.cam(900 + st.lt * 10, 560, 1.0);
     LAB(R, st);
-    FIG.kisi(R, 420, 980, 480, { tip: 'victor', f: 1, govde: .32, bas: .25, kolO: [1.3 + Math.sin(st.lt * 4) * .05, .7], kolA: [1.0, .9] });
+    FIG.kisi(R, 420, 980, 480, { tip: 'victor', f: 1, govde: .32, bas: .25, kolO: [.75 + Math.sin(st.lt * 4) * .05, .6], kolA: [.5, .8] });
     DK.mum(R, 1240, 700, 140, { t: st.t });
   }, { fener: { isik: { x: 760, y: 520, r: 600, sic: [1, .86, .64] }, kadraj: KARE },
     over: (ctx, st) => { etiket(ctx, 'VICTOR FRANKENSTEIN', 560, 200, st.lt - .2, st.d - .3); } });

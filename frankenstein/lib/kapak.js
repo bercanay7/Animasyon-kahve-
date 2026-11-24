@@ -33,7 +33,7 @@ const KAPAK = {
     R.kara(g => { g.rect(40, 60, 560, 20); g.rect(40, 840, 560, 24); g.rect(40, 60, 20, 800); g.rect(580, 60, 20, 800); g.rect(312, 60, 14, 800); });
     R.kara(g => g.rect(600, 760, 900, 30));
     R.isikli(g => { g.moveTo(860, 758); g.lineTo(1160, 752); g.lineTo(1180, 762); g.lineTo(870, 766); g.closePath(); }, '#F4EAD0');
-    FIG.kisi(R, 720, 1130, 1050, { tip: 'mary', f: 1, bacak: 'otur', govde: .25, bas: .32, kolO: [1.3, 1.0], kolA: [1.0, 1.2], kenar: 'rgba(255,210,140,.95)' });
+    FIG.kisi(R, 720, 1130, 1050, { tip: 'mary', f: 1, bacak: 'otur', govde: .25, bas: .32, kolO: [.7, .8], kolA: [.5, .9], kenar: 'rgba(255,210,140,.95)' });
     DK.mum(R, 1330, 760, 260, { t: .4 });
     R.compose(ctx, .4);
     if (o.yazi !== false) yazi(ctx, o.satir || ['18 YAŞINDA', 'YAZDI'], 1880, 300, 300, { align: 'right', renkler: ['#F6EAD2', '#F2B53A'] });
