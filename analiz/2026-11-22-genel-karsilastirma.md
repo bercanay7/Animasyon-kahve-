@@ -18,7 +18,7 @@ Yaş farkı var: eski videolar için ilk 7 gün ya da ömür boyu, yeni videolar
 | Milton | 12 Kas | 25:46 | edebiyat | yok | %1,4–1,6 | ≈76 | 68 (40 sa) | %26 |
 | İkaros | 14 Kas | 5:55 | mit | küçük (→ 9,5 B) | %0,8 | ≈66 | ~48 | %37 |
 | Kafka | 16 Kas | 6:39 | edebiyat | yok (2,8 B) | %1,9 | ≈74 | 64 | %45 |
-| Ran | 17 Kas | 8:03 | film | yok (2,2 B; 67. sa 2,9 B) | **%3,0** | ≈80 | 66 | %39 |
+| Ran | 17 Kas | 8:03 | film | yok (2,2 B; 7. gün 3,9 B) | **%3,0** (7. gün %2,8) | ≈80 | 66 (7. gün 63) | %39 (7. gün %38) |
 | Mary Stuart | 20 Kas | 20:49 | kitap + tarih | yok (2,2 B) | %2,3 | **≈88** | **70** | %36 |
 | **Medyan** | | | | | %1,8 | ≈77 | 61 | %40 |
 
