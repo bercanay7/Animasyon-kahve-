@@ -23,9 +23,10 @@
   }, { fener: { isik: { x: 900, y: 540, r: 820, sic: [1, .92, .8] }, kadraj: KARE } });
   // F02: çocuk gözlerini kapatır, çığlık; "Frankenstein" adı slayta düşer (yakın)
   sahne('F02a', 'F02', 'cayir', 'yakin', (R, st) => {
-    R.cam(900, 680, 1.35);
+    R.cam(900 + st.lt * 14, 680, 1.3 + st.lt * .03);
     CAYIR(R, st);
-    FIG.kisi(R, 1080, 930, 520, { tip: 'cocuk', f: -1, govde: -.08, bas: -.1, kolO: [2.6, 1.6], kolA: [2.5, 1.7] });
+    const kp = E.io3(clamp((st.lt - rel(st, 'F02@kapattı') + .3) / .5)), ka = E.io3(clamp((st.lt - rel(st, 'F02@babama')) / .6));
+    FIG.kisi(R, 1080 + ka * 60, 930, 520, { tip: 'cocuk', f: -1, govde: -.08 - ka * .1, bas: -.1, kolO: [lerp(.2, 2.6, kp), lerp(.3, 1.6, kp)], kolA: [lerp(.1, 2.5, kp), lerp(.3, 1.7, kp)] });
     FIG.kisi(R, 520, 930, 520, { tip: 'yaratik', f: 1, govde: .05, goz: 1 });
     SET.camYazi(R, 'FRANKENSTEIN', 960, 170, { px: 110, ls: 14, p: clamp((st.lt - rel(st, 'F02@frankenştayn')) / .7), renk: '#F2B89A' });
   }, { fener: { isik: { x: 1000, y: 520, r: 520, sic: [1, .9, .78] }, kadraj: { tip: 'oval', x: 980, y: 500, w: 1400, h: 900, yum: 40 } } });
@@ -57,7 +58,8 @@
   // F05: madalyondaki kadın (renkli minyatür); yaratığın eli tutar
   sahne('F05a', 'F05', 'madalyon', 'ayrinti', (R, st) => {
     const tO = rel(st, 'F05@sonra');
-    R.cam(960, 540, 1.0 + st.lt * .02);
+    R.cam(960, 540 - st.lt * 6, 1.0 + st.lt * .04);
+    R.g.save(); R.g.translate(940, 300); R.g.rotate(Math.sin(st.lt * 1.4) * .06 * Math.exp(-st.lt * .1)); R.g.translate(-940, -300);
     R.gok(-600, -400, 2600, 1500, [[0, '#3A2E3E'], [1, '#2A2230']], { firca: 1.3 });
     // el
     R.g.save(); R.g.translate(1000, 720); R.g.scale(30, 30); R.g.fillStyle = R.KARA; FIG.uzuv(R.g, [12, 9], [1, 1], 5, 4); R.g.beginPath(); R.g.ellipse(0, 0, 3.6, 2.6, .3, 0, TAU); R.g.fill(); R.g.restore();
@@ -69,6 +71,7 @@
     R.yika(g => g.ellipse(945, 470, 44, 56, 0, 0, TAU), '#F0D2B4', { kay: 0, firca: .3 });                               // yüz (sağa dönük)
     R.yika(g => { g.moveTo(900, 470); g.quadraticCurveTo(900, 400, 950, 404); g.quadraticCurveTo(995, 410, 990, 440); g.quadraticCurveTo(960, 430, 930, 450); g.quadraticCurveTo(915, 480, 912, 500); g.closePath(); g.ellipse(902, 430, 24, 22, 0, 0, TAU); }, '#3A2418', { kay: 0, firca: .3 });   // toplu saç
     R.nokta(965, 466, 4, '#2A1A10'); R.cizgi([[958, 500], [972, 500]], 3, { renk: '#9A4A4A' });                                    // göz, dudak
+    R.g.restore();
     R.g.restore();
     const kar = E.io3(clamp((st.lt - tO) / 1.5));
     if (kar > 0) R.yika(g => g.ellipse(940, 500, 150, 190, 0, 0, TAU), `rgba(40,20,20,${kar * .6})`, { kay: 0, firca: 0 });
@@ -82,11 +85,11 @@
   }, { fener: { isik: { x: 900, y: 520, r: 460, sic: [1, .86, .6] }, kadraj: { tip: 'daire', x: 900, y: 520, r: 430, yum: 40 } } });
   // F07: "bana bir eş yap": yaratık yanındaki boşluğu gösterir (orta)
   sahne('F07a', 'F07', 'buzul', 'orta', (R, st) => {
-    R.cam(1000, 600, 1.3);
+    R.cam(1000 - st.lt * 12, 600, 1.25 + st.lt * .03);
     BUZUL(R, st);
     FIG.kisi(R, 640, 1000, 520, { tip: 'victor', f: 1, kolO: [.2, .5] });
     const k = E.io3(clamp((st.lt - rel(st, 'F07@eş')) / 1));
-    FIG.kisi(R, 1160, 1000, 600, { tip: 'yaratik', f: -1, kolA: [lerp(.1, .9, k), lerp(.3, .6, k)], kolO: [.6, 1.3], goz: 1 });
+    FIG.kisi(R, 1160 - E.io3(clamp((st.lt - rel(st, 'F07@kötüyüm')) / 2)) * 160, 1000, 600, { tip: 'yaratik', f: -1, kolA: [lerp(.1, .9, k), lerp(.3, .6, k)], kolO: [.6, 1.3], goz: 1 });
     if (k > 0) R.yika(g => g.ellipse(1400, 760, 90 * k, 230 * k, 0, 0, TAU), `rgba(255,250,240,${.5 * k})`, { kay: 0, firca: 0 });
   }, { fener: { isik: { x: 1100, y: 520, r: 640, sic: [.96, .96, 1] }, kadraj: KARE } });
   // F08–F09: Orkney: ıssız kulübe, lamba; masada örtülü yarım beden; pencerede yüz; Victor örtüyü yere atar
@@ -118,9 +121,9 @@
   }, { fener: { isik: { x: 1000, y: 480, r: 640, sic: [1, .88, .66] }, kadraj: KARE } });
   // F10: pencerede tehdit (yakın): "düğün gecende"
   sahne('F10a', 'F10', 'ada', 'yakin', (R, st) => {
-    R.cam(1500, 380, 2.0);
+    R.cam(1500, 380, 1.8 + st.lt * .06);
     ADA_IC(R, st);
-    R.g.save(); R.g.beginPath(); R.g.rect(1350, 160, 300, 400); R.g.clip(); FIG.kisi(R, 1470, 870, 560, { tip: 'yaratik', f: -1, goz: 1, bas: -.05, kenar: 'rgba(220,230,255,.8)' }); R.g.restore();
+    R.g.save(); R.g.beginPath(); R.g.rect(1350, 160, 300, 400); R.g.clip(); FIG.kisi(R, 1470, 870, 560, { tip: 'yaratik', f: -1, goz: 1, bas: -.05 + .2 * E.io3(clamp((st.lt - rel(st, 'F10@düğün')) / .8)), kenar: 'rgba(220,230,255,.8)' }); R.g.restore();
   }, { fener: { isik: { x: 960, y: 480, r: 440, sic: [.92, .94, 1] }, kadraj: { tip: 'daire', x: 960, y: 520, r: 430, yum: 40 }, parlak: .9 } });
   // F11: sözünü tuttu: üç mum birer birer söner (ölümler gösterilmez)
   sahne('F11a', 'F11', 'mumlar', 'ayrinti', (R, st) => {

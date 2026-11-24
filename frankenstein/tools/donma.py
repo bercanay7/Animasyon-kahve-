@@ -12,7 +12,7 @@ bas = next((float(a.split('=')[1]) for a in sys.argv if a.startswith('--bas=')),
 # plan sınırları (planlar.json + timeline.js; film.js A() ile aynı çözüm)
 tl = open(os.path.join(ROOT, 'timeline.js'), encoding='utf-8').read()
 CUES = json.loads(re.search(r'window\.CUES = (\{.*?\});', tl, re.S).group(1)); WORDS = json.loads(re.search(r'window\.WORDS = (\[.*?\]);', tl, re.S).group(1))
-P = json.load(open(os.path.join(ROOT, 'planlar.json'), encoding='utf-8'))
+
 norm = lambda w: re.sub(r'[^\wçğıöşü]', '', w.lower().replace('â', 'a').replace('î', 'i').replace('û', 'u'))
 def A(at):
     m = re.match(r'^([A-Z]\d+[a-z]?)(?:@([^#+-]+)(?:#(\d+))?)?([+-][\d.]+)?$', at); sid, w, n, off = m.group(1), m.group(2), int(m.group(3) or 0), float(m.group(4) or 0)
@@ -21,7 +21,7 @@ def A(at):
         h = [x for x in WORDS if x['id'] == sid and x['w'].startswith(norm(w))]
         if len(h) > n: t = h[n]['s']
     return t + off
-rows = sorted((A(p['at']), pid) for pid, p in P.items())
+rows = sorted((x['at'], x['id']) for x in json.load(open(os.path.join(ROOT, 'vo', 'shots.json'))))
 def plan_of(t):
     q = rows[0][1]
     for s, pid in rows:

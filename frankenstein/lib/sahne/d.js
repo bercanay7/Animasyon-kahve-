@@ -98,11 +98,13 @@
   }, { fener: { isik: { x: 900, y: 520, r: 520, sic: [1, .88, .66] }, kadraj: YARIK } });
   // D07: yoksul sofra; yaratık yiyecekten el çeker (yarıktan; sonra odunlukta kökler)
   sahne('D07a', 'D07', 'yarik', 'ayrinti', (R, st) => {
-    R.cam(830, 760, 2.1);
+    R.cam(830 + st.lt * 8, 760, 2.0 + st.lt * .03);
     KULUBE_IC(R, st);
     FIG.kisi(R, 700, 980, 420, { tip: 'ihtiyar', f: 1, bacak: 'otur', kolO: [1.3, .8] });
     FIG.kisi(R, 960, 980, 400, { tip: 'kiz', f: -1, bacak: 'otur', kolO: [1.2, .9] });
-    R.isikli(g => g.ellipse(830, 692, 30, 8, 0, 0, TAU), '#E8D6A8');   // tek parça ekmek
+    const al = E.io3(clamp((st.lt - rel(st, 'D07@çalıyordum') + .4) / .9)) * (1 - E.io3(clamp((st.lt - rel(st, 'D07@bıraktım') + .2) / .9)));
+    R.isikli(g => g.ellipse(830 + al * 260, 762 - al * 30, 30, 8, 0, 0, TAU), '#E8D6A8');   // tek parça ekmek
+    if (al > .01) FIG.elYakin(R, 1240 - (1 - al) * 300 + al * 40, 752 - al * 30, 4.2, -1, true, al);
   }, { fener: { isik: { x: 860, y: 520, r: 460, sic: [1, .88, .66] }, kadraj: YARIK } });
   // D08: gece odun keser, kapıya yığar (ay)
   sahne('D08a', 'D08', 'odunluk', 'orta', (R, st) => {
@@ -117,31 +119,34 @@
   }, { fener: { isik: { x: 1000, y: 560, r: 620, sic: [.95, .95, 1] }, kadraj: KARE } });
   // D09: sabah kız kapıyı açar, odun yığını; "görünmeyen bir el": yarıkta yaratığın gözü
   sahne('D09a', 'D09', 'kapi', 'genis', (R, st) => {
-    R.cam(960, 560, 1.0);
+    R.cam(960 + st.lt * 10, 560, 1.0 + st.lt * .02);
     R.gok(-600, -400, 2600, 900, [[0, '#A9C2A0'], [1, '#DCE6C6']], { firca: 1.2 });
     R.yika(g => g.rect(-600, 880, 3200, 600), '#7E9A6A', { firca: 1 });
     R.kara(g => { g.rect(700, 440, 900, 460); g.moveTo(660, 440); g.lineTo(1150, 200); g.lineTo(1640, 440); g.closePath(); g.rect(340, 640, 360, 260); g.moveTo(320, 640); g.lineTo(700, 560); g.lineTo(700, 640); g.closePath(); });
     const ac = E.io3(clamp(st.lt / .8));
     R.isikli(g => g.rect(1000, 520, 150 * ac, 380), '#F0D8A0');
     for (let i = 0; i < 6; i++) R.kara(g => g.ellipse(860 - (i % 3) * 40, 890 - Math.floor(i / 3) * 26, 64, 14, 0, 0, TAU));
-    FIG.kisi(R, 1070, 900, 330, { tip: 'kiz', f: -1, kolO: [lerp(.2, 1.6, clamp((st.lt - .6) / .5)), 1.2], kolA: [.3, 1.4] });
+    const bak = Math.sin(clamp((st.lt - 2.5) / 3) * PI * 2);
+    FIG.kisi(R, 1070, 900, 330, { tip: 'kiz', f: bak > .3 ? 1 : -1, kolO: [lerp(.2, 1.6, clamp((st.lt - .6) / .5)), 1.2], kolA: [.3, 1.4] });
+    if (st.lt > rel(st, 'D09@kendi') - .5) FIG.kisi(R, lerp(1110, 1260, E.io3(clamp((st.lt - rel(st, 'D09@kendi') + .5) / 1))), 900, 360, { tip: 'genc', f: -1, kolO: [1.3, .9] });
     R.yika(g => g.rect(688, 700, 10, 90), 'rgba(40,30,20,1)', { kay: 0 }); R.nokta(693, 742, 4, '#C98A2E');   // odunluk duvarındaki yarıkta göz
   }, { fener: { isik: { x: 960, y: 560, r: 820, sic: [1, .97, .9] }, kadraj: KARE },
     over: (ctx, st) => { etiket(ctx, '“İYİ RUH”', 960, 170, st.lt - rel(st, 'D09@iyi'), st.d - rel(st, 'D09@iyi'), { px: 56 }); } });
   // D10: aile sözcükleri (yarıktan, ilkbahar); sonra odunlukta yalnız yaratık
   sahne('D10a', 'D10', 'yarik', 'orta', (R, st) => {
-    R.cam(880, 740, 1.5);
+    R.cam(880 + st.lt * 6, 740, 1.45 + st.lt * .03);
     KULUBE_IC(R, st, { duvar1: '#B49A62', duvar2: '#8E7A4C' });
     FIG.kisi(R, 680, 980, 420, { tip: 'ihtiyar', f: 1, bacak: 'otur', kolO: [1.0, 1.0] });
-    FIG.kisi(R, 900, 980, 400, { tip: 'kiz', f: -1 });
-    FIG.kisi(R, 1060, 980, 440, { tip: 'genc', f: -1 });
+    FIG.kisi(R, lerp(980, 820, E.io3(clamp((st.lt - rel(st, 'D10@anne')) / 1.2))), 980, 400, { tip: 'kiz', f: -1, kolO: [lerp(0, 1.0, E.io3(clamp((st.lt - rel(st, 'D10@anne')) / 1.2))), .8] });
+    FIG.kisi(R, 1060, 980, 440, { tip: 'genc', f: -1, bacak: st.lt > rel(st, 'D10@kardeş') ? 'otur' : 'dur' });
     for (const [s, k, y] of [['BABA', 'baba', 160], ['ANNE', 'anne', 250], ['KARDEŞ', 'kardeş', 340]]) SET.camYazi(R, s, 960, y, { px: 64, ls: 10, p: clamp((st.lt - rel(st, 'D10@' + k)) / .4) });
   }, { fener: { isik: { x: 880, y: 520, r: 520, sic: [1, .9, .7] }, kadraj: YARIK } });
   sahne('D10b', 'D10@benim', 'odunluk', 'yakin', (R, st) => {
-    R.cam(980, 560, 1.5);
+    R.cam(980 - st.lt * 8, 560, 1.4 + st.lt * .035);
     R.gok(-600, -400, 2600, 1500, [[0, '#4A4A58'], [1, '#34343E']], { firca: 1.4 });
     R.isikli(g => g.rect(1240, 300, 14, 600), 'rgba(250,200,120,.8)');
-    FIG.kisi(R, 900, 1000, 640, { tip: 'yaratik', f: 1, bacak: 'cok', govde: .55, bas: .6, kolO: [.7, 1.1], kolA: [.6, 1.2], goz: 1 });
+    const kb = E.io3(clamp((st.lt - rel(st, 'D10@neredeydi')) / .8)) * (1 - E.io3(clamp((st.lt - rel(st, 'D10@olmadı')) / 1.4)));
+    FIG.kisi(R, 900, 1000, 640, { tip: 'yaratik', f: 1, bacak: 'cok', govde: .55 - kb * .35, bas: .6 - kb * .8, kolO: [.7, 1.1], kolA: [.6, 1.2], goz: 1 });
   }, { fener: { isik: { x: 960, y: 560, r: 440 }, kadraj: { tip: 'daire', x: 960, y: 560, r: 420, yum: 40 }, parlak: .85 } });
   // D11: su yansıması; geri sıçrar (yakın)
   sahne('D11a', 'D11', 'su', 'orta', (R, st) => {
@@ -169,8 +174,8 @@
   }, { fener: { isik: { x: 900, y: 640, r: 560, sic: [1, .86, .62] }, kadraj: { tip: 'oval', x: 960, y: 600, w: 1400, h: 860, yum: 40 }, parlak: .95 } });
   // D13: umut: yarıktan yalnız ihtiyar, ışık onda
   sahne('D13a', 'D13', 'yarik', 'orta', (R, st) => {
-    R.cam(680, 780, 1.9 + st.lt * .01);
+    R.cam(680 + st.lt * 6, 780, 1.75 + st.lt * .04);
     KULUBE_IC(R, st, { duvar1: '#B49A62', duvar2: '#8E7A4C' });
-    FIG.kisi(R, 700, 980, 440, { tip: 'ihtiyar', f: 1, bacak: 'otur', bas: -.1, kolO: [.9, 1.0] });
+    FIG.kisi(R, 700, 980, 440, { tip: 'ihtiyar', f: 1, bacak: 'otur', bas: -.1 + Math.sin(st.lt * 1.2) * .06, kolO: [.9 + Math.sin(st.lt * 5) * .08, 1.0], kolA: [.7, 1.2] });
   }, { fener: { isik: { x: 760, y: 520, r: 460, sic: [1, .9, .7] }, kadraj: YARIK } });
 })();

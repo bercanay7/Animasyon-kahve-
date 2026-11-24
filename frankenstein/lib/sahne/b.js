@@ -149,18 +149,18 @@
   }, { fener: { isik: { x: 880, y: 520, r: 520, sic: [1, .84, .6] }, kadraj: KARE } });
   // B12: yatakta, uykusuz; kepenk aralığından ay
   sahne('B12a', 'B12', 'yatak', 'yakin', (R, st) => {
-    R.cam(980, 600, 1.4 + st.lt * .01);
+    R.cam(980 - st.lt * 14, 600, 1.3 + st.lt * .04);
     R.gok(-400, -300, 2400, 1400, [[0, '#7182AE'], [1, '#56628A']], { firca: 1.2 });
     R.yika(g => { g.moveTo(1500, 0); g.lineTo(1560, 0); g.lineTo(1100, 1100); g.lineTo(980, 1100); g.closePath(); }, 'rgba(230,236,250,.7)', { kay: 0, firca: 0 });
     R.yika(g => g.rect(500, 660, 1000, 300), '#C9C0B0', { firca: .7 });
     R.yika(g => g.ellipse(700, 640, 150, 46, 0, 0, TAU), '#E8E2D4', { kay: 0 });   // yastık
-    R.g.save(); R.g.translate(1300, 640); R.g.rotate(-PI / 2); FIG.kisi(R, 0, 0, 640, { tip: 'mary', f: -1, bas: -.1 }); R.g.restore();   // sırtüstü, yüz yukarı
+    R.g.save(); R.g.translate(1300, 640); R.g.rotate(-PI / 2); FIG.kisi(R, 0, 0, 640, { tip: 'mary', f: -1, bas: -.1 + .35 * E.io3(clamp((st.lt - rel(st, 'B12@uyuyamıyor')) / 1)) - .3 * E.io3(clamp((st.lt - rel(st, 'B12@gözleri')) / 1)) }); R.g.restore();   // sırtüstü, yüz yukarı
     R.yika(g => { g.moveTo(860, 610); g.quadraticCurveTo(1150, 570, 1500, 620); g.lineTo(1500, 760); g.lineTo(860, 760); g.closePath(); }, '#D9D0BE', { firca: .8 });   // yorgan
   }, { fener: { isik: { x: 760, y: 600, r: 460, sic: [.9, .92, 1] }, kadraj: { tip: 'daire', x: 820, y: 600, r: 440, yum: 30 } } });
   // B13: uyanık düş: Mary'nin üstünde ikinci, küçük bir fener dairesi açılır: öğrenci, örtülü beden kıpırdar, öğrenci kaçar
   sahne('B13a', 'B13', 'dus', 'orta', (R, st) => {
     const tK = rel(st, 'B13@kıpırdıyor'), tKc = rel(st, 'B13@kaçıyor');
-    R.cam(960, 540, 1.0 + st.lt * .01);
+    R.cam(960 + st.lt * 12, 540, 1.0 + st.lt * .035);
     R.gok(-400, -300, 2400, 1400, [[0, '#7A7290'], [1, '#5A546E']], { firca: 1.4 });
     // masa ve örtülü beden
     R.kara(g => { g.rect(620, 700, 760, 30); g.rect(650, 720, 24, 260); g.rect(1330, 720, 24, 260); });
@@ -168,14 +168,14 @@
     R.yika(g => { g.moveTo(640, 700); g.quadraticCurveTo(760, 640 + kp, 900, 662); g.quadraticCurveTo(1100, 650 - kp, 1360, 676); g.lineTo(1370, 704); g.lineTo(630, 704); g.closePath(); }, '#D4CCB8', { firca: .8 });
     // öğrenci: önce diz çökmüş, sonra kaçar
     const ka = st.lt > tKc ? E.in3(clamp((st.lt - tKc) / 1.4)) : 0;
-    if (ka < 1) FIG.kisi(R, 560 - ka * 700, 980, 440, { tip: 'victor', f: ka > 0 ? -1 : 1, bacak: ka > 0 ? 'dur' : 'diz', govde: ka > 0 ? .2 : .25, kolO: [ka > 0 ? .8 : 1.2, .8] });
+    if (ka < 1) FIG.kisi(R, 560 - ka * 700, 980, 440, { tip: 'victor', f: ka > 0 ? -1 : 1, bacak: ka > 0 ? 'dur' : 'diz', govde: ka > 0 ? .2 : .25, kolO: [ka > 0 ? .8 : 1.2 + Math.sin(st.lt * 3) * .15, .8 + Math.sin(st.lt * 2.3) * .2] });
   }, { fener: { isik: { x: 960, y: 520, r: 520, sic: [.95, .92, .86] }, kadraj: { tip: 'daire', x: 960, y: 560, r: 470, yum: 50 }, parlak: 1.05 } });
   // B14: yatağın başı, düşte: sarı, ıslak, düşünen gözler (A01'in yankısı; yaratığın yüzü yakın, gözler öne)
   sahne('B14a', 'B14', 'dus', 'yakin', (R, st) => {
-    R.cam(1100, 380, 2.2 + st.lt * .03);
+    R.cam(1100 - st.lt * 10, 380, 1.9 + st.lt * .07);
     ODA_GECE(R, st, { ay: false });
     DK.perde(R, 1290, 1520, 60, 700, '#B0433A', { t: st.lt * .3, kivrim: 6 });
-    FIG.kisi(R, 1060, 1000, 700, { tip: 'yaratik', f: 1, govde: .2, bas: .25, kolA: [1.55, .1], kolO: [.9, .6], goz: clamp((st.lt - .4) / .5), kenar: 'rgba(240,210,160,.7)' });
+    FIG.kisi(R, 1060, 1000, 700, { tip: 'yaratik', f: 1, govde: .2 + .12 * E.io3(clamp((st.lt - rel(st, 'B14@bakıyor')) / 1.2)), bas: .25, kolA: [1.55, .1], kolO: [.9, .6], goz: clamp((st.lt - .4) / .5), kenar: 'rgba(240,210,160,.7)' });
   }, { fener: { isik: { x: 1000, y: 420, r: 420, sic: [.95, .92, .86] }, kadraj: { tip: 'daire', x: 960, y: 500, r: 430, yum: 50 }, parlak: .9 } });
   // B15: Mary korkuyla gözlerini açar ve doğrulur
   sahne('B15a', 'B15', 'yatak', 'orta', (R, st) => {

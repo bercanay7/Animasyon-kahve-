@@ -57,11 +57,11 @@
       quote(ctx, 'Bir anneydim, artık değilim.', 960, 790, st.lt - rel(st, 'H05@bir'), { px: 68, panel: .7 }); } });
   // H06: düş: ocak ateşi, küçük örtülü bohça ve dört el; "uyandım"da ateş söner, beşik boş
   sahne('H06a', 'H06', 'dus', 'yakin', (R, st) => {
-    R.cam(960, 600, 1.1 + st.lt * .015);
+    R.cam(960 - st.lt * 10, 600, 1.05 + st.lt * .04);
     R.gok(-600, -400, 2600, 1500, [[0, '#8E5A36'], [1, '#5C3A24']], { firca: 1.3 });
     DK.ates(R, 1380, 900, 260, { t: st.t });
     R.yika(g => g.ellipse(900, 720, 120, 70, 0, 0, TAU), '#E6D8BA', { kay: 0 });
-    const ov = Math.sin(st.lt * 4) * 8;
+    const ov = Math.sin(st.lt * 4) * 22;
     FIG.elYakin(R, 760 + ov, 700, 15, 1, false, .3); FIG.elYakin(R, 1050 - ov, 710, 15, -1, false, .3);
   }, { fener: { isik: { x: 1000, y: 640, r: 560, sic: [1, .84, .6] }, kadraj: { tip: 'daire', x: 980, y: 600, r: 450, yum: 60 } },
     over: (ctx, st) => { kunye(ctx, 'Günlük, 19 Mart 1815', st.lt - .5, st.d); } });
@@ -75,9 +75,10 @@
   sahne('H07a', 'H07', 'iki', 'genis', (R, st) => {
     R.cam(960, 540, 1.0);
     R.kara(g => g.rect(-2000, -2000, 6000, 6000), { renk: '#140C07' });
-    for (const [x, ust, alt] of [[560, '1831', 'ÖNSÖZ'], [1360, '1815', 'GÜNLÜK']]) {
+    const ay = E.io3(clamp(st.lt / 5)) * 60;
+    for (const [x0, ust, alt] of [[560, '1831', 'ÖNSÖZ'], [1360, '1815', 'GÜNLÜK']]) { const x = x0 + (x0 < 960 ? -ay : ay);
       R.ekran(g => { const gr = g.createRadialGradient(x, 500, 0, x, 500, 330); gr.addColorStop(0, '#EFE2C2'); gr.addColorStop(.8, '#D8C49C'); gr.addColorStop(1, 'rgba(20,12,7,1)'); g.fillStyle = gr; g.beginPath(); g.arc(x, 500, 330, 0, TAU); g.fill(); });
-      satir(R, ust, x === 560 ? 460 : 460, 80, { x, ls: 6 }); satir(R, alt, 560, 46, { x, ls: 8 });
+      satir(R, ust, 460, 80, { x, ls: 6, p: clamp((st.lt - (x0 < 960 ? .3 : 1.3)) / .8) }); satir(R, alt, 560, 46, { x, ls: 8, p: clamp((st.lt - (x0 < 960 ? .8 : 1.8)) / .8) });
     }
   }, { fener: { isik: { x: 960, y: 500, r: 900 }, kadraj: KARE } });
   // H08: Mary kitabı göğsünden ışığa uzatır: "git ve yolun açık olsun"
@@ -99,8 +100,9 @@
     const g = HAREKET.yuruyus({ tip: 'kos', uyluk: 23, baldir: 23, tur: .6 });
     const y = HAREKET.yuruyusYolu(g, { t0: 0, t1: 8, x0: 640, yon: -1, olcek: 3.4, go: () => 1 })(st.lt);
     FIG.kisi(R, y.x, 960, 360, { tip: 'victor', f: -1, bacak: y.poz, govde: .25, kolO: [.8 + Math.sin(TAU * y.faz) * .6, .9], kolA: [-.6 - Math.sin(TAU * y.faz) * .6, .9] });
-    const k = E.io3(clamp((st.lt - rel(st, 'H09@meri')) / 1));
-    FIG.kisi(R, 1340, 960, 460, { tip: 'mary', f: -1, kolO: [1.25, .5], kolA: [1.2, .6],
+    const k = E.io3(clamp((st.lt - rel(st, 'H09@gönderdi') + .4) / 1.2));
+    R.cam(960 + st.lt * 14, 560, 1.0 + st.lt * .03);
+    FIG.kisi(R, 1340, 960, 460, { tip: 'mary', f: -1, kolO: [lerp(1.25, 1.9, k), lerp(.5, .3, k)], kolA: [lerp(1.2, 1.8, k), lerp(.6, .4, k)],
       el: { on: (R2, e) => { const gg = R2.g; gg.save(); gg.translate(e.e[0], e.e[1]); gg.fillStyle = '#5A2A1C'; gg.fillRect(-2, -10, 10, 13); gg.restore(); } } });
   }, { fener: st => { const k = E.io3(clamp((st.lt - (A('H09@meri') - st.at)) / 1.4)); return { isik: { x: lerp(500, 1320, k), y: 560, r: 560 }, kadraj: KARE }; } });
   // H10: yarım kalan: boş masa, yarım yazılmış sayfa, bırakılmış kalem; ışık yavaşça açılır
