@@ -57,6 +57,15 @@ Yazıldı: 22 Kasım 2026, senaryo rev2 (seslendirmeden önce). Zamanlar seslend
 | F2 | Yaratığın birinci tekil anlatısı (D01–F05, 4:05–7:45) filmin en iyi tutan bölümü: ya Studio "Önemli an" bu aralıkta (özellikle kör adam, 6:02–6:30) ya da bu aralıkta dakika başına kayıp gövde ortalamasının yarısından az. | Studio işaretleri; dakika başına kayıp | |
 | F3 | Hikâye G05'te (9:07) bitiyor; ardından ~90 sn Mary bölümü (adsız kitap, afiş, 1831 önsözü, 1815 günlüğü, "çirkin evladım"). Kapak B'nin ve peşinden gidilen sorunun cevabı burada olduğu için kuyruk dik değil: H01–H10 dakika başına kayıp < 1,5 × gövde ortalaması. Tutmazsa kanal dersi güçlenir: yazarın hikâyesi bile, yaratığın hikâyesi bitince "ek" sayılıyor. | H01–H10 | |
 
+
+## Çernobil'in çayı (14 Aralık 2026 önerisi; 24 Kasım'da, seslendirmeden önce yazıldı)
+Zamanlar tahmini (seslendirmeden sonra `cernobil/timeline.js` ile güncellenir).
+| # | Tahmin | Ölçü | Sonuç |
+|---|---|---|---|
+| Ç1 | Kapı kanalın en büyüğü ("çernobil" medyanı Sisifos'un 8 katı): gösterim ilk 48 saatte kanalın uzun video medyanını iki katından fazla aşar; TO ≥ %2,5 (başlıkta "sen" ve kapakta bilinen sahne). | 48. saat gösterim, TO | |
+| Ç2 | Kanca (0:00-0:30) iki bilinen olguyla (bardak ↔ 56 bin ton) açılıyor, köprü yok: 0:30'da kalan ≥ %65 (kanal medyanı %61). | elde tutma 0:30 | |
+| Ç3 | "Depo" bölümü (vadi, valiler, fırın, kırık seralar, çürüme, fabrika bahçeleri, köylülerin sorusu) somut olay dizisi: dakika başına kayıp gövde ortalamasından düşük; "Ölçülmeyen" (bilimin cevabı yok) bölümü ise ortalamanın üstünde kaybettirir. Tersi çıkarsa ders: belirsizlik dürüstlüğü izleyiciyi tutuyor. | bölüm bölüm dakika başına kayıp | |
+
 ---
 
 ## Dağıtım sınaması: kanal sorunu mu, havuz mu? (23 Kasım 2026, Narkissos yayından önce yazıldı)

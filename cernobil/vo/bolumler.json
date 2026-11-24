@@ -1,0 +1,130 @@
+[
+ {
+  "ad": "Kanca",
+  "ids": [
+   "A01",
+   "A02",
+   "A03"
+  ],
+  "metin": "[calmly] Ağustos bin dokuz yüz seksen altı, Rize. Bir bakan gazetecilerin ve kameraların karşısında bir bardak çay içiyor. [calmly] Beş ay sonra devletin çay işletmesi Çaykur, aynı yılın çayından elli altı bin tonun insan sağlığına tehlikeli olduğu için depolarda beklediğini açıklıyor. [curious] Göremediğin, koklayamadığın, tadını alamadığın bir tehlike için biri sana korkacak bir şey yok derse, neye bakarak inanırsın?",
+  "onek": "s00",
+  "karakter": 394
+ },
+ {
+  "ad": "Yaprak",
+  "ids": [
+   "B01",
+   "B02",
+   "B03",
+   "B04",
+   "B05",
+   "B06",
+   "B07",
+   "B08",
+   "B09",
+   "B10",
+   "B11",
+   "B12"
+  ],
+  "metin": "[calmly] Mayıs bin dokuz yüz seksen altı, Rize. Çay bahçelerinde yılın ilk sürgünü açıyor. [softly] Bu hikâyenin kahramanı o sürgünlerden bir yaprak: yumuşak, parlak, bir parmak boyu. [calmly] On gün önce, bin dört yüz kilometre kuzeybatıda, Ukrayna'daki Çernobil santralinde bir reaktör patlamıştı. [calmly] Havaya karışan görünmez bulut Avrupa'nın üstünde dolaşıyor; yirmi dokuz Nisan'da Trakya'ya ulaşıyor ve Edirne'nin bazı köylerinde sütler dökülüyor. [calmly] Yedi Mayıs'tan itibaren radyasyon bulutları Doğu Karadeniz'in üstünde. Yağmur yağıyor. [softly] Yağmurun getirdiğinin rengi yok, kokusu yok, tadı yok. Yaprak onu üstünde tutuyor; arkasından onu yıkayacak bir yağmur daha gelmeden toplanacak. [calmly] Atom Enerjisi Kurumu'nun, kısaca Taek'in ekibi on bir Mayıs'ta Sinop'tan başlayıp sahil boyunca ölçüyor. Buldukları değer Trakya'dakinden yüksek. [calmly] Ama Edirne'de alınan önlemlerin hiçbiri burada alınmıyor. O günlerde Kurum'un başkanı radyoda ve televizyonda korkulacak bir durum olmadığını söylüyor. [calmly] Mayısta ve haziranda ilk sürgün toplanıyor. Yapraklar sırtlardaki sepetlere, sepetler fabrikaya iniyor. [calmly] Fabrikada yaprak soldurulur, kıvrılır, havayla buluşup yeşilden bakır rengine döner, sonra kurutulur. [calmly] Beş kilo yaş yapraktan bir kilo kuru çay çıkar. Yaprağın tuttuğu radyoaktif toz kurutmada uçup gitmez; o bir kiloda toplanır. [calmly] O yaz çay paketlenip bakkallara çıkıyor.",
+  "onek": "s01",
+  "karakter": 1323
+ },
+ {
+  "ad": "Bardak",
+  "ids": [
+   "C01",
+   "C02",
+   "C03",
+   "C04",
+   "C05",
+   "C06",
+   "C07",
+   "C08",
+   "C09",
+   "C10",
+   "C11"
+  ],
+  "metin": "[curious] Paketin içinde ne olduğunu kim söyleyecek? Kasım bin dokuz yüz seksen altıda Türk çayı Almanya'da bir laboratuvarda ölçülüyor ve yüksek çıkıyor. [calmly] Ölçümün dili bir sayı: bekerel. Bir bekerel, saniyede tek bir atomun bozunması demek. [calmly] Avrupa Topluluğu o yıl bir kilo yiyecekte en çok altı yüz bekerele izin veriyordu. [firmly] Çaykur'un gizli tuttuğu raporlara göre Rize'de Güneysu fabrikasının ilk sürgün çayında ölçülen: on beş bin bekerel. [calmly] Aralık'ta Sanayi ve Ticaret Bakanı Cahit Aral, Ankara'da bir basın toplantısında yine demli bir çay içiyor. Aynı zamanda ülkenin Radyasyon Güvenliği Komitesi'nin başkanı. [calmly] Toplantının konusu başka, ama gazeteciler çayı soruyor. Ertesi günkü Milliyet şöyle yazıyor: bakan, radyasyona nispet yapar gibi, son derece koyu demli çay içti. [firmly] Çayda da bir miktar radyasyon olduğu doğrudur, diyor bakan. Ama bu, sağlık açısından son derece zararsızdır. [calmly] Gerekçesi de bir sayı: çay kaynatılınca radyasyon üç yüz, üç yüz elli bekerele düşüyor, diyor; Avrupa'nın altı yüz sınırının çok altında. [calmly] Yani, diyor, çay marul gibi yenmezse hiçbir tehlike söz konusu değildir. [slowly] Sonra şu cümleyi kuruyor: Eğer biz on kişinin bile öleceğine inansaydık, tüm çayı imha eder, yüz elli milyarlık çay ithalatına giderdik. [softly] Bu cümleyi aklında tut.",
+  "onek": "s02",
+  "karakter": 1243
+ },
+ {
+  "ad": "Yirmi saat",
+  "ids": [
+   "D01",
+   "D02",
+   "D03",
+   "D04",
+   "D05",
+   "D06",
+   "D07",
+   "D08",
+   "D09",
+   "D10",
+   "D11",
+   "D12",
+   "D13"
+  ],
+  "metin": "[calmly] Aynı ay, on beş Aralık'ta, bakan Çaykur'a bir yazı gönderiyor: bundan sonra Atom Enerjisi Kurumu uzmanları incelemeden hiçbir çay piyasaya sürülmeyecek. [calmly] Ocak bin dokuz yüz seksen yedide Çaykur'un açıklaması gazetede: ilk sürgünden elli altı bin ton depoda. [calmly] Aynı haberde Çaykur'un genel müdürü kendi bardağını anlatıyor: Ben göstermelik olsun diye çay içmiyorum. Hem ben hem de aile fertlerim rahatlıkla içiyoruz. [calmly] Odtü'lü dört bilim insanı başka bir şey söylüyor: haberler çıktıktan sonra piyasaya verilen çaylar, kilogramda ortalama on bin bekerele inecek biçimde harmanlanmıştı. [calmly] Ocak sonunda Kurum'un başkanı başbakana, bakanlara ve Odtü'nün rektörüne bir mektup yazıyor; Odtü raporunun bir tezine koca bir yalan diyor. [calmly] Şubat'ta iki taraf İstanbul'da bir masaya oturuyor. Gazete toplantıyı şöyle anlatıyor: yirmi saat sürdü; neşeli başladı, bol bol çay içildi, gergin bitti. [curious] Kavganın düğümü bir soruydu: kuru çaydaki radyasyonun ne kadarı bardaktaki deme geçer? [firmly] Kurum'un ölçümüne göre yüzde iki bile değil. Odtü'nün ölçümüne göre yüzde altmış beş. Odtü'lüler, Kurum'un uzmanlarının toplantıda bu oranı kabul ettiğini yazıyor. [calmly] Bakanın başında olduğu komitenin kitapçığındaki hesap da, Odtü'lülere göre, yüzde ikiyi kullanıyordu. [calmly] Mart'ta Odtü'lüler gazeteye kendi önerilerini veriyor: çayı demlemeden önce sıcak suyla çalkalayın; çocuklar ve hamile kadınlar çayı azaltsın. [calmly] Halkın kendi bardağı için duyduğu bu öğüt, dört bilim insanının gazeteye verdiği bir bildiride. [calmly] Eylül'de gazete, Çaykur'la aynı bahçelerden yaprak alan özel fabrikaların yaklaşık yirmi bin ton kuru çayının ölçülmeden satıldığını yazıyor. Firmalardan biri ölçtüğünü söylüyor; ötekiler konuşmuyor. [calmly] Aralık bin dokuz yüz seksen yedide Kurum'un yeni başkanı şunu söylüyor: Bakkalda ben hâlâ bin dokuz yüz seksen altı yılında paketlenmiş çaylar görüyorum.",
+  "onek": "s03",
+  "karakter": 1821
+ },
+ {
+  "ad": "Ölçülmeyen",
+  "ids": [
+   "F01",
+   "F02",
+   "F03",
+   "F04",
+   "F05",
+   "F06",
+   "F07"
+  ],
+  "metin": "[curious] Peki bardaklara giden çay? Ocak bin dokuz yüz seksen sekizde bir gazete iki kişiyi Kurum'un cihazında ölçtürüyor. [calmly] Uzun yıllardır Artvin'de yaşayan bir milletvekilinin vücudunda dört bin yedi yüz bekerel, Ankara'daki bir muhabirde yedi yüz. [calmly] Kurum bunu tehlikeli bulmuyor; farkı milletvekilinin çok çay içmesine bağlıyor. [calmly] O iki kişiyi bir gazete ölçtürmüştü. Bölgede kimin vücuduna ne kadar geçtiğini ölçen bir tarama yapıldığına dair bir kayıt bulamadık. Türkiye'nin düzenli kanser kaydı da ancak bin dokuz yüz doksan ikide kurulmaya başlayacaktı. [calmly] Sonra araştırmalar geldi. İki bin altıda Sağlık Bakanlığı bölgede kanserin artmadığını açıkladı; iki bin sekizde Rize'de yüz bin kişinin tarandığı bir çalışma, tiroit kanserinin ülke ortalamasından yüksek olmadığını yazdı. [calmly] Başka araştırmacılar artış gördüğünü yazdı; bir kısmı da eldeki veriyle karar vermenin imkânsız olduğunu. Bugün bilimin kesin bir cevabı yok. [softly] Karadeniz'de birçok aile kendi kanserini o yağmura bağlıyor. Bir hikâye bir ölçümün yerini tutmaz; o yıllardan bir ölçüm bulunmadıkça da soru cevapsız kalıyor.",
+  "onek": "s04",
+  "karakter": 1071
+ },
+ {
+  "ad": "Depo",
+  "ids": [
+   "E01",
+   "E02",
+   "E03",
+   "E04",
+   "E05",
+   "E06",
+   "E07",
+   "E08",
+   "E09",
+   "E10",
+   "E11",
+   "E12",
+   "E13",
+   "E14",
+   "E15",
+   "E16"
+  ],
+  "metin": "[curious] Peki depodaki çay? Bin dokuz yüz seksen sekizin başında onu Karadeniz'de bir vadiye gömmek konuşuluyor. [calmly] Ama çayı kendi toprağında isteyen bir vali çıkmıyor. Gazetenin başlığı: Benim ilim radyasyonlu çaya mezar olamaz. [calmly] Ağustos'ta çayın bir kısmı Rize'de ve Trabzon'da fabrika fırınlarında, deneme için, gece boyunca yakılıyor. Rize valisi şöyle diyor: Bu durum kamuoyundan gizlenmemeliydi. Gizlilik endişe verir. [calmly] Ekim'de bir muhabirle bir fotoğrafçı, Ankara yakınlarında kuş uçurtmuyorlar denilen çay depolarına çitin bozulmuş bir yerinden giriyor. [calmly] Seraların camları kırık. Naylon brandalar rüzgârla açılıyor. Kolileri açıp paketleri ellerine alıyorlar, sonra yerine bırakıp çıkıyorlar; ortada tek bir bekçi yok. [calmly] Nisan bin dokuz yüz seksen dokuz, Rize'de bir belde. Altı büyük depoda bekleyen çay çürümeye başlıyor; depoların kenarlarından yapışkan bir sıvı sızıyor. [calmly] Haziran'da yeni hasada yer açmak için çuvallar mühürlü depolardan çıkarılıp açıkta, tahtaların üstüne istifleniyor ve üstleri naylonla örtülüyor. [calmly] Aralık bin dokuz yüz seksen dokuzda gazete şunu yazıyor: çayın yirmi beş bin tonu, sessiz sedasız, Kurum'un denetiminde, Doğu Karadeniz'de kırk kadar çay fabrikasının bahçesine gömülmüş. [calmly] Gösterilen gerekçe: fabrikalara yeni ürün için depo lazım. Kurum'un başkan vekili: Killi toprağa gömülen çaylar çevreye zarar vermez. [slowly] Rize'deki bardaktan üç yılı aşkın bir süre sonra, o yılın çayının yirmi beş bin tonu toprağın altındaydı. [calmly] Mart bin dokuz yüz doksan, Trabzon. Bir çay fabrikasının sahasına sekiz yüz ton çay gömülmüştü. Kar ve yağmurdan sonra yakındaki köylüler toprağın yüzünde geniş bir sızıntı görüyor. [calmly] Kurum'un raporunda ise toprak ve su örneklerinde hiçbir sızıntıya rastlanmamış. [slowly] İki köyün insanları gazeteye şunu soruyor: Taek'in raporuna mı, yoksa kendi gözlerimize mi inanalım? [calmly] Haziran bin dokuz yüz doksanda hesap şöyle: elli sekiz bin tondan otuz beş bini imha edilmiş, yirmi iki bini hâlâ depoda. [calmly] Bin dokuz yüz doksan üçün ocağında Çaykur hâlâ yaklaşık yirmi dört bin tona yer arıyor; İç Anadolu'da satın alınan bir arazi için o ilin valisi izin vermiyor. Çaykur'un genel müdürü: Bu çayları yurt dışına gömecek halimiz yok ya. [calmly] Son çuvalın nereye ve ne zaman gömüldüğünü taradığımız gazete arşivinde bulamadık.",
+  "onek": "s05",
+  "karakter": 2236
+ },
+ {
+  "ad": "Bugün",
+  "ids": [
+   "G01",
+   "G02",
+   "G03",
+   "G04",
+   "G05",
+   "G06",
+   "G07",
+   "G08",
+   "G09",
+   "G10"
+  ],
+  "metin": "[curious] Herkes kime bakmıştı? Bin dokuz yüz doksan ikide eski cumhurbaşkanı şunu söylüyor: Bilim adamları tehlike yok deyince biz de çay içmiştik. [calmly] Cumhurbaşkanı bakanın ve başbakanın sözüne, onlar Kurum'un ölçümüne bakmıştı. Halk da bardağa. [calmly] İki bin yedide Rize'de beş yıldızlı bir otel projesinden vazgeçiliyor: arazinin altına yıllar önce o çayların gömüldüğü ortaya çıkmış. [calmly] Vali, ölçümlerde tehlike çıkmadığını söylüyor; ama kamuoyunun tepkisinden çekinip vazgeçiyorlar. [calmly] O yılın çayından sekiz kilo da Ankara'da bir laboratuvara kalmış. Kurum onu iki bin on dördün çayıyla karıştırıp on beşi Türkiye'den yirmi laboratuvara gönderiyor. Soru basit: bu çayda ne var, ne kadar? [calmly] On dokuz laboratuvar kırk bir sonuç gönderiyor. Sonuçların yarısı kabul edilebilir bulunuyor; üçte biri kabul edilemez. [slowly] Otuz yıl önce depolara kaldırılan çay, bugün ölçenleri ölçmek için kullanılıyor. [calmly] İki bin on yedide ölçülen Türk çayında sezyum hâlâ ölçülebiliyor: kilogramda ortalama otuz dokuz bekerel. Altı yüz sınırının on beşte biri. [thoughtful] Görünmeyen bir tehlike için korkacak bir şey yok diyen biri, bardağını senin önünde içebilir. Ona inanıp inanmayacağını o bardak söylemez: sayıyı kim ölçtü, sana söyledi mi, geri kalan çaya ne yaptı? [softly] Şimdi kendi bardağına bak. Bu kez sayıyı biliyorsun; bir dahaki sefere de sayıyı sor. Zaman Kuryesi geçmişten bugüne böyle sorular taşıyor; bir sonrakini kaçırmamak için abone olabilirsin.",
+  "onek": "s06",
+  "karakter": 1398
+ }
+]

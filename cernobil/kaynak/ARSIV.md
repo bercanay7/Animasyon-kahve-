@@ -153,3 +153,26 @@ Not (arama): oturum açmadan arama yalnız ilk sayfayı (en yeni 10 sonuç) veri
 - «zerine iptal edildi MUHAMMET KAÇAR Rize DHA Başbakanlık Toplu Konut İdaresi TOKİ)tarafından Rize'de yapılması planlanan beş yıldızlı otel projesinden,inşaatın yapılacağı Rize Serbest Bölgesi'ne ait arazide Çernobil faciası sonrası radyasyon şüphesiyle gömülen çaylar yer aldığı için vazgeçildi.»
 - «Bu çaylar bugün yaptığımız radyoaktif incelemeler sonucu tehlike oluşturmuyor,ancak yine de kamuoyundan gelebilecek tepkiler nedeniyle burada otel yapılmasından vazgeçtik.»
 
+
+## Ek: Fable okumasından sonra eklenen bölümler (tam OCR metninden, 24 Kasım)
+- 1986-12-09 s.7: «Ama bu,sağlık açısından son derece zararsızdır.»
+- 1986-12-09 s.7: «Bu,AET ülkelerinin kabul ettiği 600 bekerelin çok altındadır.»
+- 1987-01-06 s.11: «Zararlı olmadığına inandığım için hem ben,hem de aile fertlerim rahatlıkla içiyoruz" dedi.»
+- 1987-03-04 s.9: «Daha sonra basında çıkan çaydaki radyoaktivite ile ilgili haberler üzerine radyoaktivite bir kilogram kuru çayda ortalama 10.000 bekerel olacak şekilde çay-Ifr harmanlanmıştır.»
+- 1987-03-04 s.9: «rkiye Atom Enerjisi Kurumu'nun çaydan alınan dozu,olması gerekenden 30-35 kat dana küçük gösterdiğini belirttiler mu TAEK)yetkililerince de kabul edilmiştir.»
+- 1989-12-25 s.3: «TAEK Başkanvekili Gürcan Yülek,"Killi toprağa gömülen çaylar,çevreye zarar vermez" dedi HABERİ 12 SAYFADA»
+- 1989-12-25 s.12: «Fabrikaların yeni ürün çaylarını depolayacak yer sıkıntısı başgösterince,alman bir kararla,25 bin ton çay da,40 dolayında fabrikanın bahçesine TAEK'in kontrolünde gömüldü.»
+- 1988-02-19 s.9: «Ekip,11 Mayıs'ta Sinop' tan başlayıp 13 Mayıs'a kadar Doğu Karadeniz sahil şeridini taradı.»
+- 1988-08-18 s.14: «Sorumsuzluk örneği Çağlar TARLAN Aydın TOPÇU L R RİZE,TRABZON,OF MİL-HA)İZE ve Of taki fabrikalarda deneme mahiyetinde imha edilen,radyasyonlu çayların yakılmasında görev alan bazı işçiler rahatsızlandı.»
+- 1988-10-17 s.12: «Yarım saat sonra çiti aşmaya karar verip kapıyı andıran bozulmuş yerden içeri girdik.»
+- 1988-10-17 s.12: «Üç serayı ve camlan kınk olan beton binaları dolaşıp büyük kolileri açarak radyasyonlu çay paketlerini elimize aldık.»
+- 1989-06-25 s.10: «Fabrikaya ait sahaya getirilen binlerce çuval radyasyonlu çay tabana yayılan tahtaların üstüne düzgün biçimde yerleştiriliyor.»
+- 1988-01-27 s.9: «Milliyet'in yaptırdığı radyasyon testinde uzun yıllar Artvin'de yaşayan kaza sırasında da Artvin'de olan SHP Artvin Milletvekili Ayhan Arif Ağaoğlu'nun vücudunda Ankara'da yaşayan Milliyet muhabiri Yavuz Yüksel'e oranla yedi kat fazla radyasyon bulunduğu belirlendi.»
+- 1987-02-25 s.9: «Ahmet Yüksel Özemre'nin "çaya yeni alarm" başlığıyla basında çıkan ODTÜ'hı bilim adamları tarafından hazırlanan rapora karşı hazırladığı ve iki kurum arasında savaşı başlatan mektubun tam metnini açıklıyoruz.Başbakan Turgut özal,YÖK Başkam Prof.»
+- 1987-02-25 s.9: «ODTÜ raporunda yer aldığı ifade edilen "Sadece çaydan alınacak radyasyon bile gelecek nesillerde birçok çocuğun ölü ve sakat doğmasına sebep olabilecektir" tezi,hiçbir bilimsel veriye dayanmadan söylenmiş,ilmi tutanağı olmayan koca bir yalandır.»
+- 1993-01-09 s.10: «Neden olarak da Kırıkkale Valisi Uğur tnan'ın izin vermemesi gösterildi.»
+- 1987-03-04 s.9: «Nitekim,Radyasyon Güvenliği Komitesi Başkanı'nın,"Radyasyon Hakkında Özet Bilgiler" adlı kitabında çaydan alınacak doz miktarları ile ilgili olarak TAEK yetkilileri tarafından tespit edilen değerler açıklanmıştır.»
+- 1992-12-24 s.12: «Evren,Çankırı Uçaksavar Fab-'ÇAYDA RADYASYON YOK,DEMİŞLERDİ' Hem Sayın Aral'ın,hem Sayın Özal'in,çayda tehlikeli sayılabilecek ölçüde radyasyon bulunmadığını,bunu bilim adamlarının ölçümlerle tespit ettiklerini söylediğini belirten 7.»
+
+## Gazete dışı: Rize'deki bardak (12 Ağustos 1986)
+- Anadolu Ajansı Teyit Hattı (aa.com.tr/tr/teyithatti, haber 1814984): «Cahit Aral, radyoaktif sızıntı nedeniyle endişelenen halka güven vermek için Rize'de, 12 Ağustos 1986'da basın toplantısı düzenledi ve gazetecilerin karşısında çay içti. Anadolu Ajansı'nın arşivinde o anı gösteren çok sayıda fotoğraf bulunuyor.» Bu, kancadaki bardaktır (A01). Milliyet'teki sözler (C05-C10) kışın Ankara'daki ikinci bardağa aittir.
