@@ -35,7 +35,7 @@
     R.cam(820, 560, 1.0 + st.lt * .012);
     KAMARA(R, st);
     const u = E.io3(clamp((st.lt - tE + .4) / 1.4));
-    FIG.kisi(R, 380, 1000, 700, { tip: 'yaratik', f: 1, bacak: 'diz', govde: .35, bas: .45, kolO: [lerp(.4, 1.45, u), lerp(.3, .35, u)], goz: 0, sac: .3 });
+    FIG.kisi(R, 380, 1000, 700, { tip: 'yaratik', f: 1, bacak: 'diz', govde: .4, bas: .5, kolO: [lerp(.4, 1.2, u), lerp(.3, .35, u)], goz: 0, sac: -.4 });
     R.isikli(g => g.rect(1760, 200, 120, 700), 'rgba(240,210,150,.9)');   // kapıdan giren kaptanın feneri
   }, { fener: { isik: { x: 860, y: 540, r: 640, sic: [.95, .94, .96] }, kadraj: KARE } });
   // G03: halka: ilk gece (A01) ↔ şimdi; aynı el, aynı yön
@@ -48,13 +48,13 @@
   sahne('G03b', 'G03@şimdi', 'kamara', 'orta', (R, st) => {
     R.cam(620, 640, 1.35);
     KAMARA(R, st);
-    FIG.kisi(R, 380, 1000, 700, { tip: 'yaratik', f: 1, bacak: 'diz', govde: .35, bas: .45, kolO: [1.45, .35], goz: 0, sac: .3 });
+    FIG.kisi(R, 380, 1000, 700, { tip: 'yaratik', f: 1, bacak: 'diz', govde: .15, bas: .45, kolO: [.95, .4], goz: 0, sac: .3 });
   }, { fener: { isik: { x: 900, y: 560, r: 480, sic: [.95, .94, .96] }, kadraj: { tip: 'daire', x: 960, y: 520, r: 460, yum: 40 }, parlak: 1.2 } });
   // G04: yaratığın yüzü saçların ardında (yakın); "soğumuş"
   sahne('G04a', 'G04', 'kamara', 'yakin', (R, st) => {
     R.cam(520 + st.lt * 10, 560, 1.55 + st.lt * .04);
     KAMARA(R, st);
-    FIG.kisi(R, 380, 1000, 700, { tip: 'yaratik', f: 1, bacak: 'diz', govde: .3 + .25 * E.io3(clamp((st.lt - rel(st, 'G04@soğumuş')) / 1.2)), bas: .35 + .3 * E.io3(clamp((st.lt - rel(st, 'G04@soğumuş')) / 1.2)), kolO: [lerp(1.3, .5, E.io3(clamp((st.lt - rel(st, 'G04@soğumuş')) / 1.2))), 1.0], goz: 1, sac: .5, kenar: 'rgba(220,228,250,.7)' });
+    FIG.kisi(R, 300, 1000, 700, { tip: 'yaratik', f: 1, bacak: 'diz', govde: .05 + .1 * E.io3(clamp((st.lt - rel(st, 'G04@soğumuş')) / 1.2)), bas: .35 + .3 * E.io3(clamp((st.lt - rel(st, 'G04@soğumuş')) / 1.2)), kolO: [lerp(1.3, .5, E.io3(clamp((st.lt - rel(st, 'G04@soğumuş')) / 1.2))), 1.0], goz: 1, sac: .5, kenar: 'rgba(220,228,250,.7)' });
   }, { fener: { isik: { x: 1100, y: 480, r: 520, sic: [.95, .94, .96] }, kadraj: { tip: 'oval', x: 1000, y: 500, w: 1300, h: 900, yum: 40 } } });
   // G05: buz salı karanlıkta uzaklaşır; fener iris gibi kapanır
   sahne('G05a', 'G05', 'buz', 'genis', (R, st) => {

@@ -6,9 +6,9 @@
   sahne('F00k', 'F01-1.4', 'kart', 'kart', (R, st) => { R.cam(960, 540, 1); SET.kart(R, st, 'V', 'BEN DE YARATABİLİRİM', 'Terk edilen ne yapar?'); },
     { fener: { isik: { x: 960, y: 480, r: 900 }, kadraj: { tip: 'oval', x: 960, y: 480, w: 1500, h: 860, yum: 30 } }, tr: { type: 'iris', dur: 1.2 } });
   window.CAYIR = (R, st, o = {}) => {
-    R.gok(-600, -400, 2600, 760, [[0, '#6C5A7E'], [.6, '#C68A6A'], [1, '#E9B98A']], { firca: 1.2 });
+    R.gok(-600, -400, 2600, 760, [[0, '#8A78A0'], [.6, '#D89C78'], [1, '#F2C79A']], { firca: 1.2 });
     DK.daglar(R, -600, 2600, 700, [[-200, 560], [400, 500], [1000, 540], [1600, 480], [2200, 530]], '#5A4A68', {});
-    R.yika(g => g.rect(-600, 700, 3200, 800), '#6E7A4A', { firca: 1 });
+    R.yika(g => g.rect(-600, 700, 3200, 800), '#8E9A62', { firca: 1 });
     R.kara(g => { g.moveTo(-600, 920); for (let x = -600; x <= 2600; x += 60) g.lineTo(x, 910 + Math.sin(x * .02) * 8 - (x % 120 === 0 ? 14 : 0)); g.lineTo(2600, 1500); g.lineTo(-600, 1500); g.closePath(); });
   };
   // F01: alacakaranlık çayır; çocuk koşar, yaratık ağacın ardından bakar
@@ -23,7 +23,7 @@
   }, { fener: { isik: { x: 900, y: 540, r: 820, sic: [1, .92, .8] }, kadraj: KARE } });
   // F02: çocuk gözlerini kapatır, çığlık; "Frankenstein" adı slayta düşer (yakın)
   sahne('F02a', 'F02', 'cayir', 'yakin', (R, st) => {
-    R.cam(900 + st.lt * 14, 680, 1.3 + st.lt * .03);
+    R.cam(800 + st.lt * 10, 640, 1.35 + st.lt * .03);
     CAYIR(R, st);
     const kp = E.io3(clamp((st.lt - rel(st, 'F02@kapattı') + .3) / .5)), ka = E.io3(clamp((st.lt - rel(st, 'F02@babama')) / .6));
     FIG.kisi(R, 1080 + ka * 60, 930, 520, { tip: 'cocuk', f: -1, govde: -.08 - ka * .1, bas: -.1, kolO: [lerp(.2, 2.6, kp), lerp(.3, 1.6, kp)], kolA: [lerp(.1, 2.5, kp), lerp(.3, 1.7, kp)] });
@@ -32,7 +32,7 @@
   }, { fener: { isik: { x: 1000, y: 520, r: 520, sic: [1, .9, .78] }, kadraj: { tip: 'oval', x: 980, y: 500, w: 1400, h: 900, yum: 40 } } });
   // F03: düşmanın adı; yaratığın gölgesi çocuğun üstüne düşer; fener kapanır (şiddet gösterilmez); açılınca çayırda yalnız madalyon
   sahne('F03a', 'F03', 'cayir', 'orta', (R, st) => {
-    R.cam(960, 600, 1.3);
+    R.cam(880, 620, 1.25);
     CAYIR(R, st);
     const k = E.io3(clamp(st.lt / 3));
     R.yika(g => { g.moveTo(640, 935); g.lineTo(640 + 560 * k, 930); g.lineTo(640 + 560 * k, 950); g.lineTo(640, 955); g.closePath(); }, 'rgba(20,14,12,.7)', { kay: 0, firca: 0 });   // uzayan gölge
@@ -53,14 +53,15 @@
     R.gok(-600, -400, 2600, 900, [[0, '#2A2238'], [1, '#6A4A5A']], { firca: 1.3 });
     R.kara(g => g.rect(-600, 900, 3200, 600));
     const c = Math.abs(Math.sin(st.lt * 7)) * clamp(1 - st.lt / 1.4);
-    FIG.kisi(R, 960, 910, 640, { tip: 'yaratik', f: 1, govde: -.1, bas: -.2, kolO: [1.5, .4 + c * .5], kolA: [1.5, .5 + c * .5], pel: 1, sac: 1, goz: 1 });
+    const cc = Math.abs(Math.sin(st.lt * 9)) * clamp(1 - st.lt / 1.8);
+    FIG.kisi(R, 960, 910, 640, { tip: 'yaratik', f: 1, govde: -.05, bas: -.15, kolO: [.75, 1.3 - cc * .3], kolA: [.55, 1.35 + cc * .3], pel: 1, sac: 1, goz: 1 });
   }, { fener: { isik: { x: 960, y: 520, r: 760, sic: [1, .82, .7] }, kadraj: KARE } });
   // F05: madalyondaki kadın (renkli minyatür); yaratığın eli tutar
   sahne('F05a', 'F05', 'madalyon', 'ayrinti', (R, st) => {
     const tO = rel(st, 'F05@sonra');
     R.cam(960 + st.lt * 8, 540 - st.lt * 10, .95 + st.lt * .06);
     R.g.save(); R.g.translate(940, 300); R.g.rotate(Math.sin(st.lt * 1.3) * .16); R.g.translate(-940, -300);
-    R.gok(-600, -400, 2600, 1500, [[0, '#3A2E3E'], [1, '#2A2230']], { firca: 1.3 });
+    R.gok(-600, -400, 2600, 1500, [[0, '#6A5670'], [1, '#4A3E52']], { firca: 1.3 });
     // el
     R.g.save(); R.g.translate(1000, 720); R.g.scale(30, 30); R.g.fillStyle = R.KARA; FIG.uzuv(R.g, [12, 9], [1, 1], 5, 4); R.g.beginPath(); R.g.ellipse(0, 0, 3.6, 2.6, .3, 0, TAU); R.g.fill(); R.g.restore();
     R.yika(g => g.ellipse(940, 500, 150, 190, 0, 0, TAU), '#B48A3A', { kay: 0, firca: .5 });
@@ -74,8 +75,8 @@
     R.g.restore();
     R.g.restore();
     const kar = E.io3(clamp((st.lt - tO) / 1.5));
-    if (kar > 0) R.yika(g => g.ellipse(940, 500, 150, 190, 0, 0, TAU), `rgba(40,20,20,${kar * .6})`, { kay: 0, firca: 0 });
-  }, { fener: st => ({ isik: { x: 940, y: 500, r: 460, sic: [1, .9, .76] }, kadraj: { tip: 'daire', x: 960, y: 520, r: 430, yum: 40 }, parlak: 1 - .35 * E.io3(clamp((st.lt - (A('F05@sonra') - st.at)) / 1.5)) }) });
+    if (kar > 0) R.yika(g => g.ellipse(940, 500, 150, 190, 0, 0, TAU), `rgba(40,20,20,${kar * .3})`, { kay: 0, firca: 0 });
+  }, { fener: st => ({ isik: { x: 940, y: 500, r: 460, sic: [1, .9, .76] }, kadraj: { tip: 'daire', x: 960, y: 520, r: 470, yum: 40 }, parlak: 1.35 + .25 * Math.max(0, 1 - Math.abs(st.lt - (A('F05@dindi') - st.at)) / 1.2) - .3 * E.io3(clamp((st.lt - (A('F05@sonra') - st.at)) / 1.5)) }) });
   // F06: (üçüncü tekil) buzulda kulübe: Victor anlar (yakın, ışık Victor'a döner)
   sahne('F06a', 'F06', 'kulube', 'yakin', (R, st) => {
     R.cam(640, 700, 1.6);

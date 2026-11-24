@@ -39,8 +39,8 @@
     const tK = rel(st, 'D03@korkuttu');
     R.cam(1100, 420, 1.8);
     ORMAN_GECE(R, st, { gok1: '#5A6E96', gok2: '#8A9CB8' });
-    R.cizgi([[1060, 170], [1500, 150], [1900, 190]], 10, { egri: true }); for (const x of [1200, 1420, 1650]) R.cizgi([[x, 160], [x + 50, 110], [x + 90, 100]], 5, { egri: true });
-    for (let i = 0; i < 4; i++) { const u = clamp((st.lt - tK + .6 - i * .1) / 1.5), x = 1300 + i * 90 + u * 600 * (i % 2 ? 1 : .7), y = 150 - 14 - u * 300 + Math.sin(u * 20 + i) * 10;
+    R.cizgi([[1060, 290], [1500, 270], [1900, 310]], 10, { egri: true }); for (const x of [1200, 1420, 1650]) R.cizgi([[x, 280], [x + 50, 230], [x + 90, 220]], 5, { egri: true });
+    for (let i = 0; i < 4; i++) { const u = clamp((st.lt - tK + .6 - i * .1) / 1.5), x = 1300 + i * 90 + u * 600 * (i % 2 ? 1 : .7), y = 270 - 14 - u * 300 + Math.sin(u * 20 + i) * 10;
       R.kara(g => { g.ellipse(x, y, 16, 11, 0, 0, TAU); g.ellipse(x + 13, y - 8, 7, 7, 0, 0, TAU); g.moveTo(x - 14, y); g.lineTo(x - 30, y + 4); g.lineTo(x - 14, y + 6); if (u > 0) { const k = Math.sin(st.lt * 30 + i) * 12; g.moveTo(x, y - 4); g.lineTo(x - 14, y - 26 - k); g.lineTo(x + 6, y - 6); } }); }
     FIG.kisi(R, 800, 1180, 720, { tip: 'yaratik', f: 1, bas: -.35, govde: -.04, kolO: [.3, .4], goz: 1, kenar: 'rgba(230,230,250,.7)' });
   }, { fener: { isik: { x: 1000, y: 420, r: 560, sic: [.95, .95, 1] }, kadraj: { tip: 'oval', x: 980, y: 480, w: 1400, h: 900, yum: 40 } } });
@@ -68,7 +68,7 @@
   }, { fener: { isik: { x: 960, y: 520, r: 820, sic: [1, .9, .76] }, kadraj: KARE } });
   // odunluk ve yarık: dışarıdan kulübe duvarı (genis), içeriden yarıktan aile (dar dikey kadraj)
   window.KULUBE_IC = (R, st, o = {}) => {
-    R.gok(-600, -400, 2600, 1500, [[0, o.duvar1 || '#B4865A'], [1, o.duvar2 || '#8E6644']], { firca: 1.3 });
+    R.gok(-600, -400, 2600, 1500, [[0, o.duvar1 || '#E6B878'], [1, o.duvar2 || '#C49058']], { firca: 1.3 });
     R.yika(g => g.rect(-600, 880, 3200, 600), '#5A4232', { firca: 1 });
     DK.ates(R, 1260, 870, 170, { t: st.t });
     R.kara(g => { g.rect(1120, 560, 280, 30); g.rect(1130, 590, 40, 290); g.rect(1350, 590, 40, 290); });   // ocak
@@ -135,7 +135,7 @@
   // D10: aile sözcükleri (yarıktan, ilkbahar); sonra odunlukta yalnız yaratık
   sahne('D10a', 'D10', 'yarik', 'orta', (R, st) => {
     R.cam(880 + st.lt * 6, 740, 1.45 + st.lt * .03);
-    KULUBE_IC(R, st, { duvar1: '#B49A62', duvar2: '#8E7A4C' });
+    KULUBE_IC(R, st, { duvar1: '#E6C890', duvar2: '#C4A468' });
     FIG.kisi(R, 680, 980, 420, { tip: 'ihtiyar', f: 1, bacak: 'otur', kolO: [1.0, 1.0] });
     FIG.kisi(R, lerp(980, 820, E.io3(clamp((st.lt - rel(st, 'D10@anne')) / 1.2))), 980, 400, { tip: 'kiz', f: -1, kolO: [lerp(0, 1.0, E.io3(clamp((st.lt - rel(st, 'D10@anne')) / 1.2))), .8] });
     FIG.kisi(R, 1060, 980, 440, { tip: 'genc', f: -1, bacak: st.lt > rel(st, 'D10@kardeş') ? 'otur' : 'dur' });
@@ -151,7 +151,7 @@
   // D11: su yansıması; geri sıçrar (yakın)
   sahne('D11a', 'D11', 'su', 'orta', (R, st) => {
     const tS = rel(st, 'D11@sıçradım');
-    R.cam(960, 640, 1.05);
+    R.cam(960, 470, 1.0);
     R.gok(-600, -400, 2600, 700, [[0, '#8FA88A'], [1, '#B9C8A6']], { firca: 1.2 });
     R.yika(g => g.rect(-600, 620, 3200, 900), '#6E8A8E', { firca: 1 });
     const u = st.lt < tS ? 0 : E.outBack(clamp((st.lt - tS) / .5));
@@ -166,16 +166,18 @@
   }, { fener: { isik: { x: 960, y: 560, r: 600, sic: [.95, .97, .95] }, kadraj: { tip: 'oval', x: 960, y: 560, w: 1400, h: 920, yum: 40 } } });
   // D12: odunlukta mum ışığında Victor'un günlüğü (ayrıntı)
   sahne('D12a', 'D12', 'odunluk', 'ayrinti', (R, st) => {
-    R.cam(960, 600, 1.2 + st.lt * .01);
+    R.cam(960, 640, 1.15 + st.lt * .03);
     R.gok(-600, -400, 2600, 1500, [[0, '#5A4636'], [1, '#3E3026']], { firca: 1.4 });
+    const dus = E.in3(clamp((st.lt - rel(st, 'D12@tiksinip')) / 1.2)); R.g.save(); R.g.translate(960, 710); R.g.rotate(dus * .5); R.g.translate(-960, -710 + dus * 520);
     R.isikli(g => { g.moveTo(560, 600); g.lineTo(1300, 560); g.lineTo(1360, 820); g.lineTo(600, 860); g.closePath(); }, '#E8DCBC');
     SET.elYazisi(R, '…the lifeless thing that lay at my feet. Its yellow eye…', 640, 660, 40, 1, { maxW: 620, renk: '#3A2A1C' });
+    FIG.elYakin(R, 1330, 760, 9, -1, true, .4); R.g.restore();
     DK.mum(R, 420, 860, 160, { t: st.t });
   }, { fener: { isik: { x: 900, y: 640, r: 560, sic: [1, .86, .62] }, kadraj: { tip: 'oval', x: 960, y: 600, w: 1400, h: 860, yum: 40 }, parlak: .95 } });
   // D13: umut: yarıktan yalnız ihtiyar, ışık onda
   sahne('D13a', 'D13', 'yarik', 'orta', (R, st) => {
     R.cam(680 + st.lt * 6, 780, 1.75 + st.lt * .04);
-    KULUBE_IC(R, st, { duvar1: '#B49A62', duvar2: '#8E7A4C' });
+    KULUBE_IC(R, st, { duvar1: '#E6C890', duvar2: '#C4A468' });
     FIG.kisi(R, 700, 980, 440, { tip: 'ihtiyar', f: 1, bacak: 'otur', bas: -.1 + Math.sin(st.lt * 1.2) * .06, kolO: [.9 + Math.sin(st.lt * 5) * .08, 1.0], kolA: [.7, 1.2] });
   }, { fener: { isik: { x: 760, y: 520, r: 460, sic: [1, .9, .7] }, kadraj: YARIK } });
 })();

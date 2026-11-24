@@ -3,8 +3,14 @@
 (() => {
   const rel = (st, at) => A(at) - st.at;
   const KARE = { tip: 'kare', x: 960, y: 520, w: 1760, h: 960, r: 70, yum: 24 };
-  sahne('H00k', 'H01-1.2', 'kart', 'kart', (R, st) => { R.cam(960, 540, 1); SET.kart(R, st, 'VII', 'ÇİRKİN EVLADIM', 'On sekiz yaşında bir kız bunu neden yazdı?'); },
-    { fener: { isik: { x: 960, y: 480, r: 900 }, kadraj: { tip: 'oval', x: 960, y: 480, w: 1500, h: 860, yum: 30 } }, tr: { type: 'iris', dur: 1.6 } });
+  sahne('H01a', 'H01-.8', 'masa', 'orta', (R, st) => {
+    R.cam(900 + st.lt * 10, 560, 1.0 + st.lt * .02);
+    SET.masa(R, st, { gece: '#B8C0CC' });
+    FIG.kisi(R, 560, 960, 500, { tip: 'mary', f: 1, bacak: 'otur', govde: .25, bas: .3, kolO: [1.3 + Math.sin(st.lt * 6) * .04, 1.0], kolA: [1.0, 1.2] });
+    R.isikli(g => g.rect(720, 626, 170, 12), '#F1E6C9');
+    DK.mum(R, 1080, 640, 150, { t: st.t });
+  }, { fener: { isik: { x: 820, y: 560, r: 640, sic: [1, .92, .8] }, kadraj: { tip: 'oval', x: 900, y: 540, w: 1500, h: 960, yum: 40 } }, tr: { type: 'iris', dur: 1.2 },
+    over: (ctx, st) => { etiket(ctx, 'VII · ÇİRKİN EVLADIM', 600, 170, st.lt - .6, st.d - .3, { px: 42 }); } });
   // kâğıt slaytı: krem sayfa, mürekkep harfler (ekran koordinatı)
   const sayfa = (R, w = 980, h = 860) => { R.gok(-600, -400, 2600, 1500, [[0, '#6A5038'], [1, '#4A3626']], { firca: 1.3 }); R.ekran(g => { g.fillStyle = '#EFE4C6'; g.fillRect(960 - w / 2, 520 - h / 2, w, h); }); };
   const satir = (R, s, y, px, o = {}) => SET.camYazi(R, s, o.x ?? 960, y, { px, font: o.font || FONT.metin(px, 600), renk: o.renk || '#2A1A10', ls: o.ls ?? 2, force: true, p: o.p ?? 1, align: o.align });
@@ -30,15 +36,14 @@
     satir(R, '— — —  . . . . . .  Mr. T. P. COOKE', 600, 38, { ls: 1, renk: k > 0 ? `rgb(${lerp(42, 170, k)},${lerp(26, 50, k)},${lerp(16, 30, k)})` : '#2A1A10' });
   }, { fener: { isik: { x: 960, y: 520, r: 620, sic: [1, .92, .78] }, kadraj: { tip: 'kare', x: 960, y: 520, w: 960, h: 980, r: 40, yum: 30 } },
     over: (ctx, st) => { kunye(ctx, 'Oyun afişi, Mary Shelley’nin mektubundan, 1823', st.lt - .5, st.d); } });
-  // H03: 1831: Mary (yas siyahı) masada yazar
-  sahne('H03a', 'H03', 'masa', 'orta', (R, st) => {
-    R.cam(900, 560, 1.0 + st.lt * .01);
-    SET.masa(R, st, { gece: '#B8C0CC' });
-    FIG.kisi(R, 560, 960, 500, { tip: 'mary', f: 1, bacak: 'otur', govde: .25, bas: .3, kolO: [1.3 + Math.sin(st.lt * 6) * .04, 1.0], kolA: [1.0, 1.2] });
-    R.isikli(g => g.rect(720, 626, 170, 12), '#F1E6C9');
-    DK.mum(R, 1080, 640, 150, { t: st.t });
-  }, { fener: { isik: { x: 820, y: 560, r: 640, sic: [1, .92, .8] }, kadraj: { tip: 'oval', x: 900, y: 540, w: 1500, h: 960, yum: 40 } },
-    over: (ctx, st) => { etiket(ctx, '1831 · ÖNSÖZ', 600, 170, st.lt - .2, st.d - .3); } });
+  // H03: 1831 önsözü yazılır: "I saw — with shut eyes…"
+  sahne('H03a', 'H03', 'kitap', 'ayrinti', (R, st) => {
+    R.cam(960 + st.lt * 8, 540, 1.0 + st.lt * .02);
+    sayfa(R, 1300, 760);
+    satir(R, 'INTRODUCTION.', 260, 54, { ls: 6 });
+    SET.elYazisi(R, 'I saw — with shut eyes, but acute mental vision — I saw the pale student of unhallowed arts kneeling beside the thing he had put together.', 420, 380, 46, clamp((st.lt - .4) / 6), { maxW: 1080 });
+  }, { fener: { isik: { x: 960, y: 520, r: 700, sic: [1, .94, .84] }, kadraj: { tip: 'oval', x: 960, y: 520, w: 1500, h: 900, yum: 40 } },
+    over: (ctx, st) => { kunye(ctx, 'Frankenstein, 1831 baskısının önsözü', st.lt - .5, st.d); } });
   // H04: önsözdeki cümle
   sahne('H04a', 'H04', 'kitap', 'yakin', (R, st) => {
     R.cam(960, 540, 1.0);
@@ -54,7 +59,15 @@
     SET.elYazisi(R, '…whenever I am left alone to my own thoughts… they always come back to the same point — that I was a mother, and am so no longer.', 420, 400, 44, clamp((st.lt - 1) / 4), { maxW: 1080 });
   }, { fener: { isik: { x: 960, y: 520, r: 700, sic: [1, .92, .78] }, kadraj: { tip: 'oval', x: 960, y: 520, w: 1500, h: 900, yum: 40 } },
     over: (ctx, st) => { etiket(ctx, 'MARY’NİN GÜNLÜĞÜ · 13 MART 1815', 960, 150, st.lt - .3, st.d - .3, { px: 42 });
-      quote(ctx, 'Bir anneydim, artık değilim.', 960, 790, st.lt - rel(st, 'H05@bir'), { px: 68, panel: .7 }); } });
+    } });
+  sahne('H05b', 'H05@ne', 'pencere', 'orta', (R, st) => {
+    R.cam(1100, 560, 1.15 + st.lt * .03);
+    R.gok(-600, -400, 2600, 1500, [[0, '#8E8A8E'], [1, '#6A666C']], { firca: 1.2 });
+    DK.pencere(R, 1380, 380, 360, 520, { gece: '#C8CED6' });
+    R.yika(g => g.rect(-600, 900, 3200, 700), '#4A4040', { firca: 1 });
+    FIG.kisi(R, 1180, 960, 480, { tip: 'mary', f: 1, bacak: 'otur', govde: .3, bas: .5 + Math.sin(st.lt * .8) * .04, kolO: [.6, 1.4], kolA: [.5, 1.5] });
+  }, { fener: { isik: { x: 1200, y: 480, r: 520, sic: [.94, .94, 1] }, kadraj: { tip: 'oval', x: 1100, y: 520, w: 1300, h: 900, yum: 40 } },
+    over: (ctx, st) => { quote(ctx, 'Bir anneydim, artık değilim.', 760, 230, st.lt - rel(st, 'H05@bir'), { px: 68, panel: .7 }); } });
   // H06: düş: ocak ateşi, küçük örtülü bohça ve dört el; "uyandım"da ateş söner, beşik boş
   sahne('H06a', 'H06', 'dus', 'yakin', (R, st) => {
     R.cam(960 - st.lt * 10, 600, 1.05 + st.lt * .04);
@@ -105,22 +118,20 @@
     FIG.kisi(R, 1340, 960, 460, { tip: 'mary', f: -1, kolO: [lerp(1.25, 1.9, k), lerp(.5, .3, k)], kolA: [lerp(1.2, 1.8, k), lerp(.6, .4, k)],
       el: { on: (R2, e) => { const gg = R2.g; gg.save(); gg.translate(e.e[0], e.e[1]); gg.fillStyle = '#5A2A1C'; gg.fillRect(-2, -10, 10, 13); gg.restore(); } } });
   }, { fener: st => { const k = E.io3(clamp((st.lt - (A('H09@meri') - st.at)) / 1.4)); return { isik: { x: lerp(500, 1320, k), y: 560, r: 560 }, kadraj: KARE }; } });
-  // H10: yarım kalan: boş masa, yarım yazılmış sayfa, bırakılmış kalem; ışık yavaşça açılır
-  sahne('H10a', 'H10', 'masa', 'yakin', (R, st) => {
-    R.cam(960, 600, 1.5 - st.lt * .02);
-    R.gok(-600, -400, 2600, 1500, [[0, '#6A5038'], [1, '#4A3626']], { firca: 1.3 });
-    DK.masa(R, 960, 700, 1000, { h: 300 });
-    R.isikli(g => { g.moveTo(700, 690); g.lineTo(1140, 676); g.lineTo(1170, 700); g.lineTo(720, 712); g.closePath(); }, '#EFE4C6');
-    R.cizgi([[1180, 694], [1330, 640]], 4);
-    R.kara(g => { g.moveTo(1250, 668); g.bezierCurveTo(1300, 620, 1360, 600, 1420, 560); g.bezierCurveTo(1380, 610, 1330, 650, 1270, 678); g.closePath(); });
-    DK.sandalye(R, 560, 720, .9);
-  }, { fener: st => ({ isik: { x: 960, y: 620, r: lerp(300, 620, E.io3(clamp(st.lt / 5))), sic: [1, .9, .74] }, kadraj: { tip: 'daire', x: 960, y: 600, r: lerp(260, 520, E.io3(clamp(st.lt / 5))), yum: 50 } }) });
+  // H10: yarım kalan: iki el birbirine uzanır, aralarındaki boşluk kapanmaz (E04'ün yankısı; soru açık kalır)
+  sahne('H10a', 'H10', 'eller', 'yakin', (R, st) => {
+    R.cam(960, 560, 1.0 + st.lt * .02);
+    R.gok(-600, -400, 2600, 1500, [[0, '#B08660'], [1, '#86603E']], { firca: 1.3 });
+    const k = E.io3(clamp(st.lt / 4.5));
+    FIG.elYakin(R, lerp(560, 780, k), 580, 15, 1, false, .2);
+    FIG.elYakin(R, lerp(1400, 1150, k), 560, 15, -1, true, .2);
+  }, { fener: st => ({ isik: { x: 960, y: 560, r: lerp(380, 620, E.io3(clamp(st.lt / 5))), sic: [1, .88, .66] }, kadraj: { tip: 'oval', x: 960, y: 560, w: lerp(900, 1400, E.io3(clamp(st.lt / 5))), h: 820, yum: 50 } }) });
   // H11: bitiş: sol üçte birde Prometheus'un ateşi (küçük alev), sağ taraf bitiş ekranı öğelerine boş
   sahne('H11a', 'H11', 'son', 'orta', (R, st) => {
     R.cam(960, 560, 1.0);
     R.gok(0, 40, 860, 1000, [[0, '#A08EA6'], [1, '#6E6078']], { firca: 1.2 });
-    DK.ates(R, 500, 760, 200, { t: st.t });
-    FIG.kisi(R, 260, 820, 420, { tip: 'yaratik', f: 1, bacak: 'cok', govde: .2, kolO: [1.2, .6], goz: 1 });
+    DK.ates(R, 540, 760, 190, { t: st.t });
+    FIG.kisi(R, 230, 820, 420, { tip: 'yaratik', f: 1, bacak: 'cok', govde: .2, kolO: [1.2, .6], goz: 1 });
     SET.camYazi(R, 'MODERN', 420, 250, { px: 50, ls: 8, p: clamp((st.lt - .4) / .6), renk: '#2A1A10' }); SET.camYazi(R, 'PROMETHEUS', 420, 312, { px: 50, ls: 6, p: clamp((st.lt - .8) / .8), renk: '#2A1A10' });
   }, { fener: { isik: { x: 420, y: 520, r: 520, sic: [1, .86, .62] }, kadraj: { tip: 'oval', x: 420, y: 520, w: 700, h: 820, yum: 40 }, parlak: 1.6 } });
 })();

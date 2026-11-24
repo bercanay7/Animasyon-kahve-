@@ -34,6 +34,13 @@
     SET.elYazisi(R, 'An almost perpetual rain confines us principally to the house…', 380, 600, 46, clamp(st.lt / 5), { maxW: 700 });
   }, { fener: st => { const tZ = A('B02@zifiri') - st.at, k = clamp((st.lt - tZ) / .5); return { isik: { x: 800, y: 560, r: 640, sic: [1, .88, .66] }, kadraj: { tip: 'oval', x: 900, y: 540, w: 1600, h: 980, yum: 40 }, parlak: 1 - k * .82 }; },
     over: (ctx, st) => { kunye(ctx, 'Mary Shelley, mektup, 1 Haziran 1816', st.lt - 1, st.d - .3); } });
+  sahne('B02b', 'B02@şimşek', 'gol', 'genis', (R, st) => {
+    R.cam(1000, 520, 1.05);
+    const fl = DK.simsek(R, 760, -100, 420, st.lt / 1.6, {});
+    GOL_GECE(R, st, { simsek: fl });
+    DK.simsek(R, 760, -100, 420, st.lt / 1.6, {});
+    DK.yagmur(R, st.t, { a: .3 });
+  }, { fener: st => ({ isik: { x: 960, y: 480, r: 900 }, kadraj: KARE, parlak: 1 - .85 * E.io3(clamp((st.lt - (A('B02@zifiri') - st.at)) / .4)) }) });
   // B03: Mary pencerede (18), arkasında Percy; ışık Mary'de
   sahne('B03a', 'B03', 'salon', 'orta', (R, st) => {
     R.cam(1150, 560, 1.0 + st.lt * .012);
@@ -90,11 +97,11 @@
   }, { fener: { isik: { x: 900, y: 460, r: 820, sic: [1, .9, .76] }, kadraj: KARE },
     over: (ctx, st) => { etiket(ctx, 'TAMBORA · ENDONEZYA · NİSAN 1815', 960, 150, rel(st, 'B07@tambora') - .2, st.d - .3); } });
   sahne('B07b', 'B07@bunu', 'mektup', 'yakin', (R, st) => {
-    R.cam(1500, 360, 1.45 + st.lt * .02);
+    R.cam(1460, 440, 1.35 + st.lt * .02);
     R.gok(-400, -300, 2400, 1400, [[0, '#7A5638'], [1, '#5A3E2A']], { firca: 1.2 });
     DK.pencere(R, 1500, 300, 420, 560, { gece: '#647698' });
     DK.yagmur(R, st.t, { a: .35, n: 120, kutu: [1290, 20, 420, 560] });
-    FIG.kisi(R, 1240, 1000, 560, { tip: 'mary', f: 1, bas: -.12, kolO: [.4, 1.4], kolA: [.2, 1.3] });
+    FIG.kisi(R, 1380, 1000, 560, { tip: 'mary', f: 1, bas: -.12, kolO: [.4, 1.4], kolA: [.2, 1.3] });
   }, { fener: { isik: { x: 1100, y: 420, r: 520, sic: [.95, .9, .8] }, kadraj: { tip: 'oval', x: 960, y: 480, w: 1300, h: 900, yum: 40 } } });
   // B08: hayalet hikâyeleri kitabı (ayrıntı): Fantasmagoriana
   sahne('B08a', 'B08', 'salon', 'ayrinti', (R, st) => {
@@ -165,11 +172,13 @@
     // masa ve örtülü beden
     R.kara(g => { g.rect(620, 700, 760, 30); g.rect(650, 720, 24, 260); g.rect(1330, 720, 24, 260); });
     const kp = st.lt > tK ? Math.sin((st.lt - tK) * 9) * clamp(1 - (st.lt - tK) / 2.5) * 6 : 0;
-    R.yika(g => { g.moveTo(640, 700); g.quadraticCurveTo(760, 640 + kp, 900, 662); g.quadraticCurveTo(1100, 650 - kp, 1360, 676); g.lineTo(1370, 704); g.lineTo(630, 704); g.closePath(); }, '#D4CCB8', { firca: .8 });
+    FIG.yatan(R, 1000, 700, 700, { f: 1, profil: false, nefes: kp * .6 });
+    R.yika(g => { g.moveTo(600, 700); g.quadraticCurveTo(700, 600 + kp, 900, 640); g.quadraticCurveTo(1100, 630 - kp, 1380, 660); g.lineTo(1390, 704); g.lineTo(590, 704); g.closePath(); }, '#E6DECC', { firca: .8 });
+    if (st.lt > tK) { const u = E.out3(clamp((st.lt - tK) / .8)); FIG.elYakin(R, 1060, 700 + u * 70, 4.5, -1, true, .2); R.g.save(); R.g.fillStyle = R.KARA; R.g.restore(); }
     // öğrenci: önce diz çökmüş, sonra kaçar
     const ka = st.lt > tKc ? E.in3(clamp((st.lt - tKc) / 1.4)) : 0;
-    if (ka < 1) FIG.kisi(R, 560 - ka * 700, 980, 440, { tip: 'victor', f: ka > 0 ? -1 : 1, bacak: ka > 0 ? 'dur' : 'diz', govde: ka > 0 ? .2 : .25, kolO: [ka > 0 ? .8 : 1.2 + Math.sin(st.lt * 3) * .15, .8 + Math.sin(st.lt * 2.3) * .2] });
-  }, { fener: { isik: { x: 960, y: 520, r: 520, sic: [.95, .92, .86] }, kadraj: { tip: 'daire', x: 960, y: 560, r: 470, yum: 50 }, parlak: 1.05 } });
+    if (ka < 1) FIG.kisi(R, 640 - ka * 700, 980, 460, { tip: 'victor', f: ka > 0 ? -1 : 1, bacak: ka > 0 ? 'dur' : 'diz', govde: ka > 0 ? .2 : .25, kolO: [ka > 0 ? .8 : 1.2 + Math.sin(st.lt * 3) * .15, .8 + Math.sin(st.lt * 2.3) * .2] });
+  }, { fener: { isik: { x: 960, y: 520, r: 520, sic: [.95, .92, .86] }, kadraj: { tip: 'daire', x: 960, y: 540, r: 560, yum: 50 }, parlak: 1.2 } });
   // B14: yatağın başı, düşte: sarı, ıslak, düşünen gözler (A01'in yankısı; yaratığın yüzü yakın, gözler öne)
   sahne('B14a', 'B14', 'dus', 'yakin', (R, st) => {
     R.cam(1100 - st.lt * 10, 380, 1.9 + st.lt * .07);

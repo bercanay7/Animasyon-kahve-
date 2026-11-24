@@ -24,7 +24,7 @@
     R.gok(-600, -400, 2600, 1500, [[0, '#C0905A'], [1, '#8E6640']], { firca: 1.3 });
     R.yika(g => g.rect(-600, 880, 3200, 600), '#5A4232', { firca: 1 });
     DK.ates(R, 960, 880, 180, { t: st.t });
-    FIG.kisi(R, 640, 990, 440, { tip: 'ihtiyar', f: 1, bacak: 'otur', bas: -.15, kolO: [.8 + Math.sin(st.lt * 1.3) * .1, 1.1] });
+    FIG.kisi(R, 640, 990, 480, { tip: 'ihtiyar', f: 1, bacak: 'otur', bas: -.15, kolO: [.8 + Math.sin(st.lt * 1.3) * .1, 1.1], kolA: [.9, .3], el: { arka: (R2, e) => FIG.uzuv(R2.g, [e.e[0], e.e[1] - 6], [e.e[0] + 4, e.e[1] + 26], 1.4, 1.4) } });
     FIG.kisi(R, 1300, 990, 600, { tip: 'yaratik', f: -1, bacak: 'otur', govde: .2, bas: .1, kolO: [.7, 1.4], kolA: [.6, 1.5], goz: 1 });
   }, { fener: { isik: { x: 960, y: 560, r: 640, sic: [1, .86, .6] }, kadraj: { tip: 'oval', x: 960, y: 560, w: 1500, h: 900, yum: 40 } },
     over: (ctx, st) => { quote(ctx, 'Ben körüm, yüzünü göremem; ama sözlerinde bir şey var.', 960, 170, st.lt - rel(st, 'E02@ben'), { px: 64, maxW: 1400, panel: .6 }); } });
@@ -92,7 +92,7 @@
     R.yika(g => g.rect(-600, 880, 3200, 600), '#2A2020', { firca: 1 });
     R.kara(g => { g.rect(500, 440, 900, 460); g.moveTo(460, 440); g.lineTo(950, 200); g.lineTo(1440, 440); g.closePath(); });
     for (let i = 0; i < 3; i++) R.yika(g => g.ellipse(700 + i * 300 + Math.sin(st.t * .4 + i) * 40, 200 - i * 40 - (st.t * 20 % 60), 260, 120, 0, 0, TAU), 'rgba(60,40,40,.7)', { kay: 0 });
-    DK.ates(R, 760, 640, 460, { t: st.t }); DK.ates(R, 1180, 560, 360, { t: st.t + 2 });
+    for (const [x, y, s2, ph] of [[640, 560, 300, 0], [820, 470, 220, 1.3], [1000, 520, 260, 2.1], [1180, 600, 200, 3.4], [900, 640, 340, 4.2]]) DK.ates(R, x, y, s2, { t: st.t + ph });
     FIG.kisi(R, 1640, 960, 520, { tip: 'yaratik', f: -1, govde: .05, kolO: [.1, .3], pel: Math.sin(st.lt * 3) * .5 });
   }, { fener: { isik: { x: 900, y: 500, r: 760, sic: [1, .8, .56] }, kadraj: KARE, parlak: 1.05 } });
   // E09: nehir: kız düşer; yaratık atlar, kıyıya taşır, başında diz çöker

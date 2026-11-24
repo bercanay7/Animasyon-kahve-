@@ -78,18 +78,18 @@ const FIG = (() => {
     else if (b === 'diz') { kalca = [-1, -25]; diz = [[16, -22], [-6, -1.5]]; ayak = [[18, -3], [-23, -2]]; }
     else if (b === 'cok') { kalca = [-6, -19]; diz = [[12, -30], [9, -27]]; ayak = [[10, -3], [4, -3]]; }
     const omuzY = kalca[1] - 32, gx = kalca[0];
-    const rot = p => { const dx = p[0] - kalca[0], dy = p[1] - kalca[1], c = Math.cos(govde), sn = Math.sin(govde); return [kalca[0] + dx * c + dy * sn, kalca[1] - dx * sn + dy * c]; };
+    const rot = p => { const dx = p[0] - kalca[0], dy = p[1] - kalca[1], c = Math.cos(govde), sn = Math.sin(govde); return [kalca[0] + dx * c - dy * sn, kalca[1] + dx * sn + dy * c]; };   // + govde: öne eğilir (25 Kasım düzeltmesi: işaret tersti)
     const omuz = rot([gx, omuzY + 1.5]);
     const basM = rot([gx + 2.6, omuzY - 10.6]);
     const kA = o.kolA || [-.12, .28], kO = o.kolO || [.1, .32], L1 = 16, L2 = 14.5, elS = tp.el || 1;
     const kolCiz = (kk, arka) => {
       if (kk[0] < .32 && !o.serbest) kk = [Math.min(kk[0], -.04), Math.min(kk[1], .12)];
       const sp = [omuz[0] + (arka ? -1 : 1), omuz[1] + 1.5];
-      const [d, e] = kol(sp, kk[0] - govde, kk[1], L1, L2);
+      const [d, e] = kol(sp, kk[0] + govde, kk[1], L1, L2);
       const w = (yr ? 3.4 : tp.kadin ? 3.2 : 4.2) * ince;
       uzuv(g, sp, d, w * 1.05, w * .82); uzuv(g, d, e, w * .82, w * .58);
-      if (tp.kadin && tp.giysi === 'elbise') { g.beginPath(); g.ellipse(sp[0] + Math.sin(kk[0] - govde) * 3, sp[1] + Math.cos(kk[0] - govde) * 3, 3.4, 3.8, -(kk[0] - govde), 0, TAU); g.fill(); }   // kabarık kısa kol
-      const a = kk[0] + kk[1] - govde; el(g, e, a, elS * (tp.cocuk ? .9 : 1), yr);
+      if (tp.kadin && tp.giysi === 'elbise') { g.beginPath(); g.ellipse(sp[0] + Math.sin(kk[0] + govde) * 3, sp[1] + Math.cos(kk[0] + govde) * 3, 3.4, 3.8, -(kk[0] + govde), 0, TAU); g.fill(); }   // kabarık kısa kol
+      const a = kk[0] + kk[1] + govde; el(g, e, a, elS * (tp.cocuk ? .9 : 1), yr);
       return { d, e, a };
     };
     // ---- arka kol ----
@@ -130,7 +130,7 @@ const FIG = (() => {
       }
     }
     // ---- boyun ve baş ----
-    g.save(); g.translate(basM[0], basM[1]); g.rotate(-(govde * .55 + (o.bas || 0)));
+    g.save(); g.translate(basM[0], basM[1]); g.rotate(govde * .55 + (o.bas || 0));   // + bas: baş öne/aşağı
     uzuv(g, [-.6, 4.6], [-1.4, 10.2], 4.8, 5.4);
     if (tp.cocuk) g.scale(1.22, 1.22);
     bas(g, tp, { ...o, renk }, yr);

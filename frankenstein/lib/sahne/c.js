@@ -48,9 +48,10 @@
   // C03b: yaratık doğrulur: tarif sözcükleriyle (yakın, kenar ışığı)
   sahne('C03b', 'C03@sarı', 'lab', 'orta', (R, st) => {
     const k = E.io3(clamp(st.lt / 2.4));
-    R.cam(980, 520, 1.3 + st.lt * .015);
+    const kS = E.io3(clamp((st.lt - rel(st, 'C03@saçlar') + .2) / .7)), kD = E.io3(clamp((st.lt - rel(st, 'C03@dişler') + .2) / .6)), kG = E.io3(clamp((st.lt - rel(st, 'C03@gözler') + .2) / .7));
+    R.cam(lerp(lerp(lerp(980, 880, kS), 960, kD), 960, kG), lerp(lerp(lerp(520, 380, kS), 400, kD), 380, kG), lerp(lerp(lerp(1.3, 2.0, kS), 2.7, kD), 3.4, kG));
     LAB(R, st, { ortu: false });
-    FIG.kisi(R, 900, 1000, 760, { tip: 'yaratik', f: 1, bacak: 'otur', sandalye: false, govde: lerp(.6, .1, k), bas: lerp(.4, .05, k), kolO: [.5, .6], kolA: [.2, .4], goz: 1, kenar: 'rgba(250,215,150,.8)', sac: .1 });
+    FIG.kisi(R, 900, 1000, 760, { tip: 'yaratik', f: 1, bacak: 'otur', sandalye: false, sac: Math.sin(st.lt * 1.5) * .4 * kS, govde: lerp(.6, .1, k), bas: lerp(.4, .05, k), kolO: [.5, .6], kolA: [.2, .4], goz: 1, kenar: 'rgba(250,215,150,.8)', sac: .1 });
     R.yika(g => { g.moveTo(1000, 690); g.quadraticCurveTo(1200, 660, 1390, 680); g.lineTo(1400, 704); g.lineTo(1000, 704); g.closePath(); }, '#CFC6B0', { firca: .8 });
   }, { fener: { isik: { x: 860, y: 440, r: 520, sic: [1, .84, .6] }, kadraj: { tip: 'oval', x: 960, y: 500, w: 1300, h: 920, yum: 40 } } });
   // C04: Victor kaçar (kapı), yaratık masada kalır; ışık onu bırakır
