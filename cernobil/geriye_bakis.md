@@ -26,7 +26,16 @@ Bu video yön usulünün üçüncü örneği (`analiz/2026-11-23-deney-yon-promp
 - Kare başına ~0,5 sn (SwiftShader, tek işçi); hareket bulanıklığı kullanılmadı (tram noktalarını ezer).
 
 ## Ne zorladı, ne öğrendik
-(render ve okuyucu raporundan sonra tamamlanacak)
+- **Okuyucunun yakaladıkları** (ayrı ajan, yazısız 85 kare, plan listesini görmeden):
+  - **Darağacı (P78):** 2007 sahnesindeki inşaat vinci (ters L direk, ucundan sarkan kanca ipi) altında sıra sıra çuvallarla darağacı ve mezarlık okundu. Vinç kaldırıldı; kıyıda binalar.
+  - **Toplama kampı (P63, P64):** muhabirlerin girdiği TAEK arazisi; dikenli tel (X düğümler), koyu seralar barakaya döndü, önde çantalı bir adam ve uzun elbiseli kadın. Kaynakta tel "dikenli" ama görüntüde kamp ikonografisine birebir oturuyordu. Çit tel örgüye, seralar açık cama çevrildi, kadının deseni kaldırıldı.
+  - **Mezar taşı (P03, P39, P66, P67, P68, P78; kapak B):** dik ve yuvarlak tepeli çuvallar sıra hâlinde. Gömülen çayı anlatan bir filmde en ağır okuma. Çuvallar yatırıldı (kulaklı, dikişli yastık), tuğla düzeninde istif. Ders: çuvalın kendisi masum, **sıra ve dik duruş** onu taşa çeviriyor.
+  - **Hedef tahtası (P06, P85):** dem yüzeyindeki eş merkezli halkalar ve tepeden kırmızı daire. Halkalar kaldırıldı; dem yüzeyi bardağın içinden pencere yansımasıyla, son kare yandan bir bardakla.
+  - **Haç (P65):** depo duvarından sızan koyu şeritler dipteki yatay birikintiyle haç oldu; ilk düzeltmede de direk gibi okundu. Lekeler duvarın köşelerinden aşağı akan dalgalı şeritlere çevrildi.
+  - **Kan (P41, P80, P82):** kuru çayın kırmızı-kahve yığınına saplanmış çubuk; kavanozdaki kırmızı blok ve yanındaki siyah kutu (kan torbası, tabut). Kuru çay koyulaştırıldı (ton plakası), çubuk küreğe, kavanoz kapaklı ve yaprak dokulu oldu; siyah kutunun üstüne "DEDEKTÖR".
+  - **Okunmayanlar:** kollar kalas (kol yeni koyu, el açık tonda ve çizgiyle ayrıldı); masa önünde sarkan mikrofon kabloları; terazide 5 kg ile 1 kg'nin dengede durması (ok ve iki yığına çevrildi); haritada kara-deniz (denize dalga taraması ve ad); kupürlerin yarı saydamlığı (kâğıt üç plakayı da örtmüyordu: çizgi plakasındaki raf çizgileri yazının içinden geçiyordu); çantalar ve kolların kasıkta topak durması; TV'deki figürün başı ekran kenarına değiyordu (asılı beden).
+  - **Ders (Lale, Gılgamış, Frankenstein'la aynı):** ilk düzeltme yeni sorun doğurdu (çanta ölçeği yanlış, dev kara bloklar; sızıntı şeritleri direk). Her düzeltilen plan tam boy karede yeniden bakıldı.
+- **Arşivle çalışmak:** OCR metni sütunları birbirine karıştırıyor (bir haberin devamı başka sütunun ortasında); alıntıyı kısa bir arama penceresiyle çıkaran araç (`ARSIV.md` üreticisi) cümleleri kesiyordu, Fable bu yüzden var olan sözleri "yok" saydı. Tam metinle yeniden sınandı; ARSIV.md'ye eklendi. Ders: alıntı özetini okuyana tam metnin yerini de ver.
 
 ## Açık kalanlar
 - Dört gazete sayfasının görüntüyle doğrulanması kullanıcıda (`yayin.md`).

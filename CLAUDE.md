@@ -176,6 +176,7 @@ Kanıt sayıları `analiz/2026-11-22-genel-karsilastirma.md` dosyasında. Yeni v
   - koyu kalabalıkta beyaz sivri börk (kukuleta); kemer ortasında asılı kandil (mihrap);
   - başın yanında açık bohça (hale); belde çizgili oval (kalkan); alna giden el (selam);
   - yuvarlak nesnede halka tarama (hedef tahtası). Yeni sette yuvarlak nesneye halka tarama verilmez.
+  - (Çernobil) sıra hâlinde dik, yuvarlak tepeli nesneler (çuval, güğüm: mezar taşı); dikenli tel + baraka + çantalı figür (toplama kampı); ters L direk ve sarkan ince çizgi (vinç: darağacı); kırmızı dolu dairede eş merkezli halka (hedef, bayrak).
 - **Düzeltme yeni simge üretebilir:** düzeltilen her plan tam boy karede yeniden bakılır (Lale).
 - **Dinî karşılaştırma yapılmaz;** eser kendi edebî bağlamında okunur (Milton kararı). Tanrı figürle çizilmez, ışıkla gösterilir.
 - **Kapak yazısı da taranır.** Türkçe kelime tuzaklarına dikkat: "dönme" argo okunur, "ŞEYTAN AĞLADI" vaaz gibi okunur.
