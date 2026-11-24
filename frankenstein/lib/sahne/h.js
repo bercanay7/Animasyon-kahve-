@@ -119,8 +119,8 @@
   sahne('H11a', 'H11', 'son', 'orta', (R, st) => {
     R.cam(960, 560, 1.0);
     R.gok(0, 40, 860, 1000, [[0, '#A08EA6'], [1, '#6E6078']], { firca: 1.2 });
-    DK.ates(R, 420, 760, 220, { t: st.t });
+    DK.ates(R, 500, 760, 200, { t: st.t });
     FIG.kisi(R, 260, 820, 420, { tip: 'yaratik', f: 1, bacak: 'cok', govde: .2, kolO: [1.2, .6], goz: 1 });
-    SET.camYazi(R, 'MODERN PROMETHEUS', 420, 300, { px: 56, ls: 6, p: clamp((st.lt - .4) / 1), renk: '#2A1A10' });
+    SET.camYazi(R, 'MODERN', 420, 250, { px: 50, ls: 8, p: clamp((st.lt - .4) / .6), renk: '#2A1A10' }); SET.camYazi(R, 'PROMETHEUS', 420, 312, { px: 50, ls: 6, p: clamp((st.lt - .8) / .8), renk: '#2A1A10' });
   }, { fener: { isik: { x: 420, y: 520, r: 520, sic: [1, .86, .62] }, kadraj: { tip: 'oval', x: 420, y: 520, w: 700, h: 820, yum: 40 }, parlak: 1.6 } });
 })();

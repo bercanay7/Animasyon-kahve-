@@ -58,8 +58,8 @@
   // F05: madalyondaki kadın (renkli minyatür); yaratığın eli tutar
   sahne('F05a', 'F05', 'madalyon', 'ayrinti', (R, st) => {
     const tO = rel(st, 'F05@sonra');
-    R.cam(960, 540 - st.lt * 6, 1.0 + st.lt * .04);
-    R.g.save(); R.g.translate(940, 300); R.g.rotate(Math.sin(st.lt * 1.4) * .06 * Math.exp(-st.lt * .1)); R.g.translate(-940, -300);
+    R.cam(960 + st.lt * 8, 540 - st.lt * 10, .95 + st.lt * .06);
+    R.g.save(); R.g.translate(940, 300); R.g.rotate(Math.sin(st.lt * 1.3) * .16); R.g.translate(-940, -300);
     R.gok(-600, -400, 2600, 1500, [[0, '#3A2E3E'], [1, '#2A2230']], { firca: 1.3 });
     // el
     R.g.save(); R.g.translate(1000, 720); R.g.scale(30, 30); R.g.fillStyle = R.KARA; FIG.uzuv(R.g, [12, 9], [1, 1], 5, 4); R.g.beginPath(); R.g.ellipse(0, 0, 3.6, 2.6, .3, 0, TAU); R.g.fill(); R.g.restore();
