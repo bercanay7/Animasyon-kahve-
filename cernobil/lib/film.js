@@ -220,7 +220,7 @@ function etiket(ctx, s, x, y, lt, d = 4, o = {}) {
 function kunye(ctx, s, lt, d = 99, o = {}) {
   if (NOTEXT || !s) return;
   const a = clamp((lt - (o.t0 || 0)) / .5) * clamp((d - lt) / .5); if (a <= 0) return;
-  txt(ctx, s, o.x ?? 120, o.y ?? 846, { px: o.px || 40, ls: 2, a: E.sine(a) * (o.a ?? .92), align: o.align || 'left', font: FONT.metin(o.px || 40, 600), col: o.col || YAZI.krem, panel: o.panel ?? .55 });
+  txt(ctx, s, o.x ?? 120, o.y ?? 846, { px: o.px || 40, ls: 2, a: E.sine(a) * (o.a ?? .92), align: o.align || 'left', font: FONT.metin(o.px || 40, 600), col: o.col || YAZI.krem, panel: o.panel ?? .85 });
 }
 // büyük tek söz (ör. P053 “O benim.”, Bebas, kırmızı): t0 (film zamanı) ile belirir; o: {px, col, y, x}
 function buyukSoz(ctx, s, t, t0, o = {}) {

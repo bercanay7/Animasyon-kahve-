@@ -6,7 +6,7 @@ const KU4 = (s, o = {}) => (ctx, st) => kunye(ctx, s, st.lt, st.d, o);
 sahne('P76', 'G01', 'kupur', 'ayrinti', (B, st) => {
   B.cam(960, 520, 1.06 + st.lt * .012);
   SET.pano(B, { tohum: 21 });
-  D.kupur(B, 960, 480, { w: 1100, h: 560, a: .015, ust: 'MİLLİYET · 24 ARALIK 1992 · SAYFA 12', alinti: '"Bilim adamları tehlike yok deyince biz de çay içmiştik."', px: 60, ah: 260, sutun: 4, p: ramp(st.t, A('G01@bilim'), Se('G01')) });
+  D.kupur(B, 960, 480, { w: 1100, h: 560, a: .015, ust: 'MİLLİYET · 24 ARALIK 1992 · SAYFA 12', alinti: '"Bilim adamları tehlike yok deyince biz de çay içmiştik."', px: 60, ah: 260, sutun: 4, p: ramp(st.t, st.at + .5, Se('G01')) });
 }, { tr: { type: 'merdane', dur: .9 } });
 // P77 zincir: dört bardak sırayla (Kurum → bakan → cumhurbaşkanı → halk); sonuncusu bir ev masasında
 sahne('P77', 'G02', 'zincir', 'orta', (B, st) => {
@@ -22,7 +22,7 @@ sahne('P78', 'G03', 'otel', 'genis', (B, st) => {
   B.cam(960 + st.lt * 6, 520, 1.0);
   const k = B.k; k.save(); k.fillStyle = B.ton(.06); k.fillRect(-300, -300, W + 600, 900); k.fillStyle = B.ton(.12); k.fillRect(-300, 380, W + 600, 140); k.restore();   // deniz
   SET.gomu(B, 960, 620, W + 400, 520, 1, { n: 9 });
-  const l = B.l; l.save(); l.strokeStyle = '#000'; l.lineWidth = 8; l.beginPath(); l.moveTo(1500, 620); l.lineTo(1500, 120); l.lineTo(1100, 120); l.stroke(); l.lineWidth = 3; l.beginPath(); l.moveTo(1180, 120); l.lineTo(1180, 300 + Math.sin(st.t) * 10); l.stroke(); l.restore();   // vinç, boş kanca
+  D.ev(B, 1500, 600, 2.2, { d: .5 }); D.ev(B, 1720, 590, 1.6, { d: .55 });   // kıyıda binalar (vinç yok: darağacı okuması)
   SET.daktilo(B, 300, 300, 420, 240, ['!PROJE', '5 yıldızlı otel'], 1, { px: 30 });
   D.tarihBandi(B, '2007 · RİZE', 110, clamp(st.lt / .5));
 }, { over: KU4('Milliyet, 11 Kasım 2007, s. 17') });
@@ -39,7 +39,7 @@ sahne('P80', 'G05', 'lab', 'genis', (B, st) => {
   D.lab(B);
   const k = B.k, l = B.l, mix = ramp(st.t, A('G05@karıştırıp') - .2, A('G05@karıştırıp') + 1.5);
   // kavanoz
-  k.save(); k.fillStyle = '#fff'; k.fillRect(360, 420, 220, 280); k.restore(); B.cayBoya(g => g.rect(372, 480, 196, 214), 1, .9);
+  k.save(); k.fillStyle = '#fff'; k.fillRect(360, 420, 220, 280); k.restore(); B.cayBoya(g => g.rect(372, 480, 196, 214), 1, .9); { const r = rng(5); k.save(); k.fillStyle = B.ton(.6); for (let i = 0; i < 120; i++) { k.beginPath(); k.ellipse(375 + r() * 190, 485 + r() * 205, 7, 3, r() * PI, 0, TAU); k.fill(); } k.restore(); B.l.fillStyle = '#000'; B.l.fillRect(352, 404, 236, 22); }   // kuru yaprak dokusu, kapak
   l.save(); l.strokeStyle = '#000'; l.lineWidth = 4; l.strokeRect(360, 420, 220, 280); l.font = FONT.daktilo(36, 700); l.textAlign = 'center'; l.fillStyle = '#000'; l.fillText('1986', 470, 400); l.restore();
   // 20 küçük kap (laboratuvarlara giden)
   const n = Math.floor(ramp(st.t, A('G05@yirmi') - .5, A('G05@yirmi') + 1.5) * 20);
@@ -57,7 +57,7 @@ sahne('P81', 'G06', 'lab', 'kart', (B, st) => {
 sahne('P82', 'G07', 'lab', 'ayrinti', (B, st) => {
   B.cam(1000, 560, 1.4 + st.lt * .02);
   D.lab(B);
-  const k = B.k, l = B.l; k.save(); k.fillStyle = '#fff'; k.fillRect(880, 470, 200, 230); k.restore(); B.cayBoya(g => g.rect(892, 520, 176, 174), 1, .9);
+  const k = B.k, l = B.l; k.save(); k.fillStyle = '#fff'; k.fillRect(880, 470, 200, 230); k.restore(); B.cayBoya(g => g.rect(892, 520, 176, 174), 1, .9); { const r = rng(6); k.save(); k.fillStyle = B.ton(.6); for (let i = 0; i < 100; i++) { k.beginPath(); k.ellipse(895 + r() * 170, 525 + r() * 165, 7, 3, r() * PI, 0, TAU); k.fill(); } k.restore(); l.fillStyle = '#000'; l.fillRect(872, 455, 216, 20); }
   l.save(); l.strokeStyle = '#000'; l.lineWidth = 4; l.strokeRect(880, 470, 200, 230); l.font = FONT.daktilo(32, 700); l.textAlign = 'center'; l.fillStyle = '#000'; l.fillText('1986', 980, 450); l.restore();
 });
 // P83 bugün: masada bir bardak, sayı 39 ↔ 600
@@ -79,12 +79,8 @@ sahne('P84', 'G09', 'bugun', 'yakin', (B, st) => {
 });
 // P85 izleyicinin bardağı: dem yüzeyi yukarıdan; bitiş ekranı (son 20 sn)
 sahne('P85', 'G10', 'bugun', 'ayrinti', (B, st) => {
-  B.cam(960, 540, 1 + Math.min(st.lt, 8) * .01);
-  SET.zemin(B, .1, 2000);
-  B.cayBoya(g => g.arc(960, 470, 300, 0, TAU), 1, 1);
-  const k = B.k, l = B.l; k.save(); k.fillStyle = B.ton(.25); k.beginPath(); k.arc(960, 470, 300, 0, TAU); k.fill(); k.restore();
-  l.save(); l.strokeStyle = '#000'; l.lineWidth = 8; l.beginPath(); l.arc(960, 470, 300, 0, TAU); l.stroke(); l.lineWidth = 3; l.beginPath(); l.arc(960, 470, 380, 0, TAU); l.stroke();
-  l.lineWidth = 2; for (let i = 1; i < 4; i++) { const r = ((st.lt * .2 + i / 4) % 1); l.globalAlpha = 1 - r; l.beginPath(); l.arc(960, 470, 290 * r, 0, TAU); l.stroke(); } l.restore();
-  // bitiş ekranı: son anın içinde kanal adı
-  const p = ramp(st.t, Se('G10') + .5, Se('G10') + 1.5); if (p > 0) { l.save(); l.globalAlpha = p; l.fillStyle = '#000'; l.font = FONT.manset(64); l.textAlign = 'center'; l.fillText('ZAMAN KURYESİ', 960, 790); l.restore(); }
+  B.cam(960, 520, 1 + Math.min(st.lt, 8) * .008);
+  SET.zemin(B, .1, 640, .22);
+  D.bardak(B, 960, 760, 3.6, { buhar: st.t, kasik: true });
+  const l = B.l, p = ramp(st.t, Se('G10') + .5, Se('G10') + 1.5); if (p > 0) { l.save(); l.globalAlpha = p; l.fillStyle = '#000'; l.font = FONT.manset(60); l.textAlign = 'center'; l.fillText('ZAMAN KURYESİ', 960, 160); l.restore(); }
 });

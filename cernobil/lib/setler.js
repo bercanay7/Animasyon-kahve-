@@ -11,15 +11,19 @@ const SET = (() => {
   // el ve önkol (yakın plan): bardağı tutar ya da boştur. (x,y) bilek, a önkol açısı (0 = sağdan gelir), s ölçek, kav: parmakların kapanması 0..1
   // Kanal kuralı: havaya kalkmış düz kol yok — önkol hep çapraz ya da yatay; el bardak yüksekliğinde.
   function el(B, x, y, s, a = 0, o = {}) {
-    const g = o.ton ? B.k : B.l; g.save(); g.translate(x, y); g.rotate(a); g.scale(o.f || 1, 1); g.fillStyle = o.ton ? T(B, o.ton) : '#000';
-    // önkol (kol yeni, ceket kolu: manşet yok — beyaz dikdörtgen kuralı)
-    g.beginPath(); g.moveTo(0, -26 * s); g.lineTo(420 * s, -40 * s); g.lineTo(420 * s, 46 * s); g.lineTo(0, 24 * s); g.closePath(); g.fill();
-    // avuç ve parmaklar (sola bakan)
-    g.beginPath(); g.ellipse(-26 * s, 0, 34 * s, 26 * s, 0, 0, TAU); g.fill();
-    const kav = o.kav ?? .8;
-    for (let i = 0; i < 4; i++) { const yy = -20 * s + i * 13 * s; g.beginPath(); g.ellipse(-58 * s + kav * 10 * s, yy, 18 * s, 6.5 * s, kav * .5, 0, TAU); g.fill(); }
-    g.beginPath(); g.ellipse(-40 * s, -26 * s, 16 * s, 7 * s, -.6, 0, TAU); g.fill();   // başparmak
-    g.restore();
+    // kol yeni koyu (çizgi plakası), bilekten sonra el ton plakasında açık gri ve çizgiyle: kalas gibi okunmasın. Manşet yok (beyaz dikdörtgen kuralı).
+    const f = o.f || 1, kav = o.kav ?? .8;
+    const L = B.l, K = B.k;
+    L.save(); L.translate(x, y); L.rotate(a); L.scale(f, 1); L.fillStyle = '#000';
+    L.beginPath(); L.moveTo(18 * s, -24 * s); L.quadraticCurveTo(160 * s, -36 * s, 300 * s, -44 * s); L.lineTo(300 * s, 52 * s); L.quadraticCurveTo(160 * s, 40 * s, 18 * s, 26 * s); L.closePath(); L.fill();
+    L.restore();
+    const elYol = g => { g.moveTo(22 * s, -22 * s); g.quadraticCurveTo(-10 * s, -30 * s, -34 * s, -24 * s); for (let i = 0; i < 4; i++) { const yy = -20 * s + i * 13 * s; g.quadraticCurveTo(-62 * s + kav * 18 * s, yy - 2 * s, -58 * s + kav * 22 * s, yy + 7 * s); }
+      g.quadraticCurveTo(-30 * s, 30 * s, 22 * s, 24 * s); g.closePath(); };
+    for (const [g, fill] of [[K, B.ton(.42)], [L, null]]) { g.save(); g.translate(x, y); g.rotate(a); g.scale(f, 1); g.beginPath(); elYol(g);
+      if (fill) { g.fillStyle = fill; g.fill(); } else { g.strokeStyle = '#000'; g.lineWidth = 3 * s; g.lineJoin = 'round'; g.stroke();
+        g.lineWidth = 2 * s; for (let i = 1; i < 4; i++) { const yy = -20 * s + i * 13 * s - 3 * s; g.beginPath(); g.moveTo(-28 * s, yy); g.lineTo(-50 * s + kav * 20 * s, yy); g.stroke(); }
+        g.beginPath(); g.moveTo(-20 * s, -24 * s); g.quadraticCurveTo(-44 * s, -40 * s, -52 * s, -30 * s); g.stroke(); }   // başparmak
+      g.restore(); }
   }
   // basın masası (1986): uzun masa, örtü, önde mikrofon demeti, masanın arkasında oturan figür (sırttan değil, mikrofonların arkasında gövde; yüz gölgede)
   function basinMasasi(B, t, o = {}) {
@@ -89,7 +93,7 @@ const SET = (() => {
   function daktilo(B, x, y, w, h, satirlar, p = 1, o = {}) {
     const k = B.k, l = B.l;
     k.save(); k.translate(10, 14); k.fillStyle = T(B, .3); k.fillRect(x, y, w, h); k.restore();
-    k.save(); k.fillStyle = '#fff'; k.fillRect(x, y, w, h); k.restore();
+    k.save(); k.fillStyle = '#fff'; k.fillRect(x, y, w, h); k.restore(); l.save(); l.fillStyle = '#fff'; l.fillRect(x, y, w, h); l.restore(); B.c.save(); B.c.fillStyle = '#000'; B.c.fillRect(x, y, w, h); B.c.restore();
     l.save(); l.strokeStyle = T(B, .5); l.lineWidth = 1; l.strokeRect(x, y, w, h);
     const px = o.px || 30, top = satirlar.join('\n').length; let n = Math.floor(top * clamp(p)), yy = y + 60;
     l.fillStyle = '#000'; l.textBaseline = 'alphabetic'; l.textAlign = 'left';
@@ -130,7 +134,7 @@ const SET = (() => {
   function cayYigini(B, x, y, rx, ry, ton, sd = 3) {
     const r = rng(sd), yol = g => { g.ellipse(x, y, rx, ry, 0, PI, TAU); };
     B.cayBoya(yol, 1, ton);
-    const k = B.k; k.save(); k.beginPath(); yol(k); k.clip(); k.fillStyle = T(B, ton > .7 ? .55 : .2); for (let i = 0; i < 160; i++) { const a = PI + r() * PI, rr = Math.sqrt(r()); k.beginPath(); k.ellipse(x + Math.cos(a) * rx * rr, y + Math.sin(a) * ry * rr, 6, 3, r() * PI, 0, TAU); k.fill(); } k.restore();
+    const k = B.k; k.save(); k.beginPath(); yol(k); if (ton > .7) { k.fillStyle = T(B, .5); k.fill(); } k.clip(); k.fillStyle = T(B, ton > .7 ? .75 : .2); for (let i = 0; i < 160; i++) { const a = PI + r() * PI, rr = Math.sqrt(r()); k.beginPath(); k.ellipse(x + Math.cos(a) * rx * rr, y + Math.sin(a) * ry * rr, 6, 3, r() * PI, 0, TAU); k.fill(); } k.restore();
     const l = B.l; l.save(); ink(l, 2); l.beginPath(); yol(l); l.stroke(); l.restore();
   }
   // televizyon (1986): ahşap kasa, bombeli ekran; ekranın içinde fn ile çizim (ton plakasına, ekrana kırpılmış)

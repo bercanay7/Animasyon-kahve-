@@ -46,12 +46,12 @@ sahne('P05', 'A03', 'bardak', 'orta', (B, st) => {
   // "göremediğin, koklayamadığın, tadını": üç küçük boşluk vuruşu — bardağın etrafında hiçbir şey belirmez; yalnız buhar kesilir
 }, { baski: st => ({ kagit: 1 }) });
 sahne('P06', 'A03@neye', 'bardak', 'ayrinti', (B, st) => {
-  B.cam(960, 540, 1 + st.lt * .04);
-  B.cayBoya(g => g.ellipse(960, 560, 760, 300, 0, 0, TAU), 1, 1);
-  B.k.save(); B.k.fillStyle = B.ton(.25); B.k.beginPath(); B.k.ellipse(960, 560, 760, 300, 0, 0, TAU); B.k.fill(); B.k.restore();
-  const l = B.l; l.save(); l.strokeStyle = '#000'; l.lineWidth = 6; l.beginPath(); l.ellipse(960, 560, 760, 300, 0, 0, TAU); l.stroke();
-  // dem yüzeyinde halka halka sakin dalga (titreşim): bardağa bakan gözün tek gördüğü
-  l.lineWidth = 2; for (let i = 1; i < 4; i++) { const r = ((st.lt * .25 + i / 4) % 1); l.globalAlpha = 1 - r; l.beginPath(); l.ellipse(960, 560, 700 * r, 270 * r, 0, 0, TAU); l.stroke(); } l.restore();
+  // demin yüzeyi yakından: pencere yansıması (kâğıt beyazı şerit) yavaşça kayar; halka çizgisi yok (hedef tahtası okunmasın)
+  B.cam(960, 540, 1 + st.lt * .03);
+  SET.zemin(B, .2, 2000);
+  D.bardak(B, 960, 1500, 11, { tabak: false });
+  const k = B.k, x = 700 + st.lt * 30; k.save(); k.fillStyle = '#fff'; k.globalAlpha = .8; k.beginPath(); k.moveTo(x, 300); k.lineTo(x + 60, 300); k.lineTo(x + 20, 700); k.lineTo(x - 40, 700); k.closePath(); k.fill(); k.restore();
+  B.c.save(); B.c.fillStyle = '#000'; B.c.beginPath(); B.c.moveTo(x, 300); B.c.lineTo(x + 60, 300); B.c.lineTo(x + 20, 700); B.c.lineTo(x - 40, 700); B.c.closePath(); B.c.fill(); B.c.restore();
 });
 
 // ── I. YAPRAK ──
@@ -170,7 +170,7 @@ sahne('P16', 'B08', 'harita', 'genis', (B, st) => {
 sahne('P17', 'B08@kurumun', 'tv', 'orta', (B, st) => {
   B.cam(960, 560, 1.04 + st.lt * .012);
   SET.zemin(B, .45, 760, .62);
-  SET.tv(B, 960, 460, 1.4, (x, y, w, h) => { const k = B.k; k.fillStyle = B.ton(.15); k.fillRect(x, y, w, h); FIG.kisi(k, x + w * .5, y + h + 40, h * 1.25, { tip: 'takim', f: 1, renk: B.ton(.75), bas: .05 + Math.sin(st.t * 3) * .03, kolO: [.2, 1.0], kolA: [.1, .6] }); });
+  SET.tv(B, 960, 460, 1.4, (x, y, w, h) => { const k = B.k; k.fillStyle = B.ton(.15); k.fillRect(x, y, w, h); FIG.kisi(k, x + w * .5, y + h + 60, h * .95, { tip: 'takim', f: 1, renk: B.ton(.75), bas: .05 + Math.sin(st.t * 3) * .03, kolO: [.2, 1.0], kolA: [.1, .6] }); });
   SET.bust(B, 560, 1160, 1.5, .05); SET.bust(B, 1360, 1180, 1.35, -.05);
   D.bardak(B, 1500, 980, 1.6, { buhar: st.t, renk: 1 });
 }, { over: KU('"Korkulacak bir durum olmadığını…" — Milliyet, 19 Şubat 1988, s. 9') });
@@ -225,12 +225,14 @@ sahne('P22', 'B10@kurutulur', 'fabrika', 'ayrinti', (B, st) => {
 });
 // P23 terazi: beş kilo yaş yaprak ↔ bir kilo kuru çay
 sahne('P23', 'B11', 'terazi', 'orta', (B, st) => {
-  B.cam(960, 520, 1.0 + st.lt * .008);
-  SET.zemin(B, .1, 880, .3);
-  const a = Math.sin(st.t * 1.5) * .02;
-  SET.terazi(B, 960, 860, 1.2, a, (x, y) => SET.cayYigini(B, x, y, 120, 110, 0, 3), (x, y) => SET.cayYigini(B, x, y, 60, 40, .92, 4));
-  D.sayi(B, '5 kg', 600, 300, { px: 90, p: ramp(st.t, A('B11@beş') - .2, A('B11@beş') + .5) });
-  D.sayi(B, '1 kg', 1320, 300, { px: 90, p: ramp(st.t, A('B11@bir') - .2, A('B11@bir') + .5) });
+  B.cam(960, 540, 1.0 + st.lt * .008);
+  SET.zemin(B, .1, 820, .3);
+  SET.cayYigini(B, 560, 820, 280, 200, 0, 3);
+  const p = ramp(st.t, A('B11@bir') - .6, A('B11@bir') + .4), l = B.l;
+  l.save(); l.strokeStyle = '#000'; l.lineWidth = 8; l.beginPath(); l.moveTo(900, 700); l.lineTo(900 + 260 * p, 700); l.stroke(); if (p > .9) { l.beginPath(); l.moveTo(1130, 670); l.lineTo(1165, 700); l.lineTo(1130, 730); l.stroke(); } l.restore();
+  if (p > .5) SET.cayYigini(B, 1400, 820, 120, 70, .92, 4);
+  D.sayi(B, '5 kg', 560, 420, { px: 90, p: ramp(st.t, A('B11@beş') - .2, A('B11@beş') + .5) });
+  D.sayi(B, '1 kg', 1400, 420, { px: 90, p: ramp(st.t, A('B11@bir') - .2, A('B11@bir') + .5) });
 });
 // P24 bakkal rafı 1986; el bir paket alır
 sahne('P24', 'B12', 'bakkal', 'genis', (B, st) => {

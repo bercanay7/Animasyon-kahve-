@@ -11,7 +11,7 @@ sahne('P52', 'F01', 'sayim', 'genis', (B, st) => {
   FIG.kisi(B.l, 760, 900, 400, { tip: 'koylu', f: 1, bacak: 'otur', bas: .05, kolO: [.9, .9], kolA: [.8, 1] });
   l.save(); l.strokeStyle = '#000'; l.lineWidth = 4; l.strokeRect(560, 260, 520, 640); l.restore();
   D.tarihBandi(B, 'OCAK 1988 · ANKARA', 110, clamp(st.lt / .5));
-  D.sayi(B, String(Math.floor(st.lt * 937) % 10000).padStart(4, '0'), 1660, 560, { px: 90 });
+  D.sayi(B, 'VÜCUT SAYIMI', 1660, 440, { px: 40 }); D.sayi(B, String(Math.floor(st.lt * 937) % 10000).padStart(4, '0'), 1660, 560, { px: 90 });
 }, { tr: { type: 'merdane', dur: .9 } });
 // P53 iki sayı (kart): Artvin ↔ Ankara
 sahne('P53', 'F02', 'iki_sayi2', 'kart', (B, st) => {
@@ -86,7 +86,7 @@ sahne('P61', 'E03', 'firin', 'orta', (B, st) => {
   k.save(); k.fillStyle = '#fff'; k.beginPath(); k.roundRect(760, 520, 420, 260, 30); k.fill(); k.fillStyle = B.ton(.2 + fl * .15); k.beginPath(); k.roundRect(790, 560, 360, 200, 20); k.fill(); k.restore();   // fırın ağzı: ışık kâğıt beyazı
   l.save(); l.strokeStyle = '#000'; l.lineWidth = 8; l.beginPath(); l.roundRect(760, 520, 420, 260, 30); l.stroke(); l.restore();
   const at = ramp(st.t, st.at + .6, st.at + 2.2);
-  const kk = FIG.kisi(B.l, 520 + at * 120, 1000, 460, { tip: 'isci', f: 1, govde: .35 + at * .2, bas: .2, kolO: [1.3 - at * .3, .6], kolA: [1.1, .7] });
+  const kk = FIG.kisi(B.l, 520 + at * 120, 1000, 460, { tip: 'isci', f: 1, govde: .35 + at * .2, bas: .2, kolO: [.95 - at * .2, .45], kolA: [.8, .5] });
   D.cuval(B, kk.elO[0] + 40, kk.elO[1] + 30, 1.1, { d: .6 });
   SET.saat(B, 1550, 300, 90, 4.0);
   D.tarihBandi(B, 'AĞUSTOS 1988 · RİZE, TRABZON', 110, clamp(st.lt / .5));
@@ -105,7 +105,7 @@ sahne('P63', 'E04', 'cit', 'genis', (B, st) => {
   D.cit(B, -200, W + 200, 900, 1.2, { bozuk: 1000 });
   const yuru = clamp(st.lt / 5), g = HAREKET.yuruyus({ tip: 'yuru' });
   for (let i = 0; i < 2; i++) { const x = 820 + yuru * 360 - i * 140; const ph = HAREKET.poz ? null : null;
-    const kk = FIG.kisi(B.l, x, 1020 - yuru * 60, 330, { tip: i ? 'gazeteci' : 'kadin', f: 1, govde: .12, bas: .08, kolO: [.5 + Math.sin(st.t * 4 + i) * .2, .5], kolA: [-.2, .3] });
+    const kk = FIG.kisi(B.l, x, 1020 - yuru * 60, 330, { tip: i ? 'gazeteci' : 'kadin', f: 1, desen: false, govde: .12, bas: .08, kolO: [.5 + Math.sin(st.t * 4 + i) * .2, .5], kolA: [-.2, .3] });
     if (i) D.kamera(B.l, kk.elO[0], kk.elO[1], kk.s * .5); }
   D.tarihBandi(B, 'EKİM 1988 · ANKARA YAKINLARI', 110, clamp(st.lt / .5));
 }, { over: KU3('Milliyet, 17 Ekim 1988, s. 12') });
@@ -126,7 +126,7 @@ sahne('P65', 'E06', 'depo2', 'genis', (B, st) => {
   const k = B.k, l = B.l;
   for (let i = 0; i < 3; i++) { const x = 220 + i * 560; k.save(); k.fillStyle = B.ton(.45); k.fillRect(x, 420, 480, 320); k.fillStyle = B.ton(.7); k.beginPath(); k.moveTo(x - 20, 420); k.lineTo(x + 240, 330); k.lineTo(x + 500, 420); k.closePath(); k.fill(); k.restore();
     l.save(); l.strokeStyle = '#000'; l.lineWidth = 3; l.strokeRect(x, 420, 480, 320); l.fillStyle = '#000'; l.fillRect(x + 190, 560, 100, 180); l.restore();
-    for (let j = 0; j < 3; j++) { const sx = x + 50 + j * (j === 1 ? 300 : 120), L = 50 + ((st.lt * 10 + j * 30 + i * 20) % 90); k.save(); k.fillStyle = B.ton(.9); k.beginPath(); k.moveTo(sx - 14, 650); k.quadraticCurveTo(sx - 6, 650 + L * .5, sx - 10, 650 + L); k.quadraticCurveTo(sx, 660 + L, sx + 12, 650 + L); k.quadraticCurveTo(sx + 6, 650 + L * .5, sx + 14, 650); k.closePath(); k.fill(); k.beginPath(); k.ellipse(sx, 744, 40 + L * .3, 9, 0, 0, TAU); k.fill(); k.restore(); } }   // duvardan sızan koyu leke ve dipte birikinti
+    for (const [sx, dir] of [[x + 6, 1], [x + 474, -1]]) { const L = 160 + ((st.lt * 14 + i * 40) % 120); k.save(); k.fillStyle = B.ton(.7); k.beginPath(); k.moveTo(sx, 440); for (let u = 0; u <= 1; u += .1) k.lineTo(sx + dir * (22 + 10 * Math.sin(u * 9 + i)), 440 + u * L); k.lineTo(sx, 440 + L); k.closePath(); k.fill(); k.restore(); } }   // duvarın kenarlarından sızan yapışkan leke (köşeden aşağı, direk okunmasın)
   D.tarihBandi(B, 'NİSAN 1989 · RİZE', 110, clamp(st.lt / .5));
 }, { over: KU3('Milliyet, 22 Nisan 1989, s. 3') });
 // P66 açıkta istif: tahtalar, naylon rüzgârda
@@ -157,7 +157,7 @@ sahne('P68', 'E09', 'bahce', 'yakin', (B, st) => {
   const son = ramp(st.t, st.at + 1, Se('E09'));
   SET.gomu(B, 960, 620, 1600, 600, son, { n: 6 });
   const kx = 1300 + Math.sin(st.t * 2.4) * 60, l = B.l; l.save(); l.strokeStyle = '#000'; l.lineWidth = 14; l.beginPath(); l.moveTo(kx + 160, 120); l.lineTo(kx, 560); l.stroke(); l.beginPath(); l.ellipse(kx - 10, 590, 70, 40, -.4, 0, TAU); l.fill(); l.restore();
-  D.kupur(B, 560, 300, { w: 760, h: 300, a: -.02, alinti: '"Killi toprağa gömülen çaylar çevreye zarar vermez."', px: 40, ah: 200, sutun: 0, ust: 'MİLLİYET · 25 ARALIK 1989', p: ramp(st.t, A('E09@killi'), Se('E09')) });
+  D.kupur(B, 560, 300, { w: 760, h: 300, a: -.02, alinti: '"Killi toprağa gömülen çaylar çevreye zarar vermez."', px: 40, ah: 200, sutun: 0, ust: 'MİLLİYET · 25 ARALIK 1989', p: ramp(st.t, st.at + .3, Se('E09')) });
 });
 // P69 pano: iğnelenmiş kupür ile çukurun fotoğrafı yan yana (hüküm izleyicide)
 sahne('P69', 'E10', 'pano', 'orta', (B, st) => {
@@ -213,7 +213,7 @@ sahne('P74', 'E15', 'arazi', 'genis', (B, st) => {
   const k = B.k; k.save(); k.fillStyle = B.ton(.3); k.beginPath(); k.moveTo(-200, 620); for (let x = -200; x < W + 200; x += 40) k.lineTo(x, 600 - 40 * fbm1(x / 400, 2, 3)); k.lineTo(W + 200, 640); k.closePath(); k.fill(); k.restore();
   const l = B.l; l.save(); l.strokeStyle = '#000'; l.lineWidth = 6; for (let i = 0; i < 4; i++) { const x = 600 + i * 240; l.beginPath(); l.moveTo(x, 900); l.lineTo(x, 760); l.stroke(); } l.lineWidth = 2; l.setLineDash([14, 10]); l.beginPath(); l.moveTo(600, 790); l.lineTo(1320, 790); l.stroke(); l.restore();
   SET.damga(B, 'İZİN YOK', 960, 520, { px: 70, p: ramp(st.t, A('E15@valisi') - .1, A('E15@valisi') + .15, E.lin) });
-  D.kupur(B, 1440, 300, { w: 700, h: 260, a: -.02, alinti: '"Bu çayları yurt dışına gömecek halimiz yok ya."', px: 40, ah: 180, sutun: 0, ust: 'MİLLİYET · 9 OCAK 1993', p: ramp(st.t, A('E15@bu'), Se('E15')) });
+  D.kupur(B, 1440, 300, { w: 700, h: 260, a: -.02, alinti: '"Bu çayları yurt dışına gömecek halimiz yok ya."', px: 40, ah: 180, sutun: 0, ust: 'MİLLİYET · 9 OCAK 1993', p: ramp(st.t, st.at + .5, Se('E15')) });
   D.tarihBandi(B, 'OCAK 1993', 110, clamp(st.lt / .5));
 });
 // P75 arşiv çekmecesi: 1993'ten sonra boş dosya; gölgede tek çuval

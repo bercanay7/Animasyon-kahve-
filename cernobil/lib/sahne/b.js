@@ -60,7 +60,7 @@ sahne('P30', 'C05', 'ankara86', 'genis', (B, st) => {
 sahne('P31', 'C06', 'ankara86', 'orta', (B, st) => {
   B.cam(960, 620, 1.18);
   SET.zemin(B, .2, 640, .35);
-  for (let i = 0; i < 4; i++) { const x = 300 + i * 420, kk = FIG.kisi(B.l, x, 1120, 520, { tip: 'gazeteci', f: i < 2 ? 1 : -1, bacak: 'otur', govde: .15, bas: .2 + Math.sin(st.t * 2 + i) * .05, kolO: [1.1, 1.3], kolA: [.9, 1.2] });
+  for (let i = 0; i < 4; i++) { const x = 300 + i * 420, kk = FIG.kisi(B.l, x, 1120, 520, { tip: 'gazeteci', f: i < 2 ? 1 : -1, bacak: 'otur', govde: .15, bas: .2 + Math.sin(st.t * 2 + i) * .05, kolO: [.75, 1.25], kolA: [.55, 1.35] });
     const l = B.l; l.save(); l.fillStyle = '#fff'; l.fillRect(kk.elA[0] - 20, kk.elA[1] - 10, 40, 30); l.restore(); }
 });
 // P32 Milliyet kupürü: "radyasyona nispet yapar gibi"
@@ -84,7 +84,7 @@ sahne('P34', 'C08', 'kaynama', 'orta', (B, st) => {
   B.cam(960, 560, 1.02 + st.lt * .01);
   SET.zemin(B, .1, 780, .3);
   SET.demlik(B, 620, 700, 1.3, st.t, { ocak: true });
-  D.sayi(B, '300-350', 1380, 420, { px: 120, p: ramp(st.t, A('C08@üç') - .2, A('C08@üç') + .9) });
+  D.sayi(B, '300-350 Bq/kg', 1360, 420, { px: 96, p: ramp(st.t, A('C08@üç') - .2, A('C08@üç') + .9) });
   D.sayi(B, '< 600', 1380, 620, { px: 120, p: ramp(st.t, A('C08@altı') - .2, A('C08@altı') + .6) });
 }, { over: KU2('Bakanın sözü, Milliyet, 9 Aralık 1986, s. 7') });
 // P35 marul ve bardak (bakanın kendi benzetmesi), yan yana masada
@@ -134,7 +134,6 @@ sahne('P40', 'D03', 'ofis', 'orta', (B, st) => {
   SET.masa(B, 700, .35);
   const p = clamp((st.lt - .5) / 2.5);
   D.bardak(B, 1000, 760, 1.6, { dolu: .2 + p * .65, buhar: st.t });
-  const l = B.l; l.save(); l.fillStyle = '#000'; l.fillRect(1260, 560, 160, 130); l.fillStyle = '#fff'; l.fillRect(1274, 574, 132, 102); l.fillStyle = '#000'; l.beginPath(); l.moveTo(1274, 676); l.lineTo(1310, 620); l.lineTo(1340, 650); l.lineTo(1372, 606); l.lineTo(1406, 676); l.closePath(); l.fill(); l.restore();   // çerçevede dağ resmi
   D.kupur(B, 1460, 300, { w: 720, h: 400, a: .03, alinti: '"Ben göstermelik olsun diye çay içmiyorum. Hem ben hem de aile fertlerim rahatlıkla içiyoruz."', px: 38, ah: 300, sutun: 0, ust: 'MİLLİYET · 6 OCAK 1987', p: ramp(st.t, A('D03@ben'), Se('D03')) });
 });
 // P41 harman: iki yığın kürekle karıştırılır; ortalama 10.000
@@ -143,7 +142,7 @@ sahne('P41', 'D04', 'harman', 'yakin', (B, st) => {
   SET.zemin(B, .2, 760, .35);
   const m = ramp(st.t, st.at + .5, st.at + 4);
   SET.cayYigini(B, lerp(620, 860, m), 900, 260, 180, .92, 3); SET.cayYigini(B, lerp(1300, 1060, m), 900, 260, 160, .85, 8);
-  const kx = 960 + Math.sin(st.t * 3) * 120; const l = B.l; l.save(); l.strokeStyle = '#000'; l.lineWidth = 16; l.beginPath(); l.moveTo(kx + 200, 300); l.lineTo(kx, 820); l.stroke(); l.beginPath(); l.ellipse(kx - 10, 850, 60, 34, -.3, 0, TAU); l.fill(); l.restore();
+  const kx = 960 + Math.sin(st.t * 3) * 120; const l = B.l; l.save(); l.strokeStyle = '#000'; l.lineWidth = 16; l.beginPath(); l.moveTo(kx + 200, 300); l.lineTo(kx + 30, 700); l.stroke(); l.lineWidth = 6; l.beginPath(); l.moveTo(kx + 175, 290); l.lineTo(kx + 235, 300); l.stroke(); l.fillStyle = '#000'; l.beginPath(); l.moveTo(kx - 40, 700); l.lineTo(kx + 90, 700); l.lineTo(kx + 70, 800); l.lineTo(kx - 20, 800); l.closePath(); l.fill(); l.restore();   // kürek (sap, tutamak, düz ağız)
   D.sayi(B, 'ort. 10.000', 960, 300, { px: 90, birim: 'Bq/kg', p: ramp(st.t, A('D04@ortalama') - .2, A('D04@ortalama') + .8) });
 }, { over: KU2('ODTÜ\'lü dört bilim insanının bildirisi, Milliyet, 4 Mart 1987, s. 9') });
 // P42 mektup: zarf ve daktilo satırı
@@ -170,7 +169,7 @@ sahne('P44', 'D06@gergin', 'masa', 'orta', (B, st) => {
   SET.zemin(B, .15, 600, .3);
   const k = B.k; k.save(); k.fillStyle = B.ton(.55); k.beginPath(); k.ellipse(960, 760, 760, 150, 0, 0, TAU); k.fill(); k.restore();
   const git = ramp(st.t, st.at + .2, st.at + 1.8);
-  for (let i = 0; i < 3; i++) FIG.kisi(B.l, 1500 - i * 70 + git * 400, 1010 - i * 70, 380 - i * 30, { tip: 'takim', f: 1, govde: .05, bas: .05, kolO: [.2, .3], kolA: [.1, .3] });
+  for (let i = 0; i < 3; i++) { const kk = FIG.kisi(B.l, 1500 - i * 70 + git * 400, 1010 - i * 70, 380 - i * 30, { tip: 'takim', f: 1, govde: .05, bas: .05, kolO: [.15, .25], kolA: [-.35, .2] }); B.l.fillStyle = '#000'; B.l.fillRect(kk.elA[0] - 6 * kk.s, kk.elA[1], 12 * kk.s, 9 * kk.s); }   // çantalar
   const r = rng(4); for (let i = 0; i < 14; i++) D.bardak(B, 560 + r() * 800, 720 + r() * 70, .7, { dolu: r() * .3, tabak: true });
 });
 // P45 soru: kuru çay → dem; süzgeçte posa, bardakta dem
@@ -210,8 +209,8 @@ sahne('P48', 'D10', 'mutfak', 'orta', (B, st) => {
   const l = B.l; l.save(); l.strokeStyle = '#000'; l.lineWidth = 8; l.beginPath(); l.arc(800, 640, 120, 0, PI); l.stroke(); l.beginPath(); l.moveTo(920, 640); l.lineTo(1180, 600); l.stroke(); l.restore();
   SET.cayYigini(B, 800, 700, 100, 40, .92, 2);
   B.cayBoya(g => { g.moveTo(780, 760); g.lineTo(820, 760); g.lineTo(830, 1000); g.lineTo(770, 1000); g.closePath(); }, .5, 1, .9 * clamp(Math.sin(st.t * 2) + .4));   // süzülen açık dem
-  const k = B.k; k.save(); k.strokeStyle = '#fff'; k.lineWidth = 16; k.lineCap = 'round'; k.beginPath(); k.moveTo(600, 300); k.quadraticCurveTo(700, 420, 790, 560); k.stroke(); k.restore();   // dökülen sıcak su
-  SET.el(B, 560, 280, 1.1, .3, { kav: .9 });
+  const k = B.k; k.save(); k.strokeStyle = B.ton(.35); k.lineWidth = 5; k.setLineDash([18, 12]); k.lineDashOffset = -st.t * 80; k.beginPath(); k.moveTo(640, 360); k.quadraticCurveTo(720, 440, 790, 560); k.stroke(); k.restore();   // dökülen sıcak su (kesik çizgi)
+  B.save(); B.each(g => { g.translate(520, 300); g.rotate(.5); }); SET.demlik(B, 0, 0, .55, st.t); B.restore();
 });
 // P49 bildirinin başlığı (gazete sütunu)
 sahne('P49', 'D11', 'gazete', 'ayrinti', (B, st) => {

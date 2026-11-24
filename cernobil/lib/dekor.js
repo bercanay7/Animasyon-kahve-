@@ -82,6 +82,7 @@ const D = (() => {
     const yol = g => { g.moveTo(kenar[0][0], kenar[0][1]); for (const p of kenar) g.lineTo(p[0], p[1]); g.closePath(); };
     for (const g of [k, l]) { g.save(); g.translate(x, y); g.rotate(o.a || 0); }
     if (o.golge !== false) { k.save(); k.translate(10, 14); k.beginPath(); yol(k); k.fillStyle = T(B, .35); k.filter = 'blur(6px)'; k.fill(); k.restore(); }
+    l.save(); l.beginPath(); yol(l); l.fillStyle = '#fff'; l.fill(); l.restore(); B.c.save(); B.c.translate(x, y); B.c.rotate(o.a || 0); B.c.beginPath(); yol(B.c); B.c.fillStyle = '#000'; B.c.fill(); B.c.restore();
     k.beginPath(); yol(k); k.fillStyle = '#fff'; k.fill();                        // kupür kâğıdı: tramsız (zemin kâğıdından ayrışsın diye çevresinde gölge)
     l.save(); l.beginPath(); yol(l); l.clip();
     l.fillStyle = '#000'; let yy = -h / 2 + 34;
@@ -134,7 +135,7 @@ const D = (() => {
   function mikrofonlar(B, x, y, s, n = 5, sd = 4) {
     const l = B.l, r = rng(sd); l.save(); l.fillStyle = '#000'; l.strokeStyle = '#000';
     for (let i = 0; i < n; i++) { const a = (i - (n - 1) / 2) * .16 + (r() - .5) * .1, L = (110 + r() * 60) * s, bx = x + Math.sin(a) * L, by = y - Math.cos(a) * L;
-      l.lineWidth = 6 * s; l.beginPath(); l.moveTo(x + (i - n / 2) * 12 * s, y + 40 * s); l.lineTo(bx, by); l.stroke();
+      l.lineWidth = 6 * s; l.beginPath(); l.moveTo(x + (i - n / 2) * 12 * s, y); l.lineTo(bx, by); l.stroke(); l.fillRect(x + (i - n / 2) * 12 * s - 14 * s, y - 6 * s, 28 * s, 8 * s);
       l.beginPath(); l.ellipse(bx, by, 13 * s, 18 * s, a, 0, TAU); l.fill(); l.fillRect(bx - 11 * s, by + 12 * s, 22 * s, 10 * s); }
     l.restore();
   }
@@ -188,20 +189,24 @@ const D = (() => {
     l.save(); l.strokeStyle = '#000'; l.lineWidth = 4; for (let i = 0; i < 7; i++) { const x = i * 330 - 60; l.beginPath(); l.moveTo(x, 260); l.lineTo(x + 165, 60); l.lineTo(x + 330, 260); l.stroke(); l.beginPath(); l.moveTo(x, 260); l.lineTo(x, H); l.stroke(); }
     l.beginPath(); l.moveTo(-100, 260); l.lineTo(W + 100, 260); l.stroke(); l.restore();
   }
-  // çit: direkler + dikenli tel; o.bozuk: bir aralık açık
+  // çit: beton direkler ve tel örgü (baklava ağ, açık ton). Dikenli tel çizilmez (kamp çağrışımı). o.bozuk: bir aralık açık
   function cit(B, x0, x1, y, s, o = {}) {
-    const l = B.l; l.save(); l.strokeStyle = '#000'; l.fillStyle = '#000';
-    for (let x = x0; x <= x1; x += 120 * s) { if (o.bozuk && Math.abs(x - o.bozuk) < 80 * s) continue; l.fillRect(x - 4 * s, y - 150 * s, 8 * s, 150 * s); }
-    l.lineWidth = 1.6 * s; for (let j = 0; j < 4; j++) { const yy = y - 30 * s - j * 34 * s; l.beginPath(); for (let x = x0; x <= x1; x += 10 * s) { const kopuk = o.bozuk && Math.abs(x - o.bozuk) < 60 * s; if (kopuk) { l.stroke(); l.beginPath(); continue; } l.lineTo(x, yy + Math.sin(x * .05) * 2 * s); } l.stroke();
-      for (let x = x0 + 20 * s; x <= x1; x += 40 * s) { if (o.bozuk && Math.abs(x - o.bozuk) < 60 * s) continue; l.beginPath(); l.moveTo(x - 5 * s, yy - 5 * s); l.lineTo(x + 5 * s, yy + 5 * s); l.moveTo(x + 5 * s, yy - 5 * s); l.lineTo(x - 5 * s, yy + 5 * s); l.stroke(); } }
+    const l = B.l, k = B.k, h = 130 * s, acik = x => o.bozuk && Math.abs(x - o.bozuk) < 70 * s;
+    k.save(); k.strokeStyle = T(B, .45); k.lineWidth = 1.2 * s;
+    for (let x = x0; x < x1; x += 18 * s) { if (acik(x)) continue; k.beginPath(); k.moveTo(x, y); k.lineTo(x + 18 * s, y - h); k.moveTo(x + 18 * s, y); k.lineTo(x, y - h); k.stroke(); }
+    k.restore();
+    l.save(); l.fillStyle = '#000'; l.strokeStyle = '#000'; l.lineWidth = 2 * s;
+    for (let x = x0; x <= x1; x += 180 * s) { if (acik(x)) continue; l.fillRect(x - 5 * s, y - h - 10 * s, 10 * s, h + 10 * s); }
+    l.beginPath(); for (let x = x0; x <= x1; x += 8 * s) { if (acik(x)) { l.stroke(); l.beginPath(); continue; } l.lineTo(x, y - h); } l.stroke();
+    if (o.bozuk) { l.lineWidth = 1.4 * s; l.beginPath(); l.moveTo(o.bozuk - 70 * s, y - h); l.quadraticCurveTo(o.bozuk - 40 * s, y - h * .3, o.bozuk - 20 * s, y - 10 * s); l.stroke(); }   // kıvrılmış örgü
     l.restore();
   }
   // sera: ince çerçeve, kırık camlar (bazı bölmeler boş), naylon branda dalgalanır
   function sera(B, x, y, s, t = 0, o = {}) {
     const k = B.k, l = B.l, w = 520 * s, h = 230 * s, r = rng(o.tohum || 31);
     const yol = g => { g.moveTo(x - w / 2, y); g.lineTo(x - w / 2, y - h * .65); g.lineTo(x, y - h); g.lineTo(x + w / 2, y - h * .65); g.lineTo(x + w / 2, y); g.closePath(); };
-    k.save(); k.beginPath(); yol(k); k.fillStyle = T(B, .3); k.fill(); k.restore();
-    l.save(); l.strokeStyle = '#000'; l.lineWidth = 3 * s; l.beginPath(); yol(l); l.stroke(); l.lineWidth = 1.6 * s;
+    k.save(); k.beginPath(); yol(k); k.fillStyle = T(B, .08); k.fill(); k.clip(); k.fillStyle = T(B, .25); for (let i = 0; i < 9; i++) k.fillRect(x - w / 2 + i * w / 8 - 4 * s, y - h, 8 * s, h); k.restore();   // cam: neredeyse kâğıt, arkadaki saksı ve çay kolileri gölge
+    l.save(); l.strokeStyle = '#000'; l.lineWidth = 2 * s; l.beginPath(); yol(l); l.stroke(); l.lineWidth = 1.2 * s;
     for (let i = 1; i < 8; i++) { const xx = x - w / 2 + i * w / 8; l.beginPath(); l.moveTo(xx, y); l.lineTo(xx, y - h * (.65 + .35 * (1 - Math.abs(xx - x) / (w / 2)))); l.stroke(); }
     for (let i = 0; i < 8; i++) if (r() < .45) { const xx = x - w / 2 + i * w / 8 + 4 * s; l.beginPath(); l.moveTo(xx, y - h * .3); l.lineTo(xx + w / 16, y - h * .48); l.lineTo(xx + w / 10, y - h * .2); l.stroke(); }   // kırık cam çatlakları
     l.restore();
@@ -211,7 +216,7 @@ const D = (() => {
   function lab(B, o = {}) {
     const k = B.k, l = B.l;
     k.save(); k.fillStyle = T(B, .18); k.fillRect(-200, -200, W + 400, H + 400); k.fillStyle = T(B, .5); k.fillRect(-200, 700, W + 400, 30); k.fillStyle = T(B, .35); k.fillRect(-200, 730, W + 400, 500); k.restore();
-    l.save(); l.fillStyle = '#000'; l.fillRect(1180, 380, 260, 320); l.fillStyle = '#fff'; l.fillRect(1196, 396, 228, 8); l.restore();   // kurşun zırh (dedektör kalkanı)
+    l.save(); l.fillStyle = '#000'; l.fillRect(1180, 380, 260, 320); l.fillStyle = '#fff'; l.fillRect(1196, 396, 228, 8); l.fillStyle = '#000'; l.font = FONT.daktilo(30, 700); l.textAlign = 'center'; l.fillText('DEDEKTÖR', 1310, 360); l.restore();   // kurşun zırh (dedektör kalkanı)
     l.save(); l.strokeStyle = '#000'; l.lineWidth = 3; for (let i = 0; i < 3; i++) { l.beginPath(); l.moveTo(160, 260 + i * 130); l.lineTo(900, 260 + i * 130); l.stroke(); } l.restore();
   }
   // harita: Karadeniz çevresi (basit kıyı çizgisi, dünya koordinatında 1920×1080 çerçeve); kara ton, deniz kâğıt; şehir noktaları
@@ -227,6 +232,9 @@ const D = (() => {
     k.save(); k.fillStyle = T(B, o.kara ?? .28); k.fillRect(-400, -400, W + 800, H + 800);
     for (const nm of ['karadeniz', 'marmara', 'ege']) { k.beginPath(); KIYI[nm].forEach((p, i) => { const q = hp(p); i ? k.lineTo(q[0], q[1]) : k.moveTo(q[0], q[1]); }); k.closePath(); k.fillStyle = '#fff'; k.fill(); }
     k.restore();
+    k.save(); k.beginPath(); KIYI.karadeniz.forEach((p, i) => { const q = hp(p); i ? k.lineTo(q[0], q[1]) : k.moveTo(q[0], q[1]); }); k.closePath(); k.clip(); k.strokeStyle = T(B, .3); k.lineWidth = 2;
+    for (let yy = 260; yy < 900; yy += 34) for (let xx = 500; xx < 1700; xx += 70) { k.beginPath(); k.moveTo(xx, yy); k.quadraticCurveTo(xx + 12, yy - 8, xx + 24, yy); k.quadraticCurveTo(xx + 36, yy + 8, xx + 48, yy); k.stroke(); } k.restore();
+    { const q = hp([34.2, 43.4]); l.save(); l.font = FONT.daktilo(30, 700); l.textAlign = 'center'; l.fillStyle = '#000'; l.letterSpacing = '10px'; l.fillText('KARADENİZ', q[0], q[1]); l.restore(); }
     l.save(); l.strokeStyle = '#000'; l.lineWidth = 2.4; for (const nm of ['karadeniz', 'marmara', 'ege']) { l.beginPath(); KIYI[nm].forEach((p, i) => { const q = hp(p); i ? l.lineTo(q[0], q[1]) : l.moveTo(q[0], q[1]); }); l.closePath(); l.stroke(); }
     l.restore();
   }
