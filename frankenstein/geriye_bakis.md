@@ -49,6 +49,13 @@ Bu video yön usulünün ikinci örneği (`analiz/2026-11-23-deney-yon-promptu.m
 - **Kök neden yakalandı:** öğretmen ve öğrenci birkaç planda "başı göğe dönük", "geriye yaslanmış" okudu. Figür kitinde gövde ve baş eğiminin işareti terstı: "öne eğil" dediğim her figür arkaya yaslanıyordu. Düzeltilince öne eğilmesi istenen bütün pozlar doğru oturdu; ama eski ters işarete göre ayarlanmış kollar (yazan Mary, Byron, Percy, başını tutan Victor) havaya kalktı. Bunlar tek tek indirildi; kapak B de yenilendi. **Ders:** figür kitinin her parametresi ilk gün tek bir test karesinde sınanır ("öne eğil" gerçekten öne mi?); 98 plan yazıldıktan sonra bulunan işaret hatası her pozu yeniden açtırdı.
 - **Doğrulanmayan ya da reddedilen:** öğretmenin "kitap çıkınca yazarına sordular ↔ kapakta adı yoktu" gerilimi (iki ayrı zaman: 1818 adsız, 1823'ten sonra ad biliniyordu; değiştirilmedi); "yıllar sonra" (C06; Victor ile yaratık yaklaşık iki yıl sonra yüzleşir: "yıllar" geniş ama yanlış değil, ses değişmeden düzeltilemez); "8:33'te tabut yerine yatak" (sandık biçimi korunuyor, haç çağrışımı olmasın diye kapaksız); I. bölümde levha olmaması (bilerek: kancadan hemen sonra levha "ders başlıyor" hissi verir, Gılgamış dersi).
 
+## Render ve denetimler
+- **Donma taraması** (`tools/donma.py`, plan sınırları `vo/shots.json`'dan): ilk render'da 5 sn'yi aşan 16 durgun aralık vardı. Fener titremesi ve yavaş kaydırma ölçüt eşiğinin altında kalıyordu. Her birine sözcüğe bağlı eylem eklendi: ekmeği alıp bırakan el, kapıdan çıkan oğul, "neredeydi"de kalkıp "olmadı"da düşen baş, "kötüyüm"de iki adım, "soğumuş"ta çekilen el gibi. Son render'da 5 sn sınırında üç aralık kaldı: C03b gözde duruş (5,0 sn), C05a sıfatların yazıldığı plan (5,4 sn), E06a "elimi kaldırmadım" (5,0 sn, bilerek). Bunlara bitiş ekranı (26 sn) ekleniyor.
+- **Alt bant** (`tools/alt_bant.js`): temiz. **Ölçek kuralı** (`tools/plan_listesi.js`): ardışık aynı ölçek yok, 100 plan.
+- **Ses:** −14,3 LUFS, tepe −1,2 dBFS (AAC). Müzik 665 saniyenin 648'inde −60 dB üstü.
+- **Render süresi:** tam film MB=2 ile 4 işçide ~38 dk. Konteyner bir kez yeniden başladı; parça önbelleği anahtarla korunduğu için render kalan 17 parçadan sürdü.
+- **Son karede yakalanan:** G04'te eğim düzeltmesinden sonra yaratığın kolu tabutun üstünde havaya kalkıyordu (selam ya da kutsama okuması). El ölünün başının yanına indirildi, tek parça yeniden render edildi.
+
 ## Açık kalanlar
 - Kulakla son onay kullanıcıda (`yayin.md` → "Kulakla bakılacaklar").
 - Shorts yapılmadı.
