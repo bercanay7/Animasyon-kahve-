@@ -9,8 +9,8 @@ Yükleme YouTube Studio'da bilgisayardan yapılır. YouTube'un kendi zamanlamas�
 ## Dosyalar
 | Dosya | Ne için |
 |---|---|
-| `teslim/frankenstein_youtube.mp4` | **YouTube'a yüklenecek dosya** (11:04): 1920×1080, 30 fps, H.264 + AAC, Türkçe ses (−14 LUFS, ≤ −1,5 dBTP), BT.709 |
-| `teslim/frankenstein_telefon.mp4` | Telefonda izlemek için küçük kopya (H.265; ses aynı) |
+| `teslim/frankenstein_youtube.mp4` | **YouTube'a yüklenecek dosya** (301 MB, 11:04): 1920×1080, 30 fps, H.264 CRF 18 + AAC 256k, Türkçe ses (−14,3 LUFS, tepe −1,2 dBFS), BT.709 |
+| `teslim/frankenstein_telefon.mp4` | Telefonda izlemek için küçük kopya (H.265 iki geçiş 850k, AAC 128k; 100 MB altı) |
 | `kapak/A.jpg` | Kapak A: "ELİNİ UZATTI" (yaratığın uzanan eli; filmin ilk sahnesiyle aynı figür, sarı göz tek vurgu). İlk 5 sn'de ve 8:33'te (halka) karşılanıyor |
 | `kapak/B.jpg` | Kapak B: "18 YAŞINDA YAZDI" (mum ışığında yazan genç kadın, camda uzun bir siluetin yansıması). İlk cümlede karşılanıyor |
 | `frankenstein.tr.srt` | Türkçe altyazı (181 satır) |
