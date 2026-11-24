@@ -49,6 +49,14 @@ Yazıldı: 22 Kasım 2026, senaryo rev2 (seslendirmeden önce). Zamanlar seslend
 | G2 | Yatağın başı (D04–D13: Şamaş'ın sözü, kalbin durması, gelin gibi örtme, "burnundan kurt düşene kadar") filmin en iyi tutan bölümü: ya Studio "Önemli an" bu aralıkta ya da bölümde dakika başına kayıp gövde ortalamasının yarısından az. | Studio işaretleri; dakika başına kayıp | |
 | G3 | Hikâye H04'te (surun içi) bitiyor; ardından ~50 sn kuyruk (destanın açılışı, sandık ve tablet, Hattuşa, "yabancı sensin", soru). Kuyruk somut nesne ve olaylarla kurulduğu için dik değil: H05–H10 dakika başına kayıp < 1,5 × gövde ortalaması (Narkissos N2'deki soyut kuyruğun tersi). İkinci yarıda ilk kez adı geçen Urşanabi (E09; rolü kancada ekildi) düşüş getirmez (≤ 3 puan). | H05–H10 ve E09 çevresi | |
 
+## Frankenstein (11:04; yayın 10 Aralık 2026 18:00 önerisi (Lale'den dört gün sonra); 48. saat = 12 Aralık 18:00, 7. gün = 17 Aralık; 23 Kasım yazıldı, render'dan önce)
+**Zamanlar (seslendirmeden sonra):** A05 0:34,3, B01 0:44,6 (hikâye başı); kör adam E02–E04 6:02–6:22; F03 7:18; G02 8:33 (halka); H01 9:10 – H10 sonu 10:37.
+| # | Tahmin | Nasıl sınanır | Sonuç |
+|---|---|---|---|
+| F1 | Kanca iki kapak vaadini ilk cümlede karşılıyor (el ve "18 yaşında"); hikâye 0:44,6'da başlıyor. 0:30 (48. saat) ≥ %65 ve A05 → B03 (0:34–1:08) arasında ≥ 3 puanlık düşüş yok. 1816 bölümü (B, 0:44–2:56) ilk iki dakikanın soyutluk riskini taşıyor (Tambora, yarış): B07 (1:34–1:48) çevresinde düşüş kanca sonrası ortalamayı aşmaz. | 0:30; 0:34–1:08; 1:34–1:48 | |
+| F2 | Yaratığın birinci tekil anlatısı (D01–F05, 4:05–7:45) filmin en iyi tutan bölümü: ya Studio "Önemli an" bu aralıkta (özellikle kör adam, 6:02–6:30) ya da bu aralıkta dakika başına kayıp gövde ortalamasının yarısından az. | Studio işaretleri; dakika başına kayıp | |
+| F3 | Hikâye G05'te (9:07) bitiyor; ardından ~90 sn Mary bölümü (adsız kitap, afiş, 1831 önsözü, 1815 günlüğü, "çirkin evladım"). Kapak B'nin ve peşinden gidilen sorunun cevabı burada olduğu için kuyruk dik değil: H01–H10 dakika başına kayıp < 1,5 × gövde ortalaması. Tutmazsa kanal dersi güçlenir: yazarın hikâyesi bile, yaratığın hikâyesi bitince "ek" sayılıyor. | H01–H10 | |
+
 ---
 
 ## Dağıtım sınaması: kanal sorunu mu, havuz mu? (23 Kasım 2026, Narkissos yayından önce yazıldı)

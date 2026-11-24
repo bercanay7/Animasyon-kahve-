@@ -1,0 +1,826 @@
+1
+00:00:00,490 --> 00:00:04,770
+On sekiz yaşında bir kızın
+yazdığı bir sahne: bir yaratık,
+
+2
+00:00:04,770 --> 00:00:07,810
+hayatının ilk gecesinde onu
+yapan adamın yatağının başına
+
+3
+00:00:07,810 --> 00:00:11,710
+geliyor, perdeyi aralıyor
+ve ona elini uzatıyor.
+
+4
+00:00:12,410 --> 00:00:14,910
+Adam o eli tutmuyor; kaçıyor.
+
+5
+00:00:15,830 --> 00:00:19,830
+Yaratığın adı yok; onu yapan,
+ona bir ad bile koymadı.
+
+6
+00:00:20,030 --> 00:00:24,810
+İki yüz yıldır ona, kaçan adamın
+adıyla sesleniyoruz: Frankenstein.
+
+7
+00:00:25,571 --> 00:00:29,630
+Kitap çıkınca yazarına, Mary Shelley'ye,
+yıllarca aynı şeyi sordular:
+
+8
+00:00:29,630 --> 00:00:33,330
+genç bir kız böyle korkunç
+bir fikri nereden buldu?
+
+9
+00:00:34,320 --> 00:00:38,310
+Birazdan yaratık konuşacak
+ve hikâyesini kendi ağzından anlatacak.
+
+10
+00:00:38,530 --> 00:00:43,980
+Dinleyince kararı sen ver: canavar
+doğulur mu, yoksa terk edilince mi olunur?
+
+11
+00:00:44,590 --> 00:00:48,390
+Haziran 1816, Cenevre Gölü'nün kıyısı.
+
+12
+00:00:48,760 --> 00:00:51,640
+Takvim yazı gösteriyor, ama yaz gelmiyor.
+
+13
+00:00:52,340 --> 00:00:55,710
+Mary bir mektubunda yazıyor:
+neredeyse hiç dinmeyen
+
+14
+00:00:55,710 --> 00:00:57,960
+bir yağmur bizi eve kapatıyor.
+
+15
+00:00:58,060 --> 00:01:02,050
+Şimşek bir an gölü aydınlatıyor,
+sonra zifiri karanlık.
+
+16
+00:01:03,110 --> 00:01:04,790
+Mary on sekiz yaşında.
+
+17
+00:01:04,930 --> 00:01:08,350
+Yanında sevgilisi,
+genç şair Percy Shelley var.
+
+18
+00:01:08,920 --> 00:01:10,220
+Annesi de yazardı.
+
+19
+00:01:10,380 --> 00:01:14,890
+Mary'yi doğurduktan on bir gün sonra öldü;
+Mary onu hiç tanımadı.
+
+20
+00:01:15,470 --> 00:01:17,550
+Geçen kış Mary de anne olmuştu.
+
+21
+00:01:17,630 --> 00:01:19,870
+Erken doğan kızı on iki gün yaşadı.
+
+22
+00:01:20,000 --> 00:01:22,240
+Şimdi yanında beş aylık bir oğlu var.
+
+23
+00:01:23,410 --> 00:01:26,800
+Gölün kıyısındaki büyük villada
+Lord Byron kalıyor.
+
+24
+00:01:26,920 --> 00:01:31,700
+O yaz bir şiir yazacak:
+Bir düş gördüm, hepsi düş değildi.
+
+25
+00:01:31,790 --> 00:01:33,500
+Parlak güneş sönmüştü.
+
+26
+00:01:34,060 --> 00:01:36,330
+O kıyıdakilerin bilmediği bir şey var.
+
+27
+00:01:36,460 --> 00:01:41,390
+Bir yıl önce dünyanın öbür ucunda,
+Endonezya'da Tambora yanardağı patladı.
+
+28
+00:01:41,470 --> 00:01:44,820
+Göğe savrulan kül ve gaz,
+ertesi yıl Avrupa'nın yazını
+
+29
+00:01:44,820 --> 00:01:48,790
+söndürdü; bunu ancak
+yüz yıl kadar sonra anlayacağız.
+
+30
+00:01:49,566 --> 00:01:52,390
+Yağmurlu akşamlardan
+birinde ellerine Almancadan
+
+31
+00:01:52,390 --> 00:01:55,550
+çevrilmiş bir hayalet
+hikâyeleri kitabı geçiyor.
+
+32
+00:01:56,040 --> 00:02:00,040
+Byron öneriyor: her birimiz
+bir hayalet hikâyesi yazacağız.
+
+33
+00:02:00,440 --> 00:02:02,990
+Ötekiler başlıyor. Mary bulamıyor.
+
+34
+00:02:03,070 --> 00:02:05,860
+Her sabah ona soruyorlar:
+bir hikâye buldun mu?
+
+35
+00:02:05,940 --> 00:02:09,700
+Ve her sabah, diye yazacak,
+utanarak hayır diyorum.
+
+36
+00:02:10,420 --> 00:02:14,360
+Mary'nin anlattığına göre geceleri
+Byron ile Percy konuşuyor,
+
+37
+00:02:14,360 --> 00:02:18,710
+o sessizce dinliyor:
+bir ölü yeniden canlandırılabilir mi?
+
+38
+00:02:19,210 --> 00:02:22,400
+Bir gece başını yastığa koyuyor
+ve uyuyamıyor.
+
+39
+00:02:22,530 --> 00:02:24,780
+Gözleri kapalı, bir sahne görüyor.
+
+40
+00:02:25,400 --> 00:02:29,690
+Soluk bir öğrenci, bir araya
+getirdiği şeyin başında diz çökmüş.
+
+41
+00:02:29,780 --> 00:02:31,080
+O şey kıpırdıyor.
+
+42
+00:02:31,160 --> 00:02:35,260
+Öğrenci dehşet içinde kaçıyor;
+unutmak için uykuya sığınıyor.
+
+43
+00:02:35,810 --> 00:02:39,490
+Uyandığında o şey yatağının başında:
+perdeyi aralamış,
+
+44
+00:02:39,490 --> 00:02:43,450
+sarı, ıslak
+ama düşünen gözlerle ona bakıyor.
+
+45
+00:02:44,520 --> 00:02:48,930
+Ben de korkuyla gözlerimi açtım,
+diye yazacak Mary on beş yıl sonra.
+
+46
+00:02:49,800 --> 00:02:52,160
+Ertesi sabah hikâyesini bulmuştu.
+
+47
+00:02:52,240 --> 00:02:56,360
+Yazdığı ilk cümle şuydu:
+Kasım'ın kasvetli bir gecesiydi.
+
+48
+00:02:58,250 --> 00:03:02,270
+Mary'nin romanında öğrencinin adı
+Victor Frankenstein.
+
+49
+00:03:02,490 --> 00:03:05,050
+İki yıla yakın, dinlenmeden çalıştı.
+
+50
+00:03:05,680 --> 00:03:09,260
+Yaratığın yüzünü güzel
+olsun diye tek tek seçmişti.
+
+51
+00:03:09,860 --> 00:03:13,180
+Ama yaratık gözünü açınca
+Victor ne yaptığını gördü:
+
+52
+00:03:13,180 --> 00:03:17,910
+sarı deri kasları zor örtüyor;
+saçlar uzun ve parlak siyah,
+
+53
+00:03:17,910 --> 00:03:24,010
+dişler inci gibi; gözler ıslak,
+göz çukurlarıyla neredeyse aynı renk.
+
+54
+00:03:24,770 --> 00:03:26,440
+Victor odadan kaçtı.
+
+55
+00:03:26,530 --> 00:03:29,540
+Yaratığa ne bir ad verdi,
+ne bir söz söyledi.
+
+56
+00:03:30,615 --> 00:03:33,380
+Romanın geri kalanında
+da ona bir ad yerine hep
+
+57
+00:03:33,380 --> 00:03:38,270
+bir sıfatla seslenecek:
+sefil, alçak, canavar.
+
+58
+00:03:38,900 --> 00:03:41,930
+Yaratık onu yıllar sonra,
+Mont Blanc'ın eteğinde,
+
+59
+00:03:41,930 --> 00:03:43,970
+bir buzulun üstünde buldu.
+
+60
+00:03:44,520 --> 00:03:49,320
+İyiydim, dedi, iyi yürekliydim;
+çektiğim acı beni canavara çevirdi.
+
+61
+00:03:49,400 --> 00:03:51,590
+Beni mutlu et, yine iyi olurum.
+
+62
+00:03:52,050 --> 00:03:56,550
+Beni dinle. Dinledikten sonra
+istersen terk et, istersen acı bana.
+
+63
+00:03:57,530 --> 00:04:00,040
+Romanın tam ortasında yaratık konuşur.
+
+64
+00:04:00,240 --> 00:04:02,760
+Bundan sonrası onun kendi ağzından.
+
+65
+00:04:05,300 --> 00:04:08,490
+Önce hiçbir şeyi
+birbirinden ayıramıyordum.
+
+66
+00:04:08,790 --> 00:04:13,830
+Işık, karanlık, açlık,
+soğuk; hepsi bir aradaydı.
+
+67
+00:04:14,670 --> 00:04:18,620
+Ormanda bir gece ağaçların
+arasından ışıklı bir şey yükseldi.
+
+68
+00:04:18,840 --> 00:04:20,350
+Gözümü ondan ayıramadım.
+
+69
+00:04:20,940 --> 00:04:23,330
+Kuşların sesini taklit etmeye çalıştım.
+
+70
+00:04:23,500 --> 00:04:26,540
+Ağzımdan çıkan ses beni korkuttu; sustum.
+
+71
+00:04:27,414 --> 00:04:30,120
+Bir gün gezginlerin
+bıraktığı bir ateş buldum.
+
+72
+00:04:30,200 --> 00:04:33,510
+Sevinçle elimi közlere soktum,
+bağırarak çektim.
+
+73
+00:04:33,600 --> 00:04:37,350
+Ne tuhaf, dedim: aynı şey
+hem ısıtıyor, hem yakıyor.
+
+74
+00:04:38,330 --> 00:04:40,010
+Bir akşam bir köye girdim.
+
+75
+00:04:40,090 --> 00:04:42,690
+Çocuklar çığlık attı, bir kadın bayıldı.
+
+76
+00:04:42,770 --> 00:04:44,500
+Taşlarla kovaladılar beni.
+
+77
+00:04:45,310 --> 00:04:48,210
+Bir eve bitişik alçak
+bir odunluğa sığındım.
+
+78
+00:04:48,320 --> 00:04:50,190
+Duvarda küçük bir yarık vardı.
+
+79
+00:04:50,350 --> 00:04:54,820
+Oradan bir aileyi izledim:
+kör bir ihtiyar, kızı ve oğlu.
+
+80
+00:04:55,370 --> 00:04:56,530
+Yoksuldular.
+
+81
+00:04:56,640 --> 00:05:01,450
+Geceleri yiyeceklerinden çalıyordum;
+onları aç bıraktığımı anlayınca bıraktım.
+
+82
+00:05:01,910 --> 00:05:05,510
+Onun yerine geceleri odun
+kesip kapılarının önüne yığdım.
+
+83
+00:05:05,960 --> 00:05:08,800
+Sabah kız kapıyı açınca
+şaşkınlıkla bağırdı.
+
+84
+00:05:08,880 --> 00:05:11,260
+Bu işleri görünmeyen bir el yapıyordu;
+
+85
+00:05:11,260 --> 00:05:14,260
+kendi aralarında benden
+iyi ruh diye söz ettiler.
+
+86
+00:05:15,260 --> 00:05:17,630
+Onları dinleyerek konuşmayı öğrendim.
+
+87
+00:05:17,830 --> 00:05:20,290
+Baba, anne, kardeş.
+
+88
+00:05:20,740 --> 00:05:23,000
+Benim babam, annem neredeydi?
+
+89
+00:05:23,420 --> 00:05:27,740
+Bebekliğimde başımda bekleyen bir baba,
+bana gülümseyen bir anne olmadı.
+
+90
+00:05:28,720 --> 00:05:31,260
+Bir gün durgun bir suda kendimi gördüm.
+
+91
+00:05:31,430 --> 00:05:32,780
+Önce geri sıçradım.
+
+92
+00:05:32,870 --> 00:05:35,290
+Sudaki yüzün benim olduğuna inanamadım.
+
+93
+00:05:36,090 --> 00:05:40,720
+Laboratuvardan aldığım giysinin cebinde
+kâğıtlar vardı: Victor'un günlüğü.
+
+94
+00:05:40,950 --> 00:05:42,890
+Nasıl yapıldığımı orada okudum.
+
+95
+00:05:42,990 --> 00:05:46,220
+Beni yapan bile benden
+tiksinip yüz çevirmişti.
+
+96
+00:05:47,110 --> 00:05:51,430
+Yine de bir umudum vardı:
+yüzümü görmeden önce sesimi duysunlar.
+
+97
+00:05:51,640 --> 00:05:54,570
+Ve o evde beni göremeyecek biri vardı.
+
+98
+00:05:56,510 --> 00:05:58,880
+Bir gün ötekiler yürüyüşe çıktı.
+
+99
+00:05:59,040 --> 00:06:00,620
+İhtiyar evde yalnızdı.
+
+100
+00:06:00,740 --> 00:06:01,790
+Kapıyı çaldım.
+
+101
+00:06:02,340 --> 00:06:03,320
+Konuştuk.
+
+102
+00:06:03,400 --> 00:06:07,760
+İhtiyar dedi ki: Ben körüm,
+yüzünü göremem; ama sözlerinde,
+
+103
+00:06:07,760 --> 00:06:10,780
+doğru söylediğine beni
+inandıran bir şey var.
+
+104
+00:06:11,370 --> 00:06:15,400
+Hayatımda ilk kez bir insan
+sesi bana iyilikle konuşuyordu.
+
+105
+00:06:15,970 --> 00:06:19,030
+Ayak sesleri yaklaşınca
+ihtiyarın elini tuttum.
+
+106
+00:06:19,180 --> 00:06:20,580
+Beni bırakma, dedim.
+
+107
+00:06:20,670 --> 00:06:22,500
+Aradığım dostlar sizsiniz.
+
+108
+00:06:23,140 --> 00:06:25,250
+Kapı açıldı. Kız bayıldı.
+
+109
+00:06:25,330 --> 00:06:30,010
+Oğlu beni babasının dizlerinden kopardı,
+yere attı ve sopayla vurdu.
+
+110
+00:06:30,750 --> 00:06:32,580
+Onu paramparça edebilirdim.
+
+111
+00:06:32,710 --> 00:06:34,460
+Ama yüreğim içime çöktü.
+
+112
+00:06:34,590 --> 00:06:35,780
+Elimi kaldırmadım.
+
+113
+00:06:36,850 --> 00:06:38,690
+Ertesi gün kulübe boştu.
+
+114
+00:06:38,770 --> 00:06:40,050
+Bir daha dönmediler.
+
+115
+00:06:40,880 --> 00:06:42,960
+O gece kulübeyi ateşe verdim.
+
+116
+00:06:44,190 --> 00:06:45,940
+Yolda bir kız nehre düştü.
+
+117
+00:06:46,020 --> 00:06:50,390
+Atladım, onu kıyıya çıkardım,
+yeniden nefes alsın diye uğraştım.
+
+118
+00:06:50,890 --> 00:06:54,860
+Yanındaki adam beni görünce
+tüfeğini kaldırdı ve ateş etti.
+
+119
+00:06:55,090 --> 00:06:58,240
+İyiliğimin karşılığı
+omzuma giren bir kurşundu.
+
+120
+00:07:00,710 --> 00:07:03,080
+Cenevre'nin yakınında bir çocuk gördüm.
+
+121
+00:07:03,290 --> 00:07:07,390
+Bu kadar küçük biri, dedim,
+henüz benden korkmayı öğrenmemiştir.
+
+122
+00:07:07,600 --> 00:07:09,660
+Onu yanıma alırsam yalnız kalmam.
+
+123
+00:07:10,220 --> 00:07:14,650
+Çocuk gözlerini elleriyle kapattı
+ve çığlık attı: Bırak beni, canavar!
+
+124
+00:07:14,730 --> 00:07:17,350
+Babama söylerim. Babam Bay Frankenstein!
+
+125
+00:07:17,980 --> 00:07:22,090
+Düşmanımın adıydı.
+İlk kurbanım sen olacaksın, dedim.
+
+126
+00:07:22,270 --> 00:07:24,530
+Susturmak için boğazına sarıldım;
+
+127
+00:07:24,530 --> 00:07:28,160
+bir an sonra ayaklarımın
+dibinde kıpırtısız yatıyordu.
+
+128
+00:07:29,230 --> 00:07:32,980
+Ellerimi çırptım ve bağırdım:
+Ben de yıkım yaratabilirim!
+
+129
+00:07:33,970 --> 00:07:38,490
+Çocuğun göğsünde parıldayan bir şey vardı:
+güzel bir kadının resmi.
+
+130
+00:07:38,870 --> 00:07:41,600
+Bir an ona baktım ve öfkem dindi.
+
+131
+00:07:41,950 --> 00:07:45,360
+Sonra o gözlerin bana
+nasıl bakacağını düşündüm.
+
+132
+00:07:47,460 --> 00:07:51,320
+Yaratığın sözünü ettiği çocuk,
+Victor'un küçük kardeşiydi.
+
+133
+00:07:51,970 --> 00:07:56,140
+Hikâyesini bitirince dedi
+ki: Kötüyüm, çünkü mutsuzum.
+
+134
+00:07:56,360 --> 00:08:00,100
+Bana benim gibi bir eş yap;
+insanlardan uzağa gideriz.
+
+135
+00:08:00,660 --> 00:08:02,140
+Victor kabul etti.
+
+136
+00:08:02,340 --> 00:08:05,320
+Uzak bir adada ikinci
+yaratığı yapmaya başladı.
+
+137
+00:08:05,880 --> 00:08:10,980
+Yarısına gelmişti ki pencerede,
+ay ışığında onu izleyen yüzü gördü.
+
+138
+00:08:11,210 --> 00:08:13,360
+Ve yarım kalan bedeni parçaladı.
+
+139
+00:08:14,330 --> 00:08:18,710
+Yaratık giderken şunu söyledi:
+Düğün gecende yanında olacağım.
+
+140
+00:08:19,590 --> 00:08:24,050
+Sözünü tuttu. Victor'un sevdiklerini
+birer birer elinden aldı.
+
+141
+00:08:25,920 --> 00:08:29,660
+Victor onu kuzeye,
+buzların arasına kadar kovaladı.
+
+142
+00:08:29,910 --> 00:08:32,730
+Orada bir gemiye alındı ve gemide öldü.
+
+143
+00:08:33,520 --> 00:08:35,990
+O gece geminin kaptanı kamaraya girince
+
+144
+00:08:35,990 --> 00:08:39,530
+tabutun üstüne eğilmiş
+dev bir karaltı gördü.
+
+145
+00:08:39,830 --> 00:08:42,860
+Yüzünü uzun, dağınık saçları örtüyordu.
+
+146
+00:08:43,060 --> 00:08:44,460
+Bir eli uzanmıştı.
+
+147
+00:08:45,550 --> 00:08:50,070
+Hikâyenin ilk gecesinde yaratık
+elini uzatmış, Victor kaçmıştı.
+
+148
+00:08:50,350 --> 00:08:52,150
+Şimdi Victor kaçamıyordu.
+
+149
+00:08:53,170 --> 00:08:55,740
+Bu da benim kurbanım, dedi yaratık.
+
+150
+00:08:55,920 --> 00:08:58,780
+Soğumuş; artık bana cevap veremez.
+
+151
+00:08:59,870 --> 00:09:03,020
+Sonra pencereden buz
+salının üstüne atladı.
+
+152
+00:09:03,240 --> 00:09:07,320
+Dalgalar onu aldı;
+karanlıkta, uzakta kayboldu.
+
+153
+00:09:10,400 --> 00:09:14,120
+Peki on sekiz yaşında
+bir kız bunu neden yazdı?
+
+154
+00:09:14,940 --> 00:09:17,300
+Kitap 1818'de çıktı.
+
+155
+00:09:17,450 --> 00:09:19,170
+Kapağında yazarın adı yoktu.
+
+156
+00:09:19,410 --> 00:09:22,210
+Yıllar sonra sahneye konunca,
+afişte yaratığın
+
+157
+00:09:22,210 --> 00:09:25,060
+adının yerinde de yalnızca
+bir çizgi vardı.
+
+158
+00:09:25,540 --> 00:09:30,550
+1831'de, yeni baskıya yazdığı önsözde
+Mary o soruya cevap verdi: gözlerim kapalı
+
+159
+00:09:30,550 --> 00:09:36,100
+ama uyanıkken bir şey gördüm,
+dedi; onu kâğıda geçirdim.
+
+160
+00:09:36,540 --> 00:09:39,810
+O yazı mutlu günler diye andı:
+ölüm ve keder,
+
+161
+00:09:39,810 --> 00:09:42,740
+o zaman benim için yalnızca sözcüklerdi.
+
+162
+00:09:43,530 --> 00:09:45,920
+Ama on yedi yaşında tuttuğu günlükte,
+
+163
+00:09:45,920 --> 00:09:48,620
+bebeğini kaybettiği
+haftalardan satırlar var.
+
+164
+00:09:48,700 --> 00:09:50,850
+Ne zaman yalnız kalsam, düşüncelerim hep
+
+165
+00:09:50,850 --> 00:09:54,770
+aynı yere dönüyor:
+bir anneydim, artık değilim.
+
+166
+00:09:55,350 --> 00:09:57,660
+Düşümde bebeğim yeniden canlandı.
+
+167
+00:09:57,850 --> 00:10:01,880
+Yalnızca üşümüştü;
+onu ateşin önünde ovduk ve yaşadı.
+
+168
+00:10:02,110 --> 00:10:03,950
+Uyandım; bebek yok.
+
+169
+00:10:05,670 --> 00:10:09,710
+Mary bu iki kaydı bildiğimiz
+hiçbir yazısında yan yana getirmedi.
+
+170
+00:10:09,790 --> 00:10:11,680
+Biz yalnızca yan yana koyuyoruz.
+
+171
+00:10:12,730 --> 00:10:15,710
+O önsözün sonunda şöyle yazdı:
+Çirkin evladıma
+
+172
+00:10:15,710 --> 00:10:19,200
+bir kez daha, git
+ve yolun açık olsun, diyorum.
+
+173
+00:10:19,420 --> 00:10:20,950
+Ona karşı bir sevgim var.
+
+174
+00:10:21,930 --> 00:10:23,900
+Victor yarattığından kaçtı.
+
+175
+00:10:23,980 --> 00:10:27,120
+Mary ise yarattığını yıllar
+sonra yeniden eline aldı
+
+176
+00:10:27,120 --> 00:10:30,030
+ve onu dünyaya bir kez daha gönderdi.
+
+177
+00:10:31,080 --> 00:10:36,260
+Senin de yarım bırakıp yüzüne bakamadığın
+bir iş, bir söz, bir insan var mı?
+
+178
+00:10:36,380 --> 00:10:37,400
+Yorumlara yaz.
+
+179
+00:10:38,330 --> 00:10:42,180
+Mary romanına bir ad daha vermişti:
+Modern Prometheus.
+
+180
+00:10:42,330 --> 00:10:46,570
+Geçmişten bir soru daha getirmemiz
+için Zaman Kuryesi'ne abone ol.
+
+181
+00:10:46,650 --> 00:10:48,530
+İlk Prometheus ekranda.
+

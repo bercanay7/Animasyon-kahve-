@@ -1,0 +1,16 @@
+<!doctype html><html><head><meta charset="utf-8"></head><body style="margin:0;background:#000">
+<canvas id="c" width="1920" height="1080"></canvas>
+<script src="../lib/core.js"></script><script src="../lib/hareket.js"></script><script src="../lib/fener.js"></script><script src="../lib/figur.js"></script><script src="../lib/dekor.js"></script>
+<script>
+const ctx = document.getElementById('c').getContext('2d');
+FENER.init();
+window.ciz = (poz) => {
+  FENER.begin({ isik: { x: 960, y: 500, r: 1100 }, kadraj: { tip: 'kare', x: 960, y: 540, w: 1880, h: 1060, r: 40, yum: 10 }, toz: .3 });
+  const R = FENER;
+  R.gok(0, 0, 1920, 1080, [[0, '#9DB4DE'], [1, '#D8C9A8']], {});
+  const tipler = ['yaratik', 'victor', 'mary', 'byron', 'percy', 'ihtiyar', 'kiz', 'genc', 'cocuk', 'kaptan'];
+  tipler.forEach((t, i) => FIG.kisi(R, 110 + i * 185, 1000, 760, { tip: t, f: 1, kolO: poz ? [1.1, .6] : undefined, bacak: poz === 2 ? 'otur' : 'dur' }));
+  R.compose(ctx, 0);
+};
+ciz(+(new URLSearchParams(location.search).get('p') || 0));
+</script></body></html>

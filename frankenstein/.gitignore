@@ -1,0 +1,7 @@
+# büyük üretim dosyaları depoya girmez
+vo/vo.wav
+audio/*.wav
+*.mp4
+.parts*/
+x265_2pass.log*
+teslim/
