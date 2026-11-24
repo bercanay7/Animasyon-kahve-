@@ -1,0 +1,35 @@
+# Çernobil'in çayı: geriye bakış (24 Kasım 2026; yön usulü, başkan)
+
+Bu video yön usulünün üçüncü örneği (`analiz/2026-11-23-deney-yon-promptu.md`; önceki ikisi Gılgamış ve Frankenstein). Oturuma kullanıcının yazdığı bir yön verildi: reaktörün ya da bir bakanın hikâyesi değil, kötü adam yok; Mayıs yağmuruyla bir çay yaprağına konan görünmeyen bir şeyin hikâyesi; soru izleyicinin ("göremediğin bir tehlikede 'korkacak bir şey yok' diyene neye bakarak inanırsın?"); cevap kavramla değil yaprağın yoluyla; peşinden gidilecek şey bardakla o yılın çayının sonu arasındaki mesafe; söz kimden gelirse gelsin dönemin gazetesinden; hastalıkta bilimin bildiğinden fazlası yok, ölçülmemiş olmak hikâyenin parçası; izleyici kendi bardağına bakarak çıkar. Malzeme dosyaları bağlayıcı değildi. Alt ajanlar başkanın takdirindeydi: üç ajan açıldı (hakemli kaynak araştırması; Fable'ın seslendirme öncesi senaryo okuması; ayrı bir okuyucunun yazısız kareler üstünde sessiz okuma ve hassasiyet taraması).
+
+## Neyi kendim seçtim (yönde yoktu)
+- **Kaynak yolu: Milliyet arşivinin OCR metni.** "Söz dönemin gazetesinden" yönü, arşive erişim yolu bulununca filmin omurgası oldu. Oturumsuz arama yalnız en yeni 10 sonucu veriyordu; 1986-1993'e dar, çok sözcüklü sorgularla inildi (`tools/arsiv.py`, 149 haber). Arşivin sayfa görüntüsüne ve iç API'sine gidilmedi; daha fazla sorgu da izin sınırına takıldı (aşağıda).
+- **Üslup: 1986 gazete baskısı.** Gazete yalnız kaynak değil malzeme: her kare sararmış gazete kâğıdına kaba tramla basılıyor. Üç kural: (1) **radyasyon hiç çizilmez**, ekrana yalnız dizgi rakamı olarak gelir (15.000, 600, 39); (2) **renk yalnız çayda**: yaprakta yeşil, fabrikada bakır (siyah çayın gerçek oksitlenmesi), bardakta kehribar; gömülen çuvalda renk söner, laboratuvar kavanozunda geri gelir; (3) **her söz bir kupür**: kişilerin yüzü yok, sözleri tarih ve sayfa satırıyla gazete kupürü olarak görünür. Yeni ve küçük bir motor yazıldı (`lib/baski.js`, aşağıda).
+- **İskelet: Harmon çemberi, kahraman bir yaprak.** Karşıt bir kişi değil, "inanmak için bakılan şey": bardak.
+- **"Mesafe" bir takvim:** Rize'deki bardaktan beş ay sonra 56 bin ton depoda; bir yıl sonra bakkalda hâlâ 1986 paketleri; iki yıl sonra fırın ve kırık seralar; üç yılı aşkın sonra fabrika bahçeleri; yirmi bir yıl sonra iptal edilen otel; otuz yıl sonra laboratuvar.
+- **Bardak zinciri:** bakan (Rize, Ankara) → Çaykur genel müdürü ("göstermelik içmiyorum") → yirmi saatlik masada "bol bol çay içildi" → eski cumhurbaşkanı ("bilim adamları tehlike yok deyince biz de çay içmiştik") → izleyicinin bardağı.
+- **Sorunun olayın içinde tekrar sorulması:** Trabzon'daki köylülerin "TAEK'in raporuna mı, yoksa kendi gözlerimize mi inanalım?" sözü (Milliyet, 31 Mart 1990). Filmin sorusunu otuz altı yıl önce bir çay bahçesinin kenarındaki insanlar sormuş.
+- **Son: çay ölçenleri ölçüyor.** TAEK'in yeterlilik testinde geri toplanmış 1986 çayından 8 kilo, 2014 çayıyla karıştırılıp yirmi laboratuvara gönderilmiş; sonuçların üçte biri kabul edilemez (Yeltepe ve ark. 2018). Arşivde değil, hakemli yayında bulundu.
+- **Cevabın biçimi (yönün "kavramla verme"si):** üç soru, olayların kendisinden: sayıyı kim ölçtü (Almanya'daki laboratuvar, gizli raporlar, ODTÜ ↔ Kurum), sana söyledi mi (gizlilik, "sessiz sedasız"), geri kalan çaya ne yaptı (depo, fırın, bahçe). Sonra izleyicinin bardağı ve bugünün sayısı (39 Bq/kg).
+- **Bırakılanlar:** Edirne'deki çamurun Çekmece'ye taşınması, çalıntı çay ve İstanbul'daki 181 ton, radyasyonlu et ithalatı, Sovyet profesörün "Türkler hiç korkmadan çay içebilir" demeci, ODTÜ raporundaki "ölü ve sakat doğum" iddiası, yakma sırasında işçilerin şikâyetleri (nedensellik kurulamaz), kişisel hastalık hikâyeleri, 1992-1993 Milliyet kampanyası ve yargılama tartışması (siyasi taraf), 12.500 Bq/kg ayırma eşiği (kaynaklar çelişiyor).
+
+## Yönün yetmediği yerler
+- **Yön "kamera önünde bir bardak" diyordu; arşiv iki bardak buldu.** Kameraların önündeki ünlü bardak AA'ya göre 12 Ağustos 1986, Rize; Milliyet'in aktardığı sözler kışın Ankara'daki ikinci basın toplantısından. İlk taslak bu ikisini tek bir "8 Aralık bardağı" yapmıştı ve bütün "mesafe takvimi" ("bir hafta sonra", "dört hafta sonra", "tam üç yıl") ona bağlıydı. Üstelik o haber arşivde 9 Aralık 1986 ve 9 Ocak 1987 olarak iki kez görünüyor. Fable yakaladı; tarih sayfa görüntüsüyle doğrulanana kadar göreli süreler kaldırıldı (`yayin.md` → "Yayından önce"). **Ders:** yönün sahnesi gerçek bir olaya karşılık geliyorsa önce o olayın tarihi ve kaç kez olduğu doğrulanır; takvim ondan sonra kurulur.
+- **"Kötü adam arama" yönü, yazarın kendi cümlelerinde sınandı.** İlk taslakta "Gerekçe sağlık değil, yer" (kaynakta yok, benim hükmüm) ve "Çay hâlâ zararsızdı ve toprağın altındaydı" (piyasadaki çayla ayrılan çayı birleştiriyor; C10'la yan yana "inandılar ki imha ettiler" iması) vardı. İkisi de bakanın sözünü bir tuzağa çeviriyordu. Fable yakaladı; cümleler olguya indi, hüküm izleyiciye kaldı. Yön bir tutum veriyor; tutum her cümlede yeniden sınanmalı.
+- **"Ölçülmemiş olmak"ın kanıtı yok, yalnız yokluğu var.** Bölgede tarama yapılmadığını söyleyen bir kaynak bulunamadı; senaryo "kayıt bulamadık" diyor ve bulunabilen olguyu ekliyor (Türkiye'nin düzenli kanser kaydı 1992'de başladı). Bilinmeyeni bilinmeyen bırakmak, "yapılmadı" demekten daha dar bir cümle istiyor.
+- **Arşiv sınırı.** Oturumsuz aramada yalnız ilk sayfa geliyordu; arşivin iç API'sini yoklama girişimi ve sonra yoğun sorgu, oturumun izin denetimine takıldı. Durduruldu; eldeki 149 haberle devam edildi. 1986 Mayıs-Kasım arasındaki haberler bu yüzden ince (bulut ve ilk açıklamalar 1988'deki geriye dönük haberden).
+- **Görüntüde kendiliğinden doğan simgeler (yine).** Süt güğümü ilk çizimde mezar taşı okundu; dik, yuvarlak tepeli çuvallar sıra hâlinde mezarlık okundu (gömülen çayı anlatan bir filmde en kötü okuma). Çuvallar yatırıldı (kulaklı, dikişli yastık biçimi). Okuyucunun bulguları aşağıda.
+
+## Baskı motoru (`lib/baski.js`)
+- Üç plaka: ton (gri tonlu çizim → 45° kaba tram, 1080'de 7 px), çizgi (dizgi ve siluet → tramsız düz mürekkep), çay (R yoğunluk, G ton 0 yeşil → 1 kehribar → 15° tram, siyahın üstüne 3,2 px kayık basılır). WebGL2 gölgelendirici kâğıda basar: ekrana sabit tram ızgarası, kâğıt lifi ve lekesi (karede değişmez: dosya boyu), kenar kararması.
+- **Tuzak:** plakada `destination-out` ile silmek saydam piksel bırakır, saydam piksel tam mürekkep basılır (bardağın parıltısı ve eteğin deseni kapkara çıktı). Silmek beyaz (ton, çizgi) ya da siyah (çay) boyayla yapılır; dosyanın başına not düşüldü.
+- Kare başına ~0,5 sn (SwiftShader, tek işçi); hareket bulanıklığı kullanılmadı (tram noktalarını ezer).
+
+## Ne zorladı, ne öğrendik
+(render ve okuyucu raporundan sonra tamamlanacak)
+
+## Açık kalanlar
+- Dört gazete sayfasının görüntüyle doğrulanması kullanıcıda (`yayin.md`).
+- Kulakla son onay kullanıcıda.
+- Shorts yapılmadı.
+- Sonuçlar 48. saat ve 7. gün verisiyle `analiz/tahminler.md` (Ç1-Ç3) ve deney dosyasına yazılır.
