@@ -42,6 +42,8 @@ Fable'ın üç izleyicisi (A telefonda öğrenci, B 1986'yı Karadeniz'de yaşam
 | 15 | AT sınırı süt ve mamada 370 | Doğru; video yalnız çaydan söz ediyor | Bırakıldı |
 | 16 | Kapak: önce A | A vaadi 6. saniyede karşılanıyor, tek odak; B küçükte "kum torbası" | Kabul: test A ile başlar, B ikinci. B'nin yeniden çizimi (çay rengini büyütme) isteğe bağlı, sonraki işe not |
 
+| 17 | (başkan, yeniden render sonrası) Donma | Rakamlar artık dönmediği için iki plan durgunlaştı: P23 (5 kg → 1 kg sonrası 6,9 sn), P83 (5,1 sn) | **Düzeltildi:** P23'te "1 kg" yığınına, P83'te bardağa ve sayıya yaklaşma; yalnız iki aralık yeniden üretilip filme eklendi |
+
 Seslendirme yaması gereken bulgu yok; kredi harcanmadı.
 
 ## Yöntem notu

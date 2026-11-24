@@ -48,6 +48,7 @@ Bu video yön usulünün üçüncü örneği (`analiz/2026-11-23-deney-yon-promp
   - **Ders (rakam):** sayıyı "sayar gibi dönerek" belirtmek ölçüm konusunda yanlış rakam gösteriyor; duraklatılan kare bir iddiadır. Sayı soldan sağa basılır, ara karede hiç yanlış rakam olmaz.
   - **Ders (simge):** hassasiyet taraması tek nesneye bakıyordu (çuval, vinç); "toprakta tek tümsek + dik saplanmış kürek" birleşimi mezar okundu. Kural listesine birleşim olarak girdi.
   - **Ders (künye):** künyenin sabit yeri (sol alt) figürlerin en sık durduğu yer. Künye konumu plan başına seçilir; kurgu özetinde künyeli karelere ayrıca bakılır.
+  - **Ders (donma):** dönen rakamlar donma taramasında hareket sayılıyordu; kaldırılınca iki plan (P23, P83) 5 sn sınırını aştı. Bir görüntü düzeltmesinden sonra donma taraması yeniden çalıştırılır.
   - **Ders (alt bant):** haritadaki "RİZE" ikinci bir planda (P09) yeniden alt banda girmişti; araç her yeniden render'dan önce çalıştırılır.
 
 ## Açık kalanlar

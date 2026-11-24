@@ -62,7 +62,7 @@ sahne('P82', 'G07', 'lab', 'ayrinti', (B, st) => {
 });
 // P83 bugün: masada bir bardak, sayı 39 ↔ 600
 sahne('P83', 'G08', 'bugun', 'orta', (B, st) => {
-  B.cam(960, 560, 1.0 + st.lt * .01);
+  { const z = E.io2(ramp(st.t, st.at + .2, st.end - .2)); B.cam(lerp(900, 1000, z), lerp(520, 620, z), lerp(.95, 1.35, z)); }   // bardağa ve sayıya yaklaşma (donma: 5,1 sn)
   SET.zemin(B, .06, 740, .16);
   D.bardak(B, 760, 880, 2.6, { buhar: st.t, kasik: true });
   D.sayi(B, '39', 1360, 520, { px: 200, birim: 'Bq/kg', p: ramp(st.t, A('G08@otuz') - .2, A('G08@otuz') + .8) });

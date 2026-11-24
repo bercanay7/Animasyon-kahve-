@@ -225,7 +225,7 @@ sahne('P22', 'B10@kurutulur', 'fabrika', 'ayrinti', (B, st) => {
 });
 // P23 terazi: beş kilo yaş yaprak ↔ bir kilo kuru çay
 sahne('P23', 'B11', 'terazi', 'orta', (B, st) => {
-  B.cam(960, 540, 1.0 + st.lt * .008);
+  { const z = E.io3(ramp(st.t, A('B11@bir') + .5, st.end - .3)); B.cam(lerp(960, 1300, z), lerp(540, 620, z), lerp(1.0, 1.55, z)); }   // "1 kg" yığınına yaklaşma (donma: 6,9 sn)
   SET.zemin(B, .1, 820, .3);
   SET.cayYigini(B, 560, 820, 280, 200, 0, 3);
   const p = ramp(st.t, A('B11@bir') - .6, A('B11@bir') + .4), l = B.l;
