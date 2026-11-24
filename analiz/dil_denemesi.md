@@ -28,6 +28,7 @@ Altyazılar Türkçe altyazının zamanlarıyla birebir aynı ve `araclar/altyaz
 - **Kontrol videoları:**
   - Ran'ı aynı yaştaki **Kafka** ile karşılaştır; Kafka'ya çeviri eklenmez.
   - Sisifos'u kendi önceki 14 günüyle karşılaştır.
+- **Durum (24 Kasım):** paket yüklenmedi (kullanıcı). Deneme askıda; dosyalar hazır. Yüklenirse tarih buraya yazılır ve 14. güne hatırlatıcı kurulur. Ran'ın 7. gün kitlesi (yüklemesiz) taban olarak duruyor.
 - **Bakış günü:** yüklemeden 14 gün sonra (yükleme tarihi: ____).
   - Studio → Analytics → Kitle: coğrafya ve altyazı dili.
   - Analytics → Erişim: arama terimleri; İngilizce ya da İspanyolca aramalar var mı?
