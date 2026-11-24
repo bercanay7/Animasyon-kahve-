@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="tr"><head><meta charset="utf-8">
+<!-- Navitas · 24 Kasım Öğretmenler Günü afişi. ?f=story (1080x1920) | ?f=feed (1080x1350) -->
+<style>
+@font-face{font-family:'Instrument Serif';font-style:normal;src:url(../fonts/serif-latin.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+2000-206F}
+@font-face{font-family:'Instrument Serif';font-style:normal;src:url(../fonts/serif-latin-ext.woff2) format('woff2');unicode-range:U+0100-02AF,U+1E00-1EFF,U+2020,U+20A0-20AB,U+20AD-20CF,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:'Instrument Serif';font-style:italic;src:url(../fonts/serif-italic-latin.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+2000-206F}
+@font-face{font-family:'Instrument Serif';font-style:italic;src:url(../fonts/serif-italic-latin-ext.woff2) format('woff2');unicode-range:U+0100-02AF,U+1E00-1EFF,U+2020,U+20A0-20AB,U+20AD-20CF,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:'Hanken';font-weight:500;src:url(../fonts/hanken-grotesk-latin-500-normal.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+2000-206F}
+@font-face{font-family:'Hanken';font-weight:500;src:url(../fonts/hanken-grotesk-latin-ext-500-normal.woff2) format('woff2');unicode-range:U+0100-02AF,U+1E00-1EFF}
+@font-face{font-family:'Hanken';font-weight:600;src:url(../fonts/hanken-grotesk-latin-600-normal.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+2000-206F}
+@font-face{font-family:'Hanken';font-weight:600;src:url(../fonts/hanken-grotesk-latin-ext-600-normal.woff2) format('woff2');unicode-range:U+0100-02AF,U+1E00-1EFF}
+:root{--board:#2e221c;--board2:#3a2a22;--chalk:#f5ede4;--chalk2:#cbb8aa;--amber:#d99a5b;--apple:#c9503a;--leaf:#8fae6b}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:1080px;height:1920px;background:var(--board)}
+body.feed,body.feed html{height:1350px}
+.c{position:relative;width:1080px;height:1920px;overflow:hidden;
+  background:radial-gradient(ellipse 85% 60% at 50% 46%,#46342a 0%,var(--board) 62%,#211812 100%);
+  color:var(--chalk);font-family:'Hanken',sans-serif;text-align:center}
+.feed .c{height:1350px}
+.dust{position:absolute;inset:0;opacity:.5;mix-blend-mode:screen}
+.frame{position:absolute;inset:44px;border:2px solid rgba(217,154,91,.45);border-radius:26px}
+.frame::after{content:'';position:absolute;inset:12px;border:1px solid rgba(217,154,91,.22);border-radius:18px}
+.logo{position:absolute;left:50%;transform:translateX(-50%);top:250px;width:330px}
+.pill{position:absolute;left:50%;transform:translateX(-50%);top:470px;white-space:nowrap;
+  font-weight:600;font-size:34px;letter-spacing:.16em;color:var(--board);background:var(--amber);
+  padding:16px 40px 15px;border-radius:999px}
+.art{position:absolute;left:50%;transform:translateX(-50%);top:600px;width:700px}
+.h1{position:absolute;left:0;right:0;top:1170px;font-family:'Instrument Serif',serif;font-size:96px;line-height:1.02;color:var(--chalk2)}
+.h2{position:absolute;left:0;right:0;top:1262px;font-family:'Instrument Serif',serif;font-style:italic;font-size:200px;line-height:1;color:var(--chalk);letter-spacing:-.01em}
+.sub{position:absolute;left:60px;right:60px;top:1500px;font-weight:500;font-size:40px;line-height:1.38;color:var(--chalk2)}
+.sub b{font-weight:600;color:var(--chalk)}
+/* 4:5 gönderi */
+.feed .logo{top:96px;width:250px}
+.feed .pill{top:262px;font-size:28px;padding:13px 34px 12px}
+.feed .art{top:345px;width:540px}
+.feed .h1{top:800px;font-size:76px}
+.feed .h2{top:870px;font-size:160px}
+.feed .sub{top:1068px;font-size:33px}
+</style></head>
+<body><div class="c">
+<svg class="dust" width="1080" height="1920" viewBox="0 0 1080 1920" preserveAspectRatio="none">
+  <filter id="dn"><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="2" seed="7"/><feColorMatrix values="0 0 0 0 .96  0 0 0 0 .93  0 0 0 0 .89  0 0 0 .09 -.02"/></filter>
+  <rect width="1080" height="1920" filter="url(#dn)"/>
+  <!-- silinmiş tebeşir izleri -->
+  <g fill="none" stroke="#f5ede4" stroke-linecap="round" opacity=".05">
+    <path d="M-40 380 C 250 300, 600 460, 1120 340" stroke-width="90"/>
+    <path d="M-60 1700 C 300 1620, 700 1780, 1140 1660" stroke-width="120"/>
+  </g>
+</svg>
+<div class="frame"></div>
+<img class="logo" id="logo" alt="Navitas spa & sports">
+<div class="pill">24 KASIM · ÖĞRETMENLER GÜNÜ</div>
+
+<!-- tebeşir çizimi: kitaplar, elma, kalem -->
+<svg class="art" viewBox="-30 20 720 540">
+  <defs>
+    <filter id="chalk" x="-5%" y="-5%" width="110%" height="110%">
+      <feTurbulence type="fractalNoise" baseFrequency="1.3" numOctaves="2" seed="3" result="n"/>
+      <feDisplacementMap in="SourceGraphic" in2="n" scale="3.2" result="d"/>
+      <feTurbulence type="fractalNoise" baseFrequency="2.2" numOctaves="1" seed="11" result="g"/>
+      <feColorMatrix in="g" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 -2.4 1.75" result="m"/>
+      <feComposite in="d" in2="m" operator="in"/>
+    </filter>
+  </defs>
+  <g filter="url(#chalk)" stroke-linecap="round" stroke-linejoin="round">
+    <!-- kitap 3 (alt) -->
+    <g fill="#5a3b2c" stroke="#f5ede4" stroke-width="7">
+      <path d="M92 470 L548 470 L560 540 L80 540 Z"/>
+    </g>
+    <path d="M110 488 H536 M104 505 H542 M98 522 H548" stroke="#f5ede4" stroke-width="3" opacity=".75" fill="none"/>
+    <rect x="180" y="470" width="26" height="70" fill="#d99a5b" stroke="none" opacity=".9"/>
+    <!-- kitap 2 -->
+    <g fill="#7a4a2e" stroke="#f5ede4" stroke-width="7">
+      <path d="M130 400 L520 400 L512 470 L122 470 Z"/>
+    </g>
+    <path d="M150 420 H502 M146 437 H506 M142 454 H508" stroke="#f5ede4" stroke-width="3" opacity=".7" fill="none"/>
+    <rect x="440" y="400" width="22" height="70" fill="#8fae6b" opacity=".85"/>
+    <!-- kitap 1 (üst) -->
+    <g fill="#96561a" stroke="#f5ede4" stroke-width="7">
+      <path d="M168 336 L486 336 L494 400 L160 400 Z"/>
+    </g>
+    <path d="M186 354 H476 M182 370 H480 M180 385 H484" stroke="#f5ede4" stroke-width="3" opacity=".7" fill="none"/>
+    <!-- elma -->
+    <path d="M320 168 C 282 140, 214 150, 206 222 C 198 290, 248 336, 284 336 C 300 336, 308 328, 320 328 C 332 328, 340 336, 356 336 C 392 336, 442 290, 434 222 C 426 150, 358 140, 320 168 Z"
+          fill="#c9503a" stroke="#f5ede4" stroke-width="7"/>
+    <path d="M246 206 C 244 186, 256 172, 272 168" stroke="#f5ede4" stroke-width="9" fill="none" opacity=".85"/>
+    <path d="M320 168 C 318 140, 324 118, 336 100" stroke="#f5ede4" stroke-width="8" fill="none"/>
+    <path d="M334 124 C 356 92, 398 88, 420 100 C 400 128, 362 138, 334 124 Z" fill="#8fae6b" stroke="#f5ede4" stroke-width="6"/>
+    <path d="M342 122 C 366 110, 390 104, 410 102" stroke="#f5ede4" stroke-width="3" fill="none" opacity=".8"/>
+    <!-- kalem (kitaplara yaslı) -->
+    <g transform="rotate(-62 560 470)">
+      <rect x="560" y="452" width="260" height="34" rx="4" fill="#d99a5b" stroke="#f5ede4" stroke-width="6"/>
+      <path d="M560 452 L516 469 L560 486 Z" fill="#f2e0c8" stroke="#f5ede4" stroke-width="6"/>
+      <path d="M516 469 L530 464 L530 474 Z" fill="#2e221c"/>
+      <rect x="800" y="452" width="22" height="34" fill="#cbb8aa" stroke="#f5ede4" stroke-width="5"/>
+      <path d="M570 469 H790" stroke="#f5ede4" stroke-width="3" opacity=".6"/>
+    </g>
+    <!-- yıldızlar / pırıltı -->
+    <g stroke="#f5ede4" stroke-width="6" fill="none">
+      <path d="M110 160 v44 M88 182 h44"/>
+      <path d="M548 190 v30 M533 205 h30"/>
+      <path d="M140 300 v22 M129 311 h22"/>
+    </g>
+  </g>
+</svg>
+
+<div class="h1">İyi ki varsınız,</div>
+<div class="h2">öğretmenim.</div>
+<div class="sub">Bize sabrı, merakı ve emeği öğreten<br>bütün öğretmenlerimizin<br><b>Öğretmenler Günü kutlu olsun.</b></div>
+</div>
+<script src="../logo.js"></script>
+<script>
+const f = new URLSearchParams(location.search).get('f') || 'story';
+if (f === 'feed') { document.body.classList.add('feed'); document.documentElement.style.height = '1350px'; document.body.style.height='1350px'; }
+document.getElementById('logo').src = LOGO_WHITE.src;
+window.ready = Promise.all([document.fonts.ready, document.getElementById('logo').decode()]);
+</script>
+</body></html>
