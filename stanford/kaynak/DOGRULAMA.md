@@ -484,3 +484,49 @@ Yayımlanmış kaynaklarda geçenler, kısa adlarıyla:
     - John Mark: "I don't think the actual events match up with the bold headline. I never did, and I haven't changed my opinion." [SM]
     - Kapanış dengesi için Zimbardo'nun cevabı: "none of the 'good guards' ever intervened to prevent the cruelty of their fellow guards." [Z18]
     - Kendi 1973 verisi: "At least a third of the guards" [HBZ73]. Fromm'un okuması: "two thirds of the guards did not commit sadistic acts" [LT s. 2].
+
+---
+
+## 14. rev3 (25 Kasım akşamı): Fable'ın bağımsız okuması, doğrulama ve arşivin yeni dosyaları
+Fable'ın raporu: `fable_son_okuma/1_senaryo_kaynak.md`. Her bulguyu ayrı bir şüpheci birincil kaynakta çürütmeye çalıştı. Sonuçlar iş akışı günlüğünde; aşağıdakileri başkan kendisi de kaynağında okudu.
+
+### 14a. Müdürün deney sonrası öz değerlendirmesi (DOĞRU, kendim okudum)
+- **Dosya:** Stanford SC0750, purl vx097ry2810, `SC0750_s5_b09_f40.pdf` ("Dave Jaffe, Log and Self-Perception" + "Additional Anecdotes and Perceptions"). Metin katmanı var.
+- Belgenin "-3-" numaralı sayfası: "I also became super obedient. I recall having been told on Monday (rebellion day) to talk to John Mark immediately off the sidelines and into the fray. While I didn't want to talk to him at the time, I did it anyway because Dr. Zimbardo had asked me to." → D15.
+- Aynı belgede: "I believed (and still do), that without rules, without gruff and mildly realistic guard behavior, the simulation would have appeared more like a summer camp than a prison." Le Texier s. 7 bunu aktarıyor. → D15.
+- Aynı belgede: "I am startled by the ease with which I could turn off my sensitivity and concern for others for 'a good cause.'" → F01. Önce yalnız Blum'dan aktarılıyordu.
+- "Additional Anecdotes and Perceptions", PDF s. 10. Adı karartılmış; tarif ve paragraf sonundaki ad John Mark'ı gösteriyor:
+  > "Indeed, [■] was noticed by all of the staff because he sat on the sidelines during the attempt to quell the 'rebellion.' I remember Dr. Zimbardo having told me to talk to [■] and get him to pariticpate in guard activities more frequently. Even after this talk, I cannot remember [■] ever having led a count or barking orders, or engaging in [■]-like sarcasm. It is true that he did write guard-like and, at times, scathing parole evaluations. […] It is true, of course, that John Mark never tried to prevent any of [■]'s or [■]' behavior. The same indictment, however, can be brought against all of us"
+  - Bu bölüm F03b'nin dayanağı.
+  - Videoda "isyan günü kenarda oturan o gardiyan" deniyor ve kesin ad verilmiyor. Ad, aynı paragrafın sonundan çıkan çıkarım.
+- **Sonuç:**
+  - Eski F04 ("O pekiden sonra ne yaptığını bilmiyoruz") yanlış oldu.
+  - Eski E12 ("bağımsız bir belge bulamadık") eksik kaldı. Kelimenin dar anlamıyla bağımsız belge hâlâ yok, çünkü Jaffe deneyi yönetenlerden.
+  - Açıklama bunu "bağımsız bir tanıklık değil" diye yazıyor.
+
+### 14b. Video notları (DOĞRU; iş akışının okuyucusu okudu, satır aktarımı)
+- `videonotes_day3.pdf` s. 1. Sean Bruich ve Scott Thompson, 2004; video bantlarını izleyerek tutulmuş. Başlık: "Video #3 (Continuation of Day 2)", gündüz vardiyası, sayım. Satır: "Mark seems pretty listless – his body posture is much less enthusiastic than that of the other guards. He's not getting into the role as much as do [■] and [■]."
+- `daytwo.doc` (karartılmamış): "Day Shift – Guards on Duty: Terry Barnett, John Loftus, John Mark". → E12.
+- Bu notlar 1971'de değil, 2004'te yazıldı. Bağımsız tanıklık değil, kaydın sonradan okunması.
+
+### 14c. Mark'ın vardiya ve şartlı tahliye raporları (KISMEN: sayfayı kendim okudum, ad çıkarımla)
+- `Questions_on_guard_shift_report.pdf` s. 4. 1971 daktilo dökümü; sayfa başındaki ad karartılmış. 8/18 şartlı tahliye görüşü: "I see no reason why 3401 deserves parole, nor can I even make the connection between the 3401 I know and the person described in this parole request." → P88d ekranı.
+- Ad: `NBC_style_logs-day_5.pdf` aynı sayfanın 8/19 cümlelerini "Mark:" ve "Mark shift report" diye aktarıyor ("5486 continues to be a petty nuisance."; "I think that everyone on the prison staff is well acquainted with the case of prisoner 5704…"). Sayfa bütünüyle Mark'ın kabul edildi.
+
+### 14d. Bandın sonu (DOĞRU, VTT)
+- 26:48 müdür "And to be more into the action, okay?" / 26:52 Mark "All right." / 26:53 müdür "All right." 27:24–27:32'de etiketsiz üç "Okay". 27:59'da yeni sahne başlıyor. Dosya 1:00:54'e kadar sürüyor.
+- Eski F03 ("Bant, Mark'ın tek kelimesiyle bitiyor") yanlıştı. Yeni cümle: "Mark'ın cevabı tek kelime: Peki."
+- Eski A03 ("O bandın son kelimesini sona saklıyoruz") savunulabilir: konuşmanın son kelimesi kimde olursa olsun "peki". Değiştirilmedi.
+- Görüntüde "Peki"de bant boşalmıyor, makaralar duruyor. Efektte bant bitişi yerine makara durması var.
+
+### 14e. Öteki doğrulanan düzeltmeler
+- **E08:** Eshelman 2018'de de "I believed that I was doing what the researchers wanted me to do" demişti [BL]. 2024 sözü belgeselin içinden değil, yayından önceki söyleşiden [LP: "Ahead of the November 13th broadcast premiere"]. Yeni E08 önce 2018'i söylüyor, ölümden sonra "birkaç hafta sonra" diyor. LP 12 Kasım; ölüm 14 Ekim.
+- **E07:** Zimbardo'nun "far beyond" yargısı beşinci gecenin aşağılama oyununa ve onun on dakikalık kaydına dayanıyor [Z18]. Video olayın ayrıntısını vermiyor ("aşağılayıcı bir oyun").
+- **F02:** alıntı tamamlandı: "try and get into and do it the best I can as myself" (VTT 22:33).
+- **Çürüyen ya da yama gerektirmeyenler:**
+  - B02 doğru: 24 kişi seçildi, 21'i katıldı; açıklamada "seçildi".
+  - C12 (Fromm, aktaran LT) doğru.
+  - D16 olguyla tutuyor.
+  - C03'ün dolabı Blum'da; prisonexp.org da "The Hole"u doğruluyor.
+  - B09'un "koridorun ucunda" yeri bizim çizimimiz; kaynak yalnız tabelaları söylüyor. Yama yapılmadı.
+  - D11'in bant sırası (15:28, D10'dan sonra konmuş) ve D04'ün iki sözün birleşimi yama gerektirmedi. Künyede dakikalar var; açıklama da üç "denerim" ve "sayım gibi şeyler mi" sorusunu yazıyor.
