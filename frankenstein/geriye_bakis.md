@@ -52,7 +52,7 @@ Bu video yön usulünün ikinci örneği (`analiz/2026-11-23-deney-yon-promptu.m
 ## Render ve denetimler
 - **Donma taraması** (`tools/donma.py`, plan sınırları `vo/shots.json`'dan): ilk render'da 5 sn'yi aşan 16 durgun aralık vardı. Fener titremesi ve yavaş kaydırma ölçüt eşiğinin altında kalıyordu. Her birine sözcüğe bağlı eylem eklendi: ekmeği alıp bırakan el, kapıdan çıkan oğul, "neredeydi"de kalkıp "olmadı"da düşen baş, "kötüyüm"de iki adım, "soğumuş"ta çekilen el gibi. Son render'da 5 sn sınırında üç aralık kaldı: C03b gözde duruş (5,0 sn), C05a sıfatların yazıldığı plan (5,4 sn), E06a "elimi kaldırmadım" (5,0 sn, bilerek). Bunlara bitiş ekranı (26 sn) ekleniyor.
 - **Alt bant** (`tools/alt_bant.js`): temiz. **Ölçek kuralı** (`tools/plan_listesi.js`): ardışık aynı ölçek yok, 100 plan.
-- **Ses:** −14,3 LUFS, tepe −1,2 dBFS (AAC). Müzik 665 saniyenin 648'inde −60 dB üstü.
+- **Ses:** −14,3 LUFS, gerçek tepe −1,1 dBTP (AAC). Müzik 665 saniyenin 649'unda −60 dB üstü.
 - **Render süresi:** tam film MB=2 ile 4 işçide ~38 dk. Konteyner bir kez yeniden başladı; parça önbelleği anahtarla korunduğu için render kalan 17 parçadan sürdü.
 - **Son karede yakalanan:** G04'te eğim düzeltmesinden sonra yaratığın kolu tabutun üstünde havaya kalkıyordu (selam ya da kutsama okuması). El ölünün başının yanına indirildi, tek parça yeniden render edildi.
 
@@ -60,3 +60,13 @@ Bu video yön usulünün ikinci örneği (`analiz/2026-11-23-deney-yon-promptu.m
 - Kulakla son onay kullanıcıda (`yayin.md` → "Kulakla bakılacaklar").
 - Shorts yapılmadı.
 - Sonuçlar 48. saat ve 7. gün verisiyle `analiz/tahminler.md` (F1–F3) ve deney dosyasına yazılır.
+
+## Müzik denetimi (24 Kasım, teslimden sonra)
+Kullanıcı müziği birkaç sahnede dinleyebilmişti; son dosya saniye saniye ölçüldü (`muzik_denetim.py`: son mp4'ün sesi anlatım, müzik ve efekt izlerine en küçük kareler ile ayrıştırıldı).
+- **Müzik son dosyada vardı ve kaymamıştı** (gecikme 0 örnek; dosyadaki müzik kazancı miksin %98'i).
+- **Asıl sorun telefondu.** Dronların temeli 70–150 Hz'deydi; telefon hoparlörü 300 Hz altını vermiyor. 300 Hz üstünde 4 saniyeyi aşan müziksiz aralık 29 taneydi (toplam 260 sn; en uzunu 6:37–7:16, 39 sn). Tam bant ölçüm ("−60 dB üstü saniye") bunu göstermiyordu. İzleyicinin %48'i telefonda.
+  - Düzeltme: her dronun aynı notası oktavla ≥ 280 Hz'e taşınıp %30 düzeyle eklendi (`score.py` → `ust()`). Sonuç: 4 aralık, 34 sn. Konuşmada 300 Hz üstü müzik/ses farkı −25 → −21 dB; tam bantta −16,5 → −15,8 dB (anlatımı bastırmıyor).
+  - Kalan 4 sessizlik bilerek, hepsi kırılma anı: Victor'un kaçışı (C04–C05), sopa (E05–E06), tüfek ve bölüm kartı (E10), merkez soru (H01).
+- **İstenmemiş iki boşluk** dolduruldu: kancada 0:21–0:23 (A03, "kaçan adamın adıyla") ve sudaki yüz 5:30–5:32 (D11).
+- Ses görüntüden bağımsız olduğu için yeniden render gerekmedi: video akışı kopyalandı, ses tek parça AAC olarak yeniden kodlandı (parça parça kodlamanın birleşim yerleri de böylece ortadan kalktı). Telefon kopyasında −0,5 dB pay (AAC 128k tepeyi −0,84'e taşıyordu).
+- **Ders:** müzik denetimi tam bantta değil, telefon bandında da (>300 Hz) yapılır; "−60 dB üstü saniye" sayısı telefonda duyulmayan müziği gizler.

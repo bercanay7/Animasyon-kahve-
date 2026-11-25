@@ -9,7 +9,7 @@ Yükleme YouTube Studio'da bilgisayardan yapılır. YouTube'un kendi zamanlamas�
 ## Dosyalar
 | Dosya | Ne için |
 |---|---|
-| `teslim/frankenstein_youtube.mp4` | **YouTube'a yüklenecek dosya** (301 MB, 11:04): 1920×1080, 30 fps, H.264 CRF 18 + AAC 256k, Türkçe ses (−14,3 LUFS, tepe −1,2 dBFS), BT.709 |
+| `teslim/frankenstein_youtube.mp4` | **YouTube'a yüklenecek dosya** (301 MB, 11:04): 1920×1080, 30 fps, H.264 CRF 18 + AAC 256k, Türkçe ses (−14,3 LUFS, gerçek tepe −1,1 dBTP), BT.709 |
 | `teslim/frankenstein_telefon.mp4` | Telefonda izlemek için küçük kopya (82 MB; H.265 iki geçiş 850k, AAC 128k) |
 | `kapak/A.jpg` | Kapak A: "ELİNİ UZATTI" (yaratığın uzanan eli; filmin ilk sahnesiyle aynı figür, sarı göz tek vurgu). İlk 5 sn'de ve 8:33'te (halka) karşılanıyor |
 | `kapak/B.jpg` | Kapak B: "18 YAŞINDA YAZDI" (mum ışığında yazan genç kadın, camda uzun bir siluetin yansıması). İlk cümlede karşılanıyor |
@@ -43,5 +43,5 @@ Sessizliğe dayalı cümle hizalaması kullanıldı; seslendirme kelime kelime d
 - **Birinci tekile geçiş** (4:04, "Önce hiçbir şeyi birbirinden ayıramıyordum") ve dönüş (7:47, "Yaratığın sözünü ettiği çocuk"): seste anlaşılıyor mu?
 - **F03 (7:18)** "Susturmak için boğazına sarıldım…": ton fazla mı sert? Görüntüde şiddet yok, fener kapanıyor.
 - **H05–H06 (9:43–10:03)** Mary'nin günlüğü ve bebek düşü; ardından 1,6 sn sessizlik bilerek (müzik kısıldı).
-- **Müzik:** cam armonika (fantazmagorya gösterilerinin çalgısı), yaylı dron ve piyano; el motifi (A–D–C–A) kancada, kör adamda, tabutun başında ve sonda Re majörde çözülüyor. Müzik özgün sentez; duyulup duyulmadığı saniye saniye ölçüldü (665 saniyenin 648'inde −60 dB üstü; sessiz kalan 17 saniye bilerek: C05 sıfatlar, E06 "elimi kaldırmadım", kart başları).
+- **Müzik:** cam armonika (fantazmagorya gösterilerinin çalgısı), yaylı dron ve piyano; el motifi (A–D–C–A) kancada, kör adamda, tabutun başında ve sonda Re majörde çözülüyor. Müzik özgün sentez; duyulup duyulmadığı saniye saniye ölçüldü (665 saniyenin 649'unda −60 dB üstü; 24 Kasım'da telefon hoparlörü için yükseltildi). Müziğin bilerek sustuğu dört kırılma anı: 3:28 Victor'un kaçışı, 6:26 sopa, 6:52 tüfek, 9:10 "bunu neden yazdı?".
 - **Seçilen çekimler:** s00 a, s01 a, s02 a, s03 a, s04 a, s05 a, s06 a, s07 b, s08 a (`vo/secim.json`). Beğenmediğin bölüm olursa öbür çekim zaman çizelgesini birkaç saniye kaydırır; görüntü sözcüğe bağlı olduğu için kendiliğinden kayar, yeniden render gerekir.

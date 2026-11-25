@@ -23,11 +23,12 @@ Altyazılar Türkçe altyazının zamanlarıyla birebir aynı ve `araclar/altyaz
 ## Ölçüm planı
 - **Taban (17 Kasım, `2026-11-17-studio-verileri.md`):**
   - Sisifos: Türkiye %86,7, Azerbaycan %4,3, Almanya %1,7. Altyazı: Türkçe %31,4, İngilizce %0,8.
-  - Ran: yayın 17 Kasım 18:00, henüz kitle verisi yok.
+  - Ran: yayın 17 Kasım 18:00. 7. gün (24 Kasım): Türkiye %77,0; altyazı yok %54,8, Türkçe %44,1, İngilizce %0,4 (paketin yüklenip yüklenmediği henüz bilinmiyor).
   - Kafka (kontrol, 48. saat): Türkiye %75,4; altyazı yok %59,9, Türkçe %22,5, İngilizce görünmüyor.
 - **Kontrol videoları:**
   - Ran'ı aynı yaştaki **Kafka** ile karşılaştır; Kafka'ya çeviri eklenmez.
   - Sisifos'u kendi önceki 14 günüyle karşılaştır.
+- **Durum (24 Kasım):** paket yüklenmedi (kullanıcı). Deneme askıda; dosyalar hazır. Yüklenirse tarih buraya yazılır ve 14. güne hatırlatıcı kurulur. Ran'ın 7. gün kitlesi (yüklemesiz) taban olarak duruyor.
 - **Bakış günü:** yüklemeden 14 gün sonra (yükleme tarihi: ____).
   - Studio → Analytics → Kitle: coğrafya ve altyazı dili.
   - Analytics → Erişim: arama terimleri; İngilizce ya da İspanyolca aramalar var mı?
