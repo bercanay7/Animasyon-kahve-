@@ -1,0 +1,455 @@
+{
+ "voice": "Emrullah (ElevenLabs; voice_id creative_list_voices ile bulunur)",
+ "revizyon": "rev0 (25 Kasım 2026): ilk taslak",
+ "not": "Kaynak kısaltmaları kaynak/DOGRULAMA.md. İskelet: Kişōtenketsu, kahraman isteksiz gardiyan (uretim_plani.md §5). Alıntılar bizim Türkçemiz.",
+ "segments": [
+  {
+   "id": "A01",
+   "bolum": "Kanca",
+   "tts": "[calmly] Ağustos bin dokuz yüz yetmiş bir, Stanford Üniversitesi'nin bodrumu. Mahkûmlar sayım için dizilmiş; gardiyanlardan biri bir köşede, hiçbir şey yapmadan duruyor.",
+   "alt": "Ağustos 1971, Stanford Üniversitesi'nin bodrumu. Mahkûmlar sayım için dizilmiş; gardiyanlardan biri bir köşede, hiçbir şey yapmadan duruyor.",
+   "kaynak": "Z18 (\"One of three guards on a shift that day left the area during a prisoner count\"); TA s. 8 (\"you weren't really lending a hand\"). Kapak A'nın figürü ilk karede"
+  },
+  {
+   "id": "A02",
+   "bolum": "Kanca",
+   "tts": "[curious] Yazı turayla gardiyan olmuş bir öğrenci o. Sen onun yerinde olsan, zalim olur muydun?",
+   "alt": "Yazı turayla gardiyan olmuş bir öğrenci o. Sen onun yerinde olsan, zalim olur muydun?",
+   "kaynak": "PX /setting-up (\"by a flip of the coin\"); TA s. 12 (\"randomly selected\"). Başlığın sorusu (L1)"
+  },
+  {
+   "id": "A03",
+   "bolum": "Kanca",
+   "tts": "[calmly] Deneyin arşivinde bir ses bandı var. Bantta deneyi yönetenlerden biri bu gardiyanı karşısına oturtuyor ve ondan bir şey istiyor.",
+   "alt": "Deneyin arşivinde bir ses bandı var. Bantta deneyi yönetenlerden biri bu gardiyanı karşısına oturtuyor ve ondan bir şey istiyor.",
+   "kaynak": "Stanford SC0750, purl wn708sg0050; TA s. 8–17. İkinci kanca (arastirma/kanal_karsilastirma.md §4): bant görünür, içeriği söylenmez. Kapak B (≈0:15)"
+  },
+  {
+   "id": "A04",
+   "bolum": "Kanca",
+   "tts": "[curious] O bodrumda gardiyanlar kendiliğinden mi sertleşti, yoksa biri bunu onlardan istedi mi? İz o bantta.",
+   "alt": "O bodrumda gardiyanlar kendiliğinden mi sertleşti, yoksa biri bunu onlardan istedi mi? İz o bantta.",
+   "kaynak": "Yönün sorusu (L3). Köprü yok: B01 doğrudan hikâye"
+  },
+  {
+   "id": "B01",
+   "bolum": "Yazı tura",
+   "tts": "[calmly] O yaz bir ilan: hapishane hayatı üzerine bir psikoloji araştırması, günde on beş dolar, bir iki hafta.",
+   "alt": "O yaz bir ilan: hapishane hayatı üzerine bir psikoloji araştırması, günde on beş dolar, bir iki hafta.",
+   "kaynak": "SM (ilan metni: \"$15 per day for 1-2 weeks\")"
+  },
+  {
+   "id": "B02",
+   "bolum": "Yazı tura",
+   "tts": "[calmly] Yetmişten fazla başvurudan yirmi dört üniversite öğrencisi seçiliyor. Yazı tura atılıyor: yarısı gardiyan, yarısı mahkûm. Hiçbiri gardiyan olmak istemiyor.",
+   "alt": "Yetmişten fazla başvurudan yirmi dört üniversite öğrencisi seçiliyor. Yazı tura atılıyor: yarısı gardiyan, yarısı mahkûm. Hiçbiri gardiyan olmak istemiyor.",
+   "kaynak": "PX /setting-up (70'ten fazla başvuru, 24 öğrenci, yazı tura); Z18 (\"None of the participants wanted to be a guard\"). Yazı tura Zimbardo'nun anlatımı"
+  },
+  {
+   "id": "B03",
+   "bolum": "Yazı tura",
+   "tts": "[calmly] Cumartesi, on dört Ağustos. Deneyi kuran psikoloji profesörü Filip Zimbardo, gardiyanları topluyor ve onlara ne yapabileceklerini anlatıyor.",
+   "alt": "Cumartesi, 14 Ağustos. Deneyi kuran psikoloji profesörü Philip Zimbardo, gardiyanları topluyor ve onlara ne yapabileceklerini anlatıyor.",
+   "kaynak": "T2 başlığı (\"Orientation of Guards Sat. Aug 14, 1971\")"
+  },
+  {
+   "id": "B04",
+   "bolum": "Yazı tura",
+   "tts": "[slowly] Onlarda can sıkıntısı yaratabiliriz, hayal kırıklığı yaratabiliriz, bir dereceye kadar korku yaratabiliriz. Bütün güç bizde olacak, onlarda hiç olmayacak.",
+   "alt": "\"Onlarda can sıkıntısı yaratabiliriz, hayal kırıklığı yaratabiliriz, bir dereceye kadar korku yaratabiliriz. Bütün güç bizde olacak, onlarda hiç olmayacak.\"",
+   "kaynak": "T2 s. 2–3 (\"we can create boredom; we can create a sense of frustration; we can create a sense of fear in them, to some degree … we have total power in the situation and they have none\")"
+  },
+  {
+   "id": "B05",
+   "bolum": "Yazı tura",
+   "tts": "[calmly] Tek kesin yasak var: vurmak yok.",
+   "alt": "Tek kesin yasak var: vurmak yok.",
+   "kaynak": "Z18 (\"they could not hit the prisoners\")"
+  },
+  {
+   "id": "B06",
+   "bolum": "Yazı tura",
+   "tts": "[calmly] Ertesi sabah gerçek Palo Alto polisi, mahkûm olacak öğrencileri evlerinden alıyor: silahlı soygun suçlaması, kelepçe, polis arabası.",
+   "alt": "Ertesi sabah gerçek Palo Alto polisi, mahkûm olacak öğrencileri evlerinden alıyor: silahlı soygun suçlaması, kelepçe, polis arabası.",
+   "kaynak": "PX /the-story (Pazar sabahı, PC 211 \"Armed Robbery\", kelepçe, arabaya yaslatma); SA. Görüntü: 1971 Amerikan polis arabası silueti"
+  },
+  {
+   "id": "B07",
+   "bolum": "Yazı tura",
+   "tts": "[calmly] Gözleri bağlı getiriliyorlar. Bodrumda üstleri aranıyor, adları alınıyor; bundan sonra her biri bir numara.",
+   "alt": "Gözleri bağlı getiriliyorlar. Bodrumda üstleri aranıyor, adları alınıyor; bundan sonra her biri bir numara.",
+   "kaynak": "PX /the-story (gözleri bağlı); T2 s. 5, LT s. 5 (\"blindfolded … searched completely\"; \"Guards never use name, only number\"). Çıplaklık gösterilmez"
+  },
+  {
+   "id": "B08",
+   "bolum": "Yazı tura",
+   "tts": "[calmly] Gardiyanlara üniforma, cop ve gözlerini gizleyen aynalı güneş gözlüğü veriliyor. Gözlük fikri Zimbardo'nun: onu bir hapishane filminden almış.",
+   "alt": "Gardiyanlara üniforma, cop ve gözlerini gizleyen aynalı güneş gözlüğü veriliyor. Gözlük fikri Zimbardo'nun: onu bir hapishane filminden almış.",
+   "kaynak": "PX /guards (\"special sun-glasses, an idea I borrowed from the movie Cool Hand Luke\"). Film adı anılmaz (E bölümünde Eshelman'ın aksanıyla bağ)"
+  },
+  {
+   "id": "B09",
+   "bolum": "Yazı tura",
+   "tts": "[calmly] Koridorun ucunda iki kapı var. Birinde Amir yazıyor: Zimbardo kendine cezaevi amiri diyor. Ötekinde Müdür: bir lisans öğrencisi, Deyvid Ceffi.",
+   "alt": "Koridorun ucunda iki kapı var. Birinde \"Amir\" yazıyor: Zimbardo kendine cezaevi amiri diyor. Ötekinde \"Müdür\": bir lisans öğrencisi, David Jaffe.",
+   "kaynak": "BL (\"My office had the sign 'Prison Superintendent.' David Jaffe's office said 'Warden.'\"); Z18 (\"Prison Superintendent\"); PX /guards (\"Warden David Jaffe, an undergraduate\"). Jaffe ilk perdede ekilir"
+  },
+  {
+   "id": "B10",
+   "bolum": "Yazı tura",
+   "tts": "[calmly] Kameralar ve teypler açık. Altı gün boyunca bu bodrumda olanların bir kısmı kaydediliyor.",
+   "alt": "Kameralar ve teypler açık. Altı gün boyunca bu bodrumda olanların bir kısmı kaydediliyor.",
+   "kaynak": "Z18 (\"videos from the first day\"; \"A video recording, made in my absence\"); arşivdeki bantlar (SC0750). \"Bir kısmı\": her şey kaydedilmedi"
+  },
+  {
+   "id": "C01",
+   "bolum": "Altı gün",
+   "tts": "[calmly] İlk gün gardiyanlar gülüşüyor; sayım bir oyun gibi. Gündüz vardiyasındaki bir gardiyan sayım sırasında bir kenara çekiliyor.",
+   "alt": "İlk gün gardiyanlar gülüşüyor; sayım bir oyun gibi. Gündüz vardiyasındaki bir gardiyan sayım sırasında bir kenara çekiliyor.",
+   "kaynak": "Z18 (\"videos from the first day show them giggling … One of three guards on a shift that day left the area during a prisoner count\"). Kahraman yeniden görünür (A01)"
+  },
+  {
+   "id": "C02",
+   "bolum": "Altı gün",
+   "tts": "[calmly] İkinci gün sabah mahkûmlar numaralarını söküyor ve yataklarla hücre kapılarının önünü kapatıyor.",
+   "alt": "İkinci gün sabah mahkûmlar numaralarını söküyor ve yataklarla hücre kapılarının önünü kapatıyor.",
+   "kaynak": "PX /rebellion"
+  },
+  {
+   "id": "C03",
+   "bolum": "Altı gün",
+   "tts": "[calmly] Gardiyanlar yangın söndürücüyle karşılık veriyor, yatakları dışarı çıkarıyor.",
+   "alt": "Gardiyanlar yangın söndürücüyle karşılık veriyor, yatakları dışarı çıkarıyor.",
+   "kaynak": "PX /rebellion"
+  },
+  {
+   "id": "C04",
+   "bolum": "Altı gün",
+   "tts": "[calmly] O akşam bir mahkûm karanlık bir dolapta bağırmaya başlıyor ve deneyden çıkarılıyor.",
+   "alt": "O akşam bir mahkûm karanlık bir dolapta bağırmaya başlıyor ve deneyden çıkarılıyor.",
+   "kaynak": "PX /grievances (36 saat dolmadan); BL (16 Ağustos akşamı). Korpi adsız kalır (uretim_plani §6)"
+  },
+  {
+   "id": "C05",
+   "bolum": "Altı gün",
+   "tts": "[calmly] Sonraki gecelerde sertlik bir vardiyada toplanıyor: akşam altıdan gece ikiye kadar süren ilk gece vardiyası.",
+   "alt": "Sonraki gecelerde sertlik bir vardiyada toplanıyor: akşam altıdan gece ikiye kadar süren ilk gece vardiyası.",
+   "kaynak": "LT s. 8 (\"the abuses only concerned the first night shift, between 6 p.m. and 2 a.m.\")"
+  },
+  {
+   "id": "C06",
+   "bolum": "Altı gün",
+   "tts": "[calmly] Başında, mahkûmların Con Ueyn adını taktığı uzun boylu bir gardiyan var: Deyv Eşelmın, başka bir üniversitede tiyatro öğrencisi.",
+   "alt": "Başında, mahkûmların \"John Wayne\" adını taktığı uzun boylu bir gardiyan var: Dave Eshelman, başka bir üniversitede tiyatro öğrencisi.",
+   "kaynak": "LT s. 8 (Guard 4, \"nicknamed 'John Wayne' by the prisoners\", \"tall theater major\"); SM (Chapman University); Z18 (ad). Doruğu taşıyan ikinci kişi ilk perdede eylemle"
+  },
+  {
+   "id": "C07",
+   "bolum": "Altı gün",
+   "tts": "[calmly] Bir hapishane filmindeki gardiyandan aldığı Güney aksanıyla konuşuyor; uzun şınav cezaları veriyor, keyfî kurallar koyuyor, yemeği kısıyor.",
+   "alt": "Bir hapishane filmindeki gardiyandan aldığı Güney aksanıyla konuşuyor; uzun şınav cezaları veriyor, keyfî kurallar koyuyor, yemeği kısıyor.",
+   "kaynak": "BL (\"I used a southern accent, which I got from Cool Hand Luke\"); Z18 (şınav, keyfî kurallar, yemek). Görüntü: tek mahkûm, yandan"
+  },
+  {
+   "id": "C08",
+   "bolum": "Altı gün",
+   "tts": "[calmly] Sonradan gelen bir mahkûm, dört yüz on altı, yemek yemeyi reddediyor. Kuralda bir saat yazan karanlık dolapta üç saat tutuluyor.",
+   "alt": "Sonradan gelen bir mahkûm, 416, yemek yemeyi reddediyor. Kuralda bir saat yazan karanlık dolapta üç saat tutuluyor.",
+   "kaynak": "PX /conclusion (açlık grevi; \"for three hours, even though their own rules stated that one hour was the limit\"); 416 yedek mahkûm"
+  },
+  {
+   "id": "C09",
+   "bolum": "Altı gün",
+   "tts": "[calmly] Öteki mahkûmlara bir seçim sunuluyor: battaniyelerinden vazgeçerlerse dört yüz on altı dolaptan çıkacak. Çoğu battaniyesini seçiyor.",
+   "alt": "Öteki mahkûmlara bir seçim sunuluyor: battaniyelerinden vazgeçerlerse 416 dolaptan çıkacak. Çoğu battaniyesini seçiyor.",
+   "kaynak": "PX /conclusion"
+  },
+  {
+   "id": "C10",
+   "bolum": "Altı gün",
+   "tts": "[calmly] Perşembe gecesi genç bir psikolog, Kristina Maslak, bodruma iniyor. Mahkûmlar başları örtülü, ayakları zincirli, tuvalete götürülüyor.",
+   "alt": "Perşembe gecesi genç bir psikolog, Christina Maslach, bodruma iniyor. Mahkûmlar başları örtülü, ayakları zincirli, tuvalete götürülüyor.",
+   "kaynak": "SM; PX /conclusion (tuvalet yürüyüşü, başlarda torba, zincir). Torba görüntüde çizilmez"
+  },
+  {
+   "id": "C11",
+   "bolum": "Altı gün",
+   "tts": "[slowly] Buna bakamıyorum diyor. Zimbardo'yla tartışıyor; ertesi sabah, altıncı gün, deney bitiyor. İki hafta sürecekti.",
+   "alt": "\"Buna bakamıyorum\" diyor. Zimbardo'yla tartışıyor; ertesi sabah, altıncı gün, deney bitiyor. İki hafta sürecekti.",
+   "kaynak": "SM (Maslach: \"I said, 'I can't watch this.'\"); Z18 (Perşembe gecesi tartışma, ertesi sabah bitiş); PX /conclusion (20 Ağustos)"
+  },
+  {
+   "id": "C12",
+   "bolum": "Altı gün",
+   "tts": "[calmly] Zimbardo'nun bin dokuz yüz yetmiş üçteki makalesine göre gardiyanların en az üçte biri, bir canlandırmada beklenenden çok daha saldırgan hâle geldi. Hiçbirine bu rol için özel bir eğitim verilmemişti.",
+   "alt": "Zimbardo'nun 1973'teki makalesine göre gardiyanların en az üçte biri, bir canlandırmada beklenenden çok daha saldırgan hâle geldi. Hiçbirine bu rol için özel bir eğitim verilmemişti.",
+   "kaynak": "HBZ73 s. 69 (\"At least a third of the guards …\"; \"Neither group received any specific training in these roles\")"
+  },
+  {
+   "id": "C13",
+   "bolum": "Altı gün",
+   "tts": "[calmly] Hikâye elli yıla yakın böyle anlatıldı: sıradan öğrencilere üniforma ve güç verildi, gerisini bodrum yaptı.",
+   "alt": "Hikâye elli yıla yakın böyle anlatıldı: sıradan öğrencilere üniforma ve güç verildi, gerisini bodrum yaptı.",
+   "kaynak": "Bilinen anlatım tek cümle (yön: bu anlatılmaz, bozulur). D01 olayla bozar"
+  },
+  {
+   "id": "D01",
+   "bolum": "Bant",
+   "tts": "[calmly] İki bin on sekizde araştırmacılar deneyin arşivindeki bantlara ve dökümlere yeniden döndü. Biri on sekiz dakikalık bir konuşma.",
+   "alt": "2018'de araştırmacılar deneyin arşivindeki bantlara ve dökümlere yeniden döndü. Biri on sekiz dakikalık bir konuşma.",
+   "kaynak": "LT (2018 kitabı, 2019 makalesi); BPS 3.7.2018 ve PSY 25.6.2018 (\"18-minutes long\"). Döküm TA s. 8–17"
+  },
+  {
+   "id": "D02",
+   "bolum": "Bant",
+   "tts": "[calmly] Fransız araştırmacı Tibo Lö Teksiye'ye göre deneyin üçüncü günü, sabah. Müdür Deyvid Ceffi, gündüz vardiyasından bir gardiyanla oturuyor: sayımda kenarda duran gardiyanla.",
+   "alt": "Fransız araştırmacı Thibault Le Texier'ye göre deneyin üçüncü günü, sabah. Müdür David Jaffe, gündüz vardiyasından bir gardiyanla oturuyor: sayımda kenarda duran gardiyanla.",
+   "kaynak": "LT s. 7 (\"on the third day\"); Z18 konuşmayı ilk güne koyuyor ve sayımdan çekilen gardiyana bağlıyor. Çelişki künyede. Görüntü ilk kez döner: gözlem masası"
+  },
+  {
+   "id": "D03",
+   "bolum": "Bant",
+   "tts": "[calmly] Gardiyanın adı Con Mark. Fransa'da bir yıl okumuş, daha önce yirmi kadar deneye katılmış.",
+   "alt": "Gardiyanın adı John Mark. Fransa'da bir yıl okumuş, daha önce yirmi kadar deneye katılmış.",
+   "kaynak": "Ad: BPS, PSY, IM. SM (Fransa); TA s. 14 ve LT s. 8 (yaklaşık 20 deney)"
+  },
+  {
+   "id": "D04",
+   "bolum": "Bant",
+   "tts": "[calmly] Bu sabah pek el atmadığını fark ettik. Bir sorun mu var?",
+   "alt": "\"Bu sabah pek el atmadığını fark ettik. Bir sorun mu var?\"",
+   "kaynak": "TA s. 8 (\"We noticed this morning that you weren't really, you know, lending a hand. I was wondering if there was anything wrong?\")"
+  },
+  {
+   "id": "D05",
+   "bolum": "Bant",
+   "tts": "[slowly] Gardiyanların şunu bilmesi gerek: her gardiyan, bizim sert gardiyan dediğimiz şey olacak.",
+   "alt": "\"Gardiyanların şunu bilmesi gerek: her gardiyan, bizim sert gardiyan dediğimiz şey olacak.\"",
+   "kaynak": "TA s. 8–9 (\"the guards have to know that every guard is going to be what we call a tough guard\")"
+  },
+  {
+   "id": "D06",
+   "bolum": "Bant",
+   "tts": "[calmly] Mark tereddütle cevap veriyor: Bilmiyorum. Bence benden yapmamı istediğin şey, polisle hep bu kadar sorun çıkmasının sebebi.",
+   "alt": "Mark tereddütle cevap veriyor: \"Bilmiyorum. Bence benden yapmamı istediğin şey, polisle hep bu kadar sorun çıkmasının sebebi.\"",
+   "kaynak": "TA s. 9 (\"Well, I don't-- I don't know about that.\"; \"what you're sorta asking me to do I think is the same reason why I think there's always so much trouble with the police\")"
+  },
+  {
+   "id": "D07",
+   "bolum": "Bant",
+   "tts": "[calmly] Bana kalsa hiçbir şey yapmazdım. Ortalık soğusun diye beklerdim.",
+   "alt": "\"Bana kalsa hiçbir şey yapmazdım. Ortalık soğusun diye beklerdim.\"",
+   "kaynak": "TA s. 9 (\"if it was just entirely up to me is I wouldn't do anything. And I'd just let it-- cool off\")"
+  },
+  {
+   "id": "D08",
+   "bolum": "Bant",
+   "tts": "[calmly] Ceffi ona amacı anlatıyor: Umarız bu çalışmadan ciddi reform önerileri çıkar. Basına çıkıp, bakın, gardiyanlar böyle davranınca ne oluyor diyebilmeliyiz.",
+   "alt": "Jaffe ona amacı anlatıyor: \"Umarız bu çalışmadan ciddi reform önerileri çıkar. Basına çıkıp, bakın, gardiyanlar böyle davranınca ne oluyor diyebilmeliyiz.\"",
+   "kaynak": "TA s. 10 (\"some very serious recommendations for reform\"); s. 11 (\"get on the media and in the press with it\"); s. 15 (\"This is what happens when you have guards who behave this way\")"
+  },
+  {
+   "id": "D09",
+   "bolum": "Bant",
+   "tts": "[slowly] Ama bunu söyleyebilmek için, öyle davranan gardiyanlarımız olmalı.",
+   "alt": "\"Ama bunu söyleyebilmek için, öyle davranan gardiyanlarımız olmalı.\"",
+   "kaynak": "TA s. 15 (\"But in order to say that we have to have guards that will behave that way.\")"
+  },
+  {
+   "id": "D10",
+   "bolum": "Bant",
+   "tts": "[calmly] Mark: Bu deney için iyi bir gardiyan değilim. Mahkûm olsam, iyi bir mahkûm olurdum. Ceffi: Gardiyan olmak için rastgele seçildin. Durum bu.",
+   "alt": "Mark: \"Bu deney için iyi bir gardiyan değilim. Mahkûm olsam, iyi bir mahkûm olurdum.\" Jaffe: \"Gardiyan olmak için rastgele seçildin. Durum bu.\"",
+   "kaynak": "TA s. 11 (\"I don't think I'm a very good guard for this experiment. I could have been a really good prisoner.\"); s. 12 (\"And you were randomly selected to be a guard. That's the way it was.\")"
+  },
+  {
+   "id": "D11",
+   "bolum": "Bant",
+   "tts": "[calmly] Şimdilik sert gardiyanı oynamanı istiyoruz. Bildiğin incelikli psikolojiyi bir kenara bırak; polisleri nasıl hayal ediyorsan, öyle davran.",
+   "alt": "\"Şimdilik sert gardiyanı oynamanı istiyoruz. Bildiğin incelikli psikolojiyi bir kenara bırak; polisleri nasıl hayal ediyorsan, öyle davran.\"",
+   "kaynak": "TA s. 16 (\"we need you to play the part of, you know, tough guard. And to forget some of the more sophisticated psychology that you might know. And try and react as you picture the pigs reacting.\"). \"Pigs\": 1971 öğrenci argosu, okunmaz (uretim_plani §6)"
+  },
+  {
+   "id": "D12",
+   "bolum": "Bant",
+   "tts": "[calmly] İçeri girip bağırman gerek. Tamam mı? Mark'ın bu soruya verdiği cevaba filmin sonunda döneceğiz.",
+   "alt": "\"İçeri girip bağırman gerek. Tamam mı?\" Mark'ın bu soruya verdiği cevaba filmin sonunda döneceğiz.",
+   "kaynak": "TA s. 17 (\"You know you have to go in there and shout. … Okay?\"). L4 açık bırakılır → F02"
+  },
+  {
+   "id": "D13",
+   "bolum": "Bant",
+   "tts": "[calmly] Ceffi bunu kendi aklıyla yapmıyor. Deneyden sonra yazdığına göre Zimbardo, en zor işin gardiyanları gardiyan gibi davranmaya ikna etmek olacağını söylemiş; sert gardiyan davranışını ortaya çıkarmak ona verilmiş.",
+   "alt": "Jaffe bunu kendi aklıyla yapmıyor. Deneyden sonra yazdığına göre Zimbardo, en zor işin gardiyanları gardiyan gibi davranmaya ikna etmek olacağını söylemiş; sert gardiyan davranışını ortaya çıkarmak ona verilmiş.",
+   "kaynak": "LT s. 7 (Jaffe'nin deney sonrası yazısı: \"Dr. Zimbardo suggested that the most difficult problem would be to get the guards to behave like guards … I was given the responsibility of trying to elicit 'tough-guard' behavior\")"
+  },
+  {
+   "id": "D14",
+   "bolum": "Bant",
+   "tts": "[calmly] Çünkü Ceffi bunu daha önce yapmıştı: o yılın mayısında bir Stanford yurdunda, arkadaşlarıyla iki günlük bir hapishane canlandırması. Bodrumdaki on yedi kuralın on biri oradan.",
+   "alt": "Çünkü Jaffe bunu daha önce yapmıştı: o yılın mayısında bir Stanford yurdunda, arkadaşlarıyla iki günlük bir hapishane canlandırması. Bodrumdaki on yedi kuralın on biri oradan.",
+   "kaynak": "LT s. 3–4 (Toyon Hall, 15–16 Mayıs 1971; \"out of the 17 rules of the SPE, 11 were directly copied\"); PX /guards ve BL (Jaffe). L5"
+  },
+  {
+   "id": "D15",
+   "bolum": "Bant",
+   "tts": "[calmly] Zimbardo iki bin on sekizde kendi metniyle cevap verdi: bir gardiyandan kararlı ve işin içinde olmasını istemek, gerçek cezaevlerindeki baskının yanında hafif kalır. Gardiyanlara hiçbir zaman vahşet emredilmedi, fiziksel güç açıkça yasaklandı.",
+   "alt": "Zimbardo 2018'de kendi metniyle cevap verdi: bir gardiyandan kararlı ve işin içinde olmasını istemek, gerçek cezaevlerindeki baskının yanında hafif kalır. Gardiyanlara hiçbir zaman vahşet emredilmedi, fiziksel güç açıkça yasaklandı.",
+   "kaynak": "Z18 (\"Asking a person role-playing a guard … to be 'firm' and 'in the action' is mild compared to the pressure exerted by actual wardens\"; \"it never instructed guards to employ brutality, and it explicitly banned the use of physical force\")"
+  },
+  {
+   "id": "D16",
+   "bolum": "Bant",
+   "tts": "[calmly] Aynı metinde, gardiyanlara nasıl davranacaklarına dair ayrıntılı bir talimat verilmediğini de yazdı. Lö Teksiye'nin cevabı tek cümle: Yukarıdaki kanıt bu ifadeyle doğrudan çelişiyor.",
+   "alt": "Aynı metinde, gardiyanlara nasıl davranacaklarına dair ayrıntılı bir talimat verilmediğini de yazdı. Le Texier'nin cevabı tek cümle: \"Yukarıdaki kanıt bu ifadeyle doğrudan çelişiyor.\"",
+   "kaynak": "Z18 (\"We did not give any formal or detailed instructions about how to be an effective guard\"); LT s. 7 (\"The evidence presented above directly contradicts this statement.\"; Z18'in bu cümlesine)"
+  },
+  {
+   "id": "E01",
+   "bolum": "İki gardiyan",
+   "tts": "[calmly] Bant bir şeyi gösteriyor: sertlik istendi. Ama aynı isteği duyan gardiyanlar aynı şeyi yapmadı.",
+   "alt": "Bant bir şeyi gösteriyor: sertlik istendi. Ama aynı isteği duyan gardiyanlar aynı şeyi yapmadı.",
+   "kaynak": "D'den tek çıkarım; E02 olayla devam eder"
+  },
+  {
+   "id": "E02",
+   "bolum": "İki gardiyan",
+   "tts": "[calmly] Deneyin son günü Eşelmın müdüre şunu söylüyor: Deney boyunca bir aktördüm, abartıyordum. Rol yapıyordum.",
+   "alt": "Deneyin son günü Eshelman müdüre şunu söylüyor: \"Deney boyunca bir aktördüm, abartıyordum. Rol yapıyordum.\"",
+   "kaynak": "LT s. 8 (Guard 4: \"throughout the entire experiment I was an actor, and I was hamming it up. […] I was role playing.\")"
+  },
+  {
+   "id": "E03",
+   "bolum": "İki gardiyan",
+   "tts": "[calmly] Kırk yıl sonra, iki bin on birde, ekliyor: Planlıydı. Araştırmacıların üzerinde çalışacak bir şeyi olsun diye bir şeylerin olmasını zorladım.",
+   "alt": "Kırk yıl sonra, 2011'de, ekliyor: \"Planlıydı. Araştırmacıların üzerinde çalışacak bir şeyi olsun diye bir şeylerin olmasını zorladım.\"",
+   "kaynak": "SM (\"It was planned. I set out with a definite plan in mind, to try to force the action, force something to happen, so that the researchers would have something to work with.\")"
+  },
+  {
+   "id": "E04",
+   "bolum": "İki gardiyan",
+   "tts": "[slowly] Kendi deneyimi yürütüyordum: bu insanlar ne kadarına dayanır, ne zaman 'kes şunu' der? Öteki gardiyanlar beni durdurmadı. Tek bir gardiyan bile 'bence bunu yapmamalıyız' demedi.",
+   "alt": "\"Kendi deneyimi yürütüyordum: bu insanlar ne kadarına dayanır, ne zaman 'kes şunu' der? Öteki gardiyanlar beni durdurmadı. Tek bir gardiyan bile 'bence bunu yapmamalıyız' demedi.\"",
+   "kaynak": "SM (\"I was kind of running my own experiment in there … how much abuse will these people take before they say, 'knock it off?' But the other guards didn't stop me. … Not a single guard said, 'I don't think we should do this.'\")"
+  },
+  {
+   "id": "E05",
+   "bolum": "İki gardiyan",
+   "tts": "[calmly] Deney bitince Zimbardo koridorda yanına gelip ne kadar iyi iş çıkardığını söylüyor. Eşelmın'a göre o gün iyi bir şey başardığını hissetmiş.",
+   "alt": "Deney bitince Zimbardo koridorda yanına gelip ne kadar iyi iş çıkardığını söylüyor. Eshelman'a göre o gün iyi bir şey başardığını hissetmiş.",
+   "kaynak": "BL (\"he made it a point to come and let me know what a great job I'd done. I actually felt like I had accomplished something good\"); LP 2024 (aynı tebrik)"
+  },
+  {
+   "id": "E06",
+   "bolum": "İki gardiyan",
+   "tts": "[calmly] İki bin on birde: Kimseye zarar verip vermediğimi düşünmeden korkutmayı artırdım. Buna kesinlikle pişmanım. İki bin yirmi dörtte ise suçu Zimbardo'ya veriyor: Davranışlarımın çoğunu o yönlendirdi.",
+   "alt": "2011'de: \"Kimseye zarar verip vermediğimi düşünmeden korkutmayı artırdım. Buna kesinlikle pişmanım.\" 2024'te ise suçu Zimbardo'ya veriyor: \"Davranışlarımın çoğunu o yönlendirdi.\"",
+   "kaynak": "SM (\"The fact that I ramped up the intimidation and the mental abuse without any real sense as to whether I was hurting anybody? I definitely regret that.\"); LP 12.11.2024 (\"he directed many of my actions\")"
+  },
+  {
+   "id": "E07",
+   "bolum": "İki gardiyan",
+   "tts": "[calmly] Zimbardo'nun cevabı yine kendi metninde: Eşelmın'ın yaptıkları, sert gardiyanı oynamanın çok ötesine geçiyor.",
+   "alt": "Zimbardo'nun cevabı yine kendi metninde: Eshelman'ın yaptıkları, sert gardiyanı oynamanın çok ötesine geçiyor.",
+   "kaynak": "Z18 (\"such actions go far beyond simply playing the role of a tough guard\")"
+  },
+  {
+   "id": "E08",
+   "bolum": "İki gardiyan",
+   "tts": "[calmly] Biri benden bu istendi diyor, öteki bu istenenin çok ötesiydi. İkisi de kendi belgesini gösteriyor.",
+   "alt": "Biri \"benden bu istendi\" diyor, öteki \"bu istenenin çok ötesiydi\". İkisi de kendi belgesini gösteriyor.",
+   "kaynak": "E06 ↔ E07: çözülmeyen yer çözülmemiş kalır (yön)"
+  },
+  {
+   "id": "E09",
+   "bolum": "İki gardiyan",
+   "tts": "[calmly] Gündüz vardiyasındaki Con Mark'ın anlatımı başka. İki bin on birde şöyle diyor: Benim vardiyamda kimse böyle bir durumda beklenenin ötesine geçmedi. Hücre hapsini hiç sevmedim.",
+   "alt": "Gündüz vardiyasındaki John Mark'ın anlatımı başka. 2011'de şöyle diyor: \"Benim vardiyamda kimse böyle bir durumda beklenenin ötesine geçmedi. Hücre hapsini hiç sevmedim.\"",
+   "kaynak": "SM (\"During the day shift, when I worked, no one did anything that was beyond what you'd expect in a situation like that.\"; \"I certainly didn't like when they put a guy in solitary confinement.\")"
+  },
+  {
+   "id": "E10",
+   "bolum": "İki gardiyan",
+   "tts": "[calmly] Zimbardo hakkında da: Varmak istediği sonucu baştan biliyordu ve deneyi ona uydurmaya çalıştı.",
+   "alt": "Zimbardo hakkında da: \"Varmak istediği sonucu baştan biliyordu ve deneyi ona uydurmaya çalıştı.\"",
+   "kaynak": "SM (\"he knew what he wanted and then tried to shape the experiment … to fit the conclusion that he had already worked out\")"
+  },
+  {
+   "id": "E11",
+   "bolum": "İki gardiyan",
+   "tts": "[calmly] Mark'ın o günlerde ne yaptığını gösteren bağımsız bir belge bulamadık. Elimizde kendi sözü ve bantta tekrar tekrar itiraz eden sesi var.",
+   "alt": "Mark'ın o günlerde ne yaptığını gösteren bağımsız bir belge bulamadık. Elimizde kendi sözü ve bantta tekrar tekrar itiraz eden sesi var.",
+   "kaynak": "DOGRULAMA §2: sertleşmediğine dair bağımsız belge yok; IM ve SA (\"repeatedly resists\"). Bilinmeyen bilinmeyen kalır"
+  },
+  {
+   "id": "E12",
+   "bolum": "İki gardiyan",
+   "tts": "[calmly] Zimbardo'ya göre bazı gardiyanların sonuna kadar iyi kalması, zalim olanların kendi isteğiyle davrandığını gösteriyor. Ama aynı metinde şunu da yazıyor: İyi gardiyanların hiçbiri, arkadaşlarının zulmünü durdurmak için araya girmedi.",
+   "alt": "Zimbardo'ya göre bazı gardiyanların sonuna kadar iyi kalması, zalim olanların kendi isteğiyle davrandığını gösteriyor. Ama aynı metinde şunu da yazıyor: \"İyi gardiyanların hiçbiri, arkadaşlarının zulmünü durdurmak için araya girmedi.\"",
+   "kaynak": "Z18 (\"The fact that some guards remained 'good guards' throughout the study shows that cruel guards chose to act on their own initiative.\"; \"none of the 'good guards' ever intervened to prevent the cruelty of their fellow guards\")"
+  },
+  {
+   "id": "E13",
+   "bolum": "İki gardiyan",
+   "tts": "[slowly] Eşelmın da aynı şeyi söylemişti: tek bir gardiyan bile yapmamalıyız demedi.",
+   "alt": "Eshelman da aynı şeyi söylemişti: tek bir gardiyan bile \"yapmamalıyız\" demedi.",
+   "kaynak": "E04 ile E12'nin buluştuğu yer: iki karşıt belge aynı olguyu söylüyor"
+  },
+  {
+   "id": "E14",
+   "bolum": "İki gardiyan",
+   "tts": "[calmly] Ya sayı? Zimbardo'nun bin dokuz yüz yetmiş üç makalesi gardiyanların en az üçte birinin çok saldırganlaştığını yazıyor. Psikolog Erih Fromm aynı sayıya bakıp tersini okudu: üçte ikisi sadistçe davranmamıştı.",
+   "alt": "Ya sayı? Zimbardo'nun 1973 makalesi gardiyanların en az üçte birinin çok saldırganlaştığını yazıyor. Psikolog Erich Fromm aynı sayıya bakıp tersini okudu: üçte ikisi sadistçe davranmamıştı.",
+   "kaynak": "HBZ73 s. 69; LT s. 2 (Fromm 1973, The Anatomy of Human Destructiveness s. 57–58: \"two thirds of the guards did not commit sadistic acts\")"
+  },
+  {
+   "id": "F01",
+   "bolum": "Cevap",
+   "tts": "[calmly] Şimdi banta dönelim. On sekiz dakika boyunca Mark itiraz ediyor, soruyor, mahkûm olmak istediğini söylüyor.",
+   "alt": "Şimdi banta dönelim. On sekiz dakika boyunca Mark itiraz ediyor, soruyor, mahkûm olmak istediğini söylüyor.",
+   "kaynak": "TA s. 8–17. L4'ün dönüşü"
+  },
+  {
+   "id": "F02",
+   "bolum": "Cevap",
+   "tts": "[slowly] Ve sonunda şunu diyor: Tamam. Deneyeceğim.",
+   "alt": "Ve sonunda şunu diyor: \"Tamam. Deneyeceğim.\"",
+   "kaynak": "TA s. 13 (\"Yeah. Well-- I-- okay I will try.\"; s. 11 \"I think you know I'll try.\"). Kanalın imzası: yolculuğun kırıldığı an"
+  },
+  {
+   "id": "F03",
+   "bolum": "Cevap",
+   "tts": "[calmly] Ona emir verilmedi. Bir amaç anlatıldı: reform, basın, bakın ne oluyor. Sonra sertlik istendi.",
+   "alt": "Ona emir verilmedi. Bir amaç anlatıldı: reform, basın, \"bakın ne oluyor\". Sonra sertlik istendi.",
+   "kaynak": "D08–D11'in özeti, olaylardan (TA)"
+  },
+  {
+   "id": "F04",
+   "bolum": "Cevap",
+   "tts": "[calmly] Bu sertliği isteyen Ceffi, deneyden sonra kendi hakkında şunu yazmış: İyi bir amaç uğruna başkalarına duyduğum ilgiyi ne kadar kolay kapatabildiğime şaşırıyorum.",
+   "alt": "Bu sertliği isteyen Jaffe, deneyden sonra kendi hakkında şunu yazmış: \"İyi bir amaç uğruna başkalarına duyduğum ilgiyi ne kadar kolay kapatabildiğime şaşırıyorum.\"",
+   "kaynak": "BL (Jaffe'nin deney sonrası yazısı: \"I am startled by the ease with which I could turn off my sensitivity and concern for others for 'a good cause.'\")"
+  },
+  {
+   "id": "F05",
+   "bolum": "Cevap",
+   "tts": "[thoughtful] Gardiyan olsan zalim olur muydun? Bu bodrum tek bir cevap vermiyor: biri ileri gitti, biri itiraz etti, hiçbiri araya girmedi.",
+   "alt": "Gardiyan olsan zalim olur muydun? Bu bodrum tek bir cevap vermiyor: biri ileri gitti, biri itiraz etti, hiçbiri araya girmedi.",
+   "kaynak": "L1'in dönüşü: üç davranış, olaylardan (E04, D06–D10, E12–E13)"
+  },
+  {
+   "id": "F06",
+   "bolum": "Cevap",
+   "tts": "[thoughtful] Ama bandın asıl sorusu başka: biri sana iyi bir amaç için sert olmanı söylediğinde, sen ne dersin?",
+   "alt": "Ama bandın asıl sorusu başka: biri sana iyi bir amaç için sert olmanı söylediğinde, sen ne dersin?",
+   "kaynak": "Yönün çıkış sorusu"
+  },
+  {
+   "id": "F07",
+   "bolum": "Cevap",
+   "tts": "[softly] Mark'ın cevabı deneyeceğim oldu. Seninki ne olurdu, yorumlara yaz. Zaman Kuryesi geçmişten bugüne böyle sorular taşıyor; bir sonrakini kaçırmamak için abone olabilirsin.",
+   "alt": "Mark'ın cevabı \"deneyeceğim\" oldu. Seninki ne olurdu, yorumlara yaz. Zaman Kuryesi geçmişten bugüne böyle sorular taşıyor; bir sonrakini kaçırmamak için abone olabilirsin.",
+   "kaynak": "Çağrı son anın içinde (kanal kuralı); bitiş ekranı son 20 sn"
+  }
+ ]
+}
