@@ -73,7 +73,7 @@ Yazıldı: 22 Kasım 2026, senaryo rev2 (seslendirmeden önce). Zamanlar seslend
 
 ## Şart Shorts'ları (23 Kasım yazıldı, yayından önce; `shorts-sart/`)
 - **Ne değişti:** ilk cümle kişisel soru değil, mitin içindeki tek cümlelik şart (yazılı ilk karede, sesli ≤ 1,5 sn'de); görüntüde şartı çiğnemek üzere olan figür; şart ile çiğnendiği an arası ≤ 15 sn; son kare ilk kareye döner.
-- **Tahmin S2 (açılış karşılaştırması):** Narkissos şart Shorts'unda (30 Kasım) izlemeye devam eden, aynı mitin soru Shorts'undan (%43,2, 20. saat) **en az 10 puan yüksek**, yani ≥ %53. İkisi de aynı çizim hattı ve aynı sahneler; fark yalnız açılış. Tutmazsa: "şart" kalıbı kanal için ayırt edici değil, 703 binlik İkarus örneği kanalın değil konunun ya da hesabın başarısı.
+- **Tahmin S2 (açılış karşılaştırması):** Narkissos şart Shorts'unda (26 Kasım 20:00; 25 Kasım'da 30 Kasım'dan öne alındı) izlemeye devam eden, aynı mitin soru Shorts'undan (%43,2, 20. saat) **en az 10 puan yüksek**, yani ≥ %53. İkisi de aynı çizim hattı ve aynı sahneler; fark yalnız açılış. Tutmazsa: "şart" kalıbı kanal için ayırt edici değil, 703 binlik İkarus örneği kanalın değil konunun ya da hesabın başarısı.
 - **Tahmin S3:** Gılgamış şart Shorts'unda (4 Aralık) izlemeye devam eden **≥ %60** ve görüntüleme Narkissos şart Shorts'unun 48. saatinden yüksek (Gılgamış adı Türkçe aramada daha çok tanınıyor: `talep.py` öneri 14, Narkissos 9).
 - **Ölçüm:** her Shorts'un 48. saati (Studio → Shorts → "izlemeye devam eden" ve görüntüleme).
 
