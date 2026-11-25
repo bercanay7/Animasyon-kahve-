@@ -1,0 +1,797 @@
+1
+00:00:00,470 --> 00:00:04,370
+Bir üniversitenin bodrumunda
+mahkûmlar sayım için dizilmiş.
+
+2
+00:00:04,760 --> 00:00:07,440
+Gardiyanlardan biri,
+mahkûm da olabilecekken
+
+3
+00:00:07,440 --> 00:00:09,810
+rastgele gardiyan seçilmiş bir öğrenci:
+
+4
+00:00:09,810 --> 00:00:13,370
+sen onun yerinde olsan, zalim olur muydun?
+
+5
+00:00:14,220 --> 00:00:17,150
+Ağustos 1971, Stanford.
+
+6
+00:00:17,580 --> 00:00:22,390
+Deneyin arşivinde bir ses bandı var:
+deneyi yönetenlerden biri, sayım sırasında
+
+7
+00:00:22,390 --> 00:00:26,810
+dışarıda oturan bir gardiyanı karşısına
+alıyor ve ondan bir şey istiyor.
+
+8
+00:00:27,530 --> 00:00:29,890
+Gardiyanlar kendiliğinden mi sertleşti?
+
+9
+00:00:30,060 --> 00:00:32,870
+O bandın son kelimesini sona saklıyoruz.
+
+10
+00:00:35,310 --> 00:00:38,340
+O yaz bir ilan çıkıyor:
+hapishane hayatı üzerine
+
+11
+00:00:38,340 --> 00:00:42,570
+bir psikoloji araştırması,
+günde on beş dolar, bir iki hafta.
+
+12
+00:00:43,170 --> 00:00:47,280
+Yetmişten fazla başvurudan
+yirmi dört üniversite öğrencisi seçiliyor.
+
+13
+00:00:47,630 --> 00:00:53,100
+Zimbardo'nun anlatımına göre yazı tura
+atılıyor: yarısı gardiyan, yarısı mahkûm.
+
+14
+00:00:53,700 --> 00:00:55,870
+Cumartesi, 14 Ağustos.
+
+15
+00:00:56,050 --> 00:01:00,350
+Deneyi kuran psikoloji profesörü
+Philip Zimbardo, gardiyanları topluyor.
+
+16
+00:01:00,970 --> 00:01:04,550
+"Onlarda can sıkıntısı yaratabiliriz,
+bunalma yaratabiliriz,
+
+17
+00:01:04,550 --> 00:01:08,760
+bir ölçüde korku yaratabiliriz."
+Bütün bunların varacağı yer,
+
+18
+00:01:08,760 --> 00:01:14,140
+diyor, bir güçsüzlük duygusu:
+"Bütün güç bizde, onlarda hiç yok."
+
+19
+00:01:14,816 --> 00:01:16,640
+Zimbardo'nun sonradan yazdığına
+
+20
+00:01:16,640 --> 00:01:20,320
+göre bir yasak da konuyor:
+mahkûmlara vurulmayacak.
+
+21
+00:01:21,007 --> 00:01:25,360
+Ertesi sabah gerçek Palo Alto polisi,
+mahkûm olacak öğrencileri evlerinden
+
+22
+00:01:25,360 --> 00:01:30,180
+alıyor: silahlı soygun suçlaması,
+kelepçe, polis arabası.
+
+23
+00:01:30,720 --> 00:01:32,580
+Gözleri bağlı getiriliyorlar.
+
+24
+00:01:32,670 --> 00:01:36,460
+Bodrumda üstleri aranıyor,
+adları ellerinden alınıyor;
+
+25
+00:01:36,460 --> 00:01:38,760
+bundan sonra her biri bir numara.
+
+26
+00:01:39,360 --> 00:01:44,600
+Gardiyanlara üniforma, cop ve gözlerini
+gizleyen aynalı güneş gözlüğü veriliyor.
+
+27
+00:01:44,840 --> 00:01:48,750
+Gözlük fikri Zimbardo'nun:
+onu bir hapishane filminden almış.
+
+28
+00:01:49,290 --> 00:01:51,250
+Koridorun ucunda iki kapı var.
+
+29
+00:01:51,330 --> 00:01:55,800
+Birinde "Amir" yazıyor:
+Zimbardo kendine cezaevi amiri diyor.
+
+30
+00:01:55,970 --> 00:02:00,000
+Ötekinde "Müdür":
+bir lisans öğrencisi, David Jaffe.
+
+31
+00:02:00,530 --> 00:02:02,260
+Kameralar ve teypler açık.
+
+32
+00:02:02,480 --> 00:02:06,330
+Altı gün boyunca bu bodrumda
+olanların bir kısmı kaydediliyor.
+
+33
+00:02:08,270 --> 00:02:10,130
+Peki bodrumda ne oldu?
+
+34
+00:02:10,410 --> 00:02:13,140
+İlk günün kayıtlarında
+gardiyanlar gülüşüyor.
+
+35
+00:02:13,255 --> 00:02:16,020
+İkinci gün sabah mahkûmlar
+numaralarını söküyor
+
+36
+00:02:16,020 --> 00:02:19,450
+ve yataklarla hücre
+kapılarının önünü kapatıyor.
+
+37
+00:02:20,010 --> 00:02:24,539
+Gardiyanlar yangın söndürücüyle karşılık
+veriyor, yatakları dışarı çıkarıyor.
+
+38
+00:02:25,036 --> 00:02:27,330
+O akşam bir mahkûm karanlık bir dolapta
+
+39
+00:02:27,330 --> 00:02:30,170
+bağırmaya başlıyor
+ve deneyden çıkarılıyor.
+
+40
+00:02:30,548 --> 00:02:32,960
+Fransız araştırmacı Thibault Le Texier'ye
+
+41
+00:02:32,960 --> 00:02:37,250
+göre en sert davranışlar
+tek bir vardiyada toplanıyor:
+
+42
+00:02:37,250 --> 00:02:40,810
+akşam altıdan gece
+ikiye kadar süren akşam vardiyası.
+
+43
+00:02:41,150 --> 00:02:46,080
+Zimbardo ise her vardiyada bir iki
+gardiyanın giderek sertleştiğini yazıyor.
+
+44
+00:02:46,640 --> 00:02:49,790
+O vardiyada öne çıkan uzun
+boylu bir gardiyan var:
+
+45
+00:02:49,890 --> 00:02:53,700
+Dave Eshelman,
+başka bir üniversitede tiyatro öğrencisi.
+
+46
+00:02:53,940 --> 00:02:58,060
+Mahkûmlar ona bir kovboy
+yıldızının adını takıyor: John Wayne.
+
+47
+00:02:58,540 --> 00:03:02,720
+Gözlüklerin geldiği aynı filmden
+aldığı bir Güney aksanıyla konuşuyor.
+
+48
+00:03:02,800 --> 00:03:06,100
+Zimbardo'nun anlatımına göre
+uzun şınav cezaları veriyor,
+
+49
+00:03:06,100 --> 00:03:09,380
+keyfî kurallar koyuyor, yemeği kısıyor.
+
+50
+00:03:09,990 --> 00:03:14,170
+Sonradan gelen bir mahkûm,
+416, yemek yemeyi reddediyor.
+
+51
+00:03:14,460 --> 00:03:18,170
+Kuralda bir saat yazan karanlık
+dolapta üç saat tutuluyor.
+
+52
+00:03:18,750 --> 00:03:21,200
+Öteki mahkûmlara bir seçim sunuluyor:
+
+53
+00:03:21,200 --> 00:03:25,200
+battaniyelerinden vazgeçerlerse
+416 dolaptan çıkacak.
+
+54
+00:03:25,460 --> 00:03:27,230
+Çoğu battaniyesini seçiyor.
+
+55
+00:03:27,740 --> 00:03:30,820
+Perşembe gecesi genç
+bir psikolog bodruma iniyor.
+
+56
+00:03:30,900 --> 00:03:32,880
+Mahkûmların başlarına torba geçirilmiş,
+
+57
+00:03:32,880 --> 00:03:36,100
+ayakları zincirli;
+tuvalete götürülüyorlar.
+
+58
+00:03:36,810 --> 00:03:38,700
+"Buna bakamıyorum" diyor.
+
+59
+00:03:38,890 --> 00:03:43,690
+Zimbardo'yla tartışıyor; ertesi sabah,
+altıncı gün, deney bitiyor.
+
+60
+00:03:43,960 --> 00:03:45,310
+İki hafta sürecekti.
+
+61
+00:03:46,340 --> 00:03:51,680
+Zimbardo ve iki arkadaşının 1973'te
+yayımlanan makalesine göre gardiyanların
+
+62
+00:03:51,680 --> 00:03:56,930
+en az üçte biri, bir canlandırmada
+beklenenden çok daha saldırgan hâle geldi.
+
+63
+00:03:57,200 --> 00:04:01,790
+Makale, iki gruba da rolleri için özel
+bir eğitim verilmediğini yazıyor.
+
+64
+00:04:02,380 --> 00:04:03,660
+Peki öbürleri?
+
+65
+00:04:03,740 --> 00:04:07,970
+Psikanalist Erich Fromm aynı yıl
+bu sayıya bakıp tersini okudu:
+
+66
+00:04:07,970 --> 00:04:11,250
+gardiyanların üçte ikisi
+sadistçe davranmamıştı.
+
+67
+00:04:12,020 --> 00:04:15,710
+Ama hikâye en çok şöyle anlatıldı:
+sıradan öğrencilere
+
+68
+00:04:15,710 --> 00:04:19,630
+üniforma ve güç verildi,
+gerisini bodrum yaptı.
+
+69
+00:04:21,550 --> 00:04:23,870
+Peki o bantta ne isteniyor?
+
+70
+00:04:24,140 --> 00:04:27,080
+2018'de araştırmacılar arşivdeki bir banda
+
+71
+00:04:27,080 --> 00:04:30,800
+dikkat çekti:
+on sekiz dakikalık bir konuşma.
+
+72
+00:04:31,370 --> 00:04:36,730
+Konuşanlar müdür David Jaffe
+ve gündüz vardiyasından bir gardiyan: Mark.
+
+73
+00:04:37,510 --> 00:04:42,130
+Müdür söze şöyle giriyor: "Bu sabah
+işe pek karışmadığını fark ettik.
+
+74
+00:04:42,260 --> 00:04:45,120
+Biraz da benim suçum;
+sayım yapılırken dışarıda
+
+75
+00:04:45,120 --> 00:04:47,290
+oturmak istediğinde ses çıkarmadım."
+
+76
+00:04:47,830 --> 00:04:51,420
+"Ama gardiyanların şunu bilmesi gerek:
+her gardiyan,
+
+77
+00:04:51,420 --> 00:04:54,040
+bizim sert gardiyan dediğimiz şey olacak."
+
+78
+00:04:55,100 --> 00:04:58,540
+Mark'ın cevabı:
+"Ben pek sert değilim." Müdür:
+
+79
+00:04:58,580 --> 00:05:01,230
+"Biraz denemen,
+bunu içine sindirmen gerek.
+
+80
+00:05:01,440 --> 00:05:06,350
+Sert derken şunu kastediyorum:
+kararlı olacaksın, işin içinde olacaksın."
+
+81
+00:05:06,920 --> 00:05:09,820
+Mark polisle karşılaştığı
+zamanları düşünüyor:
+
+82
+00:05:09,950 --> 00:05:14,350
+"Benden istediğin şey, bence polisle
+hep bu kadar sorun çıkmasının sebebi.
+
+83
+00:05:14,430 --> 00:05:17,020
+Bir sorun olunca insanlar
+bağırmaya başlıyor,
+
+84
+00:05:17,020 --> 00:05:20,780
+sonra daha çok ayrıcalık alınıyor;
+o kısır döngü."
+
+85
+00:05:21,200 --> 00:05:23,230
+"Bana kalsa hiçbir şey yapmazdım.
+
+86
+00:05:23,310 --> 00:05:26,660
+Kendi hâline bırakırdım."
+Biraz sonra da şunu söylüyor:
+
+87
+00:05:26,790 --> 00:05:30,960
+"Sadece bu gardiyan üniformasını
+giymek bile benim için ağır bir şey."
+
+88
+00:05:32,890 --> 00:05:36,590
+Müdür amacı anlatıyor:
+"Umarız bu çalışmadan çok ciddi
+
+89
+00:05:36,590 --> 00:05:40,890
+reform önerileri çıkar." Dünyaya
+çıkıp şunu diyebilmek istiyorlar:
+
+90
+00:05:41,090 --> 00:05:44,500
+"Bakın, böyle davranan
+gardiyanlarınız olunca ne oluyor."
+
+91
+00:05:45,210 --> 00:05:48,380
+Ve hemen ardından:
+"Ama bunu söyleyebilmek için,
+
+92
+00:05:48,380 --> 00:05:50,870
+öyle davranan gardiyanlarımız olmalı."
+
+93
+00:05:51,930 --> 00:05:54,960
+Mark: "Bu deney için iyi
+bir gardiyan değilim.
+
+94
+00:05:55,110 --> 00:05:58,160
+Mahkûm olsam,
+gerçekten iyi bir mahkûm olurdum."
+
+95
+00:05:58,320 --> 00:06:02,630
+Müdürün cevabı: "Evet,
+ama bu rastgele seçimin bir parçası.
+
+96
+00:06:02,710 --> 00:06:03,710
+Ve önemli."
+
+97
+00:06:04,124 --> 00:06:07,830
+Konuşmanın sonuna doğru müdür,
+o yılların öğrencilerinin polise
+
+98
+00:06:07,830 --> 00:06:12,520
+taktığı küçültücü bir adı kullanıyor:
+sert gardiyanı oynamasını,
+
+99
+00:06:12,520 --> 00:06:16,640
+kafasındaki o polis nasıl davranıyorsa
+öyle davranmasını istiyor.
+
+100
+00:06:17,220 --> 00:06:21,770
+Mark'ın cevabı: "Ben çok polis gördüm;
+hepsi başka başka davranıyor."
+
+101
+00:06:21,940 --> 00:06:25,140
+Müdür: "Biz kalıp bir gardiyan
+kurmaya çalışıyoruz."
+
+102
+00:06:25,840 --> 00:06:29,910
+Ve son istek: "Şimdiye kadar tarzın
+biraz fazla yumuşaktı.
+
+103
+00:06:29,990 --> 00:06:33,380
+Biraz daha işin içine girmeni
+istiyoruz." Mark'ın son cevabına
+
+104
+00:06:33,380 --> 00:06:35,410
+filmin sonunda döneceğiz.
+
+105
+00:06:36,710 --> 00:06:42,010
+Müdürün deneyden sonra yazdığına göre
+bu onun fikri değildi: Zimbardo, en zor
+
+106
+00:06:42,010 --> 00:06:46,220
+işin gardiyanları gardiyan gibi davranmaya
+ikna etmek olacağını söylemiş;
+
+107
+00:06:46,220 --> 00:06:50,550
+sert gardiyan davranışını
+ortaya çıkarmak müdüre verilmiş.
+
+108
+00:06:51,010 --> 00:06:55,310
+Müdürün bir deneyimi de vardı:
+o yılın mayısında bir Stanford yurdunda,
+
+109
+00:06:55,310 --> 00:06:59,370
+arkadaşlarıyla iki günlük
+bir hapishane canlandırması yapmıştı.
+
+110
+00:06:59,680 --> 00:07:04,520
+Le Texier'nin sayımına göre bodrumdaki
+on yedi kuralın on biri oradan.
+
+111
+00:07:05,040 --> 00:07:09,690
+Zimbardo 2018'de kendi metniyle
+cevap verdi: gardiyanlara
+
+112
+00:07:09,690 --> 00:07:13,500
+hiçbir zaman vahşet emredilmedi;
+ve müdürün isteğine rağmen
+
+113
+00:07:13,500 --> 00:07:17,340
+ilk iki vardiyada hiçbir gardiyan
+baskın davranmadı.
+
+114
+00:07:19,420 --> 00:07:23,750
+Bant bir şeyi gösteriyor:
+en az bir gardiyandan sertlik istendi.
+
+115
+00:07:23,980 --> 00:07:27,300
+Peki aynı bodrumdaki öteki
+gardiyanlar ne yaptı?
+
+116
+00:07:28,080 --> 00:07:31,210
+Deneyin son günü Eshelman
+müdüre şunu söylüyor:
+
+117
+00:07:31,440 --> 00:07:33,911
+"Çalışma için daha iyi olur diye düşündüm.
+
+118
+00:07:34,030 --> 00:07:38,080
+Deney boyunca bir aktördüm,
+abartıyordum; rol yapıyordum."
+
+119
+00:07:38,700 --> 00:07:42,030
+Kırk yıl sonra, 2011'de: "Planlıydı.
+
+120
+00:07:42,110 --> 00:07:46,581
+Olayları zorladım; araştırmacıların
+elinde çalışacak bir şey olsun istedim."
+
+121
+00:07:47,170 --> 00:07:49,810
+"Kendi deneyimi yürütüyordum: bu insanlar
+
+122
+00:07:49,810 --> 00:07:53,400
+ne kadar eziyete katlanır,
+ne zaman 'kes şunu' der?
+
+123
+00:07:53,860 --> 00:07:55,940
+Öteki gardiyanlar beni durdurmadı.
+
+124
+00:07:56,070 --> 00:07:59,640
+Tek bir gardiyan bile 'bence
+bunu yapmamalıyız' demedi."
+
+125
+00:07:59,866 --> 00:08:04,160
+Eshelman'ın anlatımına göre deney
+bitince Zimbardo koridorda yanına gelip
+
+126
+00:08:04,160 --> 00:08:09,730
+ne kadar iyi iş çıkardığını söylüyor;
+o da iyi bir şey başardığını hissediyor.
+
+127
+00:08:10,310 --> 00:08:13,390
+2011'de şunu da diyor:
+"Kimseye zarar verip
+
+128
+00:08:13,390 --> 00:08:16,100
+vermediğimi düşünmeden
+korkutmayı artırdım.
+
+129
+00:08:16,280 --> 00:08:17,980
+Buna kesinlikle pişmanım."
+
+130
+00:08:19,950 --> 00:08:23,720
+Zimbardo'nun 2018 metnine
+göre Eshelman'ın yaptıkları,
+
+131
+00:08:23,720 --> 00:08:27,010
+sert gardiyanı
+oynamanın çok ötesine geçiyor.
+
+132
+00:08:27,840 --> 00:08:30,750
+Zimbardo Ekim 2024'te öldü.
+
+133
+00:08:31,120 --> 00:08:34,780
+Bir ay sonra Eshelman
+bir belgesel için şöyle konuştu:
+
+134
+00:08:35,140 --> 00:08:37,760
+"Davranışlarımın birçoğunu o yönlendirdi."
+
+135
+00:08:38,680 --> 00:08:44,210
+Eshelman "benden bu istendi" diyor;
+Zimbardo "bu istenenin çok ötesiydi" diyor.
+
+136
+00:08:44,480 --> 00:08:46,650
+İkisi de kendi belgesini gösteriyor.
+
+137
+00:08:47,740 --> 00:08:50,470
+Gündüz vardiyasındaki
+Mark'ın anlatımı başka.
+
+138
+00:08:50,570 --> 00:08:55,320
+2011'de: "Benim çalıştığım gündüz
+vardiyasında kimse, böyle bir durumda
+
+139
+00:08:55,320 --> 00:09:00,530
+beklenenin ötesine geçmedi." Birini hücreye
+kapattıklarında hiç hoşuna gitmemiş.
+
+140
+00:09:01,180 --> 00:09:05,840
+Mark, Zimbardo için de şunu söylüyor:
+"Bana öyle geliyordu ki varmak
+
+141
+00:09:05,840 --> 00:09:10,010
+istediği sonucu baştan biliyordu
+ve deneyi ona uydurmaya çalıştı."
+
+142
+00:09:10,630 --> 00:09:14,748
+Mark'ın o günlerde ne yaptığını
+gösteren bağımsız bir belge bulamadık.
+
+143
+00:09:14,870 --> 00:09:19,910
+Elimizde kendi sözü ve dökümde tekrar
+tekrar itiraz eden bir gardiyan var.
+
+144
+00:09:20,742 --> 00:09:24,330
+Zimbardo'ya göre bazı gardiyanların
+sonuna kadar iyi kalması,
+
+145
+00:09:24,330 --> 00:09:28,250
+zalim olanların kendi isteğiyle
+davrandığını gösteriyor.
+
+146
+00:09:28,520 --> 00:09:32,010
+Aynı metinde şunu da yazıyor:
+"İyi gardiyanların hiçbiri,
+
+147
+00:09:32,010 --> 00:09:35,380
+arkadaşlarının zulmünü
+durdurmak için araya girmedi."
+
+148
+00:09:36,170 --> 00:09:39,760
+Eshelman da kendi vardiyası için aynısını
+söylemişti.
+
+149
+00:09:40,130 --> 00:09:44,220
+Mark o vardiyada değildi;
+elimizdeki itirazını da mahkûmların
+
+150
+00:09:44,220 --> 00:09:48,310
+önünde değil, müdürün onu kenara
+çektiği bu bantta yapıyor.
+
+151
+00:09:50,800 --> 00:09:55,250
+Bu sertliği isteyen müdür,
+deneyden sonra kendi hakkında şunu yazmış:
+
+152
+00:09:55,577 --> 00:09:58,930
+"İyi bir amaç uğruna duyarlılığımı,
+başkalarını düşünmeyi
+
+153
+00:09:58,930 --> 00:10:02,410
+ne kadar kolay kapatabildiğimi
+görmek beni ürkütüyor."
+
+154
+00:10:03,660 --> 00:10:05,200
+Şimdi banda dönelim.
+
+155
+00:10:05,360 --> 00:10:08,550
+On sekiz dakikada Mark
+iki kez "deneyeceğim" diyor,
+
+156
+00:10:08,550 --> 00:10:10,670
+ama ardından yine itiraz ediyor.
+
+157
+00:10:10,890 --> 00:10:13,750
+Bir yerde şunu söylüyor:
+"Elimden gelen tek şey,
+
+158
+00:10:13,750 --> 00:10:17,050
+kendim olarak elimden
+gelenin en iyisini yapmak."
+
+159
+00:10:18,100 --> 00:10:21,280
+Müdür son kez daha çok işin
+içine girmesini istiyor.
+
+160
+00:10:21,490 --> 00:10:24,950
+Bant, Mark'ın tek kelimesiyle bitiyor:
+"Peki."
+
+161
+00:10:26,780 --> 00:10:29,280
+O "peki"den sonra ne yaptığını bilmiyoruz.
+
+162
+00:10:29,500 --> 00:10:32,520
+Gardiyan olsan zalim olur muydun,
+bilemezsin.
+
+163
+00:10:32,600 --> 00:10:34,940
+Ama biri senden iyi bir amaç için sertlik
+
+164
+00:10:34,940 --> 00:10:37,660
+istediğinde ne diyeceğini düşünebilirsin.
+
+165
+00:10:38,820 --> 00:10:41,660
+Seninki "peki" mi olurdu,
+başka bir şey mi?
+
+166
+00:10:41,900 --> 00:10:43,040
+Yorumlara yaz.
+
+167
+00:10:43,120 --> 00:10:46,000
+Zaman Kuryesi geçmişten
+bugüne böyle sorular taşıyor;
+
+168
+00:10:46,000 --> 00:10:49,750
+bir sonrakini
+kaçırmamak için abone olabilirsin.
+

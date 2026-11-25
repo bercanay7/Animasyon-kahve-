@@ -1,1 +1,39 @@
-{"_not": "çok kelimelik karşılıklar (yok: sayılar tts ve altyazıda aynı yazım)"}
+{
+ "_not": "Altyazıda tek sözcük, seslendirmede birden çok sözcük (tools/merge_uret.py ile üretildi)",
+ "A02": {
+  "1971,": 5
+ },
+ "B03": {
+  "14": 2
+ },
+ "C07": {
+  "416,": 4
+ },
+ "C08": {
+  "416": 4
+ },
+ "C11": {
+  "1973'te": 5
+ },
+ "D01": {
+  "2018'de": 4
+ },
+ "D17": {
+  "2018'de": 4
+ },
+ "E03": {
+  "2011'de:": 4
+ },
+ "E06": {
+  "2011'de": 4
+ },
+ "E07": {
+  "2018": 4
+ },
+ "E08": {
+  "2024'te": 4
+ },
+ "E10": {
+  "2011'de:": 4
+ }
+}

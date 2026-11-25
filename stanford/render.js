@@ -1,4 +1,4 @@
-// Render (Stanford): node /home/user/Animasyon-kahve-/cernobil/render.js [çıktı.mp4]   (mutlak yolla başlat: depo kökünde ilgisiz bir render.js var)
+// Render (Stanford 1971): node /home/user/Animasyon-kahve-/stanford/render.js [çıktı.mp4]   (mutlak yolla başlat: depo kökünde ilgisiz bir render.js var)
 // Ortam:
 //   WORKERS=4  paralel Chromium işçisi        MB=4  hareket bulanıklığı alt karesi (180° obtüratör)
 //   CRF=18  PRESET=slow  CHUNK=24 (sn)       ONLY=3,7  yalnız bu parçaları yeniden üret (öbür parçalar eski anahtarla da olsa korunur; uyarı yazılır)

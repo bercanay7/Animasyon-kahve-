@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
-"""ÇERNOBİL'İN ÇAYI: özgün müzik, numpy sentezi (örnek ses yok, indirme yok, ücretli üretim yok).
-Çalgılar: kemençe benzeri yaylı (Karadeniz; sıkışık, genizden, hızlı titreşim, süslemeli), piyano, cam bardak tınısı (kaşığın bardağa değmesi),
-yaylı dron, matbaa nabzı (döner baskı makinesinin boğuk vuruşu: IV-V. bölümlerin altında). Radyasyon sesi (Geiger tıkırtısı) yok: görünmeyen duyulmaz da.
-Ses dizisi: Re (Uşşak çeşnili minör: Re Mi Fa Sol La Si♭ Do). Yaprak ezgisi kemençede; bardak motifi piyano + cam (La Re).
-Son: yaprak ezgisi izleyicinin bardağında Re üzerinde, açık beşliyle biter (çözülmez, sorulur).
-    python3 audio/score.py → audio/music.wav (48 kHz stereo) + saniye saniye düzey özeti
+"""STANFORD 1971: özgün müzik, numpy sentezi (örnek ses yok, indirme yok, ücretli üretim yok).
+Ton hüküm vermez (kanal dersleri §17): müzik bant sahnesinde çekilir, yerini teybin hışırtısına ve motoruna bırakır.
+Çalgılar: bant hışırtısı ve hafif titreşim (bütün filmin altında; telefon bandında ≥ 280 Hz katman), floresan uğultusu (120 Hz, ABD şebekesi; yalnız bodrum),
+kısık piyano "sayım" motifi (Re Fa La Sol: dört sayım), yaylı dron (Re, La), tek piyano akoru (Re La Mi: çözülmeyen beşli + dokuzlu).
+Son: "Peki."den önce ve sonra sessizlik; çıkış sorusunda sayım motifi yavaşlar ve açık beşliyle biter (sorulur, çözülmez).
+    python3 audio/score.py → audio/music.wav (48 kHz stereo) + saniye saniye düzey özeti (tam bant ve 300 Hz üstü)
 """
 import json, re, wave
 from pathlib import Path
@@ -12,7 +12,7 @@ import numpy as np
 
 HERE = Path(__file__).resolve().parent; FILM = HERE.parent
 SR = 48000
-rng = np.random.default_rng(16)
+rng = np.random.default_rng(71)
 TL = (FILM / 'timeline.js').read_text(encoding='utf-8')
 CUES = json.loads(re.search(r'window\.CUES = (\{.*?\});', TL, re.S).group(1))
 WORDS = json.loads(re.search(r'window\.WORDS = (\[.*?\]);', TL, re.S).group(1))
@@ -38,128 +38,140 @@ def put(t, sig, pan=0.0, g=1.0):
     n = min(len(sig), N - i)
     L[i:i + n] += sig[:n] * g * np.sqrt(.5 * (1 - pan)); Rr[i:i + n] += sig[:n] * g * np.sqrt(.5 * (1 + pan))
 
-
 def dron(n, dur, v=.2, acik=.5):
-    """Yaylı dron: testere harmonikleri, yavaş vibrato, uzun giriş ve çıkış."""
     f = hz(n); t = np.arange(int(dur * SR)) / SR; s = np.zeros_like(t)
-    vib = 1 + .003 * np.sin(2 * np.pi * 4.6 * t)
+    vib = 1 + .003 * np.sin(2 * np.pi * 4.3 * t)
     for k in range(1, 10):
         if f * k > 6000: break
         s += (1 / k) * (acik ** (k - 1)) * np.sin(2 * np.pi * f * k * vib * t + rng.random() * 6)
-    env = np.minimum(1, t / 1.6) * np.minimum(1, (dur - t) / 1.8)
+    env = np.minimum(1, t / 2.0) * np.minimum(1, (dur - t) / 2.0)
     return v * env * s
-def piyano(n, dur=3.0, v=.35):
+def piyano(n, dur=3.0, v=.35, kisik=False):
     f = hz(n) if isinstance(n, str) else n; t = np.arange(int(dur * SR)) / SR; s = np.zeros_like(t)
     for k in range(1, 9):
         fk = f * k * (1 + .0004 * k * k)
         if fk > 10000: break
-        dec = max(.3, 1.2 + .7 * k - f / 400)    # Dorian dersi: düşük notalarda sönüm eksiye düşmesin
-        s += (1 / k ** 1.4) * np.exp(-t * dec) * np.sin(2 * np.pi * fk * t)
+        dec = max(.3, 1.2 + .7 * k - f / 400) * (2.2 if kisik else 1)   # kısık (keçeli): üst kısmiler çabuk söner
+        s += (1 / k ** (1.9 if kisik else 1.4)) * np.exp(-t * dec) * np.sin(2 * np.pi * fk * t)
     s *= np.minimum(1, t / .004)
     return v * s
-def bas(n, v=.5, dur=2.5):
-    f = hz(n); t = np.arange(int(dur * SR)) / SR
-    return v * np.exp(-t * 2.2) * (np.sin(2 * np.pi * f * t) + .3 * np.sin(2 * np.pi * 2 * f * t))
+def akor(t0, notes, v=.16, dur=6):
+    for i, n in enumerate(notes): put(t0 + i * .03, piyano(n, dur, v), (i - 1) * .25)
+SAYIM = ['D4', 'F4', 'A4', 'G4']
+def sayim(t0, v=.12, ara=.62, tekrar=1, son=None):
+    t = t0
+    for r in range(tekrar):
+        for i, n in enumerate(SAYIM):
+            nn = son if (son and r == tekrar - 1 and i == 3) else n
+            put(t, piyano(nn, 2.2, v * (1 - .1 * i), kisik=True), (i - 1.5) * .15); t += ara
+    return t
+def pad(t0, t1, notes, v=.06):
+    for i, n in enumerate(notes): put(t0, dron(n, max(.5, t1 - t0), v), pan=(i - 1) * .3)
+def ugultu(t0, t1, v=.012):
+    """Floresan: 120 Hz + harmonikler (240, 360, 480; telefon bandına taşar), yavaş titreme."""
+    t = np.arange(int((t1 - t0) * SR)) / SR; s = np.zeros_like(t)
+    for k, a in [(1, 1), (2, .7), (3, .5), (4, .35), (6, .2)]: s += a * np.sin(2 * np.pi * 120 * k * t + k)
+    s *= (1 + .15 * np.sin(2 * np.pi * .23 * t)) * np.minimum(1, t / 1.5) * np.minimum(1, (t1 - t0 - t) / 1.5)
+    put(t0, v * s, 0)
+def hisirti(t0, t1, v=.010):
+    """Bant hışırtısı: 2–7 kHz bant gürültüsü (FFT süzgeci), çok hafif genlik titreşimi (wow)."""
+    n = int((t1 - t0) * SR); x = rng.normal(0, 1, n)
+    X = np.fft.rfft(x); f = np.fft.rfftfreq(n, 1 / SR); X *= ((f > 1800) & (f < 7500)) * 1.0 + ((f > 300) & (f <= 1800)) * .25; x = np.fft.irfft(X, n)
+    x /= np.abs(x).max() + 1e-9; t = np.arange(n) / SR
+    x *= (1 + .08 * np.sin(2 * np.pi * .7 * t)) * np.minimum(1, t / 1.0) * np.minimum(1, (t1 - t0 - t) / 1.0)
+    put(t0, v * x, .1)
+def motor(t0, t1, v=.008):
+    """Teyp motoru: 50 Hz ve 400 Hz civarı ince vızıltı (yalnız bant çalarken)."""
+    t = np.arange(int((t1 - t0) * SR)) / SR
+    s = .6 * np.sin(2 * np.pi * 50 * t) + .4 * np.sin(2 * np.pi * 397 * t + .3 * np.sin(2 * np.pi * .9 * t))
+    s *= np.minimum(1, t / .4) * np.minimum(1, (t1 - t0 - t) / .4); put(t0, v * s, -.1)
 
-def kemence(n, dur=1.0, v=.3, sus=False):
-    """Kemençe benzeri: testere harmonikleri, 1,3 ve 2,6 kHz geniz bölgesi, hızlı titreşim (6,5 Hz), yay gürültüsü, kısa giriş."""
-    f = hz(n) if isinstance(n, str) else n; t = np.arange(int(dur * SR)) / SR; s = np.zeros_like(t)
-    vib = 1 + .006 * np.sin(2 * np.pi * 6.5 * t) * np.minimum(1, t / .25)
-    for k in range(1, 18):
-        fk = f * k
-        if fk > 9000: break
-        form = 1 + 2.2 * np.exp(-((fk - 1300) / 500) ** 2) + 1.4 * np.exp(-((fk - 2600) / 700) ** 2)
-        s += form / k * np.sin(2 * np.pi * fk * vib * t + rng.random() * 6)
-    s += .06 * rng.normal(0, 1, len(t))   # yay sürtünmesi
-    env = np.minimum(1, t / .06) * np.minimum(1, (dur - t) / .08)
-    if sus:   # süsleme: başta üst komşu notadan hızlı iniş
-        g2 = np.exp(-t / .05); s = s * (1 - g2 * .5) + .5 * g2 * np.sin(2 * np.pi * f * 1.12 * t)
-    return v * env * s / 6
-def cam(n='A5', v=.25, dur=2.2):
-    """Çay bardağına değen kaşık: uyumsuz kısmiler, hızlı sönüm."""
-    f = hz(n); t = np.arange(int(dur * SR)) / SR
-    s = sum(a * np.exp(-t * d) * np.sin(2 * np.pi * f * r * t) for r, a, d in [(1, 1, 3.5), (2.76, .5, 5), (5.4, .3, 8), (8.9, .15, 12)])
-    return v * s * np.minimum(1, t / .002)
-def nabiz(t0, t1, bpm=76, v=.22):
-    """Matbaa nabzı: boğuk vuruş + kâğıt hışırtısı, her vuruşta."""
-    d = 60 / bpm; t = t0
-    while t < t1:
-        tt = np.arange(int(.35 * SR)) / SR; kick = np.sin(2 * np.pi * (55 + 40 * np.exp(-tt * 30)) * tt) * np.exp(-tt * 9)
-        put(t, kick, 0, v); put(t + d / 2, rng.normal(0, 1, int(.08 * SR)) * np.exp(-np.arange(int(.08 * SR)) / SR * 40) * .3, .3, v * .5)
-        t += d
-YAPRAK = [('D4', .5), ('F4', .5), ('G4', .5), ('A4', 1.0), ('G4', .5), ('F4', .5), ('E4', .5), ('D4', 1.5)]
-def yaprak(t0, v=.26, hiz=1.0, oct=0, son=None):
-    t = t0; notes = YAPRAK if not son else YAPRAK[:-1] + [(son, 2.5)]
-    for i, (n, d) in enumerate(notes):
-        nn = n[:-1] + str(int(n[-1]) + oct); put(t, kemence(nn, d * hiz * 1.05, v, sus=(i in (3, 7))), pan=-.1); t += d * hiz
-def bardak(t0, v=.3):
-    put(t0, cam('A5', .22), .2); put(t0 + .02, piyano('A4', 3, v), -.1); put(t0 + .55, piyano('D5', 4, v * .9), .1)
-def pad(t0, t1, notes, v=.08):
-    for i, n in enumerate(notes): put(t0, dron(n, t1 - t0, v), pan=(i - 1) * .3)
+# ---------------------------------------------------------------- bütün film: bant hışırtısı (telefon bandı katmanı)
+hisirti(0, DUR + .5, .009)
+# ---------------------------------------------------------------- A: kanca (bodrum uğultusu; sayım motifi; teyp)
+ugultu(S('A01'), S('A02'), .012)
+sayim(S('A01') + .5, v=.11)
+pad(S('A01'), Ee('A03') + 1, ['D2', 'A2'], .05)
+motor(W('A01', 'dizilmiş') - .2, W('A01', 'dizilmiş') + 3.5, .006)
+put(W('A01', 'sen') - .1, piyano('F4', 4, .14), 0)
+motor(S('A02'), Ee('A02'), .006)
+akor(W('A03', 'son') - .1, ['D3', 'A3'], .12, 5)
+# ---------------------------------------------------------------- B: yazı tura (ilan, yönlendirme, polis, numaralar)
+pad(S('B01'), Ee('B10'), ['D2', 'A2'], .045)
+sayim(S('B02') + .6, v=.09, ara=.55)
+put(W('B04', 'güç', 1), piyano('D3', 5, .18), 0)
+ugultu(S('B07'), Ee('B10'), .011)
+put(S('B09') + .2, piyano('A3', 3, .1), .2)
+# ---------------------------------------------------------------- C: altı gün (bodrum)
+ugultu(S('C01'), Ee('C12'), .012)
+pad(S('C01'), Ee('C04'), ['D2', 'A2', 'F3'], .045)
+sayim(S('C01') + 2.5, v=.09, ara=.5, tekrar=2)
+pad(S('C05'), Ee('C08'), ['D2', 'Bb2'], .05)   # akşam vardiyası: altı derece (gölge)
+for t in [W('C06', 'şınav'), W('C06', 'keyfi'), W('C06', 'yemeği')]: put(t, piyano('D2', 2.5, .12, kisik=True), 0)
+put(S('C07'), piyano('Bb3', 4, .1), .2)
+pad(S('C09'), Ee('C09') + .5, ['D2', 'A2'], .04)
+# C10: "Buna bakamıyorum": müzik tamamen çekilir (aşağıda kısma), sonra tek nota
+put(Ee('C10') + .3, piyano('A3', 5, .12), 0)
+pad(S('C11'), Ee('C13') + 1, ['D2', 'A2'], .04)
+sayim(S('C13') + .2, v=.1, ara=.62)
+# ---------------------------------------------------------------- D: bant (müzik çekilir: hışırtı + motor; anahtar cümlelerde tek nota)
+motor(S('D01'), Ee('D14'), .007)
+pad(S('D01'), Ee('D02') + 1, ['D2', 'A2'], .035)
+put(S('D05') - .2, piyano('D3', 5, .14), 0)
+put(S('D10') - .2, piyano('F3', 5, .14), 0)
+put(W('D14', 'markın') - .1, piyano('A2', 6, .14), 0)   # açık bırakılan soru
+pad(S('D15'), Ee('D17') + 1, ['D2', 'A2'], .035)
+# ---------------------------------------------------------------- E: iki gardiyan (iki çalgı: gece altı derece, gündüz sayım)
+pad(S('E01'), Ee('E07'), ['D2', 'Bb2'], .045)
+ugultu(S('E02'), Ee('E04'), .01)
+put(W('E06', 'buna'), piyano('D3', 4, .12), 0)
+put(S('E08'), piyano('D2', 5, .14, kisik=True), 0)   # ölüm tarihi
+pad(S('E10'), Ee('E12'), ['D2', 'A2'], .04)
+sayim(S('E10') + .5, v=.08, ara=.6)
+pad(S('E13'), Ee('E14') + 1, ['D2', 'A2', 'F3'], .04)
+# ---------------------------------------------------------------- F: cevap ("Peki." çevresinde sessizlik; açık beşli)
+motor(S('F02'), Ee('F03'), .007)
+pad(S('F01'), Ee('F02'), ['D2', 'A2'], .035)
+akor(Ee('F03') + 1.0, ['D3', 'A3', 'E4'], .13, 7)          # "Peki."den sonra: çözülmeyen akor
+pad(S('F04'), DUR, ['D2', 'A2'], .045)
+t = sayim(S('F05') + .3, v=.1, ara=.8, son='A4')          # sayım yavaşlar, Sol yerine La: açık kalır
+akor(t + .4, ['D3', 'A3'], .1, 9)
+sayim(Ee('F05') + 3, v=.07, ara=1.0, tekrar=2, son='A4')  # bitiş ekranı (son 20 sn)
 
-# ---------------------------------------------------------------- A: kanca (bardak motifi; Çaykur cümlesinde dron)
-bardak(S('A01') + .3)
-pad(S('A02'), Ee('A03') + 1, ['D2', 'A2'], .07)
-put(W('A03', 'neye') - .2, piyano('F4', 4, .22), 0)
-# ---------------------------------------------------------------- B: yaprak (kemençe ezgisi; yağmur)
-pad(S('B01'), Ee('B12'), ['D2', 'A2', 'D3'], .05)
-yaprak(S('B01') + .4); yaprak(S('B02') + .6, v=.2, hiz=1.15)
-for t in [S('B03'), S('B04')]: put(t, bas('D2', .4), 0)
-pad(S('B05'), Ee('B06'), ['Bb1', 'F2'], .06)
-put(W('B06', 'rengi'), piyano('A5', 3, .12), .3); put(W('B06', 'kokusu'), piyano('G5', 3, .12), 0); put(W('B06', 'tadı'), piyano('F5', 3, .12), -.3)
-yaprak(S('B09') + .3, v=.18, hiz=.9)
-yaprak(S('B10') + .5, v=.14, hiz=.8, oct=-1)
-# ---------------------------------------------------------------- C: bardak (sayılar; bakan)
-pad(S('C01') - .5, Ee('C04') + 1, ['D2', 'A2'], .05)
-for i, t in enumerate([S('C02'), W('C02', 'saniyede')]): put(t, piyano('A5', 1.5, .1), 0)
-put(S('C04'), bas('D2', .5), 0); put(S('C04'), dron('C#3', 6, .05), .2)
-bardak(S('C05') + .2, .26)
-pad(S('C04'), Ee('C09'), ['D2', 'A2', 'F3'], .05)
-put(Ee('C10') + .2, cam('A5', .2), 0); put(Ee('C10') + .4, piyano('D4', 5, .2), 0)   # "aklında tut"
-# ---------------------------------------------------------------- D: yirmi saat (iki taraf: iki çalgı)
-pad(S('D01'), Ee('D13'), ['D2', 'A2'], .045)
-nabiz(S('D06'), Ee('D06'), bpm=60, v=.12)
-put(S('D08'), piyano('D3', 4, .25), -.4); put(W('D08', 'odtünün'), piyano('Bb3', 4, .25), .4)
-yaprak(S('D10') + .5, v=.12, hiz=1.1, oct=-1)
-# ---------------------------------------------------------------- F: ölçülmeyen (seyrek piyano; boşluk)
-pad(S('F01'), Ee('F07') + 1, ['D2', 'A2'], .04)
-for i, n in enumerate(['A4', 'F4', 'E4', 'D4']): put(S('F04') + i * 2.2, piyano(n, 4, .14), 0)
-put(S('F07'), kemence('A3', 4, .12), 0)
-# ---------------------------------------------------------------- E: depo (matbaa nabzı; yığılan baskı)
-nabiz(S('E01'), Ee('E09'), bpm=72, v=.16)
-pad(S('E01'), Ee('E09'), ['D2', 'A2', 'Eb3'], .05)
-put(S('E08'), bas('D2', .55), 0)
-put(S('E10'), dron('D2', 9, .09), 0); put(S('E10') + .2, cam('A5', .18), 0)
-pad(S('E11'), Ee('E16'), ['D2', 'G2', 'Bb2'], .045)
-# ---------------------------------------------------------------- G: bugün (laboratuvar; izleyicinin bardağı)
-pad(S('G01'), Ee('G04'), ['D2', 'A2'], .04)
-pad(S('G05') - .5, Ee('G06') + 1, ['D2', 'A2', 'E3'], .05)
-for i, n in enumerate(['D4', 'E4', 'F4', 'A4', 'G4']): put(S('G05') + i * 1.5, piyano(n, 3, .14), (i - 2) * .2)
-pad(S('G07'), DUR, ['D2', 'A2', 'D3'], .05)
-bardak(S('G09') + .2, .22)
-yaprak(S('G10') + .3, v=.2, son='A4')
-put(Ee('G10') + 1.0, cam('D6', .15), 0)
-
-# ---------------------------------------------------------------- yankı + anlatım altında kısma + son
-def yanki(x, sure=3.2, kuru=.6):
-    n = int(sure * SR); t = np.arange(n) / SR; ir = rng.normal(0, 1, n) * np.exp(-t * 2.6) * .02; ir[0] = 0
+# ---------------------------------------------------------------- yankı + anlatım altında kısma + sessizlikler + son
+def yanki(x, sure=2.6, kuru=.65):
+    n = int(sure * SR); t = np.arange(n) / SR; ir = rng.normal(0, 1, n) * np.exp(-t * 3.0) * .02; ir[0] = 0
     m = 1 << int(np.ceil(np.log2(len(x) + n)))
     return kuru * x + np.fft.irfft(np.fft.rfft(x, m) * np.fft.rfft(ir, m), m)[:len(x)]
 L = yanki(L); Rr = yanki(Rr)
 g = np.ones(N); hop = SR // 100
 for c in CUES.values():
     a, b = int((c['s'] - .15) * SR), int((c['e'] + .1) * SR); g[max(0, a):min(N, b)] = 10 ** (-5 / 20)
-# doruk cümlelerinden önce sessizlik (C10 sözü, E13 köylülerin sorusu): müzik tamamen çekilir
-for i in ['C10', 'E13']:
-    a = int((S(i) - 1.2) * SR); b = int(Ee(i) * SR); g[max(0, a):b] = 10 ** (-30 / 20)
+# müziğin tamamen çekildiği yerler (hışırtı da kısılır): "Buna bakamıyorum" ve "Peki."
+for a_, b_ in [(S('C10') - 1.0, Ee('C10') + .2), (S('F03') - .8, Ee('F03') + .9)]:
+    g[max(0, int(a_ * SR)):int(b_ * SR)] = 10 ** (-28 / 20)
 k = np.ones(25) / 25; gs = np.repeat(np.convolve(g[::hop], k, 'same'), hop)[:N]; gs = np.pad(gs, (0, N - len(gs)), 'edge')
 L *= gs; Rr *= gs
 pk = max(np.abs(L).max(), np.abs(Rr).max()); L /= pk / .8; Rr /= pk / .8
 fade = np.minimum(1, (N - np.arange(N)) / (3 * SR)); L *= fade; Rr *= fade
 out = (np.clip(np.stack([L, Rr], 1), -1, 1) * 32767).astype(np.int16)
 with wave.open(str(HERE / 'music.wav'), 'wb') as w: w.setnchannels(2); w.setsampwidth(2); w.setframerate(SR); w.writeframes(out.tobytes())
-rms = np.sqrt(np.mean(L[:len(L) // SR * SR].reshape(-1, SR) ** 2, 1)) + 1e-9; db = 20 * np.log10(rms)
+# düzey eğrisi (kanal kuralı: her müzik üretiminden sonra): tam bant ve 300 Hz üstü
+def saniye_db(x):
+    r = np.sqrt(np.mean(x[:len(x) // SR * SR].reshape(-1, SR) ** 2, 1)) + 1e-9; return 20 * np.log10(r)
+db = saniye_db(L)
+X = np.fft.rfft(L); f = np.fft.rfftfreq(len(L), 1 / SR); X[f < 300] = 0; ust = saniye_db(np.fft.irfft(X, len(L)))
 print(f'music.wav {DUR:.1f} sn | medyan {np.median(db):.1f} dBFS | -60 dB üstü saniye: {(db > -60).sum()}/{len(db)} | -40 dB üstü: {(db > -40).sum()}')
-print('bölüm başı düzeyleri:', ' '.join(f"{i}:{db[int(S(i))]:.0f}" for i in ['A01', 'B01', 'C01', 'D01', 'F01', 'E01', 'E10', 'G01', 'G09', 'G10']))
+print(f'300 Hz üstü: medyan {np.median(ust):.1f} dBFS | -60 dB üstü saniye: {(ust > -60).sum()}/{len(ust)}')
+print('bölüm başı düzeyleri:', ' '.join(f"{i}:{db[int(S(i))]:.0f}" for i in ['A01', 'B01', 'C01', 'C10', 'D01', 'D05', 'E01', 'F01', 'F03', 'F05']))
 sess = [i for i in range(len(db)) if db[i] < -60]
 print('müziksiz saniyeler (-60 altı):', len(sess), sess[:40])
+araliklar = []; i = 0
+while i < len(ust):
+    if ust[i] < -60:
+        j = i
+        while j < len(ust) and ust[j] < -60: j += 1
+        if j - i >= 4: araliklar.append((i, j))
+        i = j
+    else: i += 1
+print('300 Hz üstünde 4 sn\'yi aşan müziksiz aralıklar:', araliklar)
