@@ -6,9 +6,9 @@
    "A02",
    "A03"
   ],
-  "metin": "[calmly] Bir üniversitenin bodrumunda mahkûmlar sayım için dizilmiş. Gardiyanlardan biri, yazı turayla gardiyan olmuş bir öğrenci: sen onun yerinde olsan, zalim olur muydun? [calmly] Ağustos bin dokuz yüz yetmiş bir, Stanford. Deneyin arşivinde bir ses bandı var: deneyi yönetenlerden biri, sayım sırasında dışarıda oturan bir gardiyanı karşısına alıyor ve ondan bir şey istiyor. [curious] O bodrumda gardiyanlar kendiliğinden mi sertleşti, yoksa biri bunu onlardan istedi mi? İz o bantta.",
+  "metin": "[calmly] Bir üniversitenin bodrumunda mahkûmlar sayım için dizilmiş. Gardiyanlardan biri, mahkûm da olabilecekken rastgele gardiyan seçilmiş bir öğrenci: sen onun yerinde olsan, zalim olur muydun? [calmly] Ağustos bin dokuz yüz yetmiş bir, Stanford. Deneyin arşivinde bir ses bandı var: deneyi yönetenlerden biri, sayım sırasında dışarıda oturan bir gardiyanı karşısına alıyor ve ondan bir şey istiyor. [curious] Gardiyanlar kendiliğinden mi sertleşti? O bandın son kelimesini sona saklıyoruz.",
   "onek": "s00",
-  "karakter": 461
+  "karakter": 465
  },
  {
   "ad": "Yazı tura",
@@ -45,25 +45,24 @@
    "C12",
    "C13"
   ],
-  "metin": "[calmly] İlk günün kayıtlarında gardiyanlar gülüşüyor. İkinci gün sabah mahkûmlar numaralarını söküyor ve yataklarla hücre kapılarının önünü kapatıyor. [calmly] Gardiyanlar yangın söndürücüyle karşılık veriyor, yatakları dışarı çıkarıyor. [calmly] O akşam bir mahkûm karanlık bir dolapta bağırmaya başlıyor ve deneyden çıkarılıyor. [calmly] Fransız araştırmacı Tibo Lö Teksiye'ye göre en sert davranışlar tek bir vardiyada toplanıyor: akşam altıdan gece ikiye kadar süren akşam vardiyası. Zimbardo ise her vardiyada bir iki gardiyanın giderek sertleştiğini yazıyor. [calmly] O vardiyada öne çıkan uzun boylu bir gardiyan var: Deyv Eşelmın, başka bir üniversitede tiyatro öğrencisi. Mahkûmlar ona bir kovboy yıldızının adını takıyor: Con Ueyn. [calmly] Gözlüklerin geldiği aynı filmden aldığı bir Güney aksanıyla konuşuyor. Zimbardo'nun anlatımına göre uzun şınav cezaları veriyor, keyfî kurallar koyuyor, yemeği kısıyor. [calmly] Sonradan gelen bir mahkûm, dört yüz on altı, yemek yemeyi reddediyor. Kuralda bir saat yazan karanlık dolapta üç saat tutuluyor. [calmly] Öteki mahkûmlara bir seçim sunuluyor: battaniyelerinden vazgeçerlerse dört yüz on altı dolaptan çıkacak. Çoğu battaniyesini seçiyor. [calmly] Perşembe gecesi genç bir psikolog bodruma iniyor. Mahkûmların başlarına torba geçirilmiş, ayakları zincirli; tuvalete götürülüyorlar. [slowly] Buna bakamıyorum diyor. Zimbardo'yla tartışıyor; ertesi sabah, altıncı gün, deney bitiyor. İki hafta sürecekti. [calmly] Zimbardo ve iki arkadaşının bin dokuz yüz yetmiş üçte yayımlanan makalesine göre gardiyanların en az üçte biri, bir canlandırmada beklenenden çok daha saldırgan hâle geldi. Makale, iki gruba da rolleri için özel bir eğitim verilmediğini yazıyor. [calmly] Peki öbürleri? Psikanalist Erih Fromm aynı yıl bu sayıya bakıp tersini okudu: gardiyanların üçte ikisi sadistçe davranmamıştı. [calmly] Ama hikâye en çok şöyle anlatıldı: sıradan öğrencilere üniforma ve güç verildi, gerisini bodrum yaptı.",
+  "metin": "[calmly] Peki bodrumda ne oldu? İlk günün kayıtlarında gardiyanlar gülüşüyor. İkinci gün sabah mahkûmlar numaralarını söküyor ve yataklarla hücre kapılarının önünü kapatıyor. [calmly] Gardiyanlar yangın söndürücüyle karşılık veriyor, yatakları dışarı çıkarıyor. [calmly] O akşam bir mahkûm karanlık bir dolapta bağırmaya başlıyor ve deneyden çıkarılıyor. [calmly] Fransız araştırmacı Tibo Lö Teksiye'ye göre en sert davranışlar tek bir vardiyada toplanıyor: akşam altıdan gece ikiye kadar süren akşam vardiyası. Zimbardo ise her vardiyada bir iki gardiyanın giderek sertleştiğini yazıyor. [calmly] O vardiyada öne çıkan uzun boylu bir gardiyan var: Deyv Eşelmın, başka bir üniversitede tiyatro öğrencisi. Mahkûmlar ona bir kovboy yıldızının adını takıyor: Con Ueyn. [calmly] Gözlüklerin geldiği aynı filmden aldığı bir Güney aksanıyla konuşuyor. Zimbardo'nun anlatımına göre uzun şınav cezaları veriyor, keyfî kurallar koyuyor, yemeği kısıyor. [calmly] Sonradan gelen bir mahkûm, dört yüz on altı, yemek yemeyi reddediyor. Kuralda bir saat yazan karanlık dolapta üç saat tutuluyor. [calmly] Öteki mahkûmlara bir seçim sunuluyor: battaniyelerinden vazgeçerlerse dört yüz on altı dolaptan çıkacak. Çoğu battaniyesini seçiyor. [calmly] Perşembe gecesi genç bir psikolog bodruma iniyor. Mahkûmların başlarına torba geçirilmiş, ayakları zincirli; tuvalete götürülüyorlar. [slowly] Buna bakamıyorum diyor. Zimbardo'yla tartışıyor; ertesi sabah, altıncı gün, deney bitiyor. İki hafta sürecekti. [calmly] Zimbardo ve iki arkadaşının bin dokuz yüz yetmiş üçte yayımlanan makalesine göre gardiyanların en az üçte biri, bir canlandırmada beklenenden çok daha saldırgan hâle geldi. Makale, iki gruba da rolleri için özel bir eğitim verilmediğini yazıyor. [calmly] Peki öbürleri? Psikanalist Erih Fromm aynı yıl bu sayıya bakıp tersini okudu: gardiyanların üçte ikisi sadistçe davranmamıştı. [calmly] Ama hikâye en çok şöyle anlatıldı: sıradan öğrencilere üniforma ve güç verildi, gerisini bodrum yaptı.",
   "onek": "s02",
-  "karakter": 1850
+  "karakter": 1873
  },
  {
   "ad": "Bant",
   "ids": [
    "D01",
    "D02",
-   "D03",
    "D04",
    "D05",
    "D06",
    "D07",
    "D08"
   ],
-  "metin": "[calmly] Lö Teksiye iki bin on sekizde deneyin arşivinden bulduklarını yayımladı. Aynı yıl başka araştırmacılar da arşivdeki bir banda dikkat çekti: on sekiz dakikalık bir konuşma. [calmly] Konuşanlar müdür Deyvid Ceffi ve gündüz vardiyasından bir gardiyan. Lö Teksiye bu konuşmayı deneyin üçüncü gününe koyuyor; Zimbardo ise ilk güne. [calmly] Gardiyanın adı Mark. Daha önce yirmi kadar psikoloji deneyine katılmış. [calmly] Müdür söze şöyle giriyor: Bu sabah işe pek karışmadığını fark ettik. Biraz da benim suçum; sayım yapılırken dışarıda oturmak istediğinde ses çıkarmadım. [slowly] Ama gardiyanların şunu bilmesi gerek: her gardiyan, bizim sert gardiyan dediğimiz şey olacak. [calmly] Mark'ın cevabı: Ben pek sert değilim. Müdür: Biraz denemen, bunu içine sindirmen gerek. Sert derken şunu kastediyorum: kararlı olacaksın, işin içinde olacaksın. [calmly] Mark polisle karşılaştığı zamanları düşünüyor: Benden istediğin şey, bence polisle hep bu kadar sorun çıkmasının sebebi. Bir sorun olunca insanlar bağırmaya başlıyor, sonra daha çok ayrıcalık alınıyor; o kısır döngü. [calmly] Bana kalsa hiçbir şey yapmazdım. Kendi hâline bırakırdım. Biraz sonra da şunu söylüyor: Sadece bu gardiyan üniformasını giymek bile benim için ağır bir şey.",
+  "metin": "[calmly] Peki o bantta ne isteniyor? İki bin on sekizde araştırmacılar arşivdeki bir banda dikkat çekti: on sekiz dakikalık bir konuşma. [calmly] Konuşanlar müdür Deyvid Ceffi ve gündüz vardiyasından bir gardiyan: Mark. [calmly] Müdür söze şöyle giriyor: Bu sabah işe pek karışmadığını fark ettik. Biraz da benim suçum; sayım yapılırken dışarıda oturmak istediğinde ses çıkarmadım. [slowly] Ama gardiyanların şunu bilmesi gerek: her gardiyan, bizim sert gardiyan dediğimiz şey olacak. [calmly] Mark'ın cevabı: Ben pek sert değilim. Müdür: Biraz denemen, bunu içine sindirmen gerek. Sert derken şunu kastediyorum: kararlı olacaksın, işin içinde olacaksın. [calmly] Mark polisle karşılaştığı zamanları düşünüyor: Benden istediğin şey, bence polisle hep bu kadar sorun çıkmasının sebebi. Bir sorun olunca insanlar bağırmaya başlıyor, sonra daha çok ayrıcalık alınıyor; o kısır döngü. [calmly] Bana kalsa hiçbir şey yapmazdım. Kendi hâline bırakırdım. Biraz sonra da şunu söylüyor: Sadece bu gardiyan üniformasını giymek bile benim için ağır bir şey.",
   "onek": "s03",
-  "karakter": 1171
+  "karakter": 983
  },
  {
   "ad": "Bant",
@@ -76,13 +75,11 @@
    "D14",
    "D15",
    "D16",
-   "D17",
-   "D18",
-   "D19"
+   "D17"
   ],
-  "metin": "[calmly] Müdür amacı anlatıyor: Umarız bu çalışmadan çok ciddi reform önerileri çıkar. Dünyaya çıkıp şunu diyebilmek istiyorlar: Bakın, böyle davranan gardiyanlarınız olunca ne oluyor. [slowly] Ve hemen ardından: Ama bunu söyleyebilmek için, öyle davranan gardiyanlarımız olmalı. [calmly] Mark: Bu deney için iyi bir gardiyan değilim. Mahkûm olsam, gerçekten iyi bir mahkûm olurdum. Müdürün cevabı: Evet, ama bu rastgele seçimin bir parçası. Ve önemli. [calmly] Konuşmanın sonuna doğru müdür, o yılların öğrencilerinin polise taktığı küçültücü bir adı kullanıyor: sert gardiyanı oynamasını, kafasındaki o polis nasıl davranıyorsa öyle davranmasını istiyor. [calmly] Mark'ın cevabı: Ben çok polis gördüm; hepsi başka başka davranıyor. Müdür: Biz kalıp bir gardiyan kurmaya çalışıyoruz. [calmly] Ve son istek: Şimdiye kadar tarzın biraz fazla yumuşaktı. Biraz daha işin içine girmeni istiyoruz. Mark'ın son cevabına filmin sonunda döneceğiz. [calmly] Müdürün deneyden sonra yazdığına göre bu onun fikri değildi: Zimbardo, en zor işin gardiyanları gardiyan gibi davranmaya ikna etmek olacağını söylemiş; sert gardiyan davranışını ortaya çıkarmak müdüre verilmiş. [calmly] Müdürün bir deneyimi de vardı: o yılın mayısında bir Stanford yurdunda, arkadaşlarıyla iki günlük bir hapishane canlandırması yapmıştı. Lö Teksiye'nin sayımına göre bodrumdaki on yedi kuralın on biri oradan. [calmly] Zimbardo iki bin on sekizde kendi metniyle cevap verdi: bir gardiyandan kararlı ve işin içinde olmasını istemek, gerçek cezaevlerinde müdürlerin yaptığı baskının yanında hafif kalır. Bantta müdürün kendi tanımı da buydu. [calmly] Aynı metinde, gardiyanlara nasıl davranacaklarına dair ayrıntılı bir talimat verilmediğini de yazdı. Lö Teksiye'nin cevabı: arşivdeki belgeler bu cümleyle doğrudan çelişiyor. [calmly] Zimbardo'ya göre ise gardiyanlara hiçbir zaman vahşet emredilmedi, fiziksel güç açıkça yasaklandı; ve müdürün isteğine rağmen ilk iki vardiyada hiçbir gardiyan baskın davranmadı.",
+  "metin": "[calmly] Müdür amacı anlatıyor: Umarız bu çalışmadan çok ciddi reform önerileri çıkar. Dünyaya çıkıp şunu diyebilmek istiyorlar: Bakın, böyle davranan gardiyanlarınız olunca ne oluyor. [slowly] Ve hemen ardından: Ama bunu söyleyebilmek için, öyle davranan gardiyanlarımız olmalı. [calmly] Mark: Bu deney için iyi bir gardiyan değilim. Mahkûm olsam, gerçekten iyi bir mahkûm olurdum. Müdürün cevabı: Evet, ama bu rastgele seçimin bir parçası. Ve önemli. [calmly] Konuşmanın sonuna doğru müdür, o yılların öğrencilerinin polise taktığı küçültücü bir adı kullanıyor: sert gardiyanı oynamasını, kafasındaki o polis nasıl davranıyorsa öyle davranmasını istiyor. [calmly] Mark'ın cevabı: Ben çok polis gördüm; hepsi başka başka davranıyor. Müdür: Biz kalıp bir gardiyan kurmaya çalışıyoruz. [calmly] Ve son istek: Şimdiye kadar tarzın biraz fazla yumuşaktı. Biraz daha işin içine girmeni istiyoruz. Mark'ın son cevabına filmin sonunda döneceğiz. [calmly] Müdürün deneyden sonra yazdığına göre bu onun fikri değildi: Zimbardo, en zor işin gardiyanları gardiyan gibi davranmaya ikna etmek olacağını söylemiş; sert gardiyan davranışını ortaya çıkarmak müdüre verilmiş. [calmly] Müdürün bir deneyimi de vardı: o yılın mayısında bir Stanford yurdunda, arkadaşlarıyla iki günlük bir hapishane canlandırması yapmıştı. Lö Teksiye'nin sayımına göre bodrumdaki on yedi kuralın on biri oradan. [calmly] Zimbardo iki bin on sekizde kendi metniyle cevap verdi: gardiyanlara hiçbir zaman vahşet emredilmedi; ve müdürün isteğine rağmen ilk iki vardiyada hiçbir gardiyan baskın davranmadı.",
   "onek": "s04",
-  "karakter": 1879
+  "karakter": 1486
  },
  {
   "ad": "İki gardiyan",
@@ -94,9 +91,9 @@
    "E05",
    "E06"
   ],
-  "metin": "[calmly] Bant bir şeyi gösteriyor: en az bir gardiyandan sertlik istendi. Ama aynı bodrumdaki gardiyanlar aynı şeyi yapmadı. [calmly] Deneyin son günü Eşelmın müdüre şunu söylüyor: Çalışma için daha iyi olur diye düşündüm. Deney boyunca bir aktördüm, abartıyordum; rol yapıyordum. [calmly] Kırk yıl sonra, iki bin on birde: Planlıydı. Olayları zorladım; araştırmacıların elinde çalışacak bir şey olsun istedim. [slowly] Kendi deneyimi yürütüyordum: bu insanlar ne kadar eziyete katlanır, ne zaman 'kes şunu' der? Öteki gardiyanlar beni durdurmadı. Tek bir gardiyan bile 'bence bunu yapmamalıyız' demedi. [calmly] Eşelmın'ın anlatımına göre deney bitince Zimbardo koridorda yanına gelip ne kadar iyi iş çıkardığını söylüyor; o da iyi bir şey başardığını hissediyor. [calmly] İki bin on birde şunu da diyor: Kimseye zarar verip vermediğimi düşünmeden korkutmayı artırdım. Buna kesinlikle pişmanım.",
+  "metin": "[calmly] Bant bir şeyi gösteriyor: en az bir gardiyandan sertlik istendi. Peki aynı bodrumdaki öteki gardiyanlar ne yaptı? [calmly] Deneyin son günü Eşelmın müdüre şunu söylüyor: Çalışma için daha iyi olur diye düşündüm. Deney boyunca bir aktördüm, abartıyordum; rol yapıyordum. [calmly] Kırk yıl sonra, iki bin on birde: Planlıydı. Olayları zorladım; araştırmacıların elinde çalışacak bir şey olsun istedim. [slowly] Kendi deneyimi yürütüyordum: bu insanlar ne kadar eziyete katlanır, ne zaman 'kes şunu' der? Öteki gardiyanlar beni durdurmadı. Tek bir gardiyan bile 'bence bunu yapmamalıyız' demedi. [calmly] Eşelmın'ın anlatımına göre deney bitince Zimbardo koridorda yanına gelip ne kadar iyi iş çıkardığını söylüyor; o da iyi bir şey başardığını hissediyor. [calmly] İki bin on birde şunu da diyor: Kimseye zarar verip vermediğimi düşünmeden korkutmayı artırdım. Buna kesinlikle pişmanım.",
   "onek": "s05",
-  "karakter": 841
+  "karakter": 839
  },
  {
   "ad": "İki gardiyan",
@@ -110,9 +107,9 @@
    "E13",
    "E14"
   ],
-  "metin": "[calmly] Zimbardo'nun iki bin on sekiz metnine göre Eşelmın'ın yaptıkları, sert gardiyanı oynamanın çok ötesine geçiyor. [calmly] Zimbardo Ekim iki bin yirmi dörtte öldü. Bir ay sonra Eşelmın bir belgesel için şöyle konuştu: Davranışlarımın birçoğunu o yönlendirdi. [calmly] Biri benden bu istendi diyor, öteki bu istenenin çok ötesiydi. İkisi de kendi belgesini gösteriyor. [calmly] Gündüz vardiyasındaki Mark'ın anlatımı başka. İki bin on birde: Benim çalıştığım gündüz vardiyasında kimse, böyle bir durumda beklenenin ötesine geçmedi. Birini hücreye kapattıklarında hiç hoşuna gitmemiş. [calmly] Mark, Zimbardo için de şunu söylüyor: Bana öyle geliyordu ki varmak istediği sonucu baştan biliyordu ve deneyi ona uydurmaya çalıştı. [calmly] Mark'ın o günlerde ne yaptığını gösteren bağımsız bir belge bulamadık. Elimizde kendi sözü ve dökümde tekrar tekrar itiraz eden bir gardiyan var. [calmly] Zimbardo'ya göre bazı gardiyanların sonuna kadar iyi kalması, zalim olanların kendi isteğiyle davrandığını gösteriyor. Aynı metinde şunu da yazıyor: İyi gardiyanların hiçbiri, arkadaşlarının zulmünü durdurmak için araya girmedi. [slowly] Eşelmın da kendi vardiyası için aynısını söylemişti. Mark o vardiyada değildi; itirazını mahkûmların önünde değil, müdürün odasında yaptı.",
+  "metin": "[calmly] Zimbardo'nun iki bin on sekiz metnine göre Eşelmın'ın yaptıkları, sert gardiyanı oynamanın çok ötesine geçiyor. [calmly] Zimbardo Ekim iki bin yirmi dörtte öldü. Bir ay sonra Eşelmın bir belgesel için şöyle konuştu: Davranışlarımın birçoğunu o yönlendirdi. [calmly] Eşelmın benden bu istendi diyor; Zimbardo bu istenenin çok ötesiydi diyor. İkisi de kendi belgesini gösteriyor. [calmly] Gündüz vardiyasındaki Mark'ın anlatımı başka. İki bin on birde: Benim çalıştığım gündüz vardiyasında kimse, böyle bir durumda beklenenin ötesine geçmedi. Birini hücreye kapattıklarında hiç hoşuna gitmemiş. [calmly] Mark, Zimbardo için de şunu söylüyor: Bana öyle geliyordu ki varmak istediği sonucu baştan biliyordu ve deneyi ona uydurmaya çalıştı. [calmly] Mark'ın o günlerde ne yaptığını gösteren bağımsız bir belge bulamadık. Elimizde kendi sözü ve dökümde tekrar tekrar itiraz eden bir gardiyan var. [calmly] Zimbardo'ya göre bazı gardiyanların sonuna kadar iyi kalması, zalim olanların kendi isteğiyle davrandığını gösteriyor. Aynı metinde şunu da yazıyor: İyi gardiyanların hiçbiri, arkadaşlarının zulmünü durdurmak için araya girmedi. [slowly] Eşelmın da kendi vardiyası için aynısını söylemişti. Mark o vardiyada değildi; elimizdeki itirazını da mahkûmların önünde değil, müdürün onu kenara çektiği bu bantta yapıyor.",
   "onek": "s06",
-  "karakter": 1201
+  "karakter": 1249
  },
  {
   "ad": "Cevap",
@@ -123,7 +120,7 @@
    "F04",
    "F05"
   ],
-  "metin": "[calmly] Bu sertliği isteyen müdür, deneyden sonra kendi hakkında şunu yazmış: İyi bir amaç uğruna duyarlılığımı, başkalarını düşünmeyi ne kadar kolay kapatabildiğimi görmek beni ürkütüyor. [calmly] Şimdi banta dönelim. On sekiz dakikada Mark iki kez deneyeceğim diyor, ama ardından yine itiraz ediyor. Bir yerde şunu söylüyor: Elimden gelen tek şey, kendim olarak elimden gelenin en iyisini yapmak. [slowly] Müdür son kez daha çok işin içine girmesini istiyor. Bant, Mark'ın tek kelimesiyle bitiyor: Peki. [thoughtful] O pekiden sonra ne yaptığını bilmiyoruz. Gardiyan olsan zalim olur muydun, bilemezsin. Ama biri senden iyi bir amaç için sertlik istediğinde ne diyeceğini düşünebilirsin. [softly] Seninki peki mi olurdu, başka bir şey mi? Yorumlara yaz. Zaman Kuryesi geçmişten bugüne böyle sorular taşıyor; bir sonrakini kaçırmamak için abone olabilirsin.",
+  "metin": "[calmly] Bu sertliği isteyen müdür, deneyden sonra kendi hakkında şunu yazmış: İyi bir amaç uğruna duyarlılığımı, başkalarını düşünmeyi ne kadar kolay kapatabildiğimi görmek beni ürkütüyor. [calmly] Şimdi banda dönelim. On sekiz dakikada Mark iki kez deneyeceğim diyor, ama ardından yine itiraz ediyor. Bir yerde şunu söylüyor: Elimden gelen tek şey, kendim olarak elimden gelenin en iyisini yapmak. [slowly] Müdür son kez daha çok işin içine girmesini istiyor. Bant, Mark'ın tek kelimesiyle bitiyor: Peki. [thoughtful] O pekiden sonra ne yaptığını bilmiyoruz. Gardiyan olsan zalim olur muydun, bilemezsin. Ama biri senden iyi bir amaç için sertlik istediğinde ne diyeceğini düşünebilirsin. [softly] Seninki peki mi olurdu, başka bir şey mi? Yorumlara yaz. Zaman Kuryesi geçmişten bugüne böyle sorular taşıyor; bir sonrakini kaçırmamak için abone olabilirsin.",
   "onek": "s07",
   "karakter": 810
  }
