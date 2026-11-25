@@ -138,7 +138,7 @@ pad(S('E01'), Ee('E07'), ['D2', 'Bb2'], .045)
 ugultu(S('E02'), Ee('E04'), .01)
 put(W('E06', 'buna'), piyano('D3', 4, .12), 0)
 put(S('E08'), piyano('D2', 5, .14, kisik=True), 0)   # ölüm tarihi
-pad(S('E08') + 1.5, Ee('E09') + 1, ['D2', 'A2'], .03)   # telefon denetimi: 8:27–8:49 tonsuzdu
+pad(S('E08') - 1.0, Ee('E09') + 1, ['D2', 'A2'], .03)   # telefon denetimi: 8:27–8:49 tonsuzdu
 pad(S('E10'), S('E13') + 1, ['D2', 'A2'], .04)
 sayim(S('E10') + .5, v=.08, ara=.6)
 pad(S('E13'), Ee('E14') + 1, ['D2', 'A2', 'F3'], .04)
@@ -147,6 +147,9 @@ motor(S('F02'), Ee('F03'), .007)
 pad(Ee('F02') - 1, S('F03'), ['D2', 'A2'], .03)
 pad(S('F01'), Ee('F02'), ['D2', 'A2'], .035)
 akor(Ee('F03') + 1.0, ['D3', 'A3', 'E4'], .13, 7)          # "Peki."den sonra: çözülmeyen akor
+pad(S('F03b') + .5, Ee('F03b') + .8, ['D2', 'A2'], .032)   # rev3: müdürün notu (F03b)
+put(W('F03b', 'hatırlamıyorum') + .1, piyano('A3', 4, .1), .1)
+put(W('F03b', 'aynı') - .1, piyano('D3', 5, .12), 0)
 pad(S('F04'), DUR, ['D2', 'A2'], .045)
 t = sayim(S('F05') + .3, v=.1, ara=.8, son='A4')          # sayım yavaşlar, Sol yerine La: açık kalır
 akor(t + .4, ['D3', 'A3'], .1, 9)

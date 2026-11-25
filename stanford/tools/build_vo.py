@@ -24,6 +24,18 @@ adlar = []
 for b in bol:
     if b['ad'] not in adlar: adlar.append(b['ad'])
 secs = [(b['onek'], b['ad'], [byid[i] for i in b['ids']], k == len(bol) - 1 or bol[k + 1]['ad'] != b['ad']) for k, b in enumerate(bol)]
+SIRA0 = [(b, [x['id'] for x in sg]) for _, b, sg, _ in secs]
+# rev3 (25 Kasım): yamalanan cümleler bölüm çekiminde eski okunuşla (cekim_tts) hizalanır; cekim_tts == '' olan cümle o çekimde yok.
+# Yama çekimleri (vo/yama/bolumler.json + vo/yama/secim.json) sonra işlenir ve CLIP'i ezer; düzey eski klibin sesli RMS'ine eşitlenir.
+YAMA = []
+if os.path.exists('vo/yama/bolumler.json'):
+    ysel = json.load(open('vo/yama/secim.json'))
+    for b in json.load(open('vo/yama/bolumler.json')):
+        sel[b['onek']] = 'yama/' + ysel[b['onek']]; YAMA.append((b['onek'], b['ad'], [byid[i] for i in b['ids']], False))
+secs = [(o, b, [s for s in sg if s.get('cekim_tts', None) != ''], z) for o, b, sg, z in secs] + YAMA
+YAMA_ON = {o for o, _, _, _ in YAMA}
+KIRP = json.load(open('vo/yama/kirp.json')) if os.path.exists('vo/yama/kirp.json') else {}   # {id: kelime}: klip bu kelimeden önceki duraklamada başlar
+ESKI_RMS = {}
 
 CLIP = {}   # id → (klip, cümle başı/sonu klibe göre, [kelimeler klibe göre])
 for onek, bolum, segs, bolum_sonu in secs:
@@ -44,8 +56,9 @@ for onek, bolum, segs, bolum_sonu in secs:
         else: hw.append(w)
     hyp = [norm1(w['w']) for w in hw]
     ref, owner, disp = [], [], []
+    TX = (lambda s: s['tts']) if onek in YAMA_ON else (lambda s: s.get('cekim_tts') or s['tts'])
     for k, s in enumerate(segs):
-        ws = words_of(s['tts']); ref += ws; owner += [k] * len(ws)
+        ws = words_of(TX(s)); ref += ws; owner += [k] * len(ws)
         # altyazı sözcükleri; tools/merge.json'daki çok kelimelik karşılıklar (ör. "1967'de" = beş kelime) açılır: ilk kelime sözcüğü taşır, kalanlar boş
         at = []
         for x in re.sub(r'\[[^\]]*\]', ' ', s['alt']).replace('…', ' ').split():
@@ -126,10 +139,26 @@ for onek, bolum, segs, bolum_sonu in secs:
             tail = clip[last:].copy(); f2 = int(.01 * SR); tail[:f2] *= np.linspace(0, 1, f2); parts.append(tail)
             clip = np.concatenate(parts)
         idx_ = [i for i, o in enumerate(owner) if o == k]
+        def srms(c):
+            r = np.sqrt(np.convolve(c ** 2, np.ones(hop * 3) / (hop * 3), 'same'))[::hop]; v = r[r > thr]; return float(np.sqrt(np.mean(v ** 2))) if len(v) else 1e-9
+        if onek in YAMA_ON:
+            ref_id = s['id'] if s['id'] in ESKI_RMS else max(ESKI_RMS, key=lambda q: list(byid).index(q) if list(byid).index(q) < list(byid).index(s['id']) else -1)
+            g_ = ESKI_RMS[ref_id] / max(1e-9, srms(clip)); clip = clip * g_; print('yama', s['id'], f, 'düzey %+.1f dB' % (20 * np.log10(g_)), '(ölçü: %s)' % ref_id)
+        else: ESKI_RMS[s['id']] = srms(clip)
         CLIP[s['id']] = (clip, bounds[k][0] - c0, bounds[k][1] - c0 + shift[idx_[-1]],
                          [{'id': s['id'], 'w': ref[i], 'd': disp[i] if i < len(disp) else ref[i], 's': st[i] - c0 + shift[i], 'e': en[i] - c0 + shift[i]} for i in idx_])
+# kırpma (rev3: F04'ün ilk cümlesi eski çekimden gerçek duraklamada atılır; altyazı sözcükleri yeni alt'tan)
+for sid, kel in KIRP.items():
+    clip, cs, ce, ws_ = CLIP[sid]
+    i = next(k for k, w in enumerate(ws_) if w['w'].startswith(norm1(kel)))
+    cut = (ws_[i - 1]['e'] + ws_[i]['s']) / 2 - .15; c = int(max(0, cut) * SR)
+    clip = clip[c:].copy(); fl = int(.012 * SR); clip[:fl] *= np.linspace(0, 1, fl); sh = c / SR
+    at = [x for x in re.sub(r'\[[^\]]*\]', ' ', byid[sid]['alt']).replace('…', ' ').split() if norm1(x)]
+    kal = ws_[i:]
+    CLIP[sid] = (clip, ws_[i]['s'] - sh, ce - sh, [{**w, 's': w['s'] - sh, 'e': w['e'] - sh, 'd': at[k] if k < len(at) else ''} for k, w in enumerate(kal)])
+    print('kırpıldı', sid, 'baş', round(sh, 2), 'sn;', len(ws_) - len(kal), 'kelime atıldı')
 # 2) yeni oynatma sırası (vo/sira.json; yoksa çekim sırası): boşluklar plan.json'dan, bölüm sonuna secGap
-SIRA = json.load(open('vo/sira.json'))['bolumler'] if os.path.exists('vo/sira.json') else [(b, [x['id'] for x in sg]) for _, b, sg, _ in secs]
+SIRA = json.load(open('vo/sira.json'))['bolumler'] if os.path.exists('vo/sira.json') else SIRA0
 out = []; t = plan.get('once', 1.0); cues = {}; allwords = []
 out.append(np.zeros(int(t * SR), np.float32))
 for si, (bad, ids) in enumerate(SIRA):

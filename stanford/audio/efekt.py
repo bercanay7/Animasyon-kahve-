@@ -69,7 +69,7 @@ kapi(W('C07', 'karanlık') + .3, .45)
 makara_basla(S('D01') + 2.0)
 makara_dur(W('D14', 'markın'))
 makara_basla(S('F02') + .2)
-bant_bitti(Ee('F03') + .5, 7)
+makara_dur(W('F03', 'peki') + .6)   # rev3: bant bitmez, makaralar durur (Fable E3)
 # daktilo: döküm ve belge planlarının başında
 YAZI = {'dokum', 'rapor', 'dergi', 'z2018', 'ilan', 'kurallar', 'kart'}
 for x in SH:

@@ -490,308 +490,352 @@ istiyoruz." Mark'ın son cevabına
 filmin sonunda döneceğiz.
 
 105
-00:06:36,710 --> 00:06:42,010
-Müdürün deneyden sonra yazdığına göre
-bu onun fikri değildi: Zimbardo, en zor
+00:06:36,590 --> 00:06:40,410
+Müdür deneyden sonra yazdığı
+notta bu konuşmayı anlatıyor:
 
 106
-00:06:42,010 --> 00:06:46,220
-işin gardiyanları gardiyan gibi davranmaya
-ikna etmek olacağını söylemiş;
+00:06:40,900 --> 00:06:45,760
+Mark'la o an konuşmak istememiş,
+ama Zimbardo istediği için konuşmuş.
 
 107
-00:06:46,220 --> 00:06:50,550
-sert gardiyan davranışını
-ortaya çıkarmak müdüre verilmiş.
+00:06:46,140 --> 00:06:50,270
+Sert gardiyana kendisi de inanıyordu:
+kurallar ve sert gardiyanlar
 
 108
-00:06:51,010 --> 00:06:55,310
+00:06:50,270 --> 00:06:54,170
+olmasa bodrum hapishaneye değil,
+yaz kampına benzerdi.
+
+109
+00:06:54,635 --> 00:06:58,935
 Müdürün bir deneyimi de vardı:
 o yılın mayısında bir Stanford yurdunda,
 
-109
-00:06:55,310 --> 00:06:59,370
+110
+00:06:58,935 --> 00:07:02,995
 arkadaşlarıyla iki günlük
 bir hapishane canlandırması yapmıştı.
 
-110
-00:06:59,680 --> 00:07:04,520
+111
+00:07:03,305 --> 00:07:08,145
 Le Texier'nin sayımına göre bodrumdaki
 on yedi kuralın on biri oradan.
 
-111
-00:07:05,040 --> 00:07:09,690
+112
+00:07:08,665 --> 00:07:13,315
 Zimbardo 2018'de kendi metniyle
 cevap verdi: gardiyanlara
 
-112
-00:07:09,690 --> 00:07:13,500
+113
+00:07:13,315 --> 00:07:17,125
 hiçbir zaman vahşet emredilmedi;
 ve müdürün isteğine rağmen
 
-113
-00:07:13,500 --> 00:07:17,340
+114
+00:07:17,125 --> 00:07:20,965
 ilk iki vardiyada hiçbir gardiyan
 baskın davranmadı.
 
-114
-00:07:19,420 --> 00:07:23,750
+115
+00:07:23,045 --> 00:07:27,375
 Bant bir şeyi gösteriyor:
 en az bir gardiyandan sertlik istendi.
 
-115
-00:07:23,980 --> 00:07:27,300
+116
+00:07:27,605 --> 00:07:30,925
 Peki aynı bodrumdaki öteki
 gardiyanlar ne yaptı?
 
-116
-00:07:28,080 --> 00:07:31,210
+117
+00:07:31,705 --> 00:07:34,835
 Deneyin son günü Eshelman
 müdüre şunu söylüyor:
 
-117
-00:07:31,440 --> 00:07:33,911
+118
+00:07:35,065 --> 00:07:37,536
 "Çalışma için daha iyi olur diye düşündüm.
 
-118
-00:07:34,030 --> 00:07:38,080
+119
+00:07:37,655 --> 00:07:41,705
 Deney boyunca bir aktördüm,
 abartıyordum; rol yapıyordum."
 
-119
-00:07:38,700 --> 00:07:42,030
+120
+00:07:42,325 --> 00:07:45,655
 Kırk yıl sonra, 2011'de: "Planlıydı.
 
-120
-00:07:42,110 --> 00:07:46,581
+121
+00:07:45,735 --> 00:07:50,206
 Olayları zorladım; araştırmacıların
 elinde çalışacak bir şey olsun istedim."
 
-121
-00:07:47,170 --> 00:07:49,810
+122
+00:07:50,795 --> 00:07:53,435
 "Kendi deneyimi yürütüyordum: bu insanlar
 
-122
-00:07:49,810 --> 00:07:53,400
+123
+00:07:53,435 --> 00:07:57,025
 ne kadar eziyete katlanır,
 ne zaman 'kes şunu' der?
 
-123
-00:07:53,860 --> 00:07:55,940
+124
+00:07:57,485 --> 00:07:59,565
 Öteki gardiyanlar beni durdurmadı.
 
-124
-00:07:56,070 --> 00:07:59,640
+125
+00:07:59,695 --> 00:08:03,265
 Tek bir gardiyan bile 'bence
 bunu yapmamalıyız' demedi."
 
-125
-00:07:59,866 --> 00:08:04,160
+126
+00:08:03,491 --> 00:08:07,785
 Eshelman'ın anlatımına göre deney
 bitince Zimbardo koridorda yanına gelip
 
-126
-00:08:04,160 --> 00:08:09,730
+127
+00:08:07,785 --> 00:08:13,355
 ne kadar iyi iş çıkardığını söylüyor;
 o da iyi bir şey başardığını hissediyor.
 
-127
-00:08:10,310 --> 00:08:13,390
+128
+00:08:13,935 --> 00:08:17,015
 2011'de şunu da diyor:
 "Kimseye zarar verip
 
-128
-00:08:13,390 --> 00:08:16,100
+129
+00:08:17,015 --> 00:08:19,725
 vermediğimi düşünmeden
 korkutmayı artırdım.
 
-129
-00:08:16,280 --> 00:08:17,980
+130
+00:08:19,905 --> 00:08:21,605
 Buna kesinlikle pişmanım."
 
-130
-00:08:19,950 --> 00:08:23,720
-Zimbardo'nun 2018 metnine
-göre Eshelman'ın yaptıkları,
-
 131
-00:08:23,720 --> 00:08:27,010
-sert gardiyanı
-oynamanın çok ötesine geçiyor.
+00:08:23,535 --> 00:08:29,355
+Zimbardo 2018'de kendi belgesini gösteriyor:
+beşinci gece Eshelman'ın mahkûmlara
 
 132
-00:08:27,840 --> 00:08:30,750
-Zimbardo Ekim 2024'te öldü.
+00:08:29,355 --> 00:08:34,105
+oynattığı aşağılayıcı bir oyunun,
+on dakikaya yakın süren kaydı.
 
 133
-00:08:31,120 --> 00:08:34,780
-Bir ay sonra Eshelman
-bir belgesel için şöyle konuştu:
+00:08:34,415 --> 00:08:38,045
+Ona göre bu,
+sert gardiyanı oynamanın çok ötesinde.
 
 134
-00:08:35,140 --> 00:08:37,760
-"Davranışlarımın birçoğunu o yönlendirdi."
+00:08:38,805 --> 00:08:44,145
+Eshelman 2018'de, araştırmacıların
+istediğini yaptığına inandığını söylemişti.
 
 135
-00:08:38,680 --> 00:08:44,210
+00:08:44,765 --> 00:08:49,255
+Zimbardo Ekim 2024'te öldü;
+birkaç hafta sonra,
+
+136
+00:08:49,255 --> 00:08:53,255
+bir belgeselin tanıtım söyleşisinde
+Eshelman daha ileri gitti:
+
+137
+00:08:53,555 --> 00:08:56,235
+"Davranışlarımın birçoğunu o yönlendirdi."
+
+138
+00:08:57,045 --> 00:09:02,575
 Eshelman "benden bu istendi" diyor;
 Zimbardo "bu istenenin çok ötesiydi" diyor.
 
-136
-00:08:44,480 --> 00:08:46,650
+139
+00:09:02,845 --> 00:09:05,015
 İkisi de kendi belgesini gösteriyor.
 
-137
-00:08:47,740 --> 00:08:50,470
+140
+00:09:06,105 --> 00:09:08,835
 Gündüz vardiyasındaki
 Mark'ın anlatımı başka.
 
-138
-00:08:50,570 --> 00:08:55,320
+141
+00:09:08,935 --> 00:09:13,685
 2011'de: "Benim çalıştığım gündüz
 vardiyasında kimse, böyle bir durumda
 
-139
-00:08:55,320 --> 00:09:00,530
+142
+00:09:13,685 --> 00:09:18,895
 beklenenin ötesine geçmedi." Birini hücreye
 kapattıklarında hiç hoşuna gitmemiş.
 
-140
-00:09:01,180 --> 00:09:05,840
+143
+00:09:19,545 --> 00:09:24,205
 Mark, Zimbardo için de şunu söylüyor:
 "Bana öyle geliyordu ki varmak
 
-141
-00:09:05,840 --> 00:09:10,010
+144
+00:09:24,205 --> 00:09:28,375
 istediği sonucu baştan biliyordu
 ve deneyi ona uydurmaya çalıştı."
 
-142
-00:09:10,630 --> 00:09:14,748
-Mark'ın o günlerde ne yaptığını
-gösteren bağımsız bir belge bulamadık.
+145
+00:09:28,820 --> 00:09:32,600
+Arşivdeki video notları da isyan
+günkü sayımda onu isteksiz,
 
-143
-00:09:14,870 --> 00:09:19,910
-Elimizde kendi sözü ve dökümde tekrar
-tekrar itiraz eden bir gardiyan var.
+146
+00:09:32,600 --> 00:09:36,580
+rolüne ötekiler kadar girmeyen
+bir gardiyan diye anıyor.
 
-144
-00:09:20,742 --> 00:09:24,330
+147
+00:09:37,372 --> 00:09:40,960
 Zimbardo'ya göre bazı gardiyanların
 sonuna kadar iyi kalması,
 
-145
-00:09:24,330 --> 00:09:28,250
+148
+00:09:40,960 --> 00:09:44,880
 zalim olanların kendi isteğiyle
 davrandığını gösteriyor.
 
-146
-00:09:28,520 --> 00:09:32,010
+149
+00:09:45,150 --> 00:09:48,640
 Aynı metinde şunu da yazıyor:
 "İyi gardiyanların hiçbiri,
 
-147
-00:09:32,010 --> 00:09:35,380
+150
+00:09:48,640 --> 00:09:52,010
 arkadaşlarının zulmünü
 durdurmak için araya girmedi."
 
-148
-00:09:36,170 --> 00:09:39,760
+151
+00:09:52,800 --> 00:09:56,390
 Eshelman da kendi vardiyası için aynısını
 söylemişti.
 
-149
-00:09:40,130 --> 00:09:44,220
+152
+00:09:56,760 --> 00:10:00,850
 Mark o vardiyada değildi;
 elimizdeki itirazını da mahkûmların
 
-150
-00:09:44,220 --> 00:09:48,310
+153
+00:10:00,850 --> 00:10:04,940
 önünde değil, müdürün onu kenara
 çektiği bu bantta yapıyor.
 
-151
-00:09:50,800 --> 00:09:55,250
+154
+00:10:07,430 --> 00:10:11,880
 Bu sertliği isteyen müdür,
 deneyden sonra kendi hakkında şunu yazmış:
 
-152
-00:09:55,577 --> 00:09:58,930
+155
+00:10:12,207 --> 00:10:15,560
 "İyi bir amaç uğruna duyarlılığımı,
 başkalarını düşünmeyi
 
-153
-00:09:58,930 --> 00:10:02,410
+156
+00:10:15,560 --> 00:10:19,040
 ne kadar kolay kapatabildiğimi
 görmek beni ürkütüyor."
 
-154
-00:10:03,660 --> 00:10:05,200
+157
+00:10:20,055 --> 00:10:21,655
 Şimdi banda dönelim.
 
-155
-00:10:05,360 --> 00:10:08,550
+158
+00:10:21,945 --> 00:10:25,095
 On sekiz dakikada Mark
 iki kez "deneyeceğim" diyor,
 
-156
-00:10:08,550 --> 00:10:10,670
+159
+00:10:25,195 --> 00:10:27,465
 ama ardından yine itiraz ediyor.
 
-157
-00:10:10,890 --> 00:10:13,750
+160
+00:10:27,645 --> 00:10:30,485
 Bir yerde şunu söylüyor:
 "Elimden gelen tek şey,
 
-158
-00:10:13,750 --> 00:10:17,050
-kendim olarak elimden
-gelenin en iyisini yapmak."
+161
+00:10:30,485 --> 00:10:33,605
+işin içine girmeye çalışmak
+ve bunu kendim olarak,
 
-159
-00:10:18,100 --> 00:10:21,280
+162
+00:10:33,605 --> 00:10:35,875
+elimden geldiğince iyi yapmak."
+
+163
+00:10:37,015 --> 00:10:40,175
 Müdür son kez daha çok işin
 içine girmesini istiyor.
 
-160
-00:10:21,490 --> 00:10:24,950
-Bant, Mark'ın tek kelimesiyle bitiyor:
-"Peki."
+164
+00:10:40,445 --> 00:10:43,215
+Mark'ın cevabı tek kelime: "Peki."
 
-161
-00:10:26,780 --> 00:10:29,280
-O "peki"den sonra ne yaptığını bilmiyoruz.
+165
+00:10:46,505 --> 00:10:48,375
+O "peki"den sonra ne yaptı?
 
-162
-00:10:29,500 --> 00:10:32,520
+166
+00:10:48,535 --> 00:10:52,145
+Müdür deneyden sonra yazdığı notta,
+isyan günü kenarda oturan
+
+167
+00:10:52,145 --> 00:10:56,135
+o gardiyan için şunu söylüyor:
+"Bu konuşmadan sonra bile bir sayım
+
+168
+00:10:56,135 --> 00:11:00,395
+yönettiğini ya da emir yağdırdığını
+hatırlamıyorum." Yazdığı şartlı
+
+169
+00:11:00,395 --> 00:11:05,865
+tahliye raporları ise yer yer sertti;
+arkadaşlarını durdurmaya da hiç çalışmadı.
+
+170
+00:11:05,945 --> 00:11:09,735
+Müdür hemen ekliyor:
+"Aynı suçlama hepimiz için geçerli."
+
+171
+00:11:11,020 --> 00:11:14,040
 Gardiyan olsan zalim olur muydun,
 bilemezsin.
 
-163
-00:10:32,600 --> 00:10:34,940
+172
+00:11:14,120 --> 00:11:16,460
 Ama biri senden iyi bir amaç için sertlik
 
-164
-00:10:34,940 --> 00:10:37,660
+173
+00:11:16,460 --> 00:11:19,180
 istediğinde ne diyeceğini düşünebilirsin.
 
-165
-00:10:38,820 --> 00:10:41,660
+174
+00:11:20,340 --> 00:11:23,180
 Seninki "peki" mi olurdu,
 başka bir şey mi?
 
-166
-00:10:41,900 --> 00:10:43,040
+175
+00:11:23,420 --> 00:11:24,560
 Yorumlara yaz.
 
-167
-00:10:43,120 --> 00:10:46,000
+176
+00:11:24,640 --> 00:11:27,520
 Zaman Kuryesi geçmişten
 bugüne böyle sorular taşıyor;
 
-168
-00:10:46,000 --> 00:10:49,750
+177
+00:11:27,520 --> 00:11:31,270
 bir sonrakini
 kaçırmamak için abone olabilirsin.
 

@@ -70,5 +70,56 @@
    "kredi_cekim": 859
   }
  },
- "toplam_kredi": 19034
+ "toplam_kredi": 19034,
+ "rev3": {
+  "not": "25 Kasım 2026: kullanıcının açık onayı (\"Üret, iki çekim\"). Fable bağımsız okuması + doğrulama; 4 çağrı × 2 çekim, her çağrı bir kez.",
+  "r1": {
+   "ids": [
+    "D15"
+   ],
+   "node": "zx4a2foC72IslXQM71px",
+   "session": [
+    "FckQQFzfqChoky7VIUvI",
+    "MXIMOxxi8cr50lKE2qDN"
+   ],
+   "kredi_cekim": 259
+  },
+  "r2": {
+   "ids": [
+    "E07",
+    "E08"
+   ],
+   "node": "rozWQHNI53Cpu430kwLj",
+   "session": [
+    "zMNAYJAYmSQPB7UCauuL",
+    "XVgd0D308alUdO4IPZGz"
+   ],
+   "kredi_cekim": 478
+  },
+  "r3": {
+   "ids": [
+    "E12"
+   ],
+   "node": "Hc27sh8752Bo8LYP8ENS",
+   "session": [
+    "IwI2XxzMU0tqmyKmvVCC",
+    "pxW2otQgmIDUebYp2JkR"
+   ],
+   "kredi_cekim": 126
+  },
+  "r4": {
+   "ids": [
+    "F02",
+    "F03",
+    "F03b"
+   ],
+   "node": "y3KYgd1fAA7JgEqisXD6",
+   "session": [
+    "o4R55udzdYNpkJAkADp1",
+    "Br2q90ix9TM2QEblR0XI"
+   ],
+   "kredi_cekim": 704
+  },
+  "toplam_kredi": 3134
+ }
 }

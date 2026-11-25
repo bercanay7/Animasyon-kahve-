@@ -426,21 +426,29 @@
       { ang: aci(st.t, .45, ts), vu: st.t < ts ? undefined : lerp(.35, 0, clamp((st.t - ts) / .6)), imlec: st.t > A('D14@markın') - .2 ? [4, 7] : null, kam: [1600, 262, 2.6, R(st, 'D14@markın+0.5', 1.3, E.io3)] });
   }, { ...KAG, over: ZM(KU('Bant A, 26:24'), 'D14@şimdiye', 6.5) });
 
-  // P58 kart: daktilo. Kâğıt merdaneden çıkar, harf çubuğu vurur (yazı merdanenin hemen üstünde); "gibi"de kamera sayfaya kalkar; "sert"te vurgu şeridi
-  sahne('P58', 'D15@en', 'rapor', 'kart', (B, st) => {
-    const SAT = ['Dr. Zimbardo, en zor sorunun', 'gardiyanları gardiyan gibi davranmaya', 'ikna etmek olacağını söyledi. [...]', '', 'Bana "sert gardiyan" davranışını ortaya', 'çıkarmaya çalışma sorumluluğu verildi.'];
-    const Z = ['D15@zimbardo', 'D15@gardiyanları', 'D15@ikna', null, 'D15@sert', 'D15@ortaya'];
-    const { p, c } = ilerle(st, SAT, Z, 'D15@verilmiş+0.4');
-    const ry = 700, px = 42, lh = px * 1.5, besle = lerp(-3.4, 0, ramp(st.t, A('D15@zimbardo') - 1.3, A('D15@zimbardo') - .1, E.io2));   // kâğıt yazmadan hemen önce takılır (boş kâğıt ≤ 2 sn)
+  // P58 kart (rev3): müdürün deney sonrası öz değerlendirmesi, daktilo. Kâğıt merdaneden çıkar, harf çubuğu vurur; "zimbardo"da vurgu şeridi
+  sahne('P58', 'D15@markla', 'rapor', 'kart', (B, st) => {
+    const SAT = ["Pazartesi (isyan günü) John Mark'la", 'konuşup onu işin içine sokmam söylendi.', 'O an konuşmak istemedim, ama', 'Dr. Zimbardo istediği için yine de konuştum.'];
+    const Z = ['D15@markla', 'D15@o', 'D15@konuşmak', 'D15@zimbardo'];
+    const { p, c } = ilerle(st, SAT, Z, 'D15@konuşmuş+0.3');
+    const ry = 700, px = 42, lh = px * 1.5, besle = lerp(-3.4, 0, ramp(st.t, A('D15@markla') - 1.3, A('D15@markla') - .1, E.io2));
     const pTop = ry - px * 3.6 - (c + besle) * lh - 22;
-    const yaz = (st.t > A('D15@zimbardo') - .1 && st.t < A('D15@söylemiş') + .6) || (st.t > A('D15@sert') - .1 && st.t < A('D15@verilmiş') + .5);
+    const yaz = st.t > A('D15@markla') - .1 && st.t < A('D15@konuşmuş') + .5;
     const vur = yaz ? Math.pow(Math.abs(Math.sin(st.t * PI * 6.5)), 6) : 0;
     const ci = Math.floor(clamp(c, 0, SAT.length - 1)), hx = 310 + px * 1.4 + (SAT[ci] || '').length * clamp(c - ci) * px * .6;
-    const u = R(st, 'D15@gibi', 1.5, E.io3);
-    B.cam(960, lerp(830, pTop + 340, u), lerp(1.2 + st.lt * .012, 1.0, u));
-    SET.belge(B, 'MÜDÜRÜN DENEY SONRASI YAZISI', SAT, p, { px, w: 1300, x: 310, y: pTop, h: SAT.length * lh + px * 4.6 + 60, zemin: .5, vurgu: [4, 5].filter(i => i <= c + .3), vurguA: R(st, 'D15@sert', 1.8, E.lin) });
+    const u = R(st, 'D15@zimbardo', 1.5, E.io3);
+    B.cam(960, lerp(830, pTop + 300, u), lerp(1.2 + st.lt * .012, 1.0, u));
+    SET.belge(B, 'MÜDÜRÜN DENEY SONRASI NOTU', SAT, p, { px, w: 1300, x: 310, y: pTop, h: SAT.length * lh + px * 4.6 + 60, zemin: .5, vurgu: [3].filter(i => i <= c + .3), vurguA: R(st, 'D15@zimbardo', 1.8, E.lin) });
     daktilo(B, 960, ry, vur, hx);
-  }, { ...KAG, over: ZM(KU('Le Texier 2019, s. 7 (çevirisi bizim)'), 'D15@gibi', 7.5) });
+  }, { ...KAG, over: ZM(KU('Jaffe, deney sonrası öz değerlendirme · Stanford arşivi SC0750 (çevirisi bizim)'), 'D15@markla', 6) });
+
+  // P58c orta (rev3): gözlem odası, müdür yalnız; monitörde sayım. "Sert gardiyana kendisi de inanıyordu": müdür monitöre eğilir;
+  //   "kurallar"da monitörde kurallar listesi yanıp söner (kayıt lambası), "yaz"da koni ısınır (kehribar); ekran yazısı yok
+  sahne('P58c', 'D15@sert', 'gozlem', 'orta', (B, st) => {
+    B.cam(1000, 470, SET.yak(st, 1.1, .014));
+    const e = R(st, 'D15@sert', 2.5, E.io2), y = R(st, 'D15@kampına', 2, E.io2);
+    SET.gozlemOdasi(B, st, { mark: false, isik: .75 + .25 * y, kayit: R(st, 'D15@kurallar', .4), vu: .25 + .2 * Math.abs(Math.sin(st.t * 3.1)), mudurO: { bas: .08 + .1 * e, kolO: [.95, .75 + .1 * e] } });
+  }, KK);
 
   // P59 geniş (video): Mayıs 1971 yurt koridoru; gündelik giysili öğrenciler, figürler ayrık (üst üste binen kol yok).
   //   Gardiyan rolündeki öğrenci sopa değil not defteri tutar; "arkadaşlarıyla"da uzakta bir öğrenci koridoru geçer; "canlandırması"nda not defteri kalkar
@@ -559,4 +567,44 @@
     sirt(B, 520, 820 - 40 * y, 92, { dy: .05, yaslan: -.3 * y });
     sirt(B, 1300, 815, 96, { dy: .05 + .4 * d, dx: -.05 });
   }, { ...KK, over: ZM(KU('Zimbardo 2018, prisonexp.org'), ESKI ? 'D19@zimbardoya' : null, 7) });
+
+  // ── rev3: F03b "O pekiden sonra ne yaptı?" (müdürün deney sonrası notu, SC0750_s5_b09_f40) ──
+  // P88b geniş (video): isyan günü bodrum; sayım sürerken kahraman kenarda oturur. "kenarda"da kamera ona yaklaşır, "şunu"da tarama bandı geçer
+  sahne('P88b', 'F03b', 'koridor', 'genis', (B, st) => {
+    const u = R(st, 'F03b@kenarda', 2.4, E.io2);
+    B.cam(lerp(960, 1200, u), lerp(540, 600, u), 1 + .3 * u + st.lt * .006);
+    bodrum(B, st, { sayim: 5, sayan: { z: .3, x0: 560, v: 30 }, kose: { z: .5, u: .86 } });
+  }, { baski: st => { const q = clamp((st.t - A('F03b@şunu')) / 1.2); return { mod: 'video', bant: [lerp(-.05, 1.05, q), q > 0 && q < 1 ? 1.2 * Math.sin(q * PI) : 0] }; } });
+
+  // P88c kart: müdürün notu, daktilo (≤ 8 sn); "hatırlamıyorum"da vurgu şeridi
+  sahne('P88c', 'F03b@bu', 'rapor', 'kart', (B, st) => {
+    const SAT = ['Bu konuşmadan sonra bile onun', 'bir sayım yönettiğini ya da emir', 'yağdırdığını hatırlamıyorum.'];
+    const Z = ['F03b@bu', 'F03b@sayım', 'F03b@yağdırdığını'];
+    const { p, c } = ilerle(st, SAT, Z, 'F03b@hatırlamıyorum+0.4');
+    const ry = 700, px = 44, lh = px * 1.5, besle = lerp(-3.4, 0, ramp(st.t, A('F03b@bu') - 1.1, A('F03b@bu') - .1, E.io2));
+    const pTop = ry - px * 3.6 - (c + besle) * lh - 22;
+    const yaz = st.t > A('F03b@bu') - .1 && st.t < A('F03b@hatırlamıyorum') + .5, vur = yaz ? Math.pow(Math.abs(Math.sin(st.t * PI * 6.5)), 6) : 0;
+    const ci = Math.floor(clamp(c, 0, SAT.length - 1)), hx = 330 + px * 1.4 + (SAT[ci] || '').length * clamp(c - ci) * px * .6;
+    B.cam(960, lerp(760, pTop + 280, R(st, 'F03b@sayım', 1.5, E.io3)), 1.15 + st.lt * .015);
+    SET.belge(B, 'MÜDÜRÜN DENEY SONRASI NOTU', SAT, p, { px, w: 1260, x: 330, y: pTop, h: SAT.length * lh + px * 4.6 + 60, zemin: .5, vurgu: [2].filter(i => i <= c + .3), vurguA: R(st, 'F03b@hatırlamıyorum', 1.2, E.lin) });
+    daktilo(B, 960, ry, vur, hx);
+  }, { ...KAG, over: ZM(KU('Jaffe, deney sonrası not · Stanford arşivi SC0750 (çevirisi bizim)', { y: 160 }), 'F03b@bu', 6) });
+
+  // P88d ayrıntı: Mark'ın şartlı tahliye görüşü (18.8.1971), daktilo dökümünden tek satır; "sertti"de kehribar şerit, "durdurmaya"da kamera kâğıttan geri çekilir
+  sahne('P88d', 'F03b@yazdığı#1', 'dokum', 'ayrinti', (B, st) => {
+    const sat = ['8/18  ŞARTLI TAHLİYE GÖRÜŞÜ', '', '"3401\'in şartlı tahliyeyi hak etmesi', 'için hiçbir sebep görmüyorum."'];
+    const px = 44, x = 260, y = 200, lh = px * 1.5;
+    const p = clamp((st.t - A('F03b@yazdığı#1') + .2) / 2.4), geri = R(st, 'F03b@durdurmaya', 2, E.io2);
+    B.cam(960, lerp(420, 470, geri), lerp(1.3, 1.08, geri) + st.lt * .01);
+    SET.belge(B, 'STANFORD ARŞİVİ · GARDİYAN RAPORLARI DÖKÜMÜ · MARK', sat, p, { px, w: 1400, x, y, zemin: .72 });
+    const va = R(st, 'F03b@sertti', 1, E.lin);
+    if (va > 0) B.renkBoya(g => g.rect(x + px * 1.4 - 6, y + px * 3.6 + 2 * lh - px * .6, 1180 * va, px * 1.2), .6, 0);
+  }, { ...KAG, over: ZM(KU('Questions on guard shift report (1971), s. 4; adı NBC günlüğü veriyor · çevirisi bizim', { y: 150 }), 'F03b@yazdığı#1', 6) });
+
+  // P88e orta: gözlem odası, müdür yalnız; "hepimiz"de kamera geri çekilir (boş sandalyeler, monitör), koni genişler
+  sahne('P88e', 'F03b@müdür#1', 'gozlem', 'orta', (B, st) => {
+    const g = R(st, 'F03b@hepimiz', 2.2, E.io2);
+    B.cam(lerp(1300, 960, g), lerp(520, 500, g), lerp(1.35, 1.0, g));
+    SET.gozlemOdasi(B, st, { mark: false, isik: .7 + .3 * g, vu: .1 });
+  }, { ...KK, over: ZM(QT('“Aynı suçlama hepimiz için geçerli.”', null, { x: 960, y: 250, px: 64 }), 'F03b@aynı', 6) });
 })();

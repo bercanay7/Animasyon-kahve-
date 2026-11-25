@@ -13,6 +13,8 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SR = 16000
 segs = {s['id']: s for s in json.load(open(os.path.join(ROOT, 'senaryo.json'), encoding='utf-8'))['segments']}
 bol = {b['onek']: b for b in json.load(open(os.path.join(ROOT, 'vo', 'bolumler.json'), encoding='utf-8'))}
+YB = os.path.join(ROOT, 'vo', 'yama', 'bolumler.json')   # rev3 yama çekimleri (r1, r2 …)
+if os.path.exists(YB): bol.update({b['onek']: b for b in json.load(open(YB, encoding='utf-8'))})
 norm1 = lambda w: re.sub(r"[^\wçğıöşüâî]+", '', w.lower().replace('İ', 'i').replace('I', 'ı').replace("'", '').replace('’', '').replace('â', 'a').replace('î', 'i').replace('û', 'u'))
 def clean(t): return re.sub(r'\[[^\]]*\]', ' ', t).replace('…', ' ')
 
@@ -33,7 +35,7 @@ def load(p):
     return np.frombuffer(raw, np.float32).copy()
 
 def align(path, outdir):
-    onek = os.path.basename(path)[:3]; ids = bol[onek]['ids']
+    onek = os.path.basename(path).split('_')[0]; ids = bol[onek]['ids']
     a = load(path); hop = SR // 100
     rms = np.sqrt(np.convolve(a ** 2, np.ones(hop * 3) / (hop * 3), 'same'))[::hop]
     thr = max(1e-4, np.percentile(rms, 20) * 2.2); v = rms > thr

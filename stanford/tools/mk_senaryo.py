@@ -97,8 +97,8 @@ S = [
  "VTT 25:59–26:12 (\"Well, I've met a lot of police that act a whole lot of different ways.\" / \"We're trying to set up the stereotype guard.\")"),
 ('D14','Bant','calmly',"Ve son istek: \"Şimdiye kadar tarzın biraz fazla yumuşaktı. Biraz daha işin içine girmeni istiyoruz.\" Mark'ın son cevabına filmin sonunda döneceğiz.",
  "VTT 26:24–26:30 (\"so far your individual style has been a little bit too soft, and we want you to get in there a little bit more\"); TA s. 16 (\"too soft pedaling\"). L4 açık bırakılır → F03"),
-('D15','Bant','calmly',"Müdürün deneyden sonra yazdığına göre bu onun fikri değildi: Zimbardo, en zor işin gardiyanları gardiyan gibi davranmaya ikna etmek olacağını söylemiş; sert gardiyan davranışını ortaya çıkarmak müdüre verilmiş.",
- "LT s. 7 (Jaffe'nin deney sonrası yazısı: \"Dr. Zimbardo suggested that the most difficult problem would be to get the guards to behave like guards … I was given the responsibility of trying to elicit 'tough-guard' behavior\")"),
+('D15','Bant','calmly',"Müdür deneyden sonra yazdığı notta bu konuşmayı anlatıyor: Mark'la o an konuşmak istememiş, ama Zimbardo istediği için konuşmuş. Sert gardiyana kendisi de inanıyordu: kurallar ve sert gardiyanlar olmasa bodrum hapishaneye değil, yaz kampına benzerdi.",
+ "Jaffe, Self Perception (Stanford SC0750, purl vx097ry2810, SC0750_s5_b09_f40.pdf, belge s. -3-): \"I recall having been told on Monday (rebellion day) to talk to John Mark immediately off the sidelines and into the fray. While I didn't want to talk to him at the time, I did it anyway because Dr. Zimbardo had asked me to.\"; LT s. 7 (\"I believed (and I still do) that without rules, without gruff and mildly realistic guard behavior, the simulation would have appeared more like a summer camp than a prison\"). rev3: Fable E1 (eski cümle Jaffe'ye yazmadığı bir inkâr yüklüyordu)"),
 ('D16','Bant','calmly',"Müdürün bir deneyimi de vardı: o yılın mayısında bir Stanford yurdunda, arkadaşlarıyla iki günlük bir hapishane canlandırması yapmıştı. Le Texier'nin sayımına göre bodrumdaki on yedi kuralın on biri oradan.",
  "LT s. 3–4 (Toyon Hall, 15–16 Mayıs 1971; \"out of the 17 rules of the SPE, 11 were directly copied\"); PX /guards ve BL (Jaffe)"),
 ('D17','Bant','calmly',"Zimbardo 2018'de kendi metniyle cevap verdi: gardiyanlara hiçbir zaman vahşet emredilmedi; ve müdürün isteğine rağmen ilk iki vardiyada hiçbir gardiyan baskın davranmadı.",
@@ -119,12 +119,12 @@ S = [
 ('E06','İki gardiyan','calmly',"2011'de şunu da diyor: \"Kimseye zarar verip vermediğimi düşünmeden korkutmayı artırdım. Buna kesinlikle pişmanım.\"",
  "SM (\"The fact that I ramped up the intimidation and the mental abuse without any real sense as to whether I was hurting anybody? I definitely regret that.\")",
  "İki bin on birde şunu da diyor: Kimseye zarar verip vermediğimi düşünmeden korkutmayı artırdım. Buna kesinlikle pişmanım."),
-('E07','İki gardiyan','calmly',"Zimbardo'nun 2018 metnine göre Eshelman'ın yaptıkları, sert gardiyanı oynamanın çok ötesine geçiyor.",
- "Z18 (\"such actions go far beyond simply playing the role of a tough guard\")",
- "Zimbardo'nun iki bin on sekiz metnine göre Eşelmın'ın yaptıkları, sert gardiyanı oynamanın çok ötesine geçiyor."),
-('E08','İki gardiyan','calmly',"Zimbardo Ekim 2024'te öldü. Bir ay sonra Eshelman bir belgesel için şöyle konuştu: \"Davranışlarımın birçoğunu o yönlendirdi.\"",
- "NPR 20.10.2024 (ölüm 14 Ekim 2024); LP 12.11.2024 (\"even though he directed many of my actions\")",
- "Zimbardo Ekim iki bin yirmi dörtte öldü. Bir ay sonra Eşelmın bir belgesel için şöyle konuştu: Davranışlarımın birçoğunu o yönlendirdi."),
+('E07','İki gardiyan','calmly',"Zimbardo 2018'de kendi belgesini gösteriyor: beşinci gece Eshelman'ın mahkûmlara oynattığı aşağılayıcı bir oyunun, on dakikaya yakın süren kaydı. Ona göre bu, sert gardiyanı oynamanın çok ötesinde.",
+ "Z18 (\"he devised an unthinkable way to humiliate all prisoners on the fifth night of the study\"; \"A video recording, made in my absence, indicated this episode lasted nearly ten minutes\"; \"such actions go far beyond simply playing the role of a tough guard\"). Olayın ayrıntısı verilmez. rev3: Fable Ö5",
+ "Zimbardo iki bin on sekizde kendi belgesini gösteriyor: beşinci gece Eşelmın'ın mahkûmlara oynattığı aşağılayıcı bir oyunun, on dakikaya yakın süren kaydı. Ona göre bu, sert gardiyanı oynamanın çok ötesinde."),
+('E08','İki gardiyan','calmly',"Eshelman 2018'de, araştırmacıların istediğini yaptığına inandığını söylemişti. Zimbardo Ekim 2024'te öldü; birkaç hafta sonra, bir belgeselin tanıtım söyleşisinde Eshelman daha ileri gitti: \"Davranışlarımın birçoğunu o yönlendirdi.\"",
+ "BL 2018 (\"I believed that I was doing what the researchers wanted me to do\"); NPR 20.10.2024 (ölüm 14 Ekim 2024); LP 12.11.2024 (\"Ahead of the November 13th broadcast premiere\"; \"even though he directed many of my actions\"). rev3: Fable E2 (eski sıra iddiayı ölümden sonra çıkmış gibi gösteriyordu)",
+ "Eşelmın iki bin on sekizde, araştırmacıların istediğini yaptığına inandığını söylemişti. Zimbardo Ekim iki bin yirmi dörtte öldü; birkaç hafta sonra, bir belgeselin tanıtım söyleşisinde Eşelmın daha ileri gitti: Davranışlarımın birçoğunu o yönlendirdi."),
 ('E09','İki gardiyan','calmly',"Eshelman \"benden bu istendi\" diyor; Zimbardo \"bu istenenin çok ötesiydi\" diyor. İkisi de kendi belgesini gösteriyor.",
  "E08 ↔ E07; kim kimdir açık (kanal dersleri §9). Çözülmeyen yer çözülmemiş kalır (yön)"),
 ('E10','İki gardiyan','calmly',"Gündüz vardiyasındaki Mark'ın anlatımı başka. 2011'de: \"Benim çalıştığım gündüz vardiyasında kimse, böyle bir durumda beklenenin ötesine geçmedi.\" Birini hücreye kapattıklarında hiç hoşuna gitmemiş.",
@@ -132,8 +132,8 @@ S = [
  "Gündüz vardiyasındaki Mark'ın anlatımı başka. İki bin on birde: Benim çalıştığım gündüz vardiyasında kimse, böyle bir durumda beklenenin ötesine geçmedi. Birini hücreye kapattıklarında hiç hoşuna gitmemiş."),
 ('E11','İki gardiyan','calmly',"Mark, Zimbardo için de şunu söylüyor: \"Bana öyle geliyordu ki varmak istediği sonucu baştan biliyordu ve deneyi ona uydurmaya çalıştı.\"",
  "SM (\"I felt that throughout the experiment, he knew what he wanted and then tried to shape the experiment … to fit the conclusion that he had already worked out.\")"),
-('E12','İki gardiyan','calmly',"Mark'ın o günlerde ne yaptığını gösteren bağımsız bir belge bulamadık. Elimizde kendi sözü ve dökümde tekrar tekrar itiraz eden bir gardiyan var.",
- "DOGRULAMA §2: sertleşmediğine dair bağımsız belge yok; IM ve SA (\"repeatedly resists\")"),
+('E12','İki gardiyan','calmly',"Arşivdeki video notları da isyan günkü sayımda onu isteksiz, rolüne ötekiler kadar girmeyen bir gardiyan diye anıyor.",
+ "Stanford SC0750 vx097ry2810, videonotes_day3.pdf s. 1 (Bruich ve Thompson, 2004; \"Video #3 (Continuation of Day 2)\"): \"Mark seems pretty listless … He's not getting into the role as much as do [Barnett] and [Loftus]\"; daytwo.doc gündüz vardiyası \"Terry Barnett, John Loftus, John Mark\". rev3: Fable Ö1 (eski cümle \"belge bulamadık\" diyordu)"),
 ('E13','İki gardiyan','calmly',"Zimbardo'ya göre bazı gardiyanların sonuna kadar iyi kalması, zalim olanların kendi isteğiyle davrandığını gösteriyor. Aynı metinde şunu da yazıyor: \"İyi gardiyanların hiçbiri, arkadaşlarının zulmünü durdurmak için araya girmedi.\"",
  "Z18 (\"The fact that some guards remained 'good guards' throughout the study shows that cruel guards chose to act on their own initiative.\"; \"none of the 'good guards' ever intervened to prevent the cruelty of their fellow guards\")"),
 ('E14','İki gardiyan','slowly',"Eshelman da kendi vardiyası için aynısını söylemişti. Mark o vardiyada değildi; elimizdeki itirazını da mahkûmların önünde değil, müdürün onu kenara çektiği bu bantta yapıyor.",
@@ -141,16 +141,21 @@ S = [
 # ── V. Cevap ──
 ('F01','Cevap','calmly',"Bu sertliği isteyen müdür, deneyden sonra kendi hakkında şunu yazmış: \"İyi bir amaç uğruna duyarlılığımı, başkalarını düşünmeyi ne kadar kolay kapatabildiğimi görmek beni ürkütüyor.\"",
  "BL (Jaffe'nin deney sonrası yazısı: \"I am startled by the ease with which I could turn off my sensitivity and concern for others for 'a good cause.'\"). Ekranda \"iyi bir amaç\" tırnak içinde"),
-('F02','Cevap','calmly',"Şimdi banda dönelim. On sekiz dakikada Mark iki kez \"deneyeceğim\" diyor, ama ardından yine itiraz ediyor. Bir yerde şunu söylüyor: \"Elimden gelen tek şey, kendim olarak elimden gelenin en iyisini yapmak.\"",
- "VTT 15:12 (\"I think, I'll try.\"), 18:55 (\"Okay, I will try\"), 22:32–22:33 (\"all I can do is, is try and get into and do it the best I can as myself\")"),
-('F03','Cevap','slowly',"Müdür son kez daha çok işin içine girmesini istiyor. Bant, Mark'ın tek kelimesiyle bitiyor: \"Peki.\"",
- "VTT 26:48–26:53 (\"And to be more into the action, okay?\" / \"All right.\"); TA s. 17 (\"Alright.\"). L4'ün dönüşü; yolculuğun kırıldığı an"),
-('F04','Cevap','thoughtful',"O \"peki\"den sonra ne yaptığını bilmiyoruz. Gardiyan olsan zalim olur muydun, bilemezsin. Ama biri senden iyi bir amaç için sertlik istediğinde ne diyeceğini düşünebilirsin.",
- "L1 ve yönün çıkış sorusu tek cümlede (Fable Ö9)"),
+('F02','Cevap','calmly',"Şimdi banda dönelim. On sekiz dakikada Mark iki kez \"deneyeceğim\" diyor, ama ardından yine itiraz ediyor. Bir yerde şunu söylüyor: \"Elimden gelen tek şey, işin içine girmeye çalışmak ve bunu kendim olarak, elimden geldiğince iyi yapmak.\"",
+ "VTT 15:12 (\"I think, I'll try.\"), 18:55 (\"Okay, I will try\"), 22:32–22:38 (\"all I can do is, is try and get into and do it the best I can as myself\"). rev3: Fable Ö2 (alıntı ortasından kesilmişti)"),
+('F03','Cevap','slowly',"Müdür son kez daha çok işin içine girmesini istiyor. Mark'ın cevabı tek kelime: \"Peki.\"",
+ "VTT 26:48–26:53 (\"And to be more into the action, okay?\" / \"All right.\" / müdür: \"All right.\"); TA s. 17 (\"Alright.\" … \"Okay, okay.\"). Konuşma müdürün \"All right\"ıyla biter; bant 34 dk daha sürer. rev3: Fable E3"),
+('F03b','Cevap','calmly',"O \"peki\"den sonra ne yaptı? Müdür deneyden sonra yazdığı notta, isyan günü kenarda oturan o gardiyan için şunu söylüyor: \"Bu konuşmadan sonra bile bir sayım yönettiğini ya da emir yağdırdığını hatırlamıyorum.\" Yazdığı şartlı tahliye raporları ise yer yer sertti; arkadaşlarını durdurmaya da hiç çalışmadı. Müdür hemen ekliyor: \"Aynı suçlama hepimiz için geçerli.\"",
+ "Jaffe, Additional Anecdotes and Perceptions (SC0750_s5_b09_f40.pdf, PDF s. 10; ad karartılmış, olay ve paragraf sonundaki ad John Mark'ı gösteriyor): \"[■] was noticed by all of the staff because he sat on the sidelines during the attempt to quell the 'rebellion.' I remember Dr. Zimbardo having told me to talk to [■] and get him to pariticpate in guard activities more frequently. Even after this talk, I cannot remember [■] ever having led a count or barking orders … It is true that he did write guard-like and, at times, scathing parole evaluations. … It is true, of course, that John Mark never tried to prevent any of [■]'s or [■]' behavior. The same indictment, however, can be brought against all of us\". rev3: doğrulama iş akışının arşiv okuması (L4'ün olaylı cevabı)",
+ "O pekiden sonra ne yaptı? Müdür deneyden sonra yazdığı notta, isyan günü kenarda oturan o gardiyan için şunu söylüyor: Bu konuşmadan sonra bile bir sayım yönettiğini ya da emir yağdırdığını hatırlamıyorum. Yazdığı şartlı tahliye raporları ise yer yer sertti; arkadaşlarını durdurmaya da hiç çalışmadı. Müdür hemen ekliyor: aynı suçlama hepimiz için geçerli."),
+('F04','Cevap','thoughtful',"Gardiyan olsan zalim olur muydun, bilemezsin. Ama biri senden iyi bir amaç için sertlik istediğinde ne diyeceğini düşünebilirsin.",
+ "L1 ve yönün çıkış sorusu (Fable Ö9). rev3: ilk cümle (\"ne yaptığını bilmiyoruz\") F03b'nin belgesiyle yanlış oldu; eski çekimden gerçek duraklamada (0,57 sn) kesildi, kredi yok"),
 ('F05','Cevap','softly',"Seninki \"peki\" mi olurdu, başka bir şey mi? Yorumlara yaz. Zaman Kuryesi geçmişten bugüne böyle sorular taşıyor; bir sonrakini kaçırmamak için abone olabilirsin.",
  "Çağrı son anın içinde (kanal kuralı); bitiş ekranı son 20 sn"),
 ]
 VO_PARCA = {'D09', 'E07'}   # uzun bölümler iki çekime bölünür
+# rev3 (25 Kasım): bölüm çekimindeki eski okunuş (build_vo hizalaması için; '' = bölüm çekiminde yok). Yeni okunuş vo/yama/bolumler.json çekimlerinde.
+CEKIM = json.load(open(os.path.join(ROOT, 'vo', 'yama', 'cekim_eski.json')))
 segs = []
 for row in S:
     i, b, tag, alt, kay = row[:5]
@@ -158,9 +163,9 @@ for row in S:
     tts = tts.replace('"', '')
     for a, o in OKU: tts = re.sub(r'\b%s\b' % a, o, tts)
     if re.search(r'\d', tts): print(f'RAKAM {i}: {tts}')
-    segs.append({'id': i, 'bolum': b, 'tts': f'[{tag}] {tts}', 'alt': alt, 'kaynak': kay, **({'vo_parca': True} if i in VO_PARCA else {})})
+    segs.append({'id': i, 'bolum': b, 'tts': f'[{tag}] {tts}', 'alt': alt, 'kaynak': kay, **({'vo_parca': True} if i in VO_PARCA else {}), **({'cekim_tts': CEKIM[i]} if i in CEKIM else {})})
 out = {'voice': 'Emrullah (ElevenLabs; voice_id creative_list_voices ile bulunur)',
-       'revizyon': 'rev2 (25 Kasım 2026): kanal dersleri taraması uygulandı (uretim_plani.md §8; arastirma/kanal_dersleri.md)',
+       'revizyon': 'rev3 (25 Kasım 2026): Fable bağımsız okuması ve doğrulama (fable_son_okuma/); rev2: kanal dersleri (uretim_plani.md §8)',
        'not': 'Kaynak kısaltmaları kaynak/DOGRULAMA.md. İskelet: Kişōtenketsu, kahraman isteksiz gardiyan (uretim_plani.md §5). Alıntılar bizim Türkçemiz.',
        'segments': segs}
 json.dump(out, open(os.path.join(ROOT, 'senaryo.json'), 'w'), ensure_ascii=False, indent=1)

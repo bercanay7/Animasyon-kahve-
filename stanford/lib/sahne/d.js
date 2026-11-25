@@ -70,9 +70,9 @@
     if (x > W + 40) return { x, y, w, h, lh };
     k.save(); k.fillStyle = B.ton(.62); k.fillRect(x + 14, y + 16, w, h); k.fillStyle = '#fff'; k.fillRect(x, y, w, h); k.restore();
     l.save(); l.strokeStyle = '#000'; l.fillStyle = '#000'; l.lineWidth = 1.6; l.strokeRect(x, y, w, h);
-    l.font = '700 26px "Courier Prime"'; l.textBaseline = 'middle'; l.textAlign = 'left'; l.fillText('STANFORD MAGAZINE · TEMMUZ/AĞUSTOS 2011', x + 70, y + 58);
+    l.font = '700 26px "Courier Prime"'; l.textBaseline = 'middle'; l.textAlign = 'left'; l.fillText(o.yayin || 'STANFORD MAGAZINE · TEMMUZ/AĞUSTOS 2011', x + 70, y + 58);
     l.textAlign = 'right'; l.fillText(kim, x + w - 70, y + 58); l.textAlign = 'left';
-    l.font = 'italic 600 80px "Cormorant Garamond"'; l.fillText('The Menace Within', x + 66, y + 146);
+    l.font = 'italic 600 80px "Cormorant Garamond"'; l.fillText(o.baslik || 'The Menace Within', x + 66, y + 146);
     l.lineWidth = 2; l.beginPath(); l.moveTo(x + 70, y + 204); l.lineTo(x + w - 70, y + 204); l.stroke();
     l.font = `italic 600 ${px}px "Cormorant Garamond"`;
     const top = satirlar.reduce((a, r) => a + r.length, 0); let kalan = Math.floor(top * clamp(p));
@@ -182,18 +182,49 @@
     if (gr.cek < 1) tutan(B.l, x + d.w - 150 + gr.cek * 700, d.y + d.h + gr.cek * 500, 1.1, -1);
   }, { ...KAG, over: ZM(KU(SMK), 'E06@kimseye', 8) });
 
-  // P71 ayrıntı: Zimbardo 2018 metni sağdan kayarak gelir (önceki dergi sayfasının yerine), tek satır; "sert"te şerit, "ötesine"de kamera satıra yaklaşır
+  // P71a orta (rev3): karanlık masada kayıt monitörü; ekranda yalnız gren ve tarama bandı (olayın kendisi gösterilmez), köşede "5. GECE";
+  //   kırmızı kayıt lambası yanar, sayaç "beşinci"de başlar ve "dakikaya"da 09:5x'e varır (sayı soldan sağa doğru akar, ara karede yanlış rakam yok: sayaç gerçek zaman)
+  sahne('P71a', 'E07', 'monitor', 'orta', (B, st) => {
+    B.cam(960, 480, 1.03 + st.lt * .014);
+    SET.karanlik(B, .86);
+    hale0(B, 960, 460, 700, .2);
+    masa(B, 860, [[160, 640], [700, 1220], [1280, 1760]]);
+    const t0 = A('E07@beşinci'), t1 = A('E07@dakikaya'), u = clamp((st.t - t0) / Math.max(1, t1 - t0));
+    SET.monitorIci(B, 420, 150, 1080, 600, () => {
+      const k = B.k, r = rng(3 + Math.floor(st.t * 15));
+      k.save(); k.fillStyle = B.ton(.55); k.fillRect(-100, -100, 2120, 1300);
+      for (let i = 0; i < 900; i++) { k.fillStyle = r() < .5 ? B.ton(.3) : B.ton(.75); k.fillRect(r() * 1920, r() * 1080, 6 + r() * 20, 3 + r() * 4); }
+      k.restore();
+    });
+    if (st.t > t0 - .2) B.renkBoya(g => g.arc(1440, 200, 14, 0, TAU), .9 * (.6 + .4 * (Math.sin(st.t * 6) > 0 ? 1 : 0)), 1);
+  }, { baski: st => ({ mod: 'kagit', kuru: .6, bant: [((st.lt * .25) % 1.25) - .12, .9] }),
+    over: OV((ctx, st) => { const t0 = A('E07@beşinci'), t1 = A('E07@dakikaya'); if (st.t < t0 - .3) return;
+      const sn = Math.floor(clamp((st.t - t0) / Math.max(1, t1 - t0)) * 590), s = 'KAYIT  ' + String(Math.floor(sn / 60)).padStart(2, '0') + ':' + String(sn % 60).padStart(2, '0');
+      etiket(ctx, '5. GECE', 620, 230, st.t - t0 + .3, 99, { px: 44, col: '#E9EEF0', panelRGB: KOYU });
+      etiket(ctx, s, 1300, 690, st.t - t0 + .3, 99, { px: 44, col: '#E9EEF0', panelRGB: KOYU }); },
+      ZM(KU('Zimbardo 2018, prisonexp.org: kayıt on dakikaya yakın (olay gösterilmez)', { y: 120, x: 160, align: 'left' }), 'E07@beşinci', 6)) });
+
+  // P71 ayrıntı: Zimbardo 2018 metni sağdan kayarak gelir, tek alıntı; "sert"te şerit, "ötesinde"de kamera satıra yaklaşır
   //   (yaklaşma sağ kenarda ≥ 150 px pay bırakır: TV taşma payı)
-  sahne('P71', 'E07', 'z2018', 'ayrinti', (B, st) => {
-    const gr = giris(st, 'E07'), ot = R(st, 'E07@ötesine', 1.6, E.io2);
+  sahne('P71', 'E07@ona', 'z2018', 'ayrinti', (B, st) => {
+    const gr = giris(st, 'E07@ona'), ot = R(st, 'E07@ötesinde', 1.6, E.io2);
     B.cam(lerp(840, 870, ot), 452, 1.42 + .1 * ot + st.lt * .008);
     const x = lerp(2100, 310, gr.p);
-    SET.belge(B, ZUST, ['[...] bu davranışlar,', 'sert gardiyanı oynamanın çok ötesine', 'geçiyor.'], clamp((st.t - gr.tA) / 2.2), { x, px: 46, w: 1300, y: 220, vurgu: [1], vurguA: R(st, 'E07@sert', 1.3, E.lin), zemin: .38 });
+    SET.belge(B, ZUST, ['[...] bu tür davranışlar,', 'sert gardiyanı oynamanın çok', 'ötesine geçiyor.'], clamp((st.t - gr.tA) / 2.2), { x, px: 46, w: 1300, y: 220, vurgu: [1], vurguA: R(st, 'E07@sert', 1.3, E.lin), zemin: .38 });
   }, { ...KAG, over: ZM(KU('Zimbardo 2018, prisonexp.org (çevirisi bizim)'), null, 8) });
+
+  // P72a kart (rev3): Eshelman 2018, dergi sayfası sağdan kayar (Blum'un söyleşisi); "inandığını"da şerit
+  sahne('P72a', 'E08', 'dergi', 'kart', (B, st) => {
+    const gr = giris(st, 'E08');
+    B.cam(960, 500, 1.02 + st.lt * .01);
+    const x = lerp(2100, 320, gr.p), p = clamp((st.t - Math.max(A('E08') - .3, gr.tA)) / Math.max(2, A('E08@zimbardo') - A('E08') - .6));
+    const d = dergi(B, 'ESHELMAN', ['“Araştırmacıların istediğini', 'yaptığıma inanıyordum.”'], p, { x, yayin: 'MEDIUM · 7 HAZİRAN 2018 · B. BLUM', baslik: 'The Lifespan of a Lie', vurgu: [{ i: 1, s: 'inanıyordum.”', a: R(st, 'E08@inandığını', 1, E.lin) }] });
+    if (gr.cek < 1) tutan(B.l, x + d.w - 150 + gr.cek * 700, d.y + d.h + gr.cek * 500, 1.1, -1);
+  }, { ...KAG, over: ZM(KU('Blum 2018, Medium (çevirisi bizim)'), 'E08', 6) });
 
   // P72 kart: koyu zeminde tek satır tarih; harfler yazılır, "öldü"de altına ince çizgi çekilir
   // P72 (başkan, levha bütçesi): düz tarih levhası yerine karanlık büroda boş sandalye, koninin kenarında; tarih küçük etiket
-  sahne('P72', 'E08', 'sandalye', 'yakin', (B, st) => {
+  sahne('P72', 'E08@zimbardo', 'sandalye', 'yakin', (B, st) => {
     B.cam(980, 560, 1.06 + Math.min(st.lt, 8) * .02);
     SET.karanlik(B, .82); SET.koni(B, 1180, -100, 120, 980, 620, { a: .5 * R(st, 'E08@öldü', 1.2, E.lin) + .25, tohum: 8 });
     const l = B.l; l.save(); l.fillStyle = '#000';
@@ -202,8 +233,8 @@
   }, { baski: { mod: 'kagit', kuru: .6 }, over: ETK('14 EKİM 2024', 960, 200, { t0: .3, d: 99, px: 52 }) });
 
   // P73 orta: karanlık odada televizyon; belgesel görüntüsü: yan ışıklı duvar önünde oturan yaşlı siluet (yüz yok).
-  //   "davranışlarımın"da kamera ekrana yaklaşır, önkolu kalkar; "yönlendirdi"de başı öne düşer
-  sahne('P73', 'E08@bir', 'tv', 'orta', (B, st) => {
+  //   rev3: ekranda söyleşi sayfası (kişi yok); "davranışlarımın"da kamera ekrana yaklaşır ve sözün satırı koyulaşır
+  sahne('P73', 'E08@birkaç', 'tv', 'orta', (B, st) => {
     const yak = R(st, 'E08@davranışlarımın', 2.6, E.io2);
     B.cam(lerp(960, 760, yak), lerp(480, 460, yak), 1.02 + .1 * yak + st.lt * .006);
     SET.karanlik(B, .84);
@@ -211,13 +242,15 @@
     masa(B, 830, [[110, 470], [510, 1000], [1050, 1400]]);
     SET.monitorIci(B, 150, 190, 860, 520, () => {
       const k = B.k;
-      const g = k.createLinearGradient(0, 0, 1920, 0); g.addColorStop(0, B.ton(.1)); g.addColorStop(1, B.ton(.4)); k.fillStyle = g; k.fillRect(-100, -100, 2120, 1300);
-      const el = R(st, 'E08@davranışlarımın', .8) * (1 - R(st, 'E08@yönlendirdi', .9)), eg = R(st, 'E08@yönlendirdi', 1.1);
-      // yarı yakın: oturan siluet belden yukarı (bacaklar kadraj altında); önkol dizde, sözde kalkar (dirsek bükük); baş sözün sonunda öne düşer
-      FIG.kisi(B.l, 760, 1330, 1450, { tip: 'takim', f: 1, bacak: 'otur', sandalye: true, govde: .18 + .05 * eg, bas: .12 + .12 * eg + Math.sin(st.t * .7) * .015, kolO: [lerp(.35, .8, el), lerp(.9, 1.2, el)], kolA: [.3, .9] });
+      // rev3: ekranda yayımlanmış söyleşi sayfası (sözün belgeselin içinde değil, tanıtım söyleşisinde geçtiği: Fable E2); kişi çizilmez
+      k.fillStyle = B.ton(.9); k.fillRect(-100, -100, 2120, 1300);
+      k.fillStyle = B.ton(.25); k.fillRect(160, 120, 1600, 70);
+      const vy = R(st, 'E08@davranışlarımın', .9, E.io2);
+      for (let i = 0; i < 9; i++) { const y = 290 + i * 78, w = i % 3 === 2 ? 1100 : 1500; k.fillStyle = B.ton(i === 5 ? lerp(.62, .2, vy) : .62); k.fillRect(200, y, w, i === 5 ? 34 : 22); }
+      k.fillStyle = B.ton(.4); k.fillRect(200, 220 - 40 * R(st, 'E08@birkaç', 1.5, E.io2), 4, 4);
     });
   }, { ...KK, over: OV(ZM(ETK('KASIM 2024', 580, 130, { d: 5.5 }), null, 6), ZM(QT('“Davranışlarımın birçoğunu o yönlendirdi.”', null, { x: 1490, y: 430, maxW: 560, px: 64 }), 'E08@davranışlarımın', 7.5),
-    ZM(KU('Eshelman, Nat Geo belgeseli söyleşisi (Laughing Place, 12.11.2024)'), 'E08@davranışlarımın', 7.5)) });
+    ZM(KU('Eshelman, belgeselin tanıtım söyleşisi (Laughing Place, 12.11.2024)'), 'E08@davranışlarımın', 7.5)) });
 
   // P74 yakın: iki el iki belgeyi kameraya uzatır (eşit boy): sol Eshelman 2024 (plan başında girer), sağ Zimbardo 2018 ("istenenin"den hemen önce girer);
   //   "istendi" ve "ötesiydi"de ilgili satır şeritlenir, "ikisi"nde iki belge birlikte öne gelir. Eller dolgun avuç + başparmak (tutan)
@@ -274,44 +307,20 @@
     if (gr.cek < 1) tutan(B.l, x + d.w - 150 + gr.cek * 700, d.y + d.h + gr.cek * 500, 1.1, -1);
   }, { ...KAG, over: ZM(KU(SMK), 'E11@bana', 8) });
 
-  // P78 orta: karanlık odada monitör: gündüz koridoru, kenarda duran kahraman; tarama bandı ekranda aşağı kayar,
-  //   "bağımsız"da görüntü karlanır ve kahraman karın içinde kaybolur
-  const KAR = st => ramp(st.t, A('E12@bağımsız'), A('E12@bağımsız') + 1.8, E.io2);
+  // P78 orta (rev3): karanlık odada monitör: isyan günü gündüz sayımı; kahraman kenarda, kolları sarkık, ötekilerden geride.
+  //   "isteksiz"de kamera ona yaklaşır ve monitörün köşesinde video notunun tek sözü belirir (üst katman, alt banda değil); tarama bandı aşağı kayar
   sahne('P78', 'E12', 'monitor', 'orta', (B, st) => {
-    B.cam(960, 470, 1.04 + st.lt * .018);
+    const ya = R(st, 'E12@isteksiz', 2.2, E.io2);
+    B.cam(lerp(960, 1040, ya), lerp(470, 500, ya), 1.04 + .12 * ya + st.lt * .01);
     SET.karanlik(B, .84);
     hale0(B, 960, 460, 760, .22);
     masa(B, 860, [[160, 600], [640, 1240], [1290, 1760]]);
-    const kar = KAR(st);
     SET.monitorIci(B, 420, 150, 1080, 600, () => {
-      const K = bodrum(B, st, { sayim: 4, gardiyanlar: [{ z: .3, u: .1, kol: [.1, .4] }] });
-      kisiK(B, K, .46, .84, 'gardiyan', { f: -1, cop: false, kolO: [.15, .5], kolA: [-.1, .3], bas: .12 });
-      if (kar > 0) {
-        const k = B.k, l = B.l, r = rng(1 + Math.floor(st.t * 15));
-        l.save(); l.fillStyle = `rgba(255,255,255,${.9 * kar})`; l.fillRect(-100, -100, 2120, 1300); l.restore();
-        k.save(); k.fillStyle = B.ton(.45, .85 * kar); k.fillRect(-100, -100, 2120, 1300);
-        for (let i = 0; i < 1400 * kar; i++) { k.fillStyle = r() < .5 ? B.ton(.02) : B.ton(.92); k.fillRect(r() * 1920, r() * 1080, 8 + r() * 26, 4 + r() * 5); }
-        k.restore();
-      }
+      const K = bodrum(B, st, { sayim: 4, gardiyanlar: [{ z: .3, u: .1, kol: [.1, .4] }, { z: .35, u: .28, f: -1, kol: [.2, .5] }] });
+      kisiK(B, K, .46, .86, 'gardiyan', { f: -1, cop: false, kolO: [.05, .1], kolA: [-.05, .1], bas: .2 + .03 * Math.sin(st.t * .6) });
     });
-  }, { baski: st => ({ mod: 'kagit', kuru: .6, bant: [((st.lt * .2) % 1.25) - .12, .7 + 1.6 * KAR(st)] }) });
-
-  // P79 ayrıntı: döküm: Mark'ın üç itiraz satırı, zaman damgalarıyla (telefonda okunur boy); "tekrar"da her satırın kenarına sırayla mürekkep imi düşer,
-  //   "itiraz"da yalnız asıl satır ("Bana kalsa hiçbir şey yapmazdım.") kehribar şeritlenir
-  sahne('P79', 'E12@elimizde', 'dokum', 'ayrinti', (B, st) => {
-    const sat = ['9:36   MARK: Ben pek sert değilim.', '11:10  MARK: Bana kalsa hiçbir şey yapmazdım.', '15:28  MARK: Bu deney için iyi bir gardiyan değilim.'];
-    const px = 42, x = 220, y = 190, w = 1480, lh = px * 1.5;
-    const p = clamp((st.t - A('E12@elimizde') + .1) / 2.2);
-    B.cam(960, lerp(380, 420, E.io2(p)), 1.12 + st.lt * .016);
-    SET.belge(B, 'STANFORD ARŞİVİ · SC0750 · BANT A · MARK\'IN SÖZLERİ (SEÇME)', sat, p, { px, w, x, y, zemin: .72 });
-    const t0 = A('E12@tekrar'), l = B.l;
-    l.save(); l.fillStyle = '#000';
-    sat.forEach((r, i) => { const a = E.out3(clamp((st.t - t0 - i * .3) / .25)); if (a <= 0) return; const yy = y + px * 3.6 + i * lh; l.fillRect(x + px * .45, yy - px * .55 * a, 9, px * 1.1 * a); });
-    l.restore();
-    const va = R(st, 'E12@itiraz', .8, E.lin);
-    if (va > 0) { const cw = px * .6, yy = y + px * 3.6 + lh, sw = (sat[1].length - 13) * cw + cw;   // şerit "MARK: "dan sonra (13. sütun)
-      B.renkBoya(g => g.rect(x + px * 1.4 + 13 * cw - cw * .5, yy - px * .6, sw * va, px * 1.2), .6, 0); }
-  }, { ...KAG, over: ZM(KU('Stanford arşivi, Bant A (seçme; çeviri ve konuşan adı bizim)'), null, 8) });
+  }, { baski: st => ({ mod: 'kagit', kuru: .6, bant: [((st.lt * .2) % 1.25) - .12, .7] }),
+    over: OV(ZM(ETK('VİDEO NOTU · 2. GÜN: “isteksiz”', 1240, 250, { px: 40 }), 'E12@isteksiz', 6), ZM(KU('Stanford arşivi SC0750, videonotes_day3 (Bruich ve Thompson, 2004)', { y: 120, x: 160, align: 'left' }), 'E12@notları', 6)) });
 
   // P80: iki bölüm. (1) "Zimbardo'ya göre … gösteriyor" (Zimbardo'nun yorumu, alıntı değil): karanlık odada iki monitör (P65'in geri çağrısı);
   //   "iyi"de kamera gündüz monitörüne (kenarda duran gardiyan), "zalim"de gece monitörüne kayar, Eshelman mahkûma doğru eğilir.

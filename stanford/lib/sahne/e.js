@@ -137,28 +137,29 @@
 
   // P87 ayrıntı: önce teybin yakını (yazı yok): makaralar döner, "iki" ve "deneyeceğim"de VU ibresi iki kez sıçrar, "itiraz"da çırpınır.
   //   "bir yerde"de kamera geri çekilip döküme iner: önceki iki "deneyeceğim" satırı yazılmış, 22:33 satırı yazılır; kehribar vurgu satır satır uzar (yazı ≈ 7,5 sn).
-  sahne('P87', 'F02@bir', 'dokum', 'ayrinti', (B, st) => {
-    const sat = ['15:12  MARK:  Deneyeceğim.', '18:55  MARK:  Tamam, deneyeceğim.', '              [...]', '22:33  MARK:  Elimden gelen tek şey,', '              kendim olarak elimden', '              gelenin en iyisini yapmak.'];
-    const tb = A('F02@bir') - .6, u = E.io2(clamp((st.t - tb) / 1.2));
+  sahne('P87', 'F02@söylüyor', 'dokum', 'ayrinti', (B, st) => {
+    const sat = ['15:12  MARK:  Deneyeceğim.', '18:55  MARK:  Tamam, deneyeceğim.', '              [...]', '22:33  MARK:  Elimden gelen tek şey,', '              işin içine girmeye çalışmak', '              ve bunu kendim olarak,', '              elimden geldiğince iyi yapmak.'];
+    const tb = A('F02@söylüyor') - .3, u = E.io2(clamp((st.t - tb) / 1.0));
     const kick = (w) => { const d = st.t - A(w); return d > 0 ? Math.exp(-d * 3) * Math.min(1, d * 12) : 0; };
     const itz = st.t - A('F02@itiraz'), cirp = itz > 0 && itz < 1.4 ? Math.sin(itz / 1.4 * PI) * Math.abs(Math.sin(st.t * 17)) : 0;
     const vu = clamp(.2 + .12 * Math.abs(Math.sin(st.t * 4.1)) + .7 * kick('F02@iki') + .7 * kick('F02@deneyeceğim') + .65 * cirp);
-    const r = dokum(B, st, 'F02', sat, ['F02@mark', 'F02@deneyeceğim', 'F02@itiraz', 'F02@bir', 'F02@kendim', 'F02@gelenin'], { vu,
+    const r = dokum(B, st, 'F02', sat, ['F02@mark', 'F02@deneyeceğim', 'F02@itiraz', 'F02@bir', 'F02@işin', 'F02@ve', 'F02@elimden#1'], { vu,
       cam: c => { const z0 = 3.8 + st.lt * .05; c[0] = lerp(1525, c[0], u); c[1] = lerp(262, c[1], u); c[2] = Math.exp(lerp(Math.log(z0), Math.log(c[2]), u)); } });
     // kehribar vurgu yalnız sözün kendisinde (sütun 14'ten), yazılan harfle birlikte uzar
     let kalan = Math.floor(sat.reduce((a, x) => a + x.length, 0) * r.p);
     sat.forEach((x, i) => { const n = clamp(kalan, 0, x.length); kalan -= x.length; if (i < 3 || n <= 14) return;
       const yy = r.y + 38 * 3.6 + i * 57; B.renkBoya(g => g.rect(r.x + 38 * 1.4 + 14 * 22.8 - 6, yy - 23, (n - 14) * 22.8 + 12, 46), .6, 0); });
-  }, { ...KAG, over: ZM(KU('Stanford arşivi, Bant A, 15:12 · 18:55 · 22:33 (çevirisi bizim)'), 'F02@bir', 8) });
+  }, { ...KAG, over: ZM(KU('Stanford arşivi, Bant A, 15:12 · 18:55 · 22:33 (çevirisi bizim)'), 'F02@söylüyor', 8) });
 
-  // P88 yakın: Mark karanlıkta, teyp masada ışıkta; "girmesini"nde başı öne düşer, "peki"de başını bir kez sallar → "PEKİ."; bant biter: sol makara boşalır, bant ucu sağ makarada döner
-  sahne('P88', 'F03', 'gozlem', 'yakin', (B, st) => {
+  // P88 yakın: Mark karanlıkta, teyp masada ışıkta; "girmesini"nde başı öne düşer, "peki"de başını bir kez sallar → "PEKİ."; makaralar durur (rev3: bant bitmez)
+  sahne('P88', 'F02@yapmak+0.9', 'gozlem', 'yakin', (B, st) => {
     B.cam(960, 540, 1.02 + st.lt * .018);
     const tp = A('F03@peki'), q = st.t - tp, nod = q > 0 && q < .9 ? Math.sin(q / .9 * PI) * .12 : 0;
     markYakin(B, st, { x: 1260, y: 360, boy: 2250, bas: .05 + .1 * R(st, 'F03@girmesini', 1) + nod, masaY: 900, isikX: 880 });
     // teyp: bant tp + .6'da biter; makaralar dönmeyi sürdürür, VU söner
-    const te = tp + .6, bos = ramp(st.t, tp - 1.2, te, E.in2), bitti = st.t > te;
-    const tx = 430, ty = 540, s = 1, ang = st.t * .45 * TAU;
+    // rev3 (Fable E3): bant burada bitmiyor; "peki"den sonra makaralar durur (konuşma biter), bant boşalmaz
+    const te = tp + .6, bos = 0, bitti = false;
+    const tx = 430, ty = 540, s = 1, ang = Math.min(st.t, te) * .45 * TAU + (st.t > te ? (1 - Math.exp(-(st.t - te) * 3)) * .3 : 0);
     SET.teyp(B, tx, ty, s, st.t, { ang, kayit: 1, vuIsik: lerp(.75, .3, ramp(st.t, te, te + .8)), vu: bitti ? lerp(.3, 0, clamp((st.t - te) / .4)) : undefined, ...DOLU });
     // sol (veren) makarayı yeniden çiz: gri flanş + küçülen koyu bant + dönen üç delik (iç içe çizgi yok)
     const k = B.k, l = B.l, mr = 98 * s, my = ty + 125 * s, mx = tx - 128 * s;
