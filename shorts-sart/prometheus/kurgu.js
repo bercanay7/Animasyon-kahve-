@@ -66,17 +66,18 @@ window.KURGU = {
    "lens": [
     [
      0,
-     1020,
+     720,
      540,
      1.78
     ],
     [
      5.6,
-     1020,
-     520,
+     760,
+     500,
      1.9
     ]
-   ]
+   ],
+   "not": "25 Kasım hassasiyet: Pandora'nın siyah elbise önünde sarkan beyaz kolu + kırmızı kemer haç okunuyordu; kadraj Epimetheus'ta, kolları kadraj dışındaki armağana uzanır"
   },
   {
    "ad": "E14 Pandora küpün kapağını kaldırır … Umut",
@@ -92,36 +93,43 @@ window.KURGU = {
      1.78
     ],
     [
-     2.0,
-     770,
+     1.7,
+     720,
      540,
      1.78
     ],
     [
-     5.5,
-     770,
+     1.75,
+     1120,
+     540,
+     1.78
+    ],
+    [
+     6.6,
+     1120,
      540,
      1.8
     ],
     [
-     7.0,
-     800,
+     6.65,
+     900,
      560,
      1.85
     ],
     [
      9.3,
      960,
-     820,
-     2.3
+     800,
+     2.0
     ],
     [
-     11.1,
+     10.1,
      960,
-     830,
-     2.45
+     810,
+     2.1
     ]
-   ]
+   ],
+   "not": "25 Kasım hassasiyet: geniş planda Pandora'nın 45° kalkık kolu selam okunuyordu; geniş planlarda kadraj küpte, Pandora dışarıda"
   },
   {
    "ad": "son: küpün dibindeki ışık (sessiz; müzik söner)",
@@ -131,14 +139,14 @@ window.KURGU = {
     [
      0,
      960,
-     830,
-     2.45
+     810,
+     2.1
     ],
     [
      1.2,
      960,
-     840,
-     2.6
+     820,
+     2.2
     ]
    ]
   }

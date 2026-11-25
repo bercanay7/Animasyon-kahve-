@@ -52,7 +52,9 @@ window.KURGU = {
      500,
      1.9
     ]
-   ]
+   ],
+   "hiz": 0.7,
+   "not": "25 Kasım hassasiyet: 133,8'den sonraki yakın plan (koyu siluet + açık göz + kıvırcık baş + çıkık dudak) karikatür birleşimine yaklaşıyordu; görüntü 133,7'de biter"
   },
   {
    "ad": "E01 mum yumuşadı, eridi",

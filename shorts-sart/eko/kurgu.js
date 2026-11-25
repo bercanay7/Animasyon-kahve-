@@ -13,15 +13,15 @@ window.KURGU = {
    "lens": [
     [
      0,
-     1150,
-     540,
-     1.78
+     1250,
+     400,
+     2.3
     ],
     [
      2.9,
-     1250,
-     520,
-     1.9
+     1270,
+     390,
+     2.45
     ]
    ]
   },
@@ -34,29 +34,20 @@ window.KURGU = {
    "lens": [
     [
      0,
-     650,
-     540,
-     1.78
-    ],
-    [
-     1.5,
-     650,
-     540,
-     1.8
-    ],
-    [
-     1.56,
-     1280,
-     540,
-     1.78
+     1100,
+     420,
+     2.2
     ],
     [
      3.65,
-     1300,
-     520,
-     1.88
+     1150,
+     410,
+     2.35
     ]
-   ]
+   ],
+   "v": 111.5,
+   "hiz": 0.74,
+   "not": "25 Kasım hassasiyet: P021'de alna giden el selam okunuyordu; görüntü P022 (Eko'nun yüzü, BURADA? yazısı)"
   },
   {
    "ad": "C05 Gel! … Gel!",
@@ -114,14 +105,14 @@ window.KURGU = {
     [
      1.4,
      1220,
-     540,
-     1.78
+     420,
+     2.2
     ],
     [
      5.95,
      1220,
-     520,
-     1.9
+     410,
+     2.3
     ],
     [
      6.0,
@@ -173,9 +164,9 @@ window.KURGU = {
     ],
     [
      1.5,
-     1150,
-     540,
-     1.85
+     1200,
+     430,
+     2.2
     ]
    ]
   },
@@ -231,7 +222,7 @@ window.KURGU = {
   "ara": 0.9,
   "bitis": 2.9,
   "panel": 0,
-  "not": "Eko'nun yüzü karenin üstünde; kanca bu Shorts'ta gövdenin üstünde (y 1000)"
+  "not": "Eko'nun yüzü üstte; kanca gövdenin üstünde (y 1000). 25 Kasım: yakın planlar yüze yakınlaştırıldı (gövdenin yuvarlak hattı göğüs/karın okunuyordu)"
  },
  "altyazi": {
   "y": 1300,
