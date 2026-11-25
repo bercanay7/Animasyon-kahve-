@@ -197,7 +197,7 @@
     B.cam(980, 560, 1.06 + Math.min(st.lt, 8) * .02);
     SET.karanlik(B, .82); SET.koni(B, 1180, -100, 120, 980, 620, { a: .5 * R(st, 'E08@öldü', 1.2, E.lin) + .25, tohum: 8 });
     const l = B.l; l.save(); l.fillStyle = '#000';
-    l.fillRect(900, 520, 26, 300); l.fillRect(900, 700, 260, 26); l.fillRect(1134, 700, 26, 280); l.fillRect(904, 700, 22, 280); l.fillRect(940, 540, 200, 22);   // boş sandalye (yan görünüş; çapraz yok)
+    l.beginPath(); l.moveTo(900, 520); l.quadraticCurveTo(880, 610, 905, 700); l.lineTo(930, 700); l.quadraticCurveTo(908, 610, 926, 520); l.closePath(); l.fill(); l.fillRect(900, 700, 260, 26); l.fillRect(1134, 700, 26, 280); l.fillRect(904, 700, 22, 280);   // boş sandalye (yan görünüş; sırt tek eğri dikme: üst yatay çubuk yok, ters L / darağacı okunmasın)
     l.restore();
   }, { baski: { mod: 'kagit', kuru: .6 }, over: ETK('14 EKİM 2024', 960, 200, { t0: .3, d: 99, px: 52 }) });
 
