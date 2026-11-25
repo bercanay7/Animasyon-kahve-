@@ -71,6 +71,7 @@ Neden iki Narkissos Shorts'u: aynı mit, aynı çizim hattı, aynı sahneler; de
   Kaynak: Gılgamış Destanı, XI. tablet. Kamu malı çeviri: R. Campbell Thompson, The Epic of Gilgamish (Londra, 1928). Satırlar ve ekmeklerin okunuşu: A. R. George, The Babylonian Gilgamesh Epic (Oxford, 2003). Çeviri bize aittir.
   #mitoloji #Gılgamış #tarih
   ```
+- **Etiketler:** `Gılgamış, Gılgamış Destanı, Gilgamesh, Utnapiştim, ölümsüzlük, uyku sınavı, tufan, Mezopotamya, Sümer, kil tablet, mitoloji, tarih, Zaman Kuryesi`
 - **İlgili video:** Gılgamış (uzun video, 2 Aralık).
 - **Oynatma listesi:** Mitler ve Felsefe. **Kategori:** Eğitim. **Dil:** Türkçe.
 - **Sabit yorum:** `Ölümü yenmeye gelen adam bir uykuyu yenemedi. Sen yedi gece uyumadan durabilir miydin, yoksa ilk gece mi düşerdin?`
