@@ -76,6 +76,7 @@ Yazıldı: 22 Kasım 2026, senaryo rev2 (seslendirmeden önce). Zamanlar seslend
 - **Tahmin S2 (açılış karşılaştırması):** Narkissos şart Shorts'unda (26 Kasım 20:00; 25 Kasım'da 30 Kasım'dan öne alındı) izlemeye devam eden, aynı mitin soru Shorts'undan (%43,2, 20. saat) **en az 10 puan yüksek**, yani ≥ %53. İkisi de aynı çizim hattı ve aynı sahneler; fark yalnız açılış. Tutmazsa: "şart" kalıbı kanal için ayırt edici değil, 703 binlik İkarus örneği kanalın değil konunun ya da hesabın başarısı.
 - **Tahmin S3:** Gılgamış şart Shorts'unda (4 Aralık) izlemeye devam eden **≥ %60** ve görüntüleme Narkissos şart Shorts'unun 48. saatinden yüksek (Gılgamış adı Türkçe aramada daha çok tanınıyor: `talep.py` öneri 14, Narkissos 9).
 - **Ölçüm:** her Shorts'un 48. saati (Studio → Shorts → "izlemeye devam eden" ve görüntüleme).
+- **Tahmin S4 (günlük seri, 26–30 Kasım, 25 Kasım yazıldı):** beş Shorts'tan en az birinde 20. saatte izlemeye devam eden ≥ %55. En yükseği şart ilk sözcükte açılanlardan biri olur (Prometheus ya da İkaros), çünkü soru Shorts'unda kayıp ilk saniyedeydi. Tutmazsa sorun açılış cümlesinde değil, ilk karede ya da Shorts'ta kanalın konusunda aranır.
 
 ## Sonuçlar
 (48. saat ve 7. gün verisi geldikçe doldurulur. Üç tahminden ikisi tutmazsa araç ve kurallar gözden geçirilir.)

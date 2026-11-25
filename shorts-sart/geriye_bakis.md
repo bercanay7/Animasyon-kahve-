@@ -71,3 +71,17 @@ Sonuç: iki Shorts. **Narkissos** "Kendini tanımazsa" (29,0 sn) ve **Gılgamı�
 - **Veri:** aynı hatla yapılan Narkissos "soru" Shorts'u 20. saatte izlemeye devam eden **%43,2**. Elizabeth %27 ve Milton %32–38'den iyi, ölçütün (%60) altında. Görüntüleme ~4. saatte ~1,35 binde düzleşti: YouTube ilk deneme grubundan sonra göstermeyi bıraktı. Dikey hat kırpmadan iyi; kaybın büyük kısmı hâlâ ilk saniyelerde.
 - **Karar:** yayımlanmamış Narkissos şart Shorts'unda ses 1,6 sn boyunca içeriksiz bir girişle ("Kâhinin cevabı tek bir şarttır:") başlıyordu; yukarıdaki "yönün yetmediği yer 1"in bedeli buydu. Filmin kendi kaydından iki kesitle sıkılaştırıldı: "Oğlum uzun yaşayacak mı?" (0,2 sn) → "Kendini tanımazsa." (2,1–3,2 sn). Kredi gerekmedi; görüntü ve öteki kesitler aynı, sonraki her şey 0,9 sn öne kaydı (üst yazılar ve müzik buna göre). Süre 28,1 sn.
 - **Ders adayı (tek veriyle, kural değil):** Shorts'ta ilk sözcük içerik taşımalı; "X'in cevabı şuydu:" gibi çerçeve cümleleri ilk saniyeye konmaz. S2 (30 Kasım) bunu da sınar.
+
+## Ek (25 Kasım): günlük seri, dört yeni Shorts
+- **Kullanıcının kararı:** her gün bir Shorts; tutanı yakalayıp işe yarayan kısmı almak. Başkanın şartı: her gün ayrı mit ve ayrı açılış yapısı (aynı videonun kopyası yok).
+- **Yapılan:** Sisifos (33,1 sn), Prometheus/Pandora (25,8 sn), İkaros (28,4 sn), Eko (28,8 sn). Hepsi filmlerin kendi seslendirmesinden, kredi yok. Yeni araç: `sart.js` kırpma kipi ve `tools/sayfa.py`. Film 2 kat çözünürlükte çiziliyor, 9:16 bölge keskin alınıyor; her film motoruna ayrı dikey çekirdek gerekmedi. Eko, Narkissos filminden kırpma kipiyle yapıldı, çünkü ayna çevirmeli planlar mercek kipinde bozuluyordu.
+- **Bağımsız tarama (yazısız 101 kare) ve doğrulama:** düzeltilenler:
+  - Prometheus: Pandora'nın 45° kalkık kolu dikey kırpımda selam gibi okunuyordu; 21. saniyede kol tek başına kaldı. Siyah elbise önünde sarkan beyaz kol ile kırmızı kemer haç kalıbına uyuyordu. Geniş planlarda kadraj küpe, Epimetheus sahnesinde Epimetheus'a alındı.
+  - Eko: Narkissos'un alnına götürdüğü el selam gibi okunuyordu; o plan çıkarıldı. Yakın planlarda gövdenin yuvarlak hattı göğüs ya da karın gibi okunuyordu; kadraj yüze alındı.
+  - İkaros: 133,8'den sonraki yakın plan (koyu siluet + açık göz + kıvırcık baş + çıkık dudak) karikatür birleşimine yaklaşıyordu; görüntü ondan önce bitiyor.
+- **Zayıf bulup bırakılanlar:**
+  - Sisifos'un güneşte iki kolu kalkık: "yeniden güneşi gördü" sevinci, anlatımla birlikte.
+  - Kayayı diz çöküp itmesi: hikâyenin kendisi.
+  - İkaros'ta güneşin çevresindeki yaylar: filmin tasarımı.
+  - Eko'nun suyun iki yanındaki yüzü: filmin yansıması.
+- **Ders adayı:** filmde geçen bir hareket, dikey kırpımda tek odak olunca yeni bir simgeye dönüşebiliyor (kalkık kol, alna giden el). Yatay filmde geçen kare, dikey kırpımda yeniden taranır.
