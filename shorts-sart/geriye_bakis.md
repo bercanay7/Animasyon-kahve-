@@ -66,3 +66,8 @@ Sonuç: iki Shorts. **Narkissos** "Kendini tanımazsa" (29,0 sn) ve **Gılgamı�
 - Şart cümlesi kayıtta ilk sözcüklerde değilse, sesin şarta girdiği an ölçülüp yazılır. Ölçüm 3 sn'de kaybı gösterirse açılış cümlesi ayrı seslendirilir.
 - Mercek kipinde ölçek ve konum sınırı `README.md`'de. Aynalanan planlar mercekte kullanılmaz.
 - Kod çizimi dikeyde yeni simge üretiyor (kemer gölgesi, parmaklık, ⊕ göz). Her Shorts'ta yazısız kareler bağımsız okuyucuya verilir.
+
+## Ek (25 Kasım): soru Shorts'unun ilk verisi ve Narkissos şart Shorts'unun açılışı
+- **Veri:** aynı hatla yapılan Narkissos "soru" Shorts'u 20. saatte izlemeye devam eden **%43,2**. Elizabeth %27 ve Milton %32–38'den iyi, ölçütün (%60) altında. Görüntüleme ~4. saatte ~1,35 binde düzleşti: YouTube ilk deneme grubundan sonra göstermeyi bıraktı. Dikey hat kırpmadan iyi; kaybın büyük kısmı hâlâ ilk saniyelerde.
+- **Karar:** yayımlanmamış Narkissos şart Shorts'unda ses 1,6 sn boyunca içeriksiz bir girişle ("Kâhinin cevabı tek bir şarttır:") başlıyordu; yukarıdaki "yönün yetmediği yer 1"in bedeli buydu. Filmin kendi kaydından iki kesitle sıkılaştırıldı: "Oğlum uzun yaşayacak mı?" (0,2 sn) → "Kendini tanımazsa." (2,1–3,2 sn). Kredi gerekmedi; görüntü ve öteki kesitler aynı, sonraki her şey 0,9 sn öne kaydı (üst yazılar ve müzik buna göre). Süre 28,1 sn.
+- **Ders adayı (tek veriyle, kural değil):** Shorts'ta ilk sözcük içerik taşımalı; "X'in cevabı şuydu:" gibi çerçeve cümleleri ilk saniyeye konmaz. S2 (30 Kasım) bunu da sınar.

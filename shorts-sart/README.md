@@ -6,7 +6,7 @@ Yön: kullanıcının yön metni (`analiz/2026-11-24-shorts-yon-prompt.md`, Fabl
 
 | Shorts | Şart (ilk saniye) | Çiğnendiği an | Süre | Görüntü |
 |---|---|---|---|---|
-| `narkissos/` | “Kendini tanımazsa.” (kâhin Tiresias) | “O benim.” (0:13) | 29,0 sn | filmin vazo planları, dikey mercekle; yüz ve yansıması üst üste |
+| `narkissos/` | “Oğlum uzun yaşayacak mı?” → “Kendini tanımazsa.” (kâhin Tiresias) | “O benim.” (0:12) | 28,1 sn | filmin vazo planları, dikey mercekle; yüz ve yansıması üst üste |
 | `gilgamis/` | “Haydi: altı gün yedi gece uyumadan dur.” (Utnapiştim) | “uyku hemen bir sis gibi üstüne çöktü” (0:05) | 34,5 sn | dikey için yazılmış kil kabartma planları; yedi ekmek tablet satırları gibi üst üste |
 
 ## Hat (komutlar depo kökünden)
@@ -26,7 +26,7 @@ Gılgamış için `gilgamis/vo/vo.wav` önce filmin kendi aracıyla üretilir (`
 - `gilgamis/core_dikey.js`: filmin `core.js`'i, yalnız W×H = 1080×1920. `gilgamis/sahneler.js`: altı dikey plan.
 
 ## Kurallar (bu serinin)
-- **Şart ilk saniyede:** yazı ilk karede tam görünür (giriş animasyonu yok). Sesin şarta girdiği an eldeki kayda bağlı: Gılgamış'ta "altı gün" 1,0 sn'de, Narkissos'ta "şarttır" 1,6 sn'de, "Kendini tanımazsa" 3,0 sn'de (kayıtlı cümle böyle başlıyor; yeni seslendirme yapılmadı, bkz. `geriye_bakis.md`).
+- **Şart ilk saniyede:** yazı ilk karede tam görünür (giriş animasyonu yok). Sesin şarta girdiği an eldeki kayda bağlı: Gılgamış'ta "altı gün" 1,0 sn'de, Narkissos'ta ilk söz 0,2 sn'de annenin sorusu, "Kendini tanımazsa" 2,1–3,2 sn (25 Kasım; ilk sürümde 3,0–4,1 sn, "Kâhinin cevabı tek bir şarttır" girişiyle). İçeriksiz giriş sözü ilk saniyeye konmaz.
 - **Ses filmden, müzik yeni:** anlatım kesitleri gerçek duraklamalarda kesilir (`ses.py` kelime bölünürse uyarır). Müzik her Shorts için o Shorts'un zaman çizelgesine yazılır; filmin müziğini kesmek kesit uçlarında sıçrar.
 - **Döngü:** son kare ile ilk kare aynı mekânda/tonda; müzik son 0,8 sn söner, ilk 20 ms'de açılır (tıkırtısız başa dönüş).
 - **Güvenli alan:** yazılar x 140–940, y 220–1440 (üstte arama çubuğu, sağda düğmeler, altta başlık ve kanal adı).

@@ -5,12 +5,12 @@ window.KURGU = {
  "mod": "film",
  "kesit": [
   {
-   "ad": "B02 şart (görüntü: kıyıya eğilmiş, suya bakmak üzere)",
+   "ad": "B01 'Oğlum uzun yaşayacak mı?' (görüntü: kıyıya eğilmiş, suya bakmak üzere). 25 Kasım: 'Kâhinin cevabı tek bir şarttır' girişi atıldı (soru Shorts'unda %57 kaydırma)",
    "a": [
-    44.3,
-    48.68
+    41.95,
+    43.82
    ],
-   "v": 198.32,
+   "v": 199.17,
    "lens": [
     [
      0,
@@ -19,7 +19,29 @@ window.KURGU = {
      2.3
     ],
     [
-     4.38,
+     1.87,
+     1165,
+     465,
+     2.4
+    ]
+   ]
+  },
+  {
+   "ad": "B02 'Kendini tanımazsa.'",
+   "a": [
+    47.08,
+    48.68
+   ],
+   "v": 201.04,
+   "lens": [
+    [
+     0,
+     1165,
+     465,
+     2.4
+    ],
+    [
+     1.6,
      1165,
      475,
      2.5
@@ -196,20 +218,20 @@ window.KURGU = {
   ],
   "y": 250,
   "ara": 0.9,
-  "bitis": 4.1,
+  "bitis": 3.2,
   "panel": 760
  },
  "altyazi": {
   "y": 1300,
   "px": 100,
-  "bas": 4.1
+  "bas": 3.5
  },
  "yazilar": [
   {
-   "not": "E10@kendini 21,48 → tanımazsa sonu 22,69 (Shorts sn); kesitler değişirse yeniden hesapla",
-   "t0": 21.42,
-   "t1": 23.26,
-   "altyok": 23.26,
+   "not": "E10@kendini 20,57 → tanımazsa sonu 21,78 (Shorts sn); kesitler değişirse yeniden hesapla",
+   "t0": 20.51,
+   "t1": 22.35,
+   "altyok": 22.35,
    "y": 330,
    "ara": 0.9,
    "satir": [
@@ -226,10 +248,10 @@ window.KURGU = {
    ]
   },
   {
-   "not": "E10@tanıdı 23,67; 'Ve bilmek' 24,56",
-   "t0": 23.6,
-   "t1": 25.0,
-   "altyok": 24.5,
+   "not": "E10@tanıdı 22,76; 'Ve bilmek' 23,65",
+   "t0": 22.69,
+   "t1": 24.1,
+   "altyok": 23.6,
    "y": 330,
    "ara": 0.9,
    "satir": [

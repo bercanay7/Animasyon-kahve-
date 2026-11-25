@@ -1229,42 +1229,43 @@ def su_yatak(t0, t1, vel=.05):
 
 _KES = json.loads(re.search(r'window\.SZ = (\{.*\});', (FILM / 'zaman.js').read_text(encoding='utf-8'), re.S).group(1))['KESIT']
 def KS(i): return _KES[i]['t0']
-HIT = KS(5) + (324.10 - 323.0)        # P062: gözyaşı suya değer (filmde E11@suyu 324,10; kesit görüntüsü 323,0'dan)
+HIT = KS(6) + (324.10 - 323.0)        # P062: gözyaşı suya değer (filmde E11@suyu 324,10; kesit görüntüsü 323,0'dan)
 
 def s_sart():
-    """Şart: dron ilk örnekten; 'kendini tanımazsa'da çan ve koro."""
-    drone('E2 B2', 0, KS(3) - .3, gain=.13, att=.05, rel=1.2)
+    """Şart: dron ilk örnekten; annenin sorusunda tek lir, 'kendini tanımazsa'da çan ve koro (25 Kasım: açılış 'Oğlum uzun yaşayacak mı?')."""
+    lyre(W('B01', 'yaşayacak'), 'B3', vel=.16, pan=-.2)
+    drone('E2 B2', 0, KS(4) - .3, gain=.13, att=.05, rel=1.2)
     pad(M('E3 B3 E4'), 0, Se('B02') + 1.5, gain=.07, att=.08, rel=1.2, cutoff=1300, sine=.6)
     toll(W('B02', 'kendini') - .08, 'E3', vel=.17, decay=5.0)
     choir(M('E3 B3'), W('B02', 'kendini'), Se('B02') + 1.0, gain=.1, att=.3, rel=1.2, vowel='o')
 
 def s_havuz():
     """Su ve yüz: motif 'yüz'de; yansımanın kıpırtıları."""
-    su_yatak(KS(1) - .2, KS(3), vel=.04)
+    su_yatak(KS(2) - .2, KS(4), vel=.04)
     motif(W('D03', 'yüz'), 'E4', vel=.18)
-    bed(KS(2), KS(3) - .2, SU[:2], gain=.07, cutoff=1000)
+    bed(KS(3), KS(4) - .2, SU[:2], gain=.07, cutoff=1000)
     for k in range(3): tick(S('E02') + k * 1.75, vel=.03, pitch=1.2)
     damla(W('E02', 'gülümseyince'), 'G5', vel=.035)
 
 def s_benim():
     """Tanıma: önce müzik çekilir, 'benim'de tek çan ve koro."""
-    pad(M('E3 B3'), KS(3), S('E04') - .2, gain=.05, att=.6, rel=.4, cutoff=900)
+    pad(M('E3 B3'), KS(4), S('E04') - .2, gain=.05, att=.6, rel=.4, cutoff=900)
     bell(W('E04', 'benim'), 'E5', vel=.1, decay=3.0)
-    choir(M('E3 B3 G#4'), W('E04', 'benim') + .1, KS(4) + .6, gain=.1, att=.2, rel=1.2, vowel='a')
+    choir(M('E3 B3 G#4'), W('E04', 'benim') + .1, KS(5) + .6, gain=.1, att=.2, rel=1.2, vowel='a')
 
 def s_bilmek():
     """Hatıra (kâhin) ve kırılma: çan, damla, 'kurtarmadı'da derin çan."""
-    toll(KS(4) + .05, 'B2', vel=.12, decay=4.0)
-    choir(M('E3 B3'), W('E10', 'kendini'), KS(5) + .3, gain=.08, att=.3, rel=1.0, vowel='o')
-    bowed(KS(5), [('F3', 1.1, .6), ('E3', 2.6, .5)], gain=.1, cutoff=900)
+    toll(KS(5) + .05, 'B2', vel=.12, decay=4.0)
+    choir(M('E3 B3'), W('E10', 'kendini'), KS(6) + .3, gain=.08, att=.3, rel=1.0, vowel='o')
+    bowed(KS(6), [('F3', 1.1, .6), ('E3', 2.6, .5)], gain=.1, cutoff=900)
     damla(HIT - .02, 'B5', vel=.08)
-    su_yatak(HIT, KS(6) + .6, vel=.035)
+    su_yatak(HIT, KS(7) + .6, vel=.035)
     toll(W('E10', 'kurtarmadı') - .1, 'E2', vel=.2, decay=6.0)
 
 def s_nergis():
     """Nergis: ışıltı ve çözülmeyen akor; son 0,8 sn söner (döngü)."""
-    shimmer(KS(6) + .1, dur=1.8, vel=.04, notes=('E6', 'G#6', 'B6', 'E7'))
-    pad(M('E3 G#3 B3 E4'), KS(6), DUR + .5, gain=.08, att=.5, rel=1.0, cutoff=1500, sine=.6)
+    shimmer(KS(7) + .1, dur=1.8, vel=.04, notes=('E6', 'G#6', 'B6', 'E7'))
+    pad(M('E3 G#3 B3 E4'), KS(7), DUR + .5, gain=.08, att=.5, rel=1.0, cutoff=1500, sine=.6)
 
 SECTIONS = [s_sart, s_havuz, s_benim, s_bilmek, s_nergis]
 
