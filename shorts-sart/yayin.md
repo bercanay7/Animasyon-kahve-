@@ -3,18 +3,18 @@ Shorts her gün **20:00**, uzun videolar **18:00**. Shorts uzun videodan iki saa
 
 | Gün | Saat | Ne | Açılış yapısı (sınanan) | Ölçüm |
 |---|---|---|---|---|
-| Çar 26 Kas | 18:00 | (ölçüm) Narkissos uzun video 48. saat | | |
-| Çar 26 Kas | 20:00 | Shorts: **Narkissos** "Kendini tanımazsa" | şart ilk cümlede (soru Shorts'uyla karşılaştırma) | Per 27, 16:00 |
-| Per 27 Kas | 20:00 | Shorts: **Sisifos** "Sonra hemen dönerim" | söz (şart) → ihlal 0:11 → yokuş | Cum 28, 16:00 |
-| Cum 28 Kas | 18:00 | **Uzun video: Dorian Gray** | | Paz 30, 18:00 (48. saat) |
-| Cum 28 Kas | 20:00 | Shorts: **Prometheus/Pandora** "Zeus'tan armağan alma" | şart ilk sözcükte (0,1 sn), giriş yok | Cmt 29, 16:00 |
-| Cmt 29 Kas | 20:00 | Shorts: **İkaros** "Ortadan uç" | şart ilk sözcükte + tanınan ad | Paz 30, 16:00 |
-| Paz 30 Kas | 20:00 | Shorts: **Eko** "Yalnız son sözleri tekrarlar" | kural + yankı oyunu, ilk karede yüz | Pzt 1, 16:00 |
-| Pzt 1 Ara | 20:00 | Shorts: **açık** | ilk beş Shorts'un kazanan yapısıyla (aşağıda) | Sal 2, 16:00 |
-| Sal 2 Ara | 18:00 | **Uzun video: Gılgamış** | | Per 4, 18:00 (48. saat) |
-| Çar 3 Ara | 20:00 | Shorts: **açık** | kazanan yapı, ikinci deneme | Per 4, 16:00 |
-| Per 4 Ara | 20:00 | Shorts: **Gılgamış** "Altı gün yedi gece uyuma" | şart ilk cümlede, dikey için çizilmiş (kırpma değil) | Cum 5, 16:00 |
-| Cmt 6 Ara | 18:00 | **Uzun video: Lale Çılgınlığı** | | |
+| Per 26 Kas | 18:00 | (ölçüm) Narkissos uzun video 48. saat | | |
+| Per 26 Kas | 20:00 | Shorts: **Narkissos** "Kendini tanımazsa" | şart ilk cümlede (soru Shorts'uyla karşılaştırma) | Cum 27, 16:00 |
+| Cum 27 Kas | 20:00 | Shorts: **Sisifos** "Sonra hemen dönerim" | söz (şart) → ihlal 0:11 → yokuş | Cmt 28, 16:00 |
+| Cmt 28 Kas | 18:00 | **Uzun video: Dorian Gray** | | Pzt 30, 18:00 (48. saat) |
+| Cmt 28 Kas | 20:00 | Shorts: **Prometheus/Pandora** "Zeus'tan armağan alma" | şart ilk sözcükte (0,1 sn), giriş yok | Paz 29, 16:00 |
+| Paz 29 Kas | 20:00 | Shorts: **İkaros** "Ortadan uç" | şart ilk sözcükte + tanınan ad | Pzt 30, 16:00 |
+| Pzt 30 Kas | 20:00 | Shorts: **Eko** "Yalnız son sözleri tekrarlar" | kural + yankı oyunu, ilk karede yüz | Sal 1, 16:00 |
+| Sal 1 Ara | 20:00 | Shorts: **açık** | ilk beş Shorts'un kazanan yapısıyla (aşağıda) | Çar 2, 16:00 |
+| Çar 2 Ara | 18:00 | **Uzun video: Gılgamış** | | Cum 4, 18:00 (48. saat) |
+| Per 3 Ara | 20:00 | Shorts: **açık** | kazanan yapı, ikinci deneme | Cum 4, 16:00 |
+| Cum 4 Ara | 20:00 | Shorts: **Gılgamış** "Altı gün yedi gece uyuma" | şart ilk cümlede, dikey için çizilmiş (kırpma değil) | Cmt 5, 16:00 |
+| Paz 6 Ara | 18:00 | **Uzun video: Lale Çılgınlığı** | | |
 
 **Açık günler (1 ve 3 Aralık):** 30 Kasım akşamı beş Shorts'un oranları yan yana konur. En yükseği hangi yapıysa (şart ilk sözcükte mi, söz-ihlal mi, kural-yankı mı; tanınan ad mı) iki açık gün o yapıyla doldurulur. Hazır adaylar (filmlerin kaydında ses var): Gılgamış "Ölüm sularına eli değen ölürdü"; Sisifos "Bunlar nasıl takılıyor? Bir gösterir misin?" (Ölüm'ü zincirleyen hile); Narkissos "Ancak ben ölünce bana sahip olursun" (sonuçla açılış).
 **Karar kuralı:** 20. saatte izlemeye devam eden ≥ %60 → yapı korunur ve çoğaltılır; %45–60 → yapı tutulur, ilk kare değiştirilir; < %45 (soru Shorts'unun %43,2'si) → o yapı bırakılır. Birkaç puanlık fark yok sayılır.
