@@ -13,15 +13,45 @@
   const yerel = (st, at) => A(at) - st.at;
   // yürüyüş için go(t): [a, b] aralıklarında yürür (plan içi sn), arada durur; geçişler yumuşak
   const yuruAra = (araliklar, yum = .35) => tl => { let v = 0; for (const [a, b] of araliklar) v = Math.max(v, Math.min(inv(a - yum, a, tl), 1 - inv(b - yum, b, tl))); return v; };
+  // opak dolgu: ton plakası beyaz + çizgi plakası gri (video = ton × çizgi; yalnız çizgi plakasına açık boya arkadakini gösterir)
+  const dol = (B, yol, renk) => { const k = B.k, l = B.l; k.save(); k.fillStyle = '#fff'; k.beginPath(); yol(k); k.fill(); k.restore(); l.save(); l.fillStyle = renk; l.beginPath(); yol(l); l.fill(); l.restore(); };
+  // arka dolgulu figür: önlük çizgi plakasında açık gri; ton plakası figürün biçiminde beyazlanmazsa duvar ve kapı önlüğün içinden görünür (hayalet okuması)
+  const BEYAZ = { renk: '#fff', onlukRenk: '#fff', camRenk: '#fff', parilti: '#fff', sandalyeRenk: '#fff' };
+  const kisiD = (B, x, y, boy, o) => { FIG.kisi(B.k, x, y, boy, { ...o, ...BEYAZ }); return FIG.kisi(B.l, x, y, boy, o); };
+  const yuruD = (B, x, y, boy, t, o) => { SET.yuru(B.k, x, y, boy, t, { ...o, ...BEYAZ }); return SET.yuru(B.l, x, y, boy, t, o); };
+  // sayım sırası (a.js bodrum() o.sayim ile aynı dizilim ve tohum; arka dolgulu)
+  function sayimD(B, st, K, n, o = {}) {
+    const r = rng(17), t = st.t;
+    for (let i = 0; i < n; i++) {
+      const z = .18 + i * .088 + (r() - .5) * .05, u = -.74 + (r() - .5) * .12, poz = r(), p = K.yer(z, u), s = K.olc(z);
+      const boyK = .9 + r() * .18, kolA = [-.08 + r() * .2, .1 + r() * .4], bas = (r() - .5) * .14 + Math.sin(t * .7 + i) * .03 + (o.basEgik || 0), govde = (r() - .5) * .08;
+      kisiD(B, p[0], p[1], 700 * s * boyK, { tip: 'mahkum', f: 1, numara: NUM[i % NUM.length], kolO: poz < .4 ? [-.05, .1] : poz < .7 ? [.25, .9] : [-.2, .35], kolA, bas, govde });
+    }
+  }
+  // karyola (yandan; 1971 hücre yatağı). Yerel (0,0): baş ucu direğinin zemine bastığı yer, +x ayak ucu; B.k ve B.l'de dönüşüm hazır olmalı.
+  // Yatak okunsun diye: baş ucunda yüksek direk, ayak ucunda alçak direk, metal yan kayıt, şilte, yastık, ayak ucunda katlı battaniye. Dolgular opak.
+  function karyola(B, L, o = {}) {
+    const l = B.l, h = o.h ?? 110, m = o.m ?? 46, yb = -h - m, cz = o.cz ?? 4, ub = o.bas ?? 130, ua = o.ayak ?? 50;
+    l.save(); l.fillStyle = '#000'; l.fillRect(0, -h - 4, L, 14); l.restore();                                  // yan kayıt (çerçeve)
+    const sil = g => g.roundRect(10, yb, L - 22, m + 2, m * .4), bat = g => g.roundRect(L * .56, yb - 10, L * .44 - 16, m + 16, 14), yas = g => g.roundRect(20, yb - 30, L * .2, 38, 16);
+    const rk = o.renk || ['#A2A29B', '#5E5E58', '#E2E2DA']; dol(B, sil, rk[0]); dol(B, bat, rk[1]); dol(B, yas, rk[2]);
+    l.save(); ink(l, cz); for (const y of [sil, bat, yas]) { l.beginPath(); y(l); l.stroke(); }
+    l.lineWidth = cz * .8; l.beginPath(); l.moveTo(L * .56 + 14, yb + m * .45); l.quadraticCurveTo(L * .75, yb + m * .3, L - 30, yb + m * .5); l.stroke();   // battaniyenin katı
+    l.fillStyle = '#000'; l.fillRect(-6, yb - ub, 18, -yb + ub); l.fillRect(L - 14, yb - ua, 18, -yb + ua);           // baş ve ayak direkleri (metal)
+    l.beginPath(); l.arc(3, yb - ub, 13, 0, TAU); l.fill(); if (o.ayakBas !== false) { l.beginPath(); l.arc(L - 5, yb - ua, 12, 0, TAU); l.fill(); }                        // direk başlıkları
+    l.restore();
+  }
   // belge sayfası (kâğıt): ust başlık satırları (daktilo değil, hep tam), satirlar p ile basılır; vurgu {satır: 0..1} kehribar şerit (yalnız yazının boyu)
+  //   o.ta yazı saydamlığı (1), o.gr uzak görünüm: satırların yerine gri çubuklar (0); uzaktan okunmaya çalışılan küçük yazı kalmasın
   function sayfa(B, x, y, w, ust, satirlar, p, o = {}) {
-    const k = B.k, l = B.l, px = o.px || 44, lh = px * 1.5, upx = Math.round(px * .66);
+    const k = B.k, l = B.l, px = o.px || 44, lh = px * 1.5, upx = Math.round(px * .66), ta = o.ta ?? 1, gr = o.gr ?? 0;
     const ustH = ust.length ? ust.length * upx * 1.5 + px * 1.2 : 0;
     const h = o.h || (ustH + satirlar.length * lh + px * 2.4);
     k.save(); k.fillStyle = T(B, o.golge ?? .6); k.fillRect(x + 14, y + 16, w, h); k.fillStyle = '#fff'; k.fillRect(x, y, w, h); k.restore();
     l.save(); ink(l, 1.6); l.strokeRect(x, y, w, h); l.textBaseline = 'middle';
     l.font = `700 ${upx}px "Courier Prime"`;
-    ust.forEach((s, i) => l.fillText(s, x + px * 1.2, y + px * 1.1 + i * upx * 1.5));
+    if (ta > 0) { l.globalAlpha = ta; ust.forEach((s, i) => l.fillText(s, x + px * 1.2, y + px * 1.1 + i * upx * 1.5)); l.globalAlpha = 1; }
+    if (gr > 0) { l.save(); l.globalAlpha = gr * .45; ust.forEach((s, i) => l.fillRect(x + px * 1.2, y + px * 1.1 + i * upx * 1.5 - upx * .09, l.measureText(s).width, upx * .18)); l.restore(); }
     if (ust.length) { l.lineWidth = 1.4; l.beginPath(); l.moveTo(x + px * 1.2, y + ustH - px * .35); l.lineTo(x + w - px * 1.2, y + ustH - px * .35); l.stroke(); }
     l.font = `700 ${px}px "Courier Prime"`;
     const top = satirlar.reduce((a, r) => a + r.length, 0); let kalan = Math.floor(top * clamp(p) + 1e-6);
@@ -29,7 +59,9 @@
       const yy = y + ustH + px * 1.1 + i * lh, x0 = x + px * 1.2;
       const va = o.vurgu && o.vurgu[i];
       if (va > 0) { const tw = l.measureText(r).width; B.renkBoya(g => g.rect(x0 - 10, yy - px * .62, (tw + 20) * clamp(va), px * 1.24), .6, 0); }
-      l.fillText(r.slice(0, Math.max(0, kalan)), x0, yy); kalan -= r.length;
+      if (ta > 0) { l.globalAlpha = ta; l.fillText(r.slice(0, Math.max(0, kalan)), x0, yy); l.globalAlpha = 1; }
+      if (gr > 0 && r) { l.save(); l.globalAlpha = gr * .45; l.fillRect(x0, yy - px * .1, l.measureText(r).width, px * .2); l.restore(); }
+      kalan -= r.length;
     });
     l.restore();
     return { x, y, w, h };
@@ -43,10 +75,11 @@
     l.restore();
   }
   // yanlamasına şınav (tek mahkûm): ayaklar (x, y) zeminde, f baş yönü, s birim px, h 0 aşağı .. 1 yukarı
+  //   iniş ve kalkış belirgin (omuz 6 → 25 birim): yere yığılmış beden okunmasın
   function sinav(B, x, y, s, h, f = 1) {
     const g = B.l, U = FIG.uzuv;
     g.save(); g.translate(x, y); g.scale(f * s, s); g.fillStyle = '#000';
-    const omz = [56, -(8.5 + 11 * h)], ayak = [0, -1.6], kal = [24, lerp(ayak[1], omz[1], 24 / 56) - .6];
+    const omz = [56, -(6 + 19 * h)], ayak = [0, -1.6], kal = [24, lerp(ayak[1], omz[1], 24 / 56) - .6];
     const el = [57.5, -1.2];
     // dirsek: omuz–el arasında, ayak yönüne doğru bükük (iki kemik)
     const L1 = 15, L2 = 13.5, dx = el[0] - omz[0], dy = el[1] - omz[1], d = Math.min(Math.hypot(dx, dy), L1 + L2 - .2);
@@ -61,6 +94,8 @@
     U(g, omz, dir, 4.4, 3.6); U(g, dir, el, 3.6, 2.8);           // kol: dirsekten bükük
     g.beginPath(); g.ellipse(el[0] + 1.2, el[1], 2.6, 1.3, 0, 0, TAU); g.fill();
     g.restore();
+    // önlüğün ton plakası beyaz (arkadaki zemin önlüğün içinden görünmesin)
+    const k = B.k; k.save(); k.translate(x, y); k.scale(f * s, s); k.fillStyle = '#fff'; U(k, [kal[0] - 4, kal[1] + .4], [omz[0] - 3.5, omz[1] + .2], 8.2, 9.4); k.restore();
   }
   // tepside tabak ve yemek (video, ayrıntı): tek kenar çizgisi; yemek düzensiz biçim
   function tabak(B, x, y, rx, ry, yemek = 1, o = {}) {
@@ -69,31 +104,43 @@
     l.save(); ink(l, Math.max(2, rx * .02)); l.beginPath(); l.ellipse(x, y, rx, ry, 0, 0, TAU); l.stroke(); l.restore();
     if (yemek > 0) yemekCiz(B, x, y, rx, ry, o.tohum || 21);
   }
-  function yemekCiz(B, x, y, rx, ry, tohum) {
-    const k = B.k, r = rng(tohum), pts = [];
-    for (let i = 0; i < 11; i++) { const a = i / 11 * TAU, q = .52 + r() * .16; pts.push([x + Math.cos(a) * rx * q, y - ry * .05 + Math.sin(a) * ry * q * .9]); }
+  // yemek: düzensiz biçim; kal (1 → .5) kaşık aldıkça sağ yandan yuvarlak bir kenarla çekilir (düz kesik yok)
+  function yemekCiz(B, x, y, rx, ry, tohum, kal = 1) {
+    const k = B.k, r = rng(tohum), pts = [], c = (1 - kal) * 1.3;
+    for (let i = 0; i < 11; i++) { const a = i / 11 * TAU, q = (.52 + r() * .16) * (1 - c * (.5 + .5 * Math.cos(a))); pts.push([x + Math.cos(a) * rx * q - c * rx * .08, y - ry * .05 + Math.sin(a) * ry * q * .9]); }
     k.save(); k.fillStyle = T(B, .62); k.beginPath(); spline(k, pts, true, .9); k.fill();
-    k.fillStyle = T(B, .78); for (let i = 0; i < 9; i++) { k.beginPath(); k.ellipse(x + (r() - .5) * rx * .8, y + (r() - .5) * ry * .7, rx * (.04 + r() * .05), ry * (.04 + r() * .04), r() * 3, 0, TAU); k.fill(); }
+    k.fillStyle = T(B, .78);
+    for (let i = 0; i < 9; i++) { const dx = (r() - .5) * .8, dy = (r() - .5) * ry * .7, ex = rx * (.04 + r() * .05), ey = ry * (.04 + r() * .04), ro = r() * 3;
+      if (dx < .4 - c * .8) { k.beginPath(); k.ellipse(x + dx * rx, y + dy, ex, ey, ro, 0, TAU); k.fill(); } }
     k.restore();
   }
-  // hücre içinde oturan mahkûm (kucağında battaniye): kisi + açık tonlu battaniye + battaniyeyi saran ön kol
+  // hücrede battaniyeye sarınmış mahkûm: battaniye omuzlardan pelerin gibi sırta ve dize iner (belde oval ya da şeritli biçim yok: kalkan okunmasın),
+  //   öndeki el göğüste kenarı tutar; o.cek (çoğu battaniyesini seçiyor) ön kenarı kapatır, el çeneye çıkar
   function battaniyeli(B, x, y, boy, o = {}) {
-    const f = o.f || 1;
-    const r = FIG.kisi(B.l, x, y, boy, { tip: 'mahkum', f, numara: o.numara || '', kolO: [.32, 1.75], kolA: [.28, 1.85], bas: o.bas ?? .08, zincir: false, onlukRenk: '#8E8E88', serbest: 1 });
-    const l = B.l, lift = (o.cek || 0) * boy * .05, w = boy * .3;
-    const cx = r.kalca[0] + f * boy * .05, y0 = r.omuz[1] + boy * .07 - lift, y1 = r.kalca[1] + boy * .14;
-    l.save(); l.fillStyle = '#CFCFC8'; l.beginPath(); l.roundRect(cx - w / 2, y0, w, y1 - y0, boy * .04); l.fill(); l.restore();
-    l.save(); l.fillStyle = '#000'; FIG.uzuv(l, r.dirsekO, [lerp(r.dirsekO[0], r.elO[0], .5) + f * lift * .2, r.elO[1] - lift * .6], boy * .04, boy * .03); l.restore();
+    const f = o.f || 1, c = o.cek || 0;
+    const r = kisiD(B, x, y, boy, { tip: 'mahkum', f, numara: o.numara || '', kolO: [0, 2.4], kolA: [0, .2], bas: o.bas ?? .08, zincir: false, onlukRenk: '#8E8E88', serbest: 1 });   // kollar battaniyenin içinde
+    const l = B.l, b = boy, om = r.omuz, ka = r.kalca, X = u => om[0] + f * u * b;
+    const on = lerp(.075, .095, c);
+    const pts = [[X(-.02), om[1] - b * .035], [X(.05), om[1] - b * .02], [X(on), om[1] + b * .06], [X(on + .005), ka[1] - b * .02], [X(.08), ka[1] + b * .16], [X(-.02), ka[1] + b * .21],
+      [X(-.1), ka[1] + b * .2], [X(-.11), ka[1] - b * .05], [X(-.085), om[1] + b * .04]];
+    dol(B, g => spline(g, pts, true, .85), '#9C9C94');
+    l.save(); ink(l, Math.max(1.5, b * .005)); l.beginPath(); spline(l, pts, true, .85); l.stroke();
+    l.lineWidth = Math.max(1, b * .0035);
+    for (const u of [-.07, -.035]) { l.beginPath(); l.moveTo(X(u + .01), om[1] + b * .07); l.quadraticCurveTo(X(u - .008), ka[1], X(u), ka[1] + b * .17); l.stroke(); }   // sırtta düşey kıvrımlar
+    l.fillStyle = '#000'; l.beginPath(); l.ellipse(X(on - .004), lerp(om[1] + b * .09, om[1] + b * .035, c), b * .016, b * .022, 0, 0, TAU); l.fill();   // kenarı tutan el
+    l.restore();
     return r;
   }
 
-  // ── P21 ilk gün: sayım; gardiyanlar gülüşüyor (gövde geriye, baş geri), mahkûmlar solda dizili ──
+  // ── P21 ilk gün: sayım; gardiyanlar gülüşüyor (gövde sallanır, baş hafif geri), mahkûmlar solda dizili (önlükler opak) ──
   sahne('P21', 'C01', 'koridor', 'genis', (B, st) => {
     B.cam(lerp(960, 1040, E.io2(clamp(st.lt / 4))), 560, 1.03 + st.lt * .03);
     const g = ramp(st.t, tA('C01@gülüşüyor') - .25, tA('C01@gülüşüyor') + .3);
     const gul = i => Math.sin(st.t * 10.5 + i * 2.1);
-    const gr = (z, u, f, i, kol) => ({ z, u, f, govde: g * (-.15 + .06 * gul(i)), bas: g * (-.42 + .08 * gul(i)), kol: g ? [lerp(.15, kol[0], g), lerp(.5, kol[1] + .15 * gul(i), g)] : null });
-    bodrum(B, st, { sayim: 6, gardiyanlar: [gr(.3, .12, -1, 0, [.36, 1.9]), gr(.34, .38, -1, 1, [.34, 1.85]), gr(.4, .2, 1, 2, [.38, 1.95])].map(o => o.kol ? o : { ...o, kol: undefined }) });
+    // baş fazla geri atılınca saç kütlesi başın üstünde yumru gibi duruyordu: baş geri payı küçük, gülüş gövdede ve kolda
+    const gr = (z, u, f, i, kol) => ({ z, u, f, govde: g * (-.1 + .06 * gul(i)), bas: g * (-.16 + .06 * gul(i)), kol: g ? [lerp(.15, kol[0], g), lerp(.5, kol[1] + .15 * gul(i), g)] : undefined });
+    const K = bodrum(B, st, { gardiyanlar: [gr(.3, .12, -1, 0, [.36, 1.9]), gr(.34, .38, -1, 1, [.34, 1.85]), gr(.4, .2, 1, 2, [.38, 1.95])] });
+    sayimD(B, st, K, 6);
   }, VID);
 
   // ── P22 ikinci gün sabahı: hücrede numara sökülür, yatak kapının önüne sürülür (barikat) ──
@@ -101,86 +148,96 @@
     B.cam(960, 520, 1.04 + st.lt * .018);
     const G = 900, x0 = 470, x1 = 1450, yt = 110;
     tam(B, .5); yer(B, G, .64);
-    const k = B.k; k.save(); k.fillStyle = T(B, .26); k.fillRect(x0, yt, x1 - x0, G - yt); k.fillStyle = T(B, .4); k.fillRect(x0, 760, x1 - x0, G - 760); k.restore();
-    // arkada iki mahkûm (bir kademe açık)
-    FIG.kisi(B.k, 1345, 850, 560, { tip: 'mahkum', f: -1, renk: T(B, .72), onlukRenk: T(B, .42), numara: NUM[3], bas: .05 + Math.sin(st.t * .9) * .03 });
-    const tB = tA('C01@yataklarla');
+    const k = B.k, l = B.l;
+    k.save(); k.fillStyle = T(B, .26); k.fillRect(x0, yt, x1 - x0, G - yt); k.fillStyle = T(B, .4); k.fillRect(x0, 760, x1 - x0, G - 760); k.restore();
+    const tB = tA('C01@yataklarla'), tN = tA('C01@numaralarını'), tS = tA('C01@söküyor');
+    B.save(); for (const gg of [k, l]) { gg.beginPath(); gg.rect(x0 + 6, yt, x1 - x0 - 12, G - yt + 20); gg.clip(); }
+    // arkada ikinci mahkûm (bir kademe açık); ilk saniyeden başını kapıya çevirir
+    FIG.kisi(B.k, 1345, 850, 560, { tip: 'mahkum', f: -1, renk: T(B, .72), onlukRenk: T(B, .42), numara: NUM[3], bas: .05 + Math.sin(st.t * .9) * .03 - .1 * ramp(st.lt, .2, 1.2) });
     // öndeki mahkûm numarasını söker
-    const tN = tA('C01@numaralarını'), tS = tA('C01@söküyor');
     const el = ramp(st.t, tN - .2, tN + .5), cek = ramp(st.t, tS - .05, tS + .25, E.out3);
     const kolO = cek > 0 ? [lerp(.55, .4, cek), lerp(1.75, .35, cek)] : [lerp(.1, .55, el), lerp(.3, 1.75, el)];
-    const r = FIG.kisi(B.l, 1080, 870, 640, { tip: 'mahkum', f: 1, numara: cek > .2 ? '' : NUM[0], kolO, kolA: [-.1, .2], bas: .1 + .12 * el * (1 - cek), serbest: 1 });
-    if (cek > .2) {   // sökülen numara düşer (dönerek), yerde kalır
-      const tl = st.t - (tS + .1), yy = Math.min(870, r.elO[1] + 900 * tl * tl), xx = r.elO[0] + 40 * Math.min(tl, .7);
-      const l = B.l; l.save(); l.translate(xx, yy - 18); l.rotate(Math.min(tl, .8) * 4.2); l.fillStyle = '#C6C6BE'; l.fillRect(-44, -24, 88, 48); l.fillStyle = '#000'; l.font = '700 30px "Courier Prime"'; l.textAlign = 'center'; l.textBaseline = 'middle'; l.fillText(NUM[0], 0, 1); l.restore();
+    const r = kisiD(B, 1080, 870, 640, { tip: 'mahkum', f: 1, onlukRenk: '#8A8A84', numara: cek > .2 ? '' : NUM[0], kolO, kolA: [-.1, .2], bas: .1 + .12 * el * (1 - cek), serbest: 1 });
+    if (cek > .2) {   // sökülen numara düşer (dönerek) ve yere ters düşer: yazı yalnız düşerken (alt banda yazı inmesin)
+      const tl = st.t - (tS + .1), yy = Math.min(872, r.elO[1] + 900 * tl * tl), xx = r.elO[0] + 40 * Math.min(tl, .7);
+      l.save(); l.translate(xx, yy - 14); l.rotate(yy >= 872 ? .05 : Math.min(tl, .8) * 4.2); l.fillStyle = '#C6C6BE'; l.fillRect(-44, yy >= 872 ? -8 : -24, 88, yy >= 872 ? 16 : 48);
+      if (yy < 780) { l.fillStyle = '#000'; l.font = '700 30px "Courier Prime"'; l.textAlign = 'center'; l.textBaseline = 'middle'; l.fillText(NUM[0], 0, 1); }
+      l.restore();
     }
-    // yatak (dik, ucunun üstünde) kapının içine sürülür: barikat
-    const p = ramp(st.t, tB - .1, tB + .9, E.out3), bx = lerp(130, 800, p), sars = Math.sin(clamp((st.t - tB - .9) / .5) * PI * 3) * (1 - clamp((st.t - tB - .9) / .5)) * .03;
-    const kk = B.k, l = B.l;
-    B.save(); for (const gg of [kk, l]) { gg.beginPath(); gg.rect(x0 + 6, yt, x1 - x0 - 12, G - yt); gg.clip(); }
-    // yatağı iten mahkûm (yatağın solunda, bir kademe açık)
-    FIG.kisi(B.k, bx - 250, 860, 540, { tip: 'mahkum', f: 1, renk: T(B, .72), onlukRenk: T(B, .42), govde: .18, kolO: [1.25, .45], kolA: [1.15, .55], zincir: false, serbest: 1 });
-    for (const gg of [kk, l]) { gg.save(); gg.translate(bx, 880); gg.rotate(-.08 + sars); }
-    kk.fillStyle = T(B, .6); kk.beginPath(); kk.roundRect(-165, -690, 330, 660, 40); kk.fill();
-    ink(l, 8); l.beginPath(); l.roundRect(-165, -690, 330, 660, 40); l.stroke();
-    l.fillStyle = '#D2D2CA'; l.beginPath(); l.roundRect(-120, -650, 240, 110, 30); l.fill(); l.lineWidth = 4; l.stroke();   // yastık: dik duran yatak okunsun
-    l.fillStyle = '#000'; for (let i = 0; i < 4; i++) l.fillRect(-150 + i * 92, -30, 22, 30);
-    l.lineWidth = 9; l.beginPath(); l.moveTo(-175, -700); l.lineTo(-175, -770); l.lineTo(175, -770); l.lineTo(175, -700); l.stroke();   // karyolanın başlığı (metal)
-    l.lineWidth = 5; for (const xx of [-90, 0, 90]) { l.beginPath(); l.moveTo(xx, -770); l.lineTo(xx, -700); l.stroke(); }   // karyola ayakları (yere basan uçta)
-    for (const gg of [kk, l]) gg.restore();
+    // yatak (karyola, yandan) soldan kapının dibine sürülür ve parmaklığa dayanır: barikat; iten mahkûm yatağın ardında (bir kademe açık)
+    const p = ramp(st.t, tB - .1, tB + 1.1, E.out3), bx = lerp(-260, 610, p);
+    const otur = clamp((st.t - tB - 1.1) / .5), sars = Math.sin(otur * PI * 3) * (1 - otur) * .012;
+    FIG.kisi(B.k, bx - 70, 862, 560, { tip: 'mahkum', f: 1, renk: T(B, .72), onlukRenk: T(B, .42), govde: .3 * (1 - otur * .6), kolO: [1.05, .55], kolA: [.95, .65], zincir: false, serbest: 1 });
+    for (const gg of [k, l]) { gg.save(); gg.translate(bx, 892); gg.rotate(sars); }
+    karyola(B, 640, { h: 150, m: 60, bas: 170, ayak: 70, cz: 6, renk: ['#77776F', '#3E3E3A', '#D6D6CE'] });
+    for (const gg of [k, l]) gg.restore();
     B.restore();
     parmaklik(B, x0, x1, yt, G, 8);
   }, VID);
 
-  // ── P23 söndürücü: gardiyan kapıya doğru sıkar, bulut koridoru doldurur ──
+  // ── P23 söndürücü: gardiyan arka elinde tüpü taşır, ön elindeki hortumu kapıya doğrultur; bulut koridoru doldurur ──
   sahne('P23', 'C02', 'koridor', 'genis', (B, st) => {
     B.cam(960, 520, 1.03 + st.lt * .03);
     const K = bodrum(B, st, {});
     const tS = tA('C02@söndürücüyle'), kalk = ramp(st.t, st.at, tS, E.io2);
     FIG.kisi(B.l, ...K.yer(.46, -.35), 700 * .54, { tip: 'gardiyan', f: 1, kolO: [.25, .4], kolA: [-.1, .2], bas: .05 });
-    const p0 = K.yer(.27, -.1), r = FIG.kisi(B.l, p0[0], p0[1], 700 * .73, { tip: 'gardiyan', f: 1, kolO: [lerp(.3, 1.05, kalk), lerp(.4, .55, kalk)], kolA: [lerp(.1, .95, kalk), .7], bas: .08, serbest: 1 });
-    // söndürücü tüpü (elde) ve hortum ağzı
-    const l = B.l, e = r.elO, s = r.s;
-    l.save(); l.fillStyle = '#000'; l.beginPath(); l.roundRect(e[0] - 3 * s, e[1] - 2 * s, 7 * s, 16 * s, 2.5 * s); l.fill(); l.lineWidth = 1.6 * s; l.strokeStyle = '#000'; l.beginPath(); l.moveTo(e[0] + 2 * s, e[1] - 2 * s); l.lineTo(e[0] + 8 * s, e[1] - 4.5 * s); l.stroke(); l.restore();
+    const p0 = K.yer(.27, -.1), r = FIG.kisi(B.l, p0[0], p0[1], 700 * .73, { tip: 'gardiyan', f: 1, kolO: [lerp(.3, 1.05, kalk), lerp(.4, .55, kalk)], kolA: [.42, .3], bas: .08, serbest: 1 });
+    const l = B.l, s = r.s, e = r.elO, a2 = r.elA;
     const kp = K.kapilar.find(q => q.yan > 0 && q.i === 0) || K.kapilar[0];
     const hx = (kp.a[0] + kp.b[0] + kp.c[0] + kp.d[0]) / 4, hy = (kp.a[1] + kp.b[1] + kp.c[1] + kp.d[1]) / 4;
-    const nx = e[0] + 8 * s, ny = e[1] - 4.5 * s, a = Math.atan2(hy - ny, hx - nx);
-    SET.bulut(B, nx, ny, a, ramp(st.t, tS, tS + 1.8, E.out3), st.t);
+    const a = Math.atan2(hy - e[1], hx - e[0]), nx = e[0] + Math.cos(a) * 7 * s, ny = e[1] + Math.sin(a) * 7 * s;
+    // tüp: tutamaktan sarkan, bacaktan geniş, yuvarlak omuzlu silindir; üstte valf ve tetik kolu; ortada açık etiket kuşağı (yalnız yatay)
+    const cx = a2[0] + 4 * s, cy = a2[1] + 1.5 * s;
+    l.save(); l.fillStyle = '#000';
+    l.beginPath(); l.roundRect(cx - 6 * s, cy, 12 * s, 31 * s, [5 * s, 5 * s, 1.6 * s, 1.6 * s]); l.fill();
+    l.fillRect(cx - 1.6 * s, cy - 4.5 * s, 3.2 * s, 5 * s); l.lineWidth = 1.6 * s; l.lineCap = 'round'; l.strokeStyle = '#000';
+    l.beginPath(); l.moveTo(cx - 1.4 * s, cy - 4.2 * s); l.lineTo(cx - 7.5 * s, cy - 2.6 * s); l.stroke();   // tetik kolu (tutamak)
+    // hortum: valften aşağı sarkar, kıvrılıp ön eldeki ağza gider
+    l.lineWidth = 1.5 * s; l.beginPath(); l.moveTo(cx + 1.4 * s, cy - 3.6 * s); l.bezierCurveTo(cx + 9 * s, cy + 2 * s, cx + 8 * s, cy + 22 * s, (cx + e[0]) / 2 + 6 * s, (cy + 20 * s + e[1]) / 2 + 8 * s); l.quadraticCurveTo(e[0] - 2 * s, e[1] + 6 * s, e[0], e[1]); l.stroke();
+    // ağız: elde koni biçimli huni
+    l.beginPath(); const px_ = -Math.sin(a), py_ = Math.cos(a);
+    l.moveTo(e[0] + px_ * .9 * s, e[1] + py_ * .9 * s); l.lineTo(nx + px_ * 2.6 * s, ny + py_ * 2.6 * s); l.lineTo(nx - px_ * 2.6 * s, ny - py_ * 2.6 * s); l.lineTo(e[0] - px_ * .9 * s, e[1] - py_ * .9 * s); l.closePath(); l.fill();
+    l.restore();
+    dol(B, g => g.rect(cx - 6 * s, cy + 13 * s, 12 * s, 3.4 * s), '#B4B4AC');
+    const pb = ramp(st.t, tS, tS + 1.8, E.out3); if (pb > 0) SET.bulut(B, nx, ny, a, pb, st.t);
   }, VID);
 
-  // ── P24 iki gardiyan bir yatağı koridora sürükler; "dışarı"da arkadaki ucu bırakır, yatak yerde sürünür ──
+  // ── P24 iki gardiyan bir karyolayı koridora taşır; "dışarı"da arkadaki ucu bırakır, karyolanın ayağı yerde sürünür ──
   sahne('P24', 'C02@yatakları', 'koridor', 'orta', (B, st) => {
     B.cam(980 + st.lt * 20, 600, 1.16 + st.lt * .015);
     bodrum(B, st, { levha: false });
-    const tl = st.lt, tD = tA('C02@dışarı'), bir = ramp(st.t, tD - .1, tD + .45, E.in2);
+    const tl = st.lt, tD = tA('C02@dışarı'), bir = ramp(st.t, tD - .1, tD + .45, E.in2), h = 100;
     const on = SET.yuru(B.l, 900, 1010, 610, tl, { tip: 'gardiyan', f: 1, kolO: [-.45, .1], kolA: [-.5, .1], bas: .06, govde: .08 });
     const ar = SET.yuru(B.l, 210, 1012, 600, tl, { tip: 'gardiyan', f: 1, kolO: [lerp(.95, .15, bir), lerp(.5, .3, bir)], kolA: [lerp(.85, -.1, bir), lerp(.6, .2, bir)], bas: .1, govde: .1 * (1 - bir), serbest: 1 });
-    // yatak: öndeki gardiyanın elinden arkadakinin eline (bırakınca arka ucu yere düşer)
-    const p1 = [on.elA[0] + 30, on.elA[1] + 6], p0 = [ar.elO[0] - 70, lerp(ar.elO[1], 985, bir)];
+    // karyola eller hizasında, ayakları aşağıda (sedye değil: baş direği, yastık, battaniye); bırakılınca baş ucu ayağı yere değer
+    const p1 = [on.elA[0] + 10, on.elA[1] + 4], p0 = [ar.elO[0] - 20, lerp(ar.elO[1], 1012 - h, bir)];
     const L = Math.hypot(p1[0] - p0[0], p1[1] - p0[1]), ang = Math.atan2(p1[1] - p0[1], p1[0] - p0[0]);
     const k = B.k, l = B.l;
-    for (const g of [k, l]) { g.save(); g.translate(p0[0], p0[1]); g.rotate(ang); }
-    k.fillStyle = T(B, .5); k.beginPath(); k.roundRect(0, -40, L, 48, 14); k.fill(); ink(l, 6); l.beginPath(); l.roundRect(0, -40, L, 48, 14); l.stroke(); l.fillRect(10, 8, 10, 30); l.fillRect(L - 20, 8, 10, 30);
-    l.fillStyle = '#D2D2CA'; l.beginPath(); l.roundRect(L - 130, -34, 110, 34, 12); l.fill(); l.lineWidth = 3; l.stroke();
+    for (const g of [k, l]) { g.save(); g.translate(p0[0], p0[1]); g.rotate(ang); g.translate(0, h); }
+    karyola(B, L, { h, m: 40, bas: 120, ayak: 22, ayakBas: false, cz: 4 });
     for (const g of [k, l]) g.restore();
+    // öndeki gardiyanın eli karyolanın ayak direğinde (çizgi plakasında tekrar: direğin önünde)
+    l.save(); l.fillStyle = '#000'; l.beginPath(); l.ellipse(on.elA[0], on.elA[1], 13, 9, 0, 0, TAU); l.fill(); l.restore();
   }, { ...VID, mb: 4 });
 
-  // ── P25 karanlık dolap: kapı titrer, "bağırmaya"da sarsılır; "çıkarılıyor"da açılır, mahkûm dışarı alınır ──
+  // ── P25 karanlık dolap: içeriden darbeler, "bağırmaya"da sarsıntı; gardiyanın kolu kadraj dışından gelir, "çıkarılıyor"da kapıyı açar, mahkûm çıkarılır ──
   sahne('P25', 'C03', 'dolap', 'yakin', (B, st) => {
     B.cam(960, 540, 1.05 + st.lt * .02);
-    const x0 = 560, w = 700, y0 = 90, y1 = 990, xR = x0 + w;
+    const x0 = 560, w = 700, y0 = 90, y1 = 990, xR = x0 + w, ym = (y0 + y1) / 2;
     tam(B, .4); yer(B, y1, .6);
     const tB = tA('C03@bağırmaya'), tC = tA('C03@çıkarılıyor');
-    const amp = 1.5 + 9 * ramp(st.t, tB - .1, tB + .3) * (1 - ramp(st.t, tC - .4, tC));
+    const darbe = [.15, .95, 1.6].reduce((a_, a) => { const u = st.lt - a; return a_ + (u > 0 && u < .4 ? (1 - u / .4) * 8 : 0); }, 0);
+    const amp = 1 + darbe + 10 * ramp(st.t, tB - .1, tB + .3) * (1 - ramp(st.t, tC - .9, tC - .5));
     const sh = amp * Math.sin(st.t * 43) * (.6 + .4 * Math.sin(st.t * 7.3));
     const ac = ramp(st.t, tC - .1, tC + .45, E.out3), k = B.k, l = B.l;
     // kasa
     l.save(); ink(l, 14); l.strokeRect(x0 - 20, y0 - 20, w + 40, y1 - y0 + 20); l.restore();
+    let topX;
     if (ac <= 0) {
       k.save(); k.fillStyle = T(B, .74); k.fillRect(x0 + sh, y0, w, y1 - y0); k.restore();
-      l.save(); ink(l, 6); l.strokeRect(x0 + sh, y0, w, y1 - y0); l.strokeRect(x0 + 60 + sh, y0 + 70, w - 120, 300); l.strokeRect(x0 + 60 + sh, y0 + 470, w - 120, 360); l.beginPath(); l.arc(x0 + 70 + sh, (y0 + y1) / 2, 18, 0, TAU); l.fill(); l.restore();
-      // kapının altından sızan çizgi (içerisi karanlık): ince koyu boşluk
+      l.save(); ink(l, 6); l.strokeRect(x0 + sh, y0, w, y1 - y0); l.strokeRect(x0 + 60 + sh, y0 + 70, w - 120, 300); l.strokeRect(x0 + 60 + sh, y0 + 470, w - 120, 360); l.beginPath(); l.arc(x0 + 70 + sh, ym, 18, 0, TAU); l.fill(); l.restore();
       k.save(); k.fillStyle = T(B, .9); k.fillRect(x0 + sh, y1 - 8, w, 8); k.restore();
+      topX = x0 + 70 + sh;
     } else {
       // açık: içerisi karanlık, koridorun ışığı kama gibi içeri düşer
       k.save(); k.fillStyle = T(B, .86); k.fillRect(x0, y0, w, y1 - y0);
@@ -188,14 +245,19 @@
       // kanat: menteşe sağda, sol kenar izleyiciye doğru açılır (görünüşte sağa kayar, büyür)
       const xl = lerp(x0, xR - 90, ac), dy = 70 * ac;
       k.save(); k.fillStyle = T(B, .66); k.beginPath(); k.moveTo(xl, y0 - dy); k.lineTo(xR, y0); k.lineTo(xR, y1); k.lineTo(xl, y1 + dy); k.closePath(); k.fill(); k.restore();
-      l.save(); ink(l, 6); l.beginPath(); l.moveTo(xl, y0 - dy); l.lineTo(xR, y0); l.lineTo(xR, y1); l.lineTo(xl, y1 + dy); l.closePath(); l.stroke(); l.restore();
-      // mahkûm dışarı alınır: başı eğik, sola yürür
+      l.save(); ink(l, 6); l.beginPath(); l.moveTo(xl, y0 - dy); l.lineTo(xR, y0); l.lineTo(xR, y1); l.lineTo(xl, y1 + dy); l.closePath(); l.stroke(); l.beginPath(); l.arc(xl + 70 * (1 - ac * .6), ym, 18, 0, TAU); l.fill(); l.restore();
+      topX = xl + 70 * (1 - ac * .6);
+      // mahkûm dışarı alınır: başı eğik, sola yürür (önlük opak)
       const tl = st.t - (tC + .15);
-      if (tl > -.2) SET.yuru(B.l, 1050, 1000, 860, Math.max(0, tl), { tip: 'mahkum', f: -1, numara: NUM[7], bas: .3, govde: .12, kolO: [.15, .3], kolA: [.2, .4], go: t => clamp(t / .25) });
+      if (tl > -.2) yuruD(B, 1050, 1000, 860, Math.max(0, tl), { tip: 'mahkum', f: -1, numara: NUM[7], bas: .3, govde: .12, kolO: [.15, .3], kolA: [.2, .4], go: t => clamp(t / .25) });
     }
-    // gardiyanın eli kolda (soldan); açılınca kolu bırakıp çekilir
-    const hx = ac <= 0 ? x0 + 70 + sh : lerp(x0 + 70, x0 - 240, ramp(st.t, tC + .2, tC + .7)), hy = (y0 + y1) / 2 + 8;
-    FIG.elYakin(B.l, hx, hy, 9, 1, false, ac <= 0 ? .7 : 0);
+    // gardiyan kadrajın sol kenarında durur (gövde, gözlük; kopuk kol yok); "çıkarılıyor"dan az önce kolunu uzatıp tokmağı tutar, kapıyı çeker, sonra bırakır
+    const gx = 250, gy = 1580, gb = 1500, gs = gb / 100, sp = [gx + gs, gy - 79 * gs];
+    const uz = ramp(st.t, tC - 1.1, tC - .35, E.io2) * (1 - ramp(st.t, tC - .1, tC + .5, E.io2));
+    const L1 = 16, L2 = 14.5, tx = (x0 + 70 - sp[0]) / gs, ty = (ym + 4 - sp[1]) / gs, Dd = Math.min(Math.hypot(tx, ty), L1 + L2 - .3);
+    const phi = Math.atan2(tx, ty), alf = Math.acos(clamp((L1 * L1 + Dd * Dd - L2 * L2) / (2 * L1 * Dd), -1, 1)), bet = Math.acos(clamp((L1 * L1 + L2 * L2 - Dd * Dd) / (2 * L1 * L2), -1, 1));
+    const kolO = [lerp(.12, phi - alf, uz), lerp(.3, PI - bet, uz)];
+    FIG.kisi(B.l, gx, gy, gb, { tip: 'gardiyan', f: 1, kolO, kolA: [-.08, .2], bas: .1 - .06 * uz + Math.sin(st.t * .7) * .015, serbest: 1 });
   }, VID);
 
   // ── P26 duvar saati: altıdan ikiye döner; vardiya gölgeleri duvardan geçer ──
@@ -236,7 +298,7 @@
     const zg = .32;
     // solda duvar dibinde üç mahkûm (gece sayımı); "mahkûmlar"da başlarını ona çevirir
     const tM = tA('C05@mahkumlar'), don = ramp(st.t, tM, tM + .6);
-    for (let i = 0; i < 3; i++) { const z = .26 + i * .09, p = K.yer(z, -.74); FIG.kisi(B.l, p[0], p[1], 700 * (1 - z), { tip: 'mahkum', f: 1, numara: NUM[i + 2], bas: lerp(.25, -.05, don) + Math.sin(st.t * .6 + i) * .02, kolO: [-.05, .1], kolA: [-.08, .1] }); }
+    for (let i = 0; i < 3; i++) { const z = .26 + i * .09, p = K.yer(z, -.74); kisiD(B, p[0], p[1], 700 * (1 - z), { tip: 'mahkum', f: 1, numara: NUM[i + 2], bas: lerp(.25, -.05, don) + Math.sin(st.t * .6 + i) * .02, kolO: [-.05, .1], kolA: [-.08, .1] }); }
     // uzun boylu gardiyan: "öne"de yürümeye başlar, "Deyv"de durur
     const tt = P28t(st), g0 = K.yer(zg, -.82), s = 700 * (1 - zg) * 1.13;
     const gr = SET.yuru(B.l, g0[0], g0[1], s, st.lt, { tip: 'gardiyan', f: 1, go: yuruAra([[yerel(st, 'C05@öne'), tt.d + .2]]), kolO: [.2, .35], kolA: [-.05, .2], bas: -.04, parilti: st.t > tA('C05@con') ? '#FFFFFF' : '#C8CED0' });
@@ -247,41 +309,39 @@
     }
   }, { ...VID, mb: 2, over: (ctx, st) => { const tt = P28t(st); ETK('DAVE ESHELMAN', 960, 170, { video: 1, t0: tt.d, d: tt.c - tt.d + .2 })(ctx, st); ETK('JOHN WAYNE · DAVE ESHELMAN', 960, 170, { video: 1, t0: tt.c, d: 2.6 })(ctx, st); } });
 
-  // ── P29 Eshelman ve şınav: tek mahkûm yandan; "şınav"da tempo artar, "keyfî"de gardiyan eğilip yeri gösterir ──
+  // ── P29 Eshelman ve şınav: tek mahkûm yandan, iniş-kalkış belirgin; "şınav"da tempo artar, "keyfî"de gardiyan eğilip yeri gösterir ──
   sahne('P29', 'C06', 'koridor', 'orta', (B, st) => {
     B.cam(980, 560, 1.08 + st.lt * .01);
     D.koridor(B, st.t, { levha: false });
     const tS = tA('C06@şınav') - st.at, tK = tA('C06@keyfi'), tl = st.lt;
     const faz = .55 * tl + .55 * Math.max(0, tl - tS);   // tur/sn: önce yavaş, sonra iki kat
     const h = .5 + .5 * Math.cos(faz * TAU);
-    sinav(B, 560, 1012, 6.4, h, 1);
+    sinav(B, 540, 1012, 7, h, 1);
     const egil = ramp(st.t, tK - .2, tK + .5), konus = 1 - ramp(st.t, tA('C06@zimbardonun') - .3, tA('C06@zimbardonun'));
     const say = ramp(st.lt, tS - .2, tS + .2) * (1 - egil);
     FIG.kisi(B.l, 1330, 1012, 800, { tip: 'gardiyan', f: -1, serbest: 1, govde: .04 + .14 * egil, bas: .2 + .05 * Math.sin(st.t * 7) * konus + .1 * egil,
       kolO: [lerp(lerp(.25, .55, say), .45, egil), lerp(lerp(1.6, 1.05 + .3 * Math.sin(faz * TAU), say), .45, egil)], kolA: [-.1, .3] });
   }, { ...VID, over: KU("Zimbardo'nun anlatımı (2018)", { video: 1, t0: .6 }) });
 
-  // ── P30 tepsi: tabaktaki yemek yarıya iner (bir el yarısını alıp götürür) ──
+  // ── P30 tepsi: kaşıklı el girer, "kısıyor"da yemeğin yarısını alır ve kadrajın sağından çıkar; yemek sağ yandan yuvarlak kenarla azalır ──
   sahne('P30', 'C06@yemeği', 'tepsi', 'ayrinti', (B, st) => {
     B.cam(960, 540, 1.06 + st.lt * .05);
     tam(B, .6);
     const k = B.k, l = B.l;
     k.save(); k.fillStyle = T(B, .32); k.beginPath(); k.roundRect(280, 170, 1360, 760, 30); k.fill(); k.restore();
     l.save(); ink(l, 6); l.beginPath(); l.roundRect(280, 170, 1360, 760, 30); l.stroke(); l.restore();
-    const tK = tA('C06@kısıyor'), gel = ramp(st.t, st.at, tK, E.out3), al = ramp(st.t, tK, tK + .9, E.io2);
-    // tabak yerinde; yemeğin sol yarısı kalır, sağ yarısı elle gider
+    const tK = tA('C06@kısıyor'), gel = ramp(st.t, st.at, tK, E.out3), al = ramp(st.t, tK, tK + .85, E.io2);
     tabak(B, 960, 550, 380, 250, 0);
-    B.save(); for (const g of [B.k, B.l]) { g.beginPath(); g.rect(-500, -500, 1460, 2200); g.clip(); } yemekCiz(B, 960, 550, 380, 250, 21); B.restore();
-    B.save(); for (const g of [B.k, B.l]) { g.beginPath(); g.rect(960, -500, lerp(500, 0, ramp(al, 0, .35, E.lin)), 2200); g.clip(); } yemekCiz(B, 960, 550, 380, 250, 21); B.restore();
-    // el (kaşıkla): sağdan girer, yemeğin sağ yarısına; "kısıyor"da alıp götürür
-    const hx = lerp(1900, 1180, gel) + 720 * al, hy = 560 - 380 * al;
+    yemekCiz(B, 960, 550, 380, 250, 21, 1 - .5 * ramp(al, .05, .4, E.out3));
+    // el (kaşıkla): sağdan girer, yemeğin sağ kenarına dalar, kaşık dolu sağa doğru kadrajdan çıkar (yatay; tepsinin dışına sıçramaz)
+    const hx = lerp(1900, 1170, gel) + 1150 * ramp(al, .35, 1, E.in2), hy = 570 - 50 * Math.sin(PI * clamp(al / .5));
     l.save(); ink(l, 16); l.beginPath(); l.moveTo(hx - 120, hy + 40); l.lineTo(hx + 40, hy - 10); l.stroke(); l.beginPath(); l.ellipse(hx - 150, hy + 48, 60, 30, -.3, 0, TAU); l.fill();
-    if (al > .05) { l.fillStyle = '#77776F'; l.beginPath(); l.ellipse(hx - 150, hy + 30, 72 * Math.min(1, al * 3), 40 * Math.min(1, al * 3), -.3, PI, TAU); l.fill(); }   // kaşıktaki yemek
+    if (al > .08) { l.fillStyle = '#77776F'; const q = Math.min(1, (al - .08) * 4); l.beginPath(); l.ellipse(hx - 150, hy + 34, 70 * q, 34 * q, -.3, PI, TAU); l.fill(); }   // kaşıktaki yemek
     l.restore();
     FIG.elYakin(B.l, hx + 60, hy - 20, 11, -1, false, .9);
   }, VID);
 
-  // ── P31 416 hücrede oturuyor, önünde dokunulmamış tabak; "reddediyor"da başını göğsüne gömer, omuzlar kapanır ──
+  // ── P31 416 hücrede oturuyor; tabak kadraj dışından itilir ve kayar; "yemek"te tabağa bakar, "reddediyor"da geri yaslanır, kollarını kavuşturur ──
   sahne('P31', 'C07', 'hucre', 'orta', (B, st) => {
     B.cam(940, 560, 1.05 + st.lt * .018);
     const G = 940; tam(B, .44); yer(B, G, .6);
@@ -290,37 +350,46 @@
     // ranza kenarı (oturak)
     k.save(); k.fillStyle = T(B, .62); k.fillRect(180, 784, 560, 40); k.fillStyle = T(B, .72); k.fillRect(190, 824, 24, 116); k.fillRect(706, 824, 24, 116); k.restore();
     l.save(); ink(l, 4); l.strokeRect(180, 784, 560, 40); l.restore();
-    const tR = tA('C07@reddediyor'), red = ramp(st.t, tR - .2, tR + .6);
-    FIG.kisi(B.l, 520, G, 640, { tip: 'mahkum', f: 1, numara: '416', bacak: 'otur', sandalye: false, bas: lerp(.12, .55, red) + Math.sin(st.t * .8) * .02, govde: .1 + .12 * red, kolO: [lerp(.55, .15, red), lerp(.9, 1.35, red)], kolA: [lerp(.5, .1, red), lerp(.95, 1.45, red)], zincir: true, serbest: 1 });
-    // tabak sağdan itilerek gelir (elin ucu), sonra yerinde kalır
-    const gel = ramp(st.t, st.at, st.at + 1.4, E.out3), px = lerp(1500, 1080, gel);
+    const tY = tA('C07@yemek'), tR = tA('C07@reddediyor');
+    const bak = ramp(st.t, tY - .2, tY + .5) * (1 - ramp(st.t, tR - .2, tR + .4)), red = ramp(st.t, tR - .2, tR + .6);
+    kisiD(B, 520, G, 640, { tip: 'mahkum', f: 1, numara: '416', bacak: 'otur', sandalye: false, bas: .12 + .26 * bak - .2 * red + Math.sin(st.t * .8) * .02, govde: .1 + .08 * bak - .16 * red,
+      kolO: [lerp(.55, .25, red), lerp(.9, 1.55, red)], kolA: [lerp(.5, .3, red), lerp(.95, 1.5, red)], zincir: true, serbest: 1 });
+    // tabak sağdan itilir, el bırakınca kayarak önünde durur; el kadraj dışına çekilir (kol omuzdan kadraj dışında)
+    const pp = ramp(st.t, st.at + .05, st.at + 1.5, E.out3), px = lerp(1660, 1080, pp);
+    const geri = ramp(st.t, st.at + 1.2, st.at + 2.1, E.in2), hx = Math.max(px + 150, 1580) + 900 * geri, hy = G - 40;
     tabak(B, px, G - 16, 120, 32, 1, { tohum: 5 });
-    if (gel < 1) FIG.elYakin(B.l, px + 150, G - 40, 7, -1, false, .4);
     parmaklik(B, 40, 1880, 60, 1100, 8, { cer: 0.01, cub: 15 });
     l.save(); ink(l, 22); l.beginPath(); l.moveTo(-200, 60); l.lineTo(2200, 60); l.stroke(); l.restore();
+    if (geri < 1) {
+      l.save(); l.fillStyle = '#000'; FIG.uzuv(l, [hx + 182, hy + 21], [hx + 560, hy - 380], 44, 54); l.restore();
+      FIG.elYakin(B.l, hx, hy, 7, -1, false, .4);
+    }
   }, { ...VID, over: (ctx, st) => ETK('416', 960, 170, { video: 1, px: 56, t0: yerel(st, 'C07@dört'), d: 3.2 })(ctx, st) });
 
-  // ── P32 dolap kapısı + duvar saati: kuralda bir saat, gerçekte üç saat ──
+  // ── P32 dolap kapısı + duvar saati: kuralda bir saat, gerçekte üç saat; içeriden darbeler saat ilerledikçe seyrelir ve zayıflar ──
   sahne('P32', 'C07@kuralda', 'dolap', 'ayrinti', (B, st) => {
     B.cam(960, 540, 1.04 + st.lt * .03);
     tam(B, .4);
     const p1 = ramp(st.t, st.at, tA('C07@yazan'), E.io2), p2 = ramp(st.t, tA('C07@üç') - .3, tA('C07@tutuluyor') + .5, E.io2);
-    const sh = 2.2 * Math.sin(st.t * 37) * (1 - .8 * p2);
-    SET.dolap(B, 260 + sh * 0, 150, 560, 820, sh);
+    const kn = [[.2, 10], [1.25, 7], [2.5, 4], [3.6, 2]].reduce((a_, [a, g]) => { const u = st.lt - a; return a_ + (u > 0 && u < .45 ? (1 - u / .45) * g : 0); }, 0);
+    const sh = (kn + .6) * Math.sin(st.t * 47);
+    SET.dolap(B, 260, 150, 560, 820, sh);
+    // kapının altındaki aralık: darbede içerideki gölge kıpırdar
+    const k = B.k; k.save(); k.fillStyle = T(B, .95); k.fillRect(260 + sh, 962, 560, 8); k.fillStyle = T(B, .2); k.fillRect(260 + 200 + kn * 18, 962, 90 + kn * 6, 8); k.restore();
     const s = 22 + p1 + 2 * p2;
     SET.saat(B, 1400, 420, 240, Math.floor(s), (s % 1) * 60);
   }, VID);
 
-  // ── P33 hücreler: battaniyeli mahkûmlar parmaklık ardında; gardiyan seçimi sunar; "çoğu"nda battaniyeler sıkılır, dolap kapalı kalır ──
+  // ── P33 hücreler: battaniyeli mahkûmlar parmaklık ardında; "seçim"de başlar gardiyana döner, "çoğu"nda battaniyeler göğse çekilir; dolap kapalı kalır ──
   sahne('P33', 'C08', 'hucre', 'genis', (B, st) => {
     B.cam(960, 520, 1.02 + st.lt * .012);
     const G = 880; tam(B, .46); yer(B, G, .62);
     const k = B.k; k.save(); k.strokeStyle = T(B, .5); k.lineWidth = 3; for (let i = 0; i < 6; i++) { k.beginPath(); k.moveTo(-200, 920 + i * i * 9); k.lineTo(2200, 920 + i * i * 9); k.stroke(); } k.restore();
-    const tC = tA('C08@çoğu'), cek = ramp(st.t, tC - .1, tC + .7);
+    const tC = tA('C08@çoğu'), cek = ramp(st.t, tC - .1, tC + .7), sec = ramp(st.t, tA('C08@seçim') - .1, tA('C08@seçim') + .5) * (1 - cek);
     const hucre = [[110, 520, [[215, 1, NUM[1]], [405, 1, NUM[4]]]], [610, 1020, [[715, -1, NUM[5]], [905, -1, NUM[6]]]], [1110, 1520, [[1215, 1, NUM[8]], [1405, 1, NUM[2]]]]];
     hucre.forEach(([x0, x1, ic], j) => {
       k.save(); k.fillStyle = T(B, .56); k.fillRect(x0, 150, x1 - x0, G - 150); k.fillStyle = T(B, .64); k.fillRect(x0, 760, x1 - x0, G - 760); k.restore();
-      ic.forEach(([x, f, n], i) => battaniyeli(B, x, 862, 380 + ((i + j) % 2) * 26, { f, numara: n, cek, bas: .1 + Math.sin(st.t * .7 + i + j) * .03 }));
+      ic.forEach(([x, f, n], i) => battaniyeli(B, x, 862, 380 + ((i + j) % 2) * 26, { f, numara: n, cek, bas: .12 - .22 * sec + .12 * cek + Math.sin(st.t * .7 + i + j) * .03 }));
       parmaklik(B, x0, x1, 150, G, 6, { cer: 14, cub: 9 });
     });
     // dolap: başta hafif titrer (içeride 416), "çoğu"ndan sonra kıpırtısız
@@ -359,46 +428,65 @@
     if (tg > 0) SET.yuru(B.l, 900, G + 4, 540, tg, { tip: 'kadin', f: 1, desen: false, kolO: [.1, .3], kolA: [-.1, .2], go: yuruAra([[0, yerel(st, 'C09@iniyor') + .3 - (tP + .15 - st.at)]]) });
   }, { ...VID, mb: 2, over: KU('Christina Maslach', { video: 1, t0: 1.9 }) });
 
-  // ── P35 tuvalet yürüyüşü: tek sıra, eller öndekinin omzunda, ayaklar zincirli (başlarda torba ÇİZİLMEZ); "zincirli"de kamera ayaklara iner ──
+  // ── P35 tuvalet yürüyüşü: tek sıra, bir el öndekinin sırtında (dirsek aşağıda, kol yatay uzanmaz), ayaklar zincirli (başlarda torba ÇİZİLMEZ); gardiyan sıranın arkasından gelir; "zincirli"de kamera ayaklara iner ──
   sahne('P35', 'C09@mahkumların', 'koridor', 'genis', (B, st) => {
     const tZ = tA('C09@zincirli'), z = ramp(st.t, tZ - .2, tZ + 1.2, E.io2);
     B.cam(lerp(980, 1060, z) + st.lt * 12, lerp(540, 820, z), lerp(1.02, 1.42, z) + st.lt * .01);
     bodrum(B, st, { levha: false });
-    const G = 1000, boy = 430, s = boy * .97 / 100, ara = 33 * s, tl = st.lt;
-    const g = SET.yuru(B.l, 760, G, 470, tl, { tip: 'gardiyan', f: 1, kolO: [.2, .35], kolA: [-.05, .2], bas: .04 });
+    const G = 1000, boy = 430, s = boy * .97 / 100, ara = 26.5 * s, tl = st.lt;
     const ks = [];
-    for (let i = 0; i < 5; i++) ks.push(SET.yuru(B.l, 520 - i * ara, G, boy + (i % 2) * 14, tl, { tip: 'mahkum', f: 1, numara: NUM[i], kolO: i ? [1.12, .5] : [.1, .3], kolA: i ? [1.0, .55] : [-.05, .2], bas: .1 + Math.sin(i * 1.7) * .03 }));
+    for (let i = 0; i < 5; i++) ks.push(yuruD(B, 560 - i * ara, G, boy + (i % 2) * 14, tl, { tip: 'mahkum', f: 1, numara: NUM[i], kolO: [.12, .3], kolA: [-.05, .2], bas: .1 + Math.sin(i * 1.7) * .03 }));   // kollar aşağıda (başkan: uzanan kol dizisi selam okunmasın)
+    SET.yuru(B.l, 560 - 4 * ara - 260, G, 470, tl, { tip: 'gardiyan', f: 1, kolO: [.2, .35], kolA: [-.05, .2], bas: .04 });
     // ayak bileklerinden bir sonrakine sarkan zincir
     const l = B.l; l.save(); l.strokeStyle = '#000'; l.lineWidth = 3;
     for (let i = 0; i < 4; i++) { const a = ks[i + 1].kalca[0], b = ks[i].kalca[0]; l.beginPath(); l.moveTo(a + 4, G - 14); l.quadraticCurveTo((a + b) / 2, G + 4, b - 4, G - 14); l.stroke(); }
     l.restore();
   }, { ...VID, mb: 2 });
 
-  // ── P36 kadın yakın, başı dönük; "Buna bakamıyorum." Arkada parmaklık ve yürüyen sıra (bir kademe açık) ──
+  // ── P36 kadın yakın, başı dönük; "Buna bakamıyorum." Arkada kapı aralığından görülen yürüyen sıra (bir kademe açık): eller öndekinin omzunda, dirsek düşük; parmaklık yok ──
   sahne('P36', 'C10', 'koridor', 'yakin', (B, st) => {
     B.cam(960, 540, 1.03 + st.lt * .02);
     tam(B, .52);
-    const k = B.k; k.save(); k.fillStyle = T(B, .3); k.fillRect(-300, 120, 1180, 900); k.restore();
-    for (let i = 0; i < 4; i++) { const x = ((st.lt * 120 + i * 230) % 1100) - 200; FIG.kisi(B.k, x, 980, 520, { tip: 'mahkum', f: 1, renk: T(B, .7), onlukRenk: T(B, .5), kolO: [1.1, .5], kolA: [1, .55] }); }
-    parmaklik(B, -220, 880, 120, 1020, 8, { cer: 16, cub: 13 });
+    const k = B.k, l = B.l, xj = 930;
+    B.save(); for (const g of [k, l]) { g.beginPath(); g.rect(-400, -200, xj + 400, 1500); g.clip(); }
+    k.fillStyle = T(B, .3); k.fillRect(-400, -200, xj + 400, 1500); k.fillStyle = T(B, .4); k.fillRect(-400, 930, xj + 400, 400);
+        const boy = 520, s = boy * .97 / 100, ara = 26.5 * s, ks = [];
+    for (let i = 0; i < 5; i++) ks.push(SET.yuru(k, 640 - i * ara, 960, boy, st.lt, { tip: 'mahkum', f: 1, renk: T(B, .72), onlukRenk: T(B, .44), numara: NUM[i + 3], kolO: [.12, .3], kolA: [-.05, .2], bas: .12 + Math.sin(i * 1.3) * .03, zincir: false }));
+    k.save(); k.strokeStyle = T(B, .72); k.lineWidth = 3; for (let i = 0; i < 4; i++) { const a = ks[i + 1].kalca[0], b = ks[i].kalca[0]; k.beginPath(); k.moveTo(a + 4, 946); k.quadraticCurveTo((a + b) / 2, 962, b - 4, 946); k.stroke(); } k.restore();
+    B.restore();
+    // kapı pervazı (koyu, dikey); kadın pervazın berisinde
+    l.save(); l.fillStyle = '#000'; l.fillRect(xj, -100, 56, 1300); l.restore();   // yalnız dikey pervaz (üst kirişle ters L / darağacı okunmasın)
     const tB = tA('C10@bakamıyorum'), tT = tA('C10@tartışıyor');
     const eg = ramp(st.t, tB - .1, tB + .6), kalk = ramp(st.t, tT - .2, tT + .5);
-    yakinFig(B, 'kadin', 1360, 400, 2050, { f: 1, desen: false, bas: lerp(.04, .32, eg) - .3 * kalk, govde: .05 * eg * (1 - kalk), kolO: [.1, .3], kolA: [-.1, .2] });
+    yakinFig(B, 'kadin', 1380, 400, 2050, { f: 1, desen: false, bas: lerp(.04, .32, eg) - .3 * kalk, govde: .05 * eg * (1 - kalk), kolO: [.1, .3], kolA: [-.1, .2] });
   }, { ...VID, over: QT('Buna bakamıyorum.', 'Christina Maslach, Stanford Magazine (2011)', { video: 1, x: 560, y: 330, px: 76, maxW: 820, t0: .25 }) });
 
-  // ── P37 altıncı gün sabahı: boş koridor, lambalar tam, kapılar açık; "bitiyor"da son kapı da açılır ──
+  // ── P37 altıncı gün sabahı: boş koridor; lambalar titreyerek tam yanar; "bitiyor"da hücre kapıları birer birer açılır (parmaklıklı kanat koridora döner) ──
   sahne('P37', 'C10@ertesi', 'koridor', 'genis', (B, st) => {
     B.cam(960, 500, 1.0 + st.lt * .022);
     const lt = st.lt, yan = lt < .9 ? (Math.sin(lt * 50) > .2 ? .9 : .35) : 1;
     const tB = tA('C10@bitiyor');
-    bodrum(B, st, { isik: yan, acik: (y, i) => !(y > 0 && i === 1) || st.t > tB });
+    const acil = (y, i) => { const n = i * 2 + (y > 0 ? 1 : 0); return ramp(st.t, tB - .15 + n * .22, tB + .4 + n * .22, E.out3); };
+    const K = bodrum(B, st, { isik: yan, acik: (y, i) => acil(y, i) > .02 });
+    const k = B.k, l = B.l;
+    [...K.kapilar].sort((a, b) => b.i - a.i).forEach(q => {
+      const p = acil(q.yan, q.i); if (p <= .02) return;
+      const z0 = .12 + q.i * .31, th = p * 1.35, zf = z0 + .07 * Math.cos(th), uf = q.yan * (1 - .2 * Math.sin(th));
+      const e = K.P(zf, uf, 0), f = K.P(zf, uf, .72), a = q.a, d = q.d;
+      k.save(); k.fillStyle = T(B, .8); k.beginPath(); k.moveTo(...a); k.lineTo(...e); k.lineTo(...f); k.lineTo(...d); k.closePath(); k.fill(); k.restore();
+      const w = Math.max(1.5, Math.abs(q.b[0] - q.a[0]) * .05);
+      l.save(); ink(l, w * 1.6); l.beginPath(); l.moveTo(...a); l.lineTo(...e); l.lineTo(...f); l.lineTo(...d); l.closePath(); l.stroke();
+      l.lineWidth = w; for (let i = 1; i < 7; i++) { const u = i / 7; l.beginPath(); l.moveTo(lerp(a[0], e[0], u), lerp(a[1], e[1], u)); l.lineTo(lerp(d[0], f[0], u), lerp(d[1], f[1], u)); l.stroke(); }
+      l.restore();
+    });
   }, { ...VID, over: ETK('20 AĞUSTOS 1971 · ALTINCI GÜN', 960, 160, { video: 1, t0: .4, d: 4.4 }) });
 
-  // ── P38 makale sayfası (Haney, Banks, Zimbardo 1973): "en az üçte biri" kehribar; "Makale"de kamera geri çekilir: sayfa masada, teybin yanında ──
-  const P38c = st => ramp(st.t, tA('C11@makale#1') - .2, tA('C11@makale#1') + 2.4, E.io2);
-  sahne('P38', 'C11', 'kart', 'kart', (B, st) => {
-    const c = P38c(st);
-    B.cam(lerp(960, 1420, c), lerp(470 + st.lt * 6, 600, c), lerp(1.1 + st.lt * .008, .56, c));
+  // ── P38 masada makale ve teyp (geniş); "göre"de kamera sayfaya iner: Haney, Banks, Zimbardo 1973, "en az üçte biri" kehribar; "geldi"den sonra geri çekilir ──
+  //   Yazı levhası yalnız yakın evrede (≈ 7 sn); uzak görünümde satırlar gri çubuk (okunmaya çalışılan küçük yazı yok)
+  const P38c = st => { const g0 = tA('C11@göre'), g1 = tA('C11@geldi'); return ramp(st.t, g0 - 1.7, g0 - .1, E.io2) * (1 - ramp(st.t, g1 + .05, g1 + 2.2, E.io2)); };
+  sahne('P38', 'C11@gardiyanların', 'kart', 'kart', (B, st) => {
+    const c = P38c(st), u = 1 - c;
+    B.cam(lerp(960, 1440 - st.lt * 5, u), lerp(470 + st.lt * 3, 610, u), lerp(1.1, .55 + st.lt * .003, u));
     const my = 900;
     SET.karanlik(B, .8);
     SET.koni(B, 2400, -900, 180, my + 10, 1300, { a: .9, tohum: 9 });
@@ -408,10 +496,10 @@
     const s1 = ['Gardiyanların', 'en az üçte biri,', 'bir canlandırmada beklenenden', 'çok daha saldırgan hâle geldi.'];
     const s2 = ['', 'İki gruba da rolleri için', 'özel bir eğitim verilmedi.'];
     const n1 = s1.join('').length, n2 = s2.join('').length;
-    const p1 = ramp(st.t, st.at + .3, tA('C11@geldi') + .3, E.lin), p2 = ramp(st.t, tA('C11@iki#1'), tA('C11@verilmediğini') + .4, E.lin);
-    const tU = tA('C11@üçte#1');
-    sayfa(B, 300, 90, 1320, ['HANEY, BANKS, ZIMBARDO (1973) · s. 69', 'Interpersonal Dynamics in a Simulated Prison'], [...s1, ...s2], (n1 * p1 + n2 * p2) / (n1 + n2), { px: 46, golge: .95, vurgu: { 1: ramp(st.t, tU - .1, tU + .6, E.lin) } });
-  }, { baski: st => ({ mod: 'kagit', kuru: .6 * P38c(st) }), over: KU('Haney, Banks ve Zimbardo 1973, s. 69 (çevirisi bizim)', { t0: .8 }) });
+    const p1 = ramp(st.t, tA('C11@göre') - .05, tA('C11@geldi') + .2, E.lin);
+    const tU = tA('C11@üçte#1'), ta = clamp((c - .72) / .28), gr = clamp((.6 - c) / .3);
+    sayfa(B, 300, 90, 1320, ['HANEY, BANKS, ZIMBARDO (1973) · s. 69', 'Interpersonal Dynamics in a Simulated Prison'], [...s1, ...s2], n1 * p1 / (n1 + n2), { px: 46, golge: .95, ta, gr, vurgu: { 1: ramp(st.t, tU - .1, tU + .6, E.lin) } });
+  }, { baski: st => ({ mod: 'kagit', kuru: .6 * (1 - P38c(st)) }), over: KU('Haney, Banks ve Zimbardo 1973, s. 69 (çevirisi bizim)', { t0: .8 }) });
 
   // ── P39 dokuz gardiyan: önce üçü koyu ("en az üçte bir"), "üçte"de öbür altısı öne çıkar ("üçte iki") ──
   const P39t = st => yerel(st, 'C12@üçte');
@@ -428,7 +516,8 @@
     dz.forEach((o, i) => {
       const uc = i < 3, d = uc ? lerp(1, .42, p) : lerp(.3, 1, p), one = uc ? 0 : p;
       const sw = Math.sin(st.t * .8 + i * 1.3) * .02;
-      FIG.kisi(B.k, o.x, G + o.y + 26 * one, o.b * .92 * (1 + .07 * one), { tip: 'gardiyan', f: o.f, renk: T(B, d), camRenk: T(B, d * .62), parilti: T(B, d * .55), kolO: o.kO, kolA: o.kA, bas: o.bs + sw, serbest: 1 });
+      // gözlük gövdeye yakın tonda, parıltı küçük ve sönük (küçük boyda "beyaz göz" okunmasın)
+      FIG.kisi(B.k, o.x, G + o.y + 26 * one, o.b * .92 * (1 + .07 * one), { tip: 'gardiyan', f: o.f, renk: T(B, d), camRenk: T(B, d * .8), parilti: T(B, d * .62), kolO: o.kO, kolA: o.kA, bas: o.bs + sw, serbest: 1 });
     });
   }, { ...KAG, over: (ctx, st) => { const u = P39t(st); ETK('EN AZ ÜÇTE BİR', 352, 130, { t0: .3, d: Math.min(4.6, u) })(ctx, st); ETK('ÜÇTE İKİ', 1150, 130, { t0: u, d: 3.4 })(ctx, st); KU('Erich Fromm, The Anatomy of Human Destructiveness (1973), s. 57–58', { t0: yerel(st, 'C12@fromm') })(ctx, st); } });
 

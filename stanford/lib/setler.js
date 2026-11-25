@@ -152,6 +152,12 @@ const SET = (() => {
   }
   // gözlem odası: koyu duvar, monitör (içinde bodrum), masa, teyp, konide ışık; iki oturan siluet (sol müdür, sağ Mark) eşit yükseklikte.
   // o: { t, ang (makara açısı), kayit, vu, mudur, mark (true | false), markGozluk (elinde gözlük), monitor (çizim fn), cam: [x,y,z] }
+  // fincan: küçük koyu kap, ince tohumlu buhar (ton plakasında açık)
+  function fincan(B, x, y, t, tohum = 1) {
+    const l = B.l, k = B.k; l.save(); l.fillStyle = '#000'; l.beginPath(); l.moveTo(x - 26, y - 56); l.lineTo(x + 26, y - 56); l.lineTo(x + 22, y); l.lineTo(x - 22, y); l.closePath(); l.fill();
+    l.lineWidth = 7; l.strokeStyle = '#000'; l.beginPath(); l.arc(x + 30, y - 30, 14, -PI / 2, PI / 2); l.stroke(); l.restore();
+    k.save(); k.strokeStyle = 'rgba(255,255,255,.35)'; k.lineWidth = 4; k.lineCap = 'round'; for (let i = 0; i < 2; i++) { k.beginPath(); for (let j = 0; j < 12; j++) { const yy = y - 64 - j * 9, xx = x - 6 + i * 12 + Math.sin(t * 1.6 + j * .55 + tohum + i) * 7; j ? k.lineTo(xx, yy) : k.moveTo(xx, yy); } k.stroke(); } k.restore();
+  }
   function gozlemOdasi(B, st, o = {}) {
     const t = st.t, my = 690;
     karanlik(B, o.koyu ?? .76);
@@ -159,7 +165,7 @@ const SET = (() => {
     // monitör arka duvarda solda (soğuk ışık kaynağı), içinde bodrum
     if (o.monitor !== false) monitorIci(B, 150, 150, 520, 380, o.monitor || ((B2) => { const KK = D.koridor(B2, t, { levha: false }); }));
     // koni: tavandan teybin üstüne
-    koni(B, 1060, -60, 120, my + 10, 760, { a: o.isik ?? 1, tohum: 5 });
+    koni(B, 1060, -60, 120, my + 10, 640, { a: (o.isik ?? 1) * .8, tohum: 5, taban: .45 });
     // masa: koyu kütle + sert açık üst kenar (karenin en açık çizgisi), kenar 3-4 parçaya kırık
     k.save(); k.fillStyle = T(B, .9); k.fillRect(260, my + 8, 1500, 400); k.restore();
     l.save(); l.fillStyle = '#000'; l.fillRect(260, my + 30, 1500, 500); l.restore();
@@ -171,13 +177,17 @@ const SET = (() => {
     // kollar dirsekten bükük, önkol masada (düz uzanan kol yok); figür renk plakasında siyah: monitör maskesini siler
     const kisiCiz = (x, f, tip, oo) => { const op = { tip, f, bacak: 'otur', sandalye: true, kolO: [.95, .75], kolA: [.7, .95], bas: .08, gozluk: false, ...oo };
       FIG.kisi(B.c, x, my + 330, 760, { ...op, renk: '#000', sandalyeRenk: '#000' }); return FIG.kisi(B.l, x, my + 330, 760, op); };
-    if (o.mudur !== false) kisiCiz(560, 1, 'mudur', o.mudurO || {});
-    if (o.mark !== false) kisiCiz(1560, -1, 'gardiyan', { gozluk: false, ...(o.markO || {}) });
+    // fincanlar ve kâğıt (büro: sorgu odası okunmasın; kanal dersleri + üç okuyucunun ortak bulgusu)
+    fincan(B, 1380, my, t, 1); fincan(B, 1700, my, t, 2);
+    k.save(); k.fillStyle = '#fff'; k.globalAlpha = .55; k.beginPath(); k.moveTo(600, my - 4); k.lineTo(780, my - 10); k.lineTo(800, my + 2); k.lineTo(610, my + 6); k.closePath(); k.fill(); k.restore();
+    // iki kişi AYNI tarafta, yan yana, ikisi de monitörlere bakar (karşılıklı oturuş yok)
+    if (o.mark !== false) kisiCiz(1680, -1, 'gardiyan', { gozluk: false, ...(o.markO || {}) });
+    if (o.mudur !== false) kisiCiz(1360, -1, 'mudur', o.mudurO || {});
     return { masaY: my, teyp: tp };
   }
   // kamera sallantısı yok; yavaş yaklaşma varsayılan: zoom(st, a, b)
   const yak = (st, z0 = 1, hiz = .012) => z0 + st.lt * hiz;
-  return { yuru, oda, monitorIci, onde, teyp, belge, tahta, polisArabasi, ev, dolap, saat, yatak, bulut, yak, ink, karanlik, koni, surtme, gozlemOdasi };
+  return { yuru, oda, monitorIci, onde, teyp, belge, tahta, polisArabasi, ev, dolap, saat, yatak, bulut, yak, ink, karanlik, koni, surtme, gozlemOdasi, fincan };
 })();
 
 // ── ekran yazısı yardımcıları (üst katman) ──

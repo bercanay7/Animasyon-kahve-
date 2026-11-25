@@ -131,7 +131,7 @@ sahne('P11', 'B03', 'sinif', 'orta', (B, st) => {
   const r = rng(9); for (let i = 0; i < 6; i++) { const x = 220 + i * 260 + (r() - .5) * 60, y = 1080 + (i % 2) * 30;
     FIG.kisi(B.l, x, y, 640 + r() * 60, { tip: 'takim', f: 1, bacak: 'otur', sandalye: false, kolO: [.5, .9], kolA: [.4, 1], bas: .05 + (r() - .5) * .1 + Math.sin(st.t * .7 + i) * .02 }); }
   const g1 = ramp(st.t, A('B04@can') - .3, A('B04@can') + .5), g2 = ramp(st.t, A('B04@korku') - .3, A('B04@korku') + .5), g3 = ramp(st.t, A('B04@güç#1') - .3, A('B04@güç#1') + .5);
-  const hx = lerp(lerp(lerp(1500, 520, g1), 760, g2), 1640, g3), hy = lerp(lerp(lerp(560, 300, g1), 420, g2), 560, g3);
+  const hx = lerp(lerp(lerp(1560, 1250, g1), 1350, g2), 1700, g3), hy = lerp(lerp(lerp(520, 300, g1), 380, g2), 540, g3);   // el tahtanın önünde kalır: saati ve kapıyı oradan gösterir (başların üstünden uzanmaz)
   FIG.elYakin(B.l, hx, hy, 9, hx < 1500 ? -1 : 1, false, .3);
 }, { baski: { mod: 'kagit' }, over: KU('Zimbardo, gardiyan yönlendirmesi, 14 Ağustos 1971 (Stanford arşivi, "Tape 2"; çevirisi bizim)', { x: 1800, align: 'right', y: 90 }) });
 // P12 tahta (≤ 8 sn): sözcükler sesle birlikte yazılır
