@@ -68,6 +68,15 @@ Zamanlar tahmini (seslendirmeden sonra `cernobil/timeline.js` ile güncellenir).
 
 ---
 
+## Stanford Hapishane Deneyi (18 Aralık 2026 önerisi; 48. saat = 20 Aralık 18:00, 7. gün = 25 Aralık; 25 Kasım'da, seslendirmeden önce yazıldı)
+Yeni değişken: senaryodan önce kanca araştırması (`stanford/arastirma/`). Araştırmanın getirdiği tek yeni şey sorudan hemen sonra ikinci kanca (bant); S1 onu sınar.
+
+| # | Tahmin | Ölçü | Sonuç |
+|---|---|---|---|
+| S1 | İkinci kanca (≈0:12–0:25'te bant ve "ondan bir şey istiyor"): 0:30'da kalan aynı yaştaki kanal medyanının ≥ 5 puan üstünde (≥ %66). Tutmazsa ders: kancaya ikinci vaat eklemek kanalda tek soru kadar etkili değil. | elde tutma 0:30 | |
+| S2 | III. bölüm (bant: müdür ↔ Mark, zaman damgalı sözler) filmin en düz bölümü olur: dakika başına kayıp gövde ortalamasının altında; bölüm başına atlama (bölüm damgası) en çok "III. Bant"a. Tersi çıkarsa ders: iki kişinin dökümü (soyut olmasa da) uzun alıntı dizisi olarak düşürüyor. | bölüm bölüm dakika başına kayıp; bölüm başı yükselişleri | |
+| S3 | Son 60 sn ("Peki." ve soru) Mary Stuart'taki doruk sonrası kaybın (45 sn'de −7) yarısından az kaybettirir; yorumlarda izleyicinin kendi cevabını yazdığı yorum oranı kanalın önceki videolarından yüksek. | son dakika eğrisi; yorum sayısı/içeriği | |
+
 ## Dağıtım sınaması: kanal sorunu mu, havuz mu? (23 Kasım 2026, Narkissos yayından önce yazıldı)
 **Soru (kullanıcı, 23 Kasım):** Elizabeth Shorts'u ~400 izlendi (kanalın en düşük Shorts'u); 12 Kasım'dan beri altı uzun video büyük göz atma testi almadı. Algoritmayla bir sorun mu var?
 **İki açıklama ve neyi öngördükleri:**
