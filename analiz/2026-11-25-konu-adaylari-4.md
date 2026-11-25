@@ -1,11 +1,12 @@
-# Konu adayları, dördüncü tarama (25 Kasım 2026): 14 Aralık yuvası
+# Konu adayları, dördüncü tarama (25 Kasım 2026): 18 Aralık yuvası
 
 Önceki taramalar: `2026-11-18-konu-adaylari.md`, `-2`, `-3`, `2026-11-22-turkce-bosluk.md`, `2026-11-23-bosluk-2-ve-gilgamis.md`, `2026-11-23-turkce-medyan.md`, `2026-11-23-sonraki-video.md`.
 Araç: `python3 araclar/talep/iki_dil.py "tr|en" …` (34 sorgu). Medyan ilk 10'un Türkçe başlıklı olanlarından. Bazı Türkçe aramalar ara ara boş döndü (çernobil, dostoyevski); onlar "0" değil "ölçülemedi" sayılır.
 
 ## Neden yeni tarama
-- Takvim: Narkissos 24 Kas, Dorian 28 Kas, Gılgamış 2 Ara, Lale 6 Ara, Frankenstein 10 Ara. Sıradaki yuva **14 Aralık**.
-- Son beş video: mit, kitap, mit, tarih, kitap. **Psikoloji hiç işlenmedi**; Tarihin Dönüm Noktaları'nda Türkiye kapılı bir konu yok.
+- Takvim: Narkissos 24 Kas, Dorian 28 Kas, Gılgamış 2 Ara, Lale 6 Ara, Frankenstein 10 Ara, **Çernobil'in çayı 14 Ara** (üretildi; dal `claude/cernobil-turkiye-video-0x3wrj`). Sıradaki yuva **18 Aralık**.
+  - Düzeltme (kullanıcı): taramanın ilk hâli 14 Aralık'ı boş sanmıştı, çünkü yalnız bu dal ve `main` okunmuştu. Yeni tarama öncesinde bütün uzak dallar (`git branch -r`) taranır.
+- Kuyruktaki altı video: mit, kitap, mit, tarih, kitap, tarih (Türkiye + gazete arşivi). **Psikoloji hiç işlenmedi.**
 - Kitle okuması (24 Kasım, "kitlenizin izlediği videolar"): geniş Türk izleyicisi, "neden …?" sorusu, kendi hayatına ya da Türkiye'ye dokunan konu. "Zeki insanlar neden kalabalıktan kaçar?" ve "Martin Eden" listede.
 
 ## Ölçüm
@@ -105,8 +106,11 @@ Araç: `python3 araclar/talep/iki_dil.py "tr|en" …` (34 sorgu). Medyan ilk 10'
   - Martin Eden (son intihar; YouTube hassasiyeti).
   - Kahve yasağı ve Priamos (talep yok).
 
-## Sıralama
-Psikoloji boşluğu ve "arşivle bozmak" bakışı için **Stanford** birinci. Türkiye kapısı ve üç bakışın üçü için **Piri Reis** ona çok yakın ikinci. Karar kullanıcının önerisi dinlendikten sonra verilir.
+## Sıralama (Çernobil düzeltmesinden sonra)
+- **Stanford birinci, fark açıldı.** Psikoloji kanalda hiç yok; Çernobil'in hemen ardından gelince tür değişir.
+- **Piri Reis ve Karun sonraki tarih yuvasına (22 ya da 26 Aralık) kayar.** Çernobil'in hemen ardından gelirse art arda ikinci "Türkiye + arşivle bozmak" tarih videosu olur.
+- Piri Reis'in gücü bundan etkilenmez; yalnız sırası değişir.
+- Karar kullanıcının önerisi dinlendikten sonra verilir.
 
 ## Kaynaklar (tarama)
 - Le Texier 2019: https://www.gwern.net/doc/psychology/2019-letexier.pdf ; https://www.scientificamerican.com/blog/observations/rethinking-the-infamous-stanford-prison-experiment/
