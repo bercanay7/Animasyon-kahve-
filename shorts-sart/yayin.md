@@ -15,6 +15,7 @@ Neden iki Narkissos Shorts'u: aynı mit, aynı çizim hattı, aynı sahneler; de
 ---
 
 ## 1) Narkissos: "Kendini tanımazsa" (30 Kasım, 20:00)
+> **25 Kasım:** kullanıcı gönderilen Shorts'u yükledi. Yüklenen Narkissos'sa yayındaki sürüm 23 Kasım dosyasıdır ("Kâhinin cevabı tek bir şarttır…" açılışı; kod `eb033b1`). Sıkılaştırılmış açılışlı render `narkissos/narkissos_sart_yedek_25kasim.mp4` yalnız yedektir: **yüklenmez**, aynı Shorts'un ikinci kopyası olur. Karşılaştırma soru Shorts'uyla 20. saatte yapılır (S2).
 - **Dosya:** `narkissos/narkissos_sart.mp4` (28,1 sn, 1080×1920, 30 fps, H.264, −14,7 LUFS; 25 Kasım sürümü: açılış "Oğlum uzun yaşayacak mı?" → "Kendini tanımazsa."). Yüklemeden önce adı: `narkissos-kendini-tanimazsa.mp4`.
 - **Başlık (34 karakter):** `Narkissos'a Uzun Ömür İçin Tek Şart`
   - İlk karedeki yazı şartın kendisi ("KENDİNİ TANIMAZSA"); başlık onu tekrar etmez, kimin için ve neyin karşılığı olduğunu söyler. Seri başlık kalıbı: "<Ad>'a … İçin Tek Şart".
