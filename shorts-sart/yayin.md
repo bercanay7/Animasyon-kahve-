@@ -10,13 +10,13 @@ Shorts her gün **20:00**, uzun videolar **18:00**. Shorts uzun videodan iki saa
 | Cmt 28 Kas | 20:00 | Shorts: **Prometheus/Pandora** "Zeus'tan armağan alma" | şart ilk sözcükte (0,1 sn), giriş yok | Paz 29, 16:00 |
 | Paz 29 Kas | 20:00 | Shorts: **İkaros** "Ortadan uç" | şart ilk sözcükte + tanınan ad | Pzt 30, 16:00 |
 | Pzt 30 Kas | 20:00 | Shorts: **Eko** "Yalnız son sözleri tekrarlar" | kural + yankı oyunu, ilk karede yüz | Sal 1, 16:00 |
-| Sal 1 Ara | 20:00 | Shorts: **açık** | ilk beş Shorts'un kazanan yapısıyla (aşağıda) | Çar 2, 16:00 |
+| Sal 1 Ara | 20:00 | Shorts: **Kafka** "Seni sevenler yine sever mi?" | **sen formülü** (ikinci tekil kişiye soru; mit değil) | Çar 2, 16:00 |
 | Çar 2 Ara | 18:00 | **Uzun video: Gılgamış** | | Cum 4, 18:00 (48. saat) |
-| Per 3 Ara | 20:00 | Shorts: **açık** | kazanan yapı, ikinci deneme | Cum 4, 16:00 |
+| Per 3 Ara | 20:00 | Shorts: **Sisifos II** "Ölümü zincire vuran adam" | **sonuçla açılış** (önce sonuç, sonra nasıl) | Cum 4, 16:00 |
 | Cum 4 Ara | 20:00 | Shorts: **Gılgamış** "Altı gün yedi gece uyuma" | şart ilk cümlede, dikey için çizilmiş (kırpma değil) | Cmt 5, 16:00 |
 | Paz 6 Ara | 18:00 | **Uzun video: Lale Çılgınlığı** | | |
 
-**Açık günler (1 ve 3 Aralık):** 30 Kasım akşamı beş Shorts'un oranları yan yana konur. En yükseği hangi yapıysa (şart ilk sözcükte mi, söz-ihlal mi, kural-yankı mı; tanınan ad mı) iki açık gün o yapıyla doldurulur. Hazır adaylar (filmlerin kaydında ses var): Gılgamış "Ölüm sularına eli değen ölürdü"; Sisifos "Bunlar nasıl takılıyor? Bir gösterir misin?" (Ölüm'ü zincirleyen hile); Narkissos "Ancak ben ölünce bana sahip olursun" (sonuçla açılış).
+**1 ve 3 Aralık (25 Kasım kararı):** açık bırakılmadı, iki ayrı formülle dolduruldu (şart ailesi tutmazsa hazır alternatif; tutarsa yan yana karşılaştırma). 4 Aralık'ta üç formülden yedi ölçüm olur; asıl Shorts üretim planı kazananın üstüne o zaman kurulur. Hazır adaylar (filmlerin kaydında ses var): Gılgamış "Ölüm sularına eli değen ölürdü"; Sisifos "Bunlar nasıl takılıyor? Bir gösterir misin?" (Ölüm'ü zincirleyen hile); Narkissos "Ancak ben ölünce bana sahip olursun" (sonuçla açılış).
 **Karar kuralı:** 20. saatte izlemeye devam eden ≥ %60 → yapı korunur ve çoğaltılır; %45–60 → yapı tutulur, ilk kare değiştirilir; < %45 (soru Shorts'unun %43,2'si) → o yapı bırakılır. Birkaç puanlık fark yok sayılır.
 
 ---
@@ -140,3 +140,31 @@ Ortak alanlar: **İlgili video** o mitin uzun videosu · **Oynatma listesi** Mit
 - **Etiketler:** `Eko, Echo, yankı, Eko ve Narkissos, Narkissos, Juno, Hera, Ovidius, Dönüşümler, Yunan mitolojisi, mitoloji, Zaman Kuryesi`
 - **Sabit yorum:** `Narkissos'un Eko'ya söylediği söz kendisine döndü. Söylediğin bir söz hiç sana geri döndü mü?`
 - **Açılış yapısı:** kural (şartın türü) ilk cümlede; yankı oyunu; söz geri döner.
+
+### 7) Kafka (1 Aralık, 20:00) · `kafka/kafka_sart.mp4` · sen formülü
+- **Başlık:** `Bir Sabah Böcek Olsan Seni Yine Severler mi?`
+- **Açıklama:**
+  ```
+  Bir sabah uyandığında artık eskisi gibi değilsin. Seni sevenler, seni yine sever mi? Kafka'nın Dönüşüm'ünde Gregor Samsa'ya ilk akşam süt getiren kız kardeşi, bir gün masaya vurdu: "Bundan kurtulmalıyız."
+  Tam hikâye kanalda: Kafka, Dönüşüm.
+
+  Kaynak: Franz Kafka, Die Verwandlung (1915; kamu malı). Çeviri ve anlatım bize aittir.
+  #Kafka #Dönüşüm #kitap
+  ```
+- **Etiketler:** `Kafka, Dönüşüm, Franz Kafka, Gregor Samsa, Dönüşüm özet, Kafka Dönüşüm, böcek, aile, kitap, klasik edebiyat, Zaman Kuryesi`
+- **Sabit yorum:** `Seni sevenler seni mi seviyor, yoksa işe yarayan hâlini mi? Dürüst cevap yaz.`
+- **Oynatma listesi:** Kitapların Sorduğu Sorular.
+
+### 8) Sisifos II (3 Aralık, 20:00) · `sisifos-olum/sisifos-olum_sart.mp4` · sonuçla açılış
+- **Başlık:** `Ölümü Zincire Vuran Adam: Sisifos`
+- **Açıklama:**
+  ```
+  Zeus, Sisifos'a Ölüm'ün kendisini gönderdi. Sisifos ne kaçtı ne yalvardı; zincirlere baktı ve sordu: "Bunlar nasıl takılıyor? Bir gösterir misin?" Ölüm zincirlendi. Artık dünyada kimse ölmüyordu.
+  Tam hikâye kanalda: Sisifos.
+
+  Kaynaklar: Pherekydes (İlyada VI 153 şerhleri aracılığıyla): Thanatos'un zincirlenmesi. Çeviri ve anlatım bize aittir.
+  #mitoloji #Sisifos #Thanatos
+  ```
+- **Etiketler:** `Sisifos, Sisyphus, Thanatos, ölüm, Ölümü zincirleyen adam, Sisifos efsanesi, Zeus, Ares, Yunan mitolojisi, mitoloji, Zaman Kuryesi`
+- **Sabit yorum:** `Kimsenin ölmediği bir dünya iyi bir dünya olur muydu?`
+- **Not:** 27 Kasım'daki Sisifos Shorts'undan altı gün sonra ve tamamen farklı sahnelerle (Narkissos dersi: aynı filmden bir gün arayla ikinci Shorts neredeyse hiç gösterilmedi).
