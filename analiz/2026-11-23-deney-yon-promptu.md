@@ -63,3 +63,10 @@
     - Kısıt: bu kaptan izleme sayfası ve altyazı alınamıyor (429). Arama, kanal sayfası (abone) ve kapaklar alınabiliyor.
   - Önceki üç yön videosunda bu adım yoktu. Fark çıkarsa yönden mi araştırmadan mı geldiği ayrılamaz; geriye bakışta araştırmanın neyi değiştirdiği ayrıca yazılır.
 - **Ölçüler:** aynı tablo; 48. saat ve 7. gün `analiz/tahminler.md`.
+- **Üretimde ne oldu (25 Kasım):** `stanford/geriye_bakis.md`.
+  - Yönün iki cümlesi belgeye çarptı.
+    - "Öteki istendiği hâlde yapmadı": ilk taslakta belge yok sanıldı. Fable'ın bağımsız okuması aynı arşivin bakılmamış dosyalarını gösterdi; müdürün deney sonrası notu çıktı. Mark sayım yönetmedi, ama arkadaşlarını durdurmadı da; belge yönetenin anısı.
+    - "Bant 'deneyeceğim' ile bitiyor" değil: Mark'ın son cevabı "Peki" ("All right"); konuşma müdürün de "peki"siyle bitiyor.
+  - Araştırmanın getirdiği tek yapısal şey ikinci kanca (bant, ilk 5 sn'de nesne olarak); ST1 sınıyor.
+  - Kredi: seslendirme 19.034 + yama 3.134.
+  - Film 11:53.
