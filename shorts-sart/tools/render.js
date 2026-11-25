@@ -6,7 +6,8 @@ const { fork, spawnSync } = require('child_process');
 const path = require('path'), fs = require('fs');
 const { serve } = require('./sunucu');
 const FPS = 30, MB = +(process.env.MB || 4), N = +(process.env.WORKERS || 3);
-const URL = (port, ad) => `http://127.0.0.1:${port}/shorts-sart/${ad}/index.html?render=1&notext=1`;
+const EK = ad => /"mod":\s*"kirp"/.test(fs.readFileSync(path.join(__dirname, '..', ad, 'kurgu.js'), 'utf8')) ? '&rs=2' : ''; // kırpma kipi: film 2 kat çözünürlükte
+const URL = (port, ad) => `http://127.0.0.1:${port}/shorts-sart/${ad}/index.html?render=1&notext=1${EK(ad)}`;
 
 async function worker() {
   const { a, b, port, ad, tmp } = JSON.parse(process.env._JOB);

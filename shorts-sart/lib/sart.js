@@ -94,12 +94,26 @@
     H.satir.forEach(([s, c, px, font], i) => { if (i) y += px * (H.ara ?? 1.0); yaz(ctx, s, 540, y, px, c === 'vurgu' ? VURGU : KREM, 'center', font || 'Bebas Neue'); });
     ctx.restore();
   }
+  // kip 'kirp': filmin yatay karesi ?rs=2 ile çizilir, 9:16 bölgesi keskin alınır (mercekle aynı görüntü; motor değişmez).
+  // lens anlamı aynı: (cx, cy) mantıksal dünya noktası karenin ortasına, k büyütme; görünen yükseklik 1920/k ≤ 1080 (dünyanın dışı görünmez).
+  let OUT = null;
+  function kirp(src, k, u) {
+    const L = k.lens || [[0, 960, 540, 1.78]];
+    const m = kf(u, L.map(([t, cx, cy, kk]) => [t, { cx, cy, k: kk }, E.sine]));
+    const kk = Math.max(m.k, 1920 / 1080), sw = 1080 / kk, sh = 1920 / kk;
+    const sx = clamp(m.cx - sw / 2, 0, 1920 - sw), sy = clamp(m.cy - sh / 2, 0, 1080 - sh), r = src.width / 1920;
+    if (!OUT) { OUT = document.createElement('canvas'); OUT.width = 1080; OUT.height = 1920; }
+    const o = OUT.getContext('2d'); o.setTransform(1, 0, 0, 1, 0, 0); o.globalAlpha = 1; o.globalCompositeOperation = 'source-over'; o.filter = 'none';
+    o.imageSmoothingQuality = 'high'; o.drawImage(src, sx * r, sy * r, sw * r, sh * r, 0, 0, 1080, 1920);
+    return OUT;
+  }
   window.renderShort = (ts, mb = 1) => {
-    let cv;
+    let cv, olcek = typeof RS !== 'undefined' ? RS : 1;
     if (K.mod === 'film') { const { k, u } = eslem(ts); mercek(k, u); cv = renderAt(filmZamani(k, u), mb); }
+    else if (K.mod === 'kirp') { const { k, u } = eslem(ts); cv = kirp(renderAt(filmZamani(k, u), mb), k, u); olcek = 1; }
     else cv = renderAt(ts, mb);
     const c = cv.getContext('2d');
-    c.save(); c.setTransform(RS, 0, 0, RS, 0, 0); c.globalAlpha = 1; c.globalCompositeOperation = 'source-over'; c.filter = 'none';
+    c.save(); c.setTransform(olcek, 0, 0, olcek, 0, 0); c.globalAlpha = 1; c.globalCompositeOperation = 'source-over'; c.filter = 'none';
     if (!window.SART_YAZISIZ) { kanca(c, ts); arayazi(c, ts); altyazi(c, ts); kapanis(c, ts); }
     c.restore();
     return cv;

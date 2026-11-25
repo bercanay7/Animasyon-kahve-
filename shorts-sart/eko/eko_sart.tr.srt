@@ -1,0 +1,69 @@
+1
+00:00:00,160 --> 00:00:03,030
+Eko yalnız son sözleri geri verebilir:
+
+2
+00:00:03,080 --> 00:00:04,210
+“Kim var burada?”
+
+3
+00:00:04,420 --> 00:00:05,860
+Bir ses cevap verir:
+
+4
+00:00:05,910 --> 00:00:06,640
+“Burada!”
+
+5
+00:00:06,690 --> 00:00:06,960
+“Gel!”
+
+6
+00:00:07,010 --> 00:00:08,410
+diye bağırır.
+
+7
+00:00:08,460 --> 00:00:09,870
+Ses de onu çağırır:
+
+8
+00:00:09,920 --> 00:00:10,670
+“Gel!”
+
+9
+00:00:10,720 --> 00:00:11,870
+“Burada buluşalım!”
+
+10
+00:00:11,920 --> 00:00:15,370
+Eko hiçbir sese bu kadar sevinçle
+cevap vermemiştir:
+
+11
+00:00:15,420 --> 00:00:16,270
+“Buluşalım!”
+
+12
+00:00:16,320 --> 00:00:20,210
+Ve ormandan çıkıp kollarını onun
+boynuna dolamaya koşar.
+
+13
+00:00:20,260 --> 00:00:21,450
+Narkissos kaçar:
+
+14
+00:00:21,500 --> 00:00:22,330
+“Çek ellerini!
+
+15
+00:00:22,380 --> 00:00:24,700
+Ancak ben ölünce bana sahip olursun.”
+
+16
+00:00:24,750 --> 00:00:26,170
+“Bana sahip olursun.”
+
+17
+00:00:26,230 --> 00:00:28,260
+Söz ona geri döndü.
