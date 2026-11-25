@@ -52,8 +52,8 @@
 
 ## Ek: Stanford Hapishane Deneyi, dördüncü yön videosu (25 Kasım 2026)
 - **Yön:** Fable'ın yazdığı yön (`analiz/2026-11-25-stanford-yon-prompt.md`; gerekçe ve doğrulanacaklar `2026-11-25-stanford-yon-notlari.md`). Tek yön, sonradan yön yok.
-- **Yeni değişken (kullanıcının isteği):** senaryodan önce iki araştırma:
-  - internetten kanca kaynakları;
-  - bu konuda abonesi az ama çok izlenmiş videoların çözümlemesi.
+- **Yeni değişken (kullanıcının isteği):** senaryodan önce internetten kanca kaynakları araştırması.
+  - Bu konuda abonesi az ama çok izlenmiş videoların çözümlemesi de istenmişti; kullanıcı 25 Kasım'da "şimdilik es geçelim" dedi, sonraki bir videoya kaldı.
+    - Kısıt: bu kaptan izleme sayfası ve altyazı alınamıyor (429). Arama, kanal sayfası (abone) ve kapaklar alınabiliyor.
   - Önceki üç yön videosunda bu adım yoktu. Fark çıkarsa yönden mi araştırmadan mı geldiği ayrılamaz; geriye bakışta araştırmanın neyi değiştirdiği ayrıca yazılır.
 - **Ölçüler:** aynı tablo; 48. saat ve 7. gün `analiz/tahminler.md`.
