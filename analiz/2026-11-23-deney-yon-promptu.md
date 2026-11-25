@@ -49,3 +49,11 @@
 - **Alt ajanlar:** Fable'ın seslendirme öncesi senaryo okuması (6 engelleyici) ve ayrı bir okuyucunun yazısız kare okuması (9 engelleyici). İkisi de denetim; yön vermedi.
 - **Başkanın seçtikleri ve yönün yetmediği yerler:** `frankenstein/geriye_bakis.md`.
 - **Ölçüler** (Lale ve Gılgamış tablosuyla aynı): kullanıcının üretim sırasındaki düzeltmesi 0 (geriye bakış yazılırken); atlanan kanal kuralı: yok bulundu (kullanıcının fikrini sorma adımı yön metniyle karşılandı, Gılgamış'taki gibi); 48. saat ve 7. gün `analiz/tahminler.md` F1–F3.
+
+## Ek: Stanford Hapishane Deneyi, dördüncü yön videosu (25 Kasım 2026)
+- **Yön:** Fable'ın yazdığı yön (`analiz/2026-11-25-stanford-yon-prompt.md`; gerekçe ve doğrulanacaklar `2026-11-25-stanford-yon-notlari.md`). Tek yön, sonradan yön yok.
+- **Yeni değişken (kullanıcının isteği):** senaryodan önce iki araştırma:
+  - internetten kanca kaynakları;
+  - bu konuda abonesi az ama çok izlenmiş videoların çözümlemesi.
+  - Önceki üç yön videosunda bu adım yoktu. Fark çıkarsa yönden mi araştırmadan mı geldiği ayrılamaz; geriye bakışta araştırmanın neyi değiştirdiği ayrıca yazılır.
+- **Ölçüler:** aynı tablo; 48. saat ve 7. gün `analiz/tahminler.md`.
