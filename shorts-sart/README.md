@@ -32,3 +32,9 @@ Gılgamış için `gilgamis/vo/vo.wav` önce filmin kendi aracıyla üretilir (`
 - **Güvenli alan:** yazılar x 140–940, y 220–1440 (üstte arama çubuğu, sağda düğmeler, altta başlık ve kanal adı).
 - **Dikey mercek sınırı (film kipi):** `k ≥ 1,78` ve `cy ≥ 960/k`; altında dünyanın dışı ve meander bordürü görünür. Ayna çevirmeli planlar (`s2_flip`) mercekte bozulur: tuval ortasından aynalanır, yazılar karenin dışına düşer (Narkissos P061 bu yüzden kullanılmadı).
 - **Ölçüt:** izlemeye devam eden ≥ %60 (CLAUDE.md). İlk iki üç Shorts okunmadan kalıp kural sayılmaz.
+
+## Açılış laboratuvarı (25 Kasım; kullanıcının kararı: Instagram hesabı açılmaz)
+Kaynak fikir: Instagram "trial reels" sistemi (aynı gövde, çok sayıda açılış, takipçi olmayanlara deneme). YouTube'da deneme yayını yok; aynı Shorts'u farklı açılışlarla birden çok kez yüklemek tekrarlayan içerik riski taşır ve küçük sinyali böler. Bu yüzden yalnız YouTube'a uyan yarısı alındı:
+- **Her Shorts'tan önce 20 açılış adayı** yazılır (Fable ya da başkan); yapısı en farklı 3–5'i kalır (aynı cümlenin yazılışları değil: şartla, ihlalle, sonuçla, soruyla, sayıyla açılış). Ses önce filmin kaydından aranır; yoksa tek açılış cümlesi kullanıcı onayıyla seslendirilir.
+- **Yayına tek açılış çıkar.** Öğrenme Shorts'lar arası sırayla olur: her yeni Shorts bir açılış yapısını sınar, sonuç `analiz/tahminler.md`'ye yazılır. Karar oranla verilir (izlemeye devam eden, 20. ve 48. saat), görüntülemeyle değil; ~1 B izleyicide birkaç puanlık fark yok sayılır.
+- **Sıra:** soru (Narkissos, 24 Kasım) → şart (Narkissos 26 Kasım, Gılgamış 4 Aralık) → sonraki Shorts ihlalle ya da sonuçla açılır (ör. Gılgamış kaydında hazır: "Gılgamış oturdu ve uyku hemen bir sis gibi üstüne çöktü." / "Ölümü yenmeye gelen adam, bir uykuyu yenememişti.").
