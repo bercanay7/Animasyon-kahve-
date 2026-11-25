@@ -57,15 +57,21 @@ Ayrıntı: `arastirma/kanca_kaynaklari.md` (dış kaynaklar), `arastirma/kanal_k
 - **Ayırt edilemeyen:** Video kanalın ortalamasından iyi tutarsa bunun yönden mi araştırmadan mı geldiği ayrılamaz. ST1 yalnız ikinci kancanın şeklini (0:10 → 0:30 kaybı) ölçüyor.
 
 ## Yönün yetmediği yerler
-- **"Öteki istendiği hâlde yapmadı" belgeyle desteklenmiyor.**
-  - Bantta Mark itiraz ediyor, iki kez "deneyeceğim" diyor (15:12, 18:55) ve son sözü "Peki.".
-  - Sonra ne yaptığını gösteren bağımsız bir belge bulunamadı. Elde yalnız kendi 2011 sözü var: "gündüz vardiyasında kimse beklenenin ötesine geçmedi".
-  - Film bunu saklamadı, sonu yaptı: "O pekiden sonra ne yaptığını bilmiyoruz." Yön bir olgu öneriyordu; olgu yerine bir boşluk çıktı ve boşluk sorudan daha güçlü bir son verdi.
-  - **Ders:** yönün "iki adam" karşıtlığı simetrik kurulmuştu. Kaynakta simetri yok: biri belgeli, öteki yalnız kendi sözüyle. Karşıtlığı kurmadan önce iki tarafın belge düzeyi ayrı ayrı sorulmalı.
-- **Yön, bant sahnesini "deney ekibinden biri" diye kuruyordu.** O kişi Zimbardo değil, müdür Jaffe. Jaffe'ye göre fikir Zimbardo'nundu.
-  - Bu, "biri istedi" sorusuna bir basamak daha ekliyor: isteyen de istenmişti.
-  - D15 bunu müdürün kendi yazdığıyla veriyor. Zimbardo'nun cevabı (D17) bölümü kapatıyor.
-- **Bandın günü çelişkili.** Zimbardo ilk gün, Le Texier üçüncü gün diyor. Dökümün içeriği (kırılan kapılar, taşınma planı) isyandan sonrasını gösteriyor.
+- **"Öteki istendiği hâlde yapmadı": önce desteklenmiyor sandık, sonra arşivden kısmen çıktı.**
+  - Bantta Mark itiraz ediyor, üç kez "denerim" diyor (15:12, 18:55, 22:33) ve müdürün son isteğine cevabı "Peki.".
+  - rev2'de film "O pekiden sonra ne yaptığını bilmiyoruz" diye bitiyordu. Elde yalnız Mark'ın 2011 sözü vardı.
+  - Fable'ın bağımsız okuması aynı arşivin bakılmamış dosyalarını gösterdi; doğrulama iş akışı onları okudu. Müdürün deney sonrası öz değerlendirmesi (SC0750_s5_b09_f40) çıktı:
+    - "Konuşmadan sonra bile bir sayım yönettiğini ya da emir yağdırdığını hatırlamıyorum."
+    - Ama şartlı tahliye raporları "yer yer sertti".
+    - "Başkalarını durdurmaya hiç çalışmadı. Aynı suçlama hepimiz için geçerli."
+  - Bu, yönün cümlesini yarı destekliyor. Mark istenen sertliği sergilemedi, ama zulmü durdurmadı da; belge de bağımsız değil, deneyi yönetenin anısı. Film bunu F03b olarak, "peki"den sonra veriyor. Son, boşluk olmaktan çıkıp belgeli ve iki yanlı bir cevap oldu. Çıkış sorusu ("Seninki peki mi olurdu?") böylece daha ağır.
+  - **Ders 1:** yönün "iki adam" karşıtlığı simetrik kurulmuştu. Kaynakta simetri yok: biri belgeli, öteki yalnız kendi sözüyle. Karşıtlığı kurmadan önce iki tarafın belge düzeyi ayrı ayrı sorulmalı.
+  - **Ders 2:** "bulamadık" demeden önce arşivin dosya listesi baştan sona okunur. Burada da gün notları, öz değerlendirmeler ve vardiya raporları vardı. Çözülmemiş bırakmak ile bakmamış olmak aynı şey değil (Fable'ın cümlesi).
+- **Yön, bant sahnesini "deney ekibinden biri" diye kuruyordu.** O kişi Zimbardo değil, müdür Jaffe.
+  - Müdürün kendi notu: "Mark'la o an konuşmak istemedim, ama Dr. Zimbardo istediği için konuştum." Bu, "biri istedi" sorusuna bir basamak daha ekliyor: isteyen de istenmişti.
+  - Aynı not müdürün sert gardiyana kendisinin de inandığını yazıyor. rev2'deki "bu onun fikri değildi" cümlesi ona yazmadığı bir inkâr yüklüyordu (Fable E1); rev3'te iki yanıyla verildi.
+  - Zimbardo'nun cevabı (D17) bölümü kapatıyor.
+- **Bandın günü çelişkili.** Zimbardo ilk gün, Le Texier üçüncü gün diyor; müdürün kendi notu "Pazartesi (isyan günü)". Dökümün içeriği (kırılan kapılar, taşınma planı) isyandan sonrasını gösteriyor.
   - Yön günü sormuyordu. Senaryo günü söylemiyor, bandın kendi sözüyle bağ kuruyor: "sayım yapılırken dışarıda oturmak istediğinde".
   - Çelişki açıklamaya yazıldı.
 - **"Hüküm yok" cümle cümle sınanmalıydı.** İlk taslakta anlatıcı iki yerde hüküm veriyordu ("suçu Zimbardo'ya veriyor"; Zimbardo'nun 2018 cevabı Eshelman'ın 2024 sözüne verilmiş gibi duruyordu). Fable yakaladı (rev1).
@@ -115,6 +121,58 @@ Ayrıntı: `arastirma/kanca_kaynaklari.md` (dış kaynaklar), `arastirma/kanal_k
   - Bant cızırtısı ve floresan uğultusu bütün filmin zemini. Böylece "müzik yok" duygusu olmadan sessizliğe yakın durulabiliyor.
   - Sessizlik iki yerde bilerek tam: C10 "Buna bakamıyorum" ve F03 "Peki.".
   - Düzey eğrisi: medyan −24 dBFS; 672 sn'nin 661'i −60 dB üstü.
+  - **Telefon (kullanıcının uyarısı, 25 Kasım):** "−60 dB üstü saniye" yine yanıltıcıydı. 300 Hz üstünü dolduran şey bant cızırtısıydı; cızırtı müzik diye duyulmaz.
+    - Tonlu müziği ayrı iz olarak üreten bir mod eklendi (`STEM=ton`), telefon bandında miksteki kazancıyla ölçüldü (`tools/muzik_denetim.py`).
+    - Önce saniyelerin %45'i, 22 aralık / 316 sn sessizdi; bant bölümü iki dakika tonsuzdu.
+    - Dronlara üst oktav (%50) ve bant bölümüne ince zemin eklendi. Sonuç %82; kalan 5 sn'yi aşan sessizlikler bilerek ("Buna bakamıyorum", "Peki.").
+    - **Ders:** telefon ölçümü cızırtıyı, uğultuyu ve motoru dışarıda bırakan tonlu izle yapılır; Frankenstein dersinin (300 Hz) devamı.
+
+## Fable'ın bağımsız denetimi (kullanıcının isteği) ve rev3
+Ayrıntı: `fable_son_okuma/`. Her bulgu bir iddia sayıldı. Senaryo bulguları birincil kaynakta, her biri ayrı bir şüpheciyle sınandı (doğrulama iş akışı, 12 ajan). Görüntü bulgularına başkan tam boy karede baktı.
+
+**1. Senaryo ve kaynak** (`1_senaryo_kaynak.md`): 4 engelleyici, 9 önemli bulgu.
+- **Doğrulanan engelleyiciler:**
+  - D15: müdüre yazmadığı bir inkâr yüklenmişti.
+  - E08: sıra, Eshelman'ın iddiasını Zimbardo ölünce ortaya atılmış gibi gösteriyordu. Oysa aynısını 2018'de de söylemişti; 2024 sözü de belgeselin içinden değil, tanıtım söyleşisinden.
+  - F03: "Bant Mark'ın tek kelimesiyle bitiyor" yanlıştı. Müdür de "peki" diyor, kayıt 34 dakika daha sürüyor.
+  - Açıklama: "sertleşmeyen bir başkası" iddiası olgu gibi yazılmıştı.
+- **Önemlilerden alınanlar:**
+  - E07: Zimbardo'nun dayanağı, beşinci gecenin kaydı, anıldı.
+  - F02: alıntı tamamlandı.
+  - E12: arşivin video notu.
+  - Künyeler.
+- **Kısmen ya da hiç alınmayanlar:** D11'in sırası, D04'ün birleşimi, B05, B09. Künyede dakika ve açıklamada not var; yama gerektirmedi.
+- **Seslendirme yaması:** kullanıcının onayıyla 7 cümle, 4 çağrı × 2 çekim, 3.134 kredi. F04'ün eski ilk cümlesi kredisiz, gerçek duraklamadan kesildi. Yama düzeyi eski cümlenin sesli RMS'ine eşitlendi (`tools/build_vo.py`: `cekim_tts`, `vo/yama/`). Film 11:11 → 11:53.
+
+**2. Sessiz okuma ve hassasiyet** (`2_sessiz_okuma.md`, `3_hassasiyet.md`).
+- **Doğrulanıp düzeltilenler:**
+  - P14: düz kalkık kol (selam).
+  - P16: gözü bağlı mahkûmun sırtına yapışık gardiyan.
+  - P24: yastıklı yatak sedyede ceset gibi.
+  - P29: yerde düz beden (ceset ya da dayak) ve altyazı bandında.
+  - P34: bileğe kadar koyu etek (çarşaf ya da rahibe).
+  - P68: burun buruna iki figür.
+  - P74 ve bütün dergi planları: belgeyi tutan ince uzun kol ve yuvarlak el uygunsuz okunuyordu.
+  - P02: kalas kollar.
+  - P04: leke yığını yansıma.
+  - Gözlük parıltısı oval beyaz göz gibiydi; çapraz şerit oldu.
+  - P51: iki alıntı üst üste biniyordu.
+  - Fincan buharı sırttan çıkıyordu.
+- **Bırakılanlar (bilerek):**
+  - Koridorun aynı açıdan dokuz kez görünmesi (yapısal; bir sonraki videoda planlamada çözülür).
+  - Birkaç yakın planda başın kenarda kesilmesi.
+  - Üst üste binen göğüs numaraları.
+  - Mahkûm önlüğünün kadın giysisi gibi okunması: tarihsel giysi, kaynakta da öyle.
+- **Ders (kanal listesine):**
+  - Sorgu odası: masa + karşılıklı iki figür + tepeden tek koni.
+  - Gözü bağlı figürün sırtına yapışık figür.
+  - Taşınan yastıklı yatak.
+  - Yerde düz beden.
+  - Bileğe kadar koyu etek + küt saç.
+  - Belge tutan ince uzun kol + yuvarlak el.
+  - Burun buruna iki figür.
+
+**3. Üç izleyici okuması:** son render üstünde (aşağıda).
 
 ## Render ve denetimler
 RENDER_DENETIM

@@ -177,6 +177,7 @@ Kanıt sayıları `analiz/2026-11-22-genel-karsilastirma.md` dosyasında. Yeni v
   - başın yanında açık bohça (hale); belde çizgili oval (kalkan); alna giden el (selam);
   - yuvarlak nesnede halka tarama (hedef tahtası). Yeni sette yuvarlak nesneye halka tarama verilmez.
   - (Çernobil) sıra hâlinde dik, yuvarlak tepeli nesneler (çuval, güğüm: mezar taşı); dikenli tel + baraka + çantalı figür (toplama kampı); ters L direk ve sarkan ince çizgi (vinç: darağacı); kırmızı dolu dairede eş merkezli halka (hedef, bayrak); toprakta tek tümsek + dik saplanmış kürek (taze mezar).
+  - (Stanford) masa + karşılıklı iki figür + tepeden tek ışık konisi (sorgu odası); gözü bağlı figürün sırtına yapışık figür (taciz); taşınan yastıklı yatak (sedyede ceset); yerde düz uzanan beden (ceset, dayak); bileğe kadar koyu etek + küt saç (çarşaf, rahibe); burun buruna iki figür; belge tutan ince uzun kol + yuvarlak el (uygunsuz); gözlükte oval beyaz parıltı (beyaz göz: parıltı çapraz şerit olur).
 - **Düzeltme yeni simge üretebilir:** düzeltilen her plan tam boy karede yeniden bakılır (Lale).
 - **Dinî karşılaştırma yapılmaz;** eser kendi edebî bağlamında okunur (Milton kararı). Tanrı figürle çizilmez, ışıkla gösterilir.
 - **Kapak yazısı da taranır.** Türkçe kelime tuzaklarına dikkat: "dönme" argo okunur, "ŞEYTAN AĞLADI" vaaz gibi okunur.
@@ -241,6 +242,7 @@ Ayrıntı ve kompozisyon menüsü: `kanal/KAPAK_DERSLERI.md`.
 ## Depo dizini
 | Yer | Ne |
 |---|---|
+| `stanford/` | Stanford Hapishane Deneyi, 1971 (ekran motoru `lib/ekran.js`: 1971 kapalı devre monitörü + belge kâğıdı; yön usulünün dördüncü videosu, senaryodan önce kanca araştırması `arastirma/`; telefon bandında tonlu müzik denetimi `tools/muzik_denetim.py`; bölüm çekiminin içine cümle yaması `tools/build_vo.py` + `vo/yama/`) |
 | `cernobil/` | Çernobil'in çayı, 1986 (gazete baskısı motoru `lib/baski.js`: tram + tek renk; Milliyet arşivi aracı `tools/arsiv.py`; yön usulünün üçüncü videosu) |
 | `lale-cilginligi/` | Lale Çılgınlığı (gravür + yalnız laleler el boyaması; Türkçe boşluk ölçütüyle seçilen ilk video; Fable'ın izleyici okuması; en yeni `film.js`) |
 | `dorian-gray/` | *Dorian Gray'in Portresi* (karma üslup: gravür + yalnız portre yağlıboya; en yeni tam hat: film, müzik, kapak, render) |
