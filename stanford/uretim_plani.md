@@ -107,24 +107,21 @@ Eleme ölçütleri:
 - **Doruğu taşıyan ikinci kişi:** Eshelman. C05–C07'de eylemle ekilir.
 - **Mekân:** tek (bodrum ve onun ucundaki gözlem masası).
 
-| Aşama | İçerik | Cümleler |
+| Aşama | İçerik | Cümleler (rev1) |
 |---|---|---|
-| Kanca | sayımda kenarda duran gardiyan; soru; bant (ikinci kanca); soruşturma sorusu | A01–A04 |
-| Ki (giriş) | ilan, yazı tura, Zimbardo'nun yönlendirmesi, polis, numaralar, gözlük, levhalar | B01–B10 |
-| Shō (gelişme) | altı gün: gülüşme, isyan, dolap, gece vardiyası (Eshelman), 416, Maslach, son; 1973 sonucu | C01–C13 |
-| Ten (dönüş) | bant: Jaffe ve Mark; amaç (reform, basın); Jaffe'nin görevi ve yurt deneyi; Zimbardo 2018 ↔ Le Texier 2019 | D01–D15 |
-| Ketsu (birleştirme) | iki gardiyan: Eshelman'ın sözleri (1971, 2011, 2018, 2024) ↔ Zimbardo; Mark'ın sözleri ↔ belge yokluğu; "hiçbiri araya girmedi"; üçte bir ↔ üçte iki | E01–E16 |
-| Son | bandın sonu: "Tamam. Deneyeceğim."; Jaffe'nin "iyi bir amaç" cümlesi; çıkış sorusu | F01–F07 |
+| Kanca | sayımdaki gardiyan ve soru; kimlik + bant (ikinci kanca); soruşturma sorusu | A01–A03 |
+| Ki (giriş) | ilan, yazı tura, Zimbardo'nun yönlendirmesi, polis, numaralar, gözlük, levhalar, kayıt | B01–B10 |
+| Shō (gelişme) | altı gün: gülüşme ve isyan, dolap, akşam vardiyası (Le Texier ↔ Zimbardo; Eshelman ekilir), 416, Maslach, son; 1973 sonucu ↔ Fromm; bilinen anlatım | C01–C13 |
+| Ten (dönüş) | bant: müdür ve Mark (VTT zaman damgalarıyla); müdürün görevi ve yurt deneyi; Zimbardo 2018 ↔ Le Texier; Zimbardo'nun savunmasıyla kapanış | D01–D19 |
+| Ketsu (birleştirme) | Eshelman: 1971, 2011, 2018, Zimbardo 2018, 2024 (ölümden sonra); Mark: 2011, belge yokluğu; "hiçbiri araya girmedi" ve vardiya ayrımı | E01–E14 |
+| Son | müdürün "iyi bir amaç" cümlesi; bandın sonu: "Peki."; çıkış sorusu; çağrı | F01–F05 |
 
-**Merak döngüleri (soru → cevap olay):**
-1. **L1:** "zalim olur muydun?" (A02) → E15–E16 ("hiçbiri araya girmedi"; üçte bir ↔ üçte iki) → F05.
-   - Cevap tek değil; bodrumun üç davranışı.
-2. **L2:** "bantta ne isteniyor?" (A03) → D04–D10. Kapak B.
-3. **L3:** "kendiliğinden mi, biri mi istedi?" (A04) → D (istendi) → D13–D15 (ne kadar istendi: Zimbardo ↔ Le Texier) → E09–E10 (Eshelman istenenin ötesi mi?).
-   - Çözülmeden kalır, iki belge yan yana.
-4. **L4:** "gardiyan ne cevap verdi?" (D10'da açıkça ertelenir) → F01–F02.
-   - "Tamam. Deneyeceğim."; filmin son olayı.
-5. **L5 (küçük):** "Jaffe bunu nereden biliyordu?" (D11) → D12 (yurt deneyi, on yedi kuralın on biri).
+**Merak döngüleri (rev1):**
+1. **L1** "zalim olur muydun?" (A01) → C11–C12 (üçte bir ↔ üçte iki) → E13–E14 → F04 ("bilemezsin; ama ne diyeceğini düşünebilirsin").
+2. **L2** "bantta ne isteniyor?" (A02, kapak B) → D04–D14.
+3. **L3** "kendiliğinden mi, biri mi istedi?" (A03) → D05–D14 (istendi) → D15–D19 (ne kadar: müdür, Zimbardo, Le Texier) → E07–E09. Çözülmeden kalır.
+4. **L4** "Mark'ın son cevabı" (D14'te açıkça ertelenir) → F02–F03: iki "deneyeceğim", "kendim olarak", son kelime "Peki."
+5. **L5** "müdür bunu nereden biliyordu?" (D15) → D16 (yurt deneyi).
 
 **Bölüm damgaları ve küçük soruları:**
 - 0:00 Kanca
@@ -134,7 +131,7 @@ Eleme ölçütleri:
 - IV. İki gardiyan ("biri neden ileri gitti, öteki neden gitmedi?")
 - V. Cevap ("gardiyan ne dedi?")
 
-**Kanalın imzası ("yolculuk nerede kırıldı?"):** D10 → F02. İtiraz eden gardiyanın "deneyeceğim" dediği an.
+**Kanalın imzası ("yolculuk nerede kırıldı?"):** D14 → F03. On sekiz dakika itiraz eden gardiyanın son sözü: "Peki."
 
 ## 6. Kaynak ve hukuk kararları
 Kaynaklar `kaynak/DOGRULAMA.md`'de.
@@ -167,3 +164,34 @@ Kaynaklar `kaynak/DOGRULAMA.md`'de.
 - **Kalabalığı azaltmak (sadelik kuralı):**
   - Korpi (8612) adsız bir olay olarak kalır; "taklit ettim" iddiası ayrı bir tartışma.
   - Prescott, Haney, Banks, BBC Prison Study, Abu Ghraib ve Haslam ekibinin kuramı dışarıda.
+
+## 7. Fable'ın senaryo okuması ve rev1 (25 Kasım; seslendirmeden önce)
+Okuma: `fable_senaryo_okumasi.md` (6 engelleyici, 12 önemli, 21 küçük).
+- **Yeni kaynak:** arşivin zaman damgalı altyazısı (VTT, purl wn708sg0050). Başkan indirip okudu; bulgular doğrulandı. Depoya kopyalanmadı (Zimbardo telifi).
+  - Alıntılar artık dakika:saniyeyle künyelendi (senaryo `kaynak` alanı).
+- **Engelleyiciler, hepsi uygulandı:**
+  1. "Sonunda: deneyeceğim" yanlıştı. Mark bunu 15:12 ve 18:55'te diyor, sonra itiraza devam ediyor. Bant "All right" ile bitiyor (26:52).
+     - Son yeniden kuruldu: iki "deneyeceğim" (F02), 22:33'teki "kendim olarak elimden gelenin en iyisi" (başkanın VTT okumasından), son kelime "Peki" (F03).
+  2. "Bağır" (TA) ile "yardım et" (VTT) çelişiyor. Bu cümle kullanılmadı; yerine iki kaynakta da aynı olan "biraz fazla yumuşak … biraz daha işin içine gir" alındı.
+  3. Bandın üç yerinden birleştirilmiş tek alıntı ayrıldı.
+     - D09: iki alıntı, arada anlatıcı.
+     - D10: 23:56, D09'un ikinci alıntısının hemen ardı.
+  4. Eshelman 2024: "birçoğunu" diye çevrildi. "Suçu Zimbardo'ya veriyor" anlatıcı hükmü olduğu için çıkarıldı.
+  5. Zimbardo'nun ölümü (14 Ekim 2024) Eshelman'ın 2024 sözünden önce söyleniyor. Zimbardo'nun 2018 cevabı 2024 sözüne verilmiş gibi durmuyor (E07 → E08).
+  6. Sayımdaki gardiyan ilk güne ya da üçüncü güne bağlanmadı. Bağ bandın kendi cümlesiyle kuruluyor (D04: "sayım yapılırken dışarıda oturmak istediğinde"). Günle ilgili çelişki D02'de iki taraflı veriliyor.
+- **Önemliler:**
+  - Zimbardo'nun iki savunması eklendi ve bölüm onun belgesiyle kapanıyor (D17, D19).
+  - Konuşan her bant sözünden önce sözle belirtiliyor ("Mark'ın cevabı:", "Müdür:").
+  - Tek taraflı iddialar sahibine atfedildi (B02, B05, C04, C06, C11, D15, E05, E11).
+  - "Başları örtülü" yerine "başlarına torba geçirilmiş" (sözde; görüntüde yok).
+  - "Pigs" anlatıcının aktarımıyla Amerikan bağlamında. Mark'ın cevabı ("çok polis gördüm") eklendi.
+  - Fromm ilk yarıya alındı (C12).
+  - İfşadan sonra iki cümle kaldı (F04–F05).
+  - Maslach sesle anılmıyor, künyede.
+  - Jaffe bantta hep "müdür", Mark hep "Mark".
+  - "Aynı isteği duyan gardiyanlar" yerine "en az bir gardiyandan".
+- **Geri çevrilen:**
+  - Ö10'un "tarih sona" önerisi tam alınmadı. Soru A01'de (≈8 sn), tarih ve yer A02'nin ilk sözü (tek kimlik cümlesi; kanal kuralı buna izin veriyor).
+  - Fromm'un adı sesle kaldı (Türk izleyici tanır; ikinci yarıdan ilk yarıya alındığı için "yeni ad" kuralı da tutuyor).
+- **Küçükler:** K1, K3–K5, K7–K11, K13–K14, K16–K17, K20–K21 uygulandı. K15 ("bir oyun gibi") çıkarıldı.
+- **Yönün yetmediği yer (geriye bakışa):** yön "öteki istendiği hâlde yapmadı" diyordu. Belge bunu söylemiyor: bantta itiraz var, iki "deneyeceğim" var, son söz "Peki"; sonrasına dair bağımsız belge yok. Film bunu saklamıyor, filmin sonu yapıyor.

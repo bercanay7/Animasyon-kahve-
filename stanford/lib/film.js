@@ -164,7 +164,7 @@ function drawOver(ctx, t) {
 }
 
 // ── ekran yazıları ──
-// Yazı dili 1986 gazetesi: manşet Anton (dar, kalın), metin ve alıntı Cormorant Garamond, belge ve sayı Courier Prime, kapak sözü Bebas Neue.
+// Yazı dili (Stanford 1971): alıntı Cormorant Garamond italik, belge ve etiket Courier Prime / Anton, büyük söz Bebas Neue. Video planında koyu panel (panelRGB), kâğıtta açık panel.
 // Üst katmandaki yazılar (künye, etiket) kâğıt renkli yumuşak zemin üstüne mürekkep rengi. Sahnenin içindeki kupürler BASKI.l plakasına basılır (notext'te de kalır).
 // Telefon kuralı: alıntı ≥ 64 px, etiket ve künye ≥ 40 px. Yerleşim: yazı x 120–1800, y 90–880; y > 880 ALTYAZININ YERİ.
 const NOTEXT = typeof location !== 'undefined' && new URLSearchParams(location.search).has('notext');
@@ -204,7 +204,7 @@ function quote(ctx, s, x, y, lt, o = {}) {
   const kpx = Math.max(40, Math.round(px * .42)), kEk = o.kaynak ? kpx + 34 : 0, hh = L.length * lh + kEk;
   y = yClamp(y, hh); const y0 = y - (L.length - 1) * lh / 2 - kEk / 2;
   const t0 = o.t0 || 0, per = o.per ?? .5, aAll = clamp((lt - t0) / .5);
-  if (o.panel !== false && aAll > 0) { let wd = 0; for (const l of L) wd = Math.max(wd, ctx.measureText(l).width); ctx.globalAlpha = A0 * aAll; softPanel(ctx, x, y, wd * .5 + px * 1.8, hh * .5 + px * 1.2, o.panel ?? .8); }
+  if (o.panel !== false && aAll > 0) { let wd = 0; for (const l of L) wd = Math.max(wd, ctx.measureText(l).width); ctx.globalAlpha = A0 * aAll; softPanel(ctx, x, y, wd * .5 + px * 1.8, hh * .5 + px * 1.2, o.panel ?? .8, o.panelRGB); }
   ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillStyle = o.col || YAZI.krem;
   L.forEach((l, i) => { const a = clamp((lt - t0 - i * per) / .6); if (a <= 0) return; ctx.globalAlpha = A0 * E.sine(a); ctx.fillText(l, x, y0 + i * lh + (1 - E.out3(a)) * 10); });
   if (o.kaynak) { const a = clamp((lt - t0 - L.length * per) / .6); ctx.globalAlpha = A0 * E.sine(a); ctx.font = FONT.baslik(kpx, 600); ctx.letterSpacing = '3px'; ctx.fillText(o.kaynak, x, y0 + (L.length - 1) * lh + px * .62 + 30 + kpx / 2); }
@@ -214,19 +214,19 @@ function quote(ctx, s, x, y, lt, o = {}) {
 function etiket(ctx, s, x, y, lt, d = 4, o = {}) {
   if (NOTEXT || !s) return;
   const a = clamp(lt / .5) * clamp((d - lt) / .5); if (a <= 0) return;
-  txt(ctx, s, x, y, { px: o.px || 44, ls: o.ls ?? 6, a: E.sine(a), panel: o.panel ?? .7, col: o.col, align: o.align, font: FONT.baslik(o.px || 44, 600) });
+  txt(ctx, s, x, y, { px: o.px || 44, ls: o.ls ?? 6, a: E.sine(a), panel: o.panel ?? .7, col: o.col, align: o.align, font: FONT.baslik(o.px || 44, 600), panelRGB: o.panelRGB });
 }
 // künye: kaynak satırı (sol alt köşe, altyazı bandının üstünde; y ≤ 880). lt ile belirir; d verilirse sonunda söner
 function kunye(ctx, s, lt, d = 99, o = {}) {
   if (NOTEXT || !s) return;
   const a = clamp((lt - (o.t0 || 0)) / .5) * clamp((d - lt) / .5); if (a <= 0) return;
-  txt(ctx, s, o.x ?? 120, o.y ?? 846, { px: o.px || 40, ls: 2, a: E.sine(a) * (o.a ?? .92), align: o.align || 'left', font: FONT.metin(o.px || 40, 600), col: o.col || YAZI.krem, panel: o.panel ?? .85 });
+  txt(ctx, s, o.x ?? 120, o.y ?? 846, { px: o.px || 40, ls: 2, a: E.sine(a) * (o.a ?? .92), align: o.align || 'left', font: FONT.metin(o.px || 40, 600), col: o.col || YAZI.krem, panel: o.panel ?? .85, panelRGB: o.panelRGB });
 }
 // büyük tek söz (ör. P053 “O benim.”, Bebas, kırmızı): t0 (film zamanı) ile belirir; o: {px, col, y, x}
 function buyukSoz(ctx, s, t, t0, o = {}) {
   if (NOTEXT || !s || t < t0) return;
   const a = E.out3(clamp((t - t0) / .25)), px = o.px || 150;
-  txt(ctx, s, o.x ?? W / 2, o.y ?? 230, { font: FONT.buyuk(px), px, ls: o.ls ?? 4, col: o.col || YAZI.krem, a: a * (o.a ?? 1), panel: o.panel ?? .6 });
+  txt(ctx, s, o.x ?? W / 2, o.y ?? 230, { font: FONT.buyuk(px), px, ls: o.ls ?? 4, col: o.col || YAZI.krem, a: a * (o.a ?? 1), panel: o.panel ?? .6, panelRGB: o.panelRGB });
 }
 // sahne(id, çapa, set, ölçek, çizim, o): plan kaydı + çekim. ölçek: 'genis' | 'orta' | 'yakin' | 'ayrinti' | 'kart' (ardışık iki plan aynı ölçekte olmaz; tools/kontrol.js)
 window.PLAN = window.PLAN || {};
