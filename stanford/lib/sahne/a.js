@@ -13,7 +13,7 @@ function bodrum(B, st, o = {}) {
   return K;
 }
 // büyük baş-omuz (yakın plan): profil figür, baş kadraj içinde. tip, f, x, y (baş merkezi), s (boy px)
-function yakinFig(B, tip, x, y, boy, o = {}) { return FIG.kisi(B.l, x, y + boy * .87, boy, { tip, f: o.f ?? 1, kolO: o.kolO || [.1, .3], kolA: o.kolA || [-.1, .2], bas: o.bas || 0, ...o }); }
+function yakinFig(B, tip, x, y, boy, o = {}) { return FIG.kisi(B.l, x, y + boy * .96, boy, { tip, f: o.f ?? 1, kolO: o.kolO || [.1, .3], kolA: o.kolA || [-.1, .2], bas: o.bas || 0, ...o }); }
 
 // P01 sayım: mahkûmlar solda dizili, iki gardiyan sayıyor, biri sağ köşede hiçbir şey yapmadan duruyor; yavaş yaklaşma köşeye
 sahne('P01', 'A01', 'koridor', 'genis', (B, st) => {
@@ -21,13 +21,13 @@ sahne('P01', 'A01', 'koridor', 'genis', (B, st) => {
   bodrum(B, st, { sayim: 6, gardiyanlar: [{ z: .3, u: .1, kol: [.9 + Math.sin(st.t * 2) * .15, .9] }, { z: .45, u: .25 }], kose: { z: .55, u: .8 } });
 }, VID);
 // P02 yakın: köşedeki gardiyan, aynalı gözlükte koridorun ışığı; baş hafif öne
-sahne('P02', 'A01@köşede', 'kose', 'yakin', (B, st) => {
+sahne('P02', 'A01@gardiyanlardan', 'kose', 'yakin', (B, st) => {
   B.cam(960, 540, 1.02 + st.lt * .015);
   const k = B.k; k.save(); k.fillStyle = B.ton(.45); k.fillRect(-300, -300, 2600, 1700); k.fillStyle = B.ton(.82); k.fillRect(200, -300, 260, 1700); k.restore();   // arkada hücre kapısı
   yakinFig(B, 'gardiyan', 1060, 330, 2300, { f: -1, bas: .1 + Math.sin(st.t * .8) * .02, parilti: '#FFFFFF' });
 }, VID);
 // P03 ayrıntı: yazı tura (dönen para düşüyor, eli kapanır)
-sahne('P03', 'A02', 'para', 'ayrinti', (B, st) => {
+sahne('P03', 'A01@yazı', 'para', 'ayrinti', (B, st) => {
   B.cam(960, 540, 1 + st.lt * .02);
   const k = B.k; k.save(); k.fillStyle = B.ton(.35); k.fillRect(-300, -300, 2600, 1700); k.restore();
   const u = clamp(st.lt / 2.2), y = 300 + 280 * (1 - Math.pow(2 * u - 1, 2)) * -1 + 500 * u;
@@ -35,7 +35,7 @@ sahne('P03', 'A02', 'para', 'ayrinti', (B, st) => {
   FIG.elYakin(B.l, 760, 900, 14, 1, false, clamp((st.lt - 2) / .4));
 }, VID);
 // P04 gözlükteki yansıma: gardiyanın aynalı camında sayım sırası (izleyici onun yerinde)
-sahne('P04', 'A02@sen', 'gozluk', 'orta', (B, st) => {
+sahne('P04', 'A01@sen', 'gozluk', 'orta', (B, st) => {
   B.cam(960, 540, 1.1 + st.lt * .03);
   const k = B.k, l = B.l;
   k.save(); k.fillStyle = B.ton(.85); k.fillRect(-300, -300, 2600, 1700); k.restore();
@@ -51,24 +51,24 @@ sahne('P04', 'A02@sen', 'gozluk', 'orta', (B, st) => {
   l.save(); l.fillStyle = '#000'; l.fillRect(930, 470, 60, 26); l.fillRect(-100, 480, 440, 22); l.fillRect(1580, 480, 440, 22); l.restore();
 }, VID);
 // P05 kapak B: karanlıkta makaralı teyp; makaralar dönmeye başlar, kırmızı kayıt lambası yanar (gözlemci yok)
-sahne('P05', 'A03', 'teyp', 'genis', (B, st) => {
+sahne('P05', 'A02', 'teyp', 'genis', (B, st) => {
   B.cam(960, 520, 1 + st.lt * .02);
   const k = B.k; k.save(); k.fillStyle = B.ton(.88); k.fillRect(-300, -300, 2600, 1700); k.fillStyle = B.ton(.7); k.fillRect(-300, 760, 2600, 900); k.restore();
   const on = clamp((st.lt - .4) / 1.2);
   SET.teyp(B, 960, 300, 1.25, st.lt, { hz: .45 * on, kayit: on, vuIsik: .3 + .55 * on });
-}, KAG);
+}, { ...KAG, over: ETK('AĞUSTOS 1971 · STANFORD ÜNİVERSİTESİ', 960, 150, { d: 4.5 }) });
 // P06 ayrıntı: dökümün ilk satırı; konuşanlar yalnız "SORU" ve "ERKEK SES", sözler kapalı
-sahne('P06', 'A03@karşısına', 'dokum', 'kart', (B, st) => {
+sahne('P06', 'A02@karşısına', 'dokum', 'kart', (B, st) => {
   B.cam(960, 520, 1.04 + st.lt * .02);
   SET.belge(B, 'STANFORD ARŞİVİ · SC0750 · BANT A', ['SORU: ████████ ██ ████ ██████ ███', '      ██████ ███ ████████ ███?', '', 'ERKEK SES: ███ ███████ ███', '', 'SORU: ████ ███████ ██ ██ ████ ████'], .3 + st.lt / 6, { px: 40 });
 }, KAG);
 // P07 koridor, boş; ışık titrer: "kendiliğinden mi, biri mi?"
-sahne('P07', 'A04', 'koridor', 'genis', (B, st) => {
+sahne('P07', 'A03', 'koridor', 'genis', (B, st) => {
   B.cam(960, 520, 1.05 + st.lt * .02);
   bodrum(B, st, { gardiyanlar: [{ z: .35, u: -.2, f: 1, kol: [.1, .4] }], isik: 1 - .35 * (Math.sin(st.t * 23) > .9 ? 1 : 0) });
 }, VID);
 // P08 ayrıntı: makara (bant yaklaşır), ses göstergesi
-sahne('P08', 'A04@iz', 'teyp', 'ayrinti', (B, st) => {
+sahne('P08', 'A03@iz', 'teyp', 'ayrinti', (B, st) => {
   B.cam(820, 420, 2.2 + st.lt * .04);
   const k = B.k; k.save(); k.fillStyle = B.ton(.88); k.fillRect(-300, -300, 2600, 1700); k.restore();
   SET.teyp(B, 960, 300, 1.25, st.t, { hz: .45 });
@@ -102,8 +102,8 @@ sahne('P11', 'B03', 'tahta', 'orta', (B, st) => {
 // P12 yakın: tahtadaki sözcükler (B04 alıntısıyla)
 sahne('P12', 'B04', 'tahta', 'yakin', (B, st) => {
   B.cam(960, 470, 1.08 + st.lt * .01);
-  const sat = ['CAN SIKINTISI', 'HAYAL KIRIKLIĞI', 'KORKU', 'GÜÇ: BİZDE. ONLARDA YOK.'];
-  const p = [A('B04@can'), A('B04@hayal'), A('B04@korku'), A('B04@bütün')];
+  const sat = ['CAN SIKINTISI', 'BUNALMA', 'KORKU', 'GÜÇ: BİZDE. ONLARDA YOK.'];
+  const p = [A('B04@can'), A('B04@bunalma'), A('B04@korku'), A('B04@güç')];
   const n = p.filter(x => st.t > x).length, son = p[Math.max(0, n - 1)];
   const ilerle = n ? (n - 1 + clamp((st.t - son) / 1.2)) / sat.length : 0;
   SET.tahta(B, sat, ilerle, { px: 74, lh: 130, y: 110 });
@@ -146,7 +146,7 @@ sahne('P17', 'B07@bundan', 'numara', 'ayrinti', (B, st) => {
   B.cam(960, 540, 1.05 + st.lt * .02);
   const k = B.k, l = B.l; k.save(); k.fillStyle = B.ton(.25); k.fillRect(-300, -300, 2600, 1700); k.restore();
   l.save(); l.fillStyle = '#000'; l.fillRect(-300, -300, 2600, 1700); l.fillStyle = '#B8B8B2'; l.beginPath(); l.moveTo(560, -100); l.lineTo(1360, -100); l.lineTo(1460, 1200); l.lineTo(460, 1200); l.closePath(); l.fill();
-  l.fillStyle = '#000'; l.font = '700 300px "Courier Prime"'; l.textAlign = 'center'; l.textBaseline = 'middle'; const s = '2093', n = Math.floor(clamp(st.lt / 1.4) * 4 + .001); l.fillText(s.slice(0, n), 960, 560); l.restore();
+  l.fillStyle = '#000'; l.font = '700 300px "Courier Prime"'; l.textAlign = 'center'; l.textBaseline = 'middle'; const s = '2093', n = Math.floor(clamp(st.lt / .7) * 4 + .001); l.fillText(s.slice(0, n), 960, 560); l.restore();
 }, VID);
 // P18 gardiyan gözlüğü takar: yakın, parıltı
 sahne('P18', 'B08', 'kose', 'yakin', (B, st) => {
