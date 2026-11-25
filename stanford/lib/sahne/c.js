@@ -246,7 +246,7 @@
       mudurO: { bas: .08 + .06 * R(st, 'D02@gündüz', .8) }, markO: { bas: .12 - .08 * R(st, VAR('D02', 'zimbardo', 'gardiyan'), .8) },
       monitor: (B2) => bodrum(B2, st, { gardiyanlar: [{ z: .4, u: .15 }] }) });
   }, { ...KK, over: OV(ZM(ETK('MÜDÜR · DAVID JAFFE', 520, 760, { d: 4.5 }), 'D02@müdür', 5), ZM(ETK('GÜNDÜZ VARDİYASI GARDİYANI', 1440, 760, { d: 4.5 }), 'D02@gündüz', 5),
-    ZM(KU("Gün: Le Texier'ye göre üçüncü, Zimbardo'ya göre ilk"), VAR('D02', 'lö', 'müdür'), 6)) });
+    ZM(KU("Gün: Zimbardo'ya göre ilk, Le Texier'ye göre üçüncü; müdürün notunda pazartesi"), VAR('D02', 'lö', 'müdür'), 6)) });
 
   // P44 yakın: Mark, karanlık oda; adı söylenince başını kaldırır, "yirmi"de hafif eğer. (rev2'de D03 yok: plan "Mark" sözcüğüne bağlanır, ≈ 1 sn)
   const M3 = ESKI ? 'D03@mark' : 'D02@mark';
@@ -342,7 +342,7 @@
     const e1 = R(st, 'D09@reform', .7) * (1 - R(st, 'D09@dünyaya', .7)), e2 = R(st, 'D09@bakın', .6);
     kisi3(B, 300, my + 480, 1150, { tip: 'mudur', f: 1, bacak: 'otur', sandalye: true, gozluk: false, kolA: [.35, 1.18],
       kolO: [.45 + .3 * e1 + .4 * e2, 1.1 + .2 * e1 - .2 * e2], bas: .06 - .08 * e2, govde: .05 * e1 + .08 * e2 });
-  }, { ...KK, over: OV(ZM(QT('“Umarız bu çalışmadan çok ciddi reform önerileri çıkar.”', 'Bant A, 12:22', { y: 200, x: 1220, maxW: 900 }), 'D09@umarız', 5.2),
+  }, { ...KK, over: OV(ZM(QT('“Umarız bu çalışmadan çok ciddi reform önerileri çıkar.”', 'Bant A, 12:22', { y: 200, x: 1220, maxW: 900 }), 'D09@umarız', 3.4),
     ZM(QT('“Bakın, böyle davranan gardiyanlarınız olunca ne oluyor.”', 'Bant A, 23:45', { y: 200, x: 1220, maxW: 900 }), 'D09@dünyaya', 7)) });
 
   // P52 ayrıntı: teyp kadrajın ortasında (makaralar, VU, kayıt lambası); "olmalı"da ibre sıçrar, kehribar ışık parlar

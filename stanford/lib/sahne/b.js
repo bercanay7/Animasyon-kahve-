@@ -34,8 +34,8 @@
     const l = B.l, h = o.h ?? 110, m = o.m ?? 46, yb = -h - m, cz = o.cz ?? 4, ub = o.bas ?? 130, ua = o.ayak ?? 50;
     l.save(); l.fillStyle = '#000'; l.fillRect(0, -h - 4, L, 14); l.restore();                                  // yan kayıt (çerçeve)
     const sil = g => g.roundRect(10, yb, L - 22, m + 2, m * .4), bat = g => g.roundRect(L * .56, yb - 10, L * .44 - 16, m + 16, 14), yas = g => g.roundRect(20, yb - 30, L * .2, 38, 16);
-    const rk = o.renk || ['#A2A29B', '#5E5E58', '#E2E2DA']; dol(B, sil, rk[0]); dol(B, bat, rk[1]); dol(B, yas, rk[2]);
-    l.save(); ink(l, cz); for (const y of [sil, bat, yas]) { l.beginPath(); y(l); l.stroke(); }
+    const rk = o.renk || ['#A2A29B', '#5E5E58', '#E2E2DA']; dol(B, sil, rk[0]); dol(B, bat, rk[1]); if (o.yastik !== false) dol(B, yas, rk[2]);
+    l.save(); ink(l, cz); for (const y of (o.yastik !== false ? [sil, bat, yas] : [sil, bat])) { l.beginPath(); y(l); l.stroke(); }
     l.lineWidth = cz * .8; l.beginPath(); l.moveTo(L * .56 + 14, yb + m * .45); l.quadraticCurveTo(L * .75, yb + m * .3, L - 30, yb + m * .5); l.stroke();   // battaniyenin katı
     l.fillStyle = '#000'; l.fillRect(-6, yb - ub, 18, -yb + ub); l.fillRect(L - 14, yb - ua, 18, -yb + ua);           // baş ve ayak direkleri (metal)
     l.beginPath(); l.arc(3, yb - ub, 13, 0, TAU); l.fill(); if (o.ayakBas !== false) { l.beginPath(); l.arc(L - 5, yb - ua, 12, 0, TAU); l.fill(); }                        // direk başlıkları
@@ -214,7 +214,7 @@
     const L = Math.hypot(p1[0] - p0[0], p1[1] - p0[1]), ang = Math.atan2(p1[1] - p0[1], p1[0] - p0[0]);
     const k = B.k, l = B.l;
     for (const g of [k, l]) { g.save(); g.translate(p0[0], p0[1]); g.rotate(ang); g.translate(0, h); }
-    karyola(B, L, { h, m: 40, bas: 120, ayak: 22, ayakBas: false, cz: 4 });
+    karyola(B, L, { h, m: 40, bas: 120, ayak: 22, ayakBas: false, cz: 4, yastik: false });   // yastıksız: sedye/ceset okunmasın
     for (const g of [k, l]) g.restore();
     // öndeki gardiyanın eli karyolanın ayak direğinde (çizgi plakasında tekrar: direğin önünde)
     l.save(); l.fillStyle = '#000'; l.beginPath(); l.ellipse(on.elA[0], on.elA[1], 13, 9, 0, 0, TAU); l.fill(); l.restore();
@@ -311,16 +311,16 @@
 
   // ── P29 Eshelman ve şınav: tek mahkûm yandan, iniş-kalkış belirgin; "şınav"da tempo artar, "keyfî"de gardiyan eğilip yeri gösterir ──
   sahne('P29', 'C06', 'koridor', 'orta', (B, st) => {
-    B.cam(980, 560, 1.08 + st.lt * .01);
+    B.cam(980, 720, 1.0 + st.lt * .01);   // zemin altyazı bandının üstünde, gardiyanın başı kadrajda
     D.koridor(B, st.t, { levha: false });
     const tS = tA('C06@şınav') - st.at, tK = tA('C06@keyfi'), tl = st.lt;
     const faz = .55 * tl + .55 * Math.max(0, tl - tS);   // tur/sn: önce yavaş, sonra iki kat
-    const h = .5 + .5 * Math.cos(faz * TAU);
-    sinav(B, 540, 1012, 7, h, 1);
+    const h = .9 + .1 * Math.cos(faz * TAU);   // gövde hiç yere yapışmaz: kollar gergin şınav (yerde yatan beden okunuyordu)
+    sinav(B, 470, 1012, 9, h, 1);
     const egil = ramp(st.t, tK - .2, tK + .5), konus = 1 - ramp(st.t, tA('C06@zimbardonun') - .3, tA('C06@zimbardonun'));
     const say = ramp(st.lt, tS - .2, tS + .2) * (1 - egil);
     FIG.kisi(B.l, 1330, 1012, 800, { tip: 'gardiyan', f: -1, serbest: 1, govde: .04 + .14 * egil, bas: .2 + .05 * Math.sin(st.t * 7) * konus + .1 * egil,
-      kolO: [lerp(lerp(.25, .55, say), .45, egil), lerp(lerp(1.6, 1.05 + .3 * Math.sin(faz * TAU), say), .45, egil)], kolA: [-.1, .3] });
+      kolO: [lerp(lerp(.2, .4, say), .35, egil), lerp(lerp(.5, .7, say), .4, egil)], kolA: [-.1, .3] });   // yumruk kalkmaz
   }, { ...VID, over: KU("Zimbardo'nun anlatımı (2018)", { video: 1, t0: .6 }) });
 
   // ── P30 tepsi: kaşıklı el girer, "kısıyor"da yemeğin yarısını alır ve kadrajın sağından çıkar; yemek sağ yandan yuvarlak kenarla azalır ──
@@ -425,7 +425,7 @@
     l.save(); ink(l, 6); l.strokeRect(dx0, dyt, dx1 - dx0, G - dyt); l.restore();
     // kadın: kapıdan çıkar, kapının yanına yürür ve durur
     const tg = st.t - (tP + .15);
-    if (tg > 0) SET.yuru(B.l, 900, G + 4, 540, tg, { tip: 'kadin', f: 1, desen: false, kolO: [.1, .3], kolA: [-.1, .2], go: yuruAra([[0, yerel(st, 'C09@iniyor') + .3 - (tP + .15 - st.at)]]) });
+    if (tg > 0) SET.yuru(B.l, 900, G + 4, 540, tg, { tip: 'kadin', f: 1, desen: false, etek: 15, kolO: [.1, .3], kolA: [-.1, .2], go: yuruAra([[0, yerel(st, 'C09@iniyor') + .3 - (tP + .15 - st.at)]]) });
   }, { ...VID, mb: 2, over: KU('Christina Maslach', { video: 1, t0: 1.9 }) });
 
   // ── P35 tuvalet yürüyüşü: tek sıra, bir el öndekinin sırtında (dirsek aşağıda, kol yatay uzanmaz), ayaklar zincirli (başlarda torba ÇİZİLMEZ); gardiyan sıranın arkasından gelir; "zincirli"de kamera ayaklara iner ──

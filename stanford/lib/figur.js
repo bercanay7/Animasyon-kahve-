@@ -65,7 +65,7 @@ const FIG = (() => {
     if (tp.sakal) { P(g, [[5.2, 3.4], [6, 6.6], [4.6, 11.4], [1.6, 13.4], [-1.2, 10.4], [-2.4, 6.6], [1, 7.4]], .85); g.fill(); }
     if (yr && (o.goz ?? 1) > 0) { g.fillStyle = o.gozRenk || '#C98A2E'; g.beginPath(); g.ellipse(3.3, -1.6, .85, .5 * (o.goz ?? 1), -.1, 0, TAU); g.fill(); g.fillStyle = o.renk || K(); }
     if (tp.gozluk && o.gozluk !== false) { g.save(); g.fillStyle = o.camRenk || '#9AA3A6'; g.beginPath(); g.moveTo(2.2, -3.4); g.lineTo(6.4, -3.2); g.lineTo(6, -.6); g.quadraticCurveTo(3.6, .2, 2.4, -1); g.closePath(); g.fill();
-      g.fillStyle = o.parilti || '#E8EEF0'; g.beginPath(); g.ellipse(4.6, -2.4, 1, .45, -.3, 0, TAU); g.fill(); g.restore(); }   // aynalı gözlük: tek yüz öğesi; göz yok
+      g.fillStyle = o.parilti || '#E8EEF0'; g.beginPath(); g.moveTo(3.5, -3.15); g.lineTo(4.3, -3.15); g.lineTo(3.2, -.85); g.lineTo(2.75, -1.0); g.closePath(); g.fill(); g.restore(); }   // aynalı gözlük: tek yüz öğesi; göz yok. Parlama çapraz şerit (oval beyaz göz okunuyordu: Fable kare denetimi)
     if (o.kenar) { g.save(); g.strokeStyle = o.kenar; g.lineWidth = .5; g.lineCap = 'round'; g.beginPath(); spline(g, prof.slice(4, 10), false); g.stroke(); g.restore(); }   // yalnız yüz (alından çeneye): başın tepesinde ışık yayı hale okunur
   }
   // el: avuç + başparmak (+ yaratıkta uzun ince parmaklar); a: kolun yönü
@@ -118,9 +118,10 @@ const FIG = (() => {
     if (tp.kadin) {
       // 1980'ler: belde etek, baldır ortasına; etek altında bacaklar (yürüyüşte açılır)
       const ac = typeof b === 'object' ? (ayak[0][0] - ayak[1][0]) * .3 : 0;
-      P(g, [T(-5, -1.5), T(1.2, -3), T(5.4 * ince, 2.5), T(5.8 * ince, 9), T(4.4 * ince, 17), T(4.6 * ince, 23), T(-4.8 * ince, 23), T(-5 * ince, 12), T(-6, 4)], .9); g.fill();
+      const eb = o.etek ?? 23;   // etek boyu (P34: diz hizası; uzun koyu etek çarşaf okunuyordu)
+      P(g, [T(-5, -1.5), T(1.2, -3), T(5.4 * ince, 2.5), T(5.8 * ince, 9), T(4.4 * ince, 17), T(4.6 * ince, eb), T(-4.8 * ince, eb), T(-5 * ince, 12), T(-6, 4)], .9); g.fill();
       if (b === 'otur') P(g, [T(-5.6, 21), T(5, 21), [diz[0][0] + 3, diz[0][1] - 2], [diz[0][0] + 4, diz[0][1] + 4], [diz[0][0] - 6, diz[0][1] + 6], [kalca[0] - 8, kalca[1] + 4]], .85);
-      else P2(g, [[gx - 8.6 + ac * .2, -15], T(-5.6, 21), T(5, 21), [gx + 8.6 + ac, -15]], [[gx + 9.4 + ac, -14.4], [gx - 9.4, -14.4]]);
+      else P2(g, [[gx - 8.6 + ac * .2, -15], T(-5.6, eb - 2), T(5, eb - 2), [gx + 8.6 + ac, -15]], [[gx + 9.4 + ac, -14.4 - (23 - eb) * .9], [gx - 9.4, -14.4 - (23 - eb) * .9]]);
       g.fill();
       const w = 4 * ince;
       const alt = (d, a) => { uzuv(g, d, a, w * .85, w * .55); ayakkabi(a, .9); };

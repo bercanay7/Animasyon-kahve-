@@ -57,9 +57,10 @@
   //   Önkol kadrajın altından çapraz girer; avuç alt kenarın altında, parmaklar sayfanın arkasında; yalnız başparmak sayfanın önüne kıvrılır (açık parmak yok)
   function tutan(g, x, y, s = 1, f = 1) {
     g.save(); g.translate(x, y); g.scale(f * s, s); g.fillStyle = '#000';
-    g.beginPath(); g.moveTo(-250, 760); g.lineTo(-62, 40); g.quadraticCurveTo(-20, 0, 40, 30); g.lineTo(-110, 790); g.closePath(); g.fill();   // önkol (kol ağzı geniş)
-    g.beginPath(); g.ellipse(-6, 34, 62, 50, -.25, 0, TAU); g.fill();   // avuç: alt kenarın altında, parmaklar sayfanın arkasında
-    g.beginPath(); g.moveTo(-34, 14); g.quadraticCurveTo(-22, -34, 6, -52); g.quadraticCurveTo(30, -62, 38, -42); g.quadraticCurveTo(36, -14, 18, 16); g.closePath(); g.fill();   // başparmak: sayfanın önünde, içe eğik
+    // rev3 (Fable kare denetimi): ince uzun önkol + yuvarlak avuç + tek başparmak uygunsuz okunuyordu. Şimdi geniş kol ağzı, yassı el, dört parmak sayfanın önünde
+    g.beginPath(); g.moveTo(-330, 760); g.lineTo(-120, 70); g.lineTo(80, 70); g.lineTo(-90, 790); g.closePath(); g.fill();   // geniş kol (ceket kolu)
+    g.beginPath(); g.roundRect(-120, 10, 200, 90, 30); g.fill();   // yassı el
+    for (let i = 0; i < 4; i++) { g.beginPath(); g.roundRect(-104 + i * 46, -46 + Math.abs(i - 1.5) * 6, 38, 80, 16); g.fill(); }   // dört parmak sayfanın önünde
     g.restore();
   }
   // Stanford Magazine sayfası (canlandırma; logo ve sayfa düzeni kopyalanmaz): üstte dergi ve tarih, makalenin adı, italik alıntı satırları
@@ -157,7 +158,7 @@
     const K = bodrum(B, st, { isik: .35, levha: false, gardiyanlar: [{ z: .58, u: .5, f: -1, kol: [.1, .45], bas: .04 }, { z: .65, u: .76, f: -1, kol: [-.05, .2], bas: 0 }] });
     const ez = R(st, 'E04@eziyete', .8), ks = R(st, 'E04@kes', .8);
     kisiK(B, K, .3, -.3, 'mahkum', { f: 1, numara: '1037', onlukRenk: '#666864', bas: .16 + .16 * ks, govde: .04 + .07 * ks, kolO: [-.05, .1], kolA: [-.06, .12] });
-    kisiK(B, K, .27, lerp(.1, .03, ez), 'gardiyan', { f: -1, govde: .14 * ez, kolO: [-.3, .55], kolA: [-.35, .6], bas: .02 - .08 * ez + Math.sin(st.t * .9) * .015, serbest: 1 });   // eller arkada: dokunma yok, yalnız yaklaşıp eğilir
+    kisiK(B, K, .27, lerp(.24, .16, ez), 'gardiyan', { f: -1, govde: .06 * ez, kolO: [-.3, .55], kolA: [-.35, .6], bas: .02 - .08 * ez + Math.sin(st.t * .9) * .015, serbest: 1 });   // eller arkada: dokunma yok, yalnız yaklaşıp eğilir
     gece(B, 960, 470);
   }, { ...VID, over: ZM(QT('“Öteki gardiyanlar beni durdurmadı. Tek bir gardiyan bile \'bence bunu yapmamalıyız\' demedi.”', 'Stanford Magazine, 2011', { video: 1, y: 170, maxW: 1400 }), 'E04@öteki', 8) });
 

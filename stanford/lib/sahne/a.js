@@ -38,7 +38,7 @@ sahne('P01T', 'A01@dizilmiş', 'teyp', 'ayrinti', (B, st) => {
 sahne('P02', 'A01@gardiyanlardan', 'kose', 'yakin', (B, st) => {
   B.cam(960, 540, 1.02 + st.lt * .015);
   const k = B.k; k.save(); k.fillStyle = B.ton(.45); k.fillRect(-300, -300, 2600, 1700); k.fillStyle = B.ton(.08); k.fillRect(1380, -300, 900, 1700); k.fillStyle = B.ton(.82); k.fillRect(1330, -300, 60, 1700); k.restore();   // sağda açık kapı aralığı ve koridor ışığı
-  FIG.kisi(B.l, 860, 1460, 1500, { tip: 'gardiyan', f: 1, bacak: 'otur', sandalye: true, kolO: [.55, .9], kolA: [.4, .9], bas: .12 + Math.sin(st.t * .8) * .02, parilti: '#FFFFFF' });
+  FIG.kisi(B.l, 860, 1460, 1500, { tip: 'gardiyan', f: 1, bacak: 'otur', sandalye: true, kolO: [.3, 1.25], kolA: [.2, 1.15], bas: .12 + Math.sin(st.t * .8) * .02, parilti: '#FFFFFF' });   // kollar kucakta (kalas gibi uzanan kol okunuyordu)
 }, VID);
 // P03 ayrıntı: "rastgele": askıda bir gardiyan gömleği ve bir mahkûm önlüğü yan yana; el gömleği alır (yöntem iddiası yok)
 sahne('P03', 'A01@rastgele', 'askı', 'ayrinti', (B, st) => {
@@ -61,7 +61,7 @@ sahne('P04', 'A01@sen', 'gozluk', 'orta', (B, st) => {
     const yol = g => { g.beginPath(); g.ellipse(cx, 520, 300, 220, sg * .05, 0, TAU); };
     k.save(); yol(k); k.fillStyle = B.ton(.55); k.fill(); k.clip();
     k.fillStyle = B.ton(.05); for (let i = 0; i < 4; i++) k.fillRect(cx - 260 + i * 140, 330 - i * 6, 70, 22);   // tavan lambaları (yansıma)
-    const r = rng(cx); k.fillStyle = B.ton(.25); k.beginPath(); for (let i = 0; i < 9; i++) { const x = cx - 230 + r() * 460 + Math.sin(st.t * .6 + i) * 8, y = 520 + r() * 80; k.ellipse(x, y, 30 + r() * 40, 70 + r() * 50, 0, 0, TAU); } k.fill();   // bulanık kalabalık
+    const r = rng(cx); for (let i = 0; i < 6; i++) { const x = cx - 210 + i * 78 + r() * 30 + Math.sin(st.t * .6 + i) * 6, h = 150 + r() * 60; FIG.kisi(k, x, 640 + r() * 20, h, { tip: 'mahkum', f: 1, numara: '', renk: B.ton(.22), kolO: [.05, .15], kolA: [-.05, .1], bas: .1 }); }   // yansımada sıra: küçük siluetler (leke yığını okunmuyordu)
     k.restore();
     l.save(); l.lineWidth = 26; yol(l); l.strokeStyle = '#000'; l.stroke(); l.restore();
     k.save(); yol(k); k.clip(); k.fillStyle = B.ton(.0); k.globalAlpha = .7; k.beginPath(); k.ellipse(cx - 90, 420 + Math.sin(st.t) * 8, 90, 26, -.4, 0, TAU); k.fill(); k.restore();   // parıltı
@@ -155,8 +155,8 @@ sahne('P14', 'B06', 'sokak', 'genis', (B, st) => {
   SET.ev(B, 120, 820, 1.2);
   SET.polisArabasi(B, 1300, 900, 1.2, { lamba: .5 + .5 * Math.sin(st.t * 8) });
   // öğrenci eller arabanın tavanında; polis arkasında
-  FIG.kisi(B.l, 1040, 900, 400, { tip: 'takim', f: 1, govde: .3, kolO: [1.4, .5], kolA: [1.3, .6], bas: .1, serbest: 1 });   // eller arabanın tavanında, dirsek bükük
-  FIG.kisi(B.l, 860 + Math.sin(st.t * .8) * 6, 905, 420, { tip: 'takim', f: 1, kolO: [1.1, .8], kolA: [.6, .9], sac: 'kasket' });
+  FIG.kisi(B.l, 1040, 900, 400, { tip: 'takim', f: 1, govde: .3, kolO: [.3, .55], kolA: [.22, .5], bas: .1, serbest: 1 });   // eller arabanın tavanında, dirsek kırık (düz kalkık kol selam okunuyordu)
+  FIG.kisi(B.l, 860 + Math.sin(st.t * .8) * 6, 905, 420, { tip: 'takim', f: 1, kolO: [.15, .35], kolA: [.1, .3], sac: 'kasket' });
 }, { ...VID, over: KU('Palo Alto, Pazar 15 Ağustos 1971 sabahı', { video: 1, x: 1800, align: 'right', y: 90 }) });
 // P15 ayrıntı: kelepçe kapanır (bileklerin yakın planı)
 sahne('P15', 'B06@kelepçe', 'sokak', 'ayrinti', (B, st) => {
@@ -173,7 +173,7 @@ sahne('P16', 'B07', 'koridor', 'orta', (B, st) => {
   const t = st.lt, x0 = 380;
   const m = SET.yuru(B.l, x0, 1010, 620, t, { tip: 'mahkum', f: 1, numara: '', kolO: [.2, .2], kolA: [.1, .2], bas: .12 });
   const l = B.l; l.save(); l.fillStyle = '#5a5a5a'; l.fillRect(m.bas[0] - 30, m.bas[1] - 18, 64, 18); l.restore();   // göz bağı (açık ton şerit; başın yanında açık bohça değil, gözün üstünde)
-  SET.yuru(B.l, x0 - 160, 1012, 660, t, { tip: 'gardiyan', f: 1, kolO: [1.2, .3], kolA: [.2, .3] });
+  SET.yuru(B.l, x0 - 330, 1012, 660, t, { tip: 'gardiyan', f: 1, kolO: [.2, .35], kolA: [.15, .3] });   // bir gövde geride, dik (yapışık duruş okunuyordu)
 }, { ...VID, mb: 4 });
 // P17 ayrıntı: önlüğe numara basılır
 sahne('P17', 'B07@bundan', 'numara', 'ayrinti', (B, st) => {

@@ -178,7 +178,7 @@ const SET = (() => {
     const kisiCiz = (x, f, tip, oo) => { const op = { tip, f, bacak: 'otur', sandalye: true, kolO: [.95, .75], kolA: [.7, .95], bas: .08, gozluk: false, ...oo };
       FIG.kisi(B.c, x, my + 330, 760, { ...op, renk: '#000', sandalyeRenk: '#000' }); return FIG.kisi(B.l, x, my + 330, 760, op); };
     // fincanlar ve kâğıt (büro: sorgu odası okunmasın; kanal dersleri + üç okuyucunun ortak bulgusu)
-    fincan(B, 1380, my, t, 1); fincan(B, 1700, my, t, 2);
+    fincan(B, 1240, my, t, 1); fincan(B, 1560, my, t, 2);   // fincanlar figürlerin önünde (buhar sırttan çıkıyordu)
     k.save(); k.fillStyle = '#fff'; k.globalAlpha = .55; k.beginPath(); k.moveTo(600, my - 4); k.lineTo(780, my - 10); k.lineTo(800, my + 2); k.lineTo(610, my + 6); k.closePath(); k.fill(); k.restore();
     // iki kişi AYNI tarafta, yan yana, ikisi de monitörlere bakar (karşılıklı oturuş yok)
     if (o.mark !== false) kisiCiz(1680, -1, 'gardiyan', { gozluk: false, ...(o.markO || {}) });
