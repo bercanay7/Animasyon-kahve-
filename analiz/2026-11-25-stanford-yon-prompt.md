@@ -8,6 +8,6 @@ Senaryodan önce iki araştırma yap; bulguları `stanford/arastirma/` altına y
    - Bu kaptan YouTube arama sonuçları, kanal sayfaları (abone sayısı) ve `i.ytimg.com` kapakları okunabiliyor. İzleme sayfası ve altyazı dökümü bot denetimine takılıyor (429; 25 Kasım'da denendi).
    - Açılışların içeriğini görmek için oranı en yüksek en çok üç video seç; kullanıcıdan YouTube'daki "Transkripti göster" metninin ilk iki dakikasını iste. İstek tek mesajda, video bağlantılarıyla.
 
-Malzeme bağlayıcı değil, işine yarayanı al: `analiz/2026-11-25-stanford-yon-notlari.md` (doğrulanacaklar ve hukuk notu), `analiz/2026-11-25-konu-adaylari-4.md`.
+Malzeme `origin/claude/yeni-zaman-kuryesi-kanal-vwc9ea` dalında; `main`'de henüz yok, önce o dalı al. Bağlayıcı değil, işine yarayanı al: `analiz/2026-11-25-stanford-yon-notlari.md` (doğrulanacaklar ve hukuk notu), `analiz/2026-11-25-konu-adaylari-4.md`.
 
 Bu video da yön usulüyle yapılıyor (`analiz/2026-11-23-deney-yon-promptu.md`). Bitince `geriye_bakis.md`'ye neyi kendin seçtiğini, araştırmanın neyi değiştirdiğini ve nerede yönün yetmediğini yaz.
