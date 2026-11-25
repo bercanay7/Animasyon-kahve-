@@ -175,7 +175,12 @@ Ayrıntı: `fable_son_okuma/`. Her bulgu bir iddia sayıldı. Senaryo bulguları
 **3. Üç izleyici okuması:** son render üstünde (aşağıda).
 
 ## Render ve denetimler
-RENDER_DENETIM
+- **Alt bant** (`tools/alt_bant.js`): her render'dan önce; temiz.
+- **Ölçek kuralı** (`tools/plan_listesi.js`): 106 plan; ardışık aynı ölçek yok. Levha payı %17,3; 8 sn'yi aşan levha yok (rev3'te P87 kısaldı, P88 bir saniye öne alındı).
+- **Donma** (`tools/donma.py`): son render'da P90'da (son cümle ve bitiş ekranı) 10,9 ve 7,2 sn'lik durgun aralıklar çıktı. Monitördeki eylemler küçük kalıyordu. Belirgin yaklaşma, 3,4 sn'de bir tarama bandı ve nefes alan ışık eklendi; yalnız son iki parça yeniden üretildi (`ONLY=28,29`, 3,7 dk). Sonuç: 5 sn'yi aşan aralık yok.
+- **Render:** 21.392 kare, 4 işçi, kare başına 0,65 sn: 58,7 dk. CRF 18 çıktı 1,05 GB (monitör greni karede değişiyor). Teslim iki geçişli sabit bit hızıyla.
+- **Ses:** −14,2 LUFS, tepe −1,3 dBFS.
+- **İlk tam render (rev2) boşa gitmedi:** Fable'ın görüntü denetimi onun karelerinde yapıldı; düzeltmeler rev3 render'ından önce girdi. Ders: denetim için tam render yerine plan başına kare yeterli; tam render yalnız donma ve izleyici okuması için.
 
 ## Açık kalanlar
 - Kulakla son onay kullanıcıda (`yayin.md` → "Kulakla bakılacaklar").

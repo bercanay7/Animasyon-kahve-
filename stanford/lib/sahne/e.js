@@ -201,15 +201,15 @@
   //   Sözcüğe bağlı eylemler: "peki"de camda parıltı kayar; "başka"da monitördeki gardiyan öteki yana döner; "sonrakini"nde kayıt lambası yanar ve
   //   duran makaralar yeniden dönmeye başlar (yeni bant). Anlatım bitince de hareket sürer: makaralar, VU, monitörde ara ara tarama bandı, yavaş yaklaşma.
   sahne('P90', 'F05', 'gozlem', 'orta', (B, st) => {
-    const z = 1 + st.lt * .003, F = [560, 400], C0 = [860, 540];
+    const z = 1 + .14 * E.io2(clamp(st.lt / 12)) + st.lt * .002, F = [560, 400], C0 = [860, 540];   // donma taraması: anlatım boyunca belirgin yaklaşma
     B.cam(F[0] + (C0[0] - F[0]) / z, F[1] + (C0[1] - F[1]) / z, z);
     SET.karanlik(B, .84);
     const k = B.k, l = B.l, my = 548;
-    SET.koni(B, 700, -60, 90, my + 4, 300, { a: .5, tohum: 9, taban: .45 });
+    SET.koni(B, 700, -60, 90, my + 4, 300, { a: .42 + .12 * Math.sin(st.t * .9), tohum: 9, taban: .45 });   // ışık yavaşça nefes alır
     // monitör masada (soğuk ışık), içinde koridor: gardiyan eşikte; "başka"da öteki yana döner
     l.save(); l.fillStyle = '#000'; l.fillRect(318, 500, 44, my - 500); l.fillRect(270, my - 12, 140, 12); l.restore();
     const isik = 1 - .3 * (Math.sin(st.t * 29) > .93 ? 1 : 0), don = st.t > A('F05@başka');
-    const tb0 = Math.max(Se('F05'), st.at + 3), bq = st.t > tb0 ? ((st.t - tb0) % 6.5) / 1.6 : 2;   // anlatımdan sonra her 6,5 sn'de bir tarama bandı
+    const tb0 = st.at + 1.5, bq = st.t > tb0 ? ((st.t - tb0) % 3.4) / 1.6 : 2;   // her 3,4 sn'de bir tarama bandı (anlatım sırasında da: donma taraması)
     SET.monitorIci(B, 130, 120, 420, 300, (B2) => { const K = bodrum(B2, st, { acik: (yan, i) => yan > 0 && i === 1, isik });
       esikGardiyan(B2, K, A('F04@biri') - A('F04') + 3, st.t, { bas: .18 + Math.sin(st.t * .5) * .03, don });
       if (bq < 1) { const g = B2.k; g.save(); g.fillStyle = B2.ton(0, .6); g.fillRect(-200, lerp(-200, 1280, bq) - 100, 2400, 200); g.restore(); } });
