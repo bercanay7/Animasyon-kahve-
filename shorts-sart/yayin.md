@@ -68,7 +68,7 @@ Ortak alanlar: **İlgili video** o mitin uzun videosu · **Oynatma listesi** Mit
   Sisifos ölüler ülkesinden tek bir sözle çıktı: "Sonra hemen dönerim." Persefoni ona inandı. O dönmedi. Tanrıların cevabı bir yokuş ve bir kayaydı.
   Tam hikâye kanalda: Sisifos.
 
-  Kaynaklar: Homeros, Odysseia XI 593–600; Pherekydes (Apollodoros ve Homeros şerhlerinde aktarılan). Çeviri ve anlatım bize aittir.
+  Kaynaklar: Homeros, Odysseia XI 593–600; Pherekydes (İlyada VI 153 şerhleri aracılığıyla): yeraltından dönüş. Çeviri ve anlatım bize aittir.
   #mitoloji #Sisifos #Camus
   ```
 - **Etiketler:** `Sisifos, Sisyphus, Sisifos efsanesi, Sisifos Söyleni, Camus, Persefoni, Hades, Yunan mitolojisi, mitoloji, Tartaros, absürt, Zaman Kuryesi`
