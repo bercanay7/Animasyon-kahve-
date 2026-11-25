@@ -23,7 +23,7 @@ in vec2 p; out vec2 uv; void main(){ uv = p * .5 + .5; gl_Position = vec4(p, 0.,
 precision highp float;
 in vec2 uv; out vec4 o;
 uniform sampler2D tK, tL, tC; uniform vec2 res; uniform float rs, seed, kagitA, bantY, bantA, parlak, sarsinti;
-uniform vec4 ekr; uniform float ekrA;
+uniform vec4 ekr; uniform float ekrA, kuru;
 float h21(vec2 p){ p = fract(p * vec2(123.34, 456.21)); p += dot(p, p + 45.32); return fract(p.x * p.y); }
 float vn(vec2 p){ vec2 i = floor(p), f = fract(p); f = f * f * (3. - 2. * f);
   return mix(mix(h21(i), h21(i + vec2(1, 0)), f.x), mix(h21(i + vec2(0, 1)), h21(i + vec2(1, 1)), f.x), f.y); }
@@ -84,6 +84,9 @@ void main(){
     vec3 mur = vec3(.118, .102, .086);
     float dK = 1. - lum(texture(tK, st));
     dK = clamp(dK * (1. + (mot - .5) * .18) + (gr - .5) * .05 * step(.02, dK), 0., 1.);
+    // kuru fırça (o.kuru 0..1): orta tonlar düşey kıl izlerine bölünür; tam koyu ve tam açık etkilenmez
+    float kil = vn(vec2(fc.x / (1.8 * rs), fc.y / (260. * rs)) + 11.) * .7 + vn(vec2(fc.x / (5. * rs), fc.y / (90. * rs)) + 3.) * .3;
+    dK = clamp(dK + (kil - .5) * kuru * .9 * dK * (1. - dK) * 2., 0., 1.);
     float dL = 1. - lum(texture(tL, st));
     float cL = smoothstep(.32 + (gr - .5) * .18, .6, dL);
     col = kagit;
@@ -107,12 +110,12 @@ void main(){
     for (let i = 0; i < 3; i++) { const t = gl.createTexture(); gl.activeTexture(gl.TEXTURE0 + i); gl.bindTexture(gl.TEXTURE_2D, t);
       gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR); gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
       gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE); gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE); tex.push(t); }
-    for (const n of ['tK', 'tL', 'tC', 'res', 'rs', 'seed', 'kagitA', 'bantY', 'bantA', 'parlak', 'sarsinti', 'ekr', 'ekrA']) U[n] = gl.getUniformLocation(prog, n);
+    for (const n of ['tK', 'tL', 'tC', 'res', 'rs', 'seed', 'kagitA', 'bantY', 'bantA', 'parlak', 'sarsinti', 'ekr', 'ekrA', 'kuru']) U[n] = gl.getUniformLocation(prog, n);
     gl.uniform1i(U.tK, 0); gl.uniform1i(U.tL, 1); gl.uniform1i(U.tC, 2);
     gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, false);
   };
   // begin(o): o.mod 'video' (varsayılan) | 'kagit' · o.ekran {x,y,w,h} kâğıt sahnede monitör · o.bant [y 0..1, güç] tarama bandı
-  //   o.parlak ışıma (varsayılan 1) · o.sarsinti satır titremesi (0..1) · o.kagit kâğıt dokusu (0..1)
+  //   o.kuru kâğıtta kuru fırça kıl izi (0..1; r8 örneğinden, yalnız gözlem odası) · o.parlak ışıma (varsayılan 1) · o.sarsinti satır titremesi (0..1) · o.kagit kâğıt dokusu (0..1)
   let O = {};
   B.begin = (o = {}) => {
     O = o;
@@ -137,7 +140,7 @@ void main(){
     gl.viewport(0, 0, DW, DH);
     const fi = Math.floor(Math.round((window.FIG_T || 0) * 30) / 2);
     gl.uniform2f(U.res, DW, DH); gl.uniform1f(U.rs, RS); gl.uniform1f(U.seed, (fi % 97) + 1);
-    gl.uniform1f(U.kagitA, O.kagit ?? 1); gl.uniform1f(U.parlak, O.parlak ?? 1); gl.uniform1f(U.sarsinti, O.sarsinti ?? 0);
+    gl.uniform1f(U.kagitA, O.kagit ?? 1); gl.uniform1f(U.kuru, O.kuru ?? 0); gl.uniform1f(U.parlak, O.parlak ?? 1); gl.uniform1f(U.sarsinti, O.sarsinti ?? 0);
     const bt = O.bant || [0, 0]; gl.uniform1f(U.bantY, bt[0]); gl.uniform1f(U.bantA, bt[1]);
     const kag = O.mod === 'kagit';
     if (kag && O.ekran) { const e = O.ekran; gl.uniform4f(U.ekr, e.x / W, e.y / H, (e.x + e.w) / W, (e.y + e.h) / H); gl.uniform1f(U.ekrA, 1); }

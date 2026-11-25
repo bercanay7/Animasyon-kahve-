@@ -129,9 +129,55 @@ const SET = (() => {
       k.fillStyle = T(B, .0); k.globalAlpha = .55 * (1 - u * .6); k.beginPath(); k.arc(x + Math.cos(a) * d + jx, y + Math.sin(a) * d + jy, r, 0, TAU); k.fill(); }
     k.restore();
   }
+
+  // ── karanlık gözlem odası (r8/r1 örneklerinden; uslup_ornekleri_fable.md) ──
+  // Kural: oda koyu (≥ %60), ışık konisi TEYBİN üstüne düşer (sorgu mizanseni yok: kimse ışığın altında oturmaz), iki siluet koninin iki yanında eşit yükseklikte.
+  // Parıltı insanda değil nesnede (makara, VU, masa kenarı). Kâğıt modunda o.kuru ile kullanılır.
+  function karanlik(B, d = .74) { const k = B.k; k.save(); k.setTransform(1, 0, 0, 1, 0, 0); k.fillStyle = T(B, d); k.fillRect(0, 0, k.canvas.width, k.canvas.height); k.restore(); }
+  // ışık konisi: tepe (x, y) dar w0, taban y1'de w1; gradyan tepe açık → taban; kenar sert, bir kenarı kuru fırçayla dağılır
+  function koni(B, x, y, w0, y1, w1, o = {}) {
+    const k = B.k, a = o.a ?? 1, tohum = o.tohum || 3;
+    const g = k.createLinearGradient(0, y, 0, y1); g.addColorStop(0, `rgba(255,255,255,${.9 * a})`); g.addColorStop(1, `rgba(255,255,255,${(o.taban ?? .55) * a})`);
+    k.save(); k.fillStyle = g; k.beginPath(); k.moveTo(x - w0 / 2, y); k.lineTo(x + w0 / 2, y); k.lineTo(x + w1 / 2, y1); k.lineTo(x - w1 / 2, y1); k.closePath(); k.fill();
+    // yumuşak kenar boyunca kuru fırça darbeleri (tohumlu)
+    const r = rng(tohum); k.strokeStyle = `rgba(255,255,255,${.35 * a})`;
+    for (let i = 0; i < 26; i++) { const u = r(), yy = lerp(y, y1, u), xx = x + lerp(w0, w1, u) / 2 * (r() < .5 ? -1 : 1); k.lineWidth = 1 + r() * 4; k.beginPath(); k.moveTo(xx, yy); k.lineTo(xx + (r() - .5) * 30, yy + 40 + r() * 120); k.stroke(); }
+    k.restore();
+  }
+  // düşey sürtme: koyu kütlenin alt kenarından aşağı ince tohumlu şeritler (açık: beyaz boya)
+  function surtme(g, x0, x1, y, tohum = 7, o = {}) {
+    const r = rng(tohum), n = o.n || 40; g.save();
+    for (let i = 0; i < n; i++) { g.globalAlpha = .4 + r() * .5; g.fillStyle = o.acik ? '#fff' : '#000'; g.fillRect(lerp(x0, x1, r()), y - 10, 1 + r() * 3, (o.boy || 220) * (.2 + r() * .8)); }
+    g.restore();
+  }
+  // gözlem odası: koyu duvar, monitör (içinde bodrum), masa, teyp, konide ışık; iki oturan siluet (sol müdür, sağ Mark) eşit yükseklikte.
+  // o: { t, ang (makara açısı), kayit, vu, mudur, mark (true | false), markGozluk (elinde gözlük), monitor (çizim fn), cam: [x,y,z] }
+  function gozlemOdasi(B, st, o = {}) {
+    const t = st.t, my = 690;
+    karanlik(B, o.koyu ?? .76);
+    const k = B.k, l = B.l;
+    // monitör arka duvarda solda (soğuk ışık kaynağı), içinde bodrum
+    if (o.monitor !== false) monitorIci(B, 150, 150, 520, 380, o.monitor || ((B2) => { const KK = D.koridor(B2, t, { levha: false }); }));
+    // koni: tavandan teybin üstüne
+    koni(B, 1060, -60, 120, my + 10, 760, { a: o.isik ?? 1, tohum: 5 });
+    // masa: koyu kütle + sert açık üst kenar (karenin en açık çizgisi), kenar 3-4 parçaya kırık
+    k.save(); k.fillStyle = T(B, .9); k.fillRect(260, my + 8, 1500, 400); k.restore();
+    l.save(); l.fillStyle = '#000'; l.fillRect(260, my + 30, 1500, 500); l.restore();
+    k.save(); k.fillStyle = '#fff'; for (const [a0, a1] of [[560, 830], [850, 1290], [1310, 1480], [1500, 1560]]) k.fillRect(a0, my + 6, a1 - a0, 8); k.restore();
+    surtme(B.l, 300, 1700, my + 30, 11, { n: 50, boy: 260, acik: false });
+    // teyp masada, ışığın altında
+    const tp = teyp(B, 1060, my - 250, .62, t, { ang: o.ang, kayit: o.kayit ?? 1, vu: o.vu, hz: o.hz });
+    // siluetler: koninin iki yanında, eşit boyda oturur; ışığa bakan yanda tek orta ton leke (ton plakasında)
+    // kollar dirsekten bükük, önkol masada (düz uzanan kol yok); figür renk plakasında siyah: monitör maskesini siler
+    const kisiCiz = (x, f, tip, oo) => { const op = { tip, f, bacak: 'otur', sandalye: true, kolO: [.95, .75], kolA: [.7, .95], bas: .08, gozluk: false, ...oo };
+      FIG.kisi(B.c, x, my + 330, 760, { ...op, renk: '#000', sandalyeRenk: '#000' }); return FIG.kisi(B.l, x, my + 330, 760, op); };
+    if (o.mudur !== false) kisiCiz(560, 1, 'mudur', o.mudurO || {});
+    if (o.mark !== false) kisiCiz(1560, -1, 'gardiyan', { gozluk: false, ...(o.markO || {}) });
+    return { masaY: my, teyp: tp };
+  }
   // kamera sallantısı yok; yavaş yaklaşma varsayılan: zoom(st, a, b)
   const yak = (st, z0 = 1, hiz = .012) => z0 + st.lt * hiz;
-  return { yuru, oda, monitorIci, onde, teyp, belge, tahta, polisArabasi, ev, dolap, saat, yatak, bulut, yak, ink };
+  return { yuru, oda, monitorIci, onde, teyp, belge, tahta, polisArabasi, ev, dolap, saat, yatak, bulut, yak, ink, karanlik, koni, surtme, gozlemOdasi };
 })();
 
 // ── ekran yazısı yardımcıları (üst katman) ──
