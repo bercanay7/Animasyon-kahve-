@@ -195,3 +195,23 @@ Okuma: `fable_senaryo_okumasi.md` (6 engelleyici, 12 önemli, 21 küçük).
   - Fromm'un adı sesle kaldı (Türk izleyici tanır; ikinci yarıdan ilk yarıya alındığı için "yeni ad" kuralı da tutuyor).
 - **Küçükler:** K1, K3–K5, K7–K11, K13–K14, K16–K17, K20–K21 uygulandı. K15 ("bir oyun gibi") çıkarıldı.
 - **Yönün yetmediği yer (geriye bakışa):** yön "öteki istendiği hâlde yapmadı" diyordu. Belge bunu söylemiyor: bantta itiraz var, iki "deneyeceğim" var, son söz "Peki"; sonrasına dair bağımsız belge yok. Film bunu saklamıyor, filmin sonu yapıyor.
+
+## 8. Kanal dersleri taraması ve rev2 (25 Kasım; seslendirmeden önce)
+- **Tarama:** 5 okuyucu kanalın bütün ölçüm ve ders dosyalarını okudu. 78 bulgunun her biri ayrı bir ajanla Stanford dosyalarında sınandı, sonra sentezlendi.
+  - Sentez: `arastirma/kanal_dersleri.md`.
+  - İlk çalıştırmada kullanım sınırı yüzünden 28 doğrulama yarım kaldı; kaldığı yerden sürdürüldü.
+- **Uygulananlar:**
+  - Senaryo: §1 D17–D19 tek cümle (Zimbardo'nun belgesiyle kapanış; tartışmanın ayrıntısı künyede); §6 A03; §7 D01–D02 (D03 kalktı); §8 bölüm soruları (C01, D01, E01); §9 E09, E14; §13 A01 "rastgele"; §19 "banda".
+  - Görüntü: §3 hassasiyet (P01 ve P10 sırası düzensiz; P04 dizisi kalktı; P14 ve P18 kolları indi); §4 oturan kahraman (P01, P02, P05S); §5 ilk 5 sn'de teyp (P01T); §10 tahta tek plan, levhasız (P11–P13); §11 donuk planlar sözcüğe bağlandı (P05, P08, P18, P19); §12 P20 masasız; §16 künye yeri plan başına (P11, P14).
+  - Tahmin §15: ST1–ST3 (`analiz/tahminler.md`).
+- **Başkanın tarttığı ve kısmen aldığı:**
+  - §6: A03'ün soyut sorusu tamamen atılmadı. Kullanıcının yönü bu soruyu peşinden gidilecek şey yapıyor; soru kısaldı, yanına somut söz kondu ("O bandın son kelimesini sona saklıyoruz").
+  - §13 kapak B: "BANTTA NE İSTENDİ?" ile "18 DAKİKALIK KONUŞMA" arasındaki karar kapak testinde verilecek.
+  - §10 bant dökümü: "tam cümle basılmaz, anahtar söz" kuralı III. perdenin yazarına verilmeden önce alınmadı. III. perde dönünce ≤ 8 sn ve levha bütçesi ölçülüp uygulanacak.
+- **Sonraya kalanlar:**
+  - §14 filtreli talep ölçümü (başlık);
+  - §17 araç kalıntıları (srt adı, render.js satırı, teslim.sh, müzik);
+  - §18 iki okuma kapısı (ilk render'dan sonra);
+  - §20 tarama çizgisi haresi;
+  - §21 Shorts (Narkissos dikey Shorts sonucuna bağlı).
+- **Kullanıcıdan istenecekler:** sentezin son bölümünde (Shorts oranı, Studio ekran görüntüleri, yayın tarihi onayı, başlık kararı, kredi onayı).

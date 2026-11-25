@@ -69,13 +69,13 @@ Zamanlar tahmini (seslendirmeden sonra `cernobil/timeline.js` ile güncellenir).
 ---
 
 ## Stanford Hapishane Deneyi (18 Aralık 2026 önerisi; 48. saat = 20 Aralık 18:00, 7. gün = 25 Aralık; 25 Kasım'da, seslendirmeden önce yazıldı)
-Yeni değişken: senaryodan önce kanca araştırması (`stanford/arastirma/`). Araştırmanın getirdiği tek yeni şey sorudan hemen sonra ikinci kanca (bant); S1 onu sınar.
+Yeni değişken: senaryodan önce kanca araştırması (`stanford/arastirma/`). Araştırmanın getirdiği tek yeni şey sorudan hemen sonra ikinci kanca (bant); ST1 onu sınar. (S1–S3 adları Narkissos Shorts tahminiyle çakıştığı için 25 Kasım'da ST1–ST3 oldu.)
 
 | # | Tahmin | Ölçü | Sonuç |
 |---|---|---|---|
-| S1 | İkinci kanca (≈0:12–0:25'te bant ve "ondan bir şey istiyor"): 0:30'da kalan aynı yaştaki kanal medyanının ≥ 5 puan üstünde (≥ %66). Tutmazsa ders: kancaya ikinci vaat eklemek kanalda tek soru kadar etkili değil. | elde tutma 0:30 | |
-| S2 | III. bölüm (bant: müdür ↔ Mark, zaman damgalı sözler) filmin en düz bölümü olur: dakika başına kayıp gövde ortalamasının altında; bölüm başına atlama (bölüm damgası) en çok "III. Bant"a. Tersi çıkarsa ders: iki kişinin dökümü (soyut olmasa da) uzun alıntı dizisi olarak düşürüyor. | bölüm bölüm dakika başına kayıp; bölüm başı yükselişleri | |
-| S3 | Son 60 sn ("Peki." ve soru) Mary Stuart'taki doruk sonrası kaybın (45 sn'de −7) yarısından az kaybettirir; yorumlarda izleyicinin kendi cevabını yazdığı yorum oranı kanalın önceki videolarından yüksek. | son dakika eğrisi; yorum sayısı/içeriği | |
+| ~~S1~~ ST1 | **İkinci kanca** (bant, ilk 5 sn'de teyp ayrıntısı + ≈0:15'te bant ve "ondan bir şey istiyor").<br>(a) **Şekil:** 0:10'dan 0:30'a kayıp ≤ 6 puan (Kafka −9, Ran −13, Mary −18); ≈0:17–0:30 arasında eğri ≥ −2.<br>(b) **Mutlak:** 48. saatte 0:30 ≥ %72 (aynı yaştaki 6 videonun 0:30 medyanı 67: Mary 70, Prometheus 70, Milton 68, Ran 66, Kafka 64, İkaros ~48; ön okuma), 7. günde ≥ %66 (karar).<br>Tutmazsa ders: kancaya ikinci vaat eklemek kanalda tek soru kadar etkili değil. (25 Kasım: S1 → ST1, çıta kanal dersleri §15'e göre yeniden yazıldı; sayılar 18 Aralık'tan önce Studio verisiyle kilitlenir.) | elde tutma 0:10, 0:30 (48. saat ve 7. gün) | |
+| ~~S2~~ ST2 | III. bölüm (bant: müdür ↔ Mark, zaman damgalı sözler) filmin en düz bölümü olur: dakika başına kayıp gövde ortalamasının altında; bölüm başı yükselişinin en büyüğü "III. Bant"ta. Tersi çıkarsa ders: iki kişinin dökümü, soyut olmasa da, uzun alıntı dizisi olarak düşürüyor. (rev2: bölüm sonundaki iddia–karşı iddia kuyruğu tek cümleye indi.) | bölüm bölüm dakika başına kayıp; bölüm başı yükselişleri | |
+| ~~S3~~ ST3 | Son 60 sn ("Peki." ve soru), Mary Stuart'taki doruk sonrası kaybın (45 sn'de −7) yarısından az kaybettirir; izleyicinin kendi cevabını yazdığı yorumların oranı kanalın önceki videolarından yüksek olur. | son dakika eğrisi; yorum sayısı ve içeriği | |
 
 ## Dağıtım sınaması: kanal sorunu mu, havuz mu? (23 Kasım 2026, Narkissos yayından önce yazıldı)
 **Soru (kullanıcı, 23 Kasım):** Elizabeth Shorts'u ~400 izlendi (kanalın en düşük Shorts'u); 12 Kasım'dan beri altı uzun video büyük göz atma testi almadı. Algoritmayla bir sorun mu var?
