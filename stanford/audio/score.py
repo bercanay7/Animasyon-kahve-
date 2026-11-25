@@ -6,12 +6,13 @@ kısık piyano "sayım" motifi (Re Fa La Sol: dört sayım), yaylı dron (Re, La
 Son: "Peki."den önce ve sonra sessizlik; çıkış sorusunda sayım motifi yavaşlar ve açık beşliyle biter (sorulur, çözülmez).
     python3 audio/score.py → audio/music.wav (48 kHz stereo) + saniye saniye düzey özeti (tam bant ve 300 Hz üstü)
 """
-import json, re, wave
+import json, os, re, wave
 from pathlib import Path
 import numpy as np
 
 HERE = Path(__file__).resolve().parent; FILM = HERE.parent
 SR = 48000
+STEM = os.environ.get('STEM')   # STEM=ton: hışırtı, uğultu ve motor olmadan (telefon denetimi için tonlu iz)
 rng = np.random.default_rng(71)
 TL = (FILM / 'timeline.js').read_text(encoding='utf-8')
 CUES = json.loads(re.search(r'window\.CUES = (\{.*?\});', TL, re.S).group(1))
@@ -65,16 +66,25 @@ def sayim(t0, v=.12, ara=.62, tekrar=1, son=None):
             nn = son if (son and r == tekrar - 1 and i == 3) else n
             put(t, piyano(nn, 2.2, v * (1 - .1 * i), kisik=True), (i - 1.5) * .15); t += ara
     return t
+def ust(n):   # aynı nota, telefon hoparlörünün çalabildiği bölgeye (≥ 280 Hz) oktavla taşınır (Frankenstein dersi)
+    m = re.match(r'([A-G][b#]?)(-?\d)', n); k = int(m[2])
+    while hz(m[1] + str(k)) < 280: k += 1
+    return m[1] + str(k)
+UST = float(os.environ.get('UST', .50))   # 25 Kasım telefon denetimi: tonlu müzik telefonda saniyelerin yalnız %45'inde duyuluyordu
 def pad(t0, t1, notes, v=.06):
-    for i, n in enumerate(notes): put(t0, dron(n, max(.5, t1 - t0), v), pan=(i - 1) * .3)
+    for i, n in enumerate(notes):
+        put(t0, dron(n, max(.5, t1 - t0), v), pan=(i - 1) * .3)
+        put(t0, dron(ust(n), max(.5, t1 - t0), v * UST, .4), pan=-(i - 1) * .3)
 def ugultu(t0, t1, v=.012):
     """Floresan: 120 Hz + harmonikler (240, 360, 480; telefon bandına taşar), yavaş titreme."""
+    if STEM == 'ton': return
     t = np.arange(int((t1 - t0) * SR)) / SR; s = np.zeros_like(t)
     for k, a in [(1, 1), (2, .7), (3, .5), (4, .35), (6, .2)]: s += a * np.sin(2 * np.pi * 120 * k * t + k)
     s *= (1 + .15 * np.sin(2 * np.pi * .23 * t)) * np.minimum(1, t / 1.5) * np.minimum(1, (t1 - t0 - t) / 1.5)
     put(t0, v * s, 0)
 def hisirti(t0, t1, v=.010):
     """Bant hışırtısı: 2–7 kHz bant gürültüsü (FFT süzgeci), çok hafif genlik titreşimi (wow)."""
+    if STEM == 'ton': return
     n = int((t1 - t0) * SR); x = rng.normal(0, 1, n)
     X = np.fft.rfft(x); f = np.fft.rfftfreq(n, 1 / SR); X *= ((f > 1800) & (f < 7500)) * 1.0 + ((f > 300) & (f <= 1800)) * .25; x = np.fft.irfft(X, n)
     x /= np.abs(x).max() + 1e-9; t = np.arange(n) / SR
@@ -82,6 +92,7 @@ def hisirti(t0, t1, v=.010):
     put(t0, v * x, .1)
 def motor(t0, t1, v=.008):
     """Teyp motoru: 50 Hz ve 400 Hz civarı ince vızıltı (yalnız bant çalarken)."""
+    if STEM == 'ton': return
     t = np.arange(int((t1 - t0) * SR)) / SR
     s = .6 * np.sin(2 * np.pi * 50 * t) + .4 * np.sin(2 * np.pi * 397 * t + .3 * np.sin(2 * np.pi * .9 * t))
     s *= np.minimum(1, t / .4) * np.minimum(1, (t1 - t0 - t) / .4); put(t0, v * s, -.1)
@@ -117,6 +128,7 @@ sayim(S('C13') + .2, v=.1, ara=.62)
 # ---------------------------------------------------------------- D: bant (müzik çekilir: hışırtı + motor; anahtar cümlelerde tek nota)
 motor(S('D01'), Ee('D14'), .007)
 pad(S('D01'), Ee('D02') + 1, ['D2', 'A2'], .035)
+pad(Ee('D02') + .5, Ee('D14') + 1, ['D2', 'A2'], .028)   # telefon denetimi: bant boyunca ince zemin (önce 2 dk tonsuzdu)
 put(S('D05') - .2, piyano('D3', 5, .14), 0)
 put(S('D10') - .2, piyano('F3', 5, .14), 0)
 put(W('D14', 'markın') - .1, piyano('A2', 6, .14), 0)   # açık bırakılan soru
@@ -126,11 +138,13 @@ pad(S('E01'), Ee('E07'), ['D2', 'Bb2'], .045)
 ugultu(S('E02'), Ee('E04'), .01)
 put(W('E06', 'buna'), piyano('D3', 4, .12), 0)
 put(S('E08'), piyano('D2', 5, .14, kisik=True), 0)   # ölüm tarihi
-pad(S('E10'), Ee('E12'), ['D2', 'A2'], .04)
+pad(S('E08') + 1.5, Ee('E09') + 1, ['D2', 'A2'], .03)   # telefon denetimi: 8:27–8:49 tonsuzdu
+pad(S('E10'), S('E13') + 1, ['D2', 'A2'], .04)
 sayim(S('E10') + .5, v=.08, ara=.6)
 pad(S('E13'), Ee('E14') + 1, ['D2', 'A2', 'F3'], .04)
 # ---------------------------------------------------------------- F: cevap ("Peki." çevresinde sessizlik; açık beşli)
 motor(S('F02'), Ee('F03'), .007)
+pad(Ee('F02') - 1, S('F03'), ['D2', 'A2'], .03)
 pad(S('F01'), Ee('F02'), ['D2', 'A2'], .035)
 akor(Ee('F03') + 1.0, ['D3', 'A3', 'E4'], .13, 7)          # "Peki."den sonra: çözülmeyen akor
 pad(S('F04'), DUR, ['D2', 'A2'], .045)
@@ -152,10 +166,13 @@ for a_, b_ in [(S('C10') - 1.0, Ee('C10') + .2), (S('F03') - .8, Ee('F03') + .9)
     g[max(0, int(a_ * SR)):int(b_ * SR)] = 10 ** (-28 / 20)
 k = np.ones(25) / 25; gs = np.repeat(np.convolve(g[::hop], k, 'same'), hop)[:N]; gs = np.pad(gs, (0, N - len(gs)), 'edge')
 L *= gs; Rr *= gs
-pk = max(np.abs(L).max(), np.abs(Rr).max()); L /= pk / .8; Rr /= pk / .8
+pkf = HERE / 'music_pk.json'
+if STEM: pk = json.load(open(pkf))['pk']   # tonlu iz tam müzikle aynı ölçekte
+else: pk = max(np.abs(L).max(), np.abs(Rr).max()); json.dump({'pk': pk}, open(pkf, 'w'))
+L /= pk / .8; Rr /= pk / .8
 fade = np.minimum(1, (N - np.arange(N)) / (3 * SR)); L *= fade; Rr *= fade
 out = (np.clip(np.stack([L, Rr], 1), -1, 1) * 32767).astype(np.int16)
-with wave.open(str(HERE / 'music.wav'), 'wb') as w: w.setnchannels(2); w.setsampwidth(2); w.setframerate(SR); w.writeframes(out.tobytes())
+with wave.open(str(HERE / ('music_%s.wav' % STEM if STEM else 'music.wav')), 'wb') as w: w.setnchannels(2); w.setsampwidth(2); w.setframerate(SR); w.writeframes(out.tobytes())
 # düzey eğrisi (kanal kuralı: her müzik üretiminden sonra): tam bant ve 300 Hz üstü
 def saniye_db(x):
     r = np.sqrt(np.mean(x[:len(x) // SR * SR].reshape(-1, SR) ** 2, 1)) + 1e-9; return 20 * np.log10(r)
