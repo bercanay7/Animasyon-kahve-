@@ -85,3 +85,17 @@ Sonuç: iki Shorts. **Narkissos** "Kendini tanımazsa" (29,0 sn) ve **Gılgamı�
   - İkaros'ta güneşin çevresindeki yaylar: filmin tasarımı.
   - Eko'nun suyun iki yanındaki yüzü: filmin yansıması.
 - **Ders adayı:** filmde geçen bir hareket, dikey kırpımda tek odak olunca yeni bir simgeye dönüşebiliyor (kalkık kol, alna giden el). Yatay filmde geçen kare, dikey kırpımda yeniden taranır.
+
+## Ek (25 Kasım): iki yeni formül, 1 ve 3 Aralık
+- **Kafka, "sen" formülü:** kayıtlı ilk cümle "Bir sabah uyandığında artık eskisi gibi değilsin. Seni sevenler, seni yine sever mi?" → dönüşüm → Grete: "Bundan kurtulmalıyız" → "İlk akşam ona süt getiren kız kardeşti bu" → "Seni sevenler seni mi seviyordu, yoksa işe yarayan hâlini mi?" (37,7 sn). Mit değil; açılış formülü sınaması.
+- **Sisifos II, "sonuçla açılış":** "Ölümü zincire vuran bir adam düşün" → Zeus Thanatos'u gönderir → "Bunlar nasıl takılıyor? Bir gösterir misin?" → "Ölüm, zincirlenmişti" → "Artık dünyada kimse ölmüyordu" (30,8 sn). 27 Kasım'daki Sisifos'tan altı gün sonra, ortak sahne yok.
+- **Bağımsız tarama ve doğrulama (yazısız 60 kare); düzeltilenler:**
+  - Kafka'nın ilk karesi: aralık kapıdan düşen ışık şeridi yer çizgisiyle kesişip haç okunuyordu. Yerine kapısının önünde dinleyen aile kondu.
+  - Kafka'nın lamba sahnesi: tavandan sarkan lamba ve başlara inen ışınlar kandil okunuyordu. Yerine kilitte dönen anahtar kondu (mecaz, "Bundan kurtulmalıyız").
+  - Kafka'nın süt kâsesi: iç içe halkalar hedef tahtası okunuyordu; hiç kullanılmadı.
+  - Sisifos II, Zeus'un bacağı: kırmızı noktalar kan okunuyordu; kadraj gövde ve şimşekte.
+  - Sisifos II, zincir: dört kollu parıltı haç okunuyordu; o yakın plan çıkarıldı.
+  - Sisifos II, kilitlenme yakın planı: halkalar kelepçe ve yüzük takma gibi okunuyordu; görüntü geniş planda kalıyor.
+  - Sisifos II, D07'nin savaş ve kurban planları: kalkanlarda halka, kalkık bıçaklı kol; kullanılmadı.
+- **Zayıf bulup bırakılan:** kanatlı Thanatos "Azrail" gibi okunabilir. Hikâyenin ölüm figürü bu; anlatım adını söylüyor.
+- **Ders adayı (iki turda tekrarlandı):** ağaç baskı ve vazo filmlerinde ışın, halka ve kesişen çizgiler dikey kırpımda tek odak olunca simgeye dönüşüyor. Kırpma kipinde yazısız bağımsız tarama her Shorts için zorunlu.

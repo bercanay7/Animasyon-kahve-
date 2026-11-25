@@ -12,19 +12,20 @@ window.KURGU = {
    "lens": [
     [
      0,
-     1110,
+     820,
      540,
      1.78
     ],
     [
      6.45,
-     1110,
-     560,
-     1.95
+     900,
+     520,
+     1.9
     ]
    ],
-   "v": 0.4,
-   "hiz": 0.85
+   "v": 52.5,
+   "hiz": 0.9,
+   "not": "25 Kasım hassasiyet: ilk sürümde aralık kapıdan düşen ışık şeridi yer çizgisiyle kesişip haç okunuyordu (ilk kare). Görüntü: kapısının önünde dinleyen aile (B02)"
   },
   {
    "ad": "A02 Franz Kafka'nın Dönüşüm'ü … haşereye dönüşmüş buldu",
@@ -37,15 +38,15 @@ window.KURGU = {
    "lens": [
     [
      0,
-     1120,
-     540,
+     1150,
+     560,
      1.78
     ],
     [
      10.1,
-     1080,
-     560,
-     1.9
+     1150,
+     600,
+     2.3
     ]
    ]
   },
@@ -58,20 +59,20 @@ window.KURGU = {
    "lens": [
     [
      0,
-     700,
+     1010,
      540,
-     1.78
+     1.9
     ],
     [
      7.65,
-     720,
-     520,
-     1.9
+     1010,
+     540,
+     2.3
     ]
    ],
-   "not": "kadraj anne ve babada: Grete'nin uzanan düz kolu dikey kırpımda tek odak olup selam okunmasın",
-   "v": 251.0,
-   "hiz": 0.85
+   "not": "25 Kasım hassasiyet: lamba sahnesinde tavandan sarkan lamba ve başlara inen ışınlar kandil okunuyordu. Görüntü: kilitli kapıda anahtar (B04), mecaz",
+   "v": 68.3,
+   "hiz": 0.2
   },
   {
    "ad": "E07 İlk akşam ona süt getiren kız kardeşti bu … gün gün aşınmıştı",
@@ -106,15 +107,15 @@ window.KURGU = {
    "lens": [
     [
      0,
-     1420,
+     1550,
      540,
      1.78
     ],
     [
      4.55,
-     1440,
+     1550,
      560,
-     1.9
+     1.95
     ]
    ]
   }

@@ -35,15 +35,15 @@ window.KURGU = {
    "lens": [
     [
      0,
+     470,
      450,
-     540,
-     1.78
+     3.0
     ],
     [
      5.0,
-     470,
-     540,
-     1.8
+     480,
+     440,
+     3.0
     ],
     [
      5.6,
@@ -59,7 +59,8 @@ window.KURGU = {
     ]
    ],
    "v": 145.0,
-   "hiz": 0.9
+   "hiz": 0.9,
+   "not": "25 Kasım hassasiyet: Zeus'un bacağındaki kırmızı noktalar kan okunuyordu; kadraj gövde ve şimşekte"
   },
   {
    "ad": "D02 Thanatos ağır zincirlerle kapıda belirdi",
@@ -91,17 +92,20 @@ window.KURGU = {
    "lens": [
     [
      0,
-     700,
-     540,
-     1.78
+     1200,
+     520,
+     1.9
     ],
     [
      2.4,
-     1150,
+     1180,
      500,
-     1.85
+     2.0
     ]
-   ]
+   ],
+   "v": 164.0,
+   "hiz": 0.5,
+   "not": "25 Kasım hassasiyet: D03 yakın planında zincirdeki dört kollu parıltı haç okunuyordu; görüntü D04'ün geniş planı, zinciri tutan Thanatos"
   },
   {
    "ad": "D04 Bunlar nasıl takılıyor? Bir gösterir misin?",
@@ -113,14 +117,14 @@ window.KURGU = {
     [
      0,
      600,
-     540,
-     1.78
+     450,
+     2.6
     ],
     [
      2.7,
-     640,
-     520,
-     1.9
+     620,
+     440,
+     2.7
     ]
    ]
   },
@@ -155,7 +159,10 @@ window.KURGU = {
      560,
      1.95
     ]
-   ]
+   ],
+   "v": 166.8,
+   "hiz": 0.45,
+   "not": "25 Kasım hassasiyet: el ve halkaların yakın planı kelepçe ve yüzük takma okunuyordu; görüntü geniş planda kalır"
   },
   {
    "ad": "D06 Ölüm, zincirlenmişti",
