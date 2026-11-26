@@ -9,8 +9,8 @@ Yükleme YouTube Studio'da bilgisayardan yapılır. Zamanlamayı YouTube yaptı�
 ## Dosyalar
 | Dosya | Ne için |
 |---|---|
-| `teslim/stanford_youtube.mp4` | **YouTube'a yüklenecek dosya** (11:53). 1920×1080, 30 fps, H.264 + AAC, Türkçe ses (−14,2 LUFS, tepe −1,3 dBFS), BT.709 |
-| `teslim/stanford_telefon.mp4` | Telefonda izlemek için küçük kopya (H.265 iki geçiş 900k, AAC 128k) |
+| `teslim/stanford_youtube.mp4` | **YouTube'a yüklenecek dosya** (11:53, 360 MB). 1920×1080, 30 fps, H.264 iki geçiş 3,8 Mbps + AAC 256k, Türkçe ses (−14,2 LUFS, tepe −1,3 dBFS), BT.709. CRF 18 render 1,05 GB'tı (monitör greni); teslim bit hızıyla küçültüldü |
+| `teslim/stanford_telefon.mp4` | Telefonda izlemek için küçük kopya (93 MB; H.265 iki geçiş 900k, AAC 128k). **Müziği telefon hoparlöründe bir kez dinle.** |
 | `kapak/A.jpg` | Kapak A, "RASTGELE SEÇİLDİ": koridorda aynalı gözlüklü gardiyan, ¾ baş, camda tek parıltı. Filmin ilk planıyla aynı figür; vaadi A01'de, ilk 5 sn'de karşılanıyor |
 | `kapak/B.jpg` | Kapak B, "BANTTA NE İSTENDİ?": karanlık masada teyp, kırmızı kayıt lambası. Teyp ilk 5 sn'de (P01T) görünüyor, vaadi III. bölümde (4:21) karşılanıyor |
 | `stanford.tr.srt` | Türkçe altyazı (177 satır) |
