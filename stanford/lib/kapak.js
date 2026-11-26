@@ -75,6 +75,8 @@ const KAPAK = {
       g.save(); g.fillStyle = gr; g.beginPath(); g.arc(lx, ly, lr, 0, TAU); g.fill(); g.restore();
       const k = B.k; k.save(); k.fillStyle = '#fff'; k.beginPath(); k.arc(lx, ly, 15 * ts, 0, TAU); k.fill(); k.restore(); }   // yanan lamba: altı açık, kırmızı kendi rengiyle görünür (vurgu rengi bu)
     B.compose(ctx);
+    { const a = o.solKoyu ?? .62, e = o.solBit ?? 1100, g = ctx.createLinearGradient(0, 0, e, 0); g.addColorStop(0, `rgba(8,8,8,${a})`); g.addColorStop(.65, `rgba(8,8,8,${a * .85})`); g.addColorStop(1, 'rgba(8,8,8,0)');
+      ctx.save(); ctx.fillStyle = g; ctx.fillRect(0, 0, e, 1080); ctx.restore(); }   // yazının arkası koyu (Fable, 27 Kasım): kırmızı vurgu satırı gri değerde de zeminden ayrılsın; koni (x > 1100) ve teyp etkilenmez
     if (o.yazi !== false) yazi(ctx, o.satir || ['BANTTA NE', 'İSTENDİ?'], o.tx ?? 70, o.ty ?? 290, 300, { ls: 2, lh: o.lh ?? 1.0, renkler: [FILDISI, o.vurgu || KIRMIZI] });
     return cv;
   },
