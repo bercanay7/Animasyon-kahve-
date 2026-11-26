@@ -1,0 +1,7 @@
+dosya: 1280×720, 0.18 MB
+odak: 4 tepe, 1.: x%52 y%79, 2./1. 0.76, rozette %2.5
+yazı hariç en parlak bölge: x%60 y%46 (L≥194)
+yazı kutusu: x%5–%54, y%3–%53; 2 satır
+en büyük harf yüksekliği: kare %20.4
+rozete binen yazı pikseli: 0
+yazı/zemin parlaklık farkı: +75 (yazı L 160)
