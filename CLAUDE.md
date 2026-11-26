@@ -14,7 +14,7 @@ Bu dosya her oturuma kendiliğinden yüklenir. Bu yüzden içinde yalnız **bug�
   - Örnek aldığı kanal TED-Ed.
   - Kanalı bir arada tutan konu değil biçim: animasyonlu anlatım, tek büyük soru, Emrullah sesi, "geçmişten bugüne soru taşıyan kurye" fikri.
   - Kanal kullanıcının hobi alanı: amaç yalnız izlenme değil, ilgisini çeken fikirleri paylaşmak. Büyüme için konu ve kaliteden ödün verilmez; kaldıraç paketleme, düzenli yayın ve tek soru biçimi.
-- **Oynatma listeleri:** Mitler ve Felsefe · Tarihin Dönüm Noktaları · Kitapların Sorduğu Sorular · Ekrandaki Felsefe.
+- **Oynatma listeleri** (kanaldaki adlarıyla): Mitoloji ve Felsefe · Tarihin Dönüm Noktaları · Kitapların Sorduğu Sorular · Ekrandaki Felsefe (ayrıca "Türk Tarihi", 2 video). Marka ve altyapı okuması: `analiz/2026-11-27-marka-altyapi.md`.
 - **Kullanıcı:**
   - Türkçe yazar, kararlarını kısa verir ("Üret", "Devam edelim"). İşin baştan sona yapılmasını ister.
   - Önerilerini öneri olarak verir; uzman gözüyle tartılmalarını bekler ("karar sana ait", "sen patronsun").
