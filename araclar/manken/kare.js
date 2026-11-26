@@ -17,7 +17,7 @@ if (!sahne || !dir || !ts) { console.error('Kullanım: node araclar/manken/kare.
     const gl = await p.evaluate(() => { const g = document.createElement('canvas').getContext('webgl2'); const e = g.getExtension('WEBGL_debug_renderer_info'); return e ? g.getParameter(e.UNMASKED_RENDERER_WEBGL) : g.getParameter(g.RENDERER); });
     console.log('GL:', gl);
     for (const t of ts.split(',').map(Number)) {
-      const r = await p.evaluate(t => { const a = performance.now(); window.renderFrame(t); MANKEN.bitir(); const b = performance.now();
+      const r = await p.evaluate(t => { const a = performance.now(); window.renderFrame(t); (window.BITIR || MANKEN.bitir)(); const b = performance.now();
         const u = document.getElementById('c').toDataURL('image/png'); const c = performance.now(); return { ciz: b - a, kod: c - b, u: u.split(',')[1] }; }, t);
       const f = path.join(dir, `k_${t.toFixed(2)}${sorgu ? '_' + sorgu.replace(/[^\w]+/g, '_') : ''}.png`);
       fs.writeFileSync(f, Buffer.from(r.u, 'base64'));

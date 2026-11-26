@@ -22,7 +22,7 @@ async function isci() {
     const ff = spawn('ffmpeg', ['-y', '-loglevel', 'error', '-f', 'image2pipe', '-framerate', String(FPS), '-i', '-', ...X264, '-r', String(FPS), is.out], { stdio: ['pipe', 'ignore', 'inherit'] });
     let top = 0;
     for (let i = is.a; i < is.b; i++) {
-      const r = await p.evaluate(t => { const a = performance.now(); const c = window.renderAt(t); MANKEN.bitir(); const d = performance.now() - a; return { d, u: c.toDataURL('image/jpeg', .96).split(',')[1] }; }, i / FPS);
+      const r = await p.evaluate(t => { const a = performance.now(); const c = window.renderAt(t); (window.BITIR || MANKEN.bitir)(); const d = performance.now() - a; return { d, u: c.toDataURL('image/jpeg', .96).split(',')[1] }; }, i / FPS);
       top += r.d;
       if (!ff.stdin.write(Buffer.from(r.u, 'base64'))) await new Promise(r_ => ff.stdin.once('drain', r_));
     }

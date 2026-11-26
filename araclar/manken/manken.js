@@ -427,6 +427,18 @@ void main(){
     ctx.save(); ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.globalAlpha = 1; ctx.globalCompositeOperation = 'source-over'; ctx.filter = 'none';
     ctx.drawImage(glc, 0, 0, ctx.canvas.width, ctx.canvas.height); ctx.restore();
   };
+  // boya kipinde son çizilen ana geçişi oku (resim motoruna referans olarak vermek için):
+  // { w, h, renk: Uint8Array RGBA (renk hedefi), ek: Uint8Array RGBA (R derinlik, G nesne kimliği) }; satırlar alttan üste (GL düzeni)
+  M.oku = () => {
+    const w = fboB.w, h = fboB.h, renk = new Uint8Array(w * h * 4), ek = new Uint8Array(w * h * 4);
+    gl.bindFramebuffer(gl.FRAMEBUFFER, fboB);
+    gl.readBuffer(gl.COLOR_ATTACHMENT0); gl.readPixels(0, 0, w, h, gl.RGBA, gl.UNSIGNED_BYTE, renk);
+    gl.readBuffer(gl.COLOR_ATTACHMENT1); gl.readPixels(0, 0, w, h, gl.RGBA, gl.UNSIGNED_BYTE, ek);
+    gl.bindFramebuffer(gl.FRAMEBUFFER, null);
+    return { w, h, renk, ek };
+  };
+  // yalnız ana geçişi çiz (son işlem ve tuvale basma yok): M.oku ile okunacak
+  M.cizHam = () => { const c = { canvas: { width: 1, height: 1 }, save() {}, restore() {}, setTransform() {}, drawImage() {} }; cizBoya(c); };
   // ölçüm: GPU işini bitir (kare süresi ölçerken)
   M.bitir = () => { const px = new Uint8Array(4); gl.readPixels(0, 0, 1, 1, gl.RGBA, gl.UNSIGNED_BYTE, px); };
 

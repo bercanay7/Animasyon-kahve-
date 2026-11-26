@@ -1,0 +1,236 @@
+<!doctype html>
+<html lang="tr"><head><meta charset="utf-8"><title>Mektuplar</title>
+<style>html,body{margin:0;background:#000}canvas{display:block;width:100vw;height:auto}</style></head><body>
+<canvas id="c" width="1920" height="1080"></canvas>
+<script src="../araclar/hareket/hareket.js"></script>
+<script src="../araclar/manken/iskelet.js"></script>
+<script src="../araclar/manken/manken.js"></script>
+<script src="lib/tablo_ciz.js"></script>
+<script type="module">
+// "Mektuplar": yağlıboya canlanan resim (Zaman Kuryesi'nin kimlik filmi denemesi).
+// Gün batımında yalnız meşeye uzanan tarla. Kurye patikada yürür, durur, güneşe döner, çantasını açar; rüzgâr mektupları alır,
+// kâğıtlar havada döne döne kuşa dönüşür ve güneşe uçar.
+// Motor: dorian-gray/kapi/vendor (impasto + plate; Lemo-Opuscar, MIT). Durağan katmanlar yüklenirken bir kez boyanır (Hertzmann: kaba → ince).
+// Canlı katmanlar her iki karede bir yeniden boyanır (15 çizim/sn): figür (3B manken → darbe), rüzgârdaki başaklar, ışık, mektup/kuş, polen.
+// Belirlenimci: Math.random yok; tohumlar t'den.
+import { Impasto, Strokes, KNIFE, BRUSH, DAB } from '../dorian-gray/kapi/vendor/impasto.js';
+import { Ref, paintRef } from '../dorian-gray/kapi/vendor/plate.js';
+const Q = new URLSearchParams(location.search);
+const W = 1920, H = 1080, T = window.TABLO, I = window.ISKELET, V = I.V, HR = window.HAREKET, MK = window.MANKEN;
+const sm = HR.yumusak, PI = Math.PI;
+const cv = document.getElementById('c'), ctx = cv.getContext('2d');
+window.FPS = 30; window.DUR = 25;
+const ikiser = t => Math.floor(t * 15 + 1e-6) / 15;
+const hsh = (a, b = 0, c = 0) => { const x = Math.sin(a * 127.1 + b * 311.7 + c * 74.7) * 43758.5453; return x - Math.floor(x); };
+let E, glc;
+
+// ---------------- 3B kamera: resmin perspektifiyle eşleşir (ufuk y = 700, dikey görüş 40°) ----------------
+const ODAK = 540 / Math.tan(20 * PI / 180), EGIM = Math.atan((T.UFUK - 540) / ODAK);
+const KAMERA = { konum: [0, 1.6, 0], hedef: [0, 1.6 + Math.tan(EGIM) * 10, -10], fov: 40, yakin: .1, uzak: 200 };
+const GUNES_IS = { tip: 'yon', konum: [16, 6.5, -100], hedef: [0, 0, -12], alan: 5, uzak: 140, kazanc: 1.9 };
+// patika (dünya, metre): ön soldan meşenin dibine
+const PATIKA = [[-7.5, -2.6], [-3.2, -7.5], [.6, -14], [4.6, -24], [12.8, -54]];
+// yürüyüş: patikanın 2. parçası boyunca, sonra güneşe döner
+const g = HR.yuruyus({ tip: 'yuru' });
+const A0 = PATIKA[1], A1 = PATIKA[2], YAW = Math.atan2(A1[0] - A0[0], A1[1] - A0[1]);
+const tDur = 10.4;
+const go = t => HR.rampa(t, .1, .6) * (1 - HR.rampa(t, tDur - .55, tDur));
+const yol = HR.yuruyusYolu(g, { t0: -1, t1: 26, x0: 0, olcek: 1, go });
+const yuruPoz = t => I.yuruyus3B(yol, t, { bas: A0, yaw: YAW, kolGenlik: .3 });
+const SON = yuruPoz(26), DY = [SON.kok[0], SON.kok[2]];
+const YAW2 = Math.atan2(12.8 - DY[0], -54 - DY[1]);          // meşeye ve güneşe doğru
+const tD0 = tDur + .15, tD1 = tD0 + .8, tUz0 = 12.4, tUz1 = 13.6, tSal = 14.0;
+const bakYay = HR.yayIzi({ hedef: t => (t < tSal + .4 ? 0 : 1), k: 14, d: 5.5, t0: -1, t1: 26 });
+const kolYay = HR.yayIzi({ hedef: t => (t < tUz0 ? 0 : t < tSal ? 1 : t < tSal + .7 ? 2 : 3), k: 30, d: 8, t0: -1, t1: 26 });
+function kuryePoz(t) {
+  t = ikiser(t);
+  if (t < tD0) return yuruPoz(t);
+  const son = yuruPoz(tD0), dur = I.POZ.dur([DY[0], DY[1]], YAW2, { basEgim: .04 });
+  let p;
+  if (t < tD1) {
+    const u = (t - tD0) / (tD1 - tD0); p = I.karistir(son, dur, sm(0, 1, u));
+    for (const i of [0, 1]) { const a0 = i ? .35 : 0, ui = sm(a0, a0 + .55, u);
+      p.ayak[i].bilek = V.lerp(son.ayak[i].bilek, dur.ayak[i].bilek, ui); p.ayak[i].bilek[1] += .05 * Math.sin(PI * ui); p.ayak[i].egim = 14 * Math.sin(PI * ui); }
+  } else p = I.karistir(dur, dur, 0);
+  // kol: çantaya uzanır (sol), mektupları bırakırken öne ve göğüs hizasına açılır (omuz altında kalır), sonra iner
+  const K0 = I.kemikler(p), pel = K0.pelvis, k = kolYay(t);
+  const canta = V.add(V.add(pel.o, V.mul(pel.x, -.24)), V.mul(pel.y, .02));
+  const ac = V.add(V.add(K0.kol[1].omuz, V.mul(pel.z, .42)), V.add(V.mul(pel.y, -.2), V.mul(pel.x, -.12)));
+  const ind = K0.kol[1].bilek;
+  if (k > .02) p.kol[1] = { hedef: k < 1 ? V.lerp(ind, canta, k) : k < 2 ? V.lerp(canta, ac, k - 1) : V.lerp(ac, ind, Math.min(1, k - 2) * .7) };
+  const b = bakYay(t);
+  p.basEgim = (p.basEgim || 0) - .28 * b; p.gogusEgim = (p.gogusEgim || 0) - .05 * b + .012 * Math.sin(t * 1.9);
+  p.basDon = (p.basDon || 0) + .12 * Math.sin(t * .4) * b;
+  return p;
+}
+// çanta: sol kalçada, sarkaç
+const cantaSarkac = HR.sarkacIzi({ kuvvet: t => -HR.ivme(yol)(t) * I.S * 8, k: 15, d: 2, t0: -1, t1: 26, itmeler: [[tUz0 + .5, .8], [tSal, -1.4]] });
+function canta(K, t) {
+  const pel = K.pelvis, a = cantaSarkac(ikiser(t));
+  const kok = V.add(V.add(pel.o, V.mul(pel.x, -.19)), V.mul(pel.y, .1));
+  const asagi = V.rot(V.mul(pel.y, -1), pel.z, a);
+  const mrk = V.add(kok, V.mul(asagi, .15)), y = V.mul(asagi, -1), x = pel.x, z = V.cross(x, y), s = [.08, .22, .28];
+  MK.ekle('kutu1', new Float32Array([x[0] * s[0], x[1] * s[0], x[2] * s[0], 0, y[0] * s[1], y[1] * s[1], y[2] * s[1], 0, z[0] * s[2], z[1] * s[2], z[2] * s[2], 0, mrk[0], mrk[1], mrk[2], 1]), { renk: [.42, .24, .14], kim: 251, es: s });
+  return mrk;
+}
+
+// ---------------- durağan katmanlar ----------------
+const KAT = {};
+function katman(ad, ciz, d, o = {}) {
+  const Rf = new Ref(W, H, o.olcek ?? .5);
+  const R = { fill: (pf, c, p) => Rf.fill(pf, c, { seed: 1, ...p }), line: (pf, c, w, p) => Rf.line(pf, c, w, p || {}), text: (s, x, y, f, c, p) => Rf.text(s, x, y, f, c, p || {}) };
+  ciz(R);
+  const t0 = performance.now();
+  const st = paintRef(Rf, { R: o.R || [26, 13, 6.5, 3.2, 1.7], T: o.T ?? 12, seed: o.seed ?? 3 });
+  KAT[ad] = { b: E.batch(st.data()), tex: E.texture(Rf.ctx.canvas, 1.2), n: st.n, d, sure: performance.now() - t0 };
+}
+// kamera: yavaş yaklaşma (meşeye ve güneşe); katman derinliği d: 0 gök … 1 ön plan; sonda hafif yukarı (kuşlar)
+function kamera(t) {
+  const u = sm(0, 25, t), v = sm(15, 25, t);
+  return { z: 1 + .12 * u, x: 960 + 120 * u, y: 540 + 10 * u - 40 * v };
+}
+const camK = (k, d) => ({ x: 960 + (k.x - 960) * (.4 + d * .7), y: 540 + (k.y - 540) * (.4 + d * .7), zoom: 1 + (k.z - 1) * (.35 + d * .9), rot: 0 });
+
+// ---------------- canlı katmanlar ----------------
+// rüzgârdaki başaklar: bir kez yerleştirilir; açı rüzgâr dalgasıyla her çizimde
+let BASAK = [];
+function basakKur(patikaEkran) {
+  let s = 11; const r = () => { s = (s * 16807) % 2147483647; return (s - 1) / 2147483646; };
+  const patikada = (x, y) => { for (let i = 0; i < patikaEkran.length - 1; i++) { const a = patikaEkran[i], b = patikaEkran[i + 1]; if (y < Math.min(a[1], b[1]) || y > Math.max(a[1], b[1])) continue; const u = (y - a[1]) / (b[1] - a[1] || 1); if (Math.abs(x - (a[0] + (b[0] - a[0]) * u)) < (a[2] + (b[2] - a[2]) * u) * 1.15) return true; } return false; };
+  for (let i = 0; i < 3200; i++) {
+    const y = 712 + Math.pow(r(), 1.6) * 380, x = -40 + r() * 2000;
+    if (patikada(x, y)) continue;
+    const d = (y - 700) / 380, L = 5 + d * 46 + r() * d * 20;
+    const taban = [.28 - d * .2, .17 - d * .12, .12 - d * .06], uc = [1, .72 - d * .1, .4 - d * .1].map(v => v * (.75 + r() * .35) * (1 - d * .55));
+    BASAK.push({ x, y, L, w: 1.2 + d * 3.2, taban, uc, f: r() * 6.28, eg: (r() - .5) * .25 });
+  }
+}
+function basaklar(t, S) {
+  for (const b of BASAK) {
+    const dal = .2 * Math.sin(b.x * .005 + b.y * .003 - t * 1.7) + .07 * Math.sin(b.x * .031 - t * 3.3 + b.f) + .05 * (Math.sin(t * .5 + b.x * .001) );
+    const a = -PI / 2 + b.eg + dal * (.6 + b.L / 60);
+    S.push({ x: b.x + Math.cos(a) * b.L / 2, y: b.y + Math.sin(a) * b.L / 2, ang: a, len: b.L, wid: b.w, c: b.taban, c2: b.uc, seed: b.f * 100, type: BRUSH, hgt: .9, bend: dal * .8, taper: .7 });
+  }
+}
+// güneş hüzmesi: güneşten yayılan yarı saydam spatula darbeleri; yoğunluk yavaşça nefes alır
+function huzmeler(t, S) {
+  const [sx, sy] = T.GUNES;
+  for (let i = 0; i < 16; i++) {
+    const a = -PI * .02 + (i / 15) * PI * 1.04 + .03 * Math.sin(t * .2 + i), L = 520 + 380 * hsh(i, 2), w = 28 + 70 * hsh(i, 3);
+    const al = (.045 + .05 * hsh(i, 5)) * (.65 + .35 * Math.sin(t * .35 + i * 1.7));
+    S.push({ x: sx + Math.cos(a) * L * .55, y: sy + Math.sin(a) * L * .55 * .8, ang: a, len: L, wid: w, c: [1, .86, .6], c2: [1, .72, .45], seed: i * 13, type: KNIFE, alpha: al, hgt: .05, taper: .8 });
+  }
+}
+// polen: güneşin çevresinde süzülen küçük ışık lekeleri
+function polen(t, S) {
+  const [sx, sy] = T.GUNES;
+  for (let i = 0; i < 140; i++) {
+    const a = hsh(i, 1) * PI * 2, r0 = 60 + 520 * Math.sqrt(hsh(i, 2));
+    const x = sx + Math.cos(a) * r0 * 1.5 + 40 * Math.sin(t * .3 + i) + t * 6, y = sy + Math.sin(a) * r0 * .7 + 22 * Math.sin(t * .45 + i * 2.1) - t * 2;
+    if (y > 1000) continue;
+    const yak = Math.max(0, 1 - Math.hypot(x - sx, (y - sy) * 1.6) / 700);
+    S.push({ x, y, ang: hsh(i, 4) * PI, len: 2.5 + 3 * hsh(i, 5), wid: 2 + 2 * hsh(i, 6), c: [1, .93, .75], seed: i, type: DAB, alpha: .35 + .6 * yak, hgt: .4 });
+  }
+}
+// mektuplar → kuşlar
+const MEK_N = 16;
+function mektuplar(t, S, cikis) {
+  if (!cikis || t < tSal) return;
+  const [gx, gy] = T.GUNES;
+  for (let i = 0; i < MEK_N; i++) {
+    const t0 = tSal + i * .14 + hsh(i, 9) * .2, a = t - t0; if (a < 0) continue;
+    // hedef: güneşin üstünden meşenin çevresine, sonra gökte uzaklaşma
+    const hx = gx - 330 + hsh(i, 1) * 560 + a * (10 + 10 * hsh(i, 2)), hy = gy - 70 - hsh(i, 3) * 230 - a * (4 + 5 * hsh(i, 4));   // güneşin altın ışığına doğru: parlak gökte koyu siluet
+    const u = sm(0, 6.5, a), kalk = Math.sin(Math.min(1, a / 1.2) * PI / 2);
+    const x = cikis[0] + (hx - cikis[0]) * u + Math.sin(a * 1.6 + i) * 46 * (1 - u * .7) + (hsh(i, 5) - .5) * 60 * kalk;
+    const y = cikis[1] - 150 * kalk + (hy - (cikis[1] - 150)) * u + Math.cos(a * 1.25 + i * 2) * 30 * (1 - u * .7);
+    const boy = (19 + 8 * hsh(i, 6)) * (1 - .3 * u);
+    const m = sm(3.2 + hsh(i, 7) * 1.2, 5.4 + hsh(i, 7) * 1.2, a);           // kâğıt → kuş
+    const krem = [.96, .9, .78], kuyu = [.17, .12, .17];
+    const renk = krem.map((c, k) => c + (kuyu[k] - c) * m), renk2 = [1, .82, .58].map((c, k) => c + (kuyu[k] * 1.2 - c) * m);
+    if (m < 1) {   // kâğıt: döne döne (genişliği çevrilmeyle daralır)
+      const don = a * (3.2 + hsh(i, 8) * 2) + i, cev = Math.abs(Math.cos(don * .8));
+      const kat = 1 - m;
+      S.push({ x, y, ang: Math.sin(don) * .9, len: boy * kat + 2, wid: boy * .72 * (.25 + .75 * cev) * kat + 1, c: renk, c2: renk2, seed: i * 7, type: KNIFE, alpha: .97, hgt: .6 });
+    }
+    if (m > 0) {   // kuş: iki kanat çırpar (küçük, uzakta; simetrik amblem değil, sürekli çırpış)
+      const cir = Math.sin(a * (9 + hsh(i, 10) * 3) + i * 2), kl = boy * .95 * m;
+      for (const sg of [-1, 1]) { const ka = PI / 2 + sg * (1.05 + .55 * cir) - PI / 2;
+        const ang = (sg < 0 ? PI : 0) - sg * (.25 + .5 * cir);
+        S.push({ x: x + Math.cos(ang) * kl * .5, y: y + Math.sin(ang) * kl * .5, ang, len: kl, wid: Math.max(1.4, boy * .16), c: kuyu, c2: kuyu, seed: i * 11 + sg, type: BRUSH, alpha: m, hgt: .6, taper: .85, bend: .25 * sg * cir }); }
+      S.push({ x, y, ang: 0, len: boy * .22 + 1, wid: boy * .14 + 1, c: kuyu, seed: i, type: DAB, alpha: m, hgt: .6 });
+    }
+  }
+}
+// figür: 3B manken resmin kamerasıyla çizilir, okunur, darbelere çevrilir (her iki karede bir; titreşim tohumu çizim sırasından)
+let FIG_OLC = .5;
+function figur(t, S) {
+  const p = kuryePoz(t);
+  MK.begin({ kip: 'boya', t, kamera: KAMERA, isik: GUNES_IS, renkler: { isik: [1, .7, .42], golge: [.3, .24, .4], sis: [0, 0, 0] }, ortam: .42, sis: 0, huzme: 0, toz: 0, kontur: 0, olcek: 1 });
+  const K = MK.figur(p, { giysi: [.13, .1, .13], pantolon: [.1, .08, .1], ten: [.5, .34, .28] });
+  const cm = canta(K, t);
+  MK.cizHam();
+  const R = MK.oku(), w = R.w, h = R.h, sc = W / w, cz = Math.floor(t * 15);
+  const lum = (x, y) => { const j = ((h - 1 - y) * w + x) * 4; return R.renk[j] * .3 + R.renk[j + 1] * .59 + R.renk[j + 2] * .11; };
+  const fig = (x, y) => x >= 0 && y >= 0 && x < w && y < h && R.ek[((h - 1 - y) * w + x) * 4 + 1] === 251;
+  // sınır kutusu: ayakların ekran izdüşümünden
+  const kb = MK.ekran(K.pelvis.o), x0 = Math.max(1, ((kb[0] - 160) / sc) | 0), x1 = Math.min(w - 2, ((kb[0] + 160) / sc) | 0), y0 = Math.max(1, ((kb[1] - 260) / sc) | 0), y1 = Math.min(h - 2, ((kb[1] + 200) / sc) | 0);
+  let n = 0;
+  for (let y = y0; y <= y1; y += 1) for (let x = x0; x <= x1; x += 1) {
+    if (!fig(x, y)) continue;
+    if (((x + y * 3 + cz) % 2) && fig(x - 1, y) && fig(x + 1, y) && fig(x, y - 1) && fig(x, y + 1)) continue;   // içte seyrek, kenarda sık
+    const j = ((h - 1 - y) * w + x) * 4, c = [R.renk[j] / 255, R.renk[j + 1] / 255, R.renk[j + 2] / 255];
+    const gx = lum(x + 1, y) - lum(x - 1, y), gy = lum(x, y + 1) - lum(x, y - 1);
+    const ang = Math.hypot(gx, gy) > 6 ? Math.atan2(gy, gx) + PI / 2 : PI / 2 + (hsh(x, y, cz) - .5) * .6;
+    const kenar = !(fig(x - 1, y) && fig(x + 1, y) && fig(x, y - 1) && fig(x, y + 1));
+    S.push({ x: (x + .5 + (hsh(x, y, cz + 1) - .5) * .6) * sc, y: (y + .5 + (hsh(x, y, cz + 2) - .5) * .6) * sc, ang, len: (kenar ? 3.2 : 4.8) * sc * .55, wid: (kenar ? 1.7 : 2.6) * sc * .55, c, c2: c.map(v => v * .92), seed: hsh(x, y, cz) * 999, type: BRUSH, hgt: .9 });
+    n++;
+  }
+  // uzun gölge: güneş karşıdan ve çok alçakta → gölge bize doğru uzanır (ayaklardan aşağı, hafif sola)
+  const ay = MK.ekran(V.lerp(K.bacak[0].bilek, K.bacak[1].bilek, .5)), boyPx = Math.abs(MK.ekran(K.bas.o)[1] - ay[1]);
+  for (let k = 0; k < 7; k++) { const u = k / 6; S.push({ x: ay[0] - 30 * u - 12, y: ay[1] + 6 + boyPx * 1.6 * u, ang: PI / 2 + .12, len: boyPx * .42, wid: 24 * (1 - u * .4), c: [.16, .1, .14], seed: k, type: KNIFE, alpha: .55 * (1 - u * .6), hgt: .1 }); }
+  return MK.ekran(cm);
+}
+
+function renderFrame(t) {
+  const k = kamera(t), tc = ikiser(t);
+  E.begin([.1, .08, .12]);
+  const kat = ad => { const L = KAT[ad], cam = camK(k, L.d); E.under(L.tex, W, H, { cam, t: 10 }); E.draw(L.b, { cam, t: 10, wet: .35 }); return cam; };
+  kat('gok');
+  const SH = new Strokes(64); huzmeler(tc, SH); E.drawNow(SH.data(), { cam: camK(k, .1), t: 10 });
+  kat('daglar');
+  const tarlaCam = kat('tarla');
+  const SB = new Strokes(4096); basaklar(tc, SB);
+  const SF = new Strokes(4096); const cikis = figur(t, SF);
+  E.drawNow(SB.data(), { cam: tarlaCam, t: 10, wet: .3 });
+  E.drawNow(SF.data(), { cam: tarlaCam, t: 10, wet: .25 });
+  kat('agac');
+  const SP = new Strokes(256); polen(tc, SP); mektuplar(tc, SP, cikis); E.drawNow(SP.data(), { cam: camK(k, .5), t: 10, wet: .4 });
+  kat('on');
+  E.finish({ light: [-.5, -.55, .7], ground: [.1, .08, .12], expo: 1.03, sat: 1.06, contrast: 1.05, vig: .3, spec: .2, shin: 28, weave: .1, lightCol: [1, .93, .82] });
+  ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.drawImage(glc, 0, 0);
+}
+function renderAt(t) { renderFrame(t); return cv; }
+Object.assign(window, { renderFrame, renderFrameMB: renderFrame, renderAt });
+window.BITIR = () => { const px = new Uint8Array(4); E.gl.readPixels(0, 0, 1, 1, E.gl.RGBA, E.gl.UNSIGNED_BYTE, px); };
+window.READY = false;
+window.ready = (async () => {
+  glc = document.createElement('canvas'); E = new Impasto(glc, { W, H, ss: +(Q.get('ss') || 1.5) });
+  MK.init(W, H, { rs: FIG_OLC });
+  // patikanın ekran izdüşümü (resmin tarla katmanına çizilir; figür aynı kamerayla yürür)
+  MK.begin({ kip: 'boya', t: 0, kamera: KAMERA, isik: GUNES_IS });
+  const pe = [];
+  for (let i = 0; i < PATIKA.length - 1; i++) for (let k = 0; k < 12; k++) { const u = k / 12, a = PATIKA[i], b = PATIKA[i + 1], x = a[0] + (b[0] - a[0]) * u, z = a[1] + (b[1] - a[1]) * u;
+    const c = MK.ekran([x, 0, z]), c2 = MK.ekran([x + .75, 0, z]); pe.push([c[0], c[1], Math.abs(c2[0] - c[0])]); }
+  { const z = PATIKA[PATIKA.length - 1], c = MK.ekran([z[0], 0, z[1]]); pe.push([c[0], c[1], 2]); }
+  katman('gok', T.gok, 0, { R: [30, 15, 7.5, 3.6, 1.8], T: 10 });
+  katman('daglar', T.daglar, .2);
+  katman('tarla', R => T.tarla(R, pe), .45);
+  katman('agac', T.agac, .5, { R: [20, 10, 5, 2.6, 1.5], T: 10 });
+  katman('on', T.on, 1);
+  basakKur(pe);
+  window.DARBE = Object.fromEntries(Object.entries(KAT).map(([k, v]) => [k, { n: v.n, ms: Math.round(v.sure) }]));
+  window.READY = true;
+})().catch(e => { window.HATA = String(e && e.stack || e); console.error(e); });
+</script>
+</body></html>
