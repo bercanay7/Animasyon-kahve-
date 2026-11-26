@@ -43,7 +43,7 @@ const SON = yuruPoz(26), DY = [SON.kok[0], SON.kok[2]];
 const PATIKA = [[A0[0] - 2.2 + .3, A0[1] + 2.3], [A0[0] + .3, A0[1]], [DY[0] + .3, DY[1]], [DY[0] + 2.6, DY[1] - 6.4], [5.6, -27], [12.8, -54]];
 const YAW2 = YAW + .32;                                           // biraz ağaca döner
 const tD0 = tDur + .1, tD1 = tD0 + .9;
-const bakYay = HR.yayIzi({ hedef: t => (t < tBak ? 0 : 1), k: 9, d: 5, t0: -1, t1: 26 });
+const bakYay = HR.yayIzi({ hedef: t => (t < tBak ? 0 : t < 22.2 ? 1 : .35), k: 9, d: 5, t0: -1, t1: 26 });
 const kolYay = HR.yayIzi({ hedef: t => (t < tUz0 ? 0 : t < tCik ? 1 : t < tSal ? 2 : t < tSal + .5 ? 3 : 4), k: 26, d: 8, t0: -1, t1: 26 });
 function kuryePoz(t) {
   t = ikiser(t);
@@ -108,8 +108,17 @@ function katman(ad, ciz, d, o = {}) {
   KAT[ad] = { k, n: st.n, d, sure: performance.now() - t0 };
 }
 // kamera: yavaş yaklaşma; katman derinliği d: 0 gök … 1 ön plan
-function kamera(t) { const u = sm(0, 25, t); return { z: 1 + .1 * u, x: 960 + 70 * u, y: 540 - 14 * u }; }
-const camK = (k, d) => ({ x: 960 + (k.x - 960) * (.4 + d * .7), y: 540 + (k.y - 540) * (.4 + d * .7), zoom: 1 + (k.z - 1) * (.35 + d * .9), rot: 0 });
+// kamera koreografisi (v3): geniş açılış → kurye mektubu çıkarırken ona yaklaşır → mektubu meşeye kadar izler → güneş batarken geri açılır
+const KAM = [[0, 960, 540, 1], [5.5, 900, 575, 1.06], [10.4, 690, 730, 1.3], [12.4, 715, 705, 1.28], [16.2, 990, 540, 1.17], [19.4, 1110, 470, 1.2], [25, 1000, 545, 1.04]];
+function kamera(t) {
+  let i = 0; while (i < KAM.length - 2 && t > KAM[i + 1][0]) i++;
+  const a = KAM[i], b = KAM[i + 1], u = sm(a[0], b[0], Math.max(a[0], Math.min(b[0], t)));
+  return { x: a[1] + (b[1] - a[1]) * u, y: a[2] + (b[2] - a[2]) * u, z: a[3] + (b[3] - a[3]) * u };
+}
+// katmanın kamerası: derinliğe göre kayma ve yaklaşma; görüş resmin içinde tutulur (kenarın ötesi boş)
+const camK = (k, d) => { const zoom = 1 + (k.z - 1) * (.35 + d * .9), hw = W / 2 / zoom, hh = H / 2 / zoom, px = 0, py = 0;   // resim 0..W × 0..H içinde çizili (Ref tuvali); önbellek payı boş
+  const cl = (v, a, b) => Math.max(a, Math.min(b, v));
+  return { x: cl(960 + (k.x - 960) * (.4 + d * .7), -px + hw, W + px - hw), y: cl(540 + (k.y - 540) * (.4 + d * .7), -py + hh, H + py - hh), zoom, rot: 0 }; };
 // bir noktanın çevresinde döndürülmüş kamera (meşe rüzgârda gövdesinin dibinden eğilir)
 const camDon = (c, P, th) => { const cr = Math.cos(th), sr = Math.sin(th), vx = c.x - P[0], vy = c.y - P[1]; return { ...c, x: P[0] + cr * vx + sr * vy, y: P[1] - sr * vx + cr * vy, rot: th }; };
 
@@ -208,6 +217,14 @@ function cicekKur() {
     if (hsh(i, 7) > .25 + .75 * yan) continue; n++;
     CICEK.push({ x, y, t0: tVar + .15 + Math.hypot(x - KONUS[0], (y - KONUS[1]) * 1.3) / 330 + hsh(i, 4) * .35, s: 5 + 8 * Math.pow(hsh(i, 5), 2), f: hsh(i, 6) * 6.28, p: .45 + .55 * yan }); }
 }
+// cevap: açan çiçeklerden yapraklar kopar, rüzgârla kuryeye doğru süzülür (20–25 sn)
+function yapraklar(t, S, hedef) {
+  for (let i = 0; i < 22; i++) { const c = CICEK[(i * 7) % CICEK.length], t0 = 19.8 + i * .17 + hsh(i, 3) * .5, a = t - t0; if (a < 0) continue;
+    const u = sm(0, 4.6 + hsh(i, 4), a), hx = hedef[0] + (hsh(i, 5) - .5) * 160, hy = hedef[1] - 60 - hsh(i, 6) * 160;
+    const x = c.x + (hx - c.x) * u + 40 * Math.sin(a * 1.9 + i) * (1 - u * .5), y = c.y + (hy - c.y) * (u * u * (3 - 2 * u)) + 18 * Math.sin(a * 2.7 + i * 2);
+    const don = a * (3 + hsh(i, 7) * 2), s = 9 + 5 * hsh(i, 8), al = sm(0, .3, a) * (1 - sm(.85, 1, u));
+    S.push({ x, y, ang: don, len: s, wid: s * (.3 + .7 * Math.abs(Math.cos(don * 1.3))), c: [1, .8, .76], c2: [.9, .6, .62], seed: i * 31, type: DAB, alpha: al, hgt: .5 }); }
+}
 function cicekler(t, S) {
   for (const c of CICEK) { const a = t - c.t0; if (a < 0) continue;
     const ac = sm(0, .45, a), pop = 1 + .35 * Math.exp(-a * 5) * Math.sin(a * 14);
@@ -286,6 +303,7 @@ function renderFrame(t) {
   const SC = new Strokes(256); cicekler(tc, SC); E.drawNow(SC.data(), { cam: agacCam, t: 10, wet: .4 });
   if (tc >= tSal) { const m = mektupYer(tc, SALIS_EL);
     if (m.u < .995) zarf(SM, m.x, m.y, m.boy, m.ang, m.cev, 1 - sm(.93, .995, m.u)); }
+  yapraklar(tc, SM, F.canta);
   E.drawNow(SM.data(), { cam: tarlaCam, t: 10, wet: .3, run: 0 });
   const SP = new Strokes(128); polen(tc, SP); E.drawNow(SP.data(), { cam: camK(k, .5), t: 10, wet: .4 });
   kat('on');
