@@ -1,7 +1,7 @@
 // Kapaklar (1920×1080 çizilir, 1280×720 kaydedilir). kapak.html?render=1 → window.kapak('A'|'B', o)
 // A "karşıtlık": terazi; kefede renkli lale (tek renk) ve soğan ağır basar, öbür kefede ev havada. Yazı: BİR EV FİYATINA (iki satır).
 // B "hareket oku": karanlık meyhane; dirsekten kırık, yukarı uzanan eller kâğıda boyanmış tek renkli laleye. Yazı: GÖRMEDEN ALDILAR (23 Kasım; eski HERKES ALIYORDU başlığı tekrar ediyordu).
-// Kapak sistemi (27 Kasım, kanal/KAPAK_SISTEMI.md): yazı solda ve üstte; A lacivert + kırmızı EV, B fildişi + kırmızı GÖRMEDEN. o.yazisiz: aynı sahne yazısız (test_seti.py yazıyı farktan ölçer).
+// Kapak sistemi (27 Kasım, kanal/KAPAK_SISTEMI.md): yazı solda ve üstte; A lacivert + kırmızı EV, B fildişi + kırmızı GÖRMEDEN. Vurgu rengi = lalenin ekrandaki rengi (o.alev lale boyası, o.vurgu yazı). o.yazisiz: aynı sahne yazısız (test_seti.py yazıyı farktan ölçer).
 // Kurallar: renk yalnız lalede; harf yüksekliği ≥ %18 (Bebas büyük harf ≈ 0,70 em → font ≥ 280 px); sağ alt süre rozeti (x 1440–1874, y 829–1034) boş.
 'use strict';
 (function () {
@@ -15,6 +15,8 @@
     ctx.restore();
   }
   const cam0 = { cx: 960, cy: 540, z: 1 };
+  // kapakta lale boyası (kural 3: vurgu kelimesi ile lale aynı renk okunsun): RENK.semper yalnız bu çağrı için değişir, film etkilenmez
+  function boyaRenk(alev, kenar, f) { const R = LALE.RENK.semper, a0 = R.alev, k0 = R.kenar; if (alev) R.alev = alev; if (kenar) R.kenar = kenar; try { f(); } finally { R.alev = a0; R.kenar = k0; } }
   // asılı terazi (ayaksız: sağ alt rozet alanı boş kalsın): kanca (hx, hy), kol L, eğim a (+ sağ aşağı)
   function asiliTerazi(hx, hy, L, a) {
     const F = INSAN.F, fill = INSAN.fill;
@@ -39,10 +41,11 @@
       LALE.sogan(K2[0], K2[1] - 50, 1.8); LALE.ciz(K2[0], K2[1] - 186, 2.6, { sap: 56, cesit: 'semper', ac: .35 });   // lale ve soğan ~%25 büyük: tek odak
       SET.isik({ x: K2[0], y: K2[1] - 300, r1: 460, a: .75 });
     }, [.84, 0, 10]);
-    YAZI.bas(ctx, cam); LALE.boya(ctx, cam, 1, { kay: 2.5, alevK: 2.3, alevN: 1 }); LALE.boya(ctx, cam, .4, { kay: 2.5, alevK: 2.3, alevN: 1 });   // kapakta alevler kalın, ikinci kat boya: küçük boyda kırmızı görünsün
+    YAZI.bas(ctx, cam); // Fable (27 Kasım): ikinci kat boya laleyi EV'den koyu ve bulanık yapıyordu; tek kat, daha doygun alev (ekranda medyan 171,42,54 = EV'in rengi)
+    boyaRenk(o.alev || [215, 8, 36], o.kenar, () => { LALE.boya(ctx, cam, 1, { kay: 2.5, alevK: 2.3, alevN: 1 }); if (o.kat2) LALE.boya(ctx, cam, o.kat2, { kay: 2.5, alevK: 2.3, alevN: 1 }); });   // kapakta alevler kalın: küçük boyda kırmızı görünsün
     post(ctx, 0);
     // kapak sistemi (27 Kasım): yazı üstten başlar, açık zeminde lacivert, tek vurgu kelimesi lale kırmızısı (EV: kırmızı ev ↔ kırmızı lale)
-    const VA = o.vurgu || '#AC1228';
+    const VA = o.vurgu || '#AB2A36';   // lalenin ekrandaki alev rengi (yazısız karede ölçüldü)
     if (!o.yazisiz) yazi(ctx, [[['BİR ', null], ['EV', VA]], 'FİYATINA'], o.tx ?? 70, o.ty ?? 300, o.px ?? 300, { col: '#101B33', golge: 'rgba(0,0,0,0)', lh: 1.0 });   // satır arası açık: İ noktaları üst üste binmesin
   }
   function B(o = {}) {
@@ -63,10 +66,10 @@
       const A = o.arka || [[700, 1500, 760, 1, 1.6, 1.5], [1040, 1550, 820, -1, 1.55, 1.55], [1700, 1220, 800, 1, 1.6, 1.45], [1960, 1180, 760, -1, 1.65, 1.5]];   // el kaldırma: üst kol öne, ön kol dik (düz çapraz kalkık kol selam okunabiliyordu)
       A.forEach(([x, y, h, yon, a, b]) => INSAN.adam({ x, y, h, yon, arka: true, sapka: 'genis', yaka: 'duz', kenar: .5, kenarYan: yon, giysi: 'pelerin', kolOn: { a, b } }));
     }, [.06, 0, 0]);
-    YAZI.bas(ctx, cam); LALE.boya(ctx, cam, 1, { kay: 2.5, alevK: 2.3, alevN: 1 });
+    YAZI.bas(ctx, cam); boyaRenk(o.alev || [248, 22, 52], o.kenar, () => LALE.boya(ctx, cam, 1, { kay: 2.5, alevK: 2.3, alevN: 1 }));   // Fable (27 Kasım): lale yazıdan koyu şarap kırmızısıydı; alev açıldı (ekranda medyan 216,58,72), küçük boyda da seçiliyor
     post(ctx, 0);
-    // kapak sistemi (27 Kasım): fildişi, tek vurgu kelimesi lale kırmızısının açık tonu (koyu zeminde küçük boyda okunsun)
-    const VB = o.vurgu || '#D8455A';
+    // kapak sistemi (27 Kasım): fildişi, tek vurgu kelimesi lalenin ekrandaki alev rengi (koyu zeminde 120×68'de okunur)
+    const VB = o.vurgu || '#D83A48';
     if (!o.yazisiz) yazi(ctx, o.satir || [[['GÖRMEDEN', VB]], 'ALDILAR'], o.tx ?? 60, o.ty ?? 268, o.px ?? 285, { col: '#F3EAD7', golge: 'rgba(0,0,0,.9)' });   // kapak merak açar, başlık tamamlar: kapak yazısı başlığın sözcüklerini tekrar etmez
   }
   window.kapak = (v, o = {}) => { baseT(ctx); ctx.fillStyle = '#000'; ctx.fillRect(0, 0, W, H); (v === 'A' ? A : B)(o); return cv; };
