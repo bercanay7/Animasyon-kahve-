@@ -261,17 +261,24 @@ function figur(t, S) {
   MK.begin({ kip: 'boya', t, kamera: KAMERA, isik: GUNES_IS, renkler: { isik: [1, .7, .44], golge: [.32, .25, .38], sis: [0, 0, 0] }, ortam: .5, sis: 0, huzme: 0, toz: 0, kontur: 0, olcek: 1, parilti: 0 });
   const K = MK.figur(p, { giysi: [.2, .15, .17], pantolon: [.15, .12, .14], ten: [.5, .36, .3] });
   const cm = canta(K, t); sapka(K); palto(K);
-  MK.cizHam();
-  const R = MK.oku(), w = R.w, h = R.h, sc = W / w, cz = Math.floor(t * 15);
-  const fig = (x, y) => x >= 0 && y >= 0 && x < w && y < h && R.ek[((h - 1 - y) * w + x) * 4 + 1] === 251;
+  // kaynak: Blender karesi (?blender=1; kurye/blender/kare/) ya da manken çizimi; ikisi de 960×540, sahne kamerasıyla aynı
+  const cz = Math.floor(t * 15);
+  let w, h, fig, renkAl;
+  const BK = BLENDER && BKARE[Math.min(BKARE.length - 1, Math.round(ikiser(t) * 15))];
+  if (BK) { w = 960; h = 540;
+    fig = (x, y) => x >= BK.x0 && y >= BK.y0 && x < BK.x0 + BK.w && y < BK.y0 + BK.h && BK.d[((y - BK.y0) * BK.w + x - BK.x0) * 4 + 3] > 140;
+    renkAl = (x, y) => { const j = ((y - BK.y0) * BK.w + x - BK.x0) * 4; return [BK.d[j] / 255, BK.d[j + 1] / 255, BK.d[j + 2] / 255]; };
+  } else { MK.cizHam(); const R = MK.oku(); w = R.w; h = R.h;
+    fig = (x, y) => x >= 0 && y >= 0 && x < w && y < h && R.ek[((h - 1 - y) * w + x) * 4 + 1] === 251;
+    renkAl = (x, y) => { const j = ((h - 1 - y) * w + x) * 4; return [R.renk[j] / 255, R.renk[j + 1] / 255, R.renk[j + 2] / 255]; }; }
+  const sc = W / w;
   const kb = MK.ekran(K.pelvis.o), x0 = Math.max(1, ((kb[0] - 260) / sc) | 0), x1 = Math.min(w - 2, ((kb[0] + 260) / sc) | 0), y0 = Math.max(1, ((kb[1] - 420) / sc) | 0), y1 = Math.min(h - 2, ((kb[1] + 360) / sc) | 0);
   const gx = T.GUNES[0], gy = gunesY(t), hava = [.36, .24, .3], KEN = [], KIS = [];
   // iç: dik, iri darbeler (ızgara + titreşim); kenar: biçimi saran ince darbeler; güneşe bakan kenar altın
   for (let y = y0; y <= y1; y++) for (let x = x0; x <= x1; x++) {
     if (!fig(x, y)) continue;
     const kenar = !(fig(x - 1, y) && fig(x + 1, y) && fig(x, y - 1) && fig(x, y + 1));
-    const j = ((h - 1 - y) * w + x) * 4;
-    let c = [R.renk[j] / 255, R.renk[j + 1] / 255, R.renk[j + 2] / 255].map((v, i) => v + (hava[i] - v) * .38);
+    let c = renkAl(x, y).map((v, i) => v + (hava[i] - v) * (BK ? .14 : .38));
     const X = (x + .5 + (hsh(x, y, cz + 1) - .5) * .5) * sc, Y = (y + .5 + (hsh(x, y, cz + 2) - .5) * .5) * sc;
     if (!kenar) {
       if ((x + 2 * y + cz) % 3) continue;
@@ -334,6 +341,25 @@ function renderFrame(t) {
 // mektubun bırakıldığı yer: elin salış anındaki ekran konumu (kare sırasından bağımsız olsun diye yükte hesaplanır)
 let SALIS_EL = [700, 820];
 const MONO = Q.get('mono') === '1';
+// Blender kuryesi: kareler yükte okunur, saydam olmayan bölge kırpılıp saklanır (kurye/blender/kurye_bpy.py üretir)
+const BLENDER = Q.get('blender') === '1'; const BKARE = [];
+async function blenderYukle() {
+  const c = document.createElement('canvas'); c.width = 960; c.height = 540; const x = c.getContext('2d', { willReadFrequently: true });
+  for (let k = 0; k <= 375; k++) {
+    const r = await fetch(`blender/kare/k_${String(k).padStart(4, '0')}.png`); if (!r.ok) { BKARE.push(null); continue; }
+    const im = await createImageBitmap(await r.blob()); x.clearRect(0, 0, 960, 540); x.drawImage(im, 0, 0);
+    const d = x.getImageData(0, 0, 960, 540).data; let x0 = 960, y0 = 540, x1 = -1, y1 = -1;
+    for (let y = 0; y < 540; y += 1) for (let xx = 0; xx < 960; xx++) if (d[(y * 960 + xx) * 4 + 3] > 20) { if (xx < x0) x0 = xx; if (xx > x1) x1 = xx; if (y < y0) y0 = y; if (y > y1) y1 = y; }
+    if (x1 < 0) { BKARE.push(null); continue; }
+    BKARE.push({ x0, y0, w: x1 - x0 + 1, h: y1 - y0 + 1, d: x.getImageData(x0, y0, x1 - x0 + 1, y1 - y0 + 1).data });
+  }
+}
+// Blender kuryesi için eklemler (kurye/blender/eklem_disa.js okur): kuryePoz'un kemikleri + çanta + şapka çerçevesi, dünya metresi (y yukarı)
+window.kuryeEklem = t => { const p = kuryePoz(t), K = I.kemikler(p), cer = c => ({ o: c.o, x: c.x, y: c.y, z: c.z });
+  const pel = K.pelvis, a = cantaSarkac(ikiser(t)), kok = V.add(V.add(pel.o, V.mul(pel.x, -.19)), V.mul(pel.y, .1)), asagi = V.rot(V.mul(pel.y, -1), pel.z, a);
+  return { pelvis: cer(K.pelvis), gogus: cer(K.gogus), boyun: cer(K.boyun), bas: cer(K.bas),
+    bacak: K.bacak.map(b => ({ kalca: b.kalca, diz: b.diz, bilek: b.bilek, ayak: cer(b.ayak) })), kol: K.kol.map(k => ({ omuz: k.omuz, dirsek: k.dirsek, bilek: k.bilek, el: cer(k.el) })),
+    canta: { kok, asagi } }; };
 function renderAt(t) { renderFrame(t); return cv; }
 Object.assign(window, { renderFrame, renderFrameMB: renderFrame, renderAt });
 window.BITIR = () => { const px = new Uint8Array(4); E.gl.readPixels(0, 0, 1, 1, E.gl.RGBA, E.gl.UNSIGNED_BYTE, px); };
@@ -346,6 +372,7 @@ window.ready = (async () => {
   for (let i = 0; i < PATIKA.length - 1; i++) for (let k = 0; k < 12; k++) { const u = k / 12, a = PATIKA[i], b = PATIKA[i + 1], x = a[0] + (b[0] - a[0]) * u, z = a[1] + (b[1] - a[1]) * u;
     const c = MK.ekran([x, 0, z]), c2 = MK.ekran([x + .85, 0, z]); pe.push([c[0], c[1], Math.abs(c2[0] - c[0])]); }
   { const z = PATIKA[PATIKA.length - 1], c = MK.ekran([z[0], 0, z[1]]); pe.push([c[0], c[1], 2]); }
+  if (BLENDER) await blenderYukle();
   // salış anındaki el konumu
   { const S0 = new Strokes(4096); SALIS_EL = figur(ikiser(tSal), S0).el; }
   katman('gok', T.gok, 0, { R: [30, 15, 7.5, 3.6, 1.8], T: 10 });
