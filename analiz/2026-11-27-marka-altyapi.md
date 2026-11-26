@@ -33,3 +33,6 @@ Kaynak: kullanıcının tarayıcı ajanına çektirdiği salt okuma raporu (PDF,
 | Narkissos bitiş ekranı | + "Mitoloji ve Felsefe" oynatma listesi. |
 | Kafka bitiş ekranı | Yoktu; + Abone ol + Narkissos videosu (6:18–6:38). |
 Şerit denemesi Ş2'nin başlangıcı: bitiş ekranı değişiklikleri 27 Kasım'da yürürlükte.
+
+## Aday 3 elendi (kullanıcı, 27 Kasım)
+Kullanıcı Studio'dan biliyor: abonelerin çoğu Shorts'tan gelmedi. "Shorts aboneleri uzun videoya tıklamıyor, ilk deneme grubu zayıf" açıklaması düştü. Gösterim sorununda kalan iki aday: videoların birbirini beslememesi ve dağınık kitle kimliği. Şerit denemesi (`tahminler.md` Ş1–Ş2) ikisini birlikte sınıyor. Kitle verisinden yalnız "kitlenin izlediği kanallar" hâlâ işe yarar (kimlik adayı), zorunlu değil.
