@@ -69,7 +69,8 @@ def yazi_olcumu(img, m):
             i += 1
     birlesik = []
     for b in bantlar:
-        if birlesik and b[0] - birlesik[-1][1] < H * .025 and (b[1] - b[0] < H * .06 or birlesik[-1][1] - birlesik[-1][0] < H * .06):
+        # 1–5 px'lik delik: koyu yazı zemindeki koyu çizgiyle kesişince fark maskesi deliniyor (Lale); aynı satırdır
+        if birlesik and (b[0] - birlesik[-1][1] < H * .008 or (b[0] - birlesik[-1][1] < H * .025 and (b[1] - b[0] < H * .06 or birlesik[-1][1] - birlesik[-1][0] < H * .06))):
             birlesik[-1][1] = b[1]
         else:
             birlesik.append(b)
