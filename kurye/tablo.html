@@ -15,6 +15,7 @@
 // Belirlenimci: Math.random yok; tohumlar t'den.
 import { Strokes, KNIFE, BRUSH, DAB } from '../araclar/tablo/impasto.js';
 import { motor } from '../araclar/tablo/sahne.js';
+import { figurDarbe, blenderKaynak, blenderKareleri } from '../araclar/tablo/figur.js';
 const Q = new URLSearchParams(location.search);
 const W = 1920, H = 1080, T = window.TABLO, I = window.ISKELET, V = I.V, HR = window.HAREKET, MK = window.MANKEN;
 const sm = HR.yumusak, PI = Math.PI;
@@ -253,43 +254,16 @@ function figur(t, S) {
   MK.begin({ kip: 'boya', t, kamera: KAMERA, isik: GUNES_IS, renkler: { isik: [1, .7, .44], golge: [.32, .25, .38], sis: [0, 0, 0] }, ortam: .5, sis: 0, huzme: 0, toz: 0, kontur: 0, olcek: 1, parilti: 0 });
   const K = MK.figur(p, { giysi: [.2, .15, .17], pantolon: [.15, .12, .14], ten: [.5, .36, .3] });
   const cm = canta(K, t); sapka(K); palto(K);
-  // kaynak: Blender karesi (?blender=1; kurye/blender/kare/) ya da manken çizimi; ikisi de 960×540, sahne kamerasıyla aynı
-  const cz = Math.floor(t * 15);
-  let w, h, fig, renkAl;
-  const BK = BLENDER && BKARE[Math.min(BKARE.length - 1, Math.round(ikiser(t) * 15))];
-  if (BK) { w = 960; h = 540;
-    fig = (x, y) => x >= BK.x0 && y >= BK.y0 && x < BK.x0 + BK.w && y < BK.y0 + BK.h && BK.d[((y - BK.y0) * BK.w + x - BK.x0) * 4 + 3] > 140;
-    renkAl = (x, y) => { const j = ((y - BK.y0) * BK.w + x - BK.x0) * 4; return [BK.d[j] / 255, BK.d[j + 1] / 255, BK.d[j + 2] / 255]; };
-  } else { MK.cizHam(); const R = MK.oku(); w = R.w; h = R.h;
-    fig = (x, y) => x >= 0 && y >= 0 && x < w && y < h && R.ek[((h - 1 - y) * w + x) * 4 + 1] === 251;
-    renkAl = (x, y) => { const j = ((h - 1 - y) * w + x) * 4; return [R.renk[j] / 255, R.renk[j + 1] / 255, R.renk[j + 2] / 255]; }; }
-  const sc = W / w;
-  const kb = MK.ekran(K.pelvis.o), x0 = Math.max(1, ((kb[0] - 260) / sc) | 0), x1 = Math.min(w - 2, ((kb[0] + 260) / sc) | 0), y0 = Math.max(1, ((kb[1] - 420) / sc) | 0), y1 = Math.min(h - 2, ((kb[1] + 360) / sc) | 0);
-  const gx = T.GUNES[0], gy = gunesY(t), hava = [.36, .24, .3], KEN = [], KIS = [];
-  // iç: dik, iri darbeler (ızgara + titreşim); kenar: biçimi saran ince darbeler; güneşe bakan kenar altın
-  for (let y = y0; y <= y1; y++) for (let x = x0; x <= x1; x++) {
-    if (!fig(x, y)) continue;
-    const kenar = !(fig(x - 1, y) && fig(x + 1, y) && fig(x, y - 1) && fig(x, y + 1));
-    let c = renkAl(x, y).map((v, i) => v + (hava[i] - v) * (BK ? .14 : .38));
-    const X = (x + .5 + (hsh(x, y, cz + 1) - .5) * .5) * sc, Y = (y + .5 + (hsh(x, y, cz + 2) - .5) * .5) * sc;
-    if (!kenar) {
-      if ((x + 2 * y + cz) % 3) continue;
-      S.push({ x: X, y: Y, ang: PI / 2 + (hsh(x, y, cz) - .5) * .5, len: 4.6 * sc, wid: 2.4 * sc, c, c2: c.map(v => v * .9), seed: hsh(x, y, cz) * 999, type: BRUSH, hgt: .25 });
-      continue;
-    }
-    // dışa bakan normal (maskenin eğiminden)
-    let nx = (fig(x - 1, y) ? 1 : 0) - (fig(x + 1, y) ? 1 : 0), ny = (fig(x, y - 1) ? 1 : 0) - (fig(x, y + 1) ? 1 : 0);
-    nx += ((fig(x - 1, y - 1) ? 1 : 0) + (fig(x - 1, y + 1) ? 1 : 0) - (fig(x + 1, y - 1) ? 1 : 0) - (fig(x + 1, y + 1) ? 1 : 0)) * .5;
-    ny += ((fig(x - 1, y - 1) ? 1 : 0) + (fig(x + 1, y - 1) ? 1 : 0) - (fig(x - 1, y + 1) ? 1 : 0) - (fig(x + 1, y + 1) ? 1 : 0)) * .5;
-    const nl = Math.hypot(nx, ny) || 1; nx /= nl; ny /= nl;
-    const sx = gx - X, sy = gy - Y, sl = Math.hypot(sx, sy) || 1;
-    const kenarIsik = Math.max(0, (nx * sx / sl + ny * sy / sl) - .35) / .65 * (hsh(x >> 1, y >> 1, 77) < .7 ? 1 : .25);   // yalnız güneşe bakan kenar, kırık
-    const altin = [1, .72, .42];
-    const ta = Math.atan2(ny, nx) + PI / 2;
-    KEN.push({ x: X - nx * .6 * sc, y: Y - ny * .6 * sc, ang: ta, len: 2.1 * sc, wid: 1.4 * sc, c: c.map((v, i) => v + (hava[i] * .6 - v) * .2), c2: c, seed: hsh(x, y, cz) * 999, type: KNIFE, hgt: .2 });
-    if (kenarIsik > .12) KIS.push({ x: X + nx * .15 * sc, y: Y + ny * .15 * sc, ang: ta, len: 4.4 * sc, wid: .8 * sc, c: altin, c2: altin.map(v => v * .85), seed: hsh(x, y, cz + 9) * 999, type: KNIFE, hgt: .15, alpha: Math.min(1, kenarIsik * 1.4) });
-  }
-  for (const o of KEN) S.push(o); for (const o of KIS) S.push(o);
+  // kaynak: Blender karesi (?blender=1; kurye/blender/kare/) ya da manken çizimi; ikisi de 960×540, sahne kamerasıyla aynı. Darbeye çeviri: araclar/tablo/figur.js
+  const cz = Math.floor(t * 15), BK = BLENDER && BKARE[Math.min(BKARE.length - 1, Math.round(ikiser(t) * 15))];
+  let src;
+  if (BK) src = blenderKaynak(BK);
+  else { MK.cizHam(); const R = MK.oku(), w = R.w, h = R.h, sc = W / w, kb = MK.ekran(K.pelvis.o);
+    src = { w, h, kutu: [((kb[0] - 260) / sc) | 0, ((kb[1] - 420) / sc) | 0, ((kb[0] + 260) / sc) | 0, ((kb[1] + 360) / sc) | 0],
+      fig: (x, y) => x >= 0 && y >= 0 && x < w && y < h && R.ek[((h - 1 - y) * w + x) * 4 + 1] === 251,
+      renk: (x, y) => { const j = ((h - 1 - y) * w + x) * 4; return [R.renk[j] / 255, R.renk[j + 1] / 255, R.renk[j + 2] / 255]; } }; }
+  const gx = T.GUNES[0], gy = gunesY(t);
+  figurDarbe(S, src, { W, gunes: [gx, gy], hava: [.36, .24, .3], havaK: BK ? .14 : .38, cz });
   // uzun gölge: güneşten uzağa (sola ve bize), incelerek
   const ay = MK.ekran(V.lerp(K.bacak[0].bilek, K.bacak[1].bilek, .5)), boyPx = Math.abs(MK.ekran(K.bas.o)[1] - ay[1]);
   const dx = ay[0] - gx, dy = ay[1] - gy, dl = Math.hypot(dx, dy), ux = dx / dl, uy = dy / dl, gL = boyPx * 1.5;
@@ -332,17 +306,7 @@ let SALIS_EL = [700, 820];
 const MONO = Q.get('mono') === '1';
 // Blender kuryesi: kareler yükte okunur, saydam olmayan bölge kırpılıp saklanır (kurye/blender/kurye_bpy.py üretir)
 const BLENDER = Q.get('blender') === '1'; const BKARE = [];
-async function blenderYukle() {
-  const c = document.createElement('canvas'); c.width = 960; c.height = 540; const x = c.getContext('2d', { willReadFrequently: true });
-  for (let k = 0; k <= 375; k++) {
-    const r = await fetch(`blender/kare/k_${String(k).padStart(4, '0')}.png`); if (!r.ok) { BKARE.push(null); continue; }
-    const im = await createImageBitmap(await r.blob()); x.clearRect(0, 0, 960, 540); x.drawImage(im, 0, 0);
-    const d = x.getImageData(0, 0, 960, 540).data; let x0 = 960, y0 = 540, x1 = -1, y1 = -1;
-    for (let y = 0; y < 540; y += 1) for (let xx = 0; xx < 960; xx++) if (d[(y * 960 + xx) * 4 + 3] > 20) { if (xx < x0) x0 = xx; if (xx > x1) x1 = xx; if (y < y0) y0 = y; if (y > y1) y1 = y; }
-    if (x1 < 0) { BKARE.push(null); continue; }
-    BKARE.push({ x0, y0, w: x1 - x0 + 1, h: y1 - y0 + 1, d: x.getImageData(x0, y0, x1 - x0 + 1, y1 - y0 + 1).data });
-  }
-}
+async function blenderYukle() { const d = await blenderKareleri('blender/kare', 376); for (const k of d) BKARE.push(k); }
 // Blender kuryesi için eklemler (kurye/blender/eklem_disa.js okur): kuryePoz'un kemikleri + çanta + şapka çerçevesi, dünya metresi (y yukarı)
 window.kuryeEklem = t => { const p = kuryePoz(t), K = I.kemikler(p), cer = c => ({ o: c.o, x: c.x, y: c.y, z: c.z });
   const pel = K.pelvis, a = cantaSarkac(ikiser(t)), kok = V.add(V.add(pel.o, V.mul(pel.x, -.19)), V.mul(pel.y, .1)), asagi = V.rot(V.mul(pel.y, -1), pel.z, a);
