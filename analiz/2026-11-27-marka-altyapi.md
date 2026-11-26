@@ -25,7 +25,7 @@ Kaynak: kullanıcının tarayıcı ajanına çektirdiği salt okuma raporu (PDF,
 ## Uygulandı (27 Kasım, kullanıcının tarayıcı ajanı; "Studio Değişiklik Raporu")
 | Adım | Sonuç |
 |---|---|
-| Ana sayfa sekmesi, fragman (Sisifos), geri dönen aboneye Narkissos, bölümler | **Taslakta, yayınlanmadı.** Yeni bölümler en alta ekleniyor, ajan sürükleyemedi. Başkanın kararı: olduğu gibi yayınlanır (fragman ve öne çıkan video bölüm sırasından bağımsız en üstte); bölüm sırası kullanıcı tarafından elle düzeltilir. |
+| Ana sayfa sekmesi, fragman (Sisifos), geri dönen aboneye Narkissos, bölümler | **Kullanıcı 27 Kasım'da yayınladı.** Önce taslakta kalmıştı. Yeni bölümler en alta ekleniyor, ajan sürükleyemedi. Başkanın kararı: olduğu gibi yayınlanır (fragman ve öne çıkan video bölüm sırasından bağımsız en üstte); bölüm sırası kullanıcı tarafından elle düzeltilir. |
 | "Mitoloji ve Felsefe" listesi | Narkissos eklendi. Sıra: Sisifos, Prometheus, Narkissos, Orfeus, İkaros, Gılgamış (Gılgamış listede; yayına girince görünür). |
 | Milton ve Prometheus açıklamaları | Baştaki "```" ve boş satır silindi. |
 | Sisifos bitiş ekranı | + Narkissos videosu. |
