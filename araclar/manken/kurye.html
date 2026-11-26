@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="tr"><head><meta charset="utf-8"><title>Kurye: boya kipi denemesi</title>
+<style>html,body{margin:0;background:#000}canvas{display:block;width:100vw;height:auto}</style></head><body>
+<canvas id="c" width="1920" height="1080"></canvas>
+<script src="../hareket/hareket.js"></script>
+<script src="iskelet.js"></script>
+<script src="manken.js"></script>
+<script>
+// "Kurye" (boya kipi denemesi; kanal kimliği adayı). Kanalın fikri: geçmişten bugüne soru taşıyan kurye.
+// Karanlık uzun bir salon. Solda yüksek pencerelerden altın ışık hüzmeleri, havada toz. Sağda her biri başka bir çağın
+// rengiyle parlayan kapılar. Kurye omzunda çantasıyla yürür, bir kapının önünde durur ve ona döner.
+// Planlar: A geniş (0–5), B yandan izleme, ters ışık (5–10), C kapının önünde, sırtı bize, siluet (10–15).
+'use strict';
+const Q = new URLSearchParams(location.search);
+const W = 1920, H = 1080, RS = +(Q.get('rs') || 1);
+const cv = document.getElementById('c'); cv.width = W * RS; cv.height = H * RS;
+const ctx = cv.getContext('2d');
+const H_ = HAREKET, I = ISKELET, V = I.V, MK = MANKEN, sm = H_.yumusak, rampa = H_.rampa;
+const ikiser = t => Math.floor(t * 15 + 1e-6) / 15;
+window.FPS = 30; const DUR = 15; window.DUR = DUR;
+
+// ---------------- set ----------------
+const X0 = -3, X1 = 3, Y1 = 6.2, ZN = 4, ZF = -27;        // salon: genişlik 6 m, tavan 6,2 m
+const PENC = [-1, -4, -7, -10, -13, -16, -19, -22].map(z => ({ z, w: 1.15, y0: .9, y1: 4.9 }));
+// her kapı başka bir çağa açılır: gök rengi + ufuk + tek siluet (kule, ağaç, sütunlar, yelken, tepe). Simge taraması: haç, minare,
+// kubbe, hilal, yıldız yok; siluetler düz kütle.
+const KAPI = [
+  { z: -2.5, renk: [1.0, .66, .36], siluet: 'sutun' },     // kehribar akşam: antik sütunlar
+  { z: -5.5, renk: [.42, .78, .74], siluet: 'agac' },      // camgöbeği şafak: tek ağaç
+  { z: -8.5, renk: [.92, .5, .52], siluet: 'yelken' },     // gül akşamı: yelkenli
+  { z: -11.5, renk: [.36, .55, .95], siluet: 'kule' },     // gece mavisi: kurye bunun önünde durur (gözetleme kulesi)
+  { z: -14.5, renk: [.78, .86, .5], siluet: 'tepe' },      // yeşil altın: tepeler
+  { z: -17.5, renk: [1.0, .78, .55], siluet: 'sutun' },
+  { z: -20.5, renk: [.55, .66, .95], siluet: 'agac' },
+];
+const DUVAR = [.46, .38, .36], ZEMIN = [.55, .45, .36], TAVAN = [.2, .16, .19];
+function salon() {
+  MK.kutu([0, -.05, (ZN + ZF) / 2], [8, .1, ZN - ZF], { renk: ZEMIN, kim: 1 });
+  MK.kutu([0, Y1 + .05, (ZN + ZF) / 2], [8, .1, ZN - ZF], { renk: TAVAN, kim: 2 });
+  // sol duvar: pencere boşlukları (yalnız dikey; kayıt yok)
+  const zs = [ZN, ...PENC.flatMap(p => [p.z + p.w / 2, p.z - p.w / 2]), ZF];
+  for (let i = 0; i < zs.length; i += 2) { const a = zs[i], b = zs[i + 1]; MK.kutu([X0 - .1, Y1 / 2, (a + b) / 2], [.2, Y1, a - b], { renk: DUVAR, kim: 3 }); }
+  for (const p of PENC) {
+    MK.kutu([X0 - .1, p.y0 / 2, p.z], [.2, p.y0, p.w], { renk: DUVAR, kim: 3 });
+    MK.kutu([X0 - .1, (p.y1 + Y1) / 2, p.z], [.2, Y1 - p.y1, p.w], { renk: DUVAR, kim: 3 });
+    MK.kutu([X0 - .02, p.y0 - .04, p.z], [.36, .08, p.w + .1], { renk: [.5, .44, .4], kim: 3 });   // pencere eşiği
+  }
+  // sağ duvar: kapı girintileri; içi bir çağın ışığı (ışık saçan pano)
+  const kw = 1.25, kh = 3.3;
+  const ks = [ZN, ...KAPI.flatMap(k => [k.z + kw / 2, k.z - kw / 2]), ZF];
+  for (let i = 0; i < ks.length; i += 2) { const a = ks[i], b = ks[i + 1]; MK.kutu([X1 + .1, Y1 / 2, (a + b) / 2], [.2, Y1, a - b], { renk: DUVAR, kim: 4 }); }
+  for (const k of KAPI) {
+    MK.kutu([X1 + .1, (kh + Y1) / 2, k.z], [.2, Y1 - kh, kw], { renk: DUVAR, kim: 4 });
+    for (const s of [1, -1]) MK.kutu([X1 + .35, kh / 2, k.z + s * (kw / 2 + .05)], [.5, kh, .1], { renk: DUVAR, kim: 4 });   // girinti yanakları
+    // kapının ardı: derinde ışık saçan gök, alt üçte birde koyu ufuk, ufukta tek siluet
+    const xg = X1 + 3.2, R = k.renk;
+    MK.kutu([xg, 3, k.z], [.06, 6, 5], { renk: R, isima: .9, kim: 5, golgeYok: 1 });
+    MK.kutu([xg - .2, .55, k.z], [.06, 1.1, 5], { renk: R.map(x => x * .22), isima: 1, kim: 5, golgeYok: 1 });
+    const sil = (c, s) => MK.kutu([xg - .3, c[1], k.z + c[0]], [.05, s[1], s[0]], { renk: R.map(x => x * .16), isima: 1, kim: 5, golgeYok: 1 });
+    if (k.siluet === 'sutun') { for (const dz of [-.9, -.3, .3, .9]) sil([dz, 1.9], [.16, 1.6]); sil([0, 2.75], [2.2, .14]); }
+    if (k.siluet === 'agac') { sil([.2, 1.5], [.08, 1]); sil([.2, 2.35], [.9, .55]); sil([.25, 2.7], [.55, .35]); }
+    if (k.siluet === 'yelken') { sil([-.1, 1.15], [1.2, .14]); sil([-.1, 2.0], [.05, 1.6]); sil([.15, 1.85], [.45, 1.1]); }
+    if (k.siluet === 'kule') { sil([.35, 2.0], [.32, 1.9]); sil([.35, 3.0], [.46, .18]); sil([-.6, 1.3], [.9, .5]); }
+    if (k.siluet === 'tepe') { sil([-.5, 1.25], [2.2, .45]); sil([.6, 1.4], [1.4, .75]); }
+    // girinti tabanı (kapının eşiği) ve kapı boşluğunun içi: yan duvarlar derine uzanır
+    for (const s of [1, -1]) MK.kutu([X1 + 1.75, 3, k.z + s * (kw / 2 + .05)], [2.9, 6, .1], { renk: DUVAR.map(x => x * .7), kim: 4 });
+  }
+  // pencerelerin ardında gök: sıcak, ışık saçan pano (gölge almaz, gölge vermez)
+  MK.kutu([X0 - 4, 4, (ZN + ZF) / 2], [.1, 12, ZN - ZF + 10], { renk: [1, .78, .5], isima: 1.05, kim: 8, golgeYok: 1 });
+  // dip: büyük kapı, sıcak beyaz
+  MK.kutu([0, Y1 / 2, ZF - .1], [8, Y1, .2], { renk: DUVAR, kim: 6 });
+  MK.kutu([0, 2.2, ZF + .02], [1.8, 4.4, .05], { renk: [1, .9, .72], isima: 1.6, kim: 7, golgeYok: 1 });
+}
+const ISIK = { tip: 'yon', konum: [-16, 10.5, 1.5], hedef: [0, .3, -10], alan: 19, uzak: 44, kazanc: 1.7 };
+const RENK = { isik: [1.0, .76, .46], golge: [.34, .3, .62], sis: [.075, .06, .11], murekkep: [.25, .2, .32] };
+
+// ---------------- kurye: yürüyüş, durma, dönüş ----------------
+const yolX = .65, durZ = -11.5, kapiYaw = Math.PI / 2;   // kapı +x yönünde
+const g = H_.yuruyus({ tip: 'yuru' });
+const tDur = 10.2;
+const go = t => rampa(t, 0, .45) * (1 - rampa(t, tDur - .5, tDur));
+const yol = H_.yuruyusYolu(g, { t0: -1, t1: 16, x0: 0, olcek: 1, go });
+const basZ = durZ + yol(16).x * I.S;                        // yürüyüş kapının tam önünde biter
+const durYerZ = basZ - yol(16).x * I.S;
+const yuruPoz = t => I.yuruyus3B(yol, t, { bas: [yolX, basZ], yaw: Math.PI, kolGenlik: .36 });
+const tD0 = tDur + .1, tD1 = tD0 + .8;
+const bakYay = H_.yayIzi({ hedef: t => (t < tD1 + .2 ? 0 : 1), k: 18, d: 6, t0: -1, t1: 16 });
+function kuryePoz(t) {
+  t = ikiser(t);
+  if (t < tD0) return yuruPoz(t);
+  const son = yuruPoz(tD0);
+  const dur = I.POZ.dur([yolX + .1, durYerZ], kapiYaw, { basEgim: .02 });
+  let p;
+  if (t < tD1) {
+    const u = (t - tD0) / (tD1 - tD0); p = I.karistir(son, dur, sm(0, 1, u));
+    for (const i of [0, 1]) { const a0 = i ? .35 : 0, ui = sm(a0, a0 + .55, u);
+      p.ayak[i].bilek = V.lerp(son.ayak[i].bilek, dur.ayak[i].bilek, ui); p.ayak[i].bilek[1] += .05 * Math.sin(Math.PI * ui); p.ayak[i].egim = 14 * Math.sin(Math.PI * ui); }
+    p.kok[1] -= .015 * Math.sin(Math.PI * u);
+  } else p = I.karistir(dur, dur, 0);
+  // kapıya bakış: baş hafif kalkar (ışığa), göğüs nefes alır
+  const b = bakYay(t);
+  p.basEgim = (p.basEgim || 0) - .2 * b; p.gogusEgim = (p.gogusEgim || 0) - .04 * b + .01 * Math.sin(t * 2);
+  return p;
+}
+// çanta: sağ kalçada, omuzdan askı; yürürken sarkaç gibi sallanır (taşıyanın ivmesi)
+const cantaSarkac = H_.sarkacIzi({ kuvvet: t => -H_.ivme(yol)(t) * I.S * 9, k: 16, d: 2.2, t0: -1, t1: 16 });
+function canta(p, K, t) {
+  const pel = K.pelvis, a = cantaSarkac(ikiser(t));
+  const kok = V.add(V.add(pel.o, V.mul(pel.x, -.2)), V.mul(pel.y, .12));            // askının döndüğü nokta: kalçanın yanı
+  const asagi = V.rot(V.mul(pel.y, -1), pel.x, a);
+  const mrk = V.add(V.add(kok, V.mul(asagi, .14)), V.mul(pel.z, -.02));
+  const y = V.mul(asagi, -1), x = pel.x, z = V.cross(x, y), s = [.08, .24, .3];
+  const m = new Float32Array([x[0] * s[0], x[1] * s[0], x[2] * s[0], 0, y[0] * s[1], y[1] * s[1], y[2] * s[1], 0, z[0] * s[2], z[1] * s[2], z[2] * s[2], 0, mrk[0], mrk[1], mrk[2], 1]);
+  MK.ekle('kutu1', m, { renk: [.32, .2, .12], kim: 251, es: s });
+  // askı: sol omuzdan çantaya ince şerit
+  const om = K.kol[1].omuz, uc = V.add(kok, V.mul(pel.y, .02)), d = V.sub(uc, om), L = V.len(d), yy = V.norm(d), xx = V.norm(V.cross(yy, K.gogus.z)), zz = V.cross(xx, yy);
+  const ort = V.add(om, V.mul(d, .5)), sa = [.035, L, .012];
+  MK.ekle('kutu1', new Float32Array([xx[0] * sa[0], xx[1] * sa[0], xx[2] * sa[0], 0, yy[0] * sa[1], yy[1] * sa[1], yy[2] * sa[1], 0, zz[0] * sa[2] + K.gogus.z[0] * 0, zz[1] * sa[2], zz[2] * sa[2], 0, ort[0] + K.gogus.z[0] * .1, ort[1], ort[2] + K.gogus.z[2] * .1, 1]), { renk: [.28, .18, .11], kim: 251, es: sa });
+}
+const KURYE = { giysi: [.14, .17, .24], pantolon: [.12, .11, .14], ten: [.66, .48, .38] };
+
+// ---------------- planlar ----------------
+function sahne(t, kamera, o = {}) {
+  // kapıların ışığı: girintinin önünde, en yakın altısı (gölgesiz)
+  const kz = kamera.konum[2], noktalar = KAPI.slice().sort((a, b) => Math.abs(a.z - kz + 4) - Math.abs(b.z - kz + 4)).slice(0, 4)
+    .map(k => ({ konum: [X1 - .05, 1.6, k.z], yaricap: 1.6, renk: k.renk, guc: 1.15 }));
+  MK.begin({ kip: 'boya', t, isik: ISIK, renkler: RENK, kamera, noktalar, ortam: .5, sis: .022, huzme: .1, huzmeBoy: 22, toz: 1.2, tozBoy: 13, olcek: .6, ...o });
+  salon();
+  const p = kuryePoz(t), K = MK.figur(p, KURYE); canta(p, K, t);
+  MK.ciz(ctx);
+  return K;
+}
+const PLAN = {
+  A: { t0: 0, t1: 5, ciz(t) {   // geniş: alçaktan salonun derinliğine; kurye sırtı bize yürür
+    const k = kuryePoz(t).kok, u = sm(0, 5, t);
+    sahne(t, { konum: [.9 - u * .3, .55 + u * .2, basZ + 3.2 - u * 1.2], hedef: [0, 2.1, -18], fov: 46 });
+  } },
+  B: { t0: 5, t1: 10, ciz(t) {  // yandan izleme: kamera sağ duvar önünde, kurye pencerelerin ters ışığında siluet
+    const k = kuryePoz(t).kok, u = (t - 5) / 5;
+    sahne(t, { konum: [2.55, 1.35, k[2] + 1.4 - u * .5], hedef: [k[0] - 1.2, 1.55, k[2] - .6], fov: 40 });
+  } },
+  C: { t0: 10, t1: 15, ciz(t) { // kapının önünde: kurye sırtı bize, çağın ışığına bakar; yavaş yaklaşma
+    const u = sm(10, 15, t), kz = durZ;
+    sahne(t, { konum: [-1.6 + u * .85, 1.4 + u * .06, kz + .02], hedef: [3.3, 1.72, kz], fov: 40 });
+  } },
+};
+function renderFrame(t) {
+  const p = Q.get('plan'); const pl = p ? PLAN[p] : (t < 5 ? PLAN.A : t < 10 ? PLAN.B : PLAN.C);
+  pl.ciz(t);
+}
+function renderAt(t) { renderFrame(t); return cv; }
+Object.assign(window, { renderFrame, renderFrameMB: renderFrame, renderAt });
+window.READY = false;
+window.ready = (async () => { MK.init(W, H, { rs: RS }); MK.toz([X0 + .2, .1, ZF + 1], [X1 - .2, 5.6, ZN - 1], 2600, 11); window.READY = true; })();
+window.ready.then(() => { if (!Q.has('render')) { const t0 = performance.now(); const d = () => { renderFrame(((performance.now() - t0) / 1000) % DUR); requestAnimationFrame(d); }; d(); } }).catch(e => { window.HATA = String(e && e.stack || e); console.error(e); });
+</script>
+</body></html>

@@ -114,7 +114,7 @@ const MANKEN = (() => {
         k += .005 * g(p, [0, -.056, .08], .024) - .003 * g(p, [0, -.075, .085], .012);                                        // ağız çevresi + çene çukuru
         k += .011 * g(p, [0, -.098, .07], .02) + .006 * g(p, [.045, -.085, .03], .02) + .006 * g(p, [-.045, -.085, .03], .02); // çene + çene köşeleri
         k += .012 * g(p, [.074, .0, -.008], .017) + .012 * g(p, [-.074, .0, -.008], .017);                                    // kulak
-        if (p[1] > .045 && (p[2] < .055 || p[1] > .085)) { k += .008; ton = .32; }                                             // saç kütlesi
+        if ((p[1] > .045 && (p[2] < .055 || p[1] > .085)) || (p[2] < -.005 && p[1] > -.075) || (p[2] < .03 && Math.abs(p[0]) > .05 && p[1] > -.01 && p[1] < .06)) { k += .008; ton = .32; }   // saç: tepe, ense ve şakaklar (arkadan bakınca ten yüz gibi okunmasın)
         if (p[1] < -.06 && p[2] < .02) ton = .9;
         const n = [d[0] / ax, d[1] / ay, d[2] / az], nl = Math.hypot(...n);
         p = [p[0] + n[0] / nl * k + C[0], p[1] + n[1] / nl * k + C[1], p[2] + n[2] / nl * k + C[2]];
@@ -327,7 +327,7 @@ void main(){
     M.mesh('bas', bas());
     M.mesh('uyluk', uzuv(O.uyluk, .078, .056, { orta: [[0, 1], [.35, 1.04], [1, 1]] }));
     M.mesh('baldir', uzuv(O.baldir, .054, .04, { orta: [[0, 1], [.3, 1.08], [1, 1]] }));
-    M.mesh('pazu', uzuv(O.pazu, .052, .042, { dilim: 8 }));
+    M.mesh('pazu', uzuv(O.pazu, .044, .04, { dilim: 8 }));
     M.mesh('onkol', uzuv(O.onkol, .042, .033, { dilim: 8 }));
     M.mesh('el', uzuv(O.el * .72, .03, .022, { dilim: 6, sx: 1.25, sz: .6 }));
     M.mesh('ayak', ayakkabi());
@@ -359,7 +359,8 @@ void main(){
   // nesne kimliği: kontur nesne sınırında çizilir. Aynı kütle sayılacak parçalar aynı kimliği paylaşır (figürün bütün parçaları).
   let kimSay = 1;
   // ekle(mesh, matris, {ton, duz, cam, kim, es})
-  M.ekle = (mesh, mat, o = {}) => { SAH.ciz.push({ mesh, mat, ton: o.ton ?? .6, duz: o.duz ? 1 : 0, cam: o.cam ? 1 : 0, kim: o.kim ?? (kimSay = kimSay % 250 + 1), es: o.es || [1, 1, 1], golgeYok: o.golgeYok }); };
+  // boya kipinde: o.renk [r,g,b] (0..1, yoksa ton gri), o.isima (ışık saçan yüzey: kapı, pencere, lamba; 0..)
+  M.ekle = (mesh, mat, o = {}) => { SAH.ciz.push({ mesh, mat, ton: o.ton ?? .6, renk: o.renk || null, isima: o.isima || 0, duz: o.duz ? 1 : 0, cam: o.cam ? 1 : 0, kim: o.kim ?? (kimSay = kimSay % 250 + 1), es: o.es || [1, 1, 1], golgeYok: o.golgeYok }); };
   // kutu: merkez, boyut [x,y,z], {don: yaw rad, ton, kim}
   M.kutu = (c, s, o = {}) => {
     const a = o.don || 0, ca = Math.cos(a), sa = Math.sin(a), m = new Float32Array(16);
@@ -369,13 +370,15 @@ void main(){
   // figür: poz (ISKELET) → parçalar. o.ton (giysi, koyu), o.yuz (ten), o.gozluk
   M.figur = (poz, o = {}) => {
     const K = I().kemikler(poz), kim = o.kim ?? 251, gt = o.ton ?? .07, yt = o.yuz ?? .19, f = m4.cer;
-    const kemik = (c, ad, t = gt, ek = {}) => M.ekle(ad, f(c), { ton: t, kim, ...ek });
-    kemik(K.pelvis, 'karin'); kemik(K.gogus, 'gogus');
-    kemik(K.boyun, 'boyun', yt * .8);
-    kemik(K.bas, 'bas', yt);
+    // boya kipinde renkler: o.giysi (palto), o.ten, o.pantolon
+    const GR = o.giysi || [.16, .13, .16], TN = o.ten || [.62, .45, .36], PN = o.pantolon || GR.map(x => x * .8);
+    const kemik = (c, ad, t = gt, ek = {}) => M.ekle(ad, f(c), { ton: t, kim, renk: GR, ...ek });
+    kemik(K.pelvis, 'karin', gt, { renk: PN }); kemik(K.gogus, 'gogus');
+    kemik(K.boyun, 'boyun', yt * .8, { renk: TN });
+    kemik(K.bas, 'bas', yt, { renk: TN });
     if (o.gozluk) M.ekle('gozluk', f(K.bas), { ton: .08, kim, cam: 1, duz: 1 });
-    for (const b of K.bacak) { kemik(b.uyluk, 'uyluk'); kemik(b.baldir, 'baldir'); kemik(b.ayak, 'ayak', gt * .6); }
-    for (const k of K.kol) { kemik(k.pazu, 'pazu'); kemik(k.onkol, 'onkol'); kemik(k.el, 'el', yt * .85); }
+    for (const b of K.bacak) { kemik(b.uyluk, 'uyluk', gt, { renk: PN }); kemik(b.baldir, 'baldir', gt, { renk: PN }); kemik(b.ayak, 'ayak', gt * .6, { renk: PN.map(x => x * .6) }); }
+    for (const k of K.kol) { kemik(k.pazu, 'pazu'); kemik(k.onkol, 'onkol'); kemik(k.el, 'el', yt * .85, { renk: TN.map(x => x * .9) }); }
     return K;
   };
   // dünya noktası → ekran (W×H piksel; 2B plakalara iğnelemek için)
@@ -383,6 +386,7 @@ void main(){
 
   // ---------------- çizim ----------------
   M.ciz = (ctx) => {
+    if (SAH.o.kip === 'boya') return cizBoya(ctx);
     const o = SAH.o, L = SAH.L;
     const pal = typeof o.palet === 'object' ? o.palet : PALET[o.palet || 'r8'];
     const tohum = Math.floor((o.t || 0) * 15) % 97 + 1;     // iki karede bir (30 fps)
@@ -425,6 +429,221 @@ void main(){
   };
   // ölçüm: GPU işini bitir (kare süresi ölçerken)
   M.bitir = () => { const px = new Uint8Array(4); gl.readPixels(0, 0, 1, 1, gl.RGBA, gl.UNSIGNED_BYTE, px); };
+
+  // =====================================================================================================
+  // BOYA KİPİ (o.kip = 'boya'): kullanıcının örneklerinden (26 Kasım): renkli ışık, hava, boya izi, toz.
+  //   Sıcak ışık / soğuk gölge; ışık hüzmesi gölge haritasında yürüyerek (gerçek: pencereden geçen ışık şerit şerit);
+  //   sis derinlikle; ışık saçan yüzeylerin çevresinde parıltı; hüzmede yanan toz zerreleri; nesne uzayında fırça darbesi.
+  //   Geçişler: gölge haritası → ana geçiş (2 hedef: renk, [derinlik, kimlik, parıltı]) → toz noktaları → son işlem.
+  // =====================================================================================================
+  const FS_B = `#version 300 es
+precision highp float;
+in vec3 vW, vN, vO; in vec4 vL; in vec2 vE;
+layout(location = 0) out vec4 o0; layout(location = 1) out vec4 o1;
+uniform sampler2D tS;
+uniform mat4 uL;
+uniform vec3 uLp, uLd, uKam, uEs, uRenk, uIsikR, uGolR, uSisR;
+uniform float uSpot, uCos, uOrtam, uKim, uDuz, uTohum, uFirca, uCam, uKaz, uDis, uYan, uCamY, uIsima, uSisY, uHuzme, uUzak, uAdim;
+uniform vec4 uNk[8]; uniform vec3 uNr[8]; uniform int uNn;   // gölgesiz renkli nokta ışıklar (kapı, lamba): konum + yarıçap, renk
+${GURULTU}
+float golge(vec3 p){ vec4 l = uL * vec4(p, 1.); vec3 c = l.xyz / l.w * .5 + .5;
+  if (c.x < 0. || c.x > 1. || c.y < 0. || c.y > 1. || c.z > 1.) return uDis;
+  float s = step(c.z - uYan * 2., texture(tS, c.xy).r);
+  if (uSpot > .5) s *= step(uCos, dot(normalize(p - uLp), uLd));
+  return s; }
+void main(){
+  vec3 n = normalize(uDuz > .5 ? cross(dFdx(vW), dFdy(vW)) : vN);
+  if (!gl_FrontFacing && uDuz < .5) n = -n;
+  vec3 L = uSpot > .5 ? normalize(uLp - vW) : -uLd;
+  float nl = max(dot(n, L), 0.);
+  vec3 lc = vL.xyz / vL.w * .5 + .5;
+  float yan = uYan * (1. + 2.5 * (1. - nl));
+  float gol = (lc.x < 0. || lc.x > 1. || lc.y < 0. || lc.y > 1. || lc.z > 1.) ? uDis : step(lc.z - yan, texture(tS, lc.xy).r);
+  vec3 q = vO * uEs; float tt = uTohum * 7.31;
+  // fırça darbesi: nesne uzayında yönlü (yatay yüzeyde uzun, dikeyde düşey), iki ölçek
+  float kil = vn(vec2((q.x + q.z) * 18. + tt * .3, q.y * 2.2 + tt * .11)) * .6 + vn(vec2((q.x - q.z) * 7. - tt * .2, q.y * 1.1 + 3.1)) * .4;
+  float yat = vn(vec2(q.x * 2.4 + tt * .1, q.z * 16. + q.y * 9.));
+  float darbe = mix(kil, yat, step(.7, abs(n.y)));
+  float lek = vn(q.xy * 3. + q.zy * 2.5 + 5.);
+  float br = (darbe - .5);
+  float koni = 1.;
+  if (uSpot > .5) koni = step(uCos + br * .004 * uFirca, dot(normalize(vW - uLp), uLd));
+  float isik = nl * gol * koni;
+  float ac = smoothstep(.0, .2 + br * .35 * uFirca, isik);
+  float yuzey = mix(.45, 1., smoothstep(.2 + br * .12, .5 + br * .12, nl));
+  vec3 alb = uRenk * vE.y * (1. + br * .38 * uFirca);
+  alb *= mix(vec3(.94, .98, 1.08), vec3(1.07, 1., .9), lek);           // darbe darbe sıcak-soğuk kayması
+  float oy = uCam > .5 ? 0. : vE.x;
+  // gölge ışıkla aynı yüzeyde: soğuk ortam + tabandan hafif sıcak sekme
+  vec3 gol_ = uGolR * uOrtam * (1. - oy * .8) * (1. + .35 * max(-n.y, 0.));
+  vec3 nok = vec3(0.);
+  for (int i = 0; i < 8; i++) { if (i >= uNn) break; vec3 dv = uNk[i].xyz - vW; float dd = length(dv);
+    float a = max(dot(n, dv / dd), 0.) / (1. + dd * dd / (uNk[i].w * uNk[i].w)) * (1. - smoothstep(uNk[i].w * 2.2, uNk[i].w * 3., dd));
+    nok += uNr[i] * smoothstep(.0, .12 + br * .1 * uFirca, a) * (.55 + .45 * smoothstep(.15, .5, a)); }
+  vec3 c = alb * (gol_ + uIsikR * ac * yuzey * uKaz * (1. - oy * .9) + nok * (1. - oy * .6));
+  if (uIsima > 0.) c = uRenk * uIsima * (1. + br * .3 + (lek - .5) * .25);   // ışık saçan yüzey ışık almaz, kendisi ışıktır
+  // parıltı (gözlük)
+  float par = 0.;
+  if (uCam > .5) { vec3 Vv = normalize(uKam - vW); vec3 Rr = reflect(-L, n); float sp = pow(max(dot(Rr, Vv), 0.), 6.) * gol * koni;
+    float lx = vO.x - sign(vO.x) * .025, ly = vO.y - uCamY; par = step(.2, sp) * step(abs(lx * .9 + ly - .003), .0014) * step(abs(lx + .004), .008);
+    if (vE.x > .5 && par < .5) discard; }
+  // hava: sis + ışık hüzmesi (kameradan yüzeye 14 adım; adım başı titreşim tanecik verir, iki karede bir değişir)
+  vec3 Vw = vW - uKam; float D = length(Vw);
+  float sis = 1. - exp(-D * uSisY);
+  float hz = 0.;
+  if (uHuzme > 0.) {
+    float j = h21(gl_FragCoord.xy * .73 + uTohum * 1.37);
+    float Dm = min(D, uAdim);
+    for (int i = 0; i < 9; i++) { float u = (float(i) + j) / 9.; hz += golge(uKam + Vw / D * Dm * u); }
+    hz = hz / 9. * Dm;
+  }
+  c = mix(c, uSisR, sis) + uIsikR * hz * uHuzme;
+  o0 = vec4(c, 1.);
+  o1 = vec4(clamp(D / uUzak, 0., 1.), uKim / 255., par, 1.);
+}`;
+  // toz zerreleri: noktalar; yalnız ışığın içindekiler görünür (gölge haritası), yuvarlak, sıcak
+  const VS_T = `#version 300 es
+in vec3 aP;
+uniform mat4 uVP, uL; uniform float uT, uBoy;
+out vec3 vW; out vec4 vL; out float vH;
+void main(){
+  vec3 b = aP;
+  vec3 p = b + vec3(sin(uT * .23 + b.z * 2.1 + b.y), sin(uT * .17 + b.x * 3.3) * .7 - uT * .015, cos(uT * .19 + b.y * 2.7 + b.x)) * .22;
+  vW = p; vL = uL * vec4(p, 1.); vH = fract(sin(dot(b, vec3(12.9898, 78.233, 37.719))) * 43758.5453);
+  gl_Position = uVP * vec4(p, 1.);
+  gl_PointSize = clamp(uBoy * (.6 + vH) / gl_Position.w, 1., 9.);
+}`;
+  const FS_T = `#version 300 es
+precision highp float;
+in vec3 vW; in vec4 vL; in float vH;
+layout(location = 0) out vec4 o0; layout(location = 1) out vec4 o1;
+uniform sampler2D tS; uniform vec3 uIsikR, uKam, uLp, uLd; uniform float uDis, uSpot, uCos, uUzak, uParla;
+void main(){
+  vec2 d = gl_PointCoord - .5; if (dot(d, d) > .25) discard;
+  vec3 c = vL.xyz / vL.w * .5 + .5;
+  float s = (c.x < 0. || c.x > 1. || c.y < 0. || c.y > 1. || c.z > 1.) ? uDis : step(c.z - .002, texture(tS, c.xy).r);
+  if (uSpot > .5) s *= step(uCos, dot(normalize(vW - uLp), uLd));
+  if (s < .5) discard;
+  o0 = vec4(uIsikR * uParla * (.55 + vH * .9), 1.);
+  o1 = vec4(clamp(length(vW - uKam) / uUzak, 0., 1.), 254. / 255., 0., 1.);
+}`;
+  const FS_QB = `#version 300 es
+precision highp float;
+in vec2 uv; out vec4 o;
+uniform sampler2D tM, tX, tK, tL, tA; uniform vec2 res, mres; uniform float rs, seed, gren, kontur, vin, surt, pariltiG, doy;
+uniform vec3 pGol, pIsik, pM, pP;
+${GURULTU}
+float lum(vec3 c){ return dot(c, vec3(.299, .587, .114)); }
+void main(){
+  vec2 fc = gl_FragCoord.xy; vec2 st = vec2(uv.x, 1. - uv.y);
+  // kuru fırça saçağı (seyrek, kısa)
+  float sut = floor(fc.x / (2.5 * rs));
+  float boy = pow(h21(vec2(sut + 31., floor(fc.y / (90. * rs)) + seed)), 4.) * step(.82, h21(vec2(sut, seed * 1.7)));
+  vec2 uvb = uv + vec2((vn(vec2(fc.y / (9. * rs), seed * 3.)) - .5) * 2. / mres.x * rs, boy * surt * 12. * rs / res.y);
+  vec3 c = texture(tM, uvb).rgb; vec4 x = texture(tX, uvb);
+  // ışık saçan yerlerin çevresinde parıltı (12 dokunuş, iki halka)
+  vec3 g = vec3(0.);
+  for (int i = 0; i < 12; i++) { float a = float(i) * .5236 + seed * .1; float r = (i < 6 ? 10. : 26.) * rs; vec3 s = texture(tM, uv + vec2(cos(a), sin(a)) * r / res).rgb; g += max(s - .62, 0.) * (i < 6 ? 1. : .6); }
+  c += g / 12. * pariltiG;
+  // ince koyu kenar: yalnız nesne sınırında ve derinlik sıçramasında (siluet), kesik kesik
+  vec2 d = 1. / mres; float ek = 0.;
+  for (int i = 0; i < 4; i++) { vec2 o2 = i == 0 ? vec2(d.x, 0) : (i == 1 ? vec2(-d.x, 0) : (i == 2 ? vec2(0, d.y) : vec2(0, -d.y)));
+    vec4 n = texture(tX, uvb + o2 * 1.3); ek = max(ek, step(.5 / 255., abs(n.g - x.g)) * step(.015, abs(n.r - x.r))); }
+  c = mix(c, c * pM, ek * kontur * step(.3, h21(floor(fc / (5. * rs)) + seed * 3.1)) * .8);
+  // ton ayarı: gölgeler mora, ışıklar altına (bölünmüş tonlama); doygunluk
+  float l = lum(c);
+  c = mix(c, c * pGol * 1.6, (1. - smoothstep(.0, .45, l)) * .35);
+  c = mix(c, c * pIsik * 1.15, smoothstep(.5, 1., l) * .3);
+  c = mix(vec3(lum(c)), c, doy);
+  // plakalar (2B ekler): a ışık (siyah zemine beyaz), k koyu, l mürekkep
+  float dA = lum(texture(tA, st).rgb); c += pIsik * dA * .9;
+  float dK = 1. - lum(texture(tK, st).rgb); c = mix(c, c * .25, dK);
+  float dL = 1. - lum(texture(tL, st).rgb); c = mix(c, pM * .4, smoothstep(.35, .62, dL));
+  c = mix(c, pP, x.b);
+  // gren (iki karede bir) + vinyet
+  c += (h21(floor(fc / (1.5 * rs)) + seed * 17.13) - .5) * gren;
+  c *= 1. - vin * smoothstep(.45, 1.05, length((st - .5) * vec2(1.25, 1.)));
+  o = vec4(c, 1.);
+}`;
+  let PB = null, fboB = null, texB0, texB1, tozVao = null, tozN = 0;
+  function kurBoya() {
+    PB = { a: prog(VS_A, FS_B, ['aP', 'aN', 'aE']), t: prog(VS_T, FS_T, ['aP']), q: prog(VS_Q, FS_QB, ['p']) };
+    const mw = Math.round(DWp * (SAH.o.olcek ?? 1)), mh = Math.round(DHp * (SAH.o.olcek ?? 1));
+    const tx = () => { const t = gl.createTexture(); gl.bindTexture(gl.TEXTURE_2D, t); gl.texStorage2D(gl.TEXTURE_2D, 1, gl.RGBA8, mw, mh);
+      for (const [k, v] of [[gl.TEXTURE_MIN_FILTER, gl.LINEAR], [gl.TEXTURE_MAG_FILTER, gl.LINEAR], [gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE], [gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE]]) gl.texParameteri(gl.TEXTURE_2D, k, v); return t; };
+    texB0 = tx(); texB1 = tx();
+    const rb = gl.createRenderbuffer(); gl.bindRenderbuffer(gl.RENDERBUFFER, rb); gl.renderbufferStorage(gl.RENDERBUFFER, gl.DEPTH_COMPONENT24, mw, mh);
+    fboB = gl.createFramebuffer(); gl.bindFramebuffer(gl.FRAMEBUFFER, fboB);
+    gl.framebufferTexture2D(gl.FRAMEBUFFER, gl.COLOR_ATTACHMENT0, gl.TEXTURE_2D, texB0, 0); gl.framebufferTexture2D(gl.FRAMEBUFFER, gl.COLOR_ATTACHMENT1, gl.TEXTURE_2D, texB1, 0);
+    gl.framebufferRenderbuffer(gl.FRAMEBUFFER, gl.DEPTH_ATTACHMENT, gl.RENDERBUFFER, rb);
+    gl.drawBuffers([gl.COLOR_ATTACHMENT0, gl.COLOR_ATTACHMENT1]);
+    fboB.w = mw; fboB.h = mh;
+    gl.bindFramebuffer(gl.FRAMEBUFFER, null);
+  }
+  // toz: kutu [min, max] içinde n zerre (tohumlu, bir kez); boy piksel ölçeği
+  M.toz = (kutuA, kutuB, n = 900, tohum = 7) => {
+    let s = tohum; const r = () => { s = (s * 16807) % 2147483647; return (s - 1) / 2147483646; };
+    const a = new Float32Array(n * 3); for (let i = 0; i < n; i++) for (let k = 0; k < 3; k++) a[i * 3 + k] = kutuA[k] + (kutuB[k] - kutuA[k]) * r();
+    tozVao = gl.createVertexArray(); gl.bindVertexArray(tozVao); const b = gl.createBuffer(); gl.bindBuffer(gl.ARRAY_BUFFER, b); gl.bufferData(gl.ARRAY_BUFFER, a, gl.STATIC_DRAW);
+    gl.enableVertexAttribArray(0); gl.vertexAttribPointer(0, 3, gl.FLOAT, false, 0, 0); gl.bindVertexArray(null); tozN = n;
+  };
+  function cizBoya(ctx) {
+    const o = SAH.o, L = SAH.L; if (!PB) kurBoya();
+    const tohum = Math.floor((o.t || 0) * 15) % 97 + 1, R = o.renkler || {};
+    const isikR = R.isik || [1.0, .78, .5], golR = R.golge || [.36, .32, .62], sisR = R.sis || [.09, .07, .13];
+    gl.enable(gl.DEPTH_TEST); gl.depthFunc(gl.LEQUAL);
+    // 1. gölge haritası
+    gl.bindFramebuffer(gl.FRAMEBUFFER, smFbo); gl.viewport(0, 0, smN, smN); gl.clear(gl.DEPTH_BUFFER_BIT);
+    gl.useProgram(P.g.p); gl.uniformMatrix4fv(P.g.U.uL, false, SAH.LVP);
+    gl.enable(gl.POLYGON_OFFSET_FILL); gl.polygonOffset(1.5, 3);
+    for (const d of SAH.ciz) { if (d.golgeYok) continue; const m = MESH[d.mesh]; gl.uniformMatrix4fv(P.g.U.uM, false, d.mat); gl.bindVertexArray(m.v); gl.drawArrays(gl.TRIANGLES, 0, m.n); }
+    gl.disable(gl.POLYGON_OFFSET_FILL);
+    // 2. ana geçiş
+    gl.bindFramebuffer(gl.FRAMEBUFFER, fboB); gl.viewport(0, 0, fboB.w, fboB.h);
+    gl.clearBufferfv(gl.COLOR, 0, new Float32Array([...sisR, 1])); gl.clearBufferfv(gl.COLOR, 1, new Float32Array([1, 0, 0, 1])); gl.clear(gl.DEPTH_BUFFER_BIT);
+    const U = PB.a.U; gl.useProgram(PB.a.p);
+    gl.uniformMatrix4fv(U.uVP, false, SAH.VP); gl.uniformMatrix4fv(U.uL, false, SAH.LVP);
+    gl.activeTexture(gl.TEXTURE0); gl.bindTexture(gl.TEXTURE_2D, smTex); gl.uniform1i(U.tS, 0);
+    gl.uniform3fv(U.uLp, L.konum); gl.uniform3fv(U.uLd, SAH.ld); gl.uniform3fv(U.uKam, SAH.kam);
+    const spot = L.tip === 'spot' ? 1 : 0, cosA = Math.cos((L.aci || 30) * Math.PI / 180), yanV = spot ? .00012 : .006 / ((L.uzak || 40) - .1);
+    gl.uniform1f(U.uSpot, spot); gl.uniform1f(U.uCos, cosA); gl.uniform1f(U.uDis, spot); gl.uniform1f(U.uYan, yanV);
+    gl.uniform1f(U.uOrtam, o.ortam ?? .35); gl.uniform1f(U.uTohum, tohum); gl.uniform1f(U.uFirca, o.firca ?? 1); gl.uniform1f(U.uKaz, L.kazanc ?? 1.6);
+    gl.uniform1f(U.uCamY, BAS_MERKEZ[1] + .012);
+    gl.uniform3fv(U.uIsikR, isikR); gl.uniform3fv(U.uGolR, golR); gl.uniform3fv(U.uSisR, sisR);
+    const NK = (o.noktalar || []).slice(0, 8), nk = new Float32Array(32), nr = new Float32Array(24);
+    NK.forEach((n, i) => { nk.set([...n.konum, n.yaricap || 2], i * 4); nr.set(n.renk.map(x => x * (n.guc ?? 1)), i * 3); });
+    gl.uniform4fv(U['uNk[0]'], nk); gl.uniform3fv(U['uNr[0]'], nr); gl.uniform1i(U.uNn, NK.length);
+    gl.uniform1f(U.uSisY, o.sis ?? .035); gl.uniform1f(U.uHuzme, o.huzme ?? .03); gl.uniform1f(U.uUzak, (o.kamera || {}).uzak || 60); gl.uniform1f(U.uAdim, o.huzmeBoy ?? 18);
+    for (const d of SAH.ciz) {
+      const m = MESH[d.mesh], rk = d.renk || [d.ton, d.ton, d.ton];
+      gl.uniformMatrix4fv(U.uM, false, d.mat); gl.uniform3fv(U.uRenk, rk); gl.uniform1f(U.uIsima, d.isima); gl.uniform1f(U.uKim, d.kim); gl.uniform1f(U.uDuz, d.duz); gl.uniform1f(U.uCam, d.cam);
+      gl.uniform3fv(U.uEs, d.es); gl.bindVertexArray(m.v); gl.drawArrays(gl.TRIANGLES, 0, m.n);
+    }
+    // 3. toz
+    if (tozVao && (o.toz ?? 1) > 0) {
+      const T = PB.t.U; gl.useProgram(PB.t.p);
+      gl.uniformMatrix4fv(T.uVP, false, SAH.VP); gl.uniformMatrix4fv(T.uL, false, SAH.LVP); gl.uniform1f(T.uT, o.t || 0); gl.uniform1f(T.uBoy, (o.tozBoy ?? 14) * RS * (SAH.o.olcek ?? 1));
+      gl.activeTexture(gl.TEXTURE0); gl.bindTexture(gl.TEXTURE_2D, smTex); gl.uniform1i(T.tS, 0);
+      gl.uniform3fv(T.uIsikR, isikR); gl.uniform3fv(T.uKam, SAH.kam); gl.uniform3fv(T.uLp, L.konum); gl.uniform3fv(T.uLd, SAH.ld);
+      gl.uniform1f(T.uDis, spot); gl.uniform1f(T.uSpot, spot); gl.uniform1f(T.uCos, cosA); gl.uniform1f(T.uUzak, (o.kamera || {}).uzak || 60); gl.uniform1f(T.uParla, o.toz ?? 1);
+      gl.bindVertexArray(tozVao); gl.drawArrays(gl.POINTS, 0, tozN);
+    }
+    gl.disable(gl.DEPTH_TEST);
+    // 4. son işlem
+    gl.bindFramebuffer(gl.FRAMEBUFFER, null); gl.viewport(0, 0, DWp, DHp);
+    const Q = PB.q.U; gl.useProgram(PB.q.p);
+    gl.activeTexture(gl.TEXTURE0); gl.bindTexture(gl.TEXTURE_2D, texB0); gl.uniform1i(Q.tM, 0);
+    gl.activeTexture(gl.TEXTURE1); gl.bindTexture(gl.TEXTURE_2D, texB1); gl.uniform1i(Q.tX, 1);
+    [cK, cL, cA].forEach((c, i) => { gl.activeTexture(gl.TEXTURE2 + i); gl.bindTexture(gl.TEXTURE_2D, texP[i]); gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, c); });
+    gl.uniform1i(Q.tK, 2); gl.uniform1i(Q.tL, 3); gl.uniform1i(Q.tA, 4);
+    gl.uniform2f(Q.res, DWp, DHp); gl.uniform2f(Q.mres, fboB.w, fboB.h); gl.uniform1f(Q.rs, RS); gl.uniform1f(Q.seed, tohum);
+    gl.uniform1f(Q.gren, o.gren ?? .05); gl.uniform1f(Q.kontur, o.kontur ?? .6); gl.uniform1f(Q.vin, o.vinyet ?? .35); gl.uniform1f(Q.surt, o.surtme ?? .6);
+    gl.uniform1f(Q.pariltiG, o.parilti ?? 2.2); gl.uniform1f(Q.doy, o.doygunluk ?? 1.05);
+    gl.uniform3fv(Q.pGol, golR); gl.uniform3fv(Q.pIsik, isikR); gl.uniform3fv(Q.pM, R.murekkep || [.35, .25, .4]); gl.uniform3fv(Q.pP, R.parilti || [1, .85, .55]);
+    gl.bindVertexArray(quad); gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4); gl.bindVertexArray(null);
+    ctx.save(); ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.globalAlpha = 1; ctx.globalCompositeOperation = 'source-over'; ctx.filter = 'none';
+    ctx.drawImage(glc, 0, 0, ctx.canvas.width, ctx.canvas.height); ctx.restore();
+  }
   return M;
 })();
 if (typeof window !== 'undefined') window.MANKEN = MANKEN;

@@ -51,7 +51,7 @@
   const OLCU = {
     S, uyluk: 0.44, baldir: 0.44, kalcaYan: 0.085, ayakYan: 0.085,
     karin: 0.24, gogus: 0.28, boyun: 0.07, bas: 0.25,
-    omuzYan: 0.175, omuzY: 0.25, pazu: 0.30, onkol: 0.26, el: 0.17,
+    omuzYan: 0.165, omuzY: 0.235, pazu: 0.30, onkol: 0.26, el: 0.17,
     kalcaY: (120 - (118.4 - 46 * 0.983)) * S,            // duruşta kalça eklemi yüksekliği (~0,895 m)
   };
 

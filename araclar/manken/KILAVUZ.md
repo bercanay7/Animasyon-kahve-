@@ -65,3 +65,20 @@ plan('P04', (ctx, st) => {
 - Dört işçi aynı çekirdekleri paylaşınca 0,9 sn/kare; duvar saati ≈ 2,9 kare/sn (25 sn sahne 4–4,5 dk). 10 dakikalık film ≈ 1 sa 45 dk.
 - Bütçe (tek işçide ≤ 1 sn) tuttu; 15 kare/sn'ye gerek kalmadı.
 - Hızlandırma gerekirse: `MANKEN.init(..., {olcek: .75})` ana geçişi küçültür; `smN: 512` gölge haritasını küçültür.
+
+## Boya kipi (`kip: 'boya'`; 26 Kasım, kullanıcının örneklerinden)
+Kullanıcı r8/r1 kalıbını bıraktı; gönderdiği örneklerin (geyik, iskambil, merdiven ve çerçeveler, satranç, orkestra, BMW) ortak dili bu kipte:
+- **Renkli ışık:** sıcak ışık (`renkler.isik`), soğuk gölge (`renkler.golge`).
+- **Hava:** sis (`sis`) ve gölge haritasında yürüyen ışık hüzmesi (`huzme`, `huzmeBoy`).
+- **Işık saçan yüzey:** `isima`; çevresinde parıltı (`parilti`).
+- **Gölgesiz renkli nokta ışıklar:** `noktalar: [{konum, yaricap, renk, guc}]`, en çok 8.
+- **Toz:** hüzmede yanan zerreler (`MANKEN.toz(min, max, n)`, `toz`, `tozBoy`).
+- **Fırça:** nesne uzayında renk ve değer oynayan darbeler.
+- **Ton ayarı:** gölge mora, ışık altına; `doygunluk`.
+
+Nesne rengi `renk: [r, g, b]`; figür `M.figur(poz, {giysi, pantolon, ten})`. Ana geçiş `olcek: .6` ile küçük çizilir (boyalı görüntü buna dayanır; SwiftShader'da hüzme pahalı).
+
+Deneme: `kurye.html` (15 sn, kanal kimliği adayı). Karanlık salonda yürüyen kurye; soldaki pencerelerden altın hüzme; sağda her biri başka bir çağa açılan renkli kapı (gök + ufuk + tek siluet). Kurye bir kapının önünde durup ona döner.
+- Ölçüm: tek işçide 0,85–1,2 sn/kare (bütçenin sınırında).
+- Simge taraması: kapı siluetlerinde haç, minare, kubbe, hilal, yıldız yok; pencereler yalnız dikey boşluk.
+- Baş: ense ve şakaklar saç kütlesidir. Arkadan bakınca ten bir yüz gibi okunuyordu.
