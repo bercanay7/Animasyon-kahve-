@@ -13,8 +13,8 @@
 // Motor: dorian-gray/kapi/vendor (impasto + plate; Lemo-Opuscar, MIT). Durağan katmanlar yüklenirken bir kez boyanır (Hertzmann: kaba → ince).
 // Canlı katmanlar her iki karede bir yeniden boyanır (15 çizim/sn): figür (3B manken → darbe), rüzgârdaki başaklar, ışık, mektup/kuş, polen.
 // Belirlenimci: Math.random yok; tohumlar t'den.
-import { Impasto, Strokes, KNIFE, BRUSH, DAB } from '../dorian-gray/kapi/vendor/impasto.js';
-import { Ref, paintRef } from '../dorian-gray/kapi/vendor/plate.js';
+import { Impasto, Strokes, KNIFE, BRUSH, DAB } from '../araclar/tablo/impasto.js';
+import { Ref, paintRef } from '../araclar/tablo/plate.js';
 const Q = new URLSearchParams(location.search);
 const W = 1920, H = 1080, T = window.TABLO, I = window.ISKELET, V = I.V, HR = window.HAREKET, MK = window.MANKEN;
 const sm = HR.yumusak, PI = Math.PI;
@@ -82,7 +82,11 @@ function katman(ad, ciz, d, o = {}) {
   ciz(R);
   const t0 = performance.now();
   const st = paintRef(Rf, { R: o.R || [26, 13, 6.5, 3.2, 1.7], T: o.T ?? 12, seed: o.seed ?? 3 });
-  KAT[ad] = { b: E.batch(st.data()), tex: E.texture(Rf.ctx.canvas, 1.2), n: st.n, d, sure: performance.now() - t0 };
+  const b = E.batch(st.data()), tex = E.texture(Rf.ctx.canvas, 1.2);
+  // önbellek: katman bir kez kendi dokusuna boyanır; karede yalnız kamerayla basılır
+  const k = E.onbellek(() => { E.under(tex, W, H, { t: 10 }); E.draw(b, { t: 10, wet: .35 }); });
+  const gl = E.gl; gl.deleteBuffer(b.buf); gl.deleteVertexArray(b.vao); gl.deleteTexture(tex);
+  KAT[ad] = { k, n: st.n, d, sure: performance.now() - t0 };
 }
 // kamera: yavaş yaklaşma (meşeye ve güneşe); katman derinliği d: 0 gök … 1 ön plan; sonda hafif yukarı (kuşlar)
 function kamera(t) {
@@ -195,7 +199,7 @@ function figur(t, S) {
 function renderFrame(t) {
   const k = kamera(t), tc = ikiser(t);
   E.begin([.1, .08, .12]);
-  const kat = ad => { const L = KAT[ad], cam = camK(k, L.d); E.under(L.tex, W, H, { cam, t: 10 }); E.draw(L.b, { cam, t: 10, wet: .35 }); return cam; };
+  const kat = ad => { const L = KAT[ad], cam = camK(k, L.d); E.bas(L.k, { cam }); return cam; };
   kat('gok');
   const SH = new Strokes(64); huzmeler(tc, SH); E.drawNow(SH.data(), { cam: camK(k, .1), t: 10 });
   kat('daglar');
