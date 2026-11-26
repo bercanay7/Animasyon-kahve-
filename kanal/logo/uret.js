@@ -16,7 +16,7 @@ const srv = http.createServer((q, r) => {
 
 // 1) Yalın işaret SVG'leri (yazısız, yalnız yol)
 for (const d of ['altin', 'lacivert', 'fildisi', 'tek_acik', 'tek_koyu'])
-  fs.writeFileSync(path.join(CIK, `isaret_${d}.svg`), ZK.svg(d, 800, d.startsWith('tek') ? {} : { daire: d === 'altin' }));
+  fs.writeFileSync(path.join(CIK, `isaret_${d}.svg`), ZK.svg(d, 800, d.startsWith('tek') ? {} : { daire: d === 'altin', olcek: d === 'altin' ? 1.08 : 1 }));
 
 // 2) Yazılı yatay SVG: harfler yola çevrilir (font gömülmez)
 try {
@@ -32,17 +32,19 @@ try {
     }
     return { d, x };
   };
-  for (const [ad, duzen] of [['yatay_lacivert', 'lacivert'], ['yatay_fildisi', 'fildisi']]) {
-    const k = ZK.DUZEN[duzen];
-    // işaret 528 birim yüksekliği 260 px'e iner; yazı 150 px, harf arası .06em
-    const olc = 260 / 528, isX = 80, yY = 60;
-    const t = yaziYolu('ZAMAN KURYESİ', isX + 400 * olc + 56, yY + 190, 150, 9);
-    const W = Math.ceil(t.x + 70), H = 380;
-    const zemin = duzen === 'lacivert' ? `<rect width="${W}" height="${H}" fill="${k.zemin}"/>` : `<rect width="${W}" height="${H}" fill="${k.zemin}"/>`;
+  // kilit düzen sayfa.html'deki kilit() ile aynı oranlar (boy 150)
+  const [kx, ky, kw, kh] = ZK.KUTU.split(' ').map(Number);
+  for (const [ad, duzen, yaziR] of [['yatay_lacivert', 'lacivert', '#F3EAD7'], ['yatay_fildisi', 'fildisi', '#101B33']]) {
+    const k = ZK.DUZEN[duzen], boy = 150, ih = Math.round(boy * 1.52), iw = Math.round(ih * kw / kh);
+    const pad = 60, olc = ih / kh, gap = Math.round(boy * .36);
+    const capUst = fl.charToGlyph('Z').getBoundingBox().y2 * boy / fl.unitsPerEm;   // büyük harf yüksekliği
+    const taban = pad + ih / 2 + capUst / 2;                                          // yazı işaretle dikey ortalı
+    const t = yaziYolu('ZAMAN KURYESİ', pad + iw + gap, taban, boy, boy * .06);
+    const W = Math.ceil(t.x - boy * .06 + pad), H = ih + 2 * pad;
     fs.writeFileSync(path.join(CIK, `${ad}.svg`),
-      `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${H}" width="${W}" height="${H}">${zemin}` +
-      `<g transform="translate(${isX} ${yY}) scale(${olc}) translate(-200 -136)">${ZK.isaret(k.cam, k.kum)}</g>` +
-      `<path d="${t.d}" fill="${k.cam}"/></svg>`);
+      `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${H}" width="${W}" height="${H}"><rect width="${W}" height="${H}" fill="${k.zemin}"/>` +
+      `<g transform="translate(${pad} ${pad}) scale(${olc.toFixed(4)}) translate(${-kx} ${-ky})">${ZK.isaret(k.cam, k.soru)}</g>` +
+      `<path d="${t.d}" fill="${yaziR}"/></svg>`);
   }
 } catch (e) { console.log('yazılı SVG atlandı (opentype.js yok):', e.message); }
 
@@ -61,9 +63,9 @@ try {
   await cek('avatar', 'avatar_altin_800.png', 800, 800, '&d=altin');
   await cek('avatar', 'avatar_lacivert_800.png', 800, 800, '&d=lacivert');
   await cek('filigran', 'filigran_150.png', 150, 150, '&d=altin', { saydam: 1 });
-  await cek('yatay', 'yatay_lacivert.png', 1600, 400, '&d=lacivert&bg=%23101B33', { secici: '.yatay' });
-  await cek('yatay', 'yatay_fildisi.png', 1600, 400, '&d=fildisi&bg=%23F3EAD7', { secici: '.yatay' });
-  await cek('yatay', 'yatay_lacivert_saydam.png', 1600, 400, '&d=lacivert', { secici: '.yatay', saydam: 1 });
+  await cek('yatay', 'yatay_lacivert.png', 1700, 400, '&d=lacivert&bg=%23101B33', { secici: '.kilit' });
+  await cek('yatay', 'yatay_fildisi.png', 1700, 400, '&d=fildisi&bg=%23F3EAD7', { secici: '.kilit' });
+  await cek('yatay', 'yatay_lacivert_saydam.png', 1700, 400, '&d=lacivert', { secici: '.kilit', saydam: 1 });
   await cek('kapak', 'kanal_kapagi_2560.jpg', 2560, 1440);
   await cek('test', 'test_kucuk_boy.png', 1500, 600, '', { secici: '.sheet' });
   await b.close(); srv.close();

@@ -5,43 +5,39 @@
 @font-face{font-family:Cormorant;font-style:italic;font-weight:500;src:url(fonts/CormorantGaramond-italic-500-latin.woff2);unicode-range:U+0000-00FF,U+0131,U+2000-206F}
 @font-face{font-family:Cormorant;font-style:italic;font-weight:500;src:url(fonts/CormorantGaramond-italic-500-latin-ext.woff2);unicode-range:U+0100-0130,U+0132-02AF}
 html,body{margin:0;background:transparent}
-.yatay{display:flex;align-items:center;gap:56px;padding:60px 80px;width:max-content}
-.yazi{display:flex;flex-direction:column;gap:10px}
-.ad{font:600 150px/1 Fraunces;letter-spacing:.06em;white-space:nowrap}
-.slogan{font:italic 500 66px/1 Cormorant;white-space:nowrap}
 .sheet{font:14px sans-serif;width:1500px}
 .row{display:flex;align-items:center;gap:22px;padding:16px 22px}
 .c{border-radius:50%;overflow:hidden;line-height:0;display:inline-block}
 .lbl{font:12px monospace;opacity:.6}
 </style><script src="logo.js"></script></head><body><script>
 const q = new URLSearchParams(location.search), m = q.get('m');
-const R = ZK.RENK;
-function yatay(duzen, sloganli = true) {
-  const d = ZK.DUZEN[duzen], yazi = d.cam, s = d.kum;
-  return `<div class="yatay"><svg viewBox="200 136 400 528" width="${260*400/528|0}" height="260">${ZK.isaret(d.cam, d.kum)}</svg>
-   <div class="yazi"><div class="ad" style="color:${yazi}">ZAMAN KURYESİ</div>${sloganli ? `<div class="slogan" style="color:${s}">geçmişe gider, bir soruyla döner</div>` : ''}</div></div>`;
+const [kx, ky, kw, kh] = ZK.KUTU.split(' ').map(Number);
+// Kilit düzen: işaret yüksekliği = büyük harf yüksekliğinin ~2,1 katı; slogan başlığın sol kenarına optik hizalı
+function kilit(duzen, boy, sloganli = true) {
+  const d = ZK.DUZEN[duzen], yazi = duzen === 'lacivert' ? '#F3EAD7' : '#101B33', vurgu = duzen === 'lacivert' ? '#E2B04F' : '#9C6F22';
+  const fs = boy, ih = Math.round(boy * 1.52);
+  return `<div class="kilit" style="display:flex;align-items:center;gap:${Math.round(boy*.36)}px;padding:${Math.round(boy*.4)}px ${Math.round(boy*.5)}px;width:max-content">
+   <svg viewBox="${ZK.KUTU}" width="${Math.round(ih*kw/kh)}" height="${ih}">${ZK.isaret(d.cam, d.soru)}</svg>
+   <div style="display:flex;flex-direction:column;gap:${Math.round(boy*.1)}px">
+    <div style="font:600 ${fs}px/1 Fraunces;letter-spacing:.06em;color:${yazi};white-space:nowrap">ZAMAN KURYESİ</div>
+    ${sloganli ? `<div style="font:italic 500 ${Math.round(fs*.44)}px/1 Cormorant;color:${vurgu};white-space:nowrap;margin-left:${Math.round(fs*.035)}px">geçmişe gider, bir soruyla döner</div>` : ''}
+   </div></div>`;
 }
-if (m === 'avatar') document.write(ZK.svg(q.get('d') || 'altin', 800, { olcek: 1.14 }));
-else if (m === 'filigran') document.write(ZK.svg(q.get('d') || 'altin', 150, { daire: 1, akissiz: 1, olcek: 1.14 }));
-else if (m === 'yatay') { document.body.style.background = q.get('bg') || 'transparent'; document.write(yatay(q.get('d') || 'lacivert', q.get('s') !== '0')); }
+if (m === 'avatar') document.write(ZK.svg(q.get('d') || 'altin', 800, { olcek: 1.08 }));
+else if (m === 'filigran') document.write(ZK.svg(q.get('d') || 'altin', 150, { daire: 1, akissiz: 1, olcek: 1.08 }));
+else if (m === 'yatay') { document.body.style.background = q.get('bg') || 'transparent'; document.write(kilit(q.get('d') || 'lacivert', 150, q.get('s') !== '0')); }
 else if (m === 'kapak') {
-  // kanal kapağı 2560×1440; telefonda görünen güvenli alan x 507–2053, y 508–931
-  const W = 2560, H = 1440, d = ZK.DUZEN.lacivert;
-  document.write(`<div style="position:relative;width:${W}px;height:${H}px;overflow:hidden;background:radial-gradient(ellipse 60% 55% at 50% 50%, #18264A 0%, #101B33 55%, #0B1326 100%)">
-   <svg style="position:absolute;left:0;top:0" width="${W}" height="${H}"><defs><pattern id="t" width="10" height="10" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="10" stroke="#000" stroke-width="2" opacity=".18"/></pattern></defs><rect width="${W}" height="${H}" fill="url(#t)"/></svg>
-   <div style="position:absolute;left:0;right:0;top:508px;height:423px;display:flex;align-items:center;justify-content:center">
-    <div style="display:flex;align-items:center;gap:64px">
-     <svg viewBox="200 136 400 528" width="${330*400/528|0}" height="330">${ZK.isaret(d.cam, d.kum)}</svg>
-     <div style="display:flex;flex-direction:column;gap:18px">
-      <div style="font:600 128px/1 Fraunces;letter-spacing:.06em;color:${d.cam};white-space:nowrap">ZAMAN KURYESİ</div>
-      <div style="font:italic 500 64px/1 Cormorant;color:${d.kum};white-space:nowrap">geçmişe gider, bir soruyla döner</div>
-      <div style="height:2px;background:${d.kum};opacity:.45;margin:10px 0 4px"></div>
-      <div style="font:600 30px/1 Fraunces;letter-spacing:.28em;color:${d.cam};opacity:.8;white-space:nowrap">MİTLER · TARİH · FELSEFE · KİTAPLAR · FİLMLER</div>
-     </div></div></div></div>`);
+  // kanal kapağı 2560×1440; telefonda görünen güvenli alan x 507–2053, y 508–931 (içerik payla, ~%85'e sığar)
+  const W = 2560, H = 1440;
+  document.write(`<div style="position:relative;width:${W}px;height:${H}px;overflow:hidden;background:radial-gradient(ellipse 60% 55% at 50% 50%, #17244A 0%, #101B33 55%, #0B1326 100%)">
+   <svg style="position:absolute;left:0;top:0" width="${W}" height="${H}"><defs><pattern id="t" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="9" stroke="#000" stroke-width="2" opacity=".16"/></pattern>
+    <radialGradient id="v" cx=".5" cy=".5" r=".75"><stop offset=".45" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".5"/></radialGradient></defs>
+    <rect width="${W}" height="${H}" fill="url(#t)"/><rect width="${W}" height="${H}" fill="url(#v)"/></svg>
+   <div style="position:absolute;left:0;right:0;top:508px;height:423px;display:flex;align-items:center;justify-content:center">${kilit('lacivert', 118)}</div></div>`);
 }
 else if (m === 'test') {
   // küçük boy testi: YouTube koyu ve açık akış, 98/48/36/24 px daire
-  const av = (s, d = 'altin') => `<span class="c">${ZK.svg(d, s, { olcek: 1.14 })}</span>`;
+  const av = (s, d = 'altin') => `<span class="c">${ZK.svg(d, s, { olcek: 1.08, akissiz: s < 60 })}</span>`;
   let h = '<div class="sheet">';
   for (const [bg, fg] of [['#0f0f0f', '#fff'], ['#fff', '#0f0f0f']]) {
     for (const d of ['altin', 'lacivert']) {
@@ -50,8 +46,7 @@ else if (m === 'test') {
       h += `<span style="display:flex;gap:12px;align-items:center;margin-left:20px">${av(36, d)}<span><b>Zaman Kuryesi</b> · 18 sa. önce<br><span style="opacity:.65">Lale Çılgınlığı: Bir soğana neden ev verildi?</span></span></span></div>`;
     }
   }
-  h += '</div>';
-  document.write(h);
+  document.write(h + '</div>');
 }
 window.hazir = document.fonts.ready.then(() => true);
 </script></body></html>
