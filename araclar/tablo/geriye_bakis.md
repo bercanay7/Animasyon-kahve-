@@ -36,3 +36,20 @@ Yöntem: kullanıcı yaratıcılığı tamamen bıraktı ("iyiyi kendi standard�
 - 60 Hz altında bas şişmesi izi.
 - Tekerlek izleri hâlâ paralel okunuyor.
 - Meşe salınımı zayıf.
+
+## Üslup kapısı: orta ve yakın plan (27 Kasım)
+- Sahne yöneticisi (`sahne.js`) ve figür modülü (`figur.js`); Mektuplar ikisine taşındı, karelerde fark 0.
+- **Plan kipi:** kamera yönü ve eğimi aynı, konum figüre yaklaşır.
+  - Sonsuzdaki katmanlar (gök, güneş, tepeler) aynı resimle; dar açı onları büyütür.
+  - Ağaç gibi uzak nesne paralaksla konumlanıp ölçeklenir.
+  - Yakın tarla ve başaklar ekran koordinatında yeniden boyanır.
+  - Figür o kameradan Blender'da yeniden render edilir.
+- **Kurgu:** `kurye/kurgu.sh` (geniş, orta, geniş, yakın, geniş; ses kesintisiz). Manzara, orta plan figür, yakın plan ve 15 sn hareket aynı filmde.
+- **Yakın plandaki dersler:**
+  - Darbe boyu figürün büyüklüğüyle ölçeklenmezse figür pürüzsüz 3B render (CG) okunur.
+  - Arkadan bakılan başta ten rengi soluk yumurta okunur; saç, kulak ve ense çıkıntısı gerekir.
+  - Kulak açık renkte olursa başın ortasında delik gibi durur; karşı ışıkta kulak koyu olur.
+  - Tepe düz ve yüksek şapka silindir şapka okunur.
+  - Kesintisiz kenar ışığı çıkartma kenarı okunur; öbek öbek kırılır.
+- **Hız:** yakın planda kare 4 işçiyle 16 sn (figür alanı büyük, darbe sayısı çok). Açık iş: figür örnekleme adımı ölçekle büyümeli.
+- **Açık kalan:** orta ve yakın planda figür hâlâ biraz "kil" okunuyor. Yüz ve el yakın planına girilmedi; kural gereği girilmez, sırt, siluet ve nesne yakın planı kullanılır.
