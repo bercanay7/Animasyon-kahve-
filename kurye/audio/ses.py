@@ -1,0 +1,151 @@
+#!/usr/bin/env python3
+"""MEKTUPLAR (Zaman Kuryesi kimlik filmi): özgün müzik ve ses; yalnız numpy ile sentez (örnek ses yok, indirme yok, ücretli üretim yok).
+Ezgi bu dosyada yazıldı. Mi bemol majör, ağır (60 vuruş/dk).
+  SORU: Sib4 – Mib5 – Re5 – Sib4 (kurye başını meşeye kaldırınca; mektubu çıkarınca bir kez daha, armonili).
+  YOL: mektup havadayken yükselen arpej (Mib – Do min – Lab – Sib), rüzgârla hızlanır.
+  ÇİÇEK: mektup taca konunca (18.8 sn) yüksek çan ışıltısı; çiçekler açıldıkça yoğunlaşır.
+  CEVAP: Sib5 – Sol5 – Fa5 – Mib5 (yapraklar kuryeye dönerken; sorunun inen eşi). Son akor Mib (add9) söner.
+Ses: tarlada sürekli hafif rüzgâr; 11–14 sn soldan sağa geçen esinti (görüntüdeki dalgayla aynı an); mektup kâğıt hışırtısı.
+Zamanlar kurye/tablo.html'deki zaman çizelgesiyle aynı (tSal 12.2, tVar 18.8, batış 17–25).
+    python3 kurye/audio/ses.py  -> kurye/audio/ses.wav (48 kHz stereo, -14 LUFS hedefi ffmpeg loudnorm ile)
+"""
+import re, wave, subprocess
+from pathlib import Path
+import numpy as np
+
+SR = 48000; DUR = 25.0; N = int(DUR * SR)
+HERE = Path(__file__).resolve().parent
+L = np.zeros(N, np.float32); R = np.zeros(N, np.float32)
+rng = np.random.default_rng(1926)
+tBak, tCik, tSal, tVar = 7.2, 9.8, 12.2, 18.8
+
+def put(sig, t, pan=0.0, g=1.0):
+    a = int(t * SR); b = min(N, a + len(sig))
+    if a >= N or b <= 0: return
+    if a < 0: sig = sig[-a:]; a = 0; b = min(N, len(sig))
+    s = (sig[:b - a] * g).astype(np.float32)
+    L[a:b] += s * np.float32(np.sqrt(.5 * (1 - pan))); R[a:b] += s * np.float32(np.sqrt(.5 * (1 + pan)))
+
+NOTA = {'C': 0, 'D': 2, 'E': 4, 'F': 5, 'G': 7, 'A': 9, 'B': 11}
+def midi(n):
+    m = re.match(r'([A-G])([#b]?)(-?\d)', n); return 12 * (int(m.group(3)) + 1) + NOTA[m.group(1)] + {'#': 1, 'b': -1, '': 0}[m.group(2)]
+def hz(m): return 440 * 2 ** ((m - 69) / 12)
+
+# ── çalgılar ──
+def piyano(m, v=.6, d=3.0):
+    """eğik tel kısmileri, iki aşamalı sönüm, yumuşak çekiç (gece piyanosu: parlak değil)"""
+    f0 = hz(m); dd = d + 1.5; n = int(dd * SR); t = np.arange(n) / SR; B = .0003 * (1 + max(0, 60 - m) * .02)
+    s = np.zeros(n)
+    for k in range(1, 12):
+        fk = f0 * k * np.sqrt(1 + B * k * k)
+        if fk > 7000: break
+        a = (1 / k ** 1.4) * (.3 + .7 * v) ** (k * .3)
+        dec = max(.25, .5 + .045 * (m - 48)) * (1 + k * .5)
+        for det in (-.0005, .0005):
+            s += a * np.sin(2 * np.pi * fk * (1 + det) * t + k * 1.3) * (np.exp(-t * dec) * .6 + .4 * np.exp(-t * dec * .22))
+    rel = np.ones(n); r0 = int(d * SR); rel[r0:] = np.exp(-np.arange(n - r0) / (.35 * SR))
+    s *= rel * v; s[:96] *= np.linspace(0, 1, 96)
+    return (s / 3.0).astype(np.float32)
+def yayli(m, d, v=.4, atak=1.2):
+    """yaylı yüzey: hafif ayrık ses kopyaları, yavaş giriş ve çıkış, ağır vibrato"""
+    f0 = hz(m); n = int((d + 2.0) * SR); t = np.arange(n) / SR
+    vib = 1 + .0025 * np.sin(2 * np.pi * 4.6 * t + m)
+    s = np.zeros(n)
+    for det in (-.004, 0, .0037):
+        for k, a in ((1, 1), (2, .5), (3, .28), (4, .16), (5, .09), (6, .05)):
+            s += a * np.sin(2 * np.pi * f0 * k * (1 + det) * np.cumsum(vib) / SR + k * det * 900)
+    e = np.minimum(1, t / atak) ** 1.5 * np.where(t > d, np.exp(-(t - d) / .9), 1)
+    return (s * e * v * .09).astype(np.float32)
+def can(m, v=.3, d=3.5):
+    """çan ve celesta arası: uyumsuz kısmiler, hızlı sönen parlaklık"""
+    f0 = hz(m); n = int(d * SR); t = np.arange(n) / SR
+    s = sum(a * np.sin(2 * np.pi * f0 * r * t) * np.exp(-t * (1.1 + r * .9)) for r, a in ((1, 1), (2.76, .35), (5.4, .14), (8.93, .06)))
+    s[:48] *= np.linspace(0, 1, 48)
+    return (s * v * .5).astype(np.float32)
+
+# ── gürültü süzgeci (FFT'de; scipy yok) ──
+def renkli_gurultu(n, f_lo, f_hi, egim=0.0, tohum=0):
+    r = np.random.default_rng(tohum); X = np.fft.rfft(r.standard_normal(n)); f = np.fft.rfftfreq(n, 1 / SR)
+    m = ((f > f_lo) & (f < f_hi)).astype(float)
+    m = np.convolve(m, np.ones(64) / 64, 'same') * (np.maximum(f, 20) / 1000) ** egim
+    y = np.fft.irfft(X * m, n); return (y / (np.abs(y).max() + 1e-9)).astype(np.float32)
+def zarf(nokta, n):
+    """[(t, değer)] → örnek başına doğrusal zarf"""
+    ts = np.array([p[0] for p in nokta]) * SR; vs = np.array([p[1] for p in nokta]); return np.interp(np.arange(n), ts, vs).astype(np.float32)
+
+# ── rüzgâr: sürekli alçak hışırtı + 11–14 sn esinti (soldan sağa: pan -0.8 → +0.8) ──
+taban = renkli_gurultu(N, 80, 1400, -.5, 1) * .5 + renkli_gurultu(N, 300, 3500, -.8, 2) * .25
+dalga = renkli_gurultu(N, 180, 5200, -.35, 3)
+tt = np.arange(N) / SR
+taban_z = zarf([(0, .0), (1.2, .5), (10.6, .55), (16, .6), (22, .42), (25, .25)], N) * (1 + .18 * np.sin(2 * np.pi * .13 * tt) + .1 * np.sin(2 * np.pi * .41 * tt))
+dalga_z = np.exp(-((tt - 12.6) / 1.15) ** 2) + .3 * np.exp(-((tt - 19.6) / 1.5) ** 2)
+pan_d = np.clip((tt - 12.6) / 1.6, -1, 1) * .8
+L += (taban * taban_z * .055 + dalga * dalga_z * .2 * np.sqrt(.5 * (1 - pan_d))).astype(np.float32)
+R += (np.roll(taban, 4800) * taban_z * .055 + dalga * dalga_z * .2 * np.sqrt(.5 * (1 + pan_d))).astype(np.float32)
+# başak hışırtısı: esintide ince yüksek tıkırtı
+his = renkli_gurultu(N, 2500, 9000, 0, 4) * (rng.random(N) < .004).astype(np.float32)
+his = np.convolve(his, np.exp(-np.arange(200) / 30), 'same').astype(np.float32)
+put(his * (dalga_z * .5 + .08) * .5, 0, -.1)
+
+# ── kâğıt: mektup çantadan çıkar (9.8), rüzgâr alır ve döner (12.2–18.8): genliği dönüş hızıyla atan dar bant hışırtı ──
+kag = renkli_gurultu(N, 1500, 7000, -.2, 5)
+kz = np.zeros(N, np.float32)
+kz += np.exp(-((tt - 9.95) / .12) ** 2) * .6 + np.exp(-((tt - 10.3) / .08) ** 2) * .3
+uc = (tt > tSal) & (tt < tVar)
+a = np.where(uc, tt - tSal, 0)
+kz += uc * (np.abs(np.sin(a * 3.4 * np.pi / 2 + .4)) ** 6) * np.exp(-a * .28) * .9
+pan_k = np.where(uc, -.3 + .9 * np.clip(a / 6.6, 0, 1), -.3)
+L += (kag * kz * .09 * np.sqrt(.5 * (1 - pan_k))).astype(np.float32); R += (kag * kz * .09 * np.sqrt(.5 * (1 + pan_k))).astype(np.float32)
+
+# ── müzik ──
+# yüzey: Mib ve Sib uzun yaylı; batışta Lab'a ve geri Mib'e
+for n, t0, d, v in (('Eb2', .4, 11.6, .5), ('Bb2', .4, 11.6, .38), ('G3', 3.0, 9.0, .22),
+                    ('C2', 12.0, 6.8, .5), ('G2', 12.0, 6.8, .36), ('Eb3', 12.0, 6.8, .24),
+                    ('Ab1', 18.6, 3.4, .55), ('Eb2', 18.6, 3.4, .4), ('C3', 18.6, 3.4, .26),
+                    ('Eb2', 21.6, 3.2, .5), ('Bb2', 21.6, 3.2, .36), ('G3', 21.6, 3.2, .24), ('F3', 21.6, 3.2, .14)):
+    put(yayli(midi(n), d, v), t0, (midi(n) - 50) * .01)
+# SORU (baş kalkınca), ikinci kez mektup elde (armonili)
+def dizi(seq, t0, bpm=60, v=.55, pan=.1):
+    t = t0; b = 60 / bpm
+    for n, d in seq:
+        for x in n.split('+'):
+            if x != '-': put(piyano(midi(x), v, d * b * 1.4), t, pan + (midi(x) - 64) * .008)
+        t += d * b
+    return t
+dizi([('Bb4', 1), ('Eb5', 1), ('D5', 1.4), ('Bb4', 2)], tBak + .1, v=.42)
+dizi([('Bb4+Eb4', 1), ('Eb5+G4', 1), ('D5+Bb4', 1.2), ('Bb4+F4', 1.6)], tCik + .25, bpm=66, v=.38)
+# YOL: rüzgâr mektubu alınca yükselen arpej; esintiyle hızlanır, konuşa doğru seyrelir
+ak = [['Eb3', 'Bb3', 'G4', 'Bb4'], ['C3', 'G3', 'Eb4', 'G4'], ['Ab2', 'Eb3', 'C4', 'Eb4'], ['Bb2', 'F3', 'D4', 'F4']]
+t = tSal; i = 0
+while t < tVar - .2:
+    u = (t - tSal) / (tVar - tSal); a4 = ak[min(3, int(u * 4))]
+    put(piyano(midi(a4[i % 4]) + (12 if i % 8 >= 4 and u > .4 else 0), .3 + .12 * np.sin(np.pi * u), .9), t, -.25 + .5 * (i % 4) / 3)
+    t += .3 + .14 * np.sin(np.pi * u) ** 2 * -1 + .12; i += 1
+# ÇİÇEK: mektup taca konar; yüksek çanlar çiçeklerin yayılışıyla (pentatonik Mib)
+pent = ['Eb6', 'F6', 'G6', 'Bb6', 'C7', 'Eb7', 'Bb5', 'G5']
+put(can(midi('Eb6'), .45, 5), tVar, .35); put(can(midi('Bb6'), .3, 5), tVar + .02, .45)
+for k in range(26):
+    tk = tVar + .2 + 2.6 * (k / 26) ** 1.3 + rng.random() * .15
+    put(can(midi(pent[int(rng.random() * len(pent))]), .2 * (1 - k / 34), 3.0), tk, .1 + .6 * rng.random())
+# CEVAP: yapraklar kuryeye dönerken; sorunun inen eşi
+dizi([('Bb5', 1), ('G5', 1), ('F5', 1.3), ('Eb5+G4', 2.6)], 20.6, bpm=56, v=.4, pan=-.1)
+put(piyano(midi('Eb3'), .3, 3.2), 23.2, -.2); put(piyano(midi('Bb3'), .25, 3.0), 23.25, -.1); put(piyano(midi('F4'), .2, 2.8), 23.35, .1)
+
+# ── yankı (FFT konvolüsyonu) ──
+def yanki(x, sure=3.0, kuru=.78, islak=.34, tohum=7):
+    r = np.random.default_rng(tohum); n = int(sure * SR); t = np.arange(n) / SR
+    ir = r.standard_normal(n) * np.exp(-t / .7); ir[:int(.025 * SR)] = 0; ir /= np.sqrt((ir ** 2).sum())
+    F = 1 << int(np.ceil(np.log2(len(x) + n))); y = np.fft.irfft(np.fft.rfft(x, F) * np.fft.rfft(ir, F), F)[:len(x)]
+    return (x * kuru + y * islak).astype(np.float32)
+L = yanki(L, tohum=7); R = yanki(R, tohum=8)
+# giriş ve çıkış
+e = zarf([(0, 0), (.8, 1), (23.6, 1), (25, 0)], N); L *= e; R *= e
+
+# ── yaz + düzey: ffmpeg loudnorm (-14 LUFS, -1 dBTP) ──
+ham = HERE / 'ses_ham.wav'; son = HERE / 'ses.wav'
+x = np.stack([L, R], 1); x = x / (np.abs(x).max() + 1e-9) * .7
+with wave.open(str(ham), 'wb') as w:
+    w.setnchannels(2); w.setsampwidth(2); w.setframerate(SR); w.writeframes((x * 32767).astype('<i2').tobytes())
+subprocess.run(['ffmpeg', '-v', 'error', '-y', '-i', str(ham), '-af', 'loudnorm=I=-14:TP=-1:LRA=11', '-ar', str(SR), str(son)], check=True)
+ham.unlink()
+print('yazıldı:', son)
