@@ -18,7 +18,7 @@ Kullanım:
   python3 araclar/kapak/test_seti.py kapak/A.jpg --yazisiz kapak/A_yazisiz.jpg \
       --baslik "Gılgamış: Öleceğini Bile Bile Nasıl Yaşanır?" --sure 12:40 --cikti kapak/test
 """
-import argparse, os, sys
+import argparse, os, sys, tempfile
 import numpy as np
 from PIL import Image, ImageDraw, ImageFilter, ImageFont
 
@@ -69,7 +69,8 @@ def yazi_olcumu(img, m):
             i += 1
     birlesik = []
     for b in bantlar:
-        if birlesik and b[0] - birlesik[-1][1] < H * .025 and (b[1] - b[0] < H * .06 or birlesik[-1][1] - birlesik[-1][0] < H * .06):
+        # 1–5 px'lik delik: koyu yazı zemindeki koyu çizgiyle kesişince fark maskesi deliniyor (Lale); aynı satırdır
+        if birlesik and (b[0] - birlesik[-1][1] < H * .008 or (b[0] - birlesik[-1][1] < H * .025 and (b[1] - b[0] < H * .06 or birlesik[-1][1] - birlesik[-1][0] < H * .06))):
             birlesik[-1][1] = b[1]
         else:
             birlesik.append(b)
@@ -142,9 +143,9 @@ def sayfa(yol, img, yazisiz, baslik, sure, cikti, ad):
     m = yazi_maskesi(img, yazisiz) if yazisiz is not None else None
     yo = yazi_olcumu(img, m) if m is not None else None
     bx, by, bes = en_parlak(img, m)
-    od = odak.olc(yol, cikti)
-    isi = Image.open(od['png']); isi = isi.crop((isi.width // 2 + 4, 0, isi.width, isi.height)).resize((640, 360))
-    os.remove(od['png'])
+    with tempfile.TemporaryDirectory() as gecici:   # odak.py çıktısı geçici klasöre: depodaki aynı adlı eski odak dosyası ezilmesin
+        od = odak.olc(yol, gecici)
+        isi = Image.open(od['png']); isi = isi.crop((isi.width // 2 + 4, 0, isi.width, isi.height)).resize((640, 360))
 
     P = Image.new('RGB', (1960, 1520), (34, 34, 34)); d = ImageDraw.Draw(P); fl = font(18, True)
     tam = img.copy(); dt = ImageDraw.Draw(tam)

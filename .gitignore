@@ -3,3 +3,4 @@ __pycache__/
 # Bitmiş videolar depoya girmez (kanal/arsiv/cikarilan_videolar_2026-11-27.md)
 *.mp4
 *.MP4
+.claude/worktrees/

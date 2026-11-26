@@ -54,7 +54,7 @@ const INSAN = (() => {
     if (o.arka) { vurus(4, -430, 6, et + 10, 4, .5); if (kn != null) { vurus(40 * ks, -560, 28 * ks, -470, 4, kn * .9); vurus(30 * ks, -440, 50 * ks, et + 40, 3, kn * .8); } }
     else { fill(F([[0, -654], [16, -654], [30, -480], [8, -440], [-14, -480]]), .16, { th: PI / 2, id: 9 }); vurus(10, -460, 34, et + 20, 3, .7); if (kn != null) vurus(46 * ks, -600, 40 * ks, -500, 4, kn); }
     // yaka (beyaz) ve boyun
-    fill(F([[-22, -684], [28, -684], [34, -656], [-26, -656]]), o.arka ? .8 : .9, { th: 0, id: 5 });
+    fill(F([[-22, -684], [28, -684], [34, -656], [-26, -656]]), o.yaka ?? (o.arka ? .8 : .9), { th: 0, id: 5 });   // o.yaka: kapakta griye çekilir (beyaz dikdörtgen = papaz yakası okuması, 27 Kasım)
     fill(F([[-14, -712], [24, -712], [26, -682], [-16, -682]]), o.arka ? .03 : (o.yuzTon ?? .04), { th: PI / 2, id: 5 });
     GR.restore();
     // baş
