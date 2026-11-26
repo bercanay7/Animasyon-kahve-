@@ -49,3 +49,22 @@ Düz, değer planlı bir resmi (Canvas 2D) fırça ve spatula darbelerine çevir
 - Yükleme: beş katmanın darbeleri ve önbellekleri ~20–30 sn (işçi başına bir kez). İlk kare ~5 sn (gölgelendirici derleme).
 - Kare: tek işçide 0,95–1,1 sn (canlı katmanlar: ~2 bin başak, figür, mektup, çiçek).
 - `ss` (süper örnekleme) varsayılan 1,5. `?ss=1` hızlı önizleme.
+
+## Figür kaynağı: Blender (`kurye/blender/`, 26 Kasım)
+Bağımsız eleştirinin iki turunda da en zayıf öğe figürdü: kutu gövde, tek sütun bacak, sert palto. Çözüm karma yol:
+1. **Eklemler:** hareket yine bizim çözücümüzden gelir. `eklem_disa.js` sahnedeki `kuryePoz`'un kemiklerini 15 çizim/sn dışa yazar.
+2. **Gövde (`kurye_bpy.py`):** Blender'da (bpy 5.x Python modülü, Cycles, işlemci) örülür:
+   - beden eklemlerden deri (skin) değiştiricisiyle;
+   - palto halkalardan (A-kesim, etek açık);
+   - fötr, çanta ve kayış ayrı parça.
+   - Model indirilmez, lisans sorunu yoktur.
+3. **Görüntü:** kamera sahneyle birebir (dikey 40°; ufuk ortanın altında olduğu için kamera 6,15° yukarı bakar).
+   - Kare saydam RGBA (960×540); yalnız figürün kutusu çizilir.
+   - 376 kare 84 sn sürer.
+4. **Boyama:** `tablo.html?blender=1` kareleri okur ve aynı fırça çevirisinden geçirir; görüntü boyalı kalır.
+
+Dersler:
+- **Düz tepe + geniş kenarlı koyu şapka ve uzun koyu palto** din adamı (papaz, haham) giysisi okunur. Fötr kullanılır (tepesi daralan, kenarı kısa) ve palto kahverengi yolcu paltosu olur.
+- **Kol deri zinciri omuzdan başlarsa** paltonun üstünde apolet gibi çıkıntı yapar (askerî okunur). Kol paltonun içinden başlar.
+- **Karşı ışıkta dünya ışığı fazlaysa** figür soluk ve hayalet gibi olur. Gök ışığı .22, yer sekmesi koyu turuncu; sıcak kenarı fırça çevirisi ekler.
+- **Kurulum:** EEVEE ekran kartsız açılmaz; Cycles işlemciyle yeter. Kurulum: `python3 -m venv bpyenv && bpyenv/bin/pip install bpy==5.2.5` (≈1 GB, depoya girmez).

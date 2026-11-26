@@ -20,6 +20,22 @@ v1'de (mektuplar → kuşlar) eleştirmen şunları buldu:
 
 Ayrıntı ve kurallar: `araclar/tablo/KILAVUZ.md`.
 
+## Sürümler (26 Kasım)
+- **v1:** mektuplar kuşa dönüşür. Eleştiri: filtre görünümü, hedef tahtası güneş, köz taç, 18. saniyeden sonra hiçbir şey olmuyor.
+- **v2:** fırça, ışık ve hikâye yeniden kuruldu (tek mektup, rüzgâr, çiçek, batış).
+- **v3:** kamera koreografisi, kuryeye dönen yapraklar, özgün ezgi ve ElevenLabs efektleri, siyah-beyaz kip.
+- **v4** (ikinci eleştiriden):
+  - taç fırçayla boyandı;
+  - çiçekler mektubun girdiği noktadan açılır;
+  - şapka ve palto düzeltildi;
+  - ayak sesi, varış notası; −16 LUFS.
+- **v5:** kurye Blender'da (`blender/`); boyama aynı.
+
+## Ses (`audio/`)
+- `ses.py`: numpy ile özgün ezgi (soru ve cevap motifi; doruk çiçek anında).
+- ElevenLabs Sound Effects v3 (`efekt/`): tarla, esinti, zarf, ayak sesi. Adımlar `adimlar.js`'in bulduğu basma anlarına konur.
+- Düzey: iki geçişli doğrusal loudnorm, −16 LUFS.
+
 ## Nasıl yapıldı
 - **Resim:** `lib/tablo_ciz.js` değer planlı düz bir resim çizer: gök, uzak tepeler, tarla ve patika, meşe, ön plan otları. Her katman ayrı tuvaldir.
 - **Motor:** ortak tablo motoru (`araclar/tablo/`, Lemo-Opuscar impasto, MIT) resmi kaba darbeden ince darbeye fırça ve spatula darbelerine çevirir. Durağan katmanlar bir kez boyanıp önbellekten kamerayla basılır.
