@@ -216,6 +216,7 @@ Ayrıntı ve kompozisyon menüsü: `kanal/KAPAK_DERSLERI.md`.
 - **Okuma araçları:** elde tutma eğrisi Studio ekran görüntüsünden `araclar/analiz/elde_tutma.py` ile okunur. Eğri ~100–400 izleyicilik; ±3 puanın altındaki fark yok sayılır.
 - **Durum (22 Kasım):** kanalda geniş kitleye açılan tek video Sisifos oldu ve havuzu sönüyor.
   - Talep kontrolü TO'yu medyanın üstüne taşıyor (Kafka, Ran, Mary Stuart), ama dalga için yetmiyor; büyüme yeni bir kapıya bağlı.
+  - **Kanal denetimi (26 Kasım): ceza yok.** İhtar, kısıtlama, özgün olmayan içerik uyarısı yok; "değiştirilmiş içerik" ayarı gösterimi açıklamıyor. Kanalın haftalık gösterimi Sisifos'tan sonra her hafta yarıya yakın düşüyor (158 B → 64 B → 34 B); yeni videolar bu havuzda 48 saatte 2–3 B alıyor. Ayrıntı: `analiz/2026-11-26-narkissos-48saat.md`.
   - Video video kayıt: `kanal/OLCUTLER_GECMIS.md` ve `analiz/`.
 
 ## Teknik notlar ve tuzaklar
