@@ -192,6 +192,7 @@ Kanıt sayıları `analiz/2026-11-22-genel-karsilastirma.md` dosyasında. Yeni v
 
 ## Kapak kuralları
 Ayrıntı ve kompozisyon menüsü: `kanal/KAPAK_DERSLERI.md`.
+- **Kapak sistemi (kullanıcının isteği, 27 Kasım):** `kanal/KAPAK_SISTEMI.md`. Yazı solda ve üstte, figür sağda. Bebas fildişi, tek vurgu kelimesi; vurgu rengi görüntüdeki tek renkli nesneyle aynı. Yazı bir çelişki söyler, cevabı saklar. Rozet ya da çerçeve eklenmez.
 - **Odak:** tek odak, karenin en parlak noktası orası. İkinci bir beyaz leke odağı böler.
 - **Figür:** en iyi sonuç filmin ilk karesiyle aynı figür + tek vurgu rengi.
   - Küçük boyda profil okunmaz, ¾ yüz kullanılır. Tanınan bir yüz yoksa tanınan bir dönem nesnesi kullanılır (Mary Stuart'ta madalya).
