@@ -172,7 +172,18 @@ Ayrıntı: `fable_son_okuma/`. Her bulgu bir iddia sayıldı. Senaryo bulguları
   - Belge tutan ince uzun kol + yuvarlak el.
   - Burun buruna iki figür.
 
-**3. Üç izleyici okuması:** son render üstünde (aşağıda).
+**3. Üç izleyici okuması** (`4_izleyici_A/B/C.md`, sentez `5_sentez_ve_karar.md`). Okuyanlar: telefonda öğrenci, psikoloji öğretmeni, cezaevi deneyimi olan sosyal hizmet uzmanı.
+- **Üçünün ortak düşüşleri:** 2:30–2:46, 3:46–4:20, 6:04–6:17, 6:36–7:22. Sonuncusu, bant bölümünden sonraki dört kaynaklı kuyruk, üçünün de en olası bırakma anı.
+- Seslendirme sabit kaldığı için yalnız 6:04 görüntüyle düzeltildi; ötekiler tahmin olarak ölçülecek.
+- **Ortak olgu bulguları düzeltildi:**
+  - "müdür" Zimbardo sanılıyordu;
+  - "gece/akşam vardiyası";
+  - açıklamada "üç kez denerim";
+  - ekranda Le Texier sayfası;
+  - üst üste binen künye;
+  - şınav planının zamanı.
+- **Ders:** Türkçede "müdür" "amir"in üstü okunur. Unvan çevirisi hiyerarşiyi ters çevirebilir; kişi adıyla ve rolüyle ekranda bir kez açıkça verilir.
+- **Ders (C):** film izleyiciyi yönetenlerin koltuğunda tutuyor, mahkûmlardan tek cümle yok. Bu videonun sorusu gardiyanın sorusu olduğu için bilerek böyleydi; ama bir sonraki tarih videosunda "kaybedenin gözü" bakışı (kullanıcının üç bakışından biri) baştan tartılmalı.
 
 ## Render ve denetimler
 - **Alt bant** (`tools/alt_bant.js`): her render'dan önce; temiz.

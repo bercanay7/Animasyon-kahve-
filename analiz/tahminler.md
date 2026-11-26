@@ -77,6 +77,8 @@ Yeni değişken: senaryodan önce kanca araştırması (`stanford/arastirma/`). 
 | ~~S2~~ ST2 | III. bölüm (bant: müdür ↔ Mark, zaman damgalı sözler) filmin en düz bölümü olur: dakika başına kayıp gövde ortalamasının altında; bölüm başı yükselişinin en büyüğü "III. Bant"ta. Tersi çıkarsa ders: iki kişinin dökümü, soyut olmasa da, uzun alıntı dizisi olarak düşürüyor. (rev2: bölüm sonundaki iddia–karşı iddia kuyruğu tek cümleye indi.) | bölüm bölüm dakika başına kayıp; bölüm başı yükselişleri | |
 | ~~S3~~ ST3 | Son 60 sn ("Peki." ve soru), Mary Stuart'taki doruk sonrası kaybın (45 sn'de −7) yarısından az kaybettirir; izleyicinin kendi cevabını yazdığı yorumların oranı kanalın önceki videolarından yüksek olur. | son dakika eğrisi; yorum sayısı ve içeriği | |
 
+**Stanford, yayından önce eklenen not (26 Kasım, rev3 ve Fable'ın üç izleyici okumasından sonra):** üç izleyicinin ortak düşüş yerleri 2:30–2:46, 3:46–4:20, 6:04–6:17 ve 6:36–7:22. Sonuncusu (bant bölümünden sonra dört kaynak) üçünün de en olası bırakma anı. 48. saatte bu dört aralığın dakika başına kaybı gövde ortalamasıyla karşılaştırılır; ST2 (bant bölümü düz) 4:21–6:36 için geçerli. Film rev3'te 11:11'den 11:53'e uzadı: son bölüm müdürün notuyla (F03b) bitiyor; ST3'teki "son 60 sn" 10:53–11:53 olarak okunur.
+
 ## Dağıtım sınaması: kanal sorunu mu, havuz mu? (23 Kasım 2026, Narkissos yayından önce yazıldı)
 **Soru (kullanıcı, 23 Kasım):** Elizabeth Shorts'u ~400 izlendi (kanalın en düşük Shorts'u); 12 Kasım'dan beri altı uzun video büyük göz atma testi almadı. Algoritmayla bir sorun mu var?
 **İki açıklama ve neyi öngördükleri:**

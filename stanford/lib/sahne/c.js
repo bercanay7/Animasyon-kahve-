@@ -245,7 +245,7 @@
     oda(B, st, { isik: ramp(st.lt, .15, .5, E.out3), ang: aci(st.t - st.at - .6 > 0 ? st.t - st.at - .6 : 0, .45),
       mudurO: { bas: .08 + .06 * R(st, 'D02@gündüz', .8) }, markO: { bas: .12 - .08 * R(st, VAR('D02', 'zimbardo', 'gardiyan'), .8) },
       monitor: (B2) => bodrum(B2, st, { gardiyanlar: [{ z: .4, u: .15 }] }) });
-  }, { ...KK, over: OV(ZM(ETK('MÜDÜR: DAVID JAFFE, LİSANS ÖĞRENCİSİ', 700, 200, { d: 4.5 }), 'D02@müdür', 5), ZM(ETK('GÜNDÜZ VARDİYASI GARDİYANI', 1440, 760, { d: 4.5 }), 'D02@gündüz', 5),
+  }, { ...KK, over: OV(ZM(ETK('MÜDÜR: DAVID JAFFE, LİSANS ÖĞRENCİSİ ↓', 950, 330, { d: 4.5 }), 'D02@müdür', 5), ZM(ETK('GÜNDÜZ VARDİYASI GARDİYANI', 1440, 760, { d: 4.5 }), 'D02@gündüz', 5),
     ZM(KU("Günü: Zimbardo'ya göre ilk, Le Texier'ye göre üçüncü; müdürün notunda pazartesi", { y: 120 }), VAR('D02', 'lö', 'müdür'), 7)) });
 
   // P44 yakın: Mark, karanlık oda; adı söylenince başını kaldırır, "yirmi"de hafif eğer. (rev2'de D03 yok: plan "Mark" sözcüğüne bağlanır, ≈ 1 sn)
