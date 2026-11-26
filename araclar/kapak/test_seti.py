@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Kapak test seti: CLAUDE.md "Kapak kuralları → Test seti" maddelerini tek sayfada toplar ve ölçer.
 
-Sayfa (<ad>_test.png):
+Sayfa (<ad>_test.jpg):
   - tam boy (süre rozeti bölgesi kırmızı, yazı kutusu yeşil);
   - gerçek boyda küçültmeler: 246×138, 168×94, 120×68;
   - gri değer; odak ısı haritası (odak.py);
@@ -179,7 +179,7 @@ def sayfa(yol, img, yazisiz, baslik, sure, cikti, ad):
         satirlar.append('yazı ölçümü yok (--yazisiz verilmedi)')
     for i, s in enumerate(satirlar):
         d.text((1000, y + 400 + i * 26), s, fill=(235, 235, 235), font=font(16))
-    hedef = os.path.join(cikti, ad + '_test.png'); P.save(hedef)
+    hedef = os.path.join(cikti, ad + '_test.jpg'); P.save(hedef, quality=88)
     with open(os.path.join(cikti, ad + '_test.txt'), 'w') as f:
         f.write('\n'.join(satirlar) + '\n')
     return hedef, satirlar
