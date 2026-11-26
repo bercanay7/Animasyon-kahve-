@@ -1,7 +1,8 @@
-# Silinen dallar (26 Kasım 2026)
+# Silinebilir dallar (26 Kasım 2026)
 
-Hepsi silinmeden önce `main`'e tamamen birleşmişti (her son commit `main`'in geçmişinde). İçerikleri `main`'de duruyor.
-Bir dalı geri açmak için: `git push origin <commit>:refs/heads/<dal>`
+Hepsi `main`'e tamamen birleşmiş (her son commit `main`'in geçmişinde); içerikleri `main`'de duruyor. Silmek güvenli.
+Bulut oturumu dal silemiyor (GitHub 403): kullanıcı GitHub'da depo → Branches sayfasından siler. Kanca birleşmiş dalları zaten listelemez.
+Silinen bir dalı geri açmak için: `git push origin <commit>:refs/heads/<dal>`
 
 | Dal | Son commit | Tarih |
 |---|---|---|
