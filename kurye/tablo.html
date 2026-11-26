@@ -13,8 +13,8 @@
 // Motor: dorian-gray/kapi/vendor (impasto + plate; Lemo-Opuscar, MIT). Durağan katmanlar yüklenirken bir kez boyanır (Hertzmann: kaba → ince).
 // Canlı katmanlar her iki karede bir yeniden boyanır (15 çizim/sn): figür (3B manken → darbe), rüzgârdaki başaklar, ışık, mektup/kuş, polen.
 // Belirlenimci: Math.random yok; tohumlar t'den.
-import { Impasto, Strokes, KNIFE, BRUSH, DAB } from '../araclar/tablo/impasto.js';
-import { Ref, paintRef } from '../araclar/tablo/plate.js';
+import { Strokes, KNIFE, BRUSH, DAB } from '../araclar/tablo/impasto.js';
+import { motor } from '../araclar/tablo/sahne.js';
 const Q = new URLSearchParams(location.search);
 const W = 1920, H = 1080, T = window.TABLO, I = window.ISKELET, V = I.V, HR = window.HAREKET, MK = window.MANKEN;
 const sm = HR.yumusak, PI = Math.PI;
@@ -22,7 +22,7 @@ const cv = document.getElementById('c'), ctx = cv.getContext('2d');
 window.FPS = 30; window.DUR = 25;
 const ikiser = t => Math.floor(t * 15 + 1e-6) / 15;
 const hsh = (a, b = 0, c = 0) => { const x = Math.sin(a * 127.1 + b * 311.7 + c * 74.7) * 43758.5453; return x - Math.floor(x); };
-let E, glc;
+let M;   // tablo sahne yöneticisi (araclar/tablo/sahne.js)
 
 // ---------------- 3B kamera: resmin perspektifiyle eşleşir (ufuk y = 700, dikey görüş 40°) ----------------
 const ODAK = 540 / Math.tan(20 * PI / 180), EGIM = Math.atan((T.UFUK - 540) / ODAK);
@@ -105,18 +105,6 @@ function sapka(K) {
 }
 
 // ---------------- durağan katmanlar (bir kez boyanır, önbellekten basılır) ----------------
-const KAT = {};
-function katman(ad, ciz, d, o = {}) {
-  const Rf = new Ref(W, H, o.olcek ?? .5);
-  const R = { fill: (pf, c, p) => Rf.fill(pf, c, { seed: 1, ...p }), line: (pf, c, w, p) => Rf.line(pf, c, w, p || {}), text: (s, x, y, f, c, p) => Rf.text(s, x, y, f, c, p || {}) };
-  ciz(R);
-  const t0 = performance.now();
-  const st = paintRef(Rf, { R: o.R || [26, 13, 6.5, 3.2, 1.7], T: o.T ?? 12, seed: o.seed ?? 3 });
-  const b = E.batch(st.data()), tex = E.texture(Rf.ctx.canvas, 1.2);
-  const k = E.onbellek(() => { E.under(tex, W, H, { t: 10 }); E.draw(b, { t: 10, wet: .35 }); });
-  const gl = E.gl; gl.deleteBuffer(b.buf); gl.deleteVertexArray(b.vao); gl.deleteTexture(tex);
-  KAT[ad] = { k, n: st.n, d, sure: performance.now() - t0 };
-}
 // kamera: yavaş yaklaşma; katman derinliği d: 0 gök … 1 ön plan
 // kamera koreografisi (v3): geniş açılış → kurye mektubu çıkarırken ona yaklaşır → mektubu meşeye kadar izler → güneş batarken geri açılır
 const KAM = [[0, 960, 540, 1], [5.5, 900, 575, 1.06], [10.4, 760, 600, 1.12], [12.4, 790, 590, 1.11], [15.2, 960, 520, 1.12], [18.6, 1060, 490, 1.15], [25, 1000, 545, 1.04]];
@@ -126,11 +114,7 @@ function kamera(t) {
   return { x: a[1] + (b[1] - a[1]) * u, y: a[2] + (b[2] - a[2]) * u, z: a[3] + (b[3] - a[3]) * u };
 }
 // katmanın kamerası: derinliğe göre kayma ve yaklaşma; görüş resmin içinde tutulur (kenarın ötesi boş)
-const camK = (k, d) => { const zoom = 1 + (k.z - 1) * (.35 + d * .9), hw = W / 2 / zoom, hh = H / 2 / zoom, px = 0, py = 0;   // resim 0..W × 0..H içinde çizili (Ref tuvali); önbellek payı boş
-  const cl = (v, a, b) => Math.max(a, Math.min(b, v));
-  return { x: cl(960 + (k.x - 960) * (.4 + d * .7), -px + hw, W + px - hw), y: cl(540 + (k.y - 540) * (.4 + d * .7), -py + hh, H + py - hh), zoom, rot: 0 }; };
-// bir noktanın çevresinde döndürülmüş kamera (meşe rüzgârda gövdesinin dibinden eğilir)
-const camDon = (c, P, th) => { const cr = Math.cos(th), sr = Math.sin(th), vx = c.x - P[0], vy = c.y - P[1]; return { ...c, x: P[0] + cr * vx + sr * vy, y: P[1] - sr * vx + cr * vy, rot: th }; };
+const camK = (k, d) => M.camK(k, d), camDon = (c, P, th) => M.camDon(c, P, th);
 
 // ---------------- rüzgâr ----------------
 // dalga: soldan sağa geçen tek büyük esinti (11–15 sn) + sürekli hafif esinti
@@ -314,38 +298,35 @@ function figur(t, S) {
   return { canta: MK.ekran(cm), el: MK.ekran(elU) };
 }
 
-function renderFrame(t) {
-  const k = kamera(t), tc = ikiser(t);
-  E.begin([.1, .08, .12]);
+// sahne: sıralı katmanlar (durağan önbellek ya da canlı darbe); çizim araclar/tablo/sahne.js
+function sahneTanimla(pe) {
   const MUL = MONO ? { tarla: .8, daglar: .9 } : {};   // siyah-beyazda tarla bir değer basamağı koyu: gök en açık düzlem kalır
-  const kat = (ad, cam) => { const L = KAT[ad]; cam = cam || camK(k, L.d); E.bas(L.k, { cam, mul: MUL[ad] ?? 1 }); return cam; };
-  kat('gok');
-  const gokCam = camK(k, .05);
-  const SG = new Strokes(64); gunes(tc, SG); huzmeler(tc, SG); E.drawNow(SG.data(), { cam: gokCam, t: 10 });
-  kat('daglar');
-  const tarlaCam = kat('tarla');
-  const SB = new Strokes(4096); basaklar(tc, SB);
-  const SF = new Strokes(4096); const F = figur(t, SF);
-  E.drawNow(SB.data(), { cam: tarlaCam, t: 10, wet: .3 });
-  E.drawNow(SF.data(), { cam: tarlaCam, t: 10, wet: .2, run: 0 });
-  // mektup elde (çantadan çıktıktan sonra) ya da havada
-  const SM = new Strokes(32);
-  const kolK = kolYay(tc);
-  if (tc < tSal && kolK > 1.15) { const e = F.el; zarf(SM, e[0] + 6, e[1] - 4, 30, -.25 + .05 * Math.sin(tc * 2), .9); }
-  const agacCam = camDon(camK(k, KAT.agac.d), [T.AGAC.x, T.AGAC.y], agacSal(tc));
-  kat('agac', agacCam);
-  const SC = new Strokes(512); tacKenar(tc, SC); cicekler(tc, SC); E.drawNow(SC.data(), { cam: agacCam, t: 10, wet: .4 });
-  if (tc >= tSal) { const m = mektupYer(tc, SALIS_EL);
-    if (m.u < .995) zarf(SM, m.x, m.y, m.boy, m.ang, m.cev, 1 - sm(.93, .995, m.u)); }
-  yapraklar(tc, SM, F.canta);
-  E.drawNow(SM.data(), { cam: tarlaCam, t: 10, wet: .3, run: 0 });
-  const SP = new Strokes(128); polen(tc, SP); E.drawNow(SP.data(), { cam: camK(k, .5), t: 10, wet: .4 });
-  kat('on');
-  const bu = sm(tBat0, tBat1, t);
-  E.finish({ light: [-.5, -.55, .7], norm: 1.7, ground: [.1, .08, .12], expo: 1.03 - .13 * bu, sat: 1.06 - .1 * bu, contrast: 1.05, vig: .3 + .06 * bu, spec: .1, shin: 24, weave: .06, lightCol: [1, .93, .82],
-    gain: [1 - .05 * bu, 1 - .04 * bu, 1 + .02 * bu], mono: MONO ? 1 : 0, monoK: [.05, .045, .05], monoA: [.96, .94, .9] });
-  ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.drawImage(glc, 0, 0);
+  M.tanimla('mektuplar', {
+    zemin: [.1, .08, .12], kamera,
+    baslangic: t => ({ tc: ikiser(t), t }),
+    katmanlar: [
+      { ad: 'gok', d: 0, ciz: T.gok, R: [30, 15, 7.5, 3.6, 1.8], T: 10 },
+      { ad: 'gunes', cam: k => camK(k, .05), canli: (t, S, cam, c) => { gunes(c.tc, S); huzmeler(c.tc, S); }, kap: 64 },
+      { ad: 'daglar', d: .2, ciz: T.daglar, mul: () => MUL.daglar ?? 1 },
+      { ad: 'tarla', d: .45, ciz: R => T.tarla(R, pe), mul: () => MUL.tarla ?? 1 },
+      { ad: 'basak', d: .45, canli: (t, S, cam, c) => basaklar(c.tc, S), kap: 4096 },
+      { ad: 'figur', d: .45, canli: (t, S, cam, c) => { c.F = figur(t, S); }, kap: 4096, wet: .2, run: 0 },
+      { ad: 'agac', ciz: T.agac, R: [20, 10, 5, 2.6, 1.5], T: 10, cam: (k, t, c) => (c.agacCam = camDon(camK(k, .5), [T.AGAC.x, T.AGAC.y], agacSal(c.tc))) },
+      { ad: 'tac', cam: (k, t, c) => c.agacCam, canli: (t, S, cam, c) => { tacKenar(c.tc, S); cicekler(c.tc, S); }, kap: 512, wet: .4 },
+      { ad: 'mektup', d: .45, run: 0, kap: 64, canli: (t, S, cam, c) => {
+        const tc = c.tc, F = c.F;
+        if (tc < tSal && kolYay(tc) > 1.15) { const e = F.el; zarf(S, e[0] + 6, e[1] - 4, 30, -.25 + .05 * Math.sin(tc * 2), .9); }   // elde
+        if (tc >= tSal) { const m = mektupYer(tc, SALIS_EL); if (m.u < .995) zarf(S, m.x, m.y, m.boy, m.ang, m.cev, 1 - sm(.93, .995, m.u)); }   // havada
+        yapraklar(tc, S, F.canta); } },
+      { ad: 'polen', d: .5, canli: (t, S, cam, c) => polen(c.tc, S), wet: .4, kap: 128 },
+      { ad: 'on', d: 1, ciz: T.on },
+    ],
+    bitir: t => { const bu = sm(tBat0, tBat1, t);
+      return { light: [-.5, -.55, .7], norm: 1.7, ground: [.1, .08, .12], expo: 1.03 - .13 * bu, sat: 1.06 - .1 * bu, contrast: 1.05, vig: .3 + .06 * bu, spec: .1, shin: 24, weave: .06, lightCol: [1, .93, .82],
+        gain: [1 - .05 * bu, 1 - .04 * bu, 1 + .02 * bu], mono: MONO ? 1 : 0, monoK: [.05, .045, .05], monoA: [.96, .94, .9] }; },
+  });
 }
+function renderFrame(t) { M.ciz(ctx, 'mektuplar', t); }
 // mektubun bırakıldığı yer: elin salış anındaki ekran konumu (kare sırasından bağımsız olsun diye yükte hesaplanır)
 let SALIS_EL = [700, 820];
 const MONO = Q.get('mono') === '1';
@@ -378,10 +359,10 @@ function atkiNoktalar(K, t) { const b = K.boyun, ruz = .3 + .2 * Math.sin(t * 1.
   return P; }
 function renderAt(t) { renderFrame(t); return cv; }
 Object.assign(window, { renderFrame, renderFrameMB: renderFrame, renderAt });
-window.BITIR = () => { const px = new Uint8Array(4); E.gl.readPixels(0, 0, 1, 1, E.gl.RGBA, E.gl.UNSIGNED_BYTE, px); };
+window.BITIR = () => M.bitir();
 window.READY = false;
 window.ready = (async () => {
-  glc = document.createElement('canvas'); E = new Impasto(glc, { W, H, ss: +(Q.get('ss') || 1.5) });
+  M = motor({ W, H, ss: +(Q.get('ss') || 1.5) });
   MK.init(W, H, { rs: FIG_OLC });
   MK.begin({ kip: 'boya', t: 0, kamera: KAMERA, isik: GUNES_IS });
   const pe = [];
@@ -391,13 +372,9 @@ window.ready = (async () => {
   if (BLENDER) await blenderYukle();
   // salış anındaki el konumu
   { const S0 = new Strokes(4096); SALIS_EL = figur(ikiser(tSal), S0).el; }
-  katman('gok', T.gok, 0, { R: [30, 15, 7.5, 3.6, 1.8], T: 10 });
-  katman('daglar', T.daglar, .2);
-  katman('tarla', R => T.tarla(R, pe), .45);
-  katman('agac', T.agac, .5, { R: [20, 10, 5, 2.6, 1.5], T: 10 });
-  katman('on', T.on, 1);
+  sahneTanimla(pe); M.hazirla('mektuplar');
   basakKur(pe); cicekKur(); kenarKur();
-  window.DARBE = Object.fromEntries(Object.entries(KAT).map(([k, v]) => [k, { n: v.n, ms: Math.round(v.sure) }]));
+  window.DARBE = M.durum();
   window.READY = true;
 })().catch(e => { window.HATA = String(e && e.stack || e); console.error(e); });
 </script>
