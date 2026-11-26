@@ -68,6 +68,17 @@ Zamanlar tahmini (seslendirmeden sonra `cernobil/timeline.js` ile güncellenir).
 
 ---
 
+## Stanford Hapishane Deneyi (18 Aralık 2026 önerisi; 48. saat = 20 Aralık 18:00, 7. gün = 25 Aralık; 25 Kasım'da, seslendirmeden önce yazıldı)
+Yeni değişken: senaryodan önce kanca araştırması (`stanford/arastirma/`). Araştırmanın getirdiği tek yeni şey sorudan hemen sonra ikinci kanca (bant); ST1 onu sınar. (S1–S3 adları Narkissos Shorts tahminiyle çakıştığı için 25 Kasım'da ST1–ST3 oldu.)
+
+| # | Tahmin | Ölçü | Sonuç |
+|---|---|---|---|
+| ~~S1~~ ST1 | **İkinci kanca** (bant, ilk 5 sn'de teyp ayrıntısı + ≈0:15'te bant ve "ondan bir şey istiyor").<br>(a) **Şekil:** 0:10'dan 0:30'a kayıp ≤ 6 puan (Kafka −9, Ran −13, Mary −18); ≈0:17–0:30 arasında eğri ≥ −2.<br>(b) **Mutlak:** 48. saatte 0:30 ≥ %72 (aynı yaştaki 6 videonun 0:30 medyanı 67: Mary 70, Prometheus 70, Milton 68, Ran 66, Kafka 64, İkaros ~48; ön okuma), 7. günde ≥ %66 (karar).<br>Tutmazsa ders: kancaya ikinci vaat eklemek kanalda tek soru kadar etkili değil. (25 Kasım: S1 → ST1, çıta kanal dersleri §15'e göre yeniden yazıldı; sayılar 18 Aralık'tan önce Studio verisiyle kilitlenir.) | elde tutma 0:10, 0:30 (48. saat ve 7. gün) | |
+| ~~S2~~ ST2 | III. bölüm (bant: müdür ↔ Mark, zaman damgalı sözler) filmin en düz bölümü olur: dakika başına kayıp gövde ortalamasının altında; bölüm başı yükselişinin en büyüğü "III. Bant"ta. Tersi çıkarsa ders: iki kişinin dökümü, soyut olmasa da, uzun alıntı dizisi olarak düşürüyor. (rev2: bölüm sonundaki iddia–karşı iddia kuyruğu tek cümleye indi.) | bölüm bölüm dakika başına kayıp; bölüm başı yükselişleri | |
+| ~~S3~~ ST3 | Son 60 sn ("Peki." ve soru), Mary Stuart'taki doruk sonrası kaybın (45 sn'de −7) yarısından az kaybettirir; izleyicinin kendi cevabını yazdığı yorumların oranı kanalın önceki videolarından yüksek olur. | son dakika eğrisi; yorum sayısı ve içeriği | |
+
+**Stanford, yayından önce eklenen not (26 Kasım, rev3 ve Fable'ın üç izleyici okumasından sonra):** üç izleyicinin ortak düşüş yerleri 2:30–2:46, 3:46–4:20, 6:04–6:17 ve 6:36–7:22. Sonuncusu (bant bölümünden sonra dört kaynak) üçünün de en olası bırakma anı. 48. saatte bu dört aralığın dakika başına kaybı gövde ortalamasıyla karşılaştırılır; ST2 (bant bölümü düz) 4:21–6:36 için geçerli. Film rev3'te 11:11'den 11:53'e uzadı: son bölüm müdürün notuyla (F03b) bitiyor; ST3'teki "son 60 sn" 10:53–11:53 olarak okunur.
+
 ## Dağıtım sınaması: kanal sorunu mu, havuz mu? (23 Kasım 2026, Narkissos yayından önce yazıldı)
 **Soru (kullanıcı, 23 Kasım):** Elizabeth Shorts'u ~400 izlendi (kanalın en düşük Shorts'u); 12 Kasım'dan beri altı uzun video büyük göz atma testi almadı. Algoritmayla bir sorun mu var?
 **İki açıklama ve neyi öngördükleri:**
