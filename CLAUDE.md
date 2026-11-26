@@ -48,6 +48,7 @@ Bu dosya her oturuma kendiliğinden yüklenir. Bu yüzden içinde yalnız **bug�
 - **Deney (23 Kasım):** Lale Çılgınlığı ayrıntılı promptla, Gılgamış yalnız yönle üretiliyor (`analiz/2026-11-23-deney-yon-promptu.md`).
 - **Git:**
   - Her video kendi dalında üretilir; video bitince dal `main`'e birleştirilir.
+  - **Dal durumu (26 Kasım):** her oturum `main`'den başlar; başka dalda kalan iş görünmez. Oturum başı kancası (`.claude/hooks/dal_durumu.sh`) `main`'e birleşmemiş dalları bağlama yazar; işlerin aşaması `kanal/DURUM.md` panosunda. Her iş parçası bitince pano güncellenir.
   - Her iş parçasından sonra commit ve push. Commit mesajı Türkçe, sonunda oturumun atıf satırları.
   - PR yalnız kullanıcı isterse açılır.
   - `navitas-topkapi` deposuna ve kökteki eski Navitas dosyalarına dokunulmaz.
@@ -258,6 +259,7 @@ Ayrıntı ve kompozisyon menüsü: `kanal/KAPAK_DERSLERI.md`.
 | `gunluk-shorts/` | Şarlken, Medici (Python motoru); dersler `DERSLER.md` |
 | `analiz/` | Studio analizleri, konu taramaları, `tahminler.md`, **`2026-11-22-genel-karsilastirma.md`**, `2026-11-17-kanal-ortalamasi.md` |
 | `araclar/` | `talep/` (talep ve iki dil), `analiz/` (tempo, elde tutma), `hareket/`, `kapak/odak.py`, `lemo/KATALOG.md`, `ASSETS.md`, `ADAYLAR.md` |
+| `kanal/DURUM.md` | **durum panosu:** hangi iş hangi dalda, hangi aşamada, sıradaki adım |
 | `kanal/` | `logo/` kanal kimliği (avatar, kapak, filigran, logo hareketi; `KIMLIK.md`, 26 Kasım) · bu dosyadan taşınan ayrıntı: `DERSLER.md` (video video dersler), `OLCUTLER_GECMIS.md`, `KANAL_YONU.md`, `KAPAK_DERSLERI.md`, `KURUL_YONTEMI.md` (arşiv), `arsiv/` (ayrıntılı eski depo tablosu ve iş akışı) |
 | `.claude/skills/` | `yonetmenlik`, `cizim`, `karakter`, `ses`, `render`, `lisans-kontrol`; `cinecode` (yalnız `/cinecode` ile çalışır; kanal videolarında başvuru kütüphanesi) |
 | kök dizin | eski Navitas kahve Story'si; kanalla ilgisiz |

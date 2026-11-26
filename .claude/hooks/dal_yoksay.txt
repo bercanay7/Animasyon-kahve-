@@ -1,0 +1,5 @@
+# Kanalla ilgisiz dallar: kanca bunları listelemez (Navitas ve müşteri işleri)
+claude/spa-price-list-pdf-rccqge
+claude/gallant-fermi-osxz76
+claude/navitas-29-ekim-story-video-whigtl
+claude/video-editing-logo-tlqtr7
