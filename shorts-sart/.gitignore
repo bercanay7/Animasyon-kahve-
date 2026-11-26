@@ -1,0 +1,7 @@
+# üretim dosyaları depoya girmez (araçlar yeniden üretir)
+*/vo/*.wav
+*/audio/*.wav
+*.mp4
+.kareler*/
+teslim/
+x265_2pass.log*

@@ -75,9 +75,12 @@ const FIG = {};
     const g = T(.022, -.018);
     R.d.save(); R.d.translate(g[0], g[1]); R.d.rotate(a);
     R.d.strokeStyle = dv(-.85); R.d.lineWidth = Math.max(1.2, s * .005);
-    R.d.beginPath(); R.d.ellipse(0, 0, s * .017, s * .008, 0, 0, TAU); R.d.stroke();
-    R.d.fillStyle = dv(-.9); R.d.beginPath(); R.d.arc(s * .003, 0, s * .0045, 0, TAU); R.d.fill();
-    if (o.kapali) { R.d.strokeStyle = dv(-.8); R.d.beginPath(); R.d.moveTo(-s * .017, 0); R.d.lineTo(s * .017, 0); R.d.stroke(); }
+    // kapalı göz yalnız aşağı kıvrık kapak çizgisi (şart Shorts'u, 23 Kasım: oval + bebek + yatay çizgi yakın planda "⊕" işareti gibi okunuyordu)
+    if (o.kapali) { R.d.strokeStyle = dv(-.85); R.d.beginPath(); R.d.moveTo(-s * .017, -s * .001); R.d.quadraticCurveTo(0, s * .008, s * .017, -s * .001); R.d.stroke(); }
+    else {
+      R.d.beginPath(); R.d.ellipse(0, 0, s * .017, s * .008, 0, 0, TAU); R.d.stroke();
+      R.d.fillStyle = dv(-.9); R.d.beginPath(); R.d.arc(s * .003, 0, s * .0045, 0, TAU); R.d.fill();
+    }
     // kaş
     R.d.strokeStyle = dv(.6); R.d.lineWidth = Math.max(1.5, s * .006); R.d.beginPath(); R.d.moveTo(-s * .02, -s * .016); R.d.quadraticCurveTo(s * .005, -s * .026, s * .03, -s * .014); R.d.stroke();
     R.d.restore();
