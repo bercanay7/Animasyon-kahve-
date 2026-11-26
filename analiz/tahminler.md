@@ -31,7 +31,7 @@
 | D2 | 1:15 B07 dergi/kitap karşılaştırması: tek soyut cümle; küçük düşüş olabilir, ≤4 puan. | 1:12–1:25 | |
 | D3 | **Doğal deney (N2 ile karşılaştırma):** hikâye 6:43'te bitiyor; ardından gelen bölüm somut bir anekdot (1895 mahkemesi, avukat romandan sayfa okur, Wilde hapse girer). Tahmin: 6:45–7:35 dik değil (< 1,5 × gövde ortalaması) ve Narkissos'un 6:23–7:50'sinden yatık. İki video da hikâye bittikten sonra gerçek dünyaya geçiyor; biri somut, biri soyut. | iki videonun aynı bölümü yan yana | |
 
-## Lale Çılgınlığı (10:02; yayın 6 Aralık 2026 18:00 (23 Kasım: Gılgamış öne alındı; önce 2 Aralık, ilk olarak 11 Aralık); 48. saat = 8 Aralık 18:00, 7. gün = 13 Aralık)
+## Lale Çılgınlığı (10:02; yayın 10 Aralık 2026 18:00 (27 Kasım: şerit denemesi için Frankenstein'la yer değiştirdi; önce 6, 2 ve 11 Aralık); 48. saat = 12 Aralık 18:00, 7. gün = 17 Aralık)
 Yazıldı: 22 Kasım 2026, senaryo rev2 (seslendirmeden önce). Zamanlar seslendirmeden sonra cümle kimliğinden eklendi; tahminin içeriği değişmedi.
 **Zamanlar:** B01 0:44,6 (ilk 20 sn: 0:44,6–1:04,6); F08 5:18,4 – F11 sonu 5:51,0; G01 5:53,0 (+30 sn: 6:23); I03 8:01,3 – I07 sonu 8:45,9.
 **Not (Fable son okuması, 22 Kasım, yayından önce):** üç izleyici kişiliği de ilk düşüşü 0:44–1:33'te gördü ("önce seksen yıl geriye" ile üçüncü zaman sıçraması, adsız elçi ve botanikçi, Latince mektup). L1 bu tahmine karşı çıkan bir okuma; yayından önce görüntüyle karşılandı (B01'in ilk 4,8 sn'sinde 1554 · 1637 · 1730 zaman çizgisi; B04'te çarşıda akçeyle çiçek; B05'te soğan sandığı). L1 bu hâliyle sınanır; tutmazsa düşüş görüntünün değil anlatımın sorunudur (seslendirme sabit kaldı).
@@ -49,7 +49,7 @@ Yazıldı: 22 Kasım 2026, senaryo rev2 (seslendirmeden önce). Zamanlar seslend
 | G2 | Yatağın başı (D04–D13: Şamaş'ın sözü, kalbin durması, gelin gibi örtme, "burnundan kurt düşene kadar") filmin en iyi tutan bölümü: ya Studio "Önemli an" bu aralıkta ya da bölümde dakika başına kayıp gövde ortalamasının yarısından az. | Studio işaretleri; dakika başına kayıp | |
 | G3 | Hikâye H04'te (surun içi) bitiyor; ardından ~50 sn kuyruk (destanın açılışı, sandık ve tablet, Hattuşa, "yabancı sensin", soru). Kuyruk somut nesne ve olaylarla kurulduğu için dik değil: H05–H10 dakika başına kayıp < 1,5 × gövde ortalaması (Narkissos N2'deki soyut kuyruğun tersi). İkinci yarıda ilk kez adı geçen Urşanabi (E09; rolü kancada ekildi) düşüş getirmez (≤ 3 puan). | H05–H10 ve E09 çevresi | |
 
-## Frankenstein (11:04; yayın 10 Aralık 2026 18:00 önerisi (Lale'den dört gün sonra); 48. saat = 12 Aralık 18:00, 7. gün = 17 Aralık; 23 Kasım yazıldı, render'dan önce)
+## Frankenstein (11:04; yayın 6 Aralık 2026 18:00 (kullanıcı, 27 Kasım: şerit denemesi için Lale'yle yer değiştirdi); 48. saat = 8 Aralık 18:00, 7. gün = 13 Aralık; 23 Kasım yazıldı, render'dan önce)
 **Zamanlar (seslendirmeden sonra):** A05 0:34,3, B01 0:44,6 (hikâye başı); kör adam E02–E04 6:02–6:22; F03 7:18; G02 8:33 (halka); H01 9:10 – H10 sonu 10:37.
 | # | Tahmin | Nasıl sınanır | Sonuç |
 |---|---|---|---|
@@ -92,6 +92,13 @@ Yeni değişken: senaryodan önce kanca araştırması (`stanford/arastirma/`). 
 **Kanal denetimi (26 Kasım gecesi, Studio salt okuma raporu; `2026-11-26-narkissos-48saat.md`):** ceza yok (ihtar, kısıtlama, özgün olmayan içerik uyarısı yok; kitle "çocuklara özel değil"). "Değiştirilmiş içerik" Evet olan (Ran, Mary Stuart, Kafka) ve Hayır olan (Narkissos, Milton) videolar aynı gösterimde: ayar dağıtımı açıklamıyor. Kanalın haftalık gösterimi 1–7 Kas 158,5 B → 64,2 B → 33,7 B → 22–25 Kas 14,5 B (4 gün): her hafta yarıya yakın. **Hüküm: kanal cezası yok; havuz sönüyor.** "Narsisizm" arama kapısı 48 saatte 5 görüntüleme getirdi; önerilen kaynakları narsisizmle ilgisiz genel Türkçe videolar (YouTube videoyu geniş kitlede küçük örneklerle deniyor).
 **Shorts notu:** tek bir Shorts'un 400 izlenmesi tek başına sinyal değil; Shorts dağıtımı ilk saatlerde "izlemeye devam eden / kaydıran" oranına bakar. Ölçüt: izlemeye devam eden ≥ %60 ise içerik değil dağıtım, < %50 ise ilk saniyeler sorunlu.
 **Shorts sonucu (23 Kasım, kullanıcı):** Elizabeth Shorts'u ("Elizabeth Onu İdam Ettirdi. Taht Kime Kaldı?") izlemeye devam eden **%27**: akışta gösterilen ~1.500 kişinin ~%73'ü kaydırdı, YouTube göstermeyi bıraktı. Ceza değil, ilk saniyeler. Kanalın öteki ölçülen Shorts'u da aynı bantta (Milton %32–38). Ortak yanları: yatay filmden kırpılmış kareler (dikeyde küçük figür, düşük kontrast), üstte başlık bandı, ilk saniyede hareket yok.
+
+## Şerit denemesi (27 Kasım 2026, kullanıcı onayladı; Gılgamış yayından önce yazıldı)
+- **Soru:** gösterim neden her videoda 48 saatte 2–3 B'de duruyor? Kanal cezası elendi (26 Kasım denetimi). Kalan iki aday: (1) videolar birbirini beslemiyor (90 günde bitiş ekranı payı %0,1, oynatma listesi %0,4; Narkissos'un önerilen kaynaklarında kendi videomuz yok); (2) kanalın kitle kimliği dağınık (önerilen kaynakları narsisizmle ilgisiz genel videolar; son iki haftada film, Kafka, İngiliz tarihi, mit, Osmanlı art arda).
+- **Düzen:** aynı şeritte dört video art arda: Narkissos (24 Kas) → Dorian Gray (28 Kas) → Gılgamış (2 Ara) → Frankenstein (6 Ara); Lale 10 Aralık'a kaydı. Her birinin bitiş ekranında anlatımın adını verdiği video kalır, ikinci öğe şeritteki bir önceki ya da sonraki video olur; Sisifos ve Prometheus'un bitiş ekranları Narkissos'a bağlanır.
+- **Tahmin Ş1:** Gılgamış ve Frankenstein 48 saatte **≥ 4 B** gösterim alır (son dört videoda 2,2–2,8 B) ve Gelişmiş mod → Önerilen videolar listesinde şeritteki kendi videolarımızdan en az biri ilk 5'te çıkar.
+- **Tahmin Ş2:** kanal genelinde bitiş ekranı payı (son 28 gün) 13 Aralık'ta %0,1'in üstünde, ≥ %0,5.
+- **Tutmazsa:** ana şüpheli yapı değil, kapak ve başlığın ana sayfadaki rekabeti (marka analizi, `2026-11-27-marka-analizi-prompt.md`). Lale (şerit dışı, 10 Ara) karşılaştırma için kullanılır.
 
 ## Dikey Shorts deneyi (Narkissos; 23 Kasım yazıldı, yayından önce)
 - **Ne değişti:** yatay filmden kırpma yerine plan başına dikey mercekle yeniden çizim (figür kadrajı dolduruyor, keskin); ilk karede yazılı ve sesli kişisel soru + telefon camında hareket; üstte künye bandı yok; altyazı ortada, sağ sütun boş; 24,5 sn.

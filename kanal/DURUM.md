@@ -14,8 +14,8 @@ Son güncelleme: 26 Kasım 2026.
 |---|---|---|---|---|
 | Dorian Gray | `dorian-gray/` | main | teslim | yayın 28 Kasım 18:00; 48. saat 30 Kasım |
 | Gılgamış | `gilgamis/` | main | teslim | yayın 2 Aralık 18:00; 48. saat 4 Aralık |
-| Lale Çılgınlığı | `lale-cilginligi/` | main | teslim | yayın 6 Aralık 18:00; 48. saat 8 Aralık |
-| Frankenstein | `frankenstein/` | main | teslim | yayın 10 Aralık 18:00 (öneri); 48. saat 12 Aralık |
+| Lale Çılgınlığı | `lale-cilginligi/` | main | teslim | yayın 10 Aralık 18:00 (27 Kasım: Frankenstein'la yer değiştirdi); 48. saat 12 Aralık |
+| Frankenstein | `frankenstein/` | main | teslim | yayın 6 Aralık 18:00 (kullanıcı, 27 Kasım; şerit denemesi); 48. saat 8 Aralık |
 | Çernobil'in çayı | `cernobil/` | main | teslim (Fable düzeltmeleriyle) | yayın 14 Aralık 18:00 (öneri); 48. saat 16 Aralık |
 | Stanford Hapishane Deneyi | `stanford/` | main (26 Kasım birleşti) | teslim: YouTube 360 MB, telefon 93 MB | yayın 18 Aralık 18:00 (öneri); `stanford/yayin.md` |
 | Şart Shorts'ları | `shorts-sart/` | main (26 Kasım birleşti) | teslim; günlük takvim 26 Kasım – 4 Aralık, 20:00 | takvim ve ölçüm: `shorts-sart/yayin.md` |

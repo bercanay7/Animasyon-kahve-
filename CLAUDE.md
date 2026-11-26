@@ -21,7 +21,7 @@ Bu dosya her oturuma kendiliğinden yüklenir. Bu yüzden içinde yalnız **bug�
   - Uymayan öneri gerekçesiyle geri çevrilir, uygunsa sonraki işe not edilir. Onu memnun etmek için öneri kabul edilmez.
 - **Yayın:** YouTube Studio'da kullanıcı elle yapar.
   - Dosyalar `SendUserFile` ile gönderilir; her video için adım adım bir `yayin.md` yazılır.
-  - **Takvim (23 Kasım):** dört günde bir uzun video, 18:00. Narkissos 24 Kasım, Dorian Gray 28 Kasım, Gılgamış 2 Aralık, Lale Çılgınlığı 6 Aralık.
+  - **Takvim (23 Kasım):** dört günde bir uzun video, 18:00. Narkissos 24 Kasım, Dorian Gray 28 Kasım, Gılgamış 2 Aralık, Frankenstein 6 Aralık, Lale Çılgınlığı 10 Aralık (27 Kasım: şerit denemesi için yer değiştirdi, `analiz/tahminler.md`).
   - Önceki videonun 48. saat ölçümü yeni video yayına girmeden alınır.
 - **Anlatıcı:** ElevenLabs'te **"Emrullah"**. Kanalın sesidir, değiştirilmez. `voice_id` her seferinde `creative_list_voices` ile bulunur, ezberden yazılmaz.
 - **Kredi harcayan üretim** (ElevenLabs, Abracadabrax): yalnız kullanıcı açıkça istediğinde.

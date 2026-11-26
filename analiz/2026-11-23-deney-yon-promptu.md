@@ -34,7 +34,7 @@
 | Atlanan kanal kuralı (başkanın ya da Fable'ın yakaladığı) | | |
 | Kullanıcının kendi notu (1–10, "videoyu beğendin mi") | | |
 | 48. saat: 0:30'da kalan, ortalama izlenme %, TO | | |
-| Yayın (sıra 23 Kasım'da değişti) | 6 Aralık (Gılgamış'tan sonra) | 2 Aralık (Dorian'dan sonra) |
+| Yayın (sıra 23 Kasım'da değişti) | 10 Aralık (27 Kasım: Frankenstein'la yer değiştirdi) | 2 Aralık (Dorian'dan sonra) |
 | 7. gün: aynı ölçüler | | |
 
 **Ortam (23 Kasım):**

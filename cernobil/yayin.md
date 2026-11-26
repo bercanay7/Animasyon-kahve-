@@ -3,8 +3,8 @@
 Yükleme YouTube Studio'da bilgisayardan yapılır. YouTube'un kendi zamanlaması kullanıldığı için yükleme bittikten sonra bilgisayarın açık kalması gerekmez.
 
 ## Zamanlama (Europe/Istanbul)
-- **Uzun video (öneri):** 14 Aralık 2026 Pazartesi, 18:00. Dört günde bir düzeninin sıradaki yuvası (Lale Çılgınlığı 6 Aralık, Frankenstein 10 Aralık). Takvim kullanıcının; başka güne alınırsa yalnız bu satır ve ölçüm günleri değişir.
-- **Ölçüm:** 48. saat 16 Aralık 18:00; 7. gün 21 Aralık. Frankenstein'ın 48. saat ölçümü (12 Aralık) bu video yayına girmeden alınır.
+- **Uzun video (öneri):** 14 Aralık 2026 Pazartesi, 18:00. Dört günde bir düzeninin sıradaki yuvası (Frankenstein 6 Aralık, Lale Çılgınlığı 10 Aralık; 27 Kasım'da yer değiştirdiler). Takvim kullanıcının; başka güne alınırsa yalnız bu satır ve ölçüm günleri değişir.
+- **Ölçüm:** 48. saat 16 Aralık 18:00; 7. gün 21 Aralık. Lale'nin 48. saat ölçümü (12 Aralık) bu video yayına girmeden alınır.
 
 ## Yayından önce: dört sayfaya bakılacak (kullanıcı)
 Videodaki bütün sözler Milliyet arşivinin **OCR metninden** alındı (`kaynak/ARSIV.md`). Sayfa görüntüsü arşivde oturum açınca görülüyor; bu oturumdan açılamadı. Şu dört sayfaya bir kez bakılması yeterli:

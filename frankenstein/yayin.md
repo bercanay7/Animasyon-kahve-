@@ -3,8 +3,8 @@
 Yükleme YouTube Studio'da bilgisayardan yapılır. YouTube'un kendi zamanlaması kullanıldığı için yükleme bittikten sonra bilgisayarın açık kalması gerekmez.
 
 ## Zamanlama (Europe/Istanbul)
-- **Uzun video (öneri):** 10 Aralık 2026 Perşembe, 18:00. Dört günde bir düzeninin sıradaki yuvası (Gılgamış 2 Aralık, Lale Çılgınlığı 6 Aralık). Takvim kullanıcının; başka güne alınırsa yalnız bu satır ve ölçüm günleri değişir.
-- **Ölçüm:** 48. saat 12 Aralık 18:00; 7. gün 17 Aralık. Lale Çılgınlığı'nın 48. saat ölçümü (8 Aralık) bu video yayına girmeden alınır.
+- **Uzun video:** **6 Aralık 2026 Pazar, 18:00** (kullanıcının kararı, 27 Kasım: şerit denemesi; Narkissos → Dorian → Gılgamış → Frankenstein art arda, Lale 10 Aralık'a kaydı; `analiz/tahminler.md` → Şerit denemesi). Bitiş ekranında anlatımın adını verdiği video kalır; ikinci öğe şeritten (Gılgamış ya da Dorian). Takvim kullanıcının; başka güne alınırsa yalnız bu satır ve ölçüm günleri değişir.
+- **Ölçüm:** 48. saat 8 Aralık 18:00; 7. gün 13 Aralık. Gılgamış'ın 48. saat ölçümü (4 Aralık) bu video yayına girmeden alınır.
 
 ## Dosyalar
 | Dosya | Ne için |
@@ -35,7 +35,7 @@ Yükleme YouTube Studio'da bilgisayardan yapılır. YouTube'un kendi zamanlamas�
 
 ## 2. Yayından sonra
 - **Sabit yorum:** `youtube.md` → "Sabit yorum".
-- **Ölçüm:** 48. saatte (12 Aralık) `analiz/tahminler.md` → "Frankenstein" (F1–F3) ve `analiz/2026-11-23-deney-yon-promptu.md` deney tablosu (Frankenstein ikinci yön videosu) doldurulur.
+- **Ölçüm:** 48. saatte (8 Aralık) `analiz/tahminler.md` → "Frankenstein" (F1–F3) ve `analiz/2026-11-23-deney-yon-promptu.md` deney tablosu (Frankenstein ikinci yön videosu) doldurulur.
 
 ## Kulakla bakılacaklar (kullanıcı)
 Sessizliğe dayalı cümle hizalaması kullanıldı; seslendirme kelime kelime dinlenmedi.
