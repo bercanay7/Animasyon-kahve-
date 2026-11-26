@@ -73,19 +73,46 @@ def zarf(nokta, n):
     """[(t, değer)] → örnek başına doğrusal zarf"""
     ts = np.array([p[0] for p in nokta]) * SR; vs = np.array([p[1] for p in nokta]); return np.interp(np.arange(n), ts, vs).astype(np.float32)
 
-# ── rüzgâr: sürekli alçak hışırtı + 11–14 sn esinti (soldan sağa: pan -0.8 → +0.8) ──
+# ── efektler: ElevenLabs Sound Effects v3 (kullanıcının hesabı, 26 Kasım; efekt/ altında; seçim düzey eğrisi ve spektrumla) ──
+# ortam_a (tarla, rüzgâr, uzak cırcır; 25 sn), esinti_a (tek güçlü esinti; doruk 2.5 sn), kagit_a (dönen zarf), kagit_b (zarf çantadan çıkar)
+# EFEKT=0 ile eski sentez rüzgâr ve kâğıt kullanılır.
+import os
+EFEKT = os.environ.get('EFEKT', '1') != '0'
+def yukle(ad):
+    ham = subprocess.run(['ffmpeg', '-v', 'error', '-i', str(HERE / 'efekt' / ad), '-ac', '2', '-ar', str(SR), '-f', 'f32le', '-'], capture_output=True, check=True).stdout
+    return np.frombuffer(ham, np.float32).reshape(-1, 2).copy()
+EFL = []   # (yerleştirilmiş efekt, müziğe göre hedef dB): her biri kendi en gür yarım saniyesine göre ölçeklenir
+def koy(x, t, hedef_db, a=0.0, b=None, giris=.05, cikis=.3):
+    i0 = int(a * SR); i1 = len(x) if b is None else int(b * SR); y = x[i0:i1].copy(); n = len(y)
+    e = np.ones(n, np.float32); gi = int(giris * SR); ci = int(cikis * SR)
+    if gi: e[:gi] = np.linspace(0, 1, gi)
+    if ci: e[-ci:] *= np.linspace(1, 0, ci)
+    y *= e[:, None]; z = np.zeros((N, 2), np.float32); k = int(t * SR); m = min(N, k + n)
+    if k < N: z[k:m] = y[:m - k]
+    EFL.append((z, hedef_db))
+def doruk_rms(z):
+    h = SR // 2; v = [np.sqrt(np.mean(z[i:i + h] ** 2)) for i in range(0, len(z) - h, h)]; return max(v) + 1e-9
+if EFEKT:
+    koy(yukle('ortam_a.mp3'), 0, -8, giris=1.2, cikis=1.5)                 # tarla yatağı
+    koy(yukle('esinti_a.mp3'), 10.1, 1, giris=.3, cikis=1.0)              # esinti: müziği bir an örter
+    koy(yukle('esinti_b.mp3'), 18.0, -7, giris=.6, cikis=1.2)             # ikinci, hafif esinti: yapraklar kopar
+    koy(yukle('kagit_b.mp3'), 9.7, -9, .4, 1.4, giris=.02, cikis=.2)       # zarf çantadan çıkar
+    koy(yukle('kagit_a.mp3'), 10.7, -5, giris=.1, cikis=1.4)               # rüzgâr zarfı alır, döner
+
+# ── rüzgâr (sentez yedeği): sürekli alçak hışırtı + 11–14 sn esinti (soldan sağa: pan -0.8 → +0.8) ──
 taban = renkli_gurultu(N, 80, 1400, -.5, 1) * .5 + renkli_gurultu(N, 300, 3500, -.8, 2) * .25
 dalga = renkli_gurultu(N, 180, 5200, -.35, 3)
 tt = np.arange(N) / SR
 taban_z = zarf([(0, .0), (1.2, .5), (10.6, .55), (16, .6), (22, .42), (25, .25)], N) * (1 + .18 * np.sin(2 * np.pi * .13 * tt) + .1 * np.sin(2 * np.pi * .41 * tt))
 dalga_z = np.exp(-((tt - 12.6) / 1.15) ** 2) + .3 * np.exp(-((tt - 19.6) / 1.5) ** 2)
 pan_d = np.clip((tt - 12.6) / 1.6, -1, 1) * .8
-L += (taban * taban_z * .055 + dalga * dalga_z * .2 * np.sqrt(.5 * (1 - pan_d))).astype(np.float32)
-R += (np.roll(taban, 4800) * taban_z * .055 + dalga * dalga_z * .2 * np.sqrt(.5 * (1 + pan_d))).astype(np.float32)
+g_s = 0.0 if EFEKT else 1.0
+L += g_s * (taban * taban_z * .055 + dalga * dalga_z * .2 * np.sqrt(.5 * (1 - pan_d))).astype(np.float32)
+R += g_s * (np.roll(taban, 4800) * taban_z * .055 + dalga * dalga_z * .2 * np.sqrt(.5 * (1 + pan_d))).astype(np.float32)
 # başak hışırtısı: esintide ince yüksek tıkırtı
 his = renkli_gurultu(N, 2500, 9000, 0, 4) * (rng.random(N) < .004).astype(np.float32)
 his = np.convolve(his, np.exp(-np.arange(200) / 30), 'same').astype(np.float32)
-put(his * (dalga_z * .5 + .08) * .5, 0, -.1)
+put(his * (dalga_z * .5 + .08) * .5 * g_s, 0, -.1)
 
 # ── kâğıt: mektup çantadan çıkar (9.8), rüzgâr alır ve döner (12.2–18.8): genliği dönüş hızıyla atan dar bant hışırtı ──
 kag = renkli_gurultu(N, 1500, 7000, -.2, 5)
@@ -95,7 +122,7 @@ uc = (tt > tSal) & (tt < tVar)
 a = np.where(uc, tt - tSal, 0)
 kz += uc * (np.abs(np.sin(a * 3.4 * np.pi / 2 + .4)) ** 6) * np.exp(-a * .28) * .9
 pan_k = np.where(uc, -.3 + .9 * np.clip(a / 6.6, 0, 1), -.3)
-L += (kag * kz * .09 * np.sqrt(.5 * (1 - pan_k))).astype(np.float32); R += (kag * kz * .09 * np.sqrt(.5 * (1 + pan_k))).astype(np.float32)
+L += g_s * (kag * kz * .09 * np.sqrt(.5 * (1 - pan_k))).astype(np.float32); R += g_s * (kag * kz * .09 * np.sqrt(.5 * (1 + pan_k))).astype(np.float32)
 
 # ── müzik ──
 # yüzey: Mib ve Sib uzun yaylı; batışta Lab'a ve geri Mib'e
@@ -138,6 +165,11 @@ def yanki(x, sure=3.0, kuru=.78, islak=.34, tohum=7):
     F = 1 << int(np.ceil(np.log2(len(x) + n))); y = np.fft.irfft(np.fft.rfft(x, F) * np.fft.rfft(ir, F), F)[:len(x)]
     return (x * kuru + y * islak).astype(np.float32)
 L = yanki(L, tohum=7); R = yanki(R, tohum=8)
+# efekt yolu: müzikten sonra, yankısız (açık hava); düzeyi müziğin etkin düzeyine göre
+if EFEKT:
+    m_rms = np.sqrt(np.mean(L[int(8 * SR):int(20 * SR)] ** 2 + R[int(8 * SR):int(20 * SR)] ** 2) / 2)
+    for z, hdb in EFL:
+        g = m_rms * 10 ** (hdb / 20) / doruk_rms(z); L += z[:, 0] * g; R += z[:, 1] * g
 # giriş ve çıkış
 e = zarf([(0, 0), (.8, 1), (23.6, 1), (25, 0)], N); L *= e; R *= e
 
