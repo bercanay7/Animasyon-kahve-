@@ -1,7 +1,7 @@
 // Palette-knife impasto renderer (WebGL2).
 // Kaynak: Lemo-Opuscar styles/impasto/demo/engine (MIT, LemoLab 2026; LICENSE-MIT.txt). Zaman Kuryesi değişiklikleri "ZK:" notuyla:
 //   ZK: katman önbelleği (onbellek/bas): durağan katman bir kez kendi dokusuna boyanır, her karede kamerayla basılır.
-//   ZK: finish({mono, monoK, monoA}): grisaille (tek renk) kipi.
+//   ZK: finish({mono, monoK, monoA}): grisaille (tek renk) kipi; renkAc: [x, y, r, yumuşak] gri dünyanın bir noktadan renge açılışı (karma üslup).
 //   ZK: under() ve draw() görünüm boyunu this.vw/vh'den alır (önbelleğe boyarken payla büyür).
 // Every mark is an instanced "stroke": knife / brush / dab / line.
 // Pass 1 paints strokes into two targets at 2x resolution: colour (+coverage) and paint height.
@@ -157,6 +157,7 @@ uniform vec3 uGround, uLift, uGain;
 uniform float uSat, uExpo, uVig, uContrast, uWeave;
 uniform vec3 uLightCol;
 uniform float uMono; uniform vec3 uMonoK, uMonoA;   // ZK: tek renk (grisaille) kipi
+uniform vec4 uRenkAc;   // ZK: renk açılışı: (x, y) merkez (0..1, üstten), r yarıçap (yükseklik oranı), yumuşaklık; r < 0 kapalı
 float h2(vec2 p){ return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453); }
 float H(vec2 uv){ return texture(uH, uv).r; }
 void main(){
@@ -188,7 +189,13 @@ void main(){
   col = uLift + col * (uGain - uLift);
   // ZK: grisaille: değer korunur, renk iki uçlu tona (koyu ↔ açık) iner; orta tonlar hafif S eğrisiyle sertleşir
   float lm = clamp(dot(col, vec3(.3, .59, .11)), 0., 1.); lm = mix(lm, lm * lm * (3. - 2. * lm), .35);
-  col = mix(col, mix(uMonoK, uMonoA, lm), uMono);
+  float mono = uMono;
+  if (uRenkAc.z >= 0.) {   // karma üslup: gri dünya bir noktadan renge açılır (fırça kenarlı: gürültüyle kırık daire)
+    vec2 d = (vec2(vUV.x, 1. - vUV.y) - uRenkAc.xy) * vec2(1.78, 1.);
+    float kir = (h2(floor(vUV * vec2(240., 135.))) - .5) * uRenkAc.w * .9;
+    mono *= smoothstep(uRenkAc.z - uRenkAc.w, uRenkAc.z + uRenkAc.w, length(d) + kir);
+  }
+  col = mix(col, mix(uMonoK, uMonoA, lm), mono);
   vec2 q = vUV - .5; q.x *= 1.78;
   col *= 1. - uVig * smoothstep(.35, 1.1, length(q));
   o = vec4(clamp(col, 0., 1.), 1.);
@@ -233,7 +240,7 @@ function prog(gl, vs, fs) { const p = gl.createProgram(); gl.attachShader(p, sh(
 
 export const POST_DEFAULT = {
   light: [-.55, -.6, .7], norm: 3.2, amb: .8, dif: .28, spec: .16, shin: 30, ao: 1.2,
-  ground: [.46, .4, .33], lift: [0, 0, 0], gain: [1, 1, 1], sat: 1, expo: 1, vig: .22, contrast: 1, weave: .12, lightCol: [1, .97, .9], mono: 0, monoK: [.04, .04, .05], monoA: [.97, .95, .9],
+  ground: [.46, .4, .33], lift: [0, 0, 0], gain: [1, 1, 1], sat: 1, expo: 1, vig: .22, contrast: 1, weave: .12, lightCol: [1, .97, .9], mono: 0, monoK: [.04, .04, .05], monoA: [.97, .95, .9], renkAc: [0, 0, -1, .05],
 };
 
 export class Impasto {
@@ -380,7 +387,7 @@ export class Impasto {
     gl.uniform3fv(u.uGround, p.ground); gl.uniform3fv(u.uLift, p.lift); gl.uniform3fv(u.uGain, p.gain);
     gl.uniform1f(u.uSat, p.sat); gl.uniform1f(u.uExpo, p.expo); gl.uniform1f(u.uVig, p.vig); gl.uniform1f(u.uContrast, p.contrast); gl.uniform1f(u.uWeave, p.weave);
     gl.uniform3fv(u.uLightCol, p.lightCol);
-    gl.uniform1f(u.uMono, p.mono); gl.uniform3fv(u.uMonoK, p.monoK); gl.uniform3fv(u.uMonoA, p.monoA);
+    gl.uniform1f(u.uMono, p.mono); gl.uniform3fv(u.uMonoK, p.monoK); gl.uniform3fv(u.uMonoA, p.monoA); gl.uniform4fv(u.uRenkAc, p.renkAc);
     gl.bindVertexArray(null);
     gl.bindBuffer(gl.ARRAY_BUFFER, this.quad); gl.enableVertexAttribArray(0); gl.vertexAttribPointer(0, 2, gl.FLOAT, false, 0, 0);
     gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);

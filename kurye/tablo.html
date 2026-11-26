@@ -307,7 +307,8 @@ function sahneTanimla(pe) {
     ],
     bitir: t => { const bu = sm(tBat0, tBat1, t);
       return { light: [-.5, -.55, .7], norm: 1.7, ground: [.1, .08, .12], expo: 1.03 - .13 * bu, sat: 1.06 - .1 * bu, contrast: 1.05, vig: .3 + .06 * bu, spec: .1, shin: 24, weave: .06, lightCol: [1, .93, .82],
-        gain: [1 - .05 * bu, 1 - .04 * bu, 1 + .02 * bu], mono: MONO ? 1 : 0, monoK: [.05, .045, .05], monoA: [.96, .94, .9] }; },
+        gain: [1 - .05 * bu, 1 - .04 * bu, 1 + .02 * bu], mono: MONO ? 1 : 0, monoK: [.05, .045, .05], monoA: [.96, .94, .9],
+        renkAc: RENKAC ? [T.GUNES[0] / 1920, T.GUNES[1] / 1080, 1.3 * sm(3, 10, t), .06] : [0, 0, -1, .05] }; },
   });
 }
 function renderFrame(t) { M.ciz(ctx, 'mektuplar', PL ? PL.t0 + t : t); }
@@ -361,7 +362,7 @@ function planSahne(MUL) {
 }
 // mektubun bırakıldığı yer: elin salış anındaki ekran konumu (kare sırasından bağımsız olsun diye yükte hesaplanır)
 let SALIS_EL = [700, 820];
-const MONO = Q.get('mono') === '1';
+const MONO = Q.get('mono') === '1', RENKAC = Q.get('renkac') === '1';   // renkac: karma üslup denemesi (gri dünya güneşten renge açılır)
 // Blender kuryesi: kareler yükte okunur, saydam olmayan bölge kırpılıp saklanır (kurye/blender/kurye_bpy.py üretir)
 const BLENDER = Q.get('blender') === '1'; const BKARE = [];
 async function blenderYukle() { const d = await blenderKareleri(PL ? `blender/kare_${PLAN}` : 'blender/kare', 376); for (const k of d) BKARE.push(k); }
