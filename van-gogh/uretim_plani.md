@@ -66,7 +66,7 @@ Motora uygun öteki adaylar (aynı gün): Walden (TR medyan ~184 B, çoğu sesli
   - "DELİ" sözcüğü hiçbir yazıda yok (ruh sağlığı damgası).
 
 ## 6. İskelet: Harmon çemberi, kahraman Theo
-- Önceki iskeletler: Lale Kahramanın Yolculuğu, Dorian Harmon. Stanford'unki `stanford/`'dan teyit edilecek; aynıysa Kişōtenketsu'ya geçilir.
+- Önceki iskeletler: Stanford Kişōtenketsu (bir önceki), Çernobil Harmon, Frankenstein iç içe çerçeve + Kişōtenketsu, Lale Kahramanın Yolculuğu. Art arda aynı iskelet yok: Harmon uygun.
 - **Ad yükü:** seste yalnız Vincent, Theo, Jo (ve Gauguin tek cümle).
   - Anna Boch, Aurier ve Dr. Gachet ekranda etiket ya da anılmaz.
   - Doruğu taşıyan Jo kancada ekilir (Ran dersi): görüntüsüyle (bir kadın sırtı ve elinde bir defter), adı söylenmeden "bu hikâyeyi bitiren üçüncü kişi".
@@ -110,7 +110,7 @@ Motora uygun öteki adaylar (aynı gün): Walden (TR medyan ~184 B, çoğu sesli
 
 ## 8. Sıradaki adımlar
 1. Kaynak dosyası (araştırma ajanı, sürüyor); başkan doğrular → `kaynak/DOGRULAMA.md`.
-2. İskeletin teyidi (Stanford'un iskeleti) ve kapakların vaadinin senaryoda karşılanması.
+2. Kapakların vaadinin senaryoda karşılanması (iskelet teyit edildi: Stanford Kişōtenketsu'ydu).
 3. Senaryo (`senaryo.json`); tempo kontrolü; 3 tahmin `analiz/tahminler.md`.
 4. Üslup kapısı: Theo'nun odası (iç mekân, lamba, gri) + Arles tarlası (renklenme) + 15 sn hareket.
 5. Seslendirme (Emrullah; kredi hesabı önce bildirilir).
