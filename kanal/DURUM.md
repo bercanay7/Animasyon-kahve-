@@ -28,6 +28,9 @@ Son güncelleme: 26 Kasım 2026.
 |---|---|---|
 | Narkissos | 24 Kasım | 48. saat alındı (`analiz/2026-11-26-narkissos-48saat.md`); 0:30 eğrisi bekleniyor |
 
+## Video arşivi
+Bitmiş videolar depoda tutulmaz (27 Kasım). Her teslimden sonra kullanıcı YouTube kopyasını Google Drive'daki "Zaman Kuryesi / teslim" klasörüne atar; YouTube'un sakladığı dosya yeniden sıkıştırılmış kopyadır, yüklenen dosya değil. Depodan çıkarılan eski çıktılar git geçmişinde: `kanal/arsiv/cikarilan_videolar_2026-11-27.md`.
+
 ## Kanalla ilgisiz dallar
 `.claude/hooks/dal_yoksay.txt` içindekiler (Navitas, spa listesi, Erdem Melih). Kanca bunları listelemez; `CLAUDE.md` gereği dokunulmaz.
 

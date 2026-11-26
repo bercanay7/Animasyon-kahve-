@@ -225,7 +225,7 @@ Ayrıntı ve kompozisyon menüsü: `kanal/KAPAK_DERSLERI.md`.
   - İki iş aynı çekirdekleri paylaşırken öncelikli olan için ötekine `kill -STOP` / `-CONT`.
 - **Render önbelleği:** `.parts*/` kod ve ayar özetini (`KEY`) saklar; şüphede klasör elle silinir.
   - Ara parçalar iş bitince silinir; disk payı sınırlı.
-  - Büyük mp4'ler depoya girmez.
+  - Bitmiş video depoya girmez (`.gitignore`: `*.mp4`; 27 Kasım'da çıkarılanlar ve geri alma: `kanal/arsiv/cikarilan_videolar_2026-11-27.md`). Teslim kopyasının kalıcı yeri kullanıcının Drive arşivi.
 - **file:// görselleri WebGL tuvalini kirletir:** render ve kare araçları yerel http sunucusuyla çalışır (`dorian-gray/tools/sunucu.js`).
 - **Yazılımsal WebGL (SwiftShader):** önce ölç, sonra hızlandır.
   - Konuma bağlı gürültü dokuya önceden yazılır.
