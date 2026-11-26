@@ -99,7 +99,7 @@ if EFEKT:
     koy(yukle('kagit_b.mp3'), 9.7, -9, .4, 1.4, giris=.02, cikis=.2)       # zarf çantadan çıkar
     koy(yukle('kagit_a.mp3'), 10.7, -5, giris=.1, cikis=1.4)               # rüzgâr zarfı alır, döner
 
-# ── ayak sesi (sentez): topuk vuruşu (alçak, kısa) + kuru toprak ve ot çıtırtısı (tanecikli dar bant gürültü) ──
+# ── ayak sesi: ElevenLabs çekimleri (adim_a/b); yedek sentez: topuk vuruşu (alçak, kısa) + kuru toprak ve ot çıtırtısı (tanecikli dar bant gürültü) ──
 import json
 def adim(v=1.0, tohum=0):
     r = np.random.default_rng(100 + tohum); n = int(.22 * SR); t = np.arange(n) / SR
@@ -111,9 +111,12 @@ def adim(v=1.0, tohum=0):
     return np.stack([x, x], 1).astype(np.float32) * v
 ADIM = json.loads((HERE / 'adimlar.json').read_text())
 if EFEKT:
+    # ElevenLabs ayak sesi çekimlerinden ardında boşluk olan tek adımlar (başlangıçları düzey eğrisinden); sırayla dönerek
+    HAVUZ = [(yukle('adim_a.mp3'), t0) for t0 in (2.68, 3.44, 5.0, 7.78, 8.59, 12.36)] + [(yukle('adim_b.mp3'), t0) for t0 in (3.11, 6.3)]
     for i, a in enumerate(ADIM + [{'t': 6.62, 'ayak': 0}, {'t': 6.95, 'ayak': 1}]):
         uz = min(1, .55 + .45 * (1 - a['t'] / 7))                     # kurye uzaklaştıkça sesi kısılır
-        koy(adim(1, i), a['t'] - .005, -15 - 9 * (1 - uz) - (4 if a['t'] > 6.5 else 0), giris=0, cikis=.05)
+        x, t0 = HAVUZ[(i * 3) % len(HAVUZ)]
+        koy(x, a['t'] - .03, -13 - 9 * (1 - uz) - (4 if a['t'] > 6.5 else 0), t0 - .03, t0 + .38, giris=.004, cikis=.08)
 
 # ── rüzgâr (sentez yedeği): sürekli alçak hışırtı + 11–14 sn esinti (soldan sağa: pan -0.8 → +0.8) ──
 taban = renkli_gurultu(N, 80, 1400, -.5, 1) * .5 + renkli_gurultu(N, 300, 3500, -.8, 2) * .25
