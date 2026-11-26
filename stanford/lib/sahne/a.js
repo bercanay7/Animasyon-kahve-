@@ -199,7 +199,7 @@ sahne('P19', 'B09', 'koridor', 'genis', (B, st) => {
     k.save(); k.fillStyle = B.ton(ad === 'WARDEN' ? lerp(.75, .1, isikW) : .75); k.fillRect(x - 70, 350, 140, 240); k.fillStyle = B.ton(.02); k.fillRect(x - 64, 330, 128, 22); k.restore();
     l.save(); l.lineWidth = 3; l.strokeStyle = '#000'; l.strokeRect(x - 70, 350, 140, 240); l.strokeRect(x - 64, 330, 128, 22); l.font = '700 14px "Courier Prime"'; l.textAlign = 'center'; l.textBaseline = 'middle'; l.fillStyle = '#000'; l.fillText(ad, x, 341); l.restore();
   }
-}, { ...VID, over: (ctx, st) => { etiket(ctx, 'AMİR', 820, 270, st.t - A('B09@amir'), 6, { col: '#E9EEF0', panelRGB: KOYU }); etiket(ctx, 'MÜDÜR · DAVID JAFFE', 1180, 640, st.t - A('B09@müdür'), 6, { col: '#E9EEF0', panelRGB: KOYU }); } });
+}, { ...VID, over: (ctx, st) => { etiket(ctx, 'AMİR · ZIMBARDO', 820, 270, st.t - A('B09@amir'), 6, { col: '#E9EEF0', panelRGB: KOYU }); etiket(ctx, 'MÜDÜR · DAVID JAFFE (ÖĞRENCİ)', 1180, 640, st.t - A('B09@müdür'), 6, { col: '#E9EEF0', panelRGB: KOYU }); } });
 // P20 ayrıntı: koridorun ucunda, bölmenin arkasında kamera (karanlık, insan yok); merceğe yaklaşma; gözlem masası III. bölüme kadar görünmez (Kural 2)
 sahne('P20', 'B10', 'kamera', 'ayrinti', (B, st) => {
   B.cam(960, 520, 1.05 + Math.min(st.lt, 12) * .03);

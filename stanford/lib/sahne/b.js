@@ -281,11 +281,11 @@
     B.cam(960, 500, 1.02 + st.lt * .014);
     tam(B, .38);
     const tZ = tA('C04@zimbardo'), tY = tA('C04@yazıyor'), tS = tA('C04@sertleştiğini');
-    const sol = ['En sert davranışlar', 'ilk akşam vardiyasında', '(18.00–02.00)'];
+    const sol = ['En sert davranışlar', 'tek vardiyada:', 'akşam (18.00–02.00)'];
     const sag = ['Her vardiyada bir iki', 'gardiyan giderek', 'sertleşti.'];
     sayfa(B, 150, 190, 790, ['LE TEXIER · 2019'], sol, 1, { px: 46, vurgu: { 2: ramp(st.t, st.at + .2, st.at + .9, E.lin) }, h: 470 });
     sayfa(B, 980, 190, 790, ['ZIMBARDO · 2018'], sag, ramp(st.t, tZ + .1, tY - .2, E.lin), { px: 46, vurgu: { 2: ramp(st.t, tS, tS + .6, E.lin) }, h: 470 });
-  }, { ...KAG, over: KU('Le Texier 2019, s. 8 · Zimbardo 2018 (çeviriler bizim)', { t0: .4 }) });
+  }, { ...KAG, over: KU('Le Texier 2019 · Zimbardo 2018 (çeviriler bizim)', { t0: .4 }) });
 
   // ── P28 loş gece koridoru: uzun boylu gardiyan öne çıkar, durur; "tiyatro"da tepesindeki lamba yanar, "John Wayne"de gözlük parlar ──
   const P28t = st => ({ d: yerel(st, 'C05@deyv'), c: yerel(st, 'C05@con') });
@@ -310,7 +310,7 @@
   }, { ...VID, mb: 2, over: (ctx, st) => { const tt = P28t(st); ETK('DAVE ESHELMAN', 960, 170, { video: 1, t0: tt.d, d: tt.c - tt.d + .2 })(ctx, st); ETK('JOHN WAYNE · DAVE ESHELMAN', 960, 170, { video: 1, t0: tt.c, d: 2.6 })(ctx, st); } });
 
   // ── P29 Eshelman ve şınav: tek mahkûm yandan, iniş-kalkış belirgin; "şınav"da tempo artar, "keyfî"de gardiyan eğilip yeri gösterir ──
-  sahne('P29', 'C06', 'koridor', 'orta', (B, st) => {
+  sahne('P29', 'C06@zimbardonun', 'koridor', 'orta', (B, st) => {
     B.cam(980, 720, 1.0 + st.lt * .01);   // zemin altyazı bandının üstünde, gardiyanın başı kadrajda
     D.koridor(B, st.t, { levha: false });
     const tS = tA('C06@şınav') - st.at, tK = tA('C06@keyfi'), tl = st.lt;

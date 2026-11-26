@@ -245,8 +245,8 @@
     oda(B, st, { isik: ramp(st.lt, .15, .5, E.out3), ang: aci(st.t - st.at - .6 > 0 ? st.t - st.at - .6 : 0, .45),
       mudurO: { bas: .08 + .06 * R(st, 'D02@gündüz', .8) }, markO: { bas: .12 - .08 * R(st, VAR('D02', 'zimbardo', 'gardiyan'), .8) },
       monitor: (B2) => bodrum(B2, st, { gardiyanlar: [{ z: .4, u: .15 }] }) });
-  }, { ...KK, over: OV(ZM(ETK('MÜDÜR · DAVID JAFFE', 520, 760, { d: 4.5 }), 'D02@müdür', 5), ZM(ETK('GÜNDÜZ VARDİYASI GARDİYANI', 1440, 760, { d: 4.5 }), 'D02@gündüz', 5),
-    ZM(KU("Gün: Zimbardo'ya göre ilk, Le Texier'ye göre üçüncü; müdürün notunda pazartesi"), VAR('D02', 'lö', 'müdür'), 6)) });
+  }, { ...KK, over: OV(ZM(ETK('MÜDÜR: DAVID JAFFE, LİSANS ÖĞRENCİSİ', 700, 200, { d: 4.5 }), 'D02@müdür', 5), ZM(ETK('GÜNDÜZ VARDİYASI GARDİYANI', 1440, 760, { d: 4.5 }), 'D02@gündüz', 5),
+    ZM(KU("Günü: Zimbardo'ya göre ilk, Le Texier'ye göre üçüncü; müdürün notunda pazartesi", { y: 120 }), VAR('D02', 'lö', 'müdür'), 7)) });
 
   // P44 yakın: Mark, karanlık oda; adı söylenince başını kaldırır, "yirmi"de hafif eğer. (rev2'de D03 yok: plan "Mark" sözcüğüne bağlanır, ≈ 1 sn)
   const M3 = ESKI ? 'D03@mark' : 'D02@mark';
@@ -406,7 +406,8 @@
 
   // P55 orta: müdür monitörün önünde (opak siluet); monitörde koridorda tek gardiyan; "polise"de gardiyan döner, "kafasındaki"nde eli beline iner; "küçültücü"de müdür eğilir
   sahne('P55', 'D12', 'gozlem', 'orta', (B, st) => {
-    B.cam(430, 390, 1.78 + st.lt * .012);
+    const gc = R(st, 'D12@sert', 2.4, E.io2);   // izleyici okuması: 12 sn monitör; "sert"te kamera müdüre açılır
+    B.cam(lerp(430, 1000, gc), lerp(390, 500, gc), lerp(1.78 + st.lt * .012, 1.1, gc));
     const don = R(st, 'D12@polise', .5), el = R(st, 'D12@kafasındaki', .7), eg = R(st, 'D12@küçültücü', 1);
     oda(B, st, { mark: false, mudurO: { govde: .1 + .12 * eg, bas: .1 + .05 * eg },
       monitor: (B2) => bodrum(B2, st, { gardiyanlar: [{ z: .3, u: .05, f: don > .5 ? -1 : 1, kol: [lerp(.15, -.06, el), lerp(.5, .2, el)], bas: .05 }] }) });
@@ -546,7 +547,7 @@
     const sag = E.out3(clamp((st.t - tB) / .6));
     sayfa(160, 200, 760, 'ZIMBARDO · 2018', SOL, 1, [1, 2], 1);
     sayfa(lerp(1500, 1000, sag), 200, 760, 'LE TEXIER · 2019, s. 7', ['Yukarıda sunulan kanıtlar', 'bu ifadeyle doğrudan', 'çelişiyor.'], clamp((st.t - tB - .2) / 1.4), [1, 2], R(st, 'D18@doğrudan', .6));
-  }, { ...KAG, over: OV(ZM(KU('Zimbardo 2018, prisonexp.org (çevirisi bizim)'), null, 6.5), ZM(KU('Le Texier 2019, s. 7 (çevirisi bizim)'), 'D18@belgeler', 3.4)) });
+  }, { ...KAG, over: OV(ZM(KU('Zimbardo 2018, prisonexp.org (çevirisi bizim)'), null, 6.5), ZM(KU('Le Texier 2019 (çevirisi bizim)'), 'D18@belgeler', 3.4)) });
 
   // P63 geniş: ARKADAN: ikisi yan yana monitöre bakar (birlikte izleme); monitörde sakin sayım (ilk vardiyalar), masa lambası teypte.
   //   Monitörden geri çekilme; "rağmen"de müdür geriye yaslanır, "baskın"da Mark başını eğer

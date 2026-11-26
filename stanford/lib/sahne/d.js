@@ -126,7 +126,7 @@
       SET.yuru(B2.l, 900 + v * tS, zy, boy, st.lt, { tip: 'gardiyan', f: -1, go: u => u < tS ? 1 : 0, kolO: [.15, .4], kolA: [-.1, .3] });
       gece(B2, 960, 470);
     });
-  }, { ...KK, over: OV(ZM(ETK('GÜNDÜZ VARDİYASI', 530, 150, { d: 3.6, px: 40 }), null, 4), ZM(ETK('GECE VARDİYASI', 1390, 150, { d: 3.6, px: 40 }), null, 4)) });
+  }, { ...KK, over: OV(ZM(ETK('GÜNDÜZ VARDİYASI', 530, 150, { d: 3.6, px: 40 }), null, 4), ZM(ETK('AKŞAM VARDİYASI', 1390, 150, { d: 3.6, px: 40 }), null, 4)) });
 
   // P66 yakın: Eshelman profil (gece). Arkada (sırtının gerisinde, başın yanında değil) bir kapı aralığının ışık şeridi.
   //   "müdüre"de kapı aralanır, şerit genişler; "aktördüm"de gözlükte parıltı çakar, baş kalkar; "abartıyordum"da kapı kapanır, şerit söner; "rol"de baş ve omuz düşer
@@ -138,7 +138,7 @@
     k.save(); k.fillStyle = B.ton(.84); k.fillRect(-300, -300, 2600, 1700); k.fillStyle = B.ton(.3); k.fillRect(110, -300, sw, 1700); k.fillStyle = B.ton(.62); k.fillRect(110 + sw, -300, 30, 1700); k.restore();
     const gri = Math.round(lerp(150, 248, cak)), par = `rgb(${gri},${gri + 4},${gri + 6})`;
     yakinFig(B, 'gardiyan', 620, 360 + 24 * rol, 2300, { f: 1, bas: .14 - .16 * don + .16 * rol, govde: .05 * rol + Math.sin(st.t * 1.1) * .008, cop: false, kolO: [.2, .4], kolA: [-.1, .2], camRenk: '#6A7275', parilti: par, serbest: 1 });   // cam koyu; parıltı küçük
-  }, { ...VID, over: ZM(QT('“Çalışma için daha iyi olur diye düşündüm. Deney boyunca bir aktördüm, abartıyordum; rol yapıyordum.”', 'Eshelman, deneyin son günü (Le Texier 2019, s. 8)', { video: 1, x: 1330, y: 360, maxW: 820, px: 62 }), 'E02@çalışma', 8) });
+  }, { ...VID, over: ZM(QT('“Çalışma için daha iyi olur diye düşündüm. Deney boyunca bir aktördüm, abartıyordum; rol yapıyordum.”', 'Eshelman, deneyin son günü (Le Texier 2019)', { video: 1, x: 1330, y: 360, maxW: 820, px: 62 }), 'E02@çalışma', 8) });
 
   // P67 kart: Stanford Magazine 2011 sayfası; bir el sayfayı sağdan masaya sürer ve çekilir, alıntı sözle yazılır;
   //   "zorladım"da şerit, "araştırmacıların"da kamera satıra iner
