@@ -6,7 +6,7 @@ Ezgi bu dosyada yazıldı. Mi bemol majör, ağır (60 vuruş/dk).
   ÇİÇEK: mektup taca konunca (18.8 sn) yüksek çan ışıltısı; çiçekler açıldıkça yoğunlaşır.
   CEVAP: Sib5 – Sol5 – Fa5 – Mib5 (yapraklar kuryeye dönerken; sorunun inen eşi). Son akor Mib (add9) söner.
 Ses: tarlada sürekli hafif rüzgâr; 11–14 sn soldan sağa geçen esinti (görüntüdeki dalgayla aynı an); mektup kâğıt hışırtısı.
-Zamanlar kurye/tablo.html'deki zaman çizelgesiyle aynı (tSal 12.2, tVar 16.6, batış 17–25); ayak basma anları adimlar.json (adimlar.js).
+Zamanlar kurye/tablo.html'deki zaman çizelgesiyle aynı (tSal 12.2, tVar 15.8, ikinci yürüyüş 18.4, batış 17–25); ayak basma anları adimlar.json (adimlar.js).
     python3 kurye/audio/ses.py  -> kurye/audio/ses.wav (48 kHz stereo, -16 LUFS, iki geçişli doğrusal loudnorm)
 """
 import re, wave, subprocess
@@ -17,7 +17,7 @@ SR = 48000; DUR = 25.0; N = int(DUR * SR)
 HERE = Path(__file__).resolve().parent
 L = np.zeros(N, np.float32); R = np.zeros(N, np.float32)
 rng = np.random.default_rng(1926)
-tBak, tCik, tSal, tVar = 7.2, 9.8, 12.2, 16.6
+tBak, tCik, tSal, tVar = 7.2, 9.8, 12.2, 15.8
 
 def put(sig, t, pan=0.0, g=1.0):
     a = int(t * SR); b = min(N, a + len(sig))
@@ -94,10 +94,10 @@ def doruk_rms(z):
     h = SR // 2; v = [np.sqrt(np.mean(z[i:i + h] ** 2)) for i in range(0, len(z) - h, h)]; return max(v) + 1e-9
 if EFEKT:
     koy(yukle('ortam_a.mp3'), 0, -14, giris=1.2, cikis=1.5)                 # tarla yatağı
-    koy(yukle('esinti_a.mp3'), 10.1, -3, giris=.3, cikis=1.0)              # esinti: müziği bir an örter
+    koy(yukle('esinti_a.mp3'), 10.1, -9, giris=.3, cikis=1.0)              # esinti: müziği bir an örter
     koy(yukle('esinti_b.mp3'), 18.6, -11, giris=.6, cikis=1.2)             # ikinci, hafif esinti: yapraklar kopar
     koy(yukle('kagit_b.mp3'), 9.7, -9, .4, 1.4, giris=.02, cikis=.2)       # zarf çantadan çıkar
-    koy(yukle('kagit_a.mp3'), 10.7, -5, giris=.1, cikis=1.4)               # rüzgâr zarfı alır, döner
+    koy(yukle('kagit_a.mp3'), 10.7, -9, giris=.1, cikis=1.4)               # rüzgâr zarfı alır, döner
 
 # ── ayak sesi: ElevenLabs çekimleri (adim_a/b); yedek sentez: topuk vuruşu (alçak, kısa) + kuru toprak ve ot çıtırtısı (tanecikli dar bant gürültü) ──
 import json
@@ -116,7 +116,8 @@ if EFEKT:
     for i, a in enumerate(ADIM + [{'t': 6.62, 'ayak': 0}, {'t': 6.95, 'ayak': 1}]):
         uz = min(1, .55 + .45 * (1 - a['t'] / 7))                     # kurye uzaklaştıkça sesi kısılır
         x, t0 = HAVUZ[(i * 3) % len(HAVUZ)]
-        koy(x, a['t'] - .03, -13 - 9 * (1 - uz) - (4 if a['t'] > 6.5 else 0), t0 - .03, t0 + .38, giris=.004, cikis=.08)
+        if a.get('ikinci'): uz = .45
+        koy(x, a['t'] - .03, -13 - 9 * (1 - uz) - (4 if 6.5 < a['t'] < 18 else 0), t0 - .03, t0 + .38, giris=.004, cikis=.08)
 
 # ── rüzgâr (sentez yedeği): sürekli alçak hışırtı + 11–14 sn esinti (soldan sağa: pan -0.8 → +0.8) ──
 taban = renkli_gurultu(N, 80, 1400, -.5, 1) * .5 + renkli_gurultu(N, 300, 3500, -.8, 2) * .25
@@ -148,7 +149,7 @@ L += g_s * (kag * kz * .09 * np.sqrt(.5 * (1 - pan_k))).astype(np.float32); R +=
 # yüzey: Mib (bekleyiş) → Do min (yolculuk) → Lab maj (çiçek: doruk, kabarır) → Mib add9 (cevap; sessizliğe söner)
 for n, t0, d, v, at in (('Eb3', .4, 11.6, .34, 1.2), ('Bb2', .4, 11.6, .26, 1.2), ('G3', 3.0, 9.0, .16, 1.2),
                         ('C3', 12.0, 4.6, .34, 1.0), ('G3', 12.0, 4.6, .26, 1.0), ('Eb4', 12.0, 4.6, .16, 1.0),
-                        ('Ab2', 16.4, 3.9, .9, 2.2), ('Eb3', 16.4, 3.9, .8, 2.2), ('C4', 16.4, 3.9, .62, 2.2), ('Ab4', 16.8, 3.5, .42, 2.0), ('Eb5', 17.2, 3.1, .26, 1.8),
+                        ('Ab2', 15.6, 4.6, 1.3, 2.0), ('Eb3', 15.6, 4.6, 1.3, 2.0), ('C4', 15.6, 4.6, 1.1, 2.0), ('Ab4', 16.0, 4.2, .85, 1.8), ('Eb5', 16.4, 3.8, .55, 1.6),
                         ('Eb3', 20.2, 2.6, .5, .8), ('Bb3', 20.2, 2.6, .36, .8), ('G4', 20.2, 2.6, .24, .8), ('F4', 20.4, 2.4, .15, .8)):
     put(yayli(midi(n), d, v, at), t0, (midi(n) - 50) * .01)
 # SORU (baş kalkınca), ikinci kez mektup elde (armonili)
@@ -176,8 +177,8 @@ for k in range(26):
     tk = tVar + .25 + 2.8 * (k / 26) ** 1.2 + rng.random() * .15
     put(can(midi(pent[int(rng.random() * len(pent))]), .2 * (1 - k / 34), 3.0), tk, .1 + .6 * rng.random())
 # ÇİÇEK doruğu: Lab majör kırık akor yükselir (17–20 sn)
-for j, (n, tj) in enumerate([('Ab3', 16.9), ('C4', 17.25), ('Eb4', 17.6), ('Ab4', 17.95), ('C5', 18.3), ('Eb5', 18.65), ('G5', 19.0), ('Ab5', 19.35)]):
-    put(piyano(midi(n), .36 + .02 * j, 1.8), tj, -.3 + .08 * j)
+for j, (n, tj) in enumerate([('Ab3', 16.1), ('C4', 16.45), ('Eb4', 16.8), ('Ab4', 17.15), ('C5', 17.5), ('Eb5', 17.85), ('G5', 18.2), ('Ab5', 18.55), ('C6', 18.9)]):
+    put(piyano(midi(n), .58 + .03 * j, 2.0), tj, -.3 + .07 * j)
 # CEVAP: yapraklar kuryeye dönerken; sorunun inen eşi
 dizi([('Bb5', 1), ('G5', 1), ('F5', 1.3), ('Eb5+G4', 2.6)], 19.7, bpm=56, v=.4, pan=-.1)
 put(piyano(midi('Eb3'), .26, 2.6), 22.4, -.2); put(piyano(midi('Bb3'), .22, 2.4), 22.45, -.1); put(piyano(midi('F4'), .18, 2.2), 22.55, .1)
@@ -194,6 +195,10 @@ if EFEKT:
     m_rms = np.sqrt(np.mean(L[int(8 * SR):int(20 * SR)] ** 2 + R[int(8 * SR):int(20 * SR)] ** 2) / 2)
     for z, hdb in EFL:
         g = m_rms * 10 ** (hdb / 20) / doruk_rms(z); L += z[:, 0] * g; R += z[:, 1] * g
+# 60 Hz altı kesilir (TV'de bas şişmesi olmasın); 60–120 Hz yumuşak inik
+def alcak_kes(x):
+    X = np.fft.rfft(x); f = np.fft.rfftfreq(len(x), 1 / SR); g = np.clip((f - 40) / 80, 0, 1) ** 1.5; return np.fft.irfft(X * g, len(x)).astype(np.float32)
+L = alcak_kes(L); R = alcak_kes(R)
 # giriş ve çıkış
 e = zarf([(0, 0), (.8, 1), (22.8, 1), (24.9, 0)], N); L *= e; R *= e
 

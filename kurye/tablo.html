@@ -32,7 +32,7 @@ const GUNES_IS = { tip: 'yon', konum: [4, 5.2, -100], hedef: [-1.6, 0, -9.6], al
 // 0–7 kurye soldan girer, patikada durur · 7.2 başını ağaca kaldırır · 8.6 çantaya uzanır, tek mektup çıkarır, göğsünde tutar
 // 11 sol uzaktan rüzgâr dalgası başakları yatırarak gelir · 12.2 dalga kuryeye varır, mektubu alır · 12.2–18.8 mektup döne döne meşeye
 // 18.8 mektup tacın içine konar; taçtan çiçek gibi açık lekeler yayılır · 17–25 güneş tepelerin ardına batar, ışık soğur
-const tDur = 7.0, tBak = 7.2, tUz0 = 8.6, tCik = 9.8, tSal = 12.2, tVar = 16.6, tBat0 = 17, tBat1 = 25;
+const tDur = 7.0, tBak = 7.2, tUz0 = 8.6, tCik = 9.8, tSal = 12.2, tVar = 15.8, tBat0 = 17, tAd = 18.4, tBat1 = 25;
 const g = HR.yuruyus({ tip: 'yuru' });
 const A0 = [-5.6, -5.6], YAW = Math.atan2(3.85, -4.0);
 const go = t => HR.rampa(t, -.6, .1) * (1 - HR.rampa(t, tDur - .8, tDur));
@@ -44,7 +44,9 @@ const SON = yuruPoz(26), DY = [SON.kok[0], SON.kok[2]];
 const PATIKA = [[A0[0] - 2.2 + .3, A0[1] + 2.3], [A0[0] + .3, A0[1]], [DY[0] + .3, DY[1]], [DY[0] + 2.6, DY[1] - 6.4], [5.6, -27], [12.8, -54]];
 const YAW2 = YAW + .32;                                           // biraz ağaca döner
 const tD0 = tDur - KAY + .1, tD1 = tD0 + .9;
-const bakYay = HR.yayIzi({ hedef: t => (t < tBak ? 0 : t < 22.2 ? 1 : .35), k: 9, d: 5, t0: -1, t1: 26 });
+const bakYay = HR.yayIzi({ hedef: t => (t < tBak ? 0 : t < tVar ? 1 : t < 22.6 ? 1.3 : .4), k: 9, d: 5, t0: -1, t1: 26 });
+// çiçek açınca ağaca doğru bir-iki adım (ikinci kısa yürüyüş; durduğu yerden YAW2 yönünde)
+const yol2 = HR.yuruyusYolu(g, { t0: -1, t1: 26, x0: 0, olcek: 1, go: t => HR.rampa(t, tAd, tAd + .45) * (1 - HR.rampa(t, tAd + 1.1, tAd + 1.9)) });
 const kolYay = HR.yayIzi({ hedef: t => (t < tUz0 ? 0 : t < tCik ? 1 : t < tSal ? 2 : t < tSal + .5 ? 3 : 4), k: 26, d: 8, t0: -1, t1: 26 });
 function kuryePoz(t) {
   t = ikiser(t);
@@ -56,11 +58,12 @@ function kuryePoz(t) {
     for (const i of [0, 1]) { const a0 = i ? .4 : 0, ui = sm(a0, a0 + .5, u);
       p.ayak[i].bilek = V.lerp(son.ayak[i].bilek, dur.ayak[i].bilek, ui); p.ayak[i].bilek[1] += .05 * Math.sin(PI * ui); p.ayak[i].egim = 14 * Math.sin(PI * ui); }
   } else p = I.karistir(dur, dur, 0);
+  if (t > tAd - .05) { const p2 = I.yuruyus3B(yol2, t, { bas: DY, yaw: YAW2, kolGenlik: .18 }); p = I.karistir(p, p2, sm(tAd - .05, tAd + .3, t)); }
   // ağırlık aktarımı ve nefes (durduktan sonra)
   const w = sm(tD1, tD1 + 1, t);
   p.kok = [p.kok[0] + .018 * Math.sin((t - tD1) * .8) * w, p.kok[1] - .006 * w, p.kok[2]];
   p.yan = (p.yan || 0) + .03 * Math.sin((t - tD1) * .8) * w;
-  p.gogusEgim = (p.gogusEgim || 0) + .012 * Math.sin(t * 1.7) * w;
+  p.gogusEgim = (p.gogusEgim || 0) + .012 * Math.sin(t * 1.7) * w + .06 * Math.exp(-Math.pow((t - (tVar + 1.4)) / .5, 2));   // çiçek açınca omuzlar düşer (soluk verir)
   // kol: çantaya uzanır, mektubu göğüs hizasında tutar, rüzgâra bırakır (el omuzun altında kalır), sonra iner
   const K0 = I.kemikler(p), pel = K0.pelvis, k = kolYay(t);
   const canta = V.add(V.add(pel.o, V.mul(pel.x, -.24)), V.mul(pel.y, .02));
@@ -115,7 +118,7 @@ function katman(ad, ciz, d, o = {}) {
 }
 // kamera: yavaş yaklaşma; katman derinliği d: 0 gök … 1 ön plan
 // kamera koreografisi (v3): geniş açılış → kurye mektubu çıkarırken ona yaklaşır → mektubu meşeye kadar izler → güneş batarken geri açılır
-const KAM = [[0, 960, 540, 1], [5.5, 900, 575, 1.06], [10.4, 700, 700, 1.2], [12.4, 730, 680, 1.19], [15.6, 960, 520, 1.14], [18.6, 1080, 480, 1.17], [25, 1000, 545, 1.04]];
+const KAM = [[0, 960, 540, 1], [5.5, 900, 575, 1.06], [10.4, 760, 650, 1.13], [12.4, 790, 630, 1.12], [15.2, 960, 520, 1.12], [18.6, 1060, 490, 1.15], [25, 1000, 545, 1.04]];
 function kamera(t) {
   let i = 0; while (i < KAM.length - 2 && t > KAM[i + 1][0]) i++;
   const a = KAM[i], b = KAM[i + 1], u = sm(a[0], b[0], Math.max(a[0], Math.min(b[0], t)));
@@ -132,7 +135,7 @@ const camDon = (c, P, th) => { const cr = Math.cos(th), sr = Math.sin(th), vx = 
 // dalga: soldan sağa geçen tek büyük esinti (11–15 sn) + sürekli hafif esinti
 const dalgaX = t => -420 + (t - 10.6) * 820;
 const dalga = (x, t) => (t < 10 || t > 16) ? 0 : Math.exp(-Math.pow((x - dalgaX(t)) / 300, 2)) * sm(10, 10.8, t) * (1 - sm(15, 16, t));
-const agacSal = t => .003 * Math.sin(t * .8) + .0012 * Math.sin(t * 2.3 + 1) + (t > 12.75 ? .009 * Math.sin((t - 12.75) * 3.6) * Math.exp(-(t - 12.75) * .9) : 0) + (t > tVar ? .004 * Math.sin((t - tVar) * 4.2) * Math.exp(-(t - tVar) * 1.4) : 0);
+const agacSal = t => .0062 * Math.sin(t * .8) + .0022 * Math.sin(t * 2.3 + 1) + (t > 12.75 ? .009 * Math.sin((t - 12.75) * 3.6) * Math.exp(-(t - 12.75) * .9) : 0) + (t > tVar - .1 ? .007 * Math.sin((t - tVar + .1) * 7) * Math.exp(-(t - tVar + .1) * 2.2) : 0);
 const gunesY = t => T.GUNES[1] + 92 * sm(tBat0, tBat1, t);
 
 // ---------------- canlı katmanlar ----------------
@@ -192,7 +195,7 @@ function polen(t, S) {
 // mektup: katlanmış zarf; bir yüzü ışıkta (sıcak krem), öbür yüzü gölgede (mor); kapak çizgisi yalnız ön yüzde
 function zarf(S, x, y, boy, ang, cev, al = 1) {
   const on = cev >= 0, k = Math.abs(cev), h = boy * .64;
-  const yuz = on ? [.99, .9, .74] : [.56, .44, .54], yuz2 = on ? [1, .8, .6] : [.46, .36, .48];
+  const yuz = on ? [.99, .9, .74] : MONO ? [.78, .72, .74] : [.56, .44, .54], yuz2 = on ? [1, .8, .6] : MONO ? [.7, .64, .68] : [.46, .36, .48];
   // genişlik dönüşle daralır (kâğıt yüzü kameraya döner)
   const L = boy, Wd = h * (.18 + .82 * k);
   S.push({ x, y, ang, len: L, wid: Wd, c: yuz, c2: yuz2, seed: 77, type: KNIFE, alpha: al, hgt: .5 });
@@ -210,7 +213,8 @@ function mektupYer(t, el) {
   const x = b(P0[0], C1[0], C2[0], P3[0]) + 34 * Math.sin(a * 2.3) * (1 - u), y = b(P0[1], C1[1], C2[1], P3[1]) + 20 * Math.cos(a * 3.1) * (1 - u);
   const derin = Math.sin(Math.min(1, u * 2.4) * PI / 2) * (1 - u);          // önce bize gelir, sonra uzaklaşır
   const boy = (26 + 40 * derin) * (1 - .55 * u) + 5;
-  return { x, y, boy, ang: .7 * Math.sin(a * 2.1) + a * .8, cev: Math.cos(a * 3.4 + .4), u };
+  const cv = Math.cos(a * 3.4 + .4), son = sm(.8, .95, u);
+  return { x, y, boy, ang: .7 * Math.sin(a * 2.1) + a * .8, cev: cv * (1 - son) + son * .9, u };   // tacın kenarında ışıklı yüzü döner: görünür kalır
 }
 // çiçekler: tacın içinde bekleyen açık lekeler; mektup konunca konduğu yerden dışa doğru açılır
 let CICEK = [];
@@ -222,7 +226,7 @@ function cicekKur() {
     const yak = Math.exp(-d / 260);                                    // mektubun girdiği yerde sık
     if (hsh(i, 7) > .15 + .45 * yan + .6 * yak) continue; n++;
     const boyS = hsh(i, 5) < .45 ? 7 : hsh(i, 5) < .85 ? 11 : 16;         // üç boy
-    CICEK.push({ x, y, t0: tVar + .12 + d / 380 + hsh(i, 4) * .25, s: boyS * (.85 + .3 * hsh(i, 8)), f: hsh(i, 6) * 6.28, p: .45 + .55 * yan }); }
+    CICEK.push({ x, y, t0: tVar + .04 + d / 300 + hsh(i, 4) * .2, s: boyS * (.85 + .3 * hsh(i, 8)), f: hsh(i, 6) * 6.28, p: .45 + .55 * yan }); }
 }
 // cevap: açan çiçeklerden yapraklar kopar, rüzgârla kuryeye doğru süzülür: kenarı yumuşak pul, çizgisiz
 function yapraklar(t, S, hedef) {
@@ -234,13 +238,18 @@ function yapraklar(t, S, hedef) {
 }
 // çiçek: iki-üç üst üste binen kısa fırça lekesi (damga değil), kabartmasız; ışık yanında açık, gölgede gül-mor
 function cicekler(t, S) {
+  const gx = T.GUNES[0], gy = gunesY(t);
   for (const c of CICEK) { const a = t - c.t0; if (a < 0) continue;
-    const ac = sm(0, .5, a), sic = 1 - .25 * sm(tBat1 - 4, tBat1, t);
-    const ana = [.98, .78 * sic + .14 * (1 - sic), .74 * sic + .24 * (1 - sic)].map(v => v * (.62 + .38 * c.p));
+    const ac = sm(0, .35, a), sic = 1 - .25 * sm(tBat1 - 4, tBat1, t);
     const x = c.x + 1.5 * Math.sin(t * 2 + c.f), y = c.y, s = c.s * (ac + .25 * Math.exp(-a * 4) * Math.sin(a * 12) * ac);
-    const n = c.s > 9 ? 3 : 2;
-    for (let j = 0; j < n; j++) { const a2 = c.f + j * 2.1, r2 = s * .22 * j;
-      S.push({ x: x + Math.cos(a2) * r2, y: y + Math.sin(a2) * r2, ang: c.f + j * .9, len: s * (1 - .2 * j), wid: s * (.62 - .1 * j), c: ana.map(v => v * (1 - .1 * j)), c2: [.8, .48, .55].map(v => v * (.7 + .3 * c.p)), seed: c.f * 100 + j, type: BRUSH, alpha: ac * (.6 + .35 * c.p), hgt: .08, taper: .2 }); } }
+    // iki değer: gövde serin gül-mor, güneşe bakan kenarda sıcak krem
+    const govde = [.74, .5, .6].map(v => v * (.6 + .4 * c.p)), isik = [1, .82 * sic + .12 * (1 - sic), .66 * sic + .2 * (1 - sic)].map(v => v * (.72 + .28 * c.p));
+    const ux = gx - x, uy = gy - y, ul = Math.hypot(ux, uy) || 1;
+    S.push({ x, y, ang: c.f, len: s, wid: s * .7, c: govde, c2: govde.map(v => v * .85), seed: c.f * 100, type: BRUSH, alpha: ac * .9, hgt: .08, taper: .2 });
+    S.push({ x: x + ux / ul * s * .22, y: y + uy / ul * s * .22, ang: c.f + .9, len: s * .62, wid: s * .4, c: isik, c2: isik.map(v => v * .92), seed: c.f * 100 + 1, type: BRUSH, alpha: ac * (.55 + .4 * c.p), hgt: .06, taper: .2 }); }
+  // varış: mektubun girdiği yerde kısa sıcak parıltı (ağaç mektubu alır)
+  const pa = t - tVar + .05; if (pa > 0 && pa < 1.2) { const k = Math.sin(Math.min(1, pa / .25) * PI / 2) * Math.exp(-pa * 2.6);
+    for (let i = 0; i < 7; i++) { const a = i * .9 + .3; S.push({ x: KONUS[0] + Math.cos(a) * 14, y: KONUS[1] + Math.sin(a) * 10, ang: a, len: 34 + 10 * (i % 3), wid: 9 + 3 * (i % 2), c: [1, .84, .64], c2: [1, .72, .56], seed: 900 + i, type: BRUSH, alpha: .32 * k, hgt: 0, taper: .5 }); } }   // halka değil: yumuşak fırça öbeği
 }
 // tacın kenarı rüzgârda kıpırdar: dış çevrede kısa yaprak darbeleri (her çizimde)
 let KENAR = [];
@@ -291,11 +300,11 @@ function figur(t, S) {
     ny += ((fig(x - 1, y - 1) ? 1 : 0) + (fig(x + 1, y - 1) ? 1 : 0) - (fig(x - 1, y + 1) ? 1 : 0) - (fig(x + 1, y + 1) ? 1 : 0)) * .5;
     const nl = Math.hypot(nx, ny) || 1; nx /= nl; ny /= nl;
     const sx = gx - X, sy = gy - Y, sl = Math.hypot(sx, sy) || 1;
-    const kenarIsik = Math.pow(Math.max(0, nx * sx / sl + ny * sy / sl), 1.6) * .95 + Math.max(0, -ny) * .12;
+    const kenarIsik = Math.max(0, (nx * sx / sl + ny * sy / sl) - .35) / .65 * (hsh(x >> 1, y >> 1, 77) < .7 ? 1 : .25);   // yalnız güneşe bakan kenar, kırık
     const altin = [1, .72, .42];
     const ta = Math.atan2(ny, nx) + PI / 2;
-    KEN.push({ x: X - nx * .6 * sc, y: Y - ny * .6 * sc, ang: ta, len: 2.8 * sc, wid: 1.5 * sc, c: c.map((v, i) => v + (hava[i] * .6 - v) * .2), c2: c, seed: hsh(x, y, cz) * 999, type: KNIFE, hgt: .2 });
-    if (kenarIsik > .18) KIS.push({ x: X + nx * .15 * sc, y: Y + ny * .15 * sc, ang: ta, len: 4.4 * sc, wid: .8 * sc, c: altin, c2: altin.map(v => v * .85), seed: hsh(x, y, cz + 9) * 999, type: KNIFE, hgt: .15, alpha: Math.min(1, kenarIsik * 1.4) });
+    KEN.push({ x: X - nx * .6 * sc, y: Y - ny * .6 * sc, ang: ta, len: 2.1 * sc, wid: 1.4 * sc, c: c.map((v, i) => v + (hava[i] * .6 - v) * .2), c2: c, seed: hsh(x, y, cz) * 999, type: KNIFE, hgt: .2 });
+    if (kenarIsik > .12) KIS.push({ x: X + nx * .15 * sc, y: Y + ny * .15 * sc, ang: ta, len: 4.4 * sc, wid: .8 * sc, c: altin, c2: altin.map(v => v * .85), seed: hsh(x, y, cz + 9) * 999, type: KNIFE, hgt: .15, alpha: Math.min(1, kenarIsik * 1.4) });
   }
   for (const o of KEN) S.push(o); for (const o of KIS) S.push(o);
   // uzun gölge: güneşten uzağa (sola ve bize), incelerek
