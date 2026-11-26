@@ -35,7 +35,7 @@ try {
   // kilit düzen sayfa.html'deki kilit() ile aynı oranlar (boy 150)
   const [kx, ky, kw, kh] = ZK.KUTU.split(' ').map(Number);
   for (const [ad, duzen, yaziR] of [['yatay_lacivert', 'lacivert', '#F3EAD7'], ['yatay_fildisi', 'fildisi', '#101B33']]) {
-    const k = ZK.DUZEN[duzen], boy = 150, ih = Math.round(boy * 1.52), iw = Math.round(ih * kw / kh);
+    const k = ZK.DUZEN[duzen], boy = 150, ih = Math.round(boy * 1.75), iw = Math.round(ih * kw / kh);
     const pad = 60, olc = ih / kh, gap = Math.round(boy * .36);
     const capUst = fl.charToGlyph('Z').getBoundingBox().y2 * boy / fl.unitsPerEm;   // büyük harf yüksekliği
     const taban = pad + ih / 2 + capUst / 2;                                          // yazı işaretle dikey ortalı

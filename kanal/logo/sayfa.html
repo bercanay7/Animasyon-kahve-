@@ -12,10 +12,10 @@ html,body{margin:0;background:transparent}
 </style><script src="logo.js"></script></head><body><script>
 const q = new URLSearchParams(location.search), m = q.get('m');
 const [kx, ky, kw, kh] = ZK.KUTU.split(' ').map(Number);
-// Kilit düzen: işaret yüksekliği = büyük harf yüksekliğinin ~2,1 katı; slogan başlığın sol kenarına optik hizalı
+// Kilit düzen: işaret yüksekliği = yazı boyunun 1,75 katı (büyük harf yüksekliğinin ~2,5 katı; işaret ince uzun); slogan başlığın sol kenarına optik hizalı
 function kilit(duzen, boy, sloganli = true) {
   const d = ZK.DUZEN[duzen], yazi = duzen === 'lacivert' ? '#F3EAD7' : '#101B33', vurgu = duzen === 'lacivert' ? '#E2B04F' : '#9C6F22';
-  const fs = boy, ih = Math.round(boy * 1.52);
+  const fs = boy, ih = Math.round(boy * 1.75);
   return `<div class="kilit" style="display:flex;align-items:center;gap:${Math.round(boy*.36)}px;padding:${Math.round(boy*.4)}px ${Math.round(boy*.5)}px;width:max-content">
    <svg viewBox="${ZK.KUTU}" width="${Math.round(ih*kw/kh)}" height="${ih}">${ZK.isaret(d.cam, d.soru)}</svg>
    <div style="display:flex;flex-direction:column;gap:${Math.round(boy*.1)}px">
@@ -23,8 +23,8 @@ function kilit(duzen, boy, sloganli = true) {
     ${sloganli ? `<div style="font:italic 500 ${Math.round(fs*.44)}px/1 Cormorant;color:${vurgu};white-space:nowrap;margin-left:${Math.round(fs*.035)}px">geçmişe gider, bir soruyla döner</div>` : ''}
    </div></div>`;
 }
-if (m === 'avatar') document.write(ZK.svg(q.get('d') || 'altin', 800, { olcek: 1.08 }));
-else if (m === 'filigran') document.write(ZK.svg(q.get('d') || 'altin', 150, { daire: 1, akissiz: 1, olcek: 1.08 }));
+if (m === 'avatar') document.write(ZK.svg(q.get('d') || 'altin', 800, { olcek: 1.06 }));
+else if (m === 'filigran') document.write(ZK.svg(q.get('d') || 'altin', 150, { daire: 1, olcek: 1.06 }));
 else if (m === 'yatay') { document.body.style.background = q.get('bg') || 'transparent'; document.write(kilit(q.get('d') || 'lacivert', 150, q.get('s') !== '0')); }
 else if (m === 'kapak') {
   // kanal kapağı 2560×1440; telefonda görünen güvenli alan x 507–2053, y 508–931 (içerik payla, ~%85'e sığar)
@@ -33,11 +33,11 @@ else if (m === 'kapak') {
    <svg style="position:absolute;left:0;top:0" width="${W}" height="${H}"><defs><pattern id="t" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="9" stroke="#000" stroke-width="2" opacity=".16"/></pattern>
     <radialGradient id="v" cx=".5" cy=".5" r=".75"><stop offset=".45" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".5"/></radialGradient></defs>
     <rect width="${W}" height="${H}" fill="url(#t)"/><rect width="${W}" height="${H}" fill="url(#v)"/></svg>
-   <div style="position:absolute;left:0;right:0;top:508px;height:423px;display:flex;align-items:center;justify-content:center">${kilit('lacivert', 118)}</div></div>`);
+   <div style="position:absolute;left:0;right:0;top:508px;height:423px;display:flex;align-items:center;justify-content:center">${kilit('lacivert', 134)}</div></div>`);
 }
 else if (m === 'test') {
   // küçük boy testi: YouTube koyu ve açık akış, 98/48/36/24 px daire
-  const av = (s, d = 'altin') => `<span class="c">${ZK.svg(d, s, { olcek: 1.08, akissiz: s < 60 })}</span>`;
+  const av = (s, d = 'altin') => `<span class="c">${ZK.svg(d, s, { olcek: 1.06 })}</span>`;
   let h = '<div class="sheet">';
   for (const [bg, fg] of [['#0f0f0f', '#fff'], ['#fff', '#0f0f0f']]) {
     for (const d of ['altin', 'lacivert']) {

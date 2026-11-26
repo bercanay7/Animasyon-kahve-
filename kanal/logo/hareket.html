@@ -1,0 +1,103 @@
+<!doctype html><html lang="tr"><head><meta charset="utf-8"><title>Zaman Kuryesi logo hareketi</title>
+<style>
+@font-face{font-family:Fraunces;font-weight:600;src:url(fonts/fraunces-latin-600.woff2);unicode-range:U+0000-00FF,U+0131,U+2000-206F}
+@font-face{font-family:Fraunces;font-weight:600;src:url(fonts/fraunces-latin-ext-600.woff2);unicode-range:U+0100-0130,U+0132-02AF}
+@font-face{font-family:Cormorant;font-style:italic;font-weight:500;src:url(fonts/CormorantGaramond-italic-500-latin.woff2);unicode-range:U+0000-00FF,U+0131,U+2000-206F}
+@font-face{font-family:Cormorant;font-style:italic;font-weight:500;src:url(fonts/CormorantGaramond-italic-500-latin-ext.woff2);unicode-range:U+0100-0130,U+0132-02AF}
+html,body{margin:0;background:#000}canvas{display:block}
+</style><script src="logo.js"></script></head><body><canvas id="c" width="1920" height="1080"></canvas><script>
+// Logo hareketi, 5 sn: tabanda bir nokta (bugün). Kum saati ters döner, nokta üste, geçmişe gider;
+// orada tanelere ayrılıp soru işaretinin kancasını kurar; kancanın ucundan yeni bir nokta boğazdan düşer, tabana oturur (bir soruyla döner); yazı gelir.
+// frame(t) belirlenimcidir: aynı t aynı kareyi verir. ?t=2.4 ile tek kare.
+const cv = document.getElementById('c'), g = cv.getContext('2d'), W = 1920, H = 1080;
+const D = ZK.DUZEN.lacivert, YAZI = '#F3EAD7';
+const CAM = new Path2D(ZK.CAM);
+const yol = (d, tr) => { const p = new Path2D(); const m = tr.match(/translate\(([-\d.]+) ([-\d.]+)\) scale\(([-\d.]+)\)/); p.addPath(new Path2D(d), new DOMMatrix().translate(+m[1], +m[2]).scale(+m[3])); return p; };
+const SORU = yol(ZK.SORU, ZK.SORU_YER), NOKTA = yol(ZK.NOKTA, ZK.NOKTA_YER);
+const NM = ZK.NOKTA_YER.match(/translate\(([-\d.]+) ([-\d.]+)\) scale\(([-\d.]+)\)/).slice(1).map(Number);
+const N_CX = NM[0] + 239.25 * NM[2], N_CY = NM[1] - 79.5 * NM[2], N_R = 89 * NM[2];   // noktanın merkezi ve yarıçapı
+let s = 11; const rnd = () => (s = (s * 16807) % 2147483647) / 2147483647;
+const cl = (x, a = 0, b = 1) => Math.max(a, Math.min(b, x));
+const ez = x => x < .5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2;
+const eo = x => 1 - Math.pow(1 - x, 3);
+const seg = (t, a, b) => cl((t - a) / (b - a));
+const ol = document.createElement('canvas').getContext('2d');
+function icNoktalar(path, n, x0, y0, x1, y1) { const p = []; let k = 0; while (p.length < n && k < n * 80) { k++; const x = x0 + rnd() * (x1 - x0), y = y0 + rnd() * (y1 - y0); if (ol.isPointInPath(path, x, y)) p.push([x, y]); } return p; }
+const N = 1600;
+const hedef = icNoktalar(SORU, N, 280, 120, 520, 380).sort((a, b) => a[1] - b[1] || a[0] - b[0]);
+// kaynak: dönünce üste çıkan nokta; dönmüş koordinat (800-x, 800-y), taneler içeriden dışarı açılır
+const kaynak = icNoktalar(NOKTA, N, 280, 600, 520, 720).map(([x, y]) => [800 - x, 800 - y]).sort((a, b) => a[1] - b[1] || a[0] - b[0]);
+const gec = hedef.map(() => rnd() * .3);
+const IH0 = 560, IH1 = Math.round(118 * 1.75);   // ortada büyük, kilit düzende sayfa.html ile aynı oran
+function yerlesim() { g.font = '600 118px Fraunces'; g.letterSpacing = '7px'; const yw = g.measureText('ZAMAN KURYESİ').width - 7; const iw = 396 * IH1 / 636, ara = Math.round(118 * .36); const top = iw + ara + yw; return { solX: (W - top) / 2, yaziX: (W - top) / 2 + iw + ara }; }
+let L = null;
+function frame(t) {
+  if (!L) L = yerlesim();
+  g.setTransform(1, 0, 0, 1, 0, 0); g.globalAlpha = 1;
+  const r = g.createRadialGradient(W / 2, H / 2, 100, W / 2, H / 2, 1200); r.addColorStop(0, '#17244A'); r.addColorStop(.55, '#101B33'); r.addColorStop(1, '#0B1326');
+  g.fillStyle = r; g.fillRect(0, 0, W, H);
+  g.save(); g.globalAlpha = .14; g.strokeStyle = '#000'; g.lineWidth = 1.6; g.beginPath(); for (let x = -H; x < W; x += 7) { g.moveTo(x, 0); g.lineTo(x + H, H); } g.stroke(); g.restore();
+  const giris = eo(seg(t, 0, .5));          // belirir
+  const don = ez(seg(t, .6, 1.5));          // 180° döner: geçmişe gider
+  const kur = seg(t, 1.55, 2.5);            // nokta tanelere ayrılır, kancayı kurar
+  const kay = ez(seg(t, 3.05, 3.85));       // sola kayar
+  const yazi = seg(t, 3.4, 4.35);
+  const OLC = (IH0 + (IH1 - IH0) * kay) / 636;
+  const cx = W / 2 + (L.solX + 198 * IH1 / 636 - W / 2) * kay, cy = H / 2 + 27 * kay;
+  g.setTransform(OLC, 0, 0, OLC, cx - 400 * OLC, cy - 400 * OLC);
+  g.globalAlpha = giris;
+  g.save(); g.translate(400, 400); g.rotate(Math.PI * don); g.translate(-400, -400); g.translate(0, (1 - giris) * 30);
+  g.strokeStyle = D.cam; g.lineWidth = 26; g.stroke(CAM);
+  g.fillStyle = D.cam; g.beginPath(); g.roundRect(212, 92, 376, 26, 9); g.roundRect(212, 682, 376, 26, 9); g.fill();
+  if (t < 1.55) { g.fillStyle = D.soru; g.fill(NOKTA); }      // tabandaki nokta, dönüşle üste çıkar
+  g.restore();
+  g.fillStyle = D.soru;
+  if (t >= 1.55) {
+    const kati = seg(t, 2.3, 2.55);
+    g.globalAlpha = giris * (1 - kati);
+    for (let i = 0; i < N; i++) {
+      const u = ez(cl((kur - gec[i]) / .7));
+      const [ax, ay] = kaynak[i], [bx, by] = hedef[i];
+      const yay = Math.sin(u * Math.PI) * (14 + (i % 9) * 4);
+      const x = ax + (bx - ax) * u + yay * ((i % 2) ? .7 : -.7), y = ay + (by - ay) * u + yay * .5;
+      g.beginPath(); g.arc(x, y, 4.4, 0, 6.3); g.fill();
+    }
+    g.globalAlpha = giris * kati; g.fill(SORU); g.globalAlpha = 1;
+    // kum kancanın ucundan ince bir akışla boğazdan geçer, nokta tabanda birikerek oluşur ve oturur
+    const a0 = 2.4, a1 = 2.95;
+    if (t >= a0 && t < a1 + .1) {
+      g.save(); g.globalAlpha = 1 - seg(t, a1 - .05, a1 + .1);
+      for (let j = 0; j < 34; j++) {
+        const f = ((t - a0) * 2.6 + j / 34) % 1;                 // tane konumu 0..1
+        const bas = 368, son = N_CY + N_R - 6, y = bas + (son - bas) * f * f;
+        if ((t - a0) * 2.6 < j / 34 * .9) continue;              // akış yukarıdan aşağı başlar
+        if (y > son - (N_R * 2) * eo(seg(t, 2.6, 3.0))) continue;   // birikene girince kaybolur
+        g.beginPath(); g.arc(400 + Math.sin(j * 12.9) * 2.2, y, 4.2, 0, 6.3); g.fill();
+      }
+      g.restore();
+    }
+    if (t >= 2.6) {
+      const b = eo(seg(t, 2.6, 3.0));
+      const v = seg(t, 3.0, 3.4), z = Math.sin(v * Math.PI * 2) * Math.exp(-v * 4);
+      const sy = b * (1 - .14 * z), sx = (.6 + .4 * b) * (1 + .1 * z);
+      g.save(); g.translate(N_CX, N_CY + N_R); g.scale(sx, sy); g.translate(-N_CX, -(N_CY + N_R)); g.fill(NOKTA); g.restore();
+    }
+  }
+  g.setTransform(1, 0, 0, 1, 0, 0); g.globalAlpha = 1;
+  if (yazi > 0) {
+    g.font = '600 118px Fraunces'; g.letterSpacing = '7px'; g.textBaseline = 'alphabetic'; g.fillStyle = YAZI;
+    const harfler = [...'ZAMAN KURYESİ']; let x = L.yaziX;
+    for (let i = 0; i < harfler.length; i++) {
+      const u = eo(cl((yazi - i * .035) / .5));
+      g.globalAlpha = u; g.fillText(harfler[i], x, H / 2 + 22 + (1 - u) * 22);
+      x += g.measureText(harfler[i]).width;
+    }
+    const su = eo(seg(t, 3.95, 4.65));
+    g.globalAlpha = su; g.letterSpacing = '0px'; g.font = 'italic 500 54px Cormorant'; g.fillStyle = D.soru;
+    g.fillText('geçmişe gider, bir soruyla döner', L.yaziX + 4, H / 2 + 102 + (1 - su) * 12);
+    g.globalAlpha = 1;
+  }
+}
+window.frame = frame;
+window.hazir = document.fonts.load('600 118px Fraunces', 'ZAMAN KURYESİ').then(() => document.fonts.load('italic 500 52px Cormorant', 'geçmişe')).then(() => { L = null; const t = new URLSearchParams(location.search).get('t'); if (t) frame(+t); return true; });
+</script></body></html>
