@@ -25,8 +25,9 @@ export function blenderKaynak(BK) {
     renk: (x, y) => { const j = ((y - BK.y0) * BK.w + x - BK.x0) * 4; return [BK.d[j] / 255, BK.d[j + 1] / 255, BK.d[j + 2] / 255]; } };
 }
 // S: Strokes; o: {W (çıktı genişliği), gunes: [x, y] (ekran), hava: [r,g,b] (uzaklık rengi), havaK (0..1), cz (çizim sırası), kutu (kaynak pikseli; yoksa kaynağınki),
-//   olcek (darbe boyu çarpanı), altin (kenar ışığı rengi), kenarEsik, kenarKirik (0..1, ışığın kesik payı), kenarKum (kesik öbeğin piksel boyu), kenarAlfa, kenarDis (dışa kayma)}
+//   adim (iç darbe adımı: yakın planda hız ve iri darbe; kenar tam çözünürlük), olcek (darbe boyu çarpanı), altin (kenar ışığı rengi), kenarEsik, kenarKirik (0..1, ışığın kesik payı), kenarKum (kesik öbeğin piksel boyu), kenarAlfa, kenarDis (dışa kayma)}
 export function figurDarbe(S, src, o = {}) {
+  const ad = Math.max(1, (o.adim || 1) | 0);   // iç darbe adımı: iç seyrek ve iri, kenar tam çözünürlük (seyrek kenar tırtıklı, kürk gibi okunur)
   const W = o.W || 1920, w = src.w, h = src.h, sc = W / w, cz = o.cz || 0, k = o.olcek || 1;
   const [gx, gy] = o.gunes || [W / 2, -1e4], hava = o.hava || [.36, .24, .3], hk = o.havaK ?? .14, altin = o.altin || [1, .72, .42];
   const [x0, y0, x1, y1] = o.kutu || src.kutu || [1, 1, w - 2, h - 2];
@@ -37,8 +38,11 @@ export function figurDarbe(S, src, o = {}) {
     let c = src.renk(x, y).map((v, i) => v + (hava[i] - v) * hk);
     const X = (x + .5 + (hsh(x, y, cz + 1) - .5) * .5) * sc, Y = (y + .5 + (hsh(x, y, cz + 2) - .5) * .5) * sc;
     if (!kenar) {
-      if ((x + 2 * y + cz) % 3) continue;
-      S.push({ x: X, y: Y, ang: PI / 2 + (hsh(x, y, cz) - .5) * .5, len: 4.6 * sc * k, wid: 2.4 * sc * k, c, c2: c.map(v => v * .9), seed: hsh(x, y, cz) * 999, type: BRUSH, hgt: .25 });
+      // iri iç darbe yalnız kenardan uzakta (taşarsa siluet tüylenir); kenara yakın iç ince darbe
+      const r = ad * 3, derin = ad > 1 && fig(x - r, y) && fig(x + r, y) && fig(x, y - r) && fig(x, y + r) && fig(x - r, y - r) && fig(x + r, y + r) && fig(x - r, y + r) && fig(x + r, y - r);
+      const q = derin ? ad : 1;
+      if (derin ? ((x % ad) || (y % ad) || ((((x / ad) | 0) + 2 * ((y / ad) | 0) + cz) % 3)) : ((x + 2 * y + cz) % 3)) continue;
+      S.push({ x: X, y: Y, ang: PI / 2 + (hsh(x, y, cz) - .5) * .5, len: 4.6 * sc * k * q, wid: 2.4 * sc * k * q, c, c2: c.map(v => v * .9), seed: hsh(x, y, cz) * 999, type: BRUSH, hgt: .25 });
       continue;
     }
     let nx = (fig(x - 1, y) ? 1 : 0) - (fig(x + 1, y) ? 1 : 0), ny = (fig(x, y - 1) ? 1 : 0) - (fig(x, y + 1) ? 1 : 0);

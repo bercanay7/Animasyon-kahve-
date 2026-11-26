@@ -272,7 +272,7 @@ function figur(t, S) {
       renk: (x, y) => { const j = ((h - 1 - y) * w + x) * 4; return [R.renk[j] / 255, R.renk[j + 1] / 255, R.renk[j + 2] / 255]; } }; }
   let gx = T.GUNES[0], gy = gunesY(t);
   if (PL) { const pu = PLAN_ITME(t); gx = 960 + (gx - 960) * ZF * pu; gy = 540 + (gy - 540) * ZF * pu; }
-  figurDarbe(S, src, { W, gunes: [gx, gy], hava: [.36, .24, .3], havaK: BK ? .14 : .38, cz, olcek: PL ? Math.pow(9.6 / PL.dz * ZF, .55) : 1, ...(PL ? { kenarKirik: .5, kenarKum: Math.round(2 + 9.6 / PL.dz * ZF), kenarAlfa: .75, kenarDis: -.3 } : {}) });
+  figurDarbe(S, src, { W, gunes: [gx, gy], hava: [.36, .24, .3], havaK: BK ? .14 : .38, cz, ...(PL ? (() => { const ol = Math.pow(9.6 / PL.dz * ZF, .55), ad = Math.max(1, Math.round(ol / 1.15)); return { adim: ad, olcek: ol / Math.sqrt(ad) }; })() : {}), ...(PL ? { kenarKirik: .5, kenarKum: Math.round(2 + 9.6 / PL.dz * ZF), kenarAlfa: .75, kenarDis: -.3 } : {}) });
   // uzun gölge: güneşten uzağa (sola ve bize), incelerek (yakın planlarda zemin kadraj dışında)
   if (!PL) {
   const ay = MK.ekran(V.lerp(K.bacak[0].bilek, K.bacak[1].bilek, .5)), boyPx = Math.abs(MK.ekran(K.bas.o)[1] - ay[1]);
