@@ -11,8 +11,8 @@ Yükleme YouTube Studio'da bilgisayardan yapılır. YouTube'un kendi zamanlamas�
 |---|---|
 | `teslim/frankenstein_youtube.mp4` | **YouTube'a yüklenecek dosya** (301 MB, 11:04): 1920×1080, 30 fps, H.264 CRF 18 + AAC 256k, Türkçe ses (−14,3 LUFS, gerçek tepe −1,1 dBTP), BT.709 |
 | `teslim/frankenstein_telefon.mp4` | Telefonda izlemek için küçük kopya (82 MB; H.265 iki geçiş 850k, AAC 128k) |
-| `kapak/A.jpg` | Kapak A: "ELİNİ UZATTI" (yaratığın uzanan eli; filmin ilk sahnesiyle aynı figür, sarı göz tek vurgu). İlk 5 sn'de ve 8:33'te (halka) karşılanıyor |
-| `kapak/B.jpg` | Kapak B: "18 YAŞINDA YAZDI" (mum ışığında yazan genç kadın, camda uzun bir siluetin yansıması). İlk cümlede karşılanıyor |
+| `kapak/A.jpg` | Kapak A: "ELİNİ UZATTI" (vurgu: UZATTI, sarı = yaratığın gözü). Kapak sistemine uyduruldu (27 Kasım): yazı solda koyu perdenin üstünde, yaratık sağda; sahne aynalandı, yaratık sola, perdenin aralığındaki ışığa uzanıyor. Yazının hiçbir harfi ışık şeridine binmiyor; yazı hariç en parlak yer uzanan el. Vaat filmde: 0:03,8'de yaratık yatağın başında ("bir yaratık"), 0:10,4–0:11,9'da "elini uzatıyor" ve el uzanıyor; halka 8:45–8:48 (G03 "elini uzatmış"). Filmde yaratık sağa uzanır, kapakta aynası |
+| `kapak/B.jpg` | Kapak B: "18 YAŞINDA YAZDI" (vurgu: YAZDI, sarı = mum alevi). Kapak sistemine uyduruldu (27 Kasım): yazı solda ve üstte, mum ışığında yazan genç kadın sağda (sola bakıyor), arkasındaki karanlık camda uzun bir siluetin yansıması; pencere rozet bölgesinin üstünde bitiyor. Vaat filmde: 0:00,5–0:02,4 "On sekiz yaşında bir kızın yazdığı", görüntüde ilk planda (0:00–0:03,8) mum ışığında kâğıda yazılan ilk cümle |
 | `frankenstein.tr.srt` | Türkçe altyazı (181 satır) |
 | `youtube.md` | Başlık, açıklama (bölümler, kaynaklar, yapım notu), etiketler, sabit yorum |
 

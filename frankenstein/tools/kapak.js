@@ -11,7 +11,9 @@ const { chromium } = require('playwright'); const fs = require('fs'), path = req
       const b64 = await p.evaluate(([v, o]) => window.kapak(v, o).toDataURL('image/png').split(',')[1], [v, o]);
       const png = path.join(out, ad + '.png'); fs.writeFileSync(png, Buffer.from(b64, 'base64'));
       execFileSync('ffmpeg', ['-y', '-v', 'error', '-i', png, '-vf', 'scale=1280:720:flags=lanczos', '-q:v', '2', path.join(out, ad + '.jpg')]);
-      console.log(ad, (fs.statSync(path.join(out, ad + '.jpg')).size / 1e6).toFixed(2), 'MB');
+      const olc = await p.evaluate(() => ({ yazi: (window.YAZI_KUTU || []).map(b => b.map(Math.round)), el: window.EL && window.EL.map(Math.round), alev: window.ALEV && window.ALEV.map(Math.round) }));
+      await p.evaluate(() => { window.YAZI_KUTU = null; window.EL = null; window.ALEV = null; });
+      console.log(ad, (fs.statSync(path.join(out, ad + '.jpg')).size / 1e6).toFixed(2), 'MB', JSON.stringify(olc));
     }
   } finally { await br.close(); srv.close(); }
 })();
