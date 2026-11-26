@@ -13,7 +13,11 @@ from bpy_extras.object_utils import world_to_camera_view
 HERE = Path(__file__).resolve().parent
 OUT = Path(sys.argv[1]) if len(sys.argv) > 1 else HERE / 'kare'
 OUT.mkdir(parents=True, exist_ok=True)
-D = json.loads((HERE / 'eklem.json').read_text())
+import os
+D = json.loads(Path(os.environ.get('EKLEM', HERE / 'eklem.json')).read_text())
+# kostüm (KOSTUM ortam değişkeni: json dosyası): giysi 'palto'|'ceket', sapka, atki, canta, renkler
+KOS = {'giysi': 'palto', 'sapka': True, 'atki': True, 'canta': True, 'renk': {}}
+if os.environ.get('KOSTUM'): KOS.update(json.loads(Path(os.environ['KOSTUM']).read_text()))
 if len(sys.argv) > 2 and sys.argv[2] != '-': a, b = map(int, sys.argv[2].split(':')); D = D[a:b]
 KAM_J = json.loads(Path(sys.argv[3]).read_text()) if len(sys.argv) > 3 else None
 
@@ -40,6 +44,11 @@ d = Vector((4, 100, 5.2)).normalized(); sun.rotation_euler = (-d).to_track_quat(
 sun.data.energy = 5.0; sun.data.color = (1, .68, .42); sun.data.angle = math.radians(1.5)
 w = bpy.data.worlds.new('gok'); sc.world = w; w.use_nodes = True
 bg = w.node_tree.nodes['Background']; bg.inputs[0].default_value = (.3, .2, .38, 1); bg.inputs[1].default_value = .22
+if KAM_J and KAM_J.get('isik'):   # iç mekân: güneş yerine nokta ışık (lamba); gök ışığı kısılır
+    IS = KAM_J['isik']; sun.data.energy = IS.get('gunes', 0.0)
+    la = bpy.data.objects.new('lamba', bpy.data.lights.new('lamba', 'POINT')); sc.collection.objects.link(la)
+    la.location = B(IS['konum']); la.data.energy = IS.get('guc', 120); la.data.color = tuple(IS.get('renk', (1, .78, .5))); la.data.shadow_soft_size = IS.get('boy', .06)
+    bg.inputs[1].default_value = IS.get('ortam', .08)
 # yerden sıcak sekme: kuryenin altında görünmez, ışık veren düzlem (tarlanın altın yansıması)
 bpy.ops.mesh.primitive_plane_add(size=6); yer = bpy.context.object; yer.visible_camera = False
 my = bpy.data.materials.new('yer'); my.use_nodes = True; my.node_tree.nodes['Principled BSDF'].inputs['Base Color'].default_value = (.5, .32, .16, 1); yer.data.materials.append(my)
@@ -51,6 +60,8 @@ def mat(ad, renk, pr=.8, sheen=0.0):
     return m
 M = {'palto': mat('palto', (.3, .2, .14), .85, .4), 'pantolon': mat('pantolon', (.15, .12, .14), .8, .3), 'ten': mat('ten', (.5, .36, .3), .6),
      'sapka': mat('sapka', (.22, .16, .12), .7, .3), 'canta': mat('canta', (.34, .2, .14), .55), 'kayis': mat('kayis', (.2, .12, .1), .6), 'atki': mat('atki', (.42, .16, .12), .8, .5), 'sac': mat('sac', (.1, .075, .06), .7, .3), 'kulak': mat('kulak', (.2, .12, .1), .75)}
+for _ad, _r in KOS.get('renk', {}).items():   # kostüm rengi (ör. Theo'nun koyu takımı)
+    if _ad in M: M[_ad].node_tree.nodes['Principled BSDF'].inputs['Base Color'].default_value = (*_r, 1)
 
 def deri(ad, noktalar, kenarlar, yaricap, malz, kok=0, sub=2):
     me = bpy.data.meshes.new(ad); me.from_pydata([tuple(p) for p in noktalar], kenarlar, []); ob = bpy.data.objects.new(ad, me); sc.collection.objects.link(ob)
@@ -93,12 +104,14 @@ def kurye(k):
         E += [(0, i), (i, i + 1), (i + 1, i + 2), (i + 2, i + 3)]
     # kollar bedenden örülmez: omuz ucu paltonun üstünde apolet gibi çıkıyordu (kollar aşağıda palto renginde ayrı)
     L.append(deri('beden', P, E, R, M['pantolon']))
-    # palto: halkalardan örülmüş A-kesim; yaka, omuz, göğüs, bel, kalça, etek (etek açık, kenarı düz kesik)
-    def halka(mrk, ex, ez, rx, rz, n=28, egik=0.0):
-        return [mrk + ex * (rx * math.cos(2 * math.pi * i / n)) + ez * (rz * math.sin(2 * math.pi * i / n)) - (ex.cross(ez)).normalized() * 0 for i in range(n)]
-    # düz kesim sivil palto: yaka (dik, boynu saran), yuvarlak omuz, düz gövde, etek az açılır (A-kesim elbise okunuyordu)
-    HR = [(bo + by * .05, gx, gz, .085, .08), (bo - by * .01, gx, gz, .1, .09), (go + gy * .215, gx, gz, .15, .11), (go + gy * .16, gx, gz, .182, .124),   # omuz yakaya doğru eğimli (düz omuz kutu gövde okunur) (go + gy * .06, gx, gz, .18, .118),
-          (po + py * .06, px, pz, .175, .125), (po - py * .16, px, pz, .19, .14), (po - py * .3, px, pz, .195, .145), (po - py * .4, px, pz, .2, .15)]
+    # palto ya da ceket: halkalardan örülür; yaka (dik), yakaya eğimli omuz, göğüs, bel, kalça, etek (açık, düz kesik)
+    def halka(mrk, ex, ez, rx, rz, n=28):
+        return [mrk + ex * (rx * math.cos(2 * math.pi * i / n)) + ez * (rz * math.sin(2 * math.pi * i / n)) for i in range(n)]
+    HR = ([(bo + by * .05, gx, gz, .085, .08), (bo - by * .01, gx, gz, .1, .09)] if KOS['giysi'] == 'palto' else [(bo - by * .03, gx, gz, .088, .082), (bo - by * .06, gx, gz, .11, .095)]) + [
+          (go + gy * .215, gx, gz, .15, .11), (go + gy * .16, gx, gz, .182, .124),   # omuz yakaya doğru eğimli (düz omuz kutu gövde okunur); ceketin yakası alçak
+          (go + gy * .06, gx, gz, .18, .118), (po + py * .06, px, pz, .175, .125)]
+    if KOS['giysi'] == 'palto': HR += [(po - py * .16, px, pz, .19, .14), (po - py * .3, px, pz, .195, .145), (po - py * .4, px, pz, .2, .15)]   # dizin üstüne, düz kesim
+    else: HR += [(po - py * .04, px, pz, .182, .133), (po - py * .08, px, pz, .184, .134)]   # ceket: kalçada biter
     V_, F_ = [], []
     for j, (m, ex, ez, rx, rz) in enumerate(HR):
         V_ += halka(m, ex, ez, rx, rz)
@@ -108,42 +121,40 @@ def kurye(k):
     sb = ob.modifiers.new('yumusat', 'SUBSURF'); sb.levels = sb.render_levels = 2
     for pl in me.polygons: pl.use_smooth = True
     me.materials.append(M['palto']); L.append(ob)
-    for c in k['kol']:
-        om, de, bl = B(c['omuz']), B(c['dirsek']), B(c['bilek']); uc = bl + (bl - de).normalized() * .15
-        i = len(P); P += [om, de, bl, uc]; R += [.06, .046, .036, (.035, .02)]
-        E += [(2, i), (i, i + 1), (i + 1, i + 2), (i + 2, i + 3)]
+    # beden (bacaklar, gövde, baş zinciri); kollar bedenden örülmez (omuz ucu paltonun dışına taşar: apolet okunur)
     L.append(deri('beden', P, E, R, M['pantolon']))
-    # palto: boyundan dizin üstüne genişleyen etek (kollar paltonun kolları gibi aynı renkte ayrı)
-    PP = [bo, go + gy * .2, go, po + py * .05, po - py * .22, po - py * .4]
-    PR = [.07, (.19, .12), (.175, .115), (.18, .13), (.21, .16), (.24, .18)]
-    L.append(deri('palto', PP, [(i, i + 1) for i in range(5)], PR, M['palto']))
     for c in k['kol']:
         om, de, bl = B(c['omuz']), B(c['dirsek']), B(c['bilek'])
-        om2 = om - gy * .1 + (go + gy * .2 - om) * .38          # kol paltonun içinden başlar (omuzda apolet gibi çıkıntı olmasın)
+        om2 = om - gy * .1 + (go + gy * .2 - om) * .38          # kol giysinin içinden başlar
         L.append(deri('kol', [om2, de, bl], [(0, 1), (1, 2)], [.046, .048, .043], M['palto']))
         uc = bl + (bl - de).normalized() * .12
         L.append(deri('el', [bl, uc], [(0, 1)], [.032, (.03, .018)], M['ten'], sub=1))
     # baş ve boyun teni
     L.append(deri('boyun', [bo, ho], [(0, 1)], [.062, .062], M['ten'], sub=1))
-    L.append(deri('bas', [ho, ho + hy * .072 + hz * .028, ho + hy * .15], [(0, 1), (1, 2)], [.06, (.084, .097), .06], M['sac']))   # arkadan bakılır: ense ve baş saç
+    # baş: ten (yüz yandan görünebilir); saç ayrı takke: arkada ve tepede (bütün baş saç olunca yandan kukuleta okunuyordu)
+    L.append(deri('bas', [ho, ho + hy * .072 + hz * .028, ho + hy * .15], [(0, 1), (1, 2)], [.06, (.08, .093), .058], M['ten']))
+    L.append(deri('sac', [ho + hy * .085 - hz * .012, ho + hy * .135 - hz * .004], [(0, 1)], [(.086, .094), (.07, .07)], M['sac'], sub=2))
     L.append(deri('ense', [ho + hy * .02 - hz * .03, ho + hy * .085 - hz * .045], [(0, 1)], [(.058, .045), (.07, .055)], M['sac'], sub=1))   # kafatasının arka çıkıntısı (lobut gibi düz baş okunuyordu)
     for sg in (-1, 1):   # kulaklar: arkadan bakan siluete insan biçimi verir (yumurta baş manken okunuyordu)
         ku = ho + hy * .068 + hx * (sg * .086) + hz * .022
         L.append(deri('kulak', [ku - hy * .025, ku + hy * .025], [(0, 1)], [(.011, .021), (.013, .019)], M['kulak'], sub=1))
-    # atkı: boyundan sarkan, rüzgârla kalkan uç (sıcak koyu kırmızı-toprak; sivil işaret)
-    A = [B(p) for p in k['atki']]
-    L.append(deri('atki_bas', [bo - bz * .0 + by * .01, bo + by * .03], [(0, 1)], [(.085, .08), (.08, .075)], M['atki'], sub=1))
-    L.append(deri('atki', A, [(i, i + 1) for i in range(len(A) - 1)], [(.05, .016)] * (len(A) - 1) + [(.04, .012)], M['atki'], sub=1))
-    # şapka: tepe ve kenar
-    so = ho + hy * .155 + hz * .02
-    # fötr: tepesi daralan, kenarı kısa, yuvarlak ve simetrik (düz tepe + geniş kenar din adamı; kıvrık uç süvari ya da asker okunur)
-    L.append(silindir('tepe', so + hy * .04, hx, hy, hz, .094, .076, M['sapka'], 1.06, ust=.78))   # alçak, daralan tepe: silindir şapka okunmasın
-    L.append(silindir('kenar', so + hy * .004, hx, hy, hz, .145, .014, M['sapka'], 1.0))
-    # çanta ve kayış
-    ck, ca = B(k['canta']['kok']), B(k['canta']['asagi']); cy = -ca; cz = px.cross(cy).normalized()
-    L.append(kutu('canta', ck + ca * .15, px, cy, cz, (.08, .22, .28), M['canta']))
-    om = B(k['kol'][0]['omuz']); a1 = om - gz * .01; uz = ck - a1; Lk = uz.length; yy = uz / Lk; xx = yy.cross(gz).normalized()
-    L.append(kutu('kayis', (a1 + ck) / 2, xx, yy, gz, (.035, Lk, .2), M['kayis']))
+    if KOS['atki'] and k.get('atki'):
+      # atkı: boyundan sarkan, rüzgârla kalkan uç (sıcak koyu kırmızı-toprak; sivil işaret)
+      A = [B(p) for p in k['atki']]
+      L.append(deri('atki_bas', [bo - bz * .0 + by * .01, bo + by * .03], [(0, 1)], [(.085, .08), (.08, .075)], M['atki'], sub=1))
+      L.append(deri('atki', A, [(i, i + 1) for i in range(len(A) - 1)], [(.05, .016)] * (len(A) - 1) + [(.04, .012)], M['atki'], sub=1))
+    if KOS['sapka']:
+      # şapka: tepe ve kenar
+      so = ho + hy * .155 + hz * .02
+      # fötr: tepesi daralan, kenarı kısa, yuvarlak ve simetrik (düz tepe + geniş kenar din adamı; kıvrık uç süvari ya da asker okunur)
+      L.append(silindir('tepe', so + hy * .04, hx, hy, hz, .094, .076, M['sapka'], 1.06, ust=.78))   # alçak, daralan tepe: silindir şapka okunmasın
+      L.append(silindir('kenar', so + hy * .004, hx, hy, hz, .145, .014, M['sapka'], 1.0))
+    if KOS['canta']:
+      # çanta ve kayış
+      ck, ca = B(k['canta']['kok']), B(k['canta']['asagi']); cy = -ca; cz = px.cross(cy).normalized()
+      L.append(kutu('canta', ck + ca * .15, px, cy, cz, (.08, .22, .28), M['canta']))
+      om = B(k['kol'][0]['omuz']); a1 = om - gz * .01; uz = ck - a1; Lk = uz.length; yy = uz / Lk; xx = yy.cross(gz).normalized()
+      L.append(kutu('kayis', (a1 + ck) / 2, xx, yy, gz, (.035, Lk, .2), M['kayis']))
     return L, P
 
 for k in D:

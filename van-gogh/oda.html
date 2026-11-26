@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="tr"><head><meta charset="utf-8"><title>Theo'nun odası</title>
+<style>html,body{margin:0;background:#000}canvas{display:block;width:100vw;height:auto}</style></head><body>
+<canvas id="c" width="1920" height="1080"></canvas>
+<script src="lib/oda_ciz.js"></script>
+<script type="module">
+// Van Gogh, üslup kapısı 1: Theo'nun Paris odası, gece (8 sn). Karma üslup: oda grisaille yağlıboya; yalnız Vincent'in tablosu renkli
+// (Met Open Access CC0, Hasır Şapkalı Otoportre 1887, objectID 436532). Theo Blender'da (van-gogh/blender/), fırça darbesine çevrilir.
+// Sözleşme: window.READY, DUR, renderAt(t), BITIR. Belirlenimci.
+import { BRUSH, DAB } from '../araclar/tablo/impasto.js';
+import { motor } from '../araclar/tablo/sahne.js';
+import { figurDarbe, blenderKaynak, blenderKareleri } from '../araclar/tablo/figur.js';
+const W = 1920, H = 1080, O = window.ODA, Q = new URLSearchParams(location.search);
+const cv = document.getElementById('c'), ctx = cv.getContext('2d');
+window.FPS = 30; window.DUR = 8;
+const sm = (a, b, x) => { const u = Math.max(0, Math.min(1, (x - a) / (b - a))); return u * u * (3 - 2 * u); };
+const hsh = (a, b = 0, c = 0) => { const x = Math.sin(a * 127.1 + b * 311.7 + c * 74.7) * 43758.5453; return x - Math.floor(x); };
+const ikiser = t => Math.floor(t * 15 + 1e-6) / 15;
+const RENKLI = Q.get('renkli') === '1';     // deneme: odayı da renkli gör
+let M, TABLO = null, BK = [];
+const [tx, ty, tw, th] = O.tabloKose(), TM = [tx + tw / 2, ty + th / 2];
+// kamera: tabloya doğru yavaş yaklaşma
+const kamera = t => { const u = sm(0, 8, t); return { x: 960 + (TM[0] - 960) * .55 * u, y: 540 + (TM[1] - 540) * .55 * u, z: 1 + .14 * u }; };
+// lamba camı: titreyen yumuşak ışık (grisaille'de en açık nokta)
+function alev(t, S) { const [lx, ly] = O.LAMBA, f = .85 + .15 * Math.sin(t * 9.1) * Math.sin(t * 3.7 + 1);
+  for (let i = 0; i < 4; i++) S.push({ x: lx, y: ly, ang: PI2(i), len: 120 + 90 * i, wid: 120 + 90 * i, c: [1, .9, .7], seed: i, type: DAB, alpha: .07 * f, hgt: 0 });
+  S.push({ x: lx, y: ly + 4, ang: Math.PI / 2, len: 46, wid: 26, c: [1, .97, .86], c2: [1, .86, .6], seed: 9, type: BRUSH, alpha: .95, hgt: .05, taper: .5 });
+  S.push({ x: lx, y: ly + 2, ang: Math.PI / 2 + .04 * Math.sin(t * 7), len: 14, wid: 7 * f, c: [1, 1, .95], seed: 11, type: BRUSH, alpha: 1, hgt: 0, taper: .8 }); }
+const PI2 = i => i * .7;
+// lambanın ışığında süzülen toz
+function toz(t, S) { const [lx, ly] = O.LAMBA; for (let i = 0; i < 40; i++) { const a = hsh(i, 1) * 6.28, r = 40 + 300 * Math.sqrt(hsh(i, 2));
+  const x = lx + Math.cos(a) * r + 20 * Math.sin(t * .3 + i), y = ly + Math.sin(a) * r * .8 - t * 6 + 12 * Math.sin(t * .5 + i * 2), yak = Math.max(0, 1 - Math.hypot(x - lx, y - ly) / 360);
+  S.push({ x, y, ang: 0, len: 2.4, wid: 2, c: [1, .94, .8], seed: i, type: DAB, alpha: .5 * yak, hgt: 0 }); } }
+function theo(t, S) { const k = BK[Math.min(BK.length - 1, Math.round(ikiser(t) * 15))]; if (!k) return;
+  figurDarbe(S, blenderKaynak(k), { W, gunes: O.LAMBA, hava: [.1, .09, .085], havaK: .25, cz: Math.floor(t * 15), altin: [1, .86, .62], kenarKirik: .45, kenarAlfa: .85 }); }
+function sahne() {
+  M.tanimla('oda', {
+    zemin: [.08, .07, .06], kamera,
+    katmanlar: [
+      { ad: 'duvar', d: 0, ciz: O.duvar, R: [30, 15, 7.5, 3.6, 1.8], T: 10 },
+      { ad: 'pencere', d: .05, ciz: O.pencere, R: [20, 10, 5, 2.6, 1.5], T: 10 },
+      { ad: 'esya', d: .3, ciz: O.esya, R: [20, 10, 5, 2.6, 1.5], T: 10 },
+      { ad: 'alev', d: .3, canli: (t, S) => alev(ikiser(t), S), kap: 16 },
+      { ad: 'theo', d: .3, canli: (t, S) => theo(t, S), kap: 8192, wet: .2, run: 0 },
+      { ad: 'toz', d: .3, canli: (t, S) => toz(ikiser(t), S), kap: 64 },
+    ],
+    bitir: t => ({ light: [.55, -.4, .7], norm: 1.6, ground: [.08, .07, .06], expo: 1.02, sat: 1, contrast: 1.08, vig: .42, spec: .1, shin: 24, weave: .07, lightCol: [1, .93, .82],
+      mono: RENKLI ? 0 : 1, monoK: [.045, .04, .04], monoA: [.97, .94, .88] }),
+  });
+}
+// gerçek tablo: grisaille odanın içinde tek renkli şey; eşyaların kamerasıyla aynı dönüşüm; lamba tarafı aydınlık, öbür yan gölgede
+function tabloBas(t) {
+  if (!TABLO) return; const kam = kamera(t), c = M.camK(kam, .3), z = c.zoom;
+  const X = x => (x - c.x) * z + W / 2, Y = y => (y - c.y) * z + H / 2;
+  const x0 = X(tx), y0 = Y(ty), w = tw * z, h = th * z;
+  ctx.save(); ctx.drawImage(TABLO, x0, y0, w, h);
+  const g = ctx.createLinearGradient(x0 + w, y0, x0, y0 + h); g.addColorStop(0, 'rgba(255,236,200,.08)'); g.addColorStop(1, 'rgba(10,8,6,.45)');
+  ctx.fillStyle = g; ctx.fillRect(x0, y0, w, h);
+  ctx.strokeStyle = 'rgba(0,0,0,.35)'; ctx.lineWidth = 2; ctx.strokeRect(x0, y0, w, h); ctx.restore();
+}
+function renderFrame(t) { M.ciz(ctx, 'oda', t); tabloBas(t); }
+Object.assign(window, { renderFrame, renderFrameMB: renderFrame, renderAt: t => (renderFrame(t), cv) });
+window.BITIR = () => M.bitir();
+window.READY = false;
+(async () => {
+  M = motor({ W, H, ss: +(Q.get('ss') || 1.5) });
+  TABLO = await createImageBitmap(await (await fetch('gorsel/otoportre_hasir_sapka_1887_met436532.jpg')).blob());
+  BK = await blenderKareleri('blender/kare_oda', 121);
+  sahne(); M.hazirla('oda'); window.READY = true;
+})().catch(e => { window.HATA = String(e && e.stack || e); console.error(e); });
+</script>
+</body></html>
