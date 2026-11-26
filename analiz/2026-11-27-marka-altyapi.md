@@ -21,3 +21,15 @@ Kaynak: kullanıcının tarayıcı ajanına çektirdiği salt okuma raporu (PDF,
 - **Dokunulmaz:** eski ilgisiz Shorts silinmez ya da gizlenmez (izlenme geçmişini siler, faydası kanıtsız); yalnız yenisi üretilmez. Sisifos kapağı (kanalın kazananı) değiştirilmez.
 - **Sonraki karar (kitle verisi gelince):** abonelerin çoğu ilgisiz Shorts'tan geldiyse ilk deneme grubu zayıf demektir; o zaman şerit denemesinin sonucu bununla birlikte okunur.
 - **Kapak marka işareti (öneri, deneme):** her kapağın aynı köşesinde küçük kum saati rozeti. Kanıt yok; Gılgamış ve Frankenstein kapaklarında denemek ucuz. Kapak kuralları (tek odak, sağ alt süre rozeti) korunur; rozet sol üst.
+
+## Uygulandı (27 Kasım, kullanıcının tarayıcı ajanı; "Studio Değişiklik Raporu")
+| Adım | Sonuç |
+|---|---|
+| Ana sayfa sekmesi, fragman (Sisifos), geri dönen aboneye Narkissos, bölümler | **Taslakta, yayınlanmadı.** Yeni bölümler en alta ekleniyor, ajan sürükleyemedi. Başkanın kararı: olduğu gibi yayınlanır (fragman ve öne çıkan video bölüm sırasından bağımsız en üstte); bölüm sırası kullanıcı tarafından elle düzeltilir. |
+| "Mitoloji ve Felsefe" listesi | Narkissos eklendi. Sıra: Sisifos, Prometheus, Narkissos, Orfeus, İkaros, Gılgamış (Gılgamış listede; yayına girince görünür). |
+| Milton ve Prometheus açıklamaları | Baştaki "```" ve boş satır silindi. |
+| Sisifos bitiş ekranı | + Narkissos videosu. |
+| Prometheus bitiş ekranı | **Eklenemedi:** alan yetmedi, değişiklik atıldı (Abone ol + Sisifos aynı). Gerekirse kart ile. |
+| Narkissos bitiş ekranı | + "Mitoloji ve Felsefe" oynatma listesi. |
+| Kafka bitiş ekranı | Yoktu; + Abone ol + Narkissos videosu (6:18–6:38). |
+Şerit denemesi Ş2'nin başlangıcı: bitiş ekranı değişiklikleri 27 Kasım'da yürürlükte.
