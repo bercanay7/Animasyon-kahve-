@@ -39,3 +39,41 @@
 - Kaynaklar (gerçek zamanlı, 48 sa): Göz atma 62 · Önerilen 37 · Kanal sayfaları 24 · Diğer YouTube 9 · Bildirimler 6 · Diğer 22. **YouTube araması ilk beşte yok** (≤ 5): "narsisizm" arama kapısı 48 saatte çalışmadı. Arama sıralaması yavaş oturur; 7. günde Erişim → arama terimleri okunur.
 - **Kapak testi (sürüyor): "O BENİM" %38 / "ANLADI. YİNE DE GİDEMEDİ." %61.** Sisifos'tan (%62,5) beri ilk açık ayrışma. ~150 görüntülemede gürültülü, ama fark büyük. Kazanan vaat bir **çelişki** (anladı ama gidemedi: izleyici "neden?" diye soruyor); kaybeden bir **tanıma** anı (cevabı veriyor). Sisifos'un kazananı da çelişkiydi ("NEDEN GÜLÜYOR?"). İpucu (iki video): kapak yazısı bir çelişki kurup cevabı saklarsa kazanıyor. Dikey Shorts'un kapanış yazısı da aynı fikirde.
 - Okuma değişmedi: tıklama ve tutma iyi, gösterim ve arama yok. Görüntüleme sayısı düşük çünkü gösterim düşük; tıklayan izliyor (4:13).
+
+## Ek (26 Kasım gecesi): Studio salt okuma raporu ve elde tutma eğrisi
+Kaynak: kullanıcının tarayıcı ajanına çektirdiği rapor (prompt `2026-11-26-kanal-denetimi-prompt.md`; Claude Docs belgesi "Zaman Kuryesi: YouTube Studio Okuma Raporu"). Ajan hiçbir şey kaydetmedi; Kafka ve İkaros düzenleme sayfasında "Kaydet" etkinleşti, "Undo" ile geri alındı.
+
+### Kanal durumu: ceza yok
+- Özellik uygunluğu: Standart, Orta, Gelişmiş etkin; Topluluk Kuralları ve telif ihtarı yok. Pano ve bildirimlerde kısıtlama uyarısı yok. Para kazanma sayfasında "özgün olmayan / tekrarlayan içerik" uyarısı yok.
+- Kitle: kanal ve son 6 uzun video "çocuklara özel değil"; yaş kısıtı yok; 15 içerikte Kısıtlamalar sütunu boş.
+- "Değiştirilmiş içerik": Evet → Mary Stuart, Ran, Kafka; Hayır → Narkissos, Milton; İkaros'ta ikisi de seçili görünmüyor (kullanıcı bir kez bakmalı). Evet ve Hayır videoları aynı gösterim bandında (2,2–2,9 B / 48 sa): bu ayar dağıtımı açıklamıyor. Hangi videoda ne seçileceği ayrı bir karar (kanalda tutarlı değil).
+- Kanal: 579 abone (son 28 günde +487); para kazanma: 1.029 / 3.000 izlenme saati.
+
+### Kanal gösterimi haftalık (son 90 gün)
+| Hafta | Gösterim | TO | Görüntüleme |
+|---|---|---|---|
+| 18–24 Eki | 9.199 | %1,4 | 1.268 |
+| 25–31 Eki | 124.575 | %2,1 | 11.971 |
+| 1–7 Kas | **158.505** | %2,5 | 19.396 |
+| 8–14 Kas | 64.168 | %2,7 | 9.884 |
+| 15–21 Kas | 33.673 | %2,2 | 3.989 |
+| 22–25 Kas (4 gün) | 14.513 | %3,1 | 3.316 |
+TO sabit (%2,2–3,1), gösterim her hafta yarıya yakın düşüyor. Sisifos dalgası (25 Eki–7 Kas) söndükçe kanalın bütün gösterimi küçülüyor; yeni videolar da bu küçülen havuza açılıyor. Son 90 günde görüntülemelerin %30,5'i Shorts akışından (son 28 günde %19).
+
+### Narkissos trafiği (Gelişmiş mod)
+- 153 görüntüleme, 2.584 gösterim, TO %2,8, ortalama 4:16, 84 benzersiz izleyici, +2 abone.
+- Göz atma 63 (Ana sayfa 31, Abonelikler 24, Daha sonra izle 2) · Önerilen 38 · Kanal sayfaları 25 · Arama **5** · Bildirim 6 · diğer küçük.
+- Önerilen kaynakları (ilk 15): narsisizmle ilgisi olmayan genel Türkçe videolar (araba incelemesi, altın fiyatı, astroloji, GTA, birkaç felsefe/psikoloji videosu), her biri 1–2 görüntüleme. YouTube videoyu geniş kitlede küçük örneklerle deniyor; belirli bir konu kümesine bağlanmamış.
+- Arama: 5 görüntüleme, görünen tek terim alakasız. **"Narsisizm" kapısı 48 saatte çalışmadı.**
+- Cihaz: telefon %60,6 (ort. 4:29), bilgisayar %20,4 (3:27), TV %9,2 (**6:47**), tablet %9,2. Türkiye %92,3. Altyazı: Türkçe %23,9.
+
+### Elde tutma eğrisi (Studio noktaları, ~5,3 sn aralıklı)
+| t | 0:05 | 0:10 | 0:21 | 0:32 | 0:48 | 0:59 | 1:58 | 2:57 | 4:01 | 5:00 | 6:21 | 6:59 | 7:52 | 8:30 | 8:51 |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| % | 90 | 79 | 70 | **67** | 66 | 62 | 56 | 53 | 50 | 51 | 47 | 41 | 38 | 36 | 23 |
+- Studio işareti yalnız "Giriş" (0:30'da %67,3); Önemli an, Artış, Düşüş yok.
+- **N1 tuttu** (0:30 %67, köprü kaybı yok). **N2 tuttu** (kavram tarihi kuyruğu 6:21–7:52 dakikada 5,9 puan; gövdenin 2,1 katı). **N3 sınırda tutmadı** (Delfi cümlesi çevresinde −4).
+- 1:00–6:21 arası dakikada 2,8 puan: kanalın en yatık gövdesi. Hikâye bitince (6:23) eğri dikleşiyor; "hikâye bitince izleyici gider" ve "somut olay tutar" kuralları dördüncü videoda doğrulandı.
+
+### Hüküm (başkan)
+**Algoritma cezası yok.** Kanal durumu temiz, kitle ayarı doğru, "değiştirilmiş içerik" ayarı farkı açıklamıyor. Videoların hepsi aynı 2–3 B'de duruyor, çünkü kanalın bütün gösterimi Sisifos dalgasından sonra her hafta yarılanıyor ve yeni video önce bu havuza gösteriliyor. Video kalitesi düşmüyor, yükseliyor (Narkissos: kanalın en iyi tutması). Narsisizm kapısı aramada 48 saatte işe yaramadı; arama trafiği haftalar içinde birikir, 7. günde yeniden bakılır.
