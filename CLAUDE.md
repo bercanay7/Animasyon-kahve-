@@ -256,7 +256,7 @@ Ayrıntı ve kompozisyon menüsü: `kanal/KAPAK_DERSLERI.md`.
 | `cumhuriyet/`, `29-ekim/`, `cumhuriyet_kapak/` | 29 Ekim videosu (bayrak çizimi, donma denetimi `tools/donma.py`) |
 | `gunluk-shorts/` | Şarlken, Medici (Python motoru); dersler `DERSLER.md` |
 | `analiz/` | Studio analizleri, konu taramaları, `tahminler.md`, **`2026-11-22-genel-karsilastirma.md`**, `2026-11-17-kanal-ortalamasi.md` |
-| `araclar/` | `talep/` (talep ve iki dil), `analiz/` (tempo, elde tutma), `hareket/`, `kapak/odak.py`, `lemo/KATALOG.md`, `ASSETS.md`, `ADAYLAR.md` |
+| `araclar/` | `talep/` (talep ve iki dil), `analiz/` (tempo, elde tutma), `hareket/`, `manken/` (3B manken + çizim gölgelendiricisi: ışıkla biçim, kuru fırça; `KILAVUZ.md`), `kapak/odak.py`, `lemo/KATALOG.md`, `ASSETS.md`, `ADAYLAR.md` |
 | `kanal/` | bu dosyadan taşınan ayrıntı: `DERSLER.md` (video video dersler), `OLCUTLER_GECMIS.md`, `KANAL_YONU.md`, `KAPAK_DERSLERI.md`, `KURUL_YONTEMI.md` (arşiv), `arsiv/` (ayrıntılı eski depo tablosu ve iş akışı) |
 | `.claude/skills/` | `yonetmenlik`, `cizim`, `karakter`, `ses`, `render`, `lisans-kontrol`; `cinecode` (yalnız `/cinecode` ile çalışır; kanal videolarında başvuru kütüphanesi) |
 | kök dizin | eski Navitas kahve Story'si; kanalla ilgisiz |

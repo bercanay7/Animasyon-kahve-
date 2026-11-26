@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="tr"><head><meta charset="utf-8"><title>manken-cizim: üslup kapısı</title>
+<style>html,body{margin:0;background:#000}canvas{display:block;width:100vw;height:auto}</style></head><body>
+<canvas id="c" width="1920" height="1080"></canvas>
+<script src="../hareket/hareket.js"></script>
+<script src="iskelet.js"></script>
+<script src="manken.js"></script>
+<script>
+// Üslup kapısı sahnesi (kanal/motorlar/manken-cizim.md). Tek figür; karşısında kimse yok, nöbetçi yok, sıra yok.
+// Planlar (?sahne=… ile tek başına da açılır):
+//   manzara 0–5 sn    geniş, dış: gece sokağı, düz direkli tek lamba (L kol yok: darağacı okuması), uzakta yürüyen tek figür
+//   hareket 5–20 sn   orta: pencereden giren sert ışık kaması; figür karanlıktan ışığa yürür, durur, masaya döner, eğilir, okur
+//   yakin   20–25 sn  yakın: eğilmiş yüz ¾, yandan pencere ışığı, göz çukurları gölgede, gözlükte küçük sıcak parıltı
+// Çekim sistemi sözleşmesi: lale-cilginligi/lib/film.js'in S()/Wd() çapaları (burada küçük bir CUES taklidi), render.js sözleşmesi
+// (window.READY, renderAt(t, mb)) ve araclar/render-sahne.js sözleşmesi (window.ready, DUR, FPS, renderFrame).
+'use strict';
+const Q = new URLSearchParams(location.search);
+const W = 1920, H = 1080, RS = +(Q.get('rs') || 1);
+const cv = document.getElementById('c'); cv.width = W * RS; cv.height = H * RS;
+const ctx = cv.getContext('2d');
+window.FPS = 30;
+// --- anlatım çapaları (gerçek filmde timeline.js verir) ---
+window.CUES = { D01: { s: 5.3, e: 8.6 }, D02: { s: 9.0, e: 13.2 }, D03: { s: 13.6, e: 19.6 }, D04: { s: 20.2, e: 24.5 } };
+window.WORDS = [{ id: 'D01', w: 'yürüdü', s: 5.4, e: 5.9 }, { id: 'D02', w: 'durdu', s: 9.1, e: 9.5 }, { id: 'D02', w: 'eğildi', s: 11.0, e: 11.5 }, { id: 'D03', w: 'okudu', s: 14.2, e: 14.7 }, { id: 'D04', w: 'pencereye', s: 20.6, e: 21.2 }];
+const S = id => (CUES[id] ? CUES[id].s : 0);
+function Wd(id, w) { for (const x of WORDS) if (x.id === id && x.w.startsWith(w)) return x.s; return S(id); }
+const H_ = HAREKET, I = ISKELET, V = I.V, MK = MANKEN;
+const sm = H_.yumusak, rampa = H_.rampa;
+// Hareket "ikişer" (on twos): figür pozu 15 çizim/sn; kamera 30 kare/sn akar. Pürüzsüz, ağırlıksız 3B hareketinin ilacı.
+const ikiser = t => Math.floor(t * 15 + 1e-6) / 15;
+
+// ---------------- set: oda ----------------
+const MASA = { c: [0, 0, -.25], gen: 1.5, der: .75, y: .76 };
+function oda(t) {
+  const ton = .42;
+  MK.kutu([0, -.05, 0], [14, .1, 14], { ton: .3, kim: 1 });                         // zemin (duvardan koyu)
+  MK.kutu([0, 1.6, -2.6], [10, 3.2, .1], { ton: ton, kim: 2 });                     // arka duvar
+  // sol duvar: pencere boşluğu (x = -2.6); kayıtlar arasından ışık kaması düşer
+  const x = -2.6, pz0 = -1.7, pz1 = .5, py0 = .9, py1 = 2.95;
+  MK.kutu([x, py0 / 2, 0], [.12, py0, 10], { ton, kim: 3 });
+  MK.kutu([x, (py1 + 3.2) / 2, 0], [.12, 3.2 - py1, 10], { ton, kim: 3 });
+  MK.kutu([x, 1.6, (pz0 - 5) / 2], [.12, 3.2, 5 + pz0], { ton, kim: 3 });
+  MK.kutu([x, 1.6, (pz1 + 5) / 2], [.12, 3.2, 5 - pz1], { ton, kim: 3 });
+  // pencere kayıtları: yalnız iki dikey kayıt. Kesişen dikey + yatay kayıt yerde haç gölgesi bırakıyordu (simge taraması).
+  for (const u of [.36, .68]) MK.kutu([x, (py0 + py1) / 2, pz0 + (pz1 - pz0) * u], [.1, py1 - py0, .06], { ton, kim: 3 });
+  // masa (çalışma masası: bir kenarı duvara yakın, karşısında sandalye yok)
+  const { c, gen, der, y } = MASA;
+  MK.kutu([c[0], y - .02, c[2]], [gen, .04, der], { ton: .5, kim: 4 });
+  for (const [sx, sz] of [[-1, -1], [1, -1], [-1, 1], [1, 1]]) MK.kutu([c[0] + sx * (gen / 2 - .05), (y - .04) / 2, c[2] + sz * (der / 2 - .05)], [.05, y - .04, .05], { ton: .3, kim: 4 });
+  // masadaki kâğıtlar ve kitap (açık ton: ışıkta en parlak yer)
+  MK.kutu([c[0] - .12, y + .003, c[2] + .08], [.3, .006, .4], { ton: .95, kim: 5, don: .12 });
+  MK.kutu([c[0] + .22, y + .003, c[2] + .02], [.28, .006, .38], { ton: .9, kim: 5, don: -.2 });
+  MK.kutu([c[0] - .5, y + .03, c[2] - .2], [.22, .06, .3], { ton: .25, kim: 6, don: .3 });
+  // kapı (sağda, arka duvarda karanlık boşluk)
+  MK.kutu([2.4, 1.05, -2.54], [.95, 2.1, .04], { ton: .08, kim: 7 });
+}
+const isikOda = { tip: 'yon', konum: [-7.5, 4.3, -1.3], hedef: [.2, .5, -.2], alan: 6, uzak: 24 };
+
+// ---------------- figür zaman çizelgesi (hareket planı) ----------------
+const T0 = 5;                                    // planın başı
+const yaw0 = -Math.PI / 2;                       // -x yönüne yürür (sağdan sola)
+const durX = .12, durZ = .58;                    // masanın önünde duracağı yer
+const g = H_.yuruyus({ tip: 'yuru' });
+const yBas = Wd('D01', 'yürüdü') - .2, yDur = Wd('D02', 'durdu');
+const go = t => rampa(t, yBas, yBas + .5) * (1 - rampa(t, yDur - .5, yDur));
+const yol = H_.yuruyusYolu(g, { t0: T0, t1: 26, x0: 0, olcek: 1, go });
+// başlangıç: yürüyüş bitince durX'te olacak biçimde geri hesapla
+const toplam = yol(26).x * I.S;
+const basX = durX + toplam;                      // yaw -π/2 → ileri = -x
+const yuruPoz = t => I.yuruyus3B(yol, t, { bas: [basX, durZ], yaw: yaw0 });
+const tDon0 = yDur + .15, tDon1 = tDon0 + .75;    // masaya dönüş (ayaklar sırayla kalkar)
+const tEg0 = Wd('D02', 'eğildi') - .25, tEg1 = tEg0 + 1.1;
+const tOku = Wd('D03', 'okudu');
+// ağırlık: eğilme yayla (aşma ve oturma); önce hafif doğrulma (hazırlık)
+const egYay = H_.yayIzi({ hedef: t => (t < tEg0 ? 0 : t < tEg0 + .18 ? -.08 : 1), k: 38, d: 8.5, t0: T0, t1: 26 });
+const basYay = H_.yayIzi({ hedef: t => (t < tEg0 + .3 ? 0 : 1), k: 26, d: 6.5, t0: T0, t1: 26 });
+const tBak = Wd('D04', 'pencereye');
+const bakYay = H_.yayIzi({ hedef: t => (t < tBak ? 0 : 1), k: 22, d: 7, t0: T0, t1: 26 });   // başını kaldırıp pencereye bakar
+function figurPoz(t) {
+  t = ikiser(t);
+  if (t < tDon0) return yuruPoz(t);
+  const son = yuruPoz(tDon0);
+  const masaYaw = Math.PI;                         // -z (masaya)
+  const dur = I.POZ.dur([durX, durZ], masaYaw, { basEgim: .18 });
+  if (t < tDon1) {
+    // dönüş: kök ve gövde döner; ayaklar sırayla kalkıp yeni yere basar (kaymaz: ayak yerdeyken sabit)
+    const u = (t - tDon0) / (tDon1 - tDon0), p = I.karistir(son, dur, sm(0, 1, u));
+    for (const i of [0, 1]) {
+      const a0 = i ? .35 : 0, a1 = a0 + .55, ui = sm(a0, a1, u);
+      p.ayak[i].bilek = V.lerp(son.ayak[i].bilek, dur.ayak[i].bilek, ui);
+      p.ayak[i].bilek[1] += .05 * Math.sin(Math.PI * ui);
+      p.ayak[i].egim = 14 * Math.sin(Math.PI * ui);
+    }
+    p.kok[1] -= .015 * Math.sin(Math.PI * u);
+    return p;
+  }
+  // eğilme ve okuma
+  const yer = [durX, durZ];
+  const e = egYay(t), b = basYay(t);
+  const elX = sm(tOku, tOku + 2.2, t) + .06 * H_.kipir(t, .8);
+  const bk = bakYay(t);
+  const egil = I.POZ.oku(yer, masaYaw, MASA.y, clamp01(elX), { egim: .58 - .16 * bk, basEgim: (.3 + .1 * b) * (1 - bk) - .32 * bk, basDon: .08 * Math.sin((t - tOku) * .9) * sm(tOku, tOku + 1, t) * (1 - bk) + .5 * bk });
+  if (e <= 0) { const p = I.karistir(dur, dur, 0); p.kok[1] += e * .25; return p; }
+  const p = I.karistir(dur, egil, Math.min(e, 1.06));
+  // nefes: göğüs çok az inip kalkar
+  p.gogusEgim += .012 * Math.sin(t * 2.1);
+  return p;
+}
+const clamp01 = x => Math.max(0, Math.min(1, x));
+
+// ---------------- planlar ----------------
+const PLANLAR = {
+  manzara: { t0: 0, t1: 5, ciz(t) {
+    const lt = t;
+    MK.begin({ palet: 'r8', t, ortam: .16, gok: 1, esik: [.05, .16],
+      isik: { tip: 'spot', konum: [1.2, 4.85, -1.75], hedef: [1.4, 0, -1.2], aci: 30, uzak: 30 },
+      kamera: { konum: [-6.5 + lt * .12, 1.15, 9.5], hedef: [.2 + lt * .1, 1.6, -3.5], fov: 38 } });
+    MK.kutu([0, -.05, 0], [60, .1, 60], { ton: .25, kim: 1 });
+    MK.kutu([0, .06, -1.2], [40, .12, 2.2], { ton: .28, kim: 2 });                          // kaldırım
+    // bina kütleleri (tek kat, düz damlar; sıra hâlinde dik yuvarlak tepeli nesne yok)
+    for (const [x, w, h, d] of [[-9, 6, 7, 5], [-3.2, 4.6, 9.5, 5], [2.2, 5.5, 6, 5], [8, 6, 11, 5]]) MK.kutu([x, h / 2, -2.6 - d / 2], [w, h, d], { ton: .2 });
+    MK.kutu([2.6, 1.1, -2.58], [1, 2.2, .06], { ton: .06 });                                 // kapı boşluğu
+    MK.kutu([1.2, 2.47, -1.92], [.12, 4.95, .12], { ton: .25, kim: 9, golgeYok: 1 });         // direk (düz; L kol yok)
+    MK.kutu([1.2, 5.0, -1.75], [.36, .12, .36], { ton: .9, kim: 9, golgeYok: 1 });           // lamba başı
+    // uzakta yürüyen tek figür
+    const yl = H_.yuruyusYolu(g, { t0: 0, t1: 5, x0: 0, olcek: 1 });
+    const p = I.yuruyus3B(yl, ikiser(t), { bas: [-1.8, -1.1], yaw: Math.PI / 2 });
+    MK.figur(p);
+    MK.ciz(ctx);
+  } },
+  hareket: { t0: 5, t1: 20, ciz(t) {
+    const lt = t - 5;
+    // kamera: yavaş yaklaşma + figürü izleyen yatay kayma (sözcüğe bağlı: "eğildi"de yaklaşma hızlanır)
+    const fx = figurPoz(t).kok[0];
+    const yak = sm(0, 15, lt) * .9 + sm(tEg0, tEg0 + 2, t) * .5;
+    MK.begin({ palet: 'r8', t, ortam: .14, esik: [.05, .16], isik: isikOda,
+      kamera: { konum: [1.6 + fx * .35, 1.45 - yak * .12, 5.4 - yak * 1.1], hedef: [fx * .55, 1.0 - yak * .1, -.4], fov: 40 } });
+    oda(t);
+    MK.figur(figurPoz(t), { gozluk: true });
+    MK.ciz(ctx);
+  } },
+  yakin: { t0: 20, t1: 25, ciz(t) {
+    const lt = t - 20, p = figurPoz(t), K = I.kemikler(p), B = K.bas;
+    const yuz = V.add(V.add(B.o, V.mul(B.y, .12)), V.mul(B.z, .04));
+    // kamera yüzün önünde, ışık tarafına (−x) çevrik ¾; masanın üstünden hafif alttan bakar; yavaş yaklaşır
+    // kamera yüzün baktığı doğrultuda (B.z), ışık yanına (−x) çevrik ¾; masanın 9 cm üstünden aşağı inmez; yavaş yaklaşır
+    const d = 1.05 - lt * .05, yan = [1, 0, 0];
+    let kon = V.add(V.add(yuz, V.mul(B.z, d)), V.mul(yan, .3));
+    kon[1] = Math.max(kon[1], MASA.y + .09, yuz[1] - .06);
+    MK.begin({ palet: 'r8', t, ortam: .12, esik: [.05, .16], isik: isikOda,
+      kamera: { konum: kon, hedef: [yuz[0], yuz[1] - .03, yuz[2]], fov: 32 } });
+    oda(t);
+    MK.figur(p, { gozluk: true });
+    MK.ciz(ctx);
+  } },
+};
+// baş taraması (?bas=1): yakın plan, yan ışık, t ile yavaşça döner (yüz düzlemleri ve göz çukuru denetimi)
+function basTara(t) {
+  const p = I.POZ.dur([0, 0], 0, { basEgim: .05 });
+  const K = I.kemikler(p), y = V.add(K.bas.o, [0, .07, .03]), a = -.9 + t * .3;
+  MK.begin({ palet: 'r8', t, ortam: .12, gok: 1, isik: { tip: 'yon', konum: [-3, 3.2, 2.4], hedef: [0, 1.4, 0], alan: 2 },
+    kamera: { konum: [y[0] + Math.sin(a) * .7, y[1] - .03, y[2] + Math.cos(a) * .7], hedef: y, fov: 30 } });
+  MK.kutu([0, -.05, 0], [12, .1, 12], { ton: .3 });
+  MK.figur(p, { gozluk: Q.get('gozluk') !== '0' });
+  MK.ciz(ctx);
+}
+// poz taraması (?poz=dur|egil|oku): tam boy, düz ışık, orta plan
+function pozTara(ad, t) {
+  const p = ad === 'dur' ? I.POZ.dur([0, 0], .5) : ad === 'egil' ? I.POZ.egil([0, 0], .5, .76) : ad === 'oku' ? I.POZ.oku([0, 0], .5, .76, .6) : yuruPoz(+Q.get('pt') || 7);
+  MK.begin({ palet: 'r8', t, ortam: .25, gok: 2, isik: { tip: 'yon', konum: [-4, 6, 5], hedef: [0, 0, 0], alan: 3 }, kamera: { konum: [0, 1.2, 4.2], hedef: [0, .95, 0], fov: 38 } });
+  MK.kutu([0, -.05, 0], [12, .1, 12], { ton: .5 });
+  if (ad !== 'dur' && ad !== 'yuru') MK.kutu([Math.sin(.5) * .5, .74, Math.cos(.5) * .5], [1.2, .04, .7], { ton: .5, don: .5 });
+  if (ad === 'yuru') { const yp = yuruPoz(+Q.get('pt') || 7); yp.kok = [0, yp.kok[1], 0]; }
+  MK.figur(p, { gozluk: true });
+  MK.ciz(ctx);
+}
+const DUR = 25; window.DUR = DUR;
+function renderFrame(t) {
+  const sc = Q.get('sahne'), pz = Q.get('poz');
+  if (pz) return pozTara(pz, t);
+  if (Q.get('bas')) return basTara(t);
+  let pl = sc ? PLANLAR[sc] : null;
+  if (!pl) for (const k in PLANLAR) if (t >= PLANLAR[k].t0 && t < PLANLAR[k].t1 + (k === 'yakin' ? 1 : 0)) pl = PLANLAR[k];
+  pl.ciz(t);
+}
+function renderFrameMB(t) { renderFrame(t); }       // ikişer çizim: hareket bulanıklığı yok
+function renderAt(t, mb) { renderFrame(t); return cv; }
+Object.assign(window, { renderFrame, renderFrameMB, renderAt, SERIT_ODAK: t => { const k = I.kemikler(figurPoz(t)); return [960, 600]; } });
+window.READY = false;
+window.ready = (async () => { MK.init(W, H, { rs: RS, olcek: +(Q.get('olcek') || 1) }); window.READY = true; })();
+window.ready.then(() => { if (!Q.has('render')) { const t0 = performance.now(); const dongu = () => { renderFrame(((performance.now() - t0) / 1000) % DUR); requestAnimationFrame(dongu); }; dongu(); } else if (Q.has('t')) renderFrame(+Q.get('t')); }).catch(e => { window.HATA = String(e && e.stack || e); console.error(e); });
+</script>
+</body></html>

@@ -8,6 +8,11 @@ Kullanıcının sorusundan doğdu (25 Kasım 2026): "Bu kadar ayrıntılı çizi
     - deneme sahnesi tek lamba altında sorgu masasına kaymasın (tek figür, çalışma masası);
     - Mixamo ve Sketchfab'ın CC-BY ya da "Standard" lisanslı modelleri yok; lisans temiz değilse kodla kurulan manken.
 
+**Durum (26 Kasım 2026): kuruldu, üslup kapısı koşullu geçti.** Araç `araclar/manken/` (kılavuz `KILAVUZ.md`, kapı sonucu ve dersler `geriye_bakis.md`).
+- Manken kodla kuruldu; dış model, doku ya da kütüphane yok.
+- Geçen: manzara, orta plan siluet, ışık kamaları, ağırlıklı hareket.
+- Kural: yüz yalnız ¾ gölgede ya da profilde.
+
 **Kullanım:** yeni bir sohbete aşağıdaki metni yapıştır ve r8 ile r1 görsellerini elle ekle. Yeni oturum görselleri kendiliğinden göremez; görseller depoda yok.
 
 ## Yön metni
