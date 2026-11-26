@@ -1,7 +1,8 @@
 """Mektuplar: kurye Blender'da (bpy 5.x, Cycles, işlemci). Model indirilmez: gövde, iskeletimizin eklemlerinden deri (skin) değiştiricisiyle örülür.
 Hareket kurye/tablo.html'deki kuryePoz'dan gelir (eklem_disa.js → eklem.json). Çıktı: saydam zeminli RGBA kare (960×540, sahne kamerasıyla birebir);
 tablo.html bu kareyi fırça darbelerine çevirir (görüntü yine boyalı kalır).
-    python kurye/blender/kurye_bpy.py [çıktı klasörü] [ilk:son]      (bpy modülü kurulu Python ile)
+    python kurye/blender/kurye_bpy.py [çıktı klasörü] [ilk:son|-] [kamera.json]      (bpy modülü kurulu Python ile)
+    kamera.json (eklem_disa.js plan kipi): {konum, hedef, fov}; yoksa sahnenin geniş kamerası.
 Eksen: bizim dünya (x sağ, y yukarı, z kameraya doğru) → Blender (x, -z, y).
 """
 import bpy, json, math, sys, time
@@ -13,7 +14,8 @@ HERE = Path(__file__).resolve().parent
 OUT = Path(sys.argv[1]) if len(sys.argv) > 1 else HERE / 'kare'
 OUT.mkdir(parents=True, exist_ok=True)
 D = json.loads((HERE / 'eklem.json').read_text())
-if len(sys.argv) > 2: a, b = map(int, sys.argv[2].split(':')); D = D[a:b]
+if len(sys.argv) > 2 and sys.argv[2] != '-': a, b = map(int, sys.argv[2].split(':')); D = D[a:b]
+KAM_J = json.loads(Path(sys.argv[3]).read_text()) if len(sys.argv) > 3 else None
 
 B = lambda p: Vector((p[0], -p[2], p[1]))
 def cer(c): return B(c['o']), B(c['x']), B(c['y']), B(c['z'])
@@ -29,6 +31,9 @@ cam = bpy.data.objects.new('kamera', bpy.data.cameras.new('kamera')); sc.collect
 EGIM = math.atan((700 - 540) / (540 / math.tan(math.radians(20))))
 cam.location = (0, 0, 1.6); cam.rotation_euler = (math.pi / 2 + EGIM, 0, 0)   # ufuk ortanın altında: kamera hafif yukarı bakar
 cam.data.sensor_fit = 'VERTICAL'; cam.data.angle_y = math.radians(40); cam.data.clip_start = .1
+if KAM_J:   # plan kamerası: konum, hedef (bizim eksen), dikey görüş
+    cam.location = B(KAM_J['konum']); yon = (B(KAM_J['hedef']) - B(KAM_J['konum'])).normalized()
+    cam.rotation_euler = yon.to_track_quat('-Z', 'Y').to_euler(); cam.data.angle_y = math.radians(KAM_J['fov'])
 # güneş: karşıdan, çok alçak (sahnedeki GUNES_IS [4, 5.2, -100]); gök: mor ortam ışığı
 sun = bpy.data.objects.new('gunes', bpy.data.lights.new('gunes', 'SUN')); sc.collection.objects.link(sun)
 d = Vector((4, 100, 5.2)).normalized(); sun.rotation_euler = (-d).to_track_quat('-Z', 'Y').to_euler()

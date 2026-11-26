@@ -27,7 +27,7 @@ let M;   // tablo sahne yöneticisi (araclar/tablo/sahne.js)
 
 // ---------------- 3B kamera: resmin perspektifiyle eşleşir (ufuk y = 700, dikey görüş 40°) ----------------
 const ODAK = 540 / Math.tan(20 * PI / 180), EGIM = Math.atan((T.UFUK - 540) / ODAK);
-const KAMERA = { konum: [0, 1.6, 0], hedef: [0, 1.6 + Math.tan(EGIM) * 10, -10], fov: 40, yakin: .1, uzak: 200 };
+let KAMERA = { konum: [0, 1.6, 0], hedef: [0, 1.6 + Math.tan(EGIM) * 10, -10], fov: 40, yakin: .1, uzak: 200 };
 const GUNES_IS = { tip: 'yon', konum: [4, 5.2, -100], hedef: [-1.6, 0, -9.6], alan: 4, uzak: 140, kazanc: 1.9 };
 // ---------------- zaman çizelgesi (v2: bağımsız eleştiriden; tek mektup, rüzgâr, ağacın cevabı, ışığın değişimi) ----------------
 // 0–7 kurye soldan girer, patikada durur · 7.2 başını ağaca kaldırır · 8.6 çantaya uzanır, tek mektup çıkarır, göğsünde tutar
@@ -44,6 +44,13 @@ const SON = yuruPoz(26), DY = [SON.kok[0], SON.kok[2]];
 // patika (dünya, metre): arkadan gelir, kuryenin durduğu yerden geçer, meşenin dibine kıvrılır
 const PATIKA = [[A0[0] - 2.2 + .3, A0[1] + 2.3], [A0[0] + .3, A0[1]], [DY[0] + .3, DY[1]], [DY[0] + 2.6, DY[1] - 6.4], [5.6, -27], [12.8, -54]];
 const YAW2 = YAW + .32;                                           // biraz ağaca döner
+// plan kipleri (?plan=orta|yakin): kamera yönü ve eğimi aynı, konum kuryeye yaklaşır (sonsuzdaki gök, güneş, tepeler aynı resimle; dar açı onları büyütür)
+//   orta: sırttan, 2.6 m geride, dizden yukarı · yakin: omuzun üstünden, dar açı (24°): meşe ve çiçekler büyür
+const PLAN = new URLSearchParams(location.search).get('plan') || 'genis';
+const PLANLAR = { orta: { dx: .9, y: 1.5, dz: 2.6, fov: 40, t0: 8.4, sure: 4.2 }, yakin: { dx: .36, y: 1.66, dz: 1.0, fov: 24, t0: 15.4, sure: 4.4 } };
+const PL = PLANLAR[PLAN] || null;
+if (PL) { const ileri = V.sub(KAMERA.hedef, KAMERA.konum), konum = [DY[0] + PL.dx, PL.y, DY[1] + PL.dz]; KAMERA = { ...KAMERA, konum, hedef: V.add(konum, ileri), fov: PL.fov }; }
+const ZF = Math.tan(20 * PI / 180) / Math.tan(KAMERA.fov / 2 * PI / 180);   // sonsuzdaki katmanların büyümesi
 const tD0 = tDur - KAY + .1, tD1 = tD0 + .9;
 const bakYay = HR.yayIzi({ hedef: t => (t < tBak ? 0 : t < tVar ? 1 : t < 22.6 ? 1.3 : .4), k: 9, d: 5, t0: -1, t1: 26 });
 // çiçek açınca ağaca doğru bir-iki adım (ikinci kısa yürüyüş; durduğu yerden YAW2 yönünde)
@@ -262,12 +269,14 @@ function figur(t, S) {
     src = { w, h, kutu: [((kb[0] - 260) / sc) | 0, ((kb[1] - 420) / sc) | 0, ((kb[0] + 260) / sc) | 0, ((kb[1] + 360) / sc) | 0],
       fig: (x, y) => x >= 0 && y >= 0 && x < w && y < h && R.ek[((h - 1 - y) * w + x) * 4 + 1] === 251,
       renk: (x, y) => { const j = ((h - 1 - y) * w + x) * 4; return [R.renk[j] / 255, R.renk[j + 1] / 255, R.renk[j + 2] / 255]; } }; }
-  const gx = T.GUNES[0], gy = gunesY(t);
+  let gx = T.GUNES[0], gy = gunesY(t);
+  if (PL) { const pu = PLAN_ITME(t); gx = 960 + (gx - 960) * ZF * pu; gy = 540 + (gy - 540) * ZF * pu; }
   figurDarbe(S, src, { W, gunes: [gx, gy], hava: [.36, .24, .3], havaK: BK ? .14 : .38, cz });
-  // uzun gölge: güneşten uzağa (sola ve bize), incelerek
+  // uzun gölge: güneşten uzağa (sola ve bize), incelerek (yakın planlarda zemin kadraj dışında)
+  if (!PL) {
   const ay = MK.ekran(V.lerp(K.bacak[0].bilek, K.bacak[1].bilek, .5)), boyPx = Math.abs(MK.ekran(K.bas.o)[1] - ay[1]);
   const dx = ay[0] - gx, dy = ay[1] - gy, dl = Math.hypot(dx, dy), ux = dx / dl, uy = dy / dl, gL = boyPx * 1.5;
-  for (let k = 0; k < 9; k++) { const u = (k + .5) / 9; S.push({ x: ay[0] + ux * gL * u, y: ay[1] + 4 + uy * gL * u * .55, ang: Math.atan2(uy * .55, ux), len: gL / 9 * 1.7, wid: 15 * (1 - u * .75), c: [.15, .09, .14], seed: k, type: BRUSH, alpha: .72 * (1 - u * .5), hgt: .05, taper: 0 }); }
+  for (let k = 0; k < 9; k++) { const u = (k + .5) / 9; S.push({ x: ay[0] + ux * gL * u, y: ay[1] + 4 + uy * gL * u * .55, ang: Math.atan2(uy * .55, ux), len: gL / 9 * 1.7, wid: 15 * (1 - u * .75), c: [.15, .09, .14], seed: k, type: BRUSH, alpha: .72 * (1 - u * .5), hgt: .05, taper: 0 }); } }
   const el = K.kol[1].bilek, elU = V.add(el, V.mul(V.norm(V.sub(el, K.kol[1].dirsek)), .08));
   return { canta: MK.ekran(cm), el: MK.ekran(elU) };
 }
@@ -300,14 +309,63 @@ function sahneTanimla(pe) {
         gain: [1 - .05 * bu, 1 - .04 * bu, 1 + .02 * bu], mono: MONO ? 1 : 0, monoK: [.05, .045, .05], monoA: [.96, .94, .9] }; },
   });
 }
-function renderFrame(t) { M.ciz(ctx, 'mektuplar', t); }
+function renderFrame(t) { M.ciz(ctx, 'mektuplar', PL ? PL.t0 + t : t); }
+// ---------------- plan kipi (orta, yakin): sahne aynı hikâye, kamera kuryeye yakın ----------------
+const PLAN_ITME = t => PL ? 1 + .035 * sm(PL.t0, PL.t0 + PL.sure, t) : 1;     // donuk plan yok: yavaş yaklaşma
+let UFUK_Y = 700, AGAC_Q = null, AGAC_S = 1, BASAK_Y = [];
+// yakın tarla: ekran koordinatında; uzak kısım küçük yatay, yakın kısım iri dik darbe; güneşin altında pus
+function yakinTarla(R) {
+  const P = pts => c => { c.moveTo(pts[0][0], pts[0][1]); for (let i = 1; i < pts.length; i++) c.lineTo(pts[i][0], pts[i][1]); c.closePath(); };
+  const lin = (st, y0, y1) => c => { const g = c.createLinearGradient(0, y0, 0, y1); for (const [k, col] of st) g.addColorStop(k, col); return g; };
+  const u = UFUK_Y, gx = 960 + (T.GUNES[0] - 960) * ZF, renk = lin([[0, '#ffd08a'], [.08, '#eaa65e'], [.3, '#b47240'], [.7, '#6e4430'], [1, '#2e1e22']], u, 1100);
+  const cit = [[-80, u + 40]]; for (let x = -80; x <= 2000; x += 8) cit.push([x, u - 1 - Math.max(0, T.fbm(x * .006, 21) - .5) * 70 * ZF]); cit.push([2000, u + 40]);
+  R.fill(P(cit), '#8a5866', { dir: 0, maxR: 4, type: 1, len: 2, wid: .7, hgt: .3, group: 'cit', jit: .05 });
+  R.fill(P([[-80, u + 4], [2000, u + 4], [2000, u + 90], [-80, u + 90]]), renk, { dir: 0, maxR: 5, type: 1, len: 3, wid: .45, hgt: .3, group: 'tarla', jit: .08 });
+  R.fill(P([[-80, u + 90], [2000, u + 90], [2000, 1200], [-80, 1200]]), renk, { dir: { fn: (x, y) => -PI / 2 + .25 * Math.sin(x * .013) }, maxR: 22, type: 1, len: 2.4, wid: .42, hgt: .7, group: 'tarla', jit: .12, aj: .35 });
+  R.fill(c => { c.moveTo(gx + 700, u + 8); c.ellipse(gx, u + 8, 700, 30, 0, 0, PI * 2); }, c => { const g = c.createRadialGradient(gx, u + 8, 0, gx, u + 8, 700); g.addColorStop(0, 'rgba(255,226,160,.95)'); g.addColorStop(1, 'rgba(240,170,110,0)'); return g; },
+    { dir: 0, maxR: 5, type: 1, len: 3, wid: .45, hgt: .25, group: 'tarla', jit: .05, alpha: .85 });
+}
+function basakYakinKur() { let s0 = 7; const r = () => { s0 = (s0 * 16807) % 2147483647; return (s0 - 1) / 2147483646; };
+  for (let i = 0; i < 1100; i++) { const d = Math.pow(r(), .7), y = UFUK_Y + 30 + d * (1120 - UFUK_Y), x = -60 + r() * 2040;
+    BASAK_Y.push({ x, y, d, L: (14 + Math.pow(d, 1.6) * 300) * (.7 + r() * .6), w: 1.5 + d * 9, f: r() * 6.28, eg: (r() - .5) * .25, uc: [1, .74, .44].map(v => v * (.7 + r() * .35) * (1 - d * .5)), taban: [.4 - d * .3, .24 - d * .17, .16 - d * .1] }); }
+  BASAK_Y.sort((a, b) => a.y - b.y); }
+function basakYakin(t, S) { for (const b of BASAK_Y) { const dl = dalga(b.x, t), dal = .14 * Math.sin(b.x * .004 - t * 1.6) + .05 * Math.sin(b.x * .02 - t * 3.1 + b.f) + .5 * dl;
+  const a = -PI / 2 + b.eg + dal * (.5 + b.L / 400), uc = b.uc.map(v => Math.min(1, v * (1 + .5 * dl)));
+  S.push({ x: b.x + Math.cos(a) * b.L / 2, y: b.y + Math.sin(a) * b.L / 2, ang: a, len: b.L, wid: b.w, c: b.taban, c2: uc, seed: b.f * 100, type: BRUSH, hgt: .5, bend: dal * .8, taper: .7 }); } }
+function planSahne(MUL) {
+  const ekr = t => ({ x: 960, y: 540, zoom: PLAN_ITME(t), rot: 0 }), gok = t => ({ x: 960, y: 540, zoom: ZF * PLAN_ITME(t), rot: 0 });
+  // meşe: dünya konumunun bu kameradaki izdüşümü ve ölçeği (paralaks)
+  const agacCam = t => { const pu = PLAN_ITME(t), s = AGAC_S * pu, qx = 960 + (AGAC_Q[0] - 960) * pu, qy = 540 + (AGAC_Q[1] - 540) * pu;
+    return { x: T.AGAC.x - (qx - 960) / s, y: T.AGAC.y - (qy - 540) / s, zoom: s, rot: 0 }; };
+  const sFig = 9.6 / PL.dz * ZF;
+  M.tanimla('mektuplar', {
+    zemin: [.1, .08, .12], baslangic: t => ({ tc: ikiser(t), t }),
+    katmanlar: [
+      { ad: 'gok', ciz: T.gok, R: [30, 15, 7.5, 3.6, 1.8], T: 10, cam: (k, t) => gok(t) },
+      { ad: 'gunes', cam: (k, t) => gok(t), canli: (t, S, cam, c) => { gunes(c.tc, S); huzmeler(c.tc, S); }, kap: 64 },
+      { ad: 'daglar', ciz: T.daglar, cam: (k, t) => gok(t), mul: () => MUL.daglar ?? 1 },
+      { ad: 'agac', ciz: T.agac, R: [20, 10, 5, 2.6, 1.5], T: 10, cam: (k, t, c) => (c.agacCam = camDon(agacCam(t), [T.AGAC.x, T.AGAC.y], agacSal(c.tc))) },
+      { ad: 'tac', cam: (k, t, c) => c.agacCam, canli: (t, S, cam, c) => { tacKenar(c.tc, S); cicekler(c.tc, S); }, kap: 512, wet: .4 },
+      { ad: 'yakinTarla', ciz: yakinTarla, cam: (k, t) => ekr(t), mul: () => MUL.tarla ?? 1 },
+      { ad: 'basak', cam: (k, t) => ekr(t), canli: (t, S, cam, c) => basakYakin(c.tc, S), kap: 2048 },
+      { ad: 'figur', cam: (k, t) => ekr(t), canli: (t, S, cam, c) => { c.F = figur(t, S); }, kap: 8192, wet: .2, run: 0 },
+      { ad: 'mektup', cam: (k, t) => ekr(t), run: 0, kap: 16, canli: (t, S, cam, c) => { const tc = c.tc;
+        if (tc < tSal + .1 && kolYay(tc) > 1.15) { const e = c.F.el; zarf(S, e[0] + 6 * sFig, e[1] - 4 * sFig, 30 * sFig, -.25 + .05 * Math.sin(tc * 2), .9); } } },
+      { ad: 'polen', cam: (k, t) => gok(t), canli: (t, S, cam, c) => polen(c.tc, S), wet: .4, kap: 128 },
+    ],
+    bitir: t => { const bu = sm(tBat0, tBat1, t);
+      return { light: [-.5, -.55, .7], norm: 1.7, ground: [.1, .08, .12], expo: 1.03 - .13 * bu, sat: 1.06 - .1 * bu, contrast: 1.05, vig: .34 + .06 * bu, spec: .1, shin: 24, weave: .06, lightCol: [1, .93, .82],
+        gain: [1 - .05 * bu, 1 - .04 * bu, 1 + .02 * bu], mono: MONO ? 1 : 0, monoK: [.05, .045, .05], monoA: [.96, .94, .9] }; },
+  });
+}
 // mektubun bırakıldığı yer: elin salış anındaki ekran konumu (kare sırasından bağımsız olsun diye yükte hesaplanır)
 let SALIS_EL = [700, 820];
 const MONO = Q.get('mono') === '1';
 // Blender kuryesi: kareler yükte okunur, saydam olmayan bölge kırpılıp saklanır (kurye/blender/kurye_bpy.py üretir)
 const BLENDER = Q.get('blender') === '1'; const BKARE = [];
-async function blenderYukle() { const d = await blenderKareleri('blender/kare', 376); for (const k of d) BKARE.push(k); }
+async function blenderYukle() { const d = await blenderKareleri(PL ? `blender/kare_${PLAN}` : 'blender/kare', 376); for (const k of d) BKARE.push(k); }
 // Blender kuryesi için eklemler (kurye/blender/eklem_disa.js okur): kuryePoz'un kemikleri + çanta + şapka çerçevesi, dünya metresi (y yukarı)
+window.KAMERA_DISA = () => ({ konum: KAMERA.konum, hedef: KAMERA.hedef, fov: KAMERA.fov });
 window.kuryeEklem = t => { const p = kuryePoz(t), K = I.kemikler(p), cer = c => ({ o: c.o, x: c.x, y: c.y, z: c.z });
   const pel = K.pelvis, a = cantaSarkac(ikiser(t)), kok = V.add(V.add(pel.o, V.mul(pel.x, -.19)), V.mul(pel.y, .1)), asagi = V.rot(V.mul(pel.y, -1), pel.z, a);
   return { pelvis: cer(K.pelvis), gogus: cer(K.gogus), boyun: cer(K.boyun), bas: cer(K.bas),
@@ -336,7 +394,10 @@ window.ready = (async () => {
   if (BLENDER) await blenderYukle();
   // salış anındaki el konumu
   { const S0 = new Strokes(4096); SALIS_EL = figur(ikiser(tSal), S0).el; }
-  sahneTanimla(pe); M.hazirla('mektuplar');
+  if (PL) { UFUK_Y = 540 + (T.UFUK - 540) * ZF; MK.begin({ kip: 'boya', t: 0, kamera: KAMERA, isik: GUNES_IS }); AGAC_Q = MK.ekran([12.8, 0, -54]); AGAC_S = ZF * 54 / (54 + KAMERA.konum[2]);
+    basakYakinKur(); planSahne(MONO ? { tarla: .8, daglar: .9 } : {}); window.DUR = PL.sure; }
+  else sahneTanimla(pe);
+  M.hazirla('mektuplar');
   basakKur(pe); cicekKur(); kenarKur();
   window.DARBE = M.durum();
   window.READY = true;
