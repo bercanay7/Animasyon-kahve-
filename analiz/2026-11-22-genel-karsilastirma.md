@@ -20,6 +20,7 @@ Yaş farkı var: eski videolar için ilk 7 gün ya da ömür boyu, yeni videolar
 | Kafka | 16 Kas | 6:39 | edebiyat | yok (2,8 B) | %1,9 | ≈74 | 64 | %45 |
 | Ran | 17 Kas | 8:03 | film | yok (2,2 B; 7. gün 3,9 B) | **%3,0** (7. gün %2,8) | ≈80 | 66 (7. gün 63) | %39 (7. gün %38) |
 | Mary Stuart | 20 Kas | 20:49 | kitap + tarih | yok (2,2 B) | %2,3 | **≈88** | **70** | %36 |
+| Narkissos | 24 Kas | 8:52 | mit + psikoloji | yok (46. sa 2,4 B) | %2,8 | – | – | **%48** |
 | **Medyan** | | | | | %1,8 | ≈77 | 61 | %40 |
 
 ## 2. Dağıtım: izlenme neden az?
