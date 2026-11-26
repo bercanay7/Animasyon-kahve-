@@ -11,15 +11,21 @@ Yükleme YouTube Studio'da bilgisayardan yapılır. YouTube'un kendi zamanlamas�
 |---|---|
 | `teslim/gilgamis_youtube.mp4` | **YouTube'a yüklenecek dosya** (255 MB, 11:17): 1920×1080, 30 fps, H.264 CRF 21 + AAC, Türkçe ses (−14 LUFS), BT.709 |
 | `teslim/gilgamis_telefon.mp4` | Telefonda izlemek için küçük kopya (97 MB, H.265 iki geçiş 1000k; ses aynı) |
-| `kapak/A.jpg` | Kapak A: "BİR AN / **ELİNDEYDİ**" (vurgu altın #E2B04F). Ortadan başlamak: bitki elde, yılan kapıyor; filmin ilk karesiyle (A01) aynı kompozisyon. Vaat 0:05'te karşılanıyor: "ölüme karşı aradığını buldu, **eline aldı**… ve bir yılana kaptırdı" (A01, 0:00,6–0:08,2). Yazı cevabı (yılanı) söylemez |
-| `kapak/B.jpg` | Kapak B: "7 GECE / **GÖMMEDİ**" (vurgu meşale alevinin turuncusu #F2A04A). Karşıtlık: örtülü dost, başını ellerine almış adam, duvarda yedi çentik. Vaat A02'de: sahne 0:09,5'te açılır, "yedi gece" 0:14,6, "gömdürmemişti" 0:17 (ilk 5 sn'nin dışında; bkz. aşağıdaki not) |
+| `kapak/A.jpg` | Kapak A: "BİR AN / **ELİNDEYDİ**" (vurgu altın #E2B04F). Ortadan başlamak: bitki elde, yılan sudan tek S kıvrımıyla yükselmiş, açık ağzı bitkinin sapında; filmin ilk karesiyle (A01) aynı kompozisyon. Vaat ilk 5 sn'de karşılanıyor: "ölüme karşı aradığını buldu, **eline aldı**… ve bir yılana kaptırdı" (A01, 0:00,6–0:08,2; yılan "yılana"da sudan yükselir). Yazı kimin aldığını söylemez; görüntü tehdidi gösterir, sonucu (kaptırdı mı?) saklar |
+| `kapak/B.jpg` | Kapak B: "7 GECE / **GÖMMEDİ**" (vurgu meşale alevinin turuncusu #F2A04A; alev görüntüdeki tek renkli nesne). Karşıtlık: yatakta örtülü dost; başında oturan adam, başı eğik, gözü kapalı, eli dostunun göğsünde. Vaat A02'de: sahne 0:09,5'te açılır, "yedi gece" 0:14,6, "gömdürmemişti" 0:17 (ilk 5 sn'nin dışında; bkz. aşağıdaki not) |
+| `gilgamis.tr.srt` | Türkçe altyazı (182 satır) |
+| `youtube.md` | Başlık, açıklama (bölümler, kaynaklar), etiketler, sabit yorum |
 
 **Kapak sistemine uyarlama (27 Kasım, `kanal/KAPAK_SISTEMI.md`):** kompozisyon iki kapakta da aynı kaldı.
 - A: tek kelime ("ELİNDEYDİ") 2–4 kelime kuralının altındaydı ve vurgu yoktu. "BİR AN" eklendi: çelişkiyi (elindeydi, artık yok) söylüyor, kimin aldığını saklıyor. İki satır yazıya yer açmak için figür, bitki ve yılan 260 px sağa kaydı (bitki yazıdan ~70 px uzakta). Vurgu altın: bitki boyalı değil, yalnız mavi ışık halesi var ve su da mavi; görüntüde tek renkli nesne yok. Yazı hariç en parlak yer bitki.
 - B: vurgu yoktu ve yazı hariç en parlak yer sağdaki meşaleydi (odak yas sahnesinden kayıyordu). Meşale kısıldı, ışık yatağın başına ve oturan adama taşındı; şimdi en parlak yer ikisinin arası. "GÖMMEDİ" alevin rengiyle vurgulandı; yazı 280 px'ten 300 px'e çıktı (kural ≥ 290).
-- Test sayfaları: `kapak/test/A_test.jpg`, `kapak/test/B_test.jpg` (ölçümler `.txt`). B'nin vaadi ilk 5 sn'de değil (film değişmeden düzeltilemez); "Test ve karşılaştır" sonucu okunurken bu fark hesaba katılır.
-| `gilgamis.tr.srt` | Türkçe altyazı (182 satır) |
-| `youtube.md` | Başlık, açıklama (bölümler, kaynaklar), etiketler, sabit yorum |
+- Test sayfaları: `kapak/test/A_test.jpg`, `kapak/test/B_test.jpg` (ölçümler `.txt`).
+
+**Fable okumasından sonra (27 Kasım):** yazılar aynı kaldı; görüntüde üç düzeltme.
+- B, hücre okuması: duvardaki yedi eşit dikey oluk küçük boyda parmaklıklı pencere gibi okunuyordu (tuğla, dar yatak, meşale ve yere bakan figürle birlikte zindan). Çentikler kaldırıldı; yedi sayısını yazı söylüyor.
+- B, figür okunmuyordu (baş, topuz ve eller birbirine karışıyordu). Oturan adam büyüdü (boy 600 → 800, kare yüksekliğinin ~%52'si), başı öne eğik ve gözü kapalı; yakın kolu ayrı yolla örtülü dostun göğsüne uzanıyor. Yatak kısaldı ve sola kaydı, adamın altına alçak bir tabure kondu. Yazı hariç en parlak yer adamın göğsü ve dostuna uzanan eli (x %60, y %60). 168×94'te "yatağın başında eğilmiş adam" okunuyor.
+- A, yılan okunmuyordu (zincir ya da halat gibiydi, başı kolun arkasında kayboluyordu). Yılan sudan tek S kıvrımıyla yükseliyor; başı koyu konturla ayrı, açık ağzı bitkinin sapına dönük. Su biraz soluklaştı (#3B5C99 → #3D5275) ve suyun altında kalan gövde (yılanınki ve suda duran adamın belden aşağısı) su rengiyle örtüldü: odak ısı haritasının birinci tepesi suyun içindeki pullardan (x %52, y %79) yılan başı ile bitkinin buluştuğu yere geçti (x %59, y %62). Yazı hariç en parlak yer yine bitki.
+- B'nin vaadi ilk 5 sn'de değil (film değişmeden düzeltilemez): B'den gelen izleyicide 0:10 kaybı A'dan yüksek olabilir. "Test ve karşılaştır" sonucu okunurken bu fark hesaba katılır (tahmin olarak `analiz/tahminler.md`'ye başkan yazar).
 
 ## 1. Yükleme
 1. Dosya adını `gilgamis-destani-olum.mp4` yap, **Oluştur → Video yükle**.
