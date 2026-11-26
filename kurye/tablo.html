@@ -74,7 +74,8 @@ function kuryePoz(t) {
   const yol4 = [ind, canta, tut, bir, ind];
   if (k > .02) { const i = Math.min(3, Math.floor(k)), f = k - i; p.kol[1] = { hedef: V.lerp(yol4[i], yol4[i + 1], i === 3 ? f * .8 : f) }; }
   const b = bakYay(t);
-  p.basEgim = (p.basEgim || 0) - .34 * b; p.basDon = (p.basDon || 0) - .22 * b;
+  const yuk = sm(tVar + .9, tVar + 1.9, t) * (1 - sm(22.4, 23.4, t));   // ağaç cevap verince baş ve göğüs ağaca kalkar
+  p.basEgim = (p.basEgim || 0) - .34 * b - .12 * yuk; p.basDon = (p.basDon || 0) - .22 * b; p.gogusEgim = (p.gogusEgim || 0) - .035 * yuk;
   return p;
 }
 // çanta: sol kalçada, sarkaç
@@ -118,7 +119,7 @@ function katman(ad, ciz, d, o = {}) {
 }
 // kamera: yavaş yaklaşma; katman derinliği d: 0 gök … 1 ön plan
 // kamera koreografisi (v3): geniş açılış → kurye mektubu çıkarırken ona yaklaşır → mektubu meşeye kadar izler → güneş batarken geri açılır
-const KAM = [[0, 960, 540, 1], [5.5, 900, 575, 1.06], [10.4, 760, 650, 1.13], [12.4, 790, 630, 1.12], [15.2, 960, 520, 1.12], [18.6, 1060, 490, 1.15], [25, 1000, 545, 1.04]];
+const KAM = [[0, 960, 540, 1], [5.5, 900, 575, 1.06], [10.4, 760, 600, 1.12], [12.4, 790, 590, 1.11], [15.2, 960, 520, 1.12], [18.6, 1060, 490, 1.15], [25, 1000, 545, 1.04]];
 function kamera(t) {
   let i = 0; while (i < KAM.length - 2 && t > KAM[i + 1][0]) i++;
   const a = KAM[i], b = KAM[i + 1], u = sm(a[0], b[0], Math.max(a[0], Math.min(b[0], t)));
@@ -135,7 +136,7 @@ const camDon = (c, P, th) => { const cr = Math.cos(th), sr = Math.sin(th), vx = 
 // dalga: soldan sağa geçen tek büyük esinti (11–15 sn) + sürekli hafif esinti
 const dalgaX = t => -420 + (t - 10.6) * 820;
 const dalga = (x, t) => (t < 10 || t > 16) ? 0 : Math.exp(-Math.pow((x - dalgaX(t)) / 300, 2)) * sm(10, 10.8, t) * (1 - sm(15, 16, t));
-const agacSal = t => .0062 * Math.sin(t * .8) + .0022 * Math.sin(t * 2.3 + 1) + (t > 12.75 ? .009 * Math.sin((t - 12.75) * 3.6) * Math.exp(-(t - 12.75) * .9) : 0) + (t > tVar - .1 ? .007 * Math.sin((t - tVar + .1) * 7) * Math.exp(-(t - tVar + .1) * 2.2) : 0);
+const agacSal = t => .009 * Math.sin(t * .8) + .003 * Math.sin(t * 2.3 + 1) + (t > 12.75 ? .009 * Math.sin((t - 12.75) * 3.6) * Math.exp(-(t - 12.75) * .9) : 0) + (t > tVar - .1 ? .007 * Math.sin((t - tVar + .1) * 7) * Math.exp(-(t - tVar + .1) * 2.2) : 0);
 const gunesY = t => T.GUNES[1] + 92 * sm(tBat0, tBat1, t);
 
 // ---------------- canlı katmanlar ----------------
@@ -225,7 +226,7 @@ function cicekKur() {
     const yan = Math.max(0, Math.min(1, .5 + (T.AGAC.x - x) / 700 + (y - 380) / 500)), d = Math.hypot(x - KONUS[0], (y - KONUS[1]) * 1.3);
     const yak = Math.exp(-d / 260);                                    // mektubun girdiği yerde sık
     if (hsh(i, 7) > .15 + .45 * yan + .6 * yak) continue; n++;
-    const boyS = hsh(i, 5) < .45 ? 7 : hsh(i, 5) < .85 ? 11 : 16;         // üç boy
+    const boyS = (hsh(i, 5) < .45 ? 7 : hsh(i, 5) < .85 ? 11 : 16) * (1 + .5 * yak);   // girdiği yerde iri         // üç boy
     CICEK.push({ x, y, t0: tVar + .04 + d / 300 + hsh(i, 4) * .2, s: boyS * (.85 + .3 * hsh(i, 8)), f: hsh(i, 6) * 6.28, p: .45 + .55 * yan }); }
 }
 // cevap: açan çiçeklerden yapraklar kopar, rüzgârla kuryeye doğru süzülür: kenarı yumuşak pul, çizgisiz
@@ -247,9 +248,7 @@ function cicekler(t, S) {
     const ux = gx - x, uy = gy - y, ul = Math.hypot(ux, uy) || 1;
     S.push({ x, y, ang: c.f, len: s, wid: s * .7, c: govde, c2: govde.map(v => v * .85), seed: c.f * 100, type: BRUSH, alpha: ac * .9, hgt: .08, taper: .2 });
     S.push({ x: x + ux / ul * s * .22, y: y + uy / ul * s * .22, ang: c.f + .9, len: s * .62, wid: s * .4, c: isik, c2: isik.map(v => v * .92), seed: c.f * 100 + 1, type: BRUSH, alpha: ac * (.55 + .4 * c.p), hgt: .06, taper: .2 }); }
-  // varış: mektubun girdiği yerde kısa sıcak parıltı (ağaç mektubu alır)
-  const pa = t - tVar + .05; if (pa > 0 && pa < 1.2) { const k = Math.sin(Math.min(1, pa / .25) * PI / 2) * Math.exp(-pa * 2.6);
-    for (let i = 0; i < 7; i++) { const a = i * .9 + .3; S.push({ x: KONUS[0] + Math.cos(a) * 14, y: KONUS[1] + Math.sin(a) * 10, ang: a, len: 34 + 10 * (i % 3), wid: 9 + 3 * (i % 2), c: [1, .84, .64], c2: [1, .72, .56], seed: 900 + i, type: BRUSH, alpha: .32 * k, hgt: 0, taper: .5 }); } }   // halka değil: yumuşak fırça öbeği
+  // varışta ayrı bir ışık efekti yok (ışınsal parıltı örümcek ya da camda kırık, ışık lekesi haki çubuk okundu): cevap, mektubun girdiği yerde ilk açan iri çiçeklerdir
 }
 // tacın kenarı rüzgârda kıpırdar: dış çevrede kısa yaprak darbeleri (her çizimde)
 let KENAR = [];
@@ -368,7 +367,15 @@ window.kuryeEklem = t => { const p = kuryePoz(t), K = I.kemikler(p), cer = c => 
   const pel = K.pelvis, a = cantaSarkac(ikiser(t)), kok = V.add(V.add(pel.o, V.mul(pel.x, -.19)), V.mul(pel.y, .1)), asagi = V.rot(V.mul(pel.y, -1), pel.z, a);
   return { pelvis: cer(K.pelvis), gogus: cer(K.gogus), boyun: cer(K.boyun), bas: cer(K.bas),
     bacak: K.bacak.map(b => ({ kalca: b.kalca, diz: b.diz, bilek: b.bilek, ayak: cer(b.ayak) })), kol: K.kol.map(k => ({ omuz: k.omuz, dirsek: k.dirsek, bilek: k.bilek, el: cer(k.el) })),
-    canta: { kok, asagi } }; };
+    canta: { kok, asagi }, atki: atkiNoktalar(K, t) }; };
+// atkı ucu: boynun arkasından sarkar, rüzgârla kalkar ve dalgalanır (sivil, yumuşak bir işaret)
+function atkiNoktalar(K, t) { const b = K.boyun, ruz = .3 + .2 * Math.sin(t * 1.3) + 1.1 * dalga(700, t) + .4 * Math.exp(-Math.pow((t - (tVar + .3)) / 1.2, 2));
+  // sırttan aşağı sarkar; rüzgâr ucu biraz geri ve yana kaldırır, dalga ucunda (yana düz çıkan çubuk tüfek okunuyordu)
+  const P = [V.add(b.o, V.add(V.mul(b.z, -.075), V.mul(b.x, .035)))];
+  for (let i = 1; i <= 6; i++) { const u = i / 6, dal = Math.sin(t * 5.2 - i * .9) * .012 * u * (.5 + ruz);
+    const asagi = V.mul(b.y, -.07 * (1 - .3 * Math.min(1, ruz) * u)), geri = V.mul(b.z, -.012 - .02 * Math.min(1, ruz) * u), yana = V.mul(b.x, .008 * u * ruz + dal);
+    P.push(V.add(P[i - 1], V.add(asagi, V.add(geri, yana)))); }
+  return P; }
 function renderAt(t) { renderFrame(t); return cv; }
 Object.assign(window, { renderFrame, renderFrameMB: renderFrame, renderAt });
 window.BITIR = () => { const px = new Uint8Array(4); E.gl.readPixels(0, 0, 1, 1, E.gl.RGBA, E.gl.UNSIGNED_BYTE, px); };

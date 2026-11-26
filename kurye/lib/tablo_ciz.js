@@ -107,7 +107,11 @@
         patika.forEach((p, i) => { const n1 = 1 + .38 * (fbm(i * .45, k0 * 10 + 3) - .5); sol.push([p[0] + p[2] * k0 * n1, p[1]]); sag.push([p[0] + p[2] * k1 * n1, p[1]]); });
         R.fill(P([...sol, ...sag.reverse()]), renk, { dir: { fn: (x, y) => -.35 }, maxR: 7, type: 1, len: 2, wid: .6, hgt: .5, group: grup, jit: .08, follow: 4, ...pr }); };
       yol(-1, 1, lin([[0, '#f2c486'], [.45, '#c08a56'], [1, '#6a4632']], 0, UFUK + 20, 0, 1080), 'patika');
-      yol(-.16 - .1 * fbm(1.3, 2), .3 + .08 * fbm(2.1, 4), lin([[0, '#c8935a'], [.45, '#8a5a3a'], [1, '#3e2a26']], 0, UFUK + 20, 0, 1080), 'patika');
+      // ortadaki otlu sırt: kesik kesik ve genişliği değişen yamalar (cetvelle çizilmiş iki paralel iz okunuyordu)
+      for (let k = 0; k < patika.length - 2; k += 2) { const p0 = patika[k], p1 = patika[Math.min(patika.length - 1, k + 2)];
+        if (fbm(k * .37, 8) < .35) continue; const w0 = .12 + .3 * fbm(k * .5, 5), w1 = .12 + .3 * fbm(k * .5 + .5, 5), o0 = (fbm(k * .3, 6) - .5) * .4;
+        R.fill(P([[p0[0] + p0[2] * (o0 - w0), p0[1]], [p1[0] + p1[2] * (o0 - w1), p1[1]], [p1[0] + p1[2] * (o0 + w1), p1[1]], [p0[0] + p0[2] * (o0 + w0), p0[1]]]),
+          lin([[0, '#c8935a'], [.45, '#8a5a3a'], [1, '#3e2a26']], 0, UFUK + 20, 0, 1080), { dir: { fn: () => -.35 }, maxR: 6, type: 1, len: 2, wid: .6, hgt: .5, group: 'patika', jit: .1 }); }
     }
   }
   // ---------------- yalnız meşe: geniş kollu; taç yaprak kümelerinden; ışık kenarları kül pembesi ----------------

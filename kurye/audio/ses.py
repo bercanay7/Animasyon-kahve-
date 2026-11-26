@@ -116,7 +116,7 @@ if EFEKT:
     for i, a in enumerate(ADIM + [{'t': 6.62, 'ayak': 0}, {'t': 6.95, 'ayak': 1}]):
         uz = min(1, .55 + .45 * (1 - a['t'] / 7))                     # kurye uzaklaştıkça sesi kısılır
         x, t0 = HAVUZ[(i * 3) % len(HAVUZ)]
-        if a.get('ikinci'): uz = .45
+        if a.get('ikinci'): uz = .8
         koy(x, a['t'] - .03, -13 - 9 * (1 - uz) - (4 if 6.5 < a['t'] < 18 else 0), t0 - .03, t0 + .38, giris=.004, cikis=.08)
 
 # ── rüzgâr (sentez yedeği): sürekli alçak hışırtı + 11–14 sn esinti (soldan sağa: pan -0.8 → +0.8) ──
@@ -197,7 +197,7 @@ if EFEKT:
         g = m_rms * 10 ** (hdb / 20) / doruk_rms(z); L += z[:, 0] * g; R += z[:, 1] * g
 # 60 Hz altı kesilir (TV'de bas şişmesi olmasın); 60–120 Hz yumuşak inik
 def alcak_kes(x):
-    X = np.fft.rfft(x); f = np.fft.rfftfreq(len(x), 1 / SR); g = np.clip((f - 40) / 80, 0, 1) ** 1.5; return np.fft.irfft(X * g, len(x)).astype(np.float32)
+    X = np.fft.rfft(x); f = np.fft.rfftfreq(len(x), 1 / SR); g = np.clip((f - 50) / 45, 0, 1) ** 2; return np.fft.irfft(X * g, len(x)).astype(np.float32)
 L = alcak_kes(L); R = alcak_kes(R)
 # giriş ve çıkış
 e = zarf([(0, 0), (.8, 1), (22.8, 1), (24.9, 0)], N); L *= e; R *= e
