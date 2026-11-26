@@ -2,28 +2,31 @@
 
 Kullanıcı yaratıcılığı tamamen başkana bıraktı: "detaylı, güzel, gerçekten sanatsal bir iş". Gönderdiği örnekler (geyik, iskambil, merdiven ve çerçeveler, satranç, orkestra, BMW) yalnız başvuru.
 
-## Fikir
-Kanalın kimliği: "geçmişten bugüne soru taşıyan kurye". Bunun görsel şiiri:
-- Gün batımında, yalnız bir meşeye uzanan buğday tarlası.
-- Kurye çantasıyla patikadan yürür, durur, güneşe döner, çantasını açar.
-- Rüzgâr mektupları alır; kâğıtlar havada döne döne kuşa dönüşür ve güneşin ışığına uçar.
-- Anlatım yok; 25 sn. Kanal jeneriği ya da bir videonun kapanışı olabilir.
+## Fikir (v2, 26 Kasım; bağımsız eleştiriden sonra)
+Kanalın kimliği "geçmişten bugüne soru taşıyan kurye". Bunun görsel şiiri (25 sn, anlatım yok):
+- 0–7 sn: gün batımında buğday tarlası, yalnız bir meşe. Kurye soldan girer, patikada durur.
+- 7 sn: başını ağaca kaldırır, çantasından tek bir mektup çıkarır, göğsünde tutar.
+- 11–13 sn: soldan bir rüzgâr dalgası başakları yatırarak gelir, mektubu elinden alır.
+- 12–19 sn: mektup döne döne önce bize gelir, sonra meşenin tacına konar.
+- 19 sn: konduğu yerden dışa doğru tacın içinde beş yapraklı açık çiçekler açılır. Ağaç cevap verir.
+- 17–25 sn: güneş tepelerin ardına batar, ışık soğur.
+
+v1'de (mektuplar → kuşlar) eleştirmen şunları buldu:
+- filtre görünümü;
+- güneş diskinde hedef tahtası;
+- tacın köz görünümü;
+- 18 sn'den sonra hiçbir şeyin olmaması;
+- figürün kesik bir delik gibi okunması.
+
+Ayrıntı ve kurallar: `araclar/tablo/KILAVUZ.md`.
 
 ## Nasıl yapıldı
-- **Resim:** `lib/tablo_ciz.js` değer planlı düz bir resim çizer: gök, uzak tepeler, tarla ve patika, meşe, ön plan otları.
-  - Her katman ayrı tuvaldir.
-  - Dorian'ın yağlıboya motoru (`dorian-gray/kapi/vendor/impasto.js`, `plate.js`; Lemo-Opuscar, MIT) bu resmi Hertzmann yöntemiyle kaba darbeden ince darbeye spatula ve fırça darbelerine çevirir.
-  - Darbeler boya kalınlığı, sıyıran ışık ve tuval dokusuyla basılır.
-  - Durağan katmanlar yüklenirken bir kez boyanır (~84 bin darbe, 1,7 sn).
-- **Derinlik:** kamera meşeye ve güneşe doğru yavaşça yaklaşır. Her katman kendi derinliğinde kayar.
-- **Canlı katmanlar:** her iki karede bir yeniden boyanır (15 çizim/sn; boyalı animasyonun nabzı).
-  - **Kurye:** `araclar/manken` 3B mankeni resmin perspektifiyle çizilir (ufuk y = 700, dikey görüş 40°).
-    - Okunan görüntü darbelere çevrilir: içte seyrek, kenarda sık.
-    - Güneş karşıdan ve çok alçakta: figür karşı ışıkta siluet, gölgesi bize doğru uzanır.
-    - Yürüyüş `araclar/hareket` (ayak kaymaz); çanta sarkaç.
-  - **Rüzgâr:** tarlada 3200 başak darbesi; açı, ilerleyen bir rüzgâr dalgasıyla eğilir.
-  - **Işık:** güneşten yayılan yarı saydam spatula darbeleri (nefes alır), havada polen.
-  - **Mektuplar → kuşlar:** kâğıt döne döne uçar. Dönüşüm sırasında kâğıt darbesi incelir, iki kanat darbesi belirir ve çırpmaya başlar; renk kremden koyu siluete geçer.
+- **Resim:** `lib/tablo_ciz.js` değer planlı düz bir resim çizer: gök, uzak tepeler, tarla ve patika, meşe, ön plan otları. Her katman ayrı tuvaldir.
+- **Motor:** ortak tablo motoru (`araclar/tablo/`, Lemo-Opuscar impasto, MIT) resmi kaba darbeden ince darbeye fırça ve spatula darbelerine çevirir. Durağan katmanlar bir kez boyanıp önbellekten kamerayla basılır.
+- **Derinlik:** kamera yavaşça yaklaşır; her katman kendi derinliğinde kayar. Meşe rüzgârda gövdesinin dibinden eğilir (döndürülmüş kamera).
+- **Canlı katmanlar** (iki karede bir):
+  - **Kurye:** `araclar/manken` 3B mankeni resmin perspektifiyle çizilir; okunan görüntü darbelere çevrilir. Şapka, çapraz kayışlı çanta, güneş yanında altın kenar ışığı. Yürüyüş `araclar/hareket` ile yapılır (ayak kaymaz).
+  - Başaklar, rüzgâr dalgası, güneş diski ve hüzme, polen, mektup (zarf: kapak çizgisi, iki yüz), çiçekler.
 
 ## Dosyalar
 - `tablo.html`: sahne (sözleşme: `window.READY`, `DUR`, `renderAt(t)`, `BITIR`).
@@ -36,10 +39,20 @@ node /home/user/Animasyon-kahve-/araclar/manken/render.js kurye/tablo.html mektu
 ```
 
 ## Ölçüm
-- Kare başına ~7 sn (tek işçi, SwiftShader, süper örnekleme 1,5). Durağan darbeler her karede yeniden basılıyor; pahalı olan bu.
-- Hızlandırma yolu: durağan katmanları bir kez dokuya basıp kamera yaklaşmasını dokudan yapmak. Kabartma ışığı sabit kalır, darbeler yeniden basılmaz.
+- **v1:** kare 7,2 sn; 25 sn'lik film 4 işçiyle 88 dk.
+- **v2:** önbellekle kare ~1 sn.
 
-## Hassasiyet taraması
+## Hassasiyet taraması (v2)
+- **Güneş diski** halka ya da ışın darbesiyle çizilmez (hedef tahtası); yatay sürütme.
+- **Güneş figürün başının arkasında durmaz** (hale okunur); kurye güneşin solunda durur.
+- **Çiçekler** beş yapraklıdır; dört yapraklı öbek küçükte haç okunuyordu.
+- **Taçta turuncu leke yok** (köz, yanan ağaç).
+- **Kol** mektubu göğüs hizasında tutar ve bırakır; omuzun üstüne çıkmaz (selam okunmaz).
+- **Ağacın gölgesi** yumuşak, loblu bir göldür (kama ışık konisi ya da rampa okunuyordu).
+- **Ağaçta asılı nesne yok;** çiçekler tacın içinde, dalda sarkan bir şey yok (adak ağacı okunmasın).
+- **Şapkanın kenarı** keskin spatula darbesiyle çizilir; boncuklu kenar kıvırcık yuvarlak baş (karikatür) okunuyordu.
+
+### v1 notları (arşiv)
 - **Kuşlar** küçük, sürekli çırpan siluetler; açık kanatlı simetrik amblem değil.
 - **Kol** mektupları bırakırken göğüs hizasında öne açılır, omuzun üstüne çıkmaz; havaya kalkmış düz kol yok.
 - **Ağacın gölgesi** tarlada koyu bir kama; tümsek ya da mezar okunmuyor.
