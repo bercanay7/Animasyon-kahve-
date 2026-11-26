@@ -1,0 +1,37 @@
+[
+ {
+  "onek": "r1",
+  "ad": "Bant",
+  "ids": [
+   "D15"
+  ],
+  "metin": "[calmly] Müdür deneyden sonra yazdığı notta bu konuşmayı anlatıyor: Mark'la o an konuşmak istememiş, ama Zimbardo istediği için konuşmuş. Sert gardiyana kendisi de inanıyordu: kurallar ve sert gardiyanlar olmasa bodrum hapishaneye değil, yaz kampına benzerdi."
+ },
+ {
+  "onek": "r2",
+  "ad": "İki gardiyan",
+  "ids": [
+   "E07",
+   "E08"
+  ],
+  "metin": "[calmly] Zimbardo iki bin on sekizde kendi belgesini gösteriyor: beşinci gece Eşelmın'ın mahkûmlara oynattığı aşağılayıcı bir oyunun, on dakikaya yakın süren kaydı. Ona göre bu, sert gardiyanı oynamanın çok ötesinde. [calmly] Eşelmın iki bin on sekizde, araştırmacıların istediğini yaptığına inandığını söylemişti. Zimbardo Ekim iki bin yirmi dörtte öldü; birkaç hafta sonra, bir belgeselin tanıtım söyleşisinde Eşelmın daha ileri gitti: Davranışlarımın birçoğunu o yönlendirdi."
+ },
+ {
+  "onek": "r3",
+  "ad": "İki gardiyan",
+  "ids": [
+   "E12"
+  ],
+  "metin": "[calmly] Arşivdeki video notları da isyan günkü sayımda onu isteksiz, rolüne ötekiler kadar girmeyen bir gardiyan diye anıyor."
+ },
+ {
+  "onek": "r4",
+  "ad": "Cevap",
+  "ids": [
+   "F02",
+   "F03",
+   "F03b"
+  ],
+  "metin": "[calmly] Şimdi banda dönelim. On sekiz dakikada Mark iki kez deneyeceğim diyor, ama ardından yine itiraz ediyor. Bir yerde şunu söylüyor: Elimden gelen tek şey, işin içine girmeye çalışmak ve bunu kendim olarak, elimden geldiğince iyi yapmak. [slowly] Müdür son kez daha çok işin içine girmesini istiyor. Mark'ın cevabı tek kelime: Peki. [calmly] O pekiden sonra ne yaptı? Müdür deneyden sonra yazdığı notta, isyan günü kenarda oturan o gardiyan için şunu söylüyor: Bu konuşmadan sonra bile bir sayım yönettiğini ya da emir yağdırdığını hatırlamıyorum. Yazdığı şartlı tahliye raporları ise yer yer sertti; arkadaşlarını durdurmaya da hiç çalışmadı. Müdür hemen ekliyor: aynı suçlama hepimiz için geçerli."
+ }
+]

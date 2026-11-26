@@ -55,3 +55,18 @@
 - **Alt ajanlar:** hakemli kaynak araştırması (sağlık, çökelme takvimi, TAEK yeterlilik testi); Fable'ın seslendirme öncesi senaryo okuması (bardağın tarihi, gerekçe hükmü, iki çayın birleştirilmesi); ayrı bir okuyucunun yazısız kare okuması (darağacı, kamp, mezar taşı, hedef tahtası). Üçü de denetim; yön vermedi.
 - **Başkanın seçtikleri ve yönün yetmediği yerler:** `cernobil/geriye_bakis.md`.
 - **Ölçüler:** kullanıcının üretim sırasındaki düzeltmesi 0 (tek etkileşim: seslendirme kredisi onayı); atlanan kanal kuralı: yok bulundu (fikir sorma adımı yön metniyle karşılandı); 48. saat ve 7. gün `analiz/tahminler.md` Ç1-Ç3.
+
+## Ek: Stanford Hapishane Deneyi, dördüncü yön videosu (25 Kasım 2026)
+- **Yön:** Fable'ın yazdığı yön (`analiz/2026-11-25-stanford-yon-prompt.md`; gerekçe ve doğrulanacaklar `2026-11-25-stanford-yon-notlari.md`). Tek yön, sonradan yön yok.
+- **Yeni değişken (kullanıcının isteği):** senaryodan önce internetten kanca kaynakları araştırması.
+  - Bu konuda abonesi az ama çok izlenmiş videoların çözümlemesi de istenmişti; kullanıcı 25 Kasım'da "şimdilik es geçelim" dedi, sonraki bir videoya kaldı.
+    - Kısıt: bu kaptan izleme sayfası ve altyazı alınamıyor (429). Arama, kanal sayfası (abone) ve kapaklar alınabiliyor.
+  - Önceki üç yön videosunda bu adım yoktu. Fark çıkarsa yönden mi araştırmadan mı geldiği ayrılamaz; geriye bakışta araştırmanın neyi değiştirdiği ayrıca yazılır.
+- **Ölçüler:** aynı tablo; 48. saat ve 7. gün `analiz/tahminler.md`.
+- **Üretimde ne oldu (25 Kasım):** `stanford/geriye_bakis.md`.
+  - Yönün iki cümlesi belgeye çarptı.
+    - "Öteki istendiği hâlde yapmadı": ilk taslakta belge yok sanıldı. Fable'ın bağımsız okuması aynı arşivin bakılmamış dosyalarını gösterdi; müdürün deney sonrası notu çıktı. Mark sayım yönetmedi, ama arkadaşlarını durdurmadı da; belge yönetenin anısı.
+    - "Bant 'deneyeceğim' ile bitiyor" değil: Mark'ın son cevabı "Peki" ("All right"); konuşma müdürün de "peki"siyle bitiyor.
+  - Araştırmanın getirdiği tek yapısal şey ikinci kanca (bant, ilk 5 sn'de nesne olarak); ST1 sınıyor.
+  - Kredi: seslendirme 19.034 + yama 3.134.
+  - Film 11:53.
