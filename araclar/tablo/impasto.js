@@ -224,9 +224,9 @@ void main(){ vUV = vec2(p.x, 1. - p.y); vec2 sp = uOrg + p * uSize;
   gl_Position = vec4(q / uView * 2. - 1., 0., 1.); gl_Position.y = -gl_Position.y; }`;
 const BFS = `#version 300 es
 precision highp float;
-in vec2 vUV; uniform sampler2D uC, uH; uniform float uAlpha;
+in vec2 vUV; uniform sampler2D uC, uH; uniform float uAlpha, uMul;
 layout(location=0) out vec4 oC; layout(location=1) out vec4 oH;
-void main(){ vec4 c = texture(uC, vUV) * uAlpha; if (c.a < .002) discard; vec2 h = texture(uH, vUV).rg * uAlpha; oC = c; oH = vec4(h, 0., c.a); }`;
+void main(){ vec4 c = texture(uC, vUV) * uAlpha; if (c.a < .002) discard; vec2 h = texture(uH, vUV).rg * uAlpha; oC = vec4(c.rgb * uMul, c.a); oH = vec4(h, 0., c.a); }`;
 
 function sh(gl, type, src) { const s = gl.createShader(type); gl.shaderSource(s, src); gl.compileShader(s); if (!gl.getShaderParameter(s, gl.COMPILE_STATUS)) throw new Error(gl.getShaderInfoLog(s) + '\n' + src.split('\n').map((l, i) => i + 1 + ': ' + l).join('\n').slice(0, 4000)); return s; }
 function prog(gl, vs, fs) { const p = gl.createProgram(); gl.attachShader(p, sh(gl, gl.VERTEX_SHADER, vs)); gl.attachShader(p, sh(gl, gl.FRAGMENT_SHADER, fs)); gl.linkProgram(p); if (!gl.getProgramParameter(p, gl.LINK_STATUS)) throw new Error(gl.getProgramInfoLog(p)); const u = {}; const n = gl.getProgramParameter(p, gl.ACTIVE_UNIFORMS); for (let i = 0; i < n; i++) { const a = gl.getActiveUniform(p, i); u[a.name] = gl.getUniformLocation(p, a.name); } return { p, u }; }
@@ -283,13 +283,13 @@ export class Impasto {
     gl.bindFramebuffer(gl.FRAMEBUFFER, this.fb); gl.viewport(0, 0, this.IW, this.IH); gl.useProgram(this.sp.p); gl.uniform2f(this.sp.u.uView, this.W, this.H);
     return { c, h, x0: -this.W * pay, y0: -this.H * pay, w: LW, h_: LH };
   }
-  // ZK: önbellekteki katmanı kamerayla bas (begin ile finish arasında). o: {cam, alpha}
+  // ZK: önbellekteki katmanı kamerayla bas (begin ile finish arasında). o: {cam, alpha, mul (renk çarpanı: değer planı ayarı)}
   bas(k, o = {}) {
     const gl = this.gl, u = this.bp.u, cam = o.cam || { x: this.W / 2, y: this.H / 2, zoom: 1, rot: 0 };
     gl.useProgram(this.bp.p);
     gl.blendFuncSeparate(gl.ONE, gl.ONE_MINUS_SRC_ALPHA, gl.ONE, gl.ONE_MINUS_SRC_ALPHA);
     gl.uniform4f(u.uCam, cam.x, cam.y, cam.zoom, cam.rot || 0); gl.uniform2f(u.uView, this.W, this.H);
-    gl.uniform2f(u.uOrg, k.x0, k.y0); gl.uniform2f(u.uSize, k.w, k.h_); gl.uniform1f(u.uAlpha, o.alpha ?? 1);
+    gl.uniform2f(u.uOrg, k.x0, k.y0); gl.uniform2f(u.uSize, k.w, k.h_); gl.uniform1f(u.uAlpha, o.alpha ?? 1); gl.uniform1f(u.uMul, o.mul ?? 1);
     gl.activeTexture(gl.TEXTURE0); gl.bindTexture(gl.TEXTURE_2D, k.c); gl.uniform1i(u.uC, 0);
     gl.activeTexture(gl.TEXTURE1); gl.bindTexture(gl.TEXTURE_2D, k.h); gl.uniform1i(u.uH, 1);
     gl.bindVertexArray(null);

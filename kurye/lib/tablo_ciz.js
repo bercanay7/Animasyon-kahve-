@@ -97,16 +97,17 @@
     // ağacın gölgesi: gövde gölgesi incecik başlar, taç gölgesi önde yumuşak, loblu bir göl olur (güneşten uzağa: sağa ve bize)
     { const gk = [], n = 40, A = [1318, 748], B = [1780, 1230];
       for (let i = 0; i <= n; i++) { const u = i / n, x = A[0] + (B[0] - A[0]) * u, y = A[1] + (B[1] - A[1]) * Math.pow(u, 1.15);
-        const gen = (u < .12 ? 6 + 40 * u : 11 + 330 * Math.pow((u - .12) / .88, .9)) * (.75 + .5 * fbm(u * 8, 3)); gk.push([x - gen, y, x + gen * 1.1, y]); }
+        const gen = (u < .12 ? 6 + 40 * u : 11 + 330 * Math.pow((u - .12) / .88, .9)), lob = .55 + .9 * fbm(u * 6, 3), lob2 = .55 + .9 * fbm(u * 6, 11);
+        gk.push([x - gen * lob + 14 * Math.sin(u * 41), y, x + gen * 1.1 * lob2 + 14 * Math.sin(u * 37 + 1), y]); }
       R.fill(S([...gk.map(p => [p[0], p[1]]), ...gk.reverse().map(p => [p[2], p[3]])]), 'rgba(52,30,52,.62)',
         { dir: { fn: () => Math.atan2(482, 462) }, maxR: 9, type: 1, len: 2, wid: .6, hgt: .2, group: 'tgolge', jit: .08, alpha: .8 }); }
     // patika: iki tekerlek izi ve arada otlu sırt; kenarlar düzensiz
     if (patika && patika.length) {
       const yol = (k0, k1, renk, grup, pr) => { const sol = [], sag = [];
-        patika.forEach((p, i) => { const n1 = 1 + .22 * (fbm(i * .7, k0 * 10) - .5); sol.push([p[0] + p[2] * k0 * n1, p[1]]); sag.push([p[0] + p[2] * k1 * n1, p[1]]); });
+        patika.forEach((p, i) => { const n1 = 1 + .38 * (fbm(i * .45, k0 * 10 + 3) - .5); sol.push([p[0] + p[2] * k0 * n1, p[1]]); sag.push([p[0] + p[2] * k1 * n1, p[1]]); });
         R.fill(P([...sol, ...sag.reverse()]), renk, { dir: { fn: (x, y) => -.35 }, maxR: 7, type: 1, len: 2, wid: .6, hgt: .5, group: grup, jit: .08, follow: 4, ...pr }); };
       yol(-1, 1, lin([[0, '#f2c486'], [.45, '#c08a56'], [1, '#6a4632']], 0, UFUK + 20, 0, 1080), 'patika');
-      yol(-.22, .22, lin([[0, '#c8935a'], [.45, '#8a5a3a'], [1, '#3e2a26']], 0, UFUK + 20, 0, 1080), 'patika');
+      yol(-.16 - .1 * fbm(1.3, 2), .3 + .08 * fbm(2.1, 4), lin([[0, '#c8935a'], [.45, '#8a5a3a'], [1, '#3e2a26']], 0, UFUK + 20, 0, 1080), 'patika');
     }
   }
   // ---------------- yalnız meşe: geniş kollu; taç yaprak kümelerinden; ışık kenarları kül pembesi ----------------
@@ -137,16 +138,16 @@
       // güneş solda ve aşağıda: alt-sol kenar kül pembesi yanar (doygun turuncu değil); üst kenar gökten soğuk mor ışık
       const sx = Math.sign(GUNES[0] - cx) || -1;
       R.fill(S(pts), c => { const gr = c.createLinearGradient(cx + sx * rx, cy + ry, cx - sx * rx * .6, cy - ry); gr.addColorStop(0, '#8e5a66'); gr.addColorStop(.12, '#4e3040'); gr.addColorStop(.36, '#24182a'); gr.addColorStop(.8, '#20182a'); gr.addColorStop(1, '#40344e'); return gr; },
-        { dir: 'edge', fallback: 20, maxR: 9, group: 'tac', type: 2, jit: .12, hgt: 1.1, aj: .8 });
+        { dir: 'edge', fallback: -25, maxR: 8, group: 'tac', type: 1, len: 1.5, wid: .7, jit: .14, hgt: .55, aj: .9, follow: 3 });
     }
     // yaprak kenarı: kümelerin dış çevresine küçük lekeler (pürüzlü, yapraklı siluet)
     for (const [cx, cy, rx, ry] of kum) for (let i = 0; i < 14; i++) { const a = r() * PI * 2, x = cx + Math.cos(a) * rx * (1 + r() * .12), y = cy + Math.sin(a) * ry * (1 + r() * .14);
-      R.fill(Ell(x, y, 5 + r() * 7, 3 + r() * 5, r() * PI), Math.cos(a) * Math.sign(GUNES[0] - cx) > .4 && Math.sin(a) > -.2 ? '#5a3848' : '#20172a', { maxR: 3, group: 'tac', type: 2, jit: .08, hgt: 1.1 }); }
+      R.fill(Ell(x, y, 5 + r() * 7, 3 + r() * 5, r() * PI), Math.cos(a) * Math.sign(GUNES[0] - cx) > .4 && Math.sin(a) > -.2 ? '#5a3848' : '#20172a', { maxR: 3, group: 'tac', type: 1, len: 1.4, wid: .7, jit: .08, hgt: .5, dir: 'edge' }); }
     // gök boşlukları: tacın içinden görünen gök (arkadaki gökün rengi: gül-mor; köz gibi turuncu değil)
     for (let i = 0; i < 14; i++) { const k = kum[(r() * kum.length) | 0];
       const x = k[0] + (r() - .5) * k[2] * .8, y = k[1] + (r() - .5) * k[3] * .6, gy = Math.max(0, Math.min(1, (y + 120) / 900));
       const renk = gy < .5 ? '#5a3e66' : gy < .62 ? '#8e5470' : '#c27a74';
-      R.fill(Ell(x, y, 3 + r() * 5, 2 + r() * 4, r() * PI), renk, { maxR: 3, group: 'tac', type: 2, jit: .05, hgt: .6 }); }
+      R.fill(Ell(x, y, 3 + r() * 5, 2 + r() * 4, r() * PI), renk, { maxR: 3, group: 'tac', type: 1, len: 1.3, wid: .8, jit: .05, hgt: .3 }); }
   }
   // ---------------- ön plan: koyu toprak tümsekleri; karşı ışıkta ucu yanan ot öbekleri ----------------
   function on(R) {

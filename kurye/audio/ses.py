@@ -6,8 +6,8 @@ Ezgi bu dosyada yazıldı. Mi bemol majör, ağır (60 vuruş/dk).
   ÇİÇEK: mektup taca konunca (18.8 sn) yüksek çan ışıltısı; çiçekler açıldıkça yoğunlaşır.
   CEVAP: Sib5 – Sol5 – Fa5 – Mib5 (yapraklar kuryeye dönerken; sorunun inen eşi). Son akor Mib (add9) söner.
 Ses: tarlada sürekli hafif rüzgâr; 11–14 sn soldan sağa geçen esinti (görüntüdeki dalgayla aynı an); mektup kâğıt hışırtısı.
-Zamanlar kurye/tablo.html'deki zaman çizelgesiyle aynı (tSal 12.2, tVar 18.8, batış 17–25).
-    python3 kurye/audio/ses.py  -> kurye/audio/ses.wav (48 kHz stereo, -14 LUFS hedefi ffmpeg loudnorm ile)
+Zamanlar kurye/tablo.html'deki zaman çizelgesiyle aynı (tSal 12.2, tVar 16.6, batış 17–25); ayak basma anları adimlar.json (adimlar.js).
+    python3 kurye/audio/ses.py  -> kurye/audio/ses.wav (48 kHz stereo, -16 LUFS, iki geçişli doğrusal loudnorm)
 """
 import re, wave, subprocess
 from pathlib import Path
@@ -17,7 +17,7 @@ SR = 48000; DUR = 25.0; N = int(DUR * SR)
 HERE = Path(__file__).resolve().parent
 L = np.zeros(N, np.float32); R = np.zeros(N, np.float32)
 rng = np.random.default_rng(1926)
-tBak, tCik, tSal, tVar = 7.2, 9.8, 12.2, 18.8
+tBak, tCik, tSal, tVar = 7.2, 9.8, 12.2, 16.6
 
 def put(sig, t, pan=0.0, g=1.0):
     a = int(t * SR); b = min(N, a + len(sig))
@@ -79,7 +79,7 @@ def zarf(nokta, n):
 import os
 EFEKT = os.environ.get('EFEKT', '1') != '0'
 def yukle(ad):
-    ham = subprocess.run(['ffmpeg', '-v', 'error', '-i', str(HERE / 'efekt' / ad), '-ac', '2', '-ar', str(SR), '-f', 'f32le', '-'], capture_output=True, check=True).stdout
+    ham = subprocess.run(['ffmpeg', '-v', 'error', '-i', str(HERE / 'efekt' / ad), '-af', 'highpass=f=90,highpass=f=90', '-ac', '2', '-ar', str(SR), '-f', 'f32le', '-'], capture_output=True, check=True).stdout
     return np.frombuffer(ham, np.float32).reshape(-1, 2).copy()
 EFL = []   # (yerleştirilmiş efekt, müziğe göre hedef dB): her biri kendi en gür yarım saniyesine göre ölçeklenir
 def koy(x, t, hedef_db, a=0.0, b=None, giris=.05, cikis=.3):
@@ -93,11 +93,27 @@ def koy(x, t, hedef_db, a=0.0, b=None, giris=.05, cikis=.3):
 def doruk_rms(z):
     h = SR // 2; v = [np.sqrt(np.mean(z[i:i + h] ** 2)) for i in range(0, len(z) - h, h)]; return max(v) + 1e-9
 if EFEKT:
-    koy(yukle('ortam_a.mp3'), 0, -8, giris=1.2, cikis=1.5)                 # tarla yatağı
-    koy(yukle('esinti_a.mp3'), 10.1, 1, giris=.3, cikis=1.0)              # esinti: müziği bir an örter
-    koy(yukle('esinti_b.mp3'), 18.0, -7, giris=.6, cikis=1.2)             # ikinci, hafif esinti: yapraklar kopar
+    koy(yukle('ortam_a.mp3'), 0, -14, giris=1.2, cikis=1.5)                 # tarla yatağı
+    koy(yukle('esinti_a.mp3'), 10.1, -3, giris=.3, cikis=1.0)              # esinti: müziği bir an örter
+    koy(yukle('esinti_b.mp3'), 18.6, -11, giris=.6, cikis=1.2)             # ikinci, hafif esinti: yapraklar kopar
     koy(yukle('kagit_b.mp3'), 9.7, -9, .4, 1.4, giris=.02, cikis=.2)       # zarf çantadan çıkar
     koy(yukle('kagit_a.mp3'), 10.7, -5, giris=.1, cikis=1.4)               # rüzgâr zarfı alır, döner
+
+# ── ayak sesi (sentez): topuk vuruşu (alçak, kısa) + kuru toprak ve ot çıtırtısı (tanecikli dar bant gürültü) ──
+import json
+def adim(v=1.0, tohum=0):
+    r = np.random.default_rng(100 + tohum); n = int(.22 * SR); t = np.arange(n) / SR
+    vur = np.sin(2 * np.pi * (95 + 30 * r.random()) * t * (1 - t * 1.5)) * np.exp(-t / .018)
+    tane = (r.random(n) < .035).astype(np.float32) * r.standard_normal(n)
+    cit = np.fft.irfft(np.fft.rfft(tane) * ((np.fft.rfftfreq(n, 1 / SR) > 900) & (np.fft.rfftfreq(n, 1 / SR) < 5200)), n)
+    cit *= np.exp(-np.maximum(0, t - .012) / .05) * (t > .008)
+    x = vur * .55 + cit / (np.abs(cit).max() + 1e-9) * .5
+    return np.stack([x, x], 1).astype(np.float32) * v
+ADIM = json.loads((HERE / 'adimlar.json').read_text())
+if EFEKT:
+    for i, a in enumerate(ADIM + [{'t': 6.62, 'ayak': 0}, {'t': 6.95, 'ayak': 1}]):
+        uz = min(1, .55 + .45 * (1 - a['t'] / 7))                     # kurye uzaklaştıkça sesi kısılır
+        koy(adim(1, i), a['t'] - .005, -15 - 9 * (1 - uz) - (4 if a['t'] > 6.5 else 0), giris=0, cikis=.05)
 
 # ── rüzgâr (sentez yedeği): sürekli alçak hışırtı + 11–14 sn esinti (soldan sağa: pan -0.8 → +0.8) ──
 taban = renkli_gurultu(N, 80, 1400, -.5, 1) * .5 + renkli_gurultu(N, 300, 3500, -.8, 2) * .25
@@ -126,11 +142,12 @@ L += g_s * (kag * kz * .09 * np.sqrt(.5 * (1 - pan_k))).astype(np.float32); R +=
 
 # ── müzik ──
 # yüzey: Mib ve Sib uzun yaylı; batışta Lab'a ve geri Mib'e
-for n, t0, d, v in (('Eb2', .4, 11.6, .5), ('Bb2', .4, 11.6, .38), ('G3', 3.0, 9.0, .22),
-                    ('C2', 12.0, 6.8, .5), ('G2', 12.0, 6.8, .36), ('Eb3', 12.0, 6.8, .24),
-                    ('Ab1', 18.6, 3.4, .55), ('Eb2', 18.6, 3.4, .4), ('C3', 18.6, 3.4, .26),
-                    ('Eb2', 21.6, 3.2, .5), ('Bb2', 21.6, 3.2, .36), ('G3', 21.6, 3.2, .24), ('F3', 21.6, 3.2, .14)):
-    put(yayli(midi(n), d, v), t0, (midi(n) - 50) * .01)
+# yüzey: Mib (bekleyiş) → Do min (yolculuk) → Lab maj (çiçek: doruk, kabarır) → Mib add9 (cevap; sessizliğe söner)
+for n, t0, d, v, at in (('Eb3', .4, 11.6, .34, 1.2), ('Bb2', .4, 11.6, .26, 1.2), ('G3', 3.0, 9.0, .16, 1.2),
+                        ('C3', 12.0, 4.6, .34, 1.0), ('G3', 12.0, 4.6, .26, 1.0), ('Eb4', 12.0, 4.6, .16, 1.0),
+                        ('Ab2', 16.4, 3.9, .9, 2.2), ('Eb3', 16.4, 3.9, .8, 2.2), ('C4', 16.4, 3.9, .62, 2.2), ('Ab4', 16.8, 3.5, .42, 2.0), ('Eb5', 17.2, 3.1, .26, 1.8),
+                        ('Eb3', 20.2, 2.6, .5, .8), ('Bb3', 20.2, 2.6, .36, .8), ('G4', 20.2, 2.6, .24, .8), ('F4', 20.4, 2.4, .15, .8)):
+    put(yayli(midi(n), d, v, at), t0, (midi(n) - 50) * .01)
 # SORU (baş kalkınca), ikinci kez mektup elde (armonili)
 def dizi(seq, t0, bpm=60, v=.55, pan=.1):
     t = t0; b = 60 / bpm
@@ -150,13 +167,17 @@ while t < tVar - .2:
     t += .3 + .14 * np.sin(np.pi * u) ** 2 * -1 + .12; i += 1
 # ÇİÇEK: mektup taca konar; yüksek çanlar çiçeklerin yayılışıyla (pentatonik Mib)
 pent = ['Eb6', 'F6', 'G6', 'Bb6', 'C7', 'Eb7', 'Bb5', 'G5']
-put(can(midi('Eb6'), .45, 5), tVar, .35); put(can(midi('Bb6'), .3, 5), tVar + .02, .45)
+# varış: mektup taca girer (tek, yumuşak piyano notası + çan)
+put(piyano(midi('Eb6'), .34, 2.5), tVar - .02, .35); put(can(midi('Eb6'), .4, 5), tVar, .35); put(can(midi('Bb6'), .26, 5), tVar + .03, .45)
 for k in range(26):
-    tk = tVar + .2 + 2.6 * (k / 26) ** 1.3 + rng.random() * .15
+    tk = tVar + .25 + 2.8 * (k / 26) ** 1.2 + rng.random() * .15
     put(can(midi(pent[int(rng.random() * len(pent))]), .2 * (1 - k / 34), 3.0), tk, .1 + .6 * rng.random())
+# ÇİÇEK doruğu: Lab majör kırık akor yükselir (17–20 sn)
+for j, (n, tj) in enumerate([('Ab3', 16.9), ('C4', 17.25), ('Eb4', 17.6), ('Ab4', 17.95), ('C5', 18.3), ('Eb5', 18.65), ('G5', 19.0), ('Ab5', 19.35)]):
+    put(piyano(midi(n), .36 + .02 * j, 1.8), tj, -.3 + .08 * j)
 # CEVAP: yapraklar kuryeye dönerken; sorunun inen eşi
-dizi([('Bb5', 1), ('G5', 1), ('F5', 1.3), ('Eb5+G4', 2.6)], 20.6, bpm=56, v=.4, pan=-.1)
-put(piyano(midi('Eb3'), .3, 3.2), 23.2, -.2); put(piyano(midi('Bb3'), .25, 3.0), 23.25, -.1); put(piyano(midi('F4'), .2, 2.8), 23.35, .1)
+dizi([('Bb5', 1), ('G5', 1), ('F5', 1.3), ('Eb5+G4', 2.6)], 19.7, bpm=56, v=.4, pan=-.1)
+put(piyano(midi('Eb3'), .26, 2.6), 22.4, -.2); put(piyano(midi('Bb3'), .22, 2.4), 22.45, -.1); put(piyano(midi('F4'), .18, 2.2), 22.55, .1)
 
 # ── yankı (FFT konvolüsyonu) ──
 def yanki(x, sure=3.0, kuru=.78, islak=.34, tohum=7):
@@ -171,13 +192,19 @@ if EFEKT:
     for z, hdb in EFL:
         g = m_rms * 10 ** (hdb / 20) / doruk_rms(z); L += z[:, 0] * g; R += z[:, 1] * g
 # giriş ve çıkış
-e = zarf([(0, 0), (.8, 1), (23.6, 1), (25, 0)], N); L *= e; R *= e
+e = zarf([(0, 0), (.8, 1), (22.8, 1), (24.9, 0)], N); L *= e; R *= e
 
 # ── yaz + düzey: ffmpeg loudnorm (-14 LUFS, -1 dBTP) ──
 ham = HERE / 'ses_ham.wav'; son = HERE / 'ses.wav'
 x = np.stack([L, R], 1); x = x / (np.abs(x).max() + 1e-9) * .7
 with wave.open(str(ham), 'wb') as w:
     w.setnchannels(2); w.setsampwidth(2); w.setframerate(SR); w.writeframes((x * 32767).astype('<i2').tobytes())
-subprocess.run(['ffmpeg', '-v', 'error', '-y', '-i', str(ham), '-af', 'loudnorm=I=-14:TP=-1:LRA=11', '-ar', str(SR), str(son)], check=True)
+# iki geçişli doğrusal loudnorm (tek geçiş dinamik kipte hedefi tutturmuyor ve dinamiği eziyor)
+import json as _j
+olc = subprocess.run(['ffmpeg', '-hide_banner', '-i', str(ham), '-af', 'loudnorm=I=-16:TP=-1.5:LRA=18:print_format=json', '-f', 'null', '-'], capture_output=True, text=True).stderr
+m = _j.loads(olc[olc.rindex('{'):olc.rindex('}') + 1])
+af = (f"loudnorm=I=-16:TP=-1.5:LRA=18:measured_I={m['input_i']}:measured_TP={m['input_tp']}:measured_LRA={m['input_lra']}"
+      f":measured_thresh={m['input_thresh']}:offset={m['target_offset']}:linear=true")
+subprocess.run(['ffmpeg', '-v', 'error', '-y', '-i', str(ham), '-af', af, '-ar', str(SR), str(son)], check=True)
 ham.unlink()
 print('yazıldı:', son)
