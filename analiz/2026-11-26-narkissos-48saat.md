@@ -1,6 +1,6 @@
 # Narkissos, 46. saat (26 Kasım 2026, 16:49)
 
-"Kendini Sevmek Ne Zaman…" (8:52; yayın 24 Kasım 18:00). Kullanıcının ekran görüntüleri: Erişim, Etkileşim (ortalama izleme), Kitle. **Elde tutma eğrisi henüz yok** ("işlemin tamamlanması 2 gün sürebilir"); N1–N3 eğri gelince doldurulur. Genel Bakış (görüntüleme, trafik kaynağı tablosu) ve kapak testi henüz gelmedi.
+"Kendini Sevmek Ne Zaman…" (8:52; yayın 24 Kasım 18:00). Kullanıcının ekran görüntüleri: Erişim, Etkileşim (ortalama izleme), Kitle. **Elde tutma eğrisi henüz yok** ("işlemin tamamlanması 2 gün sürebilir"); N1–N3 eğri gelince doldurulur. Genel Bakış ve kapak testi 17:02'de geldi (ek bölüm aşağıda).
 
 ## Ham veri
 - Gösterim **2,4 B**, TO **%2,8**.
@@ -33,3 +33,9 @@
 - **Paketleme değişmez.** TO %2,8 medyanın üstünde; kapak testi sürüyor.
 - Kanal cezası beklentim düşük: önerilen ve kanal sayfası trafiği büyüdü, tutma en iyi. Daha olası açıklama: küçük kanalda YouTube yeni videoyu önce kanalı tanıyan kitleye gösteriyor ve o kitle sabit (~2–3 B / 48 sa). Ölçüt yine de denetimi istiyor; denetim ucuz ve ihtimali kapatır.
 - N1–N3 eğri gelince (27 Kasım, Mary Stuart 7. günüyle birlikte) doldurulur.
+
+## Ek (17:02): Genel Bakış ve kapak testi
+- **Görüntüleme 150** (48 saat). Studio'nun "ilk 1 gün 23 saat" sıralaması: **10 videoda 9.** Aynı yaşta Ran ~248, Mary Stuart ~145.
+- Kaynaklar (gerçek zamanlı, 48 sa): Göz atma 62 · Önerilen 37 · Kanal sayfaları 24 · Diğer YouTube 9 · Bildirimler 6 · Diğer 22. **YouTube araması ilk beşte yok** (≤ 5): "narsisizm" arama kapısı 48 saatte çalışmadı. Arama sıralaması yavaş oturur; 7. günde Erişim → arama terimleri okunur.
+- **Kapak testi (sürüyor): "O BENİM" %38 / "ANLADI. YİNE DE GİDEMEDİ." %61.** Sisifos'tan (%62,5) beri ilk açık ayrışma. ~150 görüntülemede gürültülü, ama fark büyük. Kazanan vaat bir **çelişki** (anladı ama gidemedi: izleyici "neden?" diye soruyor); kaybeden bir **tanıma** anı (cevabı veriyor). Sisifos'un kazananı da çelişkiydi ("NEDEN GÜLÜYOR?"). İpucu (iki video): kapak yazısı bir çelişki kurup cevabı saklarsa kazanıyor. Dikey Shorts'un kapanış yazısı da aynı fikirde.
+- Okuma değişmedi: tıklama ve tutma iyi, gösterim ve arama yok. Görüntüleme sayısı düşük çünkü gösterim düşük; tıklayan izliyor (4:13).
