@@ -47,7 +47,7 @@ const YAW2 = YAW + .32;                                           // biraz ağac
 // plan kipleri (?plan=orta|yakin): kamera yönü ve eğimi aynı, konum kuryeye yaklaşır (sonsuzdaki gök, güneş, tepeler aynı resimle; dar açı onları büyütür)
 //   orta: sırttan, 2.6 m geride, dizden yukarı · yakin: omuzun üstünden, dar açı (24°): meşe ve çiçekler büyür
 const PLAN = new URLSearchParams(location.search).get('plan') || 'genis';
-const PLANLAR = { orta: { dx: .9, y: 1.5, dz: 2.6, fov: 40, t0: 8.4, sure: 4.2 }, yakin: { dx: .36, y: 1.66, dz: 1.0, fov: 24, t0: 15.4, sure: 4.4 } };
+const PLANLAR = { orta: { dx: .9, y: 1.5, dz: 2.6, fov: 40, t0: 8.4, sure: 4.2 }, yakin: { dx: .5, y: 1.42, dz: 1.6, fov: 26, t0: 14.6, sure: 3.8 } };
 const PL = PLANLAR[PLAN] || null;
 if (PL) { const ileri = V.sub(KAMERA.hedef, KAMERA.konum), konum = [DY[0] + PL.dx, PL.y, DY[1] + PL.dz]; KAMERA = { ...KAMERA, konum, hedef: V.add(konum, ileri), fov: PL.fov }; }
 const ZF = Math.tan(20 * PI / 180) / Math.tan(KAMERA.fov / 2 * PI / 180);   // sonsuzdaki katmanların büyümesi
@@ -163,8 +163,9 @@ function basaklar(t, S) {
 function gunes(t, S) {
   const [gx] = T.GUNES, gy = gunesY(t), r = 31;
   for (let i = 0; i < 5; i++) S.push({ x: gx, y: gy, ang: 0, len: 150 + i * 70, wid: 90 + i * 46, c: [1, .9, .66], seed: i, type: DAB, alpha: .08, hgt: .02 });
-  for (let k = -5; k <= 5; k++) { const yy = k / 5.6 * r, ww = Math.sqrt(Math.max(0, r * r - yy * yy)) * 2;
-    S.push({ x: gx + (hsh(k, 3) - .5) * 3, y: gy + yy, ang: (hsh(k, 4) - .5) * .05, len: ww + 4, wid: r / 4.2, c: [1, .97, .88], c2: [1, .9, .72], seed: k + 40, type: BRUSH, hgt: .15, alpha: .95 }); }
+  const n = Math.round(5 * ZF);   // dar açıda disk büyür: satır sayısı ve örtüşme artar (çizgili disk okunmasın)
+  for (let k = -n; k <= n; k++) { const yy = k / (n + .6) * r, ww = Math.sqrt(Math.max(0, r * r - yy * yy)) * 2;
+    S.push({ x: gx + (hsh(k, 3) - .5) * 3 / ZF, y: gy + yy, ang: (hsh(k, 4) - .5) * .05, len: ww + 4 / ZF, wid: r / (n * (ZF > 1.2 ? .6 : .84)), c: [1, .97, .88], c2: [1, .9, .72], seed: k + 40, type: BRUSH, hgt: .15, alpha: .95 }); }
 }
 function huzmeler(t, S) {
   const gx = T.GUNES[0], gy = gunesY(t), sn = 1 - sm(tBat0, tBat1 - 1.5, t);
@@ -234,7 +235,7 @@ function cicekler(t, S) {
   const gx = T.GUNES[0], gy = gunesY(t);
   for (const c of CICEK) { const a = t - c.t0; if (a < 0) continue;
     const ac = sm(0, .35, a), sic = 1 - .25 * sm(tBat1 - 4, tBat1, t);
-    const x = c.x + 1.5 * Math.sin(t * 2 + c.f), y = c.y, s = c.s * (ac + .25 * Math.exp(-a * 4) * Math.sin(a * 12) * ac);
+    const x = c.x + 1.5 * Math.sin(t * 2 + c.f), y = c.y, s = c.s * (ac + .25 * Math.exp(-a * 4) * Math.sin(a * 12) * ac) / (PL ? Math.sqrt(AGAC_S) : 1);   // yakında küçük boyanır
     // iki değer: gövde serin gül-mor, güneşe bakan kenarda sıcak krem
     const govde = [.74, .5, .6].map(v => v * (.6 + .4 * c.p)), isik = [1, .82 * sic + .12 * (1 - sic), .66 * sic + .2 * (1 - sic)].map(v => v * (.72 + .28 * c.p));
     const ux = gx - x, uy = gy - y, ul = Math.hypot(ux, uy) || 1;
@@ -271,7 +272,7 @@ function figur(t, S) {
       renk: (x, y) => { const j = ((h - 1 - y) * w + x) * 4; return [R.renk[j] / 255, R.renk[j + 1] / 255, R.renk[j + 2] / 255]; } }; }
   let gx = T.GUNES[0], gy = gunesY(t);
   if (PL) { const pu = PLAN_ITME(t); gx = 960 + (gx - 960) * ZF * pu; gy = 540 + (gy - 540) * ZF * pu; }
-  figurDarbe(S, src, { W, gunes: [gx, gy], hava: [.36, .24, .3], havaK: BK ? .14 : .38, cz });
+  figurDarbe(S, src, { W, gunes: [gx, gy], hava: [.36, .24, .3], havaK: BK ? .14 : .38, cz, olcek: PL ? Math.pow(9.6 / PL.dz * ZF, .55) : 1, ...(PL ? { kenarKirik: .5, kenarKum: Math.round(2 + 9.6 / PL.dz * ZF), kenarAlfa: .75, kenarDis: -.3 } : {}) });
   // uzun gölge: güneşten uzağa (sola ve bize), incelerek (yakın planlarda zemin kadraj dışında)
   if (!PL) {
   const ay = MK.ekran(V.lerp(K.bacak[0].bilek, K.bacak[1].bilek, .5)), boyPx = Math.abs(MK.ekran(K.bas.o)[1] - ay[1]);

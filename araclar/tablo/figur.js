@@ -25,7 +25,7 @@ export function blenderKaynak(BK) {
     renk: (x, y) => { const j = ((y - BK.y0) * BK.w + x - BK.x0) * 4; return [BK.d[j] / 255, BK.d[j + 1] / 255, BK.d[j + 2] / 255]; } };
 }
 // S: Strokes; o: {W (çıktı genişliği), gunes: [x, y] (ekran), hava: [r,g,b] (uzaklık rengi), havaK (0..1), cz (çizim sırası), kutu (kaynak pikseli; yoksa kaynağınki),
-//   olcek (darbe boyu çarpanı), altin (kenar ışığı rengi), kenarEsik}
+//   olcek (darbe boyu çarpanı), altin (kenar ışığı rengi), kenarEsik, kenarKirik (0..1, ışığın kesik payı), kenarKum (kesik öbeğin piksel boyu), kenarAlfa, kenarDis (dışa kayma)}
 export function figurDarbe(S, src, o = {}) {
   const W = o.W || 1920, w = src.w, h = src.h, sc = W / w, cz = o.cz || 0, k = o.olcek || 1;
   const [gx, gy] = o.gunes || [W / 2, -1e4], hava = o.hava || [.36, .24, .3], hk = o.havaK ?? .14, altin = o.altin || [1, .72, .42];
@@ -46,10 +46,11 @@ export function figurDarbe(S, src, o = {}) {
     ny += ((fig(x - 1, y - 1) ? 1 : 0) + (fig(x + 1, y - 1) ? 1 : 0) - (fig(x - 1, y + 1) ? 1 : 0) - (fig(x + 1, y + 1) ? 1 : 0)) * .5;
     const nl = Math.hypot(nx, ny) || 1; nx /= nl; ny /= nl;
     const sx = gx - X, sy = gy - Y, sl = Math.hypot(sx, sy) || 1;
-    const kenarIsik = Math.max(0, (nx * sx / sl + ny * sy / sl) - .35) / .65 * (hsh(x >> 1, y >> 1, 77) < .7 ? 1 : .25);
+    const kir = o.kenarKirik ?? .3, kb = Math.max(1, (o.kenarKum ?? 2) | 0);   // kırık: kenar ışığı öbek öbek (sürekli çizgi çıkartma kenarı okunur)
+    const kenarIsik = Math.max(0, (nx * sx / sl + ny * sy / sl) - .35) / .65 * (hsh((x / kb) | 0, (y / kb) | 0, 77) < 1 - kir ? 1 : .15) * (o.kenarAlfa ?? 1);
     const ta = Math.atan2(ny, nx) + PI / 2;
     KEN.push({ x: X - nx * .6 * sc, y: Y - ny * .6 * sc, ang: ta, len: 2.1 * sc * k, wid: 1.4 * sc * k, c: c.map((v, i) => v + (hava[i] * .6 - v) * .2), c2: c, seed: hsh(x, y, cz) * 999, type: KNIFE, hgt: .2 });
-    if (kenarIsik > (o.kenarEsik ?? .12)) KIS.push({ x: X + nx * .15 * sc, y: Y + ny * .15 * sc, ang: ta, len: 4.4 * sc * k, wid: .8 * sc * k, c: altin, c2: altin.map(v => v * .85), seed: hsh(x, y, cz + 9) * 999, type: KNIFE, hgt: .15, alpha: Math.min(1, kenarIsik * 1.4) });
+    if (kenarIsik > (o.kenarEsik ?? .12)) KIS.push({ x: X + nx * (o.kenarDis ?? .15) * sc, y: Y + ny * (o.kenarDis ?? .15) * sc, ang: ta, len: 4.4 * sc * k, wid: .8 * sc * k, c: altin, c2: altin.map(v => v * .85), seed: hsh(x, y, cz + 9) * 999, type: KNIFE, hgt: .15, alpha: Math.min(1, kenarIsik * 1.4) });
   }
   for (const q of KEN) S.push(q); for (const q of KIS) S.push(q);
 }
