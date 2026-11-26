@@ -10,7 +10,7 @@ git rev-parse --git-dir >/dev/null 2>&1 || exit 0
 # dosya içeriği olmadan (blob:none) çekilir: ~1 sn, disk payını yemez.
 # --depth değil --shallow-since: derinlik sınırı eski birleşmeleri kesip sayıyı şişiriyordu.
 if [ "${CLAUDE_CODE_REMOTE:-}" = "true" ]; then
-  timeout 60 git fetch -q origin --shallow-since="60 days ago" --filter=blob:none \
+  timeout 60 git -c gc.auto=0 -c maintenance.auto=false fetch -q origin --shallow-since="60 days ago" --filter=blob:none \
     '+refs/heads/*:refs/remotes/origin/*' 2>/dev/null || true
 fi
 
