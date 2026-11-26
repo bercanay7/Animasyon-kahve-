@@ -1,9 +1,10 @@
-// Logo hareketini MP4'e çevirir: node kanal/logo/hareket_render.js [sn=6]
-// Çıktı: kanal/logo/cikti/logo_hareket_1080p.mp4 (1920×1080, 30 fps, H.264 CRF 18, BT.709, sessiz)
+// Logo hareketini MP4'e çevirir: node kanal/logo/hareket_render.js [sn=6.5]
+// Önce: python3 kanal/logo/ses.py (cikti/logo_hareket.wav)
+// Çıktı: kanal/logo/cikti/logo_hareket_1080p.mp4 (1920×1080, 30 fps, H.264 CRF 18 + AAC, BT.709, -18 LUFS)
 const { chromium } = require('playwright');
 const { spawn } = require('child_process');
 const http = require('http'), fs = require('fs'), path = require('path');
-const KOK = __dirname, FPS = 30, SN = +(process.argv[2] || 6);
+const KOK = __dirname, FPS = 30, SN = +(process.argv[2] || 6.5);
 const TUR = { '.html': 'text/html', '.js': 'text/javascript', '.woff2': 'font/woff2' };
 const srv = http.createServer((q, r) => {
   const p = path.join(KOK, decodeURIComponent(q.url.split('?')[0]));
@@ -12,7 +13,9 @@ const srv = http.createServer((q, r) => {
 }).listen(0);
 (async () => {
   const out = path.join(KOK, 'cikti', 'logo_hareket_1080p.mp4');
-  const ff = spawn('ffmpeg', ['-y', '-loglevel', 'error', '-f', 'image2pipe', '-framerate', String(FPS), '-i', '-',
+  const wav = path.join(KOK, 'cikti', 'logo_hareket.wav');
+  const ff = spawn('ffmpeg', ['-y', '-loglevel', 'error', '-f', 'image2pipe', '-framerate', String(FPS), '-i', '-', '-i', wav,
+    '-af', 'loudnorm=I=-18:TP=-1:LRA=11', '-c:a', 'aac', '-b:a', '192k', '-ar', '48000', '-metadata:s:a:0', 'language=tur', '-shortest',
     '-c:v', 'libx264', '-crf', '18', '-preset', 'slow', '-pix_fmt', 'yuv420p',
     '-colorspace', 'bt709', '-color_primaries', 'bt709', '-color_trc', 'bt709', '-movflags', '+faststart', out], { stdio: ['pipe', 'inherit', 'inherit'] });
   const b = await chromium.launch(), pg = await b.newPage({ viewport: { width: 1920, height: 1080 } });

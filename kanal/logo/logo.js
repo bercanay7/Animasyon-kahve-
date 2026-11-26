@@ -4,7 +4,8 @@
 // Kanca ve nokta logo yazısının yazı tipi Fraunces 600'ün kendi "?" glifinden (OFL); işaretle yazı aynı elden.
 // Ölçüler 800×800 kutuda. Soru ile cam arası en dar yerde 20 birim (ölçüldü). Levha köşesi merkezden 361 birim.
 const ZK = {
-  CAM: 'M 240 114 C 190 285 372 374 376 400 C 372 426 190 515 240 686 M 560 114 C 610 285 428 374 424 400 C 428 426 610 515 560 686',
+  // cam iki dolu şekil (sol, sağ): kalın-ince, levha dibinde 32, hazne ortasında 34, boğazda 11; Fraunces'in kontrastıyla aynı dil
+  CAM: 'M 224 114 C 173 285 366.5 374 370.5 400 C 366.5 426 173 515 224 686 L 256 686 C 207 515 377.5 426 381.5 400 C 377.5 374 207 285 256 114 Z M 576.0 114 C 627.0 285 433.5 374 429.5 400 C 433.5 426 627.0 515 576.0 686 L 544.0 686 C 593.0 515 422.5 426 418.5 400 C 422.5 374 593.0 285 544.0 114 Z',
   // Fraunces 600 "?" kancası (noktası çıkarıldı), x 33.5–500.5, y -730.5…-227.5; sap ucu x≈241
   SORU: 'M202-333.5L210.5-254Q213.5-240 220.8-233.8Q228-227.5 241-227.5Q253-227.5 259.8-233.5Q266.5-239.5 271-255L278.5-327.5Q281.5-344.5 288-352.8Q294.5-361 309-364.5L342-373.5Q426.5-396 463.5-440.8Q500.5-485.5 500.5-551.5Q500.5-637 441.8-683.8Q383-730.5 268-730.5Q201-730.5 147.8-706.8Q94.5-683 64-644.3Q33.5-605.5 33.5-559.5Q33.5-522 53.5-501.3Q73.5-480.5 107-480.5Q145-480.5 165.8-504Q186.5-527.5 186.5-569.5L186.5-609Q186.5-644.5 206.3-665.5Q226-686.5 263-686.5Q301-686.5 322.3-656.5Q343.5-626.5 343.5-569Q343.5-507.5 328-469.8Q312.5-432 269-411.5L238.5-398.5Q214-387.5 206-372.3Q198-357 202-333.5Z',
   SORU_YER: 'translate(293.96 458.42) scale(0.44)',
@@ -16,7 +17,7 @@ const ZK = {
   // cam: kum saati ve levhalar; soru: soru işareti ve noktası
   isaret(cam, soru, o = {}) {
     const camOp = o.camOpak != null ? ` opacity="${o.camOpak}"` : '';
-    return `<g${camOp}><path d="${this.CAM}" fill="none" stroke="${cam}" stroke-width="26"/>` +
+    return `<g${camOp}><path d="${this.CAM}" fill="${cam}"/>` +
       `<rect x="212" y="92" width="376" height="26" rx="9" fill="${cam}"/>` +
       `<rect x="212" y="682" width="376" height="26" rx="9" fill="${cam}"/></g>` +
       `<path transform="${this.SORU_YER}" d="${this.SORU}" fill="${soru}"/>` +

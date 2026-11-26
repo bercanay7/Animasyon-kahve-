@@ -37,48 +37,49 @@ function frame(t) {
   const r = g.createRadialGradient(W / 2, H / 2, 100, W / 2, H / 2, 1200); r.addColorStop(0, '#17244A'); r.addColorStop(.55, '#101B33'); r.addColorStop(1, '#0B1326');
   g.fillStyle = r; g.fillRect(0, 0, W, H);
   g.save(); g.globalAlpha = .14; g.strokeStyle = '#000'; g.lineWidth = 1.6; g.beginPath(); for (let x = -H; x < W; x += 7) { g.moveTo(x, 0); g.lineTo(x + H, H); } g.stroke(); g.restore();
-  const giris = eo(seg(t, 0, .5));          // belirir
-  const don = ez(seg(t, .6, 1.5));          // 180° döner: geçmişe gider
-  const kur = seg(t, 1.55, 2.5);            // nokta tanelere ayrılır, kancayı kurar
-  const kay = ez(seg(t, 3.05, 3.85));       // sola kayar
-  const yazi = seg(t, 3.4, 4.35);
+  const giris = eo(seg(t, 0, .4));          // belirir
+  const don = ez(seg(t, .25, 1.2));         // 180° döner: geçmişe gider
+  const kur = seg(t, 1.08, 2.0);            // nokta dönüşün sonunda tanelere ayrılır, kancayı kurar
+  const kay = ez(seg(t, 3.1, 3.9));         // soru 0,5 sn bütün okunur, sonra sola kayar
+  const yazi = seg(t, 3.85, 4.75);           // yazı işaret yerine oturunca gelir
   const OLC = (IH0 + (IH1 - IH0) * kay) / 636;
   const cx = W / 2 + (L.solX + 198 * IH1 / 636 - W / 2) * kay, cy = H / 2 + 27 * kay;
   g.setTransform(OLC, 0, 0, OLC, cx - 400 * OLC, cy - 400 * OLC);
   g.globalAlpha = giris;
   g.save(); g.translate(400, 400); g.rotate(Math.PI * don); g.translate(-400, -400); g.translate(0, (1 - giris) * 30);
-  g.strokeStyle = D.cam; g.lineWidth = 26; g.stroke(CAM);
+  g.fillStyle = D.cam; g.fill(CAM);
   g.fillStyle = D.cam; g.beginPath(); g.roundRect(212, 92, 376, 26, 9); g.roundRect(212, 682, 376, 26, 9); g.fill();
-  if (t < 1.55) { g.fillStyle = D.soru; g.fill(NOKTA); }      // tabandaki nokta, dönüşle üste çıkar
+  if (t < 1.08) { g.fillStyle = D.soru; g.fill(NOKTA); }      // tabandaki nokta, dönüşle üste çıkar
   g.restore();
   g.fillStyle = D.soru;
-  if (t >= 1.55) {
-    const kati = seg(t, 2.3, 2.55);
+  if (t >= 1.08) {
+    const kati = seg(t, 1.85, 2.05);
     g.globalAlpha = giris * (1 - kati);
     for (let i = 0; i < N; i++) {
       const u = ez(cl((kur - gec[i]) / .7));
-      const [ax, ay] = kaynak[i], [bx, by] = hedef[i];
+      let [ax, ay] = kaynak[i]; const [bx, by] = hedef[i];
+      if (don < 1) { const A = Math.PI * (don - 1), c = Math.cos(A), s2 = Math.sin(A); [ax, ay] = [400 + (ax - 400) * c - (ay - 400) * s2, 400 + (ax - 400) * s2 + (ay - 400) * c]; }  // dönüş bitmeden kaynak da döner
       const yay = Math.sin(u * Math.PI) * (14 + (i % 9) * 4);
       const x = ax + (bx - ax) * u + yay * ((i % 2) ? .7 : -.7), y = ay + (by - ay) * u + yay * .5;
       g.beginPath(); g.arc(x, y, 4.4, 0, 6.3); g.fill();
     }
     g.globalAlpha = giris * kati; g.fill(SORU); g.globalAlpha = 1;
     // kum kancanın ucundan ince bir akışla boğazdan geçer, nokta tabanda birikerek oluşur ve oturur
-    const a0 = 2.4, a1 = 2.95;
+    const a0 = 1.95, a1 = 2.5;
     if (t >= a0 && t < a1 + .1) {
       g.save(); g.globalAlpha = 1 - seg(t, a1 - .05, a1 + .1);
       for (let j = 0; j < 34; j++) {
         const f = ((t - a0) * 2.6 + j / 34) % 1;                 // tane konumu 0..1
         const bas = 368, son = N_CY + N_R - 6, y = bas + (son - bas) * f * f;
         if ((t - a0) * 2.6 < j / 34 * .9) continue;              // akış yukarıdan aşağı başlar
-        if (y > son - (N_R * 2) * eo(seg(t, 2.6, 3.0))) continue;   // birikene girince kaybolur
+        if (y > son - (N_R * 2) * eo(seg(t, 2.15, 2.55))) continue;   // birikene girince kaybolur
         g.beginPath(); g.arc(400 + Math.sin(j * 12.9) * 2.2, y, 4.2, 0, 6.3); g.fill();
       }
       g.restore();
     }
-    if (t >= 2.6) {
-      const b = eo(seg(t, 2.6, 3.0));
-      const v = seg(t, 3.0, 3.4), z = Math.sin(v * Math.PI * 2) * Math.exp(-v * 4);
+    if (t >= 2.15) {
+      const b = eo(seg(t, 2.15, 2.55));
+      const v = seg(t, 2.55, 2.95), z = Math.sin(v * Math.PI * 2) * Math.exp(-v * 4);
       const sy = b * (1 - .14 * z), sx = (.6 + .4 * b) * (1 + .1 * z);
       g.save(); g.translate(N_CX, N_CY + N_R); g.scale(sx, sy); g.translate(-N_CX, -(N_CY + N_R)); g.fill(NOKTA); g.restore();
     }
@@ -92,7 +93,7 @@ function frame(t) {
       g.globalAlpha = u; g.fillText(harfler[i], x, H / 2 + 22 + (1 - u) * 22);
       x += g.measureText(harfler[i]).width;
     }
-    const su = eo(seg(t, 3.95, 4.65));
+    const su = eo(seg(t, 4.35, 5.0));
     g.globalAlpha = su; g.letterSpacing = '0px'; g.font = 'italic 500 54px Cormorant'; g.fillStyle = D.soru;
     g.fillText('geçmişe gider, bir soruyla döner', L.yaziX + 4, H / 2 + 102 + (1 - su) * 12);
     g.globalAlpha = 1;
