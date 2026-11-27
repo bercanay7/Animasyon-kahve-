@@ -1,0 +1,139 @@
+[
+ {
+  "ad": "Kanca",
+  "ids": [
+   "A01",
+   "A02",
+   "A03"
+  ],
+  "metin": "[calmly] Van Gogh'a kim inandı? [pause] Paris'te bir yazı masası. Alt çekmecesi aynı el yazısını taşıyan sarı zarflarla dolu ve her hafta bir zarf daha ekleniyor. [calmly] Bugün Vincent'ten Theo'ya yazılmış altı yüz elli bir mektup duruyor. Theo'nun cevaplarından ise yalnızca otuz dokuzu kaldı; çoğunu Vincent ya attı ya yaktı. [softly] Bu sorunun iki cevabı var; ikincisi sonda.",
+  "onek": "s00",
+  "karakter": 345
+ },
+ {
+  "ad": "Louvre'daki pusula",
+  "ids": [
+   "B01",
+   "B02",
+   "B03",
+   "B04",
+   "B05",
+   "B06",
+   "B07",
+   "B08"
+  ],
+  "metin": "[calmly] Şubat bin sekiz yüz seksen altının son günleri. Theo'nun eline ağabeyinin el yazısıyla bir pusula geçer. Ağabeyi Paris'te ne arıyor? [warmly] Haber vermeden gelmiş; Louvre'da buluşmak istiyor. Pusula bir özürle başlıyor: Böyle apansız geldim diye bana kızma. [calmly] Yirmi sekiz yaşındaki Theo, altı yıldır Paris'te bir resim firmasında çalışıyor ve bulvardaki şubeyi yönetiyor. İşi her gün başkalarının tablolarını satmak. Ağabeyi yirmi yedi yaşında ressam olmaya karar vermişti; dört yıldır Theo her ay bir zarfa para koyup ona yolluyor: ayda ortalama yüz ile yüz elli frank. Hollanda'da yedi kişilik ailesine bakan bir işçi ayda otuz iki gulden kazanıyor; bu zarflar her ay elli ile yetmiş beş gulden ediyor. [curious] Bir ressam, kardeşinin evine sığar mı? Haziranda üçüncü kattaki bir daireye taşınırlar: üç oda ve küçük bir bölme. Odalardan biri atölye olur. Bir yıl sonra, yirmi iki Temmuz bin sekiz yüz seksen yedide, Theo yirmi dört yaşında bir kadına evlenme teklif eder. Adı Jo. [pause] Jo hayır der. [calmly] On dokuz Şubat bin sekiz yüz seksen sekiz gecesi Vincent güneye giden trene biner. Ertesi gün öğleden sonra Arles'dadır.",
+  "onek": "s01",
+  "karakter": 1097
+ },
+ {
+  "ad": "Sarı ev",
+  "ids": [
+   "C01",
+   "C02",
+   "C03",
+   "C04",
+   "C05",
+   "C06",
+   "C07",
+   "C08",
+   "C09",
+   "C10"
+  ],
+  "metin": "[lightly] Arles'dan yazılan mektuplar Theo'ya nasıl ulaşır? İlk aylarda bazen yanlış kapıya gider. Vincent iki kez mektubu Theo'nun eski adresine yollar. İkincisi açılmış hâlde ona geri döner. O yıl Theo, ağabeyinin üç tablosunu Paris'teki Bağımsızlar sergisine gönderir. [warmly] Bir Mayıs'ta bir ev kiralar: sarı bir ev, ayda on beş frank. İlk gecesini orada ancak Eylül'de geçirir. [softly] Eylül sonunda Theo'ya şunu yazar: Geceleri yıldızları boyamak için dışarı çıkıyorum. [calmly] Ekimde bir mektupta Theo'ya şöyle der: Sanatçılara para verirken sen de sanatçı işi yapıyorsun. On yedi Ekim'de, yatak odasının resmini bitirdiği gün, kısa bir cümle: Sensiz hiçbir şey yapamazdım. Aynı mektupta bir umut daha var: Bir yıl sonra, ikimizin birlikte sanatsal bir şey yaptığımızı hissedeceğini umuyorum. Yirmi üç Ekim sabahı sarı eve bir ressam daha gelir: Gauguin. Yol parasını Theo öder; ona da ayda yüz elli frank bağlar, karşılığında tablo alır. [calmly] Paris'ten giden zarflar artık güneyde iki ressamı geçindiriyor.",
+  "onek": "s02",
+  "karakter": 976
+ },
+ {
+  "ad": "Gece treni",
+  "ids": [
+   "D01",
+   "D02",
+   "D03",
+   "D04",
+   "D05",
+   "D06",
+   "D07"
+  ],
+  "metin": "[softly] Aynı hafta iki haber alan bir adam hangisine koşar? Aralık bin sekiz yüz seksen sekiz: Theo, bir buçuk yıl önce ona hayır diyen Jo'yla nişanlanır. [calmly] Yirmi üç Aralık akşamı Arles'da Vincent bir kriz geçirir. Ertesi gün Paris'e bir telgraf gelir. Theo gece trenine biner. Noel sabahı Arles'dadır ve aynı akşam Paris'e geri döner. [softly] Bu yolculuğun tutarı hiçbir zarfa yazılmaz. Yedi Ocak bin sekiz yüz seksen dokuzda Vincent hastaneden çıkar. Nisanda Theo ile Jo Amsterdam'da evlenir. Yirmi Nisan'da Paris'te yeni bir daireye taşınırlar. [softly] Ve Jo, ilk kez o çekmeceyi açar: Theo'nun küçük yazı masasının alt çekmecesi Vincent'in mektuplarıyla dolu. Sonra hafta hafta, o tanıdık el yazısıyla sarı zarflar gelir ve çekmece kabarır.",
+  "onek": "s03",
+  "karakter": 718
+ },
+ {
+  "ad": "Bir yılda yüz elli resim",
+  "ids": [
+   "E01",
+   "E02",
+   "E03",
+   "E04"
+  ],
+  "metin": "[curious] Bir hastanenin bahçesinden bir yılda kaç resim çıkar? Sekiz Mayıs bin sekiz yüz seksen dokuzda Vincent kendi isteğiyle Saint-Rémy'de bir hastaneye yatar. Theo hastaneye ayda yüz frank öder; kız kardeşleri de katkı için para biriktirir. [warmly] Selviler, buğday tarlaları, yıldızlı bir gece: bir yılda oradan yaklaşık yüz elli resim çıkar. O yıl Theo Bağımsızlar sergisine iki tablo gönderir; biri İrisler.",
+  "onek": "s04",
+  "karakter": 397
+ },
+ {
+  "ad": "Badem dalı",
+  "ids": [
+   "F01",
+   "F02",
+   "F03",
+   "F04",
+   "F05",
+   "F06",
+   "F07",
+   "F08"
+  ],
+  "metin": "[curious] Mavi bir göğe karşı boyanmış bu badem dalı kimin için? [calmly] Yirmi dokuz Ocak bin sekiz yüz doksan sabahı Theo eve bir dergi getirir. İçinde bir eleştirmenin Vincent üzerine yazdığı, resimlerine yazılmış ilk büyük övgü var. İki gün sonra, otuz bir Ocak'ta, Theo ile Jo'nun oğlu doğar. Adını amcasından alır: Vincent. [warmly] Badem dalları bu bebek için. On dokuz Şubat'ta Vincent annesine yazar: onların yatak odasına asılmak üzere, mavi bir göğe karşı beyaz badem çiçeklerinin büyük dalları. Bu dalları belki en sabırla yaptığı iş diye anar. Nisan sonunda bir cümle ekler: Badem çiçeklerini yaparken hastalandım. [calmly] Annesine yazdığı o mektupta bir haber daha vardı: Dün ayrıca Theo bana, Brüksel'de resimlerimden birini dört yüz franka sattıklarını yazdı. Ödeme altı Mart'ta deftere geçer. Vincent'in bir tuvali için bugün elimizdeki en kesin satış belgesi bu satır. Aynı yıl Theo, Bağımsızlar sergisine bu kez on tablosunu gönderir.",
+  "onek": "s05",
+  "karakter": 917
+ },
+ {
+  "ad": "Auvers'te bir yaz",
+  "ids": [
+   "G01",
+   "G02",
+   "G03",
+   "G04",
+   "G05",
+   "G06",
+   "G07",
+   "G08",
+   "G09",
+   "G10",
+   "G11"
+  ],
+  "metin": "[warmly] Bir amca yeğenini ilk kez görünce ne yapar? On yedi Mayıs sabahı Vincent Paris'tedir; üç gün kardeşinin evinde kalır. [softly] Jo o günleri yıllar sonra yazacak: iki kardeş beşiğin başında duruyordu, ikisinin de gözleri yaşlıydı. Sonra Vincent tığ işi bir örtüyü gösterip şaka yapar. Yirmi Mayıs'ta Auvers'e yerleşir. Orada neredeyse her gün bir eser çıkar. Sekiz Haziran'da Theo, Jo ve bebek onu Auvers'te ziyaret eder. [calmly] Temmuzda Paris'te bebek hastalanır. Theo patronlarıyla sıkışmıştır: zam ister, işten ayrılmayı düşünür. Altı Temmuz'da Vincent'in Paris'e geldiği gün gergin geçer. Birkaç gün sonra Vincent bir mektupta yeni tuvallerini anlatır: bulutlu bir göğün altında uçsuz bucaksız buğday tarlaları. Bu tuvallerin, kırda gördüğü sağlıklı ve güç veren şeyi göstereceğini yazar. [softly] Yirmi üç Temmuz'da kardeşine yeni bir mektup yazmaya başlar, ama bu taslağı bitirmez, göndermez de. Taslakta şu cümle var: Biz ancak resimlerimizi konuşturabiliriz. [warmly] Biraz aşağıda kardeşine şunu yazar: Benim aracılığımla bazı tuvallerin yapımında senin de payın var. [slowly] Yirmi dokuz Temmuz bin sekiz yüz doksanda Vincent öldü; Theo yanındaydı. [pause] [softly] Ağustosta Theo annesine yazar: Ah anneciğim, o benim kendi kardeşimdi; öyle benimdi ki. [slowly] Altı ay sonra, yirmi beş Ocak bin sekiz yüz doksan birde, Theo da Utrecht'te öldü. Otuz üç yaşındaydı. [pause]",
+  "onek": "s06",
+  "karakter": 1306
+ },
+ {
+  "ad": "Çekmecedeki mektuplar",
+  "ids": [
+   "H01",
+   "H02",
+   "H03",
+   "H04",
+   "H05",
+   "H06",
+   "H07",
+   "H08",
+   "H09",
+   "H10"
+  ],
+  "metin": "[calmly] Yirmi sekiz yaşında, kucağında bir bebek, bir çekmece mektup ve yüzlerce tabloyla kalan bir kadın ne yapar? Jo, bin sekiz yüz doksan birde bebek ve tablolarla Hollanda'ya döner ve bir pansiyon açar. Bin sekiz yüz doksan ikide ilk sergiler açılır. Tabloları birer birer satar: otuz dört yılda en az yüz doksan iki resim. Satışlar, Theo'yla birlikte başladıkları hesap defterine satır satır geçer. [warmly] Ama tabloları satarken mektupları saklar. On beş Temmuz bin dokuz yüz beşte Amsterdam'da bir müzede dört yüz seksen dört eserlik bir sergi açılır: gelmiş geçmiş en büyük Van Gogh sergisi. Vincent büyük olasılıkla iki binden fazla mektup yazmıştı; yarısından çoğu kayboldu. Bin dokuz yüz on dörtte Jo, Theo'ya yazılanları üç cilt hâlinde yayımlar; başına kendi girişini yazar. Aynı yıl Theo'yu Utrecht'ten alıp Auvers'e, ağabeyinin yanına taşıtır. Jo girişinde şöyle yazdı: Auvers'te buğday tarlalarının arasındaki küçük mezarlıkta birlikte yatıyorlar. Ölene kadar mektupları İngilizceye çevirmeyi sürdürür. Bin dokuz yüz yirmi beşte öldüğünde çevirinin üçte ikisi bitmiştir; iki yıl sonra İngilizce basılmaya başlar. [warmly] Badem dalının boyandığı bebek büyür ve koleksiyon ona kalır; bin dokuz yüz altmış ikide bir vakfa dönüşür, bin dokuz yüz yetmiş üçte Amsterdam'da bir müze açılır. Bugün o mektupların çoğu orada, badem dalıyla aynı müzede duruyor.",
+  "onek": "s07",
+  "karakter": 1342
+ },
+ {
+  "ad": "Cevap",
+  "ids": [
+   "I01",
+   "I02",
+   "I03",
+   "I04"
+  ],
+  "metin": "[calmly] Van Gogh'a kim inandı? Önce Theo: sekiz yıl boyunca her ay bir zarf, sergilere giden tablolar, nişanlandığı hafta bir gece treni. [warmly] Sonra Jo: tabloları satarken mektupları saklayan ve onları geleceğe, bize taşıyan kurye. [softly] Sana kimse inanmazken kim inandı? [pause] Sen kime inanıyorsun? Yorumlara yaz. [warmly] Zaman Kuryesi de geçmişten bugüne böyle zarflar taşıyor. Sıradaki zarfı kaçırmamak için abone ol; o zarf şimdi ekranda.",
+  "onek": "s08",
+  "karakter": 409
+ }
+]
