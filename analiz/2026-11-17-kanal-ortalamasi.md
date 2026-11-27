@@ -69,4 +69,6 @@ Gösterim 2,2 B (dalga yok) · TO **%3,0** · 0:10 ≈%80 · 0:30 %66 · ort. %3
 Ran 67. saat (20 Kasım): gösterim 2,9 B (dalga yok), TO %3,0, ort. %38,2, 0:10 ≈%81, 0:30 ≈%66, abone izlenme payı %55,0.
 Ran 7. gün (24 Kasım): gösterim 3,9 B (dalga yok; 5,5. günde +0,6 B küçük itiş), TO %2,8, 466 görüntüleme, ort. %37,8, 0:10 ≈%81, **0:30 %63** (çizgi ≥%61: geçti), **abone izlenme payı %48,7** (çizgi ≤%20: tutmadı), kapak testi berabere (%49/%50).
 
+Mary Stuart 7. gün (27 Kasım): gösterim 3,0 B (dalga yok), TO %2,4, 225 görüntüleme, ort. 7:38 (%36,6), 0:10 ≈%87, **0:30 %70** (Studio %74; çizgi ≥%61: geçti), **abone izlenme payı %44,9** (çizgi ≤%20: tutmadı), kapak testi berabere (%57/%42), gösterim başına izlenme ≈0,18 dk.
+
 Narkissos 46. saat (26 Kasım): gösterim 2,4 B (dalga yok), TO %2,8, ort. **4:13 (%47,6; kanalın en iyisi)**, abone izlenme payı %55,0, göz atma %41 / önerilen %25 / kanal sayfası %16. Eğri henüz yok.
