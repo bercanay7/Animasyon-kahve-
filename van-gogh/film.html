@@ -20,6 +20,7 @@ function renderFrame(t) {
   const { p, st } = planBul(t);
   const kam = p.kamera ? p.kamera(st.u, st.lt, st) : undefined;
   const du = p.durum ? p.durum(st) : {};
+  if (p.isik && !du.isik) du.isik = p.isik;
   let maske;
   if (p.maske) { maske = maskeBasla(); p.maske(st, kam || M.kameraAl(p.sahne, st.lt), M, du); }
   M.ciz(ctx, p.sahne, st.lt, { kamera: kam, durum: du, bitir: { ...(p.bitir ? p.bitir(st) : {}), ...(maske ? { maske } : {}) } });

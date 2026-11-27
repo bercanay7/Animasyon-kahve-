@@ -45,6 +45,18 @@ function cerceveCiz(L) {
     R.fill(P([ia, ib, ic, id]), lin([[0, `rgb(${t1},${t1 - 4},${t1 - 10})`], [1, `rgb(${t2},${t2 - 3},${t2 - 8})`]], ia[0], ia[1], ic[0], ic[1]), { dir: 'edge', maxR: 5, type: 1, hgt: .6, group: 'res' + (i % 6), jit: .1, aj: .8 });
   });
 }
+// yan duvara perspektifle basılmış tablo (dikey şeritler): s yan (-1 sol), z0 > z1 derinlik, y0–y1 yükseklik; çerçeve koyu
+export function tabloDuvar(img, s, z0, z1, y0, y1, o = {}) {
+  return R => {
+    const x = s * (GX - .04), N = 80, kc = .1, Q = (a, b, c, d) => q => { q.moveTo(...a); q.lineTo(...b); q.lineTo(...c); q.lineTo(...d); q.closePath(); };
+    if (!o.cercevesiz) R.fill(Q(ekr(x, y1 + kc, z0 + kc), ekr(x, y1 + kc, z1 - kc), ekr(x, y0 - kc, z1 - kc), ekr(x, y0 - kc, z0 + kc)), '#2a2420', { dir: 'edge', maxR: 3, type: 1, hgt: .9, group: 'dcer', jit: .05 });
+    R.fill(Q(ekr(x, y1, z0), ekr(x, y1, z1), ekr(x, y0, z1), ekr(x, y0, z0)), '#000', { maxR: o.maxR ?? 6, type: 1, len: 1.6, wid: .7, hgt: .55, group: 'dtablo' + (o.grup || ''), jit: .03, aj: .25, detail: .8 });
+    const c = R.ref.ctx; c.save(); c.beginPath(); Q(ekr(x, y1, z0), ekr(x, y1, z1), ekr(x, y0, z1), ekr(x, y0, z0))(c); c.clip();
+    for (let i = 0; i < N; i++) { const za = z0 + (z1 - z0) * i / N, zb = z0 + (z1 - z0) * (i + 1) / N, [xa, ya0] = ekr(x, y1, za), [, ya1] = ekr(x, y0, za), [xb] = ekr(x, y1, zb);
+      const u = s < 0 ? i / N : 1 - (i + 1) / N; c.drawImage(img, u * img.width, 0, img.width / N + 1, img.height, Math.min(xa, xb), ya0, Math.abs(xb - xa) + 1, ya1 - ya0); }
+    c.restore();
+  };
+}
 export const SALON = { ekr, GX, GY, Z0, Z1 };
 export function salonKur(M, IMG = {}) {
   const [ax, ay] = ekr(-1.6, 4.4, -45.8), [bx, by] = ekr(1.6, 1.4, -45.8);
@@ -61,6 +73,12 @@ export function salonKur(M, IMG = {}) {
           R.fill(P_(bx0, by0, bx1, by1), '#8a8478', { dir: 90, maxR: 8, type: 1, group: 'bolme', jit: .05 });
           R.fill(P_(x0 - k, y0 - k, x1 + k, y1 + k), '#2a2420', { dir: 'edge', maxR: 3, type: 1, hgt: .9, group: 'ircer', jit: .05 });
           tabloCiz(IMG.irisler, x0, y0, x1 - x0, y1 - y0, { maxR: 5, grup: 'iristablo' })(R); }, R: [10, 5, 2.6, 1.5], T: 8, olcek: .75, alfa: (t, du) => (du && du.iris ? 1 : 0) }; })()] : []),
+      ...(IMG.badem ? [{ ad: 'bademDuvar', d: .72, ciz: tabloDuvar(IMG.badem, -1, -9.6, -14.2, 1.2, 4.8), R: [12, 6, 3, 1.6], T: 8, olcek: .75, alfa: (t, du) => (du && du.bademDuvar ? 1 : 0) }] : []),
+      // H05 (1905 sergisi): yakın çerçevelerin yüzüne gerçek tablolar (Saint-Rémy, Auvers, Arles; adlandırılmaz, 1905 listesi iddia edilmez); renk örtüyle açılır
+      ...(() => { const ks = ['selviler', 'remy1', 'auvers1', 'irisler', 'remy2', 'sari_ev', 'remy3', 'firtina', 'remy5', 'yildizli'].filter(k => IMG[k]); if (!ks.length) return [];
+        const L = cerceveListesi('dolu').filter(f => f.z > -17).slice(0, 10);
+        return [{ ad: 'g1905', d: .72, ciz: R => L.forEach((f, i) => { const kc = .08; tabloDuvar(IMG[ks[i % ks.length]], f.s, f.z + f.gen / 2 - kc, f.z - f.gen / 2 + kc, f.y + kc, f.y + f.yuk - kc, { maxR: 3, cercevesiz: true, grup: i })(R); }),
+          R: [8, 4, 2, 1.3], T: 8, olcek: .75, alfa: (t, du) => (du && du.g1905 ? 1 : 0) }]; })(),
       { ad: 'nesne', d: .72, canli: (t, S, c, x, du) => { if (du && du.nesneler) for (const it of du.nesneler(t)) nesne(S, it); }, kap: 2000, wet: .15, run: 0 },
       { ad: 'figur', d: .72, canli: (t, S, c, x, du) => { if (du && du.figur) du.figur(t, S); }, kap: 16000, wet: .2, run: 0 },
       { ad: 'ust', d: .72, canli: (t, S, c, x, du) => { if (du && du.ust) du.ust(t, S); }, kap: 4000, wet: .2, run: 0 },

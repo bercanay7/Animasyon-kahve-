@@ -10,7 +10,7 @@ const KOS = {
   theo_dis: { giysi: 'palto', sapka: true, atki: false, canta: false, renk: { palto: [.1, .095, .11], pantolon: [.08, .075, .085], sapka: [.08, .07, .07], sac: [.09, .07, .055] } },
   vincent: { giysi: 'ceket', sapka: 'hasir', atki: false, canta: false, renk: { palto: [.16, .17, .2], pantolon: [.12, .11, .1], sac: [.28, .16, .08] } },
   gauguin: { giysi: 'palto', sapka: true, atki: false, canta: true, renk: { palto: [.13, .11, .1], pantolon: [.1, .09, .08], sac: [.1, .08, .06] } },
-  jo: { giysi: 'elbise', sapka: false, atki: false, canta: false, sac: 'topuz', renk: { palto: [.42, .4, .38], pantolon: [.3, .28, .27], sac: [.16, .11, .08] } },
+  jo: { giysi: 'elbise', sapka: false, atki: false, canta: false, sac: 'topuz', renk: { elbise: [.22, .21, .2], palto: [.22, .21, .2], pantolon: [.18, .17, .16], sac: [.12, .08, .06] } },   // v2: koyu siluet (açık gri elbise hayalet okunuyordu)
 };
 const ISIK = { gunes: { yon: [-.5, .7, .5], guc: 1.3, renk: [1, .95, .88] }, ortam: .12 };   // koyu siluet: biçim yalnız yumuşak bir yan ışıkla
 // klip: {kos, kamera (konum/hedef/fov), poz(t) → poz}
@@ -25,6 +25,7 @@ const KLIP = {
   vincent_dur: { kos: 'vincent', poz: t => nefes(I.POZ.dur(YER, Math.PI * .9, { basEgim: .04, basDon: -.05 * Math.sin(t * TAU / 8) }), t) },
   jo_dur: { kos: 'jo', poz: t => nefes(I.POZ.dur(YER, Math.PI * .78, { basEgim: .08 }), t, .7) },
   theo_oku: { kos: 'theo', poz: t => nefes(I.POZ.oku([0, -3.6], Math.PI * .85, .76, (t % 8) / 8, { basEgim: .5 }), t, .4) },
+  vincent_oku: { kos: 'vincent', poz: t => nefes(I.POZ.oku([0, -3.6], Math.PI * .8, .7, (t % 8) / 8, { basEgim: .55 }), t, .4) },   // G02: beşiğe eğilir (beşik kadraj dışında)
   // yürüyenler: kameradan uzaklaşan çapraz yol (sırttan); 8 sn'de ~8 m
   theo_yuru: { kos: 'theo', poz: yuru(Math.PI * .86, [-.6, -2.6]) },
   jo_yuru: { kos: 'jo', poz: yuru(Math.PI * .8, [-.4, -2.8], .9) },

@@ -1,12 +1,15 @@
 // MASA seti: Theo'nun yazı masası tepeden (ayrıntı planları). Üst yarı masa yüzü, alt yarı açık alt çekmece.
 // Işık sol üstten (lamba kadraj dışında; tepeden bakışta lamba tabanı halka okunur: hedef tahtası). Nesneler canlı katmanda (lib/nesne.js).
 import { nesne } from './nesne.js';
-import { W, H, hsh } from './film_t.js';
+import { W, H, hsh, clamp, tabloCiz as tabloCizM } from './film_t.js';
+import { KNIFE } from '../../araclar/tablo/impasto.js';
 const P = pts => c => { c.moveTo(pts[0][0], pts[0][1]); for (let i = 1; i < pts.length; i++) c.lineTo(pts[i][0], pts[i][1]); c.closePath(); };
 const rad = (st, x, y, r) => c => { const g = c.createRadialGradient(x, y, 0, x, y, r); for (const [k, col] of st) g.addColorStop(k, col); return g; };
 const lin = (st, x0, y0, x1, y1) => c => { const g = c.createLinearGradient(x0, y0, x1, y1); for (const [k, col] of st) g.addColorStop(k, col); return g; };
 export const CEKMECE = { x0: 330, x1: 1590, y0: 640, y1: 1160 };   // çekmecenin iç tabanı (dünya)
 export const ISIK = [520, 120];
+// masa ışığı (v2: mekân ve zaman ayrımı): gece lamba, gün pencere, bugün soğuk müze ışığı
+const MISIK = { gece: { lightCol: [1, .8, .55], expo: .92, light: [-.45, -.7, .65] }, gun: { lightCol: [.95, .97, 1], light: [.6, -.6, .55], expo: 1.12, vig: .3 }, bugun: { lightCol: [.86, .92, 1], light: [0, -.85, .55], expo: 1.08, vig: .22, contrast: 1.02 } };
 function yuzey(R) {
   const [lx, ly] = ISIK;
   R.fill(P([[-80, -80], [W + 80, -80], [W + 80, 600], [-80, 600]]), rad([[0, '#9a8064'], [.35, '#6e5640'], [.75, '#3a2c22'], [1, '#1e1612']], lx, ly, 1500),
@@ -37,7 +40,7 @@ function cekmece(R) {
   // tutamak (çekmecenin ön yüzü kadrajın altında; tutamak yok: yuvarlak tokmak tepeden halka okunur)
 }
 // MASA sahnesi: durum.nesneler(lt) → nesne listesi (çizim sırasıyla); durum.ust(lt, S): ek darbeler (toz, ışık)
-export function masaKur(M) {
+export function masaKur(M, IMG = {}) {
   M.tanimla('masa', {
     zemin: [.06, .05, .04],
     kamera: () => ({ x: W / 2, y: H / 2, z: 1 }),
@@ -46,8 +49,21 @@ export function masaKur(M) {
       { ad: 'yuzeyTam', d: 0, ciz: yuzeyTam, R: [26, 13, 6.5, 3.2, 1.7], T: 10, alfa: (t, du) => (du && du.cekmece === false ? 1 : 0) },
       { ad: 'cekmece', d: 0, ciz: cekmece, R: [20, 10, 5, 2.6, 1.5], T: 10, alfa: (t, du) => (du && du.cekmece === false ? 0 : 1) },
       { ad: 'nesne', d: 0, canli: (t, S, cam, c, du) => { if (du && du.nesneler) for (const it of du.nesneler(t)) nesne(S, it); if (du && du.ust) du.ust(t, S); }, kap: 6000, wet: .15, run: 0 },
+      // çekmece kapağı (du.cekmeceAc(t): 1 açık, 0 kapalı): masanın ön kenarından aşağı kayan koyu ahşap; içerisi kapandıkça kaybolur
+      // H10b: masada açık sergi kataloğu, sayfada Badem Çiçeği (bugünkü müze; renk örtüyle)
+      ...(IMG.badem ? [{ ad: 'katalog', d: 0, ciz: R => { const Pq = (a, b, c, d) => q => { q.moveTo(a, b); q.lineTo(c, b); q.lineTo(c, d); q.lineTo(a, d); q.closePath(); };
+          R.fill(Pq(1040, 90, 1820, 560), '#e6dfd0', { dir: 0, maxR: 6, type: 1, len: 2.4, wid: .5, hgt: .4, group: 'katsayfa', jit: .03 });
+          R.fill(Pq(1426, 90, 1434, 560), '#9a9284', { dir: 90, maxR: 2, type: 1, group: 'katsirt', jit: .02 });
+          tabloCizM(IMG.badem, 1470, 150, 310, 245)(R); }, R: [10, 5, 2.6, 1.5], T: 8, olcek: .75, alfa: (t, du) => (du && du.katalog ? 1 : 0) }] : []),
+      // G08: masaya açılan tuval (Selvili Buğday Tarlası); du.tuval(t) görünürlük
+      ...(IMG.selvili_tarla ? [{ ad: 'tuval', d: 0, ciz: tabloCizM(IMG.selvili_tarla, 770, 260, 380, 280, { maxR: 5 }), R: [10, 5, 2.6, 1.5], T: 8, olcek: .75, alfa: (t, du) => (du && du.tuval ? du.tuval(t) : 0) }] : []),
+      { ad: 'kapak', d: 0, canli: (t, S, cam, c, du) => { if (!du || !du.cekmeceAc) return; const a = clamp(du.cekmeceAc(t)), y0 = 625, y1 = y0 + (1 - a) * (CEKMECE.y1 - y0 + 40); if (y1 - y0 < 2) return;
+        for (let y = y0 + 9; y < y1; y += 18) S.push({ x: 960, y: Math.min(y, y1 - 9), ang: 0, len: 1500, wid: 20, c: [.17, .12, .08], c2: [.13, .09, .06], seed: y, type: KNIFE, alpha: 1, hgt: .5 });
+        S.push({ x: 960, y: y1 - 3, ang: 0, len: 1500, wid: 7, c: [.42, .32, .22], c2: [.36, .27, .19], seed: 3, type: KNIFE, alpha: 1, hgt: .6 }); }, kap: 200, wet: .1, run: 0 },
+      { ad: 'golge', d: 0, canli: (t, S, cam, c, du) => { if (du && du.golge) du.golge(t, S); }, kap: 16000, wet: .1, run: 0 },
     ],
-    bitir: (t, du) => ({ light: [-.45, -.7, .65], norm: 1.8, ground: [.06, .05, .04], expo: (du && du.expo) || 1.05, contrast: 1.08, vig: .4, spec: .14, shin: 26, weave: .05, lightCol: [1, .92, .8],
+    bitir: (t, du) => ({ light: [-.45, -.7, .65], norm: 1.8, ground: [.06, .05, .04], contrast: 1.08, vig: .4, spec: .14, shin: 26, weave: .05, lightCol: [1, .92, .8],
+      ...(du && du.isik ? MISIK[du.isik] : {}), expo: du && du.expo != null ? (typeof du.expo === 'function' ? du.expo(t) : du.expo) : ((du && du.isik && MISIK[du.isik].expo) || 1.05),
       mono: 1, monoK: [.045, .04, .04], monoA: [.97, .94, .88] }),
   });
 }

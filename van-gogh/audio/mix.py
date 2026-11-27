@@ -47,7 +47,7 @@ YATAK = {'oda': ('oda', -30), 'masa': ('oda', -33), 'salon': ('galeri', -30), 't
 for p in PL:
     y = YATAK.get(p['sahne']);
     if y and p['d'] > .2: koy(y[0], p['s'], y[1], d=p['d'] + .4, fi=.3, fo=.4)
-    if p['sahne'] == 'tren' and p['id'] in ('B08', 'D03', 'H01'): koy('tren', p['s'] + .2, -20 if p['id'] != 'H01' else -26, fi=.4, fo=1.2)
+    if p['sahne'] == 'tren' and p['id'] in ('B08', 'D03', 'H01t'): koy('tren', p['s'] + .2, -20 if p['id'] != 'H01t' else -26, fi=.4, fo=1.2)
 # nokta efektler (sözcüğe bağlı; v2: görüntüdeki inişle eşleşir)
 koy('zarf', W('A01', 'bir', 1) + .25 + .6 - .05, -20, fi=.02)                       # "her hafta bir zarf daha": A01b'de düşen zarf
 

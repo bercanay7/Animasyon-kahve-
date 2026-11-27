@@ -14,7 +14,7 @@
    "olcek": "yakin",
    "s": 5.48,
    "d": 7.8,
-   "not": "Çekmece, sarı zarflar; bir zarf daha; badem dalı ucu"
+   "not": "Çekmece: \"sarı\"da renk, \"dolu\"da badem dalı, bir zarf daha"
   },
   {
    "id": "A02",
@@ -22,7 +22,7 @@
    "olcek": "orta",
    "s": 13.28,
    "d": 11.8,
-   "not": "Sarı zarflar yağar; gri deste incelir"
+   "not": "651 sarı zarf ve 39 gri; gri deste kalkar"
   },
   {
    "id": "A03",
@@ -30,7 +30,7 @@
    "olcek": "ayrinti",
    "s": 25.08,
    "d": 4.9,
-   "not": "Lamba kısılır, çekmece karanlıkta kalır (ikinci cevap sona saklanır)"
+   "not": "Jo ekilir: gölge, kalkan zarf, çekmece kapanır"
   },
   {
    "id": "B01",
@@ -91,7 +91,7 @@
   {
    "id": "B07",
    "sahne": "tarla",
-   "olcek": "orta",
+   "olcek": "genis",
    "s": 88.88,
    "d": 11.8,
    "not": "Evlenme teklifi; Jo hayır der, uzaklaşır"
@@ -99,7 +99,7 @@
   {
    "id": "B08",
    "sahne": "tren",
-   "olcek": "genis",
+   "olcek": "orta",
    "s": 100.68,
    "d": 9.6,
    "not": "Gece treni; ertesi gün öğleden sonra"
@@ -157,16 +157,8 @@
    "sahne": "tb_yatak",
    "olcek": "yakin",
    "s": 151.38,
-   "d": 4.84,
+   "d": 7.41,
    "not": "Yatak Odası tablosu"
-  },
-  {
-   "id": "C07b",
-   "sahne": "masa",
-   "olcek": "ayrinti",
-   "s": 156.22,
-   "d": 2.57,
-   "not": "Sensiz hiçbir şey yapamazdım"
   },
   {
    "id": "C08",
@@ -174,7 +166,7 @@
    "olcek": "orta",
    "s": 158.79,
    "d": 8.07,
-   "not": "Birlikte sanatsal bir şey: şövalede Yatak Odası"
+   "not": "Bir yıl sonra birlikte: Theo mektubu okur"
   },
   {
    "id": "C09",
@@ -262,7 +254,7 @@
    "olcek": "genis",
    "s": 241.46,
    "d": 11.67,
-   "not": "Saint-Rémy: gri dünya"
+   "not": "Saint-Rémy: gri dünya; uzakta yürüyen siluet"
   },
   {
    "id": "E02",
@@ -306,11 +298,11 @@
   },
   {
    "id": "E04",
-   "sahne": "tb_irisler",
+   "sahne": "salon",
    "olcek": "yakin",
    "s": 267.15,
    "d": 6.93,
-   "not": "Bağımsızlar 1889: İrisler"
+   "not": "Bağımsızlar 1889: İrisler (sergide)"
   },
   {
    "id": "F01",
@@ -390,7 +382,7 @@
    "olcek": "yakin",
    "s": 353.85,
    "d": 11.77,
-   "not": "İki kardeş beşiğin başında"
+   "not": "İki kardeş aşağıya, beşiğe eğilir (beşik kadraj dışında)"
   },
   {
    "id": "G03",
@@ -434,11 +426,11 @@
   },
   {
    "id": "G08",
-   "sahne": "tb_selvili_tarla",
+   "sahne": "masa",
    "olcek": "yakin",
    "s": 414.35,
    "d": 7.4,
-   "not": "Senin de payın var: tuval renklenir"
+   "not": "Senin de payın var: tuval açılır, renklenir"
   },
   {
    "id": "G09",
@@ -454,7 +446,7 @@
    "olcek": "orta",
    "s": 430.49,
    "d": 7.62,
-   "not": "Ah anneciğim"
+   "not": "Ah anneciğim: Theo ve sarı zarflar"
   },
   {
    "id": "G11",
@@ -462,15 +454,23 @@
    "olcek": "ayrinti",
    "s": 438.11,
    "d": 11.48,
-   "not": "Theo da öldü: lamba söner"
+   "not": "Theo da öldü: boş masa, lamba söner"
   },
   {
    "id": "H01",
+   "sahne": "oda",
+   "olcek": "yakin",
+   "s": 449.59,
+   "d": 8.12,
+   "not": "Bir bebek, bir çekmece mektup, yüzlerce tablo: Jo"
+  },
+  {
+   "id": "H01t",
    "sahne": "tren",
    "olcek": "genis",
-   "s": 449.59,
-   "d": 15.55,
-   "not": "Jo Hollanda'ya döner"
+   "s": 457.71,
+   "d": 7.43,
+   "not": "Hollanda dönüşü"
   },
   {
    "id": "H02",
@@ -502,7 +502,7 @@
    "olcek": "genis",
    "s": 482.8,
    "d": 10.19,
-   "not": "1905: en büyük sergi"
+   "not": "1905: en büyük sergi; renk geri gelir"
   },
   {
    "id": "H06",
@@ -541,8 +541,16 @@
    "sahne": "salon",
    "olcek": "genis",
    "s": 531.85,
-   "d": 18.56,
-   "not": "SON HİKÂYE ANI: müzede mektuplar ve badem dalı"
+   "d": 11.08,
+   "not": "Bugünkü müze: Badem Çiçeği yan duvarda"
+  },
+  {
+   "id": "H10b",
+   "sahne": "masa",
+   "olcek": "orta",
+   "s": 542.93,
+   "d": 7.48,
+   "not": "Mektuplar ve badem dalı aynı müzede"
   },
   {
    "id": "I01",
@@ -550,15 +558,15 @@
    "olcek": "yakin",
    "s": 550.41,
    "d": 10.79,
-   "not": "Önce Theo"
+   "not": "Önce Theo: zarf, tablolar, gece treni"
   },
   {
    "id": "I02",
-   "sahne": "oda",
+   "sahne": "masa",
    "olcek": "orta",
    "s": 561.2,
    "d": 7.36,
-   "not": "Sonra Jo: kurye"
+   "not": "Sonra Jo: zarfı bize taşıyan kurye"
   },
   {
    "id": "I03",

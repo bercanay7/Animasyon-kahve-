@@ -63,6 +63,8 @@ export function mDaire(c, x, y, r, a = 1, yum = 10) {
   for (let i = 0; i <= 48; i++) { const t = i / 48 * Math.PI * 2, rr = r * c.zoom * (1 + .08 * Math.sin(t * 5 + 1) + .05 * Math.sin(t * 11)); mx.lineTo((X + Math.cos(t) * rr) * k, (Y + Math.sin(t) * rr) * k); }
   mx.fill(); mx.restore();
 }
+// örtüden sil (kapanan çekmecenin altında kalan renk): dünya dikdörtgeni siyaha
+export function mSil(c, x, y, w, h) { const [x0, y0] = ekrana(c, x, y), [x1, y1] = ekrana(c, x + w, y + h), k = MW / W; mx.save(); mx.fillStyle = '#000'; mx.fillRect(x0 * k, y0 * k, (x1 - x0) * k, (y1 - y0) * k); mx.restore(); }
 export function mTam(a = 1) { if (a <= 0) return; mx.save(); mx.globalAlpha = clamp(a); mx.fillStyle = '#fff'; mx.fillRect(0, 0, MW, MH); mx.restore(); }
 
 // ---------- gerçek tablo → yağlıboya katmanı ----------
