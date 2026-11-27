@@ -62,7 +62,7 @@
    "olcek": "yakin",
    "s": 48.1,
    "d": 10.45,
-   "not": "Başkalarının tabloları; satış etiketi"
+   "not": "Başkalarının tabloları: biri satılır, duvardan iner"
   },
   {
    "id": "B04",
@@ -118,7 +118,7 @@
    "olcek": "ayrinti",
    "s": 116.71,
    "d": 7.29,
-   "not": "Eski adres: açılmış zarf geri döner"
+   "not": "Eski adres: zarf gider, açılmış hâlde geri döner"
   },
   {
    "id": "C03",
@@ -126,7 +126,7 @@
    "olcek": "genis",
    "s": 124,
    "d": 6.01,
-   "not": "Bağımsızlar: üç tablo (önleri gösterilmez)"
+   "not": "Bağımsızlar 1888: üç tablo asılır"
   },
   {
    "id": "C04",
@@ -138,11 +138,11 @@
   },
   {
    "id": "C05",
-   "sahne": "tren",
+   "sahne": "tb_rhone",
    "olcek": "genis",
    "s": 138.18,
    "d": 6.25,
-   "not": "Geceleri yıldızları boyamak için dışarı çıkıyorum"
+   "not": "Geceleri yıldızları boyamak için: Rhône"
   },
   {
    "id": "C06",
@@ -162,11 +162,11 @@
   },
   {
    "id": "C08",
-   "sahne": "oda",
-   "olcek": "orta",
+   "sahne": "masa",
+   "olcek": "ayrinti",
    "s": 158.79,
    "d": 8.07,
-   "not": "Bir yıl sonra birlikte: Theo mektubu okur"
+   "not": "Bir yıl sonra birlikte: iki zarf yan yana"
   },
   {
    "id": "C09",
@@ -174,7 +174,7 @@
    "olcek": "genis",
    "s": 166.86,
    "d": 11.04,
-   "not": "Gauguin gelir"
+   "not": "Gauguin gelir (Sarı Ev renkli kalır)"
   },
   {
    "id": "C10",
@@ -198,7 +198,7 @@
    "olcek": "ayrinti",
    "s": 194.88,
    "d": 7.17,
-   "not": "Telgraf"
+   "not": "Kriz: kalem durur; telgraf"
   },
   {
    "id": "D03",
@@ -222,7 +222,7 @@
    "olcek": "orta",
    "s": 212.34,
    "d": 5.45,
-   "not": "Hastaneden çıkar"
+   "not": "Hastaneden çıkar (Sarı Ev renkli)"
   },
   {
    "id": "D06",
@@ -230,7 +230,7 @@
    "olcek": "genis",
    "s": 217.79,
    "d": 7.75,
-   "not": "Evlilik ve yeni daire"
+   "not": "Evlilik ve yeni daire: Theo masayı gösterir"
   },
   {
    "id": "D07",
@@ -254,7 +254,7 @@
    "olcek": "genis",
    "s": 241.46,
    "d": 11.67,
-   "not": "Saint-Rémy: gri dünya; uzakta yürüyen siluet"
+   "not": "Saint-Rémy: gri dünya; yürüyen siluet"
   },
   {
    "id": "E02",
@@ -318,15 +318,23 @@
    "olcek": "orta",
    "s": 278.55,
    "d": 11.73,
-   "not": "İlk büyük övgü: dergi"
+   "not": "İlk büyük övgü: Mercure de France"
   },
   {
    "id": "F03",
-   "sahne": "masa",
+   "sahne": "oda",
    "olcek": "yakin",
    "s": 290.28,
-   "d": 7.83,
-   "not": "Oğul doğar: mektupta \"Vincent\" adı"
+   "d": 4.62,
+   "not": "Oğul doğar: Jo kucağında bebek, Theo eğilir"
+  },
+  {
+   "id": "F03b",
+   "sahne": "masa",
+   "olcek": "ayrinti",
+   "s": 294.9,
+   "d": 3.21,
+   "not": "Mektupta \"Vincent\" adı yazılır"
   },
   {
    "id": "F04",
@@ -350,7 +358,7 @@
    "olcek": "orta",
    "s": 320.05,
    "d": 9.61,
-   "not": "Brüksel: 400 frank"
+   "not": "Brüksel: Kırmızı Bağ 400 franka satılır"
   },
   {
    "id": "F07",
@@ -358,7 +366,7 @@
    "olcek": "ayrinti",
    "s": 329.66,
    "d": 8.85,
-   "not": "Defterde satır"
+   "not": "Defterde satır yazılır"
   },
   {
    "id": "F08",
@@ -366,7 +374,7 @@
    "olcek": "genis",
    "s": 338.51,
    "d": 6.33,
-   "not": "Bağımsızlar 1890: on tablo"
+   "not": "Bağımsızlar 1890: on tablo asılır"
   },
   {
    "id": "G01",
@@ -382,7 +390,7 @@
    "olcek": "yakin",
    "s": 353.85,
    "d": 11.77,
-   "not": "İki kardeş aşağıya, beşiğe eğilir (beşik kadraj dışında)"
+   "not": "İki kardeş beşiğin başında; Vincent örtüyü gösterir"
   },
   {
    "id": "G03",
@@ -406,7 +414,7 @@
    "olcek": "orta",
    "s": 375.92,
    "d": 12.45,
-   "not": "Temmuz: gergin gün"
+   "not": "Temmuz: bebek hasta, zam, gergin gün"
   },
   {
    "id": "G06",
@@ -486,7 +494,7 @@
    "olcek": "ayrinti",
    "s": 468.07,
    "d": 10.39,
-   "not": "34 yılda en az 192 resim: defter"
+   "not": "34 yılda en az 192 resim: satır satır"
   },
   {
    "id": "H04",
@@ -510,7 +518,7 @@
    "olcek": "yakin",
    "s": 492.99,
    "d": 13.35,
-   "not": "1914: üç cilt"
+   "not": "Kaybolan mektuplar; 1914: üç cilt"
   },
   {
    "id": "H07",
@@ -534,7 +542,7 @@
    "olcek": "ayrinti",
    "s": 520.26,
    "d": 11.59,
-   "not": "Çeviri üçte ikide kalır"
+   "not": "Çeviri: üç ciltten ikisi"
   },
   {
    "id": "H10",
@@ -557,8 +565,24 @@
    "sahne": "masa",
    "olcek": "yakin",
    "s": 550.41,
-   "d": 10.79,
-   "not": "Önce Theo: zarf, tablolar, gece treni"
+   "d": 5.94,
+   "not": "Önce Theo: her ay bir zarf"
+  },
+  {
+   "id": "I01b",
+   "sahne": "salon",
+   "olcek": "orta",
+   "s": 556.35,
+   "d": 1.82,
+   "not": "Sergilere giden tablolar: İrisler"
+  },
+  {
+   "id": "I01c",
+   "sahne": "tren",
+   "olcek": "genis",
+   "s": 558.17,
+   "d": 3.03,
+   "not": "Gece treni"
   },
   {
    "id": "I02",
