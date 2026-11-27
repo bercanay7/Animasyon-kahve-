@@ -45,7 +45,7 @@ postHazirla = function () {   // kenar kararması dikey tuvale göre elips (bkz.
   // önde birleşiyor, yakın koldaki bilezik çizgisiyle kelepçe okunuyordu; tuğla duvar ve çentiklerle birlikte "hücre".
   // İkinci okuma: derin öne eğilme + dizlerin arasında sarkan el, küçük boyda tuvalette oturuş okundu. Uyku pozu artık dik gövde,
   // göğse düşen çene (eğilme .42 → .24); yakın ön kol uyluğun üstünde yatar, uzak el arkada sedire dayanır.
-  const kolPoz = u => [[lerp(.55, .3, u), lerp(.75, 1.15, u)], [lerp(.2, -.3, u), lerp(.5, .25, u)]];
+  const kolPoz = u => [[lerp(.55, .05, u), lerp(.75, 1.0, u)], [lerp(.2, -.3, u), lerp(.5, .25, u)]];   // uyurken el kucakta (üçüncü okuma: havada duran ön kol uyurgezer okundu)
   const uyku = u => ({ egilme: lerp(.08, .24, u), bas: lerp(0, .78, u), kapali: u > .35 });
   function sis(R, p, a) {
     R.after(c => {
