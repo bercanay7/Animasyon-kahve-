@@ -8,6 +8,7 @@ Yön: kullanıcının yön metni (`analiz/2026-11-24-shorts-yon-prompt.md`, Fabl
 |---|---|---|---|---|
 | `narkissos/` | “Oğlum uzun yaşayacak mı?” → “Kendini tanımazsa.” (kâhin Tiresias) | “O benim.” (0:12) | 28,1 sn | filmin vazo planları, dikey mercekle; yüz ve yansıması üst üste |
 | `gilgamis/` | “Haydi: altı gün yedi gece uyumadan dur.” (Utnapiştim) | “uyku hemen bir sis gibi üstüne çöktü” (0:05) | 34,5 sn | dikey için yazılmış kil kabartma planları; yedi ekmek tablet satırları gibi üst üste |
+| `gilgamis-ses/` | **Shorts'a özel seslendirme** (27 Kasım): “Yedi gündür uyuyorsun.” İlk karede soru: “Bu uyku neye mal oldu?” | şart 0:14'te; son cümle başa bağlanır | 28,2 sn | `gilgamis/` dikey kil planları yeniden dizildi; ses `tools/ses_ozel.py` (tek çekim, gerçek duraklamalarda parça, kredisiz hizalama) |
 
 ## Hat (komutlar depo kökünden)
 ```bash
@@ -17,6 +18,7 @@ python3 shorts-sart/tools/miks.py shorts-sart/narkissos         # -14 LUFS miks 
 node shorts-sart/tools/kare.js shorts-sart/narkissos /tmp/k --her=1   # kurguya bakış kareleri (--yazisiz: sessiz okuma testi)
 node /home/user/Animasyon-kahve-/shorts-sart/tools/render.js shorts-sart/narkissos   # 1080×1920, 30 fps, H.264 CRF 18, BT.709
 ```
+Shorts'a özel seslendirmede `ses.py` yerine `python3 shorts-sart/tools/ses_ozel.py shorts-sart/gilgamis-ses` (kurgu.js: vo, cumle, kesit).
 Gılgamış için `gilgamis/vo/vo.wav` önce filmin kendi aracıyla üretilir (`cd gilgamis && python3 tools/build_vo.py`; depoya girmez).
 
 ## Dosyalar

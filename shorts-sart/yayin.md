@@ -13,7 +13,7 @@ Shorts her gün **20:00**, uzun videolar **18:00**. Shorts uzun videodan iki saa
 | Sal 1 Ara | 20:00 | Shorts: **Kafka** "Seni sevenler yine sever mi?" | **sen formülü** (ikinci tekil kişiye soru; mit değil) | Çar 2, 16:00 |
 | Çar 2 Ara | 18:00 | **Uzun video: Gılgamış** | | Cum 4, 18:00 (48. saat) |
 | Per 3 Ara | 20:00 | Shorts: **Sisifos II** "Ölümü zincire vuran adam" | **sonuçla açılış** (önce sonuç, sonra nasıl) | Cum 4, 16:00 |
-| Cum 4 Ara | 20:00 | Shorts: **Gılgamış** "Altı gün yedi gece uyuma" | şart ilk cümlede, dikey için çizilmiş (kırpma değil) | Cmt 5, 16:00 |
+| Cum 4 Ara | 20:00 | Shorts: **Gılgamış** "Yedi gündür uyuyorsun" (27 Kasım: film sesli şart Shorts'unun yerine) | **Shorts'a özel seslendirme**: ilk sözcük izleyiciye ve olayın ortasına; ilk karede soru yazısı; döngü (S5) | Cmt 5, 16:00 |
 | Paz 6 Ara | 18:00 | **Uzun video: Lale Çılgınlığı** | | |
 
 **1 ve 3 Aralık (25 Kasım kararı):** açık bırakılmadı, iki ayrı formülle dolduruldu (şart ailesi tutmazsa hazır alternatif; tutarsa yan yana karşılaştırma). 4 Aralık'ta üç formülden yedi ölçüm olur; asıl Shorts üretim planı kazananın üstüne o zaman kurulur. Hazır adaylar (filmlerin kaydında ses var): Gılgamış "Ölüm sularına eli değen ölürdü"; Sisifos "Bunlar nasıl takılıyor? Bir gösterir misin?" (Ölüm'ü zincirleyen hile); Narkissos "Ancak ben ölünce bana sahip olursun" (sonuçla açılış).
@@ -35,7 +35,7 @@ Altyazı videoya yakılı; SRT dosyaları yine de hazır (`*_sart.tr.srt`). **SR
 | **28 Kasım, 20:00** | **Prometheus/Pandora:** "Zeus'tan armağan alma." | Dorian 18:00'de; Shorts ondan iki saat sonra, ayrı akış |
 | **29 Kasım, 20:00** | **İkaros:** "Ortadan uç." | |
 | **30 Kasım, 20:00** | **Eko:** "Yalnız son sözleri tekrarlar." | Dorian 48. saati 18:00'de alınır |
-| **4 Aralık, 20:00** | **Gılgamış şart Shorts'u** | Gılgamış uzun videosu 2 Aralık; 48. saati 4 Aralık 18:00. Lale (6 Aralık) öncesi |
+| **4 Aralık, 20:00** | **Gılgamış Shorts'u, Shorts'a özel sesli** (27 Kasım; film sesli şart Shorts'unun yerine, bölüm 9) | Gılgamış uzun videosu 2 Aralık; 48. saati 4 Aralık 18:00. Lale (6 Aralık) öncesi |
 
 Neden iki Narkissos Shorts'u: aynı mit, aynı çizim hattı, aynı sahneler; değişen yalnız ilk cümle ("Bugün kendine kaç kez baktın?" sorusu ↔ "Kendini tanımazsa" şartı). Serinin cevaplaması gereken soru ("kalıp mı tuttu, kanal mı?") en temiz böyle ölçülür. Tahminler `analiz/tahminler.md` (S2, S3).
 
@@ -60,7 +60,7 @@ Neden iki Narkissos Shorts'u: aynı mit, aynı çizim hattı, aynı sahneler; de
 - **Sabit yorum (cevabı vermez):** `Kâhin "kendini tanımazsa" dedi. Sence kendini tanımak insanı kurtarır mı, yoksa Narkissos gibi yakar mı?`
 - **Kapak karesi:** Shorts'ta mobil akışta kapak seçilmez; uygulamada "Kapak" seçilebiliyorsa **0:00** karesi (şart yazısı + suya eğilmiş Narkissos).
 
-## 2) Gılgamış: "Altı gün yedi gece uyuma" (4 Aralık, 20:00)
+## 2) Gılgamış: "Altı gün yedi gece uyuma" (YAYINLANMAZ: 27 Kasım'da yerine bölüm 9 geçti; aynı filmden kısa arayla iki Shorts bastırılıyor)
 - **Dosya:** `gilgamis/gilgamis_sart.mp4` (34,5 sn, 1080×1920, 30 fps, H.264, −14,5 LUFS, 27,3 MB). Yüklemeden önce adı: `gilgamis-alti-gun-yedi-gece-uyuma.mp4`.
 - **Başlık (35 karakter):** `Gılgamış'a Ölümsüzlük İçin Tek Şart`
 - **Açıklama:**
@@ -168,3 +168,25 @@ Ortak alanlar: **İlgili video** o mitin uzun videosu · **Oynatma listesi** Mit
 - **Etiketler:** `Sisifos, Sisyphus, Thanatos, ölüm, Ölümü zincirleyen adam, Sisifos efsanesi, Zeus, Ares, Yunan mitolojisi, mitoloji, Zaman Kuryesi`
 - **Sabit yorum:** `Kimsenin ölmediği bir dünya iyi bir dünya olur muydu?`
 - **Not:** 27 Kasım'daki Sisifos Shorts'undan altı gün sonra ve tamamen farklı sahnelerle (Narkissos dersi: aynı filmden bir gün arayla ikinci Shorts neredeyse hiç gösterilmedi).
+
+### 9) Gılgamış, Shorts'a özel seslendirme (4 Aralık, 20:00) · `gilgamis-ses/gilgamis_ses.mp4` · S5
+Kanalın ilk ayrı seslendirilmiş Shorts'u (Emrullah, 746 kredi, 27 Kasım). Metin ve kararlar: `gilgamis-ses/metin.md`.
+**Önce:** Studio'da 4 Aralık'a film sesli Gılgamış şart Shorts'u (`gilgamis/gilgamis_sart.mp4`, "Gılgamış'a Ölümsüzlük İçin Tek Şart") planlandıysa planı kaldır ve sil (taslak ya da planlı; yayına girmediyse iz bırakmaz). İkisi birden çıkarsa ikincisi neredeyse hiç gösterilmez (Narkissos dersi) ve S5 ölçülemez.
+- **Dosya:** `gilgamis_ses.mp4` (28,2 sn, 1080×1920, 30 fps, H.264, −14,3 LUFS). Yüklemeden önce adı: `gilgamis-yedi-ekmek.mp4`.
+- **Yayın:** **Cuma 4 Aralık 20:00** (Gılgamış uzun videosundan iki gün sonra; uzun videonun 48. saat ölçümü 18:00'de alındıktan sonra). Görünürlük: Planla.
+- **Başlık (34 karakter):** `Gılgamış'ın Başucundaki Yedi Ekmek`
+  - İlk kare soruyor ("Bu uyku neye mal oldu?"), başlık cevabı vermez, somut bir nesne vaat eder. Önceki şart Shorts'larının "<Ad>'a … İçin Tek Şart" kalıbı bilerek kullanılmadı (aynı mit için ikinci kez).
+- **Açıklama:**
+  ```
+  Yedi gündür uyuyorsun. Başucunda yedi ekmek var: birincisi taş gibi kurumuş, yedincisi hâlâ közde. Gılgamış ölümsüzlüğü aramaya gitti; tufandan kurtulan Utnapiştim ona tek bir sınav verdi: altı gün, yedi gece uyumadan durmak.
+  Tam hikâye kanalda: Gılgamış.
+
+  Kaynak: Gılgamış Destanı, XI. tablet. Kamu malı çeviri: R. Campbell Thompson, The Epic of Gilgamish (Londra, 1928). Satırlar ve ekmeklerin okunuşu: A. R. George, The Babylonian Gilgamesh Epic (Oxford, 2003). Çeviri ve anlatım bize aittir.
+  #mitoloji #Gılgamış #tarih
+  ```
+- **Etiketler:** `Gılgamış, Gılgamış Destanı, Gilgamesh, Utnapiştim, ölümsüzlük, uyku sınavı, yedi ekmek, tufan, Mezopotamya, Sümer, kil tablet, mitoloji, tarih, Zaman Kuryesi`
+- **İlgili video:** Gılgamış (uzun video, 2 Aralık). **Oynatma listesi:** Mitoloji ve Felsefe. **Kategori:** Eğitim. **Dil:** Türkçe.
+- **Altyazı:** yüklenmez (videoya yakılı). Yedek: `gilgamis-ses/gilgamis_ses.tr.srt`.
+- **Sabit yorum (cevabı tekrar etmez, izleyiciye döner):** `Gözünü bir an kapadığını sandı, yedi gün geçmişti. Sen en son ne zaman "bir dakika" deyip saatlerini kaybettin?`
+- **Kapak karesi:** uygulamada seçilebiliyorsa **0:00** (soru yazısı + uyuyan Gılgamış).
+- **Ölçüm (S5):** Cumartesi 5 Aralık 16:00 (20. saat) ve Pazar 6 Aralık 20:00 (48. saat): Studio → Shorts → video → "İzlemeye devam eden / Kaydıran", görüntüleme, ortalama izleme yüzdesi (döngü %100'ü geçebilir). Ekran görüntüleri `olcum/` altına. **≥ %55 tutmazsa Shorts bir süre bırakılır** (`analiz/tahminler.md` S5).
