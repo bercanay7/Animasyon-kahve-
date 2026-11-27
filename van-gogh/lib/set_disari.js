@@ -72,7 +72,7 @@ function tren(t, S, x0, yon, gun, k = 1.6) {
   parca.forEach((p, i) => { const xm = x - yon * p.L / 2;
     S.push({ x: xm, y: y - p.h / 2 - 8, ang: 0, len: p.L - 10, wid: p.h, c: kar, c2: kar, seed: i, type: KNIFE, alpha: 1, hgt: .4 });
     for (const q of [-.3, .3]) S.push({ x: xm + q * p.L, y: y - 6, ang: 0, len: 20 * k, wid: 20 * k, c: [.08, .07, .07], seed: i * 3 + q, type: DAB, alpha: 1, hgt: .4 });   // tekerlek (düz disk, halka yok)
-    if (p.lok) { S.push({ x: x - yon * 30 * k, y: y - p.h - 22 * k, ang: 0, len: 22 * k, wid: 34 * k, c: kar, seed: 50, type: KNIFE, alpha: 1, hgt: .4 });   // baca
+    if (p.lok) { S.push({ x: x - yon * 30 * k, y: y - p.h - 14 * k, ang: 0, len: 22 * k, wid: 38 * k, c: kar, seed: 50, type: KNIFE, alpha: 1, hgt: .4 });   // baca
       for (let q = 0; q < 8; q++) { const a = (t * .9 + q * .13) % 1; S.push({ x: x - yon * 30 * k - yon * a * 420, y: y - p.h - 60 * k - a * 110 + 10 * Math.sin(q + t), ang: 0, len: 60 + 180 * a, wid: 44 + 90 * a, c: gun ? [.62, .6, .58] : [.4, .4, .42], seed: 60 + q, type: DAB, alpha: (gun ? .7 : .5) * (1 - a), hgt: 0 }); } }
     else for (let q = 0; q < 4; q++) S.push({ x: xm + (q - 1.5) * 42 * k, y: y - p.h / 2 - 12 * k, ang: Math.PI / 2, len: 30 * k, wid: 22 * k, c: pen, c2: pen.map(v => v * .9), seed: i * 10 + q, type: KNIFE, alpha: gun ? .8 : 1, hgt: .2 });
     x -= yon * (p.L + 8 * k); });

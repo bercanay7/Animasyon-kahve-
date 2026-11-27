@@ -60,7 +60,8 @@ export function setleriKur(M, IMG, FIG) { masaKur(M, IMG); odaKur(M, IMG); salon
   // tablo sahneleri (gri dünya; renk örtüyle). Görsel gelmediyse yer tutucu: Selvili Buğday Tarlası
   // E03 "yüz elli resim": duvar boyu yan yana Saint-Rémy tabloları (her biri kendi oranında, araları koyu)
   const MZ = ['remy1', 'selviler', 'remy2', 'irisler', 'remy3', 'selvili_tarla', 'remy4', 'remy5', 'remy6'].filter(k => IMG[k]);
-  M.tanimla('tb_mozaik', { zemin: [.07, .06, .05], kamera: () => ({ x: W / 2, y: H / 2, z: 1 }),
+  M.tanimla('tb_mozaik', { zemin: [.08, .08, .08],   // v3: nötr (kahverengi duvar renk kuralını bozuyordu)
+    kamera: () => ({ x: W / 2, y: H / 2, z: 1 }),
     katmanlar: MZ.map((k, i) => { const cx = 330 + (i % 3) * 630, cy = 200 + Math.floor(i / 3) * 340, im = IMG[k], ar = im.width / im.height, h = 300, w = Math.min(560, h * ar), hh = w / ar;
       return { ad: k, d: .72, ciz: tabloCiz(im, cx - w / 2, cy - hh / 2, w, hh, { maxR: 5 }), R: [10, 5, 2.6, 1.5], T: 8, olcek: .75 }; }),
     bitir: () => ({ light: [-.5, -.6, .7], norm: 2, expo: 1.04, contrast: 1.05, vig: .3, spec: .12, shin: 26, weave: .05 }) });
@@ -112,7 +113,7 @@ function bademKes(img, N = 240) {
   const d = cx.getImageData(0, 0, N, Mh).data, P = [], sil = new OffscreenCanvas(N, Mh), sx = sil.getContext('2d'), sd = sx.createImageData(N, Mh);
   const gok = (x, y) => { if (x < 0 || y < 0 || x >= N || y >= Mh) return true; const i = (y * N + x) * 4; return d[i + 2] > d[i] + 14 && d[i + 1] > d[i] + 2; };
   for (let y = 0; y < Mh; y++) for (let x = 0; x < N; x++) { const i = (y * N + x) * 4, r = d[i], g = d[i + 1], b = d[i + 2]; if (gok(x, y)) continue;
-    let k = 0; for (let dy = -1; dy <= 1; dy++) for (let dx = -1; dx <= 1; dx++) if ((dx || dy) && !gok(x + dx, y + dy)) k++; if (k < 5) continue;   // v3: gök kenarındaki kırıntı (küf gibi benek) atılır
+    let k = 0; for (let dy = -1; dy <= 1; dy++) for (let dx = -1; dx <= 1; dx++) if ((dx || dy) && !gok(x + dx, y + dy)) k++; if (k < 2) continue;   // v3: gök kenarındaki kırıntı (küf gibi benek) atılır
     P.push([x / N, y / Mh, r / 255, g / 255, b / 255, Math.hypot(x / N - BKOK[0], (y / Mh - BKOK[1]) * Mh / N)]); sd.data[i] = sd.data[i + 1] = sd.data[i + 2] = sd.data[i + 3] = 255; }
   sx.putImageData(sd, 0, 0); P.sort((a, b) => a[5] - b[5]); return (BKS = { P, sil, N, M: Mh, dmax: P.length ? P[P.length - 1][5] : 1 });
 }
@@ -121,7 +122,7 @@ function bademKesCiz(S, B, x0, y0, aci, u, gen = 560) {
   if (!B || u <= 0) return; const s = gen / B.N, a = aci - Math.PI, ca = Math.cos(a), sa = Math.sin(a), lim = u * B.dmax * 1.02;
   for (const [px, py, r, g, b, dd] of B.P) { if (dd > lim) break; const lx = (px - BKOK[0]) * gen, ly = (py - BKOK[1]) * gen * B.M / B.N;
     const X = x0 + lx * ca - ly * sa, Y = y0 + lx * sa + ly * ca, c = [r, g, b];
-    S.push({ x: X, y: Y, ang: a + (px * 9 % 1) * .6, len: s * 1.5, wid: s * 1.25, c, c2: c.map(v => v * .9), seed: px * 977 + py * 131, type: DAB, alpha: clamp((lim - dd) / (B.dmax * .05)), hgt: .5 }); }
+    S.push({ x: X, y: Y, ang: a + (px * 9 % 1) * .6, len: s * 2.1, wid: s * 1.7,   /* v3: komşu darbeler birleşir (dal nokta mozaiği gibi kopuktu) */ c, c2: c.map(v => v * .9), seed: px * 977 + py * 131, type: DAB, alpha: clamp((lim - dd) / (B.dmax * .05)), hgt: .5 }); }
 }
 function bademKesMaske(c, B, x0, y0, aci, u, gen = 560) {
   if (!B || u <= 0) return; const k = MW / 1920, [X, Y] = ekrana(c, x0, y0), sc = gen / B.N * c.zoom * k;
@@ -156,7 +157,7 @@ export function planlariKur(M, IMG, FIG) {
   //   "attı ya yaktı"da gri bloktan yapraklar kalkar, kadrajdan uçar (ateş gösterilmez)
   const Y2 = yigin(40, { x: 700, y: 760, dx: 420, dy: 160, tohum: 50 }), G2 = yigin(39, { x: 1400, y: 780, dx: 20, dy: 12, renk: 'gri', w: 200, h: 120, rot: .12, tohum: 200, kat: 1.5 });
   plan({ id: 'A02', at: 'A02', sahne: 'masa', olcek: 'orta', not: '651 sarı zarf ve 39 gri; gri deste kalkar',
-    kamera: kamYol([960, 600, .94], [950, 640, 1.0]),
+    kamera: kamYol([960, 600, 1.0], [950, 640, 1.05]),   // v3: kenarda siyah bant kalmasın
     durum: st => { const ty = A('A02@attı') - st.at, tm = A('A02@mektup') - st.at; return {
       nesneler: t => { const L = [];
         Y2.forEach((it, i) => { const z = duser(it, t, -1 + i * (tm + 1) / 40, .5); if (z) L.push(z); });

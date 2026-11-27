@@ -7,7 +7,7 @@ const sm = (a, b, x) => { const u = Math.max(0, Math.min(1, (x - a) / (b - a)));
 const TAU = Math.PI * 2, N = 121;
 const KOS = {
   theo: { giysi: 'ceket', sapka: false, atki: false, canta: false, renk: { palto: [.09, .085, .1], pantolon: [.08, .075, .085], sac: [.09, .07, .055] } },
-  theo_dis: { giysi: 'palto', sapka: true, atki: false, canta: false, renk: { palto: [.1, .095, .11], pantolon: [.08, .075, .085], sapka: [.08, .07, .07], sac: [.09, .07, .055] } },
+  theo_dis: { giysi: 'palto', sapka: false, atki: false, canta: false, renk: { palto: [.1, .095, .11], pantolon: [.08, .075, .085], sapka: [.08, .07, .07], sac: [.09, .07, .055] } },
   vincent: { giysi: 'ceket', sapka: 'hasir', atki: false, canta: false, renk: { palto: [.16, .17, .2], pantolon: [.12, .11, .1], sac: [.28, .16, .08] } },
   gauguin: { giysi: 'ceket', sapka: 'bere', atki: false, canta: true, renk: { palto: [.2, .16, .12], pantolon: [.13, .12, .11], sapka: [.12, .1, .09], sac: [.1, .08, .06] } },   // v3: kalçada biten ceket, bere (bileğe inen palto + düz geniş şapka papaz okunuyordu)
   jo: { giysi: 'elbise', sapka: false, atki: false, canta: false, sac: 'topuz', renk: { elbise: [.22, .21, .2], palto: [.22, .21, .2], pantolon: [.18, .17, .16], sac: [.12, .08, .06] } },   // v2: koyu siluet (açık gri elbise hayalet okunuyordu)

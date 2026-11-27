@@ -67,7 +67,7 @@ koy('zarf', CUES['I03']['s'] + .5, -28, fi=.02)                                 
 koy('kalem', CUES['C01']['s'] + .2, -26); koy('kalem', CUES['G07']['s'] + .3, -28); koy('kalem', W('H03', 'birer'), -30)
 koy('kalem', W('F03', 'amcasından'), -26)                                              # doğum mektubunda ad yazılır (v3: F03b)
 koy('kalem', W('F07', 'deftere') - .2, -28); koy('kalem', CUES['D02']['s'] + .2, -30); koy('kalem', CUES['H09']['s'] + .3, -30); koy('kalem', W('G07', 'biz') - .2, -30)
-koy('lamba', CUES['G11']['e'] + .3, -27, fi=.15, fo=.3)                                # lamba cümle bittikten sonra söner
+koy('lamba', W('G11', 'öldü') + .6, -27, fi=.15, fo=.3)                               # v3: lamba "öldü"de söner
 koy('ruzgar', W('G09', 'öldü'), -22, d=CUES['G10']['s'] - W('G09', 'öldü'), fi=.8, fo=1.0)   # ölüm anı: yalnız rüzgâr
 if os.environ.get('STEM') == 'muzik': mix = muzik
 else: mix = muzik + fx + vo[:, None] * db(0)
