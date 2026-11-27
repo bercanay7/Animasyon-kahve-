@@ -98,6 +98,8 @@ Motora uygun öteki adaylar (aynı gün): Walden (TR medyan ~184 B, çoğu sesli
 - **Dünya:** grisaille yağlıboya (`mono` kipi). Paris odası, galeri, tren, Arles ve Auvers tarlaları, Bussum'daki ev.
   - İç mekân motorda henüz denenmedi: ilk üslup karesi Theo'nun odası.
 - **Renk:** yalnız Vincent'in tabloları (kamu malı fotoğraflar, `lisans-kontrol`) ve onun boyadığı şeyin dünyadaki karşılığı. Örnek: Arles'da gri tarla, Vincent'in baktığı yerden renklenir. Palet değişimi sözcüğe bağlı ve plan içinde olur.
+  - **v3 kuralı (başkan, v2 izleyici okumasından):** bir kez renklenen tablo bir daha griye dönmez. Sarı Ev C04'te renklendiği için C09 ve D05'te renkli kalır. Odadaki şövale tablosu B06'daki ilk renklenmeden sonra düşük doygunlukta renkli (örtü 0,7). Gri, çerçeveli portre siyah-beyaz anma fotoğrafı okunuyordu. Açıklamadaki "yalnız Vincent'in tabloları ve zarfları renkli" cümlesi bununla tutarlı.
+  - Tablo dünyası (gri Vincent tablosu sahnenin kendisi) yalnız ilk görünüşünde gri başlar: C04, E01, G06.
 - **Figür:** Theo, Vincent, Jo; Blender figür yolu, siluet, sırt, omuz üstü.
   - Yüz yok. Yüzler yalnız otoportrelerde, gerçek tablo olarak.
   - Vincent'in figürü kendi otoportrelerindeki giysiden: mavi iş gömleği, hasır şapka. Ama renksiz.

@@ -26,6 +26,17 @@
 - Jo'nun gölgesi ilk denemede masada dikilen iri bir hayalet oldu; düşük alfa, sık darbe ve kenardan girişle "gölge" okunuyor.
 - Masa filmin %37'siydi: ışık mekâna ve zamana göre ayrıldı (gece lamba, gün pencere, bugün müze).
 
+## v3: render edilmiş filmin eleştirisi (üç izleyici kişiliği + tam boy tarama + teknik; `scratchpad/v3_sentez.md`)
+- Üç izleyicinin ortak düşüşleri hep aynı türdendi: **eylemsiz bilgi planı.** Boş masa (B05, D02), boş koridor (F06–F08), boş defter (H03), kara tahta gibi okunan cilt (H06). Düzeltme her seferinde sözcüğe bağlı bir olay oldu: tablo duvardan iner, satırlar dolar, sayaç akar, zarfların yarısı solar.
+- Kanal kuralı ("somut olay tutar") plan yazarken uygulanmış gibiydi; plan notu "satış etiketi asılır" diyordu ama etiket 46 piksellikti. Ders: not karede ölçülür, notta değil.
+- Hassasiyette yeni tuzaklar:
+  - kırmızı yorgan yağlıboya süzgecinde dokusuz düz bir lekeye döndü (kan okuması);
+  - bileğe inen koyu palto + düz geniş şapka papaz okundu (Gauguin);
+  - açık renk eller şişe ya da kutu okundu;
+  - gri, çerçeveli portre siyah-beyaz anma fotoğrafı okundu.
+- Renk kuralı netleşti: renklenen tablo griye dönmez (`uretim_plani.md` §7).
+- Badem dalı çizim yerine tablonun kendisinden kesildi (turkuaz gök anahtarlandı); kanca ile doruk aynı dalı paylaşır.
+
 ## Ses
 - Müzik özgün sentez (`audio/score.py`, zarf motifi). Düzey eğrisi: medyan −33 dBFS; telefon bandında saniyelerin %87'sinde duyuluyor. İlk ölçümde tren ostinatosu (re2) ve telgraf tremolosu telefon bandının altındaydı; üst oktav eklendi. Bilerek sessiz: G09 "öldü" ve G11 lamba söner.
 - Efektler ElevenLabs (8 × 4 çeşitleme, 544 kredi).

@@ -1,6 +1,7 @@
 // Plan listesi, bölüm C–I. H: planlar.js yardımcıları ({kamYol, yigin, duser, bademDali, figurBas, yazi, tabloMaske, kareD}).
 import { W, A, S, Se, plan, sm, clamp, lerp, io, hsh, ikiser, mRect, mDaire, mTam, mx, MW, ekrana } from './film_t.js';
-import { nesneMaske } from './nesne.js';
+import { nesneMaske, nesne } from './nesne.js';
+import { tuvalK } from './set_masa.js';
 import { SALON, cerceveListesi } from './set_salon.js';
 import { ODA, TK } from './set_oda.js';
 import { BRUSH, DAB, KNIFE } from '../../araclar/tablo/impasto.js';
@@ -35,6 +36,9 @@ export function planlar2(M, IMG, FIG, H) {
     S.push({ x: x + w * .06, y: y - h - h * .12, ang: 0, len: w * .95, wid: h * .25, c: c.map(v => v * 1.25), seed: sd + 1, type: KNIFE, alpha: 1, hgt: .5 });
     for (let i = 1; i < 3; i++) S.push({ x, y: y - h * i / 3, ang: 0, len: w * .96, wid: 3, c: c.map(v => v * .6), seed: sd + 2 + i, type: KNIFE, alpha: .8, hgt: .3 }); };
   const T = k => (IMG[k] ? k : null);
+  // v3: el yazısı gibi soldan sağa açılan metin (ekran koordinatı; u 0..1)
+  const murekkep = (ctx, s_, x, y, px, u, hiz = 'left', a = .92) => { if (u <= 0) return; ctx.save(); ctx.font = `italic 600 ${Math.round(px)}px 'Cormorant Garamond', serif`; ctx.textAlign = hiz; ctx.textBaseline = 'alphabetic';
+    const w = ctx.measureText(s_).width, x0 = hiz === 'center' ? x - w / 2 : x; ctx.beginPath(); ctx.rect(x0 - 4, y - px * 1.1, (w + 8) * clamp(u), px * 1.5); ctx.clip(); ctx.globalAlpha = a; ctx.fillStyle = '#2a1f18'; ctx.fillText(s_, x, Math.min(y, 860)); ctx.restore(); };
   const tabloPlan = (id, at, ad, olcek, not, kam, o = {}) => plan({ id, at, sahne: 'tb_' + ad, olcek, not, kamera: kam, durum: o.durum, maske: o.maske || ((st, kam) => mTam(o.renk ? o.renk(st) : 1)), bitir: o.bitir, ust: o.ust });
 
   // ================= C: Sarı ev =================
@@ -43,16 +47,19 @@ export function planlar2(M, IMG, FIG, H) {
     kamera: kamYol([960, 420, 1.3], [960, 440, 1.4], u => u),
     durum: st => ({ cekmece: false, nesneler: t => { const u = clamp(t / 2.6), k = io(clamp((t - st.d + 1.3) / 1.1));
       return [{ tur: 'zarf', renk: 'gri', yuz: 'on', yazi: u, x: 960, y: 430 + 700 * k, w: 420, h: 260, rot: -.03, tohum: 120, golge: true, kalk: k * .5 }]; } }) });
-  // C02 · ayrinti · MASA: açılmış, adresi karalanmış gri zarf kapı aralığından içeri kayar
-  plan({ id: 'C02', at: 'C02', sahne: 'masa', olcek: 'ayrinti', not: 'Eski adres: açılmış zarf geri döner',
+  // C02 · ayrinti · MASA (v3): adres yazılır, zarf "yollar"da sağa kayıp kadrajdan çıkar; "ikincisi"nde açılmış, adresi karalanmış, kenarı yırtık geri döner
+  plan({ id: 'C02', at: 'C02', sahne: 'masa', olcek: 'ayrinti', not: 'Eski adres: zarf gider, açılmış hâlde geri döner',
     kamera: kamYol([980, 420, 1.6], [960, 430, 1.7], u => u),
-    durum: st => ({ cekmece: false, nesneler: t => { const k = 1 - io(clamp(t / 1.4)); return [{ tur: 'zarf', renk: 'gri', yuz: 'on', x: 960 - 600 * k, y: 430, w: 400, h: 250, rot: -.1 + .2 * k + .02 * Math.sin(t * 2.3), tohum: 130, golge: true, kalk: k * .3 }]; },
-      ust: (t, S) => { const k = 1 - io(clamp(t / 1.4)), x = 960 - 600 * k; for (let i = 0; i < 3; i++) S.push({ x: x - 20 + i * 8, y: 430 + i * 14, ang: -.05 + i * .04, len: 190, wid: 4, c: [.12, .1, .09], seed: i, type: KNIFE, alpha: .85, hgt: .2 });   // karalama
-        S.push({ x: x + 205, y: 430, ang: Math.PI / 2, len: 240, wid: 14, c: [.6, .58, .52], seed: 9, type: BRUSH, alpha: .9, hgt: .4 }); } }) });   // yırtık kenar
-  // C03 · genis · SALON (Bağımsızlar, seyrek): boş sergi salonu, kamera derine kayar; tek siluet geçer, durmaz
-  plan({ id: 'C03', at: 'C03', sahne: 'salon', olcek: 'genis', not: 'Bağımsızlar: üç tablo (önleri gösterilmez)',
-    kamera: kamYol([960, 540, 1.0], [960, 540, 1.14], u => u),
-    durum: st => ({ duvar: 'seyrek', figur: (t, S) => figurBas(S, FIG.theo_yuru, t + 1, [1100 - 120 * t, 980 - 40 * t], 520 - 50 * t, { dongu: false, gunes: [960, -300] }) }) });
+    durum: st => { const ty = cIdx(st, 'C02@yollar'), ti = cIdx(st, 'C02@ikincisi'), kx = t => (t < ti ? io(clamp((t - ty + .5) / 1.0)) : 1 - io(clamp((t - ti) / 1.2)));
+      return { cekmece: false, nesneler: t => { const k = kx(t); return [{ tur: 'zarf', renk: 'gri', yuz: 'on', yazi: clamp(t / 1.6), x: 960 + 1300 * k, y: 430, w: 400, h: 250, rot: -.04 + .12 * k + (t > ti ? .02 * Math.sin(t * 2.3) : 0), tohum: 130, golge: true, kalk: k * .3 }]; },
+        ust: (t, S) => { if (t < ti) return; const k = kx(t), x = 960 + 1300 * k; for (let i = 0; i < 3; i++) S.push({ x: x - 20 + i * 8, y: 430 + i * 14, ang: -.05 + i * .04, len: 190, wid: 4, c: [.12, .1, .09], seed: i, type: KNIFE, alpha: .85, hgt: .2 });   // karalama
+          S.push({ x: x + 205, y: 430, ang: Math.PI / 2, len: 240, wid: 14, c: [.6, .58, .52], seed: 9, type: BRUSH, alpha: .9, hgt: .4 }); } }; } });   // yırtık kenar
+  // C03 · genis · SALON (Bağımsızlar 1888, v3): cepheden bölme duvar; "üç"te üç gri çerçeve birer birer asılır (önleri gösterilmez; hangi tablolar olduğu iddia edilmez)
+  //   F08'de aynı duvara on çerçeve asılır (eşleme). Yürüyen figür ve kopuk gölgesi kaldırıldı.
+  const C3 = [760, 960, 1160].map((x, i) => ({ tur: 'cerceve', x, y: 470, w: 150, h: 118, tohum: 140 + i, ic: [.5 + .04 * i, .48, .43], cer: 9 }));
+  plan({ id: 'C03', at: 'C03', sahne: 'salon', olcek: 'genis', not: 'Bağımsızlar 1888: üç tablo asılır',
+    kamera: kamYol([960, 520, 1.12], [960, 510, 1.24], u => u),
+    durum: st => { const tu = cIdx(st, 'C03@üç'); return { duvar: 'seyrek', bolme: true, nesneler: t => C3.map((c, i) => { const u = io(clamp((t - tu + .2 - i * .4) / .45)); return u > 0 ? { ...c, y: c.y - 40 * (1 - u), a: u, kalk: .3 * (1 - u), golge: true } : null; }).filter(Boolean) }; } });
   // C04 · orta · SARI EV (tablo dünyası, gri): siluet kapıyı açar; "sarı"da renk evden yayılır (plan içinde palet değişimi)
   tabloPlan('C04', 'C04', 'sari_ev', 'orta', 'Sarı ev: "sarı"da renk', kamYol([980, 560, 1.12], [1000, 540, 1.2], u => u),
     { renk: st => { const ts = cIdx(st, 'C04@sarı'); return 0; },
@@ -67,14 +74,18 @@ export function planlar2(M, IMG, FIG, H) {
     durum: st => ({ tablo: 'oda_otoportre', isik: 'gece', figur: (t, S) => figurBas(S, FIG.theo_oku, t, [1260, 1160], 640, { gunes: ODA.LAMBA }) }) });
   // C07 · yakin · YATAK ODASI tablosu kadrajı doldurur, kamera yaklaşır (renkli)
   tabloPlan('C07', 'C07', 'yatak', 'yakin', 'Yatak Odası tablosu', kamYol([960, 540, 1.0], [960, 560, 1.18], u => u));
-  // C08 · orta · ODA gece: Theo masada Arles'dan gelen mektubu okur; şövalede Paris'teki otoportre (Yatak Odası o sırada Arles'da: Paris odasına konmaz).
-  //   C07b (2,6 sn'lik masa ayrıntısı) kaldırıldı: masa filmin %37'siydi.
-  plan({ id: 'C08', at: 'C08', sahne: 'oda', olcek: 'orta', not: 'Bir yıl sonra birlikte: Theo mektubu okur',
-    kamera: kamYol([1000, 560, 1.15], [1080, 585, 1.28], u => u),
-    durum: st => ({ isik: 'gece', tablo: 'oda_otoportre', figur: (t, S) => figurBas(S, FIG.theo_oku, t + 2, [1250, 1130], 600, { gunes: ODA.LAMBA }) }) });
+  // C08 · ayrinti · MASA gece (v3): mektup masada; "ikimizin"de bir sarı (Vincent'in) ve bir gri (Theo'nun) zarf iki yandan kayar, "birlikte"de yan yana durur.
+  //   C06'yla aynı kare oluyordu (eğilen Theo); ölçek değişti
+  plan({ id: 'C08', at: 'C08', sahne: 'masa', olcek: 'ayrinti', not: 'Bir yıl sonra birlikte: iki zarf yan yana',
+    kamera: kamYol([960, 440, 1.45], [960, 450, 1.55], u => u),
+    durum: st => { const ti = cIdx(st, 'C08@ikimizin'); return { cekmece: false, nesneler: t => { const u = io(clamp((t - ti + .3) / 1.4));
+      return [{ tur: 'kagit', x: 960, y: 330, w: 560, h: 340, rot: -.02, tohum: 145, satir: 9, olc: 1, yazi: 1, golge: true },
+        { tur: 'zarf', renk: 'sari', yuz: 'on', x: lerp(-200, 790, u), y: 640, w: 300, h: 180, rot: -.05 + .05 * u, tohum: 146, golge: true, kalk: .3 * (1 - u) },
+        { tur: 'zarf', renk: 'gri', yuz: 'on', x: lerp(2120, 1130, u), y: 645, w: 300, h: 180, rot: .06 - .05 * u, tohum: 147, golge: true, kalk: .3 * (1 - u) }]; } }; },
+    maske: (st, kam) => { const ti = cIdx(st, 'C08@ikimizin'), u = io(clamp((st.lt - ti + .3) / 1.4)); nesneMaske(M.camK(kam, 0), { x: lerp(-200, 790, u), y: 640, w: 300, h: 180, rot: -.05 + .05 * u }); } });
   // C09 · genis · SARI EV (gri): sabah, valizli siluet eve yürür (Gauguin)
-  tabloPlan('C09', 'C09', 'sari_ev', 'genis', 'Gauguin gelir', kamYol([960, 540, 1.0], [960, 540, 1.06], u => u),
-    { maske: () => {}, durum: st => ({ figur: (t, S) => figurBas(S, FIG.gauguin_yuru, t, [760 + 60 * t, 1030 - 30 * t], 300 - 14 * t, { dongu: false, gunes: [1600, 200], hava: [.5, .48, .44], havaK: .15 }) }) });
+  tabloPlan('C09', 'C09', 'sari_ev', 'genis', 'Gauguin gelir (Sarı Ev renkli kalır)', kamYol([960, 540, 1.0], [960, 540, 1.06], u => u),
+    { durum: st => ({ figur: (t, S) => figurBas(S, FIG.gauguin_yuru, t, [760 + 60 * t, 1030 - 30 * t], 300 - 14 * t, { dongu: false, gunes: [1600, 200], hava: [.5, .48, .44], havaK: .15 }) }) });
   // C10 · ayrinti · MASA: iki gri zarf yan yana kapanır (iki ressam)
   plan({ id: 'C10', at: 'C10', sahne: 'masa', olcek: 'ayrinti', not: 'Zarflar güneyde iki ressamı geçindiriyor',
     kamera: kamYol([960, 420, 1.4], [960, 420, 1.48], u => u),
@@ -86,10 +97,15 @@ export function planlar2(M, IMG, FIG, H) {
   plan({ id: 'D01', at: 'D01', sahne: 'oda', olcek: 'orta', not: 'Nişan: Theo ve Jo yan yana',
     kamera: kamYol([700, 560, 1.45], [760, 560, 1.3], u => u),
     durum: st => ({ tablo: 'oda_otoportre', isik: 'kis', figur: (t, S) => { figurBas(S, FIG.theo_dur, t, [600, 1000], 520, { gunes: [350, 400] }); figurBas(S, FIG.jo_dur, t + 2, [820 - 60 * io(clamp((t - cIdx(st, 'D01@nişanlanır')) / 1.2)), 1000], 480, { gunes: [350, 400] }); } }) });
-  // D02 · ayrinti · MASA: kapının altından telgraf kâğıdı kayar (yazı okunmaz; Arles, beden, oda gösterilmez)
-  plan({ id: 'D02', at: 'D02', sahne: 'masa', olcek: 'ayrinti', not: 'Telgraf',
-    kamera: kamYol([960, 430, 1.55], [960, 440, 1.6], u => u),
-    durum: st => { const tg = cIdx(st, 'D02@ertesi'); return { cekmece: false, expo: .9, nesneler: t => { const k = 1 - io(clamp((t - tg) / 1.2)); return t < tg ? [] : [{ tur: 'telgraf', x: 960, y: 440 + 500 * k, w: 420, h: 300, rot: .05, tohum: 170, satir: 5, golge: true, kalk: k * .2 }]; } }; } });
+  // D02 · ayrinti · MASA gece (v3): Theo bir mektup yazıyor (satırlar ilerler, kalem kayar); "kriz"de kalem durur, ışık kısılır; "ertesi"de telgraf kâğıdı alttan kayar
+  //   (boş masa 2,8 sn sürüyordu; yazı okunmaz; Arles, beden, oda gösterilmez)
+  plan({ id: 'D02', at: 'D02', sahne: 'masa', olcek: 'ayrinti', not: 'Kriz: kalem durur; telgraf',
+    kamera: kamYol([960, 430, 1.5], [960, 440, 1.58], u => u),
+    durum: st => { const tk = cIdx(st, 'D02@kriz'), tg = cIdx(st, 'D02@ertesi'); return { cekmece: false, expo: t => .95 - .12 * sm(tk, tk + 1, t),
+      nesneler: t => { const y = clamp(Math.min(t, tk) / (tk + .4)), k = 1 - io(clamp((t - tg) / 1.2));
+        return [{ tur: 'kagit', x: 860, y: 420, w: 460, h: 560, rot: -.03, tohum: 168, satir: 12, yazi: 1, akis: .15 + .6 * y, olc: .95 },
+          { tur: 'kalem', x: 760 + 300 * y + (t > tk ? 60 * io(clamp((t - tk) / .6)) : 0), y: 300 + 220 * y, w: 250, h: 10, rot: -.6, tohum: 169, kalk: t < tk ? .3 : .3 * (1 - io(clamp((t - tk) / .6))) },
+          ...(t < tg ? [] : [{ tur: 'telgraf', x: 1100, y: 470 + 600 * k, w: 420, h: 300, rot: .05, tohum: 170, satir: 5, golge: true, kalk: k * .2 }])]; } }; } });
   // D03 · genis · TREN: gece soldan sağa; sabah ışığı; akşam sağdan sola geri
   plan({ id: 'D03', at: 'D03', sahne: 'tren', olcek: 'genis', not: 'Noel: gidiş ve aynı akşam dönüş',
     kamera: kamYol([960, 560, 1.04], [960, 560, 1.08], u => u),
@@ -100,13 +116,13 @@ export function planlar2(M, IMG, FIG, H) {
     kamera: kamYol([960, 420, 1.3], [960, 430, 1.36], u => u),
     durum: st => ({ cekmece: false, nesneler: t => [...yigin(6, { x: 760, y: 460, dx: 120, dy: 60, renk: 'gri', tohum: 180 }), ...[0, 1].map(i => { const z = duser({ tur: 'bilet', x: 1180 + i * 70, y: 470 + i * 30, w: 170, h: 90, rot: .2 - i * .3, tohum: 190 + i }, t, .3 + i * .4, .5); return z; }).filter(Boolean)] }) });
   // D05 · orta · SARI EV (gri): Vincent eve yürür (hastaneden dönüş)
-  tabloPlan('D05', 'D05', 'sari_ev', 'orta', 'Hastaneden çıkar', kamYol([900, 600, 1.18], [940, 590, 1.24], u => u),
-    { maske: () => {}, durum: st => ({ figur: (t, S) => figurBas(S, FIG.vincent_yuru, t, [820 + 50 * t, 1060 - 20 * t], 340 - 12 * t, { dongu: false, gunes: [1600, 200], hava: [.5, .48, .44], havaK: .15 }) }) });
-  // D06 · genis · ODA (sabah): yeni daire; sandıklar, Theo ve Jo
-  plan({ id: 'D06', at: 'D06', sahne: 'oda', olcek: 'genis', not: 'Evlilik ve yeni daire',
-    kamera: kamYol([960, 540, 1.0], [960, 545, 1.06], u => u),
-    durum: st => ({ tablo: 'oda_otoportre', isik: 'sabah', ust: (t, S) => { sandik(S, 760, 1010, 180, 120, 1); sandik(S, 900, 1040, 150, 100, 2); sandik(S, 1480, 1060, 220, 140, 3); },
-      figur: (t, S) => { figurBas(S, FIG.theo_dur, t, [380, 1000], 460, { gunes: [350, 300] }); figurBas(S, FIG.jo_dur, t + 3, [1180, 990], 420, { gunes: [350, 300] }); } }) });
+  tabloPlan('D05', 'D05', 'sari_ev', 'orta', 'Hastaneden çıkar (Sarı Ev renkli)', kamYol([900, 600, 1.18], [940, 590, 1.24], u => u),
+    { durum: st => ({ figur: (t, S) => figurBas(S, FIG.vincent_yuru, t, [820 + 50 * t, 1060 - 20 * t], 340 - 12 * t, { dongu: false, gunes: [1600, 200], hava: [.5, .48, .44], havaK: .15 }) }) });
+  // D06 · genis · ODA (sabah, v3): yeni daire; Theo ile Jo birbirine dönük (Jo yere basar, masanın önünde değil); "taşınırlar"da Theo yazı masasını gösterir (D07'ye köprü)
+  plan({ id: 'D06', at: 'D06', sahne: 'oda', olcek: 'genis', not: 'Evlilik ve yeni daire: Theo masayı gösterir',
+    kamera: kamYol([960, 540, 1.0], [980, 545, 1.06], u => u),
+    durum: st => { const tt = cIdx(st, 'D06@taşınırlar'); return { tablo: 'oda_otoportre', isik: 'sabah', ust: (t, S) => { sandik(S, 240, 1040, 200, 130, 1); sandik(S, 1560, 1060, 220, 140, 3); sandik(S, 1700, 1040, 150, 100, 2); },
+      figur: (t, S) => { figurBas(S, FIG.theo_goster, t - (tt - 2.1), [520, 1010], 470, { gunes: [350, 300], dongu: false }); figurBas(S, FIG.jo_yan, t + 3, [860, 1000], 430, { gunes: [350, 300] }); } }; } });
   // D07 · orta · MASA: çekmece açılır, içi gri zarflarla dolu (eski mektuplar); kamera masadan çekmeceye iner
   const D7g = yigin(30, { renk: 'gri', tohum: 400 });
   plan({ id: 'D07', at: 'D07', sahne: 'masa', olcek: 'orta', not: 'Jo çekmeceyi açar: mektuplarla dolu',
@@ -122,8 +138,8 @@ export function planlar2(M, IMG, FIG, H) {
 
   // ================= E: Bir yılda yüz elli resim =================
   // E01 · genis · SELVİLİ TARLA (gri dünya): duvarla çevrili hastane bahçesinin ötesi; kamera yavaş kayar
-  tabloPlan('E01', 'E01', 'selvili_tarla', 'genis', 'Saint-Rémy: gri dünya; uzakta yürüyen siluet', kamYol([900, 540, 1.04], [1020, 540, 1.1], u => u), { maske: () => {},
-    durum: st => ({ figur: (t, S) => figurBas(S, FIG.vincent_yuru, t * .7, [620 + 30 * t, 900 - 8 * t], 170 - 4 * t, { dongu: false, gunes: [1600, 200], hava: [.5, .48, .44], havaK: .2 }) }) });
+  tabloPlan('E01', 'E01', 'selvili_tarla', 'genis', 'Saint-Rémy: gri dünya; yürüyen siluet', kamYol([860, 560, 1.14], [1040, 530, 1.02], u => u), { maske: () => {},
+    durum: st => ({ figur: (t, S) => figurBas(S, FIG.vincent_yuru, t * .55, [760 + 22 * t, 1020 - 14 * t], 400 - 12 * t, { dongu: false, gunes: [1600, 200], hava: [.5, .48, .44], havaK: .15 }) }) });   // v3: siluet okunur boyda (birkaç pikseldi)
   // E02 · ayrinti · MASA: makbuz ve banknotlar; başka bir el yazısıyla küçük bir zarf kadraja kayar (kız kardeşler)
   plan({ id: 'E02', at: 'E02', sahne: 'masa', olcek: 'ayrinti', not: 'Hastane parası; kız kardeşlerin katkısı',
     kamera: kamYol([960, 430, 1.5], [960, 440, 1.56], u => u),
@@ -145,47 +161,60 @@ export function planlar2(M, IMG, FIG, H) {
   // ================= F: Badem dalı =================
   // F01 · ayrinti · BADEM: tablonun köşesi (mavi gök, dal ucu); kamera yavaş kayar
   tabloPlan('F01', 'F01', 'badem', 'ayrinti', 'Badem Çiçeği köşesi', kamYol([1500, 300, 2.6], [1380, 330, 2.7], u => u));
-  // F02 · orta · MASA (sabah): sarı zarfların yanına ince bir dergi bırakılır, kendiliğinden açılır
-  plan({ id: 'F02', at: 'F02', sahne: 'masa', olcek: 'orta', not: 'İlk büyük övgü: dergi',
-    kamera: kamYol([960, 420, 1.1], [960, 430, 1.18], u => u),
-    durum: st => ({ cekmece: false, expo: 1.15, nesneler: t => { const u = io(clamp((t - .3) / .8)), ac = io(clamp((t - 2.2) / 1));
-      return [...yigin(10, { x: 520, y: 420, dx: 200, dy: 120, tohum: 500 }), ac < .5 ? { tur: 'dergi', x: 1150, y: 420 - 300 * (1 - u), w: 380, h: 520, rot: .06, tohum: 510, golge: true, kalk: .4 * (1 - u) } : { tur: 'acikdefter', x: 1150, y: 420, w: 760, h: 520, rot: .04, tohum: t > cIdx(st, 'F02@övgü') ? 512 : 511, satirL: 14, satirR: t > cIdx(st, 'F02@övgü') ? 8 : 14 }]; } }),
-    maske: (st, kam) => { const c = M.camK(kam, 0); for (const it of yigin(10, { x: 520, y: 420, dx: 200, dy: 120, tohum: 500 })) nesneMaske(c, it); } });
-  // F03 · yakin · MASA (gece): Theo'nun Vincent'e mektubu (31 Ocak 1890, doğum haberi); "Vincent"te ad mürekkeple belirir (beşik çizilmez: tabut ve ızgara okunuyordu)
+  // F02 · orta · MASA (sabah, v3): dergi kapağında başlık (Mercure de France, Ocak 1890); açılır; "övgü"de bir satırın altı mürekkeple çizilir
+  const F2k = kamYol([960, 420, 1.1], [960, 430, 1.18], u => u);
+  plan({ id: 'F02', at: 'F02', sahne: 'masa', olcek: 'orta', not: 'İlk büyük övgü: Mercure de France', kamera: F2k,
+    durum: st => { const tv = cIdx(st, 'F02@övgü'), ta = cIdx(st, 'F02@içinde') - .3; return { cekmece: false, expo: 1.15, nesneler: t => { const u = io(clamp((t - .3) / .8)), ac = io(clamp((t - ta) / 1));
+      return [...yigin(10, { x: 520, y: 420, dx: 200, dy: 120, tohum: 500 }), ac < .5 ? { tur: 'dergi', x: 1150, y: 420 - 300 * (1 - u), w: 380, h: 520, rot: .0, tohum: 510, golge: true, kalk: .4 * (1 - u) } : { tur: 'acikdefter', x: 1150, y: 420, w: 760, h: 520, rot: .0, tohum: 511, satirL: 14, satirR: 14 }]; },
+      ust: (t, S) => { const u = io(clamp((t - tv) / .9)); if (u <= 0) return; S.push({ x: 1180 + 150 * u, y: 312, ang: 0, len: 300 * u, wid: 4, c: [.16, .12, .1], seed: 5, type: KNIFE, alpha: .9, hgt: .2, taper: .2 }); } }; },
+    maske: (st, kam) => { const c = M.camK(kam, 0); for (const it of yigin(10, { x: 520, y: 420, dx: 200, dy: 120, tohum: 500 })) nesneMaske(c, it); },
+    ust: (ctx, st) => { const ta = cIdx(st, 'F02@içinde') - .3, u = io(clamp((st.lt - .3) / .8)), a = 1 - sm(ta + .3, ta + .5, st.lt); if (a <= 0) return; const c = M.camK(F2k(st.u), 0), [x, y] = ekrana(c, 1150, 230 - 300 * (1 - u));
+      ctx.save(); ctx.globalAlpha = a * .9; ctx.font = `600 ${Math.round(30 * c.zoom)}px 'Cormorant Garamond', serif`; ctx.textAlign = 'center'; ctx.fillStyle = '#2a1f18'; ctx.fillText('MERCURE DE FRANCE', x, Math.min(y, 860));
+      ctx.font = `italic 500 ${Math.round(20 * c.zoom)}px 'Cormorant Garamond', serif`; ctx.fillText('Janvier 1890', x, Math.min(y + 30 * c.zoom, 860)); ctx.restore(); } });
+  // F03 · yakin · ODA (kış, v3): "oğlu doğar": Jo kucağında bebekle, Theo bebeğe eğilir (tek figür eğilir). Bebek burada ekilir (G02, G04, H01).
+  plan({ id: 'F03', at: 'F03', sahne: 'oda', olcek: 'yakin', not: 'Oğul doğar: Jo kucağında bebek, Theo eğilir',
+    kamera: kamYol([980, 640, 1.42], [1000, 650, 1.5], u => u),
+    durum: st => ({ tablo: 'oda_otoportre', isik: 'kis', figur: (t, S) => { figurBas(S, FIG.theo_egil, t - (cIdx(st, 'F03@oğlu') - 1.2), [800, 1090], 640, { gunes: [350, 300], dongu: false, adim: 2 });
+      figurBas(S, FIG.jo_bebek, t, [1170, 1090], 610, { gunes: [350, 300], adim: 2 }); } }) });
+  // F03b · ayrinti · MASA (gece): Theo'nun Vincent'e mektubu (31 Ocak 1890); "amcasından"da ad satırların altında ayrı bir satıra mürekkeple yazılır: Vincent
   const F3k = kamYol([960, 430, 1.55], [960, 440, 1.62], u => u);
-  plan({ id: 'F03', at: 'F03', sahne: 'masa', olcek: 'yakin', not: 'Oğul doğar: mektupta "Vincent" adı', kamera: F3k,
-    durum: st => ({ cekmece: false, nesneler: () => [{ tur: 'kagit', x: 960, y: 440, w: 620, h: 420, rot: -.03, tohum: 220, satir: 8, olc: 1.1, yazi: .9, golge: true }] }),
-    ust: (ctx, st) => { const tv = cIdx(st, 'F03@vincent'), k = M.camK(F3k(st.u), 0), [x, y] = ekrana(k, 1010, 600);
-      ctx.save(); ctx.globalAlpha = .9 * sm(tv - .1, tv + .9, st.lt); ctx.font = `italic 600 ${Math.round(70 * k.zoom)}px 'Cormorant Garamond', serif`; ctx.fillStyle = '#2a1f18'; ctx.textAlign = 'center'; ctx.fillText('Vincent', x, Math.min(y, 860)); ctx.restore(); } });
+  plan({ id: 'F03b', at: 'F03@adını', sahne: 'masa', olcek: 'ayrinti', not: 'Mektupta "Vincent" adı yazılır', kamera: F3k,
+    durum: st => ({ cekmece: false, nesneler: () => [{ tur: 'kagit', x: 960, y: 440, w: 620, h: 420, rot: -.03, tohum: 220, satir: 6, olc: 1.1, yazi: .9, golge: true }] }),
+    ust: (ctx, st) => { const ta = cIdx(st, 'F03@amcasından'), tv = cIdx(st, 'F03@vincent'), k = M.camK(F3k(st.u), 0), [x, y] = ekrana(k, 980, 610);
+      murekkep(ctx, 'Vincent', x, y, 72 * k.zoom, clamp((st.lt - ta) / Math.max(.6, tv - ta + .4)), 'center'); } });
   // F04 · genis · BADEM (renk doruğu): dal dal açılır: renk mektup kâğıdından (alt köşe) bütün tabloya yayılır; kamera geri çekilir
   tabloPlan('F04', 'F04', 'badem', 'genis', 'RENK DORUĞU: Badem Çiçeği', kamYol([960, 600, 1.35], [960, 540, 1.0]),
     { maske: (st, kam) => { const c = M.camK(kam, .72); mDaire(c, 600, 980, 2300 * io(clamp(st.lt / 3.2)), 1, 16); } });
   // F05 · ayrinti · BADEM: tek bir çiçeğe iniş; "hastalandım"da ışık çekilir, tablo renkli kalır
-  tabloPlan('F05', 'F05', 'badem', 'ayrinti', 'Tek çiçek; hastalandım', kamYol([1080, 420, 2.4], [1100, 400, 3.0], u => u),
+  tabloPlan('F05', 'F05', 'badem', 'ayrinti', 'Tek çiçek; hastalandım', kamYol([1080, 420, 1.9], [1100, 400, 2.2], u => u),   // v3: büyütme sınırlandı (çamurlu okunuyordu)
     { durum: st => { const th = cIdx(st, 'F05@hastalandım'); return { expo: t => 1.03 - .35 * sm(th, th + 1.5, t) }; } });
   // F06 · orta · SALON (Brüksel, seyrek): bir çerçeveye satış etiketi iliştirilir
   plan({ id: 'F06', at: 'F06', sahne: 'salon', olcek: 'orta', not: 'Brüksel: 400 frank',
     kamera: kamYol([600, 470, 1.9], [640, 470, 2.0], u => u),
     durum: st => { const ts = cIdx(st, 'F06@dört'); return { duvar: 'seyrek', nesneler: t => (t < ts ? [] : [{ tur: 'bilet', x: 520, y: 520 + 30 * (1 - io(clamp((t - ts) / .5))), w: 40, h: 24, rot: .3, tohum: 520, golge: true }]) }; } });
-  // F07 · ayrinti · MASA: hesap defteri; mürekkeple bir satır, "400" kurur
-  plan({ id: 'F07', at: 'F07', sahne: 'masa', olcek: 'ayrinti', not: 'Defterde satır',
-    kamera: kamYol([960, 440, 1.5], [960, 450, 1.58], u => u),
+  // F07 · ayrinti · MASA (v3): hesap defteri; "deftere"de "400 fr." satırı mürekkeple yazılarak belirir
+  const F7k = kamYol([960, 440, 1.5], [960, 450, 1.58], u => u);
+  plan({ id: 'F07', at: 'F07', sahne: 'masa', olcek: 'ayrinti', not: 'Defterde satır yazılır', kamera: F7k,
     durum: st => ({ cekmece: false, nesneler: () => [{ tur: 'acikdefter', x: 960, y: 440, w: 900, h: 600, rot: -.02, tohum: 530, satirL: 12, satirR: 3, yazi: 1 }] }),
-    ust: (ctx, st) => { const k = M.camK((st.kam = kamYol([960, 440, 1.5], [960, 450, 1.58], u => u)(st.u)), 0), [x, y] = ekrana(k, 1180, 520);
-      ctx.save(); ctx.globalAlpha = .85 * sm(.6, 1.6, st.lt); ctx.font = `italic 600 ${Math.round(64 * k.zoom)}px 'Cormorant Garamond', serif`; ctx.fillStyle = '#2a1f18'; ctx.textAlign = 'center'; ctx.fillText('400 fr.', x, Math.min(y, 860)); ctx.restore(); } });
-  // F08 · genis · SALON (seyrek): kamera duvar boyunca kayar (on tablo; önleri gösterilmez)
-  plan({ id: 'F08', at: 'F08', sahne: 'salon', olcek: 'genis', not: 'Bağımsızlar 1890: on tablo',
-    kamera: kamYol([860, 540, 1.02], [1060, 540, 1.1], u => u), durum: st => ({ duvar: 'seyrek' }) });
+    ust: (ctx, st) => { const td = cIdx(st, 'F07@deftere'), k = M.camK(F7k(st.u), 0), [x, y] = ekrana(k, 1080, 540);
+      murekkep(ctx, 'Bruxelles — 400 fr.', x, y, 54 * k.zoom, clamp((st.lt - td + .2) / 1.4), 'left'); } });
+  // F08 · genis · SALON (Bağımsızlar 1890, v3): C03'ün bölme duvarı; on gri çerçeve birer birer asılır (C03'te üçtü; önleri gösterilmez)
+  const F8 = Array.from({ length: 10 }, (_, i) => ({ tur: 'cerceve', x: 620 + (i % 5) * 170, y: i < 5 ? 380 : 545, w: 136, h: 108, tohum: 540 + i, ic: [.46 + .08 * hsh(i, 1), .44 + .06 * hsh(i, 2), .4], cer: 8 }));
+  plan({ id: 'F08', at: 'F08', sahne: 'salon', olcek: 'genis', not: 'Bağımsızlar 1890: on tablo asılır',
+    kamera: kamYol([960, 500, 1.2], [960, 495, 1.3], u => u),
+    durum: st => { const t0 = cIdx(st, 'F08@bağımsızlar'), t1 = cIdx(st, 'F08@tablosunu'); return { duvar: 'seyrek', bolme: true, nesneler: t => F8.map((c, i) => { const u = io(clamp((t - t0 - (t1 - t0 + .4) * i / 10) / .35)); return u > 0 ? { ...c, y: c.y - 30 * (1 - u), a: u, kalk: .3 * (1 - u), golge: true } : null; }).filter(Boolean) }; } });
 
   // ================= G: Auvers'te bir yaz =================
   // G01 · orta · ODA (sabah): hasır şapkalı siluet; beşik önde
   plan({ id: 'G01', at: 'G01', sahne: 'oda', olcek: 'orta', not: 'Amca gelir: hasır şapka, beşik',
     kamera: kamYol([900, 600, 1.35], [930, 600, 1.42], u => u),
     durum: st => ({ tablo: 'oda_guller', isik: 'sabah', figur: (t, S) => figurBas(S, FIG.vincent_dur, t, [620, 1000], 560, { gunes: [300, 300] }) }) });
-  // G02 · yakin · ODA: beşiğin önünde iki erkek sırtı (yüz yok; "gözleri yaşlı" seste kalır)
-  plan({ id: 'G02', at: 'G02', sahne: 'oda', olcek: 'yakin', not: 'İki kardeş yan yana, beşik kadraj dışında',
-    kamera: kamYol([1000, 640, 1.7], [1000, 650, 1.76], u => u),
-    durum: st => ({ tablo: 'oda_guller', isik: 'sabah', figur: (t, S) => { figurBas(S, FIG.theo_dur, t, [780, 1300], 900, { gunes: [300, 200], adim: 2 }); figurBas(S, FIG.vincent_dur, t + 1.5, [1220, 1300], 900, { gunes: [300, 200], adim: 2 }); /* ayakta: eğik ikili namaz safı okunuyordu */ } }) });
+  // G02 · yakin · ODA (v3): beşiğin kenarı kadrajın altında; iki kardeş ayakta (ikisi birden eğilmez: namaz safı); yalnız Vincent başını eğer ve "tığ"da örtünün ucunu gösterir.
+  //   Eller kol tonunda (açık eller kutu ya da şişe okunuyordu)
+  plan({ id: 'G02', at: 'G02', sahne: 'oda', olcek: 'yakin', not: 'İki kardeş beşiğin başında; Vincent örtüyü gösterir',
+    kamera: kamYol([1000, 660, 1.62], [1000, 670, 1.7], u => u),
+    durum: st => { const tg = cIdx(st, 'G02@tığ'); return { tablo: 'oda_guller', isik: 'sabah', ust: (t, S) => besik(S, 1010, 1236, 420, Math.sin(t * 1.3)),
+      figur: (t, S) => { figurBas(S, FIG.theo_dur, t, [760, 1290], 860, { gunes: [300, 200], adim: 2 }); figurBas(S, FIG.vincent_goster, t - (tg - 2.2), [1270, 1290], 860, { gunes: [300, 200], adim: 2, dongu: false }); } }; } });
   // G03 · orta · TARLA: tarla kenarında şövale; tuval hızlı kesmelerle gün gün değişir (Auvers 1890 işleri, renkli)
   const AUV = Object.keys(IMG).filter(k => k.startsWith('auvers')).sort();
   plan({ id: 'G03', at: 'G03', sahne: 'tarla', olcek: 'orta', not: 'Auvers: neredeyse her gün bir eser',
@@ -196,12 +225,15 @@ export function planlar2(M, IMG, FIG, H) {
   // G04 · genis · TARLA: tarla kenarında dört küçük uzak siluet; rüzgârda başaklar, bulut gölgesi
   plan({ id: 'G04', at: 'G04', sahne: 'tarla', olcek: 'genis', not: '8 Haziran: Theo, Jo ve bebek Auvers\'te',
     kamera: kamYol([960, 540, 1.0], [960, 560, 1.08], u => u),
-    durum: st => ({ agac: true, figur: (t, S) => { figurBas(S, FIG.vincent_dur, t, [700, 760], 120, { hava: [.4, .36, .38], havaK: .3 }); figurBas(S, FIG.theo_dis_dur, t + 1, [760, 760], 124, { hava: [.4, .36, .38], havaK: .3 }); figurBas(S, FIG.jo_dur, t + 2, [815, 760], 112, { hava: [.4, .36, .38], havaK: .3 }); } }) });
-  // G05 · orta · ODA (öğle, lamba sönük): üç siluet ayakta, aralarında masa yok
-  plan({ id: 'G05', at: 'G05', sahne: 'oda', olcek: 'orta', not: 'Temmuz: gergin gün',
+    durum: st => ({ agac: true, figur: (t, S) => { figurBas(S, FIG.vincent_dur, t, [700, 760], 120, { hava: [.4, .36, .38], havaK: .3 }); figurBas(S, FIG.theo_dis_dur, t + 1, [760, 760], 124, { hava: [.4, .36, .38], havaK: .3 }); figurBas(S, FIG.jo_bebek, t + 2, [815, 760], 112, { hava: [.4, .36, .38], havaK: .3 }); } }) });   // v3: Jo kucağında bebek
+  // G05 · orta · ODA (öğle, v3): "hastalanır"da Jo beşiğe eğilir; "ayrılmayı"da Theo pencereye döner; "gergin"de Vincent kapıya yürür (üç figür yalnız yer değiştiriyordu)
+  plan({ id: 'G05', at: 'G05', sahne: 'oda', olcek: 'orta', not: 'Temmuz: bebek hasta, zam, gergin gün',
     kamera: kamYol([1150, 640, 1.3], [880, 620, 1.36]),
-    durum: st => ({ tablo: 'oda_guller', isik: 'ogle', alev: () => .2,
-      nesneler: t => (t > cIdx(st, 'G05@zam') ? [{ tur: 'zarf', renk: 'gri', yuz: 'on', x: 1290, y: 872, w: 80, h: 34, rot: .1, tohum: 1800, kalinlik: false, a: sm(cIdx(st, 'G05@zam'), cIdx(st, 'G05@zam') + .5, t) }] : []), figur: (t, S) => { figurBas(S, FIG.vincent_dur, t, [520, 1000], 500); figurBas(S, FIG.theo_dur, t + 1, [880, 1000], 520); figurBas(S, FIG.jo_dur, t + 2.5, [1230, 990], 470); } }) });
+    durum: st => { const th = cIdx(st, 'G05@hastalanır'), ta = cIdx(st, 'G05@ayrılmayı'), tg = cIdx(st, 'G05@gergin'), tz = cIdx(st, 'G05@zam'); return { tablo: 'oda_guller', isik: 'ogle', alev: () => .2,
+      ust: (t, S) => besik(S, 1430, 1010, 230, Math.sin(t * 1.1) * .6),
+      nesneler: t => (t > tz ? [{ tur: 'zarf', renk: 'gri', yuz: 'on', x: 1290, y: 872, w: 80, h: 34, rot: .1, tohum: 1800, kalinlik: false, a: sm(tz, tz + .5, t) }] : []),
+      figur: (t, S) => { if (t < tg - .3) figurBas(S, FIG.vincent_dur, t, [520, 1000], 500); else figurBas(S, FIG.vincent_yuru, (t - tg + .3) * .9, [520, 1000], 500, { dongu: false });
+        figurBas(S, FIG.theo_don, t - (ta - 2.2), [880, 1000], 520, { dongu: false }); figurBas(S, FIG.jo_egil, t - (th - 2.1), [1230, 990], 470, { dongu: false }); } }; } });
   // G06 · genis · FIRTINALI GÖK ALTINDA BUĞDAY TARLASI: gri dünya; "tarlaları"nda renk tarladan yükselir
   tabloPlan('G06', 'G06', 'firtina', 'genis', 'Uçsuz bucaksız buğday tarlaları: renk', kamYol([960, 560, 1.06], [960, 540, 1.0], u => u),
     { maske: (st, kam) => { const tt = cIdx(st, 'G06@tarlaları'), c = M.camK(kam, .72); mDaire(c, 960, 1300, 1500 * io(clamp((st.lt - tt) / 2.4)), 1, 18); } });
@@ -209,7 +241,10 @@ export function planlar2(M, IMG, FIG, H) {
   plan({ id: 'G07', at: 'G07', sahne: 'masa', olcek: 'ayrinti', not: 'Gönderilmeyen taslak',
     kamera: kamYol([960, 430, 1.4], [960, 450, 1.5], u => u),
     durum: st => { const tb = cIdx(st, 'G07@bitirmez'), tk = cIdx(st, 'G07@konuşturabiliriz'); return { cekmece: false, expo: t => 1.18 - .1 * sm(tk, tk + 2, t), nesneler: t => [{ tur: 'kagit', x: 920, y: 430, w: 520, h: 680, rot: -.03, tohum: 600, satir: 16, yazi: .5 * clamp(t / Math.max(.5, tb)), olc: 1.05 },
-      t < tb ? { tur: 'kalem', x: 760 + 360 * clamp(t / Math.max(.5, tb)), y: 300 + 300 * clamp(t / Math.max(.5, tb)), w: 260, h: 10, rot: -.6, tohum: 601, kalk: .3 } : duser({ tur: 'kalem', x: 1330, y: 520, w: 260, h: 10, rot: -.6, tohum: 601 }, t, tb, .5) || { tur: 'kalem', x: 1330, y: 520, w: 260, h: 10, rot: -.6, tohum: 601 }] }; } });
+      t < tb ? { tur: 'kalem', x: 760 + 360 * clamp(t / Math.max(.5, tb)), y: 300 + 300 * clamp(t / Math.max(.5, tb)), w: 260, h: 10, rot: -.6, tohum: 601, kalk: .3 } : duser({ tur: 'kalem', x: 1330, y: 520, w: 260, h: 10, rot: -.6, tohum: 601 }, t, tb, .5) || { tur: 'kalem', x: 1330, y: 520, w: 260, h: 10, rot: -.6, tohum: 601 }] }; },
+    // v3: taslaktaki cümle sayfada yazılarak belirir (Türkçesi bizim; özgün metin VGM RM25)
+    ust: (ctx, st) => { const tz = cIdx(st, 'G07@biz'), te = cIdx(st, 'G07@konuşturabiliriz') + .6, k = M.camK(kamYol([960, 430, 1.4], [960, 450, 1.5], u => u)(st.u), 0), [x, y] = ekrana(k, 700, 600), [, y2] = ekrana(k, 700, 650);
+      const u = clamp((st.lt - tz + .2) / (te - tz + .2)); murekkep(ctx, 'Biz ancak resimlerimizi', x, y, 40 * k.zoom, clamp(u * 1.8)); murekkep(ctx, 'konuşturabiliriz.', x, y2, 40 * k.zoom, clamp(u * 1.8 - .8)); } });
   // G08 · yakin · MASA (v2, EŞLEME KESMESİ: B04'ün kamerası ve yörüngesi): bu kez banknot değil, rulo bir tuval masaya açılır; "tuvallerin"de renklenir (Selvili Buğday Tarlası);
   //   "payın"da yandaki sarı yığın parlar
   const G8y = yigin(8, { x: 560, y: 420, dx: 160, dy: 100, tohum: 1600 });
@@ -218,7 +253,7 @@ export function planlar2(M, IMG, FIG, H) {
     durum: st => { const tt = cIdx(st, 'G08@tuvallerin'), tp = cIdx(st, 'G08@payın'); return { cekmece: false, isik: 'gece', tuval: t => sm(tt - .6, tt + .4, t), expo: t => 1 + .12 * Math.exp(-Math.pow((t - tp - .4) / .5, 2)),
       nesneler: t => { const u = io(clamp(t / 1.2)), ac = io(clamp((t - 1.0) / 1.0)); return [...G8y, { tur: 'zarf', renk: 'gri', yuz: 'arka', x: 1180, y: 520, w: 300, h: 180, rot: -.04, tohum: 1610, golge: true },
         ...(t < tt + .2 ? [{ tur: 'kagit', x: lerp(620, 960, u), y: lerp(330, 400, u), w: 60 + 380 * ac, h: 300, rot: -.3 + .3 * u, tohum: 1620, satir: 0, kalk: .3 * (1 - u), golge: true }] : [])]; } }; },
-    maske: (st, kam) => { const c = M.camK(kam, 0), tt = cIdx(st, 'G08@tuvallerin'), tp = cIdx(st, 'G08@payın'); mRect(c, 770, 260, 380, 280, sm(tt, tt + .8, st.lt), 3); for (const it of G8y) nesneMaske(c, it); } });
+    maske: (st, kam) => { const c = M.camK(kam, 0), tt = cIdx(st, 'G08@tuvallerin'), tp = cIdx(st, 'G08@payın'); mRect(c, ...tuvalK(IMG), sm(tt, tt + .8, st.lt), 3); for (const it of G8y) nesneMaske(c, it); } });
   // G09 · genis · TARLA (sabah, gri, figürsüz): "öldü"de ışık bulutun ardına çekilir; ardından rüzgâr (sessizlik)
   plan({ id: 'G09', at: 'G09', sahne: 'tarla', olcek: 'genis', not: 'Ölüm: olay gösterilmez',
     kamera: kamYol([960, 560, 1.02], [960, 560, 1.06], u => u),
@@ -231,17 +266,16 @@ export function planlar2(M, IMG, FIG, H) {
     maske: (st, kam) => { const c = M.camK(kam, .3); for (const it of G10z) nesneMaske(c, it); } });
   // G11 · ayrinti · ODA (kış): G10'un ilk kamera noktası; Theo yok, zarflar yok; lamba cümle bitince söner; kış ışığı masada kayar
   plan({ id: 'G11', at: 'G11', sahne: 'oda', olcek: 'ayrinti', not: 'Theo da öldü: boş masa, lamba söner',
-    kamera: kamYol([1150, 700, 1.25], [1160, 720, 1.5], u => u),
+    kamera: kamYol([ODA.LAMBA[0] - 40, ODA.LAMBA[1] + 60, 2.0], [ODA.LAMBA[0] - 20, ODA.LAMBA[1] + 50, 2.35], u => u),   // v3: lamba ayrıntı ölçeğinde (küçük karede sönüşü seçilmiyordu)
     durum: st => { const ts = Se('G11') - st.at + .3; return { tablo: 'oda_guller', isik: 'kis', alev: t => 1 - sm(ts, ts + 1.6, t) }; } });
 
   // ================= H: Çekmecedeki mektuplar =================
-  // H01 · yakin · ODA (kış ışığı, v2): merak sorusu bir kadını soruyor: Jo sırttan, koyu; çevresinde sandıklar ve duvara dayalı çerçeveler (yüzleri dışa, gri, çapraz kasnak yok)
+  // H01 · yakin · ODA (kış ışığı, v3): Jo ¾, kucağında bebek (gri battaniye, baş açıkta: kefen okunmasın); yanında sandıklar ve duvara dayalı tuvaller (arkaları, yalnız çevre çıtası)
   plan({ id: 'H01', at: 'H01', sahne: 'oda', olcek: 'yakin', not: 'Bir bebek, bir çekmece mektup, yüzlerce tablo: Jo',
     kamera: kamYol([760, 700, 1.55], [820, 690, 1.66], u => u),
-    durum: st => ({ tablo: 'oda_guller', isik: 'kis', ust: (t, S) => { sandik(S, 980, 1060, 220, 130, 11); sandik(S, 1180, 1080, 170, 110, 12);
-        for (let i = 0; i < 3; i++) { const x = 560 + i * 70, c = [.36 + .04 * i, .34 + .04 * i, .3]; S.push({ x, y: 960 - i * 6, ang: Math.PI / 2 + .12, len: 220 - i * 20, wid: 150 - i * 12, c, c2: c.map(v => v * .85), seed: 20 + i, type: KNIFE, alpha: 1, hgt: .6 });
-          S.push({ x, y: 960 - i * 6, ang: Math.PI / 2 + .12, len: 236 - i * 20, wid: 166 - i * 12, c: [.18, .14, .1], seed: 30 + i, type: KNIFE, alpha: .6, hgt: .7 }); } },
-      figur: (t, S) => figurBas(S, FIG.jo_dur, t, [860, 1080], 640, { gunes: [350, 300] }) }) });
+    durum: st => ({ tablo: 'oda_guller', isik: 'kis', ust: (t, S) => { sandik(S, 1010, 1060, 220, 130, 11); sandik(S, 1200, 1080, 170, 110, 12);
+        for (let i = 0; i < 4; i++) nesne(S, { tur: 'tuvalsirt', x: 470 + i * 46, y: 930 - i * 4, w: 150 - i * 8, h: 210 - i * 14, rot: .08 - i * .02, tohum: 20 + i }); },
+      figur: (t, S) => figurBas(S, FIG.jo_bebek, t, [840, 1080], 640, { gunes: [350, 300] }) }) });
   // H01t · genis · TREN (gündüz): "Jo, 1891'de … Hollanda'ya döner": sağdan sola
   plan({ id: 'H01t', at: 'H01@jo', sahne: 'tren', olcek: 'genis', not: 'Hollanda dönüşü',
     kamera: kamYol([960, 560, 1.06], [960, 560, 1.0], u => u),
@@ -250,10 +284,12 @@ export function planlar2(M, IMG, FIG, H) {
   plan({ id: 'H02', at: 'H02', sahne: 'salon', olcek: 'orta', not: '1892: ilk sergiler',
     kamera: kamYol([760, 500, 1.6], [740, 500, 1.66], u => u),
     durum: st => ({ duvar: 'seyrek', figur: (t, S) => figurBas(S, FIG.jo_dur, t, SE(-1.6, 0, -6.5), 520, { gunes: [960, -300] }) }) });
-  // H03 · ayrinti · MASA: hesap defteri, satırlar hızla akar (rakam dokusu)
-  plan({ id: 'H03', at: 'H03', sahne: 'masa', olcek: 'ayrinti', not: '34 yılda en az 192 resim: defter',
+  // H03 · ayrinti · MASA (v3): hesap defteri; "birer"den başlayarak sağ sayfanın satırları sırayla mürekkeple dolar; köşede sayaç 1'den 192'ye akar (boş defter 10 sn duruyordu)
+  plan({ id: 'H03', at: 'H03', sahne: 'masa', olcek: 'ayrinti', not: '34 yılda en az 192 resim: satır satır',
     kamera: kamYol([960, 440, 1.45], [960, 470, 1.55], u => u),
-    durum: st => ({ cekmece: false, nesneler: t => [{ tur: 'acikdefter', x: 960, y: 440, w: 900, h: 600, rot: -.02, tohum: 700 + Math.floor(t * 1.5), satirL: 13, satirR: 1 + Math.floor(clamp(t / st.d) * 12), yazi: 1 }] }) });
+    durum: st => { const tb = cIdx(st, 'H03@birer'); return { cekmece: false, nesneler: t => [{ tur: 'acikdefter', x: 960, y: 440, w: 900, h: 600, rot: -.02, tohum: 700, satirL: 13, satirR: 13, akis: clamp((t - tb) / (st.d - tb - .4)), yazi: 1 }] }; },
+    ust: (ctx, st) => { const tb = cIdx(st, 'H03@birer'), t9 = cIdx(st, 'H03@iki') + .2, n = Math.max(1, Math.round(1 + 191 * io(clamp((st.lt - tb) / (t9 - tb))))), a = sm(tb - .2, tb + .2, st.lt);
+      yazi(ctx, String(n), 1620, 210, 120, a); yazi(ctx, 'resim', 1620, 270, 48, a * sm(t9 - .3, t9 + .2, st.lt)); } });
   // H04 · yakin · MASA: çekmece: sarı zarflar içeride kalır, lamba ışığı aralıktan süzülür
   const H4 = yigin(36, { tohum: 800 });
   plan({ id: 'H04', at: 'H04', sahne: 'masa', olcek: 'yakin', not: 'Mektupları saklar',
@@ -262,19 +298,25 @@ export function planlar2(M, IMG, FIG, H) {
       golge: (t, S) => figurBas(S, FIG.jo_dur, t, [1640, 2900], 3000, { golge: (.36) * .55, adim: 2, temas: false }) }; },
     maske: (st, kam) => { const c = M.camK(kam, 0), ts = cIdx(st, 'H04@saklar'); for (const it of H4) nesneMaske(c, it); mSil(c, 0, 625, 1920, .92 * io(clamp((st.lt - ts) / 1.0)) * 575); } });
   // H05 · genis · SALON (1905, v2): G09'dan beri ilk geniş renk dönüşü: "en büyük"te yakın çerçevelerdeki tablolar yakından uzağa birer birer renge açılır; kamera yan duvar boyunca kayar
-  const H5L = cerceveListesi('dolu').filter(f => f.z > -17).slice(0, 10);
+  const H5L = cerceveListesi('dolu').filter(f => f.z > -17);   // v3: iki duvar (sağ duvar hiç renklenmiyordu); set_salon g1905 ile aynı liste
   const H5k = kamYol([1240, 560, 1.15], [880, 540, 1.3], u => u);
   plan({ id: 'H05', at: 'H05', sahne: 'salon', olcek: 'genis', not: '1905: en büyük sergi; renk geri gelir', kamera: H5k,
     durum: st => ({ duvar: 'dolu', g1905: true, expo: 1.06 }),
-    maske: (st, kam) => { const c = M.camK(kam, .72), tb = cIdx(st, 'H05@en'), k = MW / 1920;
-      H5L.slice().sort((a, b) => b.z - a.z).forEach((f, i) => { const a = sm(tb + i * .22, tb + i * .22 + .5, st.lt); if (a <= 0) return; const x = f.s * (SALON.GX - .04);
+    maske: (st, kam) => { const c = M.camK(kam, .72), tb = cIdx(st, 'H05@dört'), k = MW / 1920;   // v3: "484 eserlik"te başlar (cümle bittikten sonra başlıyordu)
+      H5L.slice().sort((a, b) => b.z - a.z).forEach((f, i) => { const a = sm(tb + i * .14, tb + i * .14 + .5, st.lt); if (a <= 0) return; const x = f.s * (SALON.GX - .04);
         const Q = [SE(x, f.y + f.yuk, f.z + f.gen / 2), SE(x, f.y + f.yuk, f.z - f.gen / 2), SE(x, f.y, f.z - f.gen / 2), SE(x, f.y, f.z + f.gen / 2)];
         mx.save(); mx.globalAlpha = a; mx.fillStyle = '#fff'; mx.filter = 'blur(1.5px)'; mx.beginPath(); Q.forEach(([X0, Y0], j) => { const [X, Y] = ekrana(c, X0, Y0); j ? mx.lineTo(X * k, Y * k) : mx.moveTo(X * k, Y * k); }); mx.closePath(); mx.fill(); mx.restore(); }); } });
-  // H06 · yakin · MASA: üç cilt üst üste; ilk cildin içinden sarı bir zarf görünür
-  plan({ id: 'H06', at: 'H06', sahne: 'masa', olcek: 'yakin', not: '1914: üç cilt',
-    kamera: kamYol([960, 440, 1.25], [960, 450, 1.32], u => u),
-    durum: st => ({ cekmece: false, nesneler: t => [0, 1, 2].map(i => (i === 2 && t > cIdx(st, 'H06@girişini') ? { tur: 'acikdefter', x: 790, y: 426, w: 780, h: 300, rot: -.01, tohum: 905, satirL: 10, satirR: 6 } : duser({ tur: 'cilt', sirt: true, x: 760 + i * 12, y: 470 - i * 22, w: 420, h: 300, rot: -.05 + i * .04, tohum: 900 + i, golge: true }, t, .2 + i * .5, .5))).filter(Boolean).concat(t > 3 ? [{ tur: 'zarf', renk: 'sari', yuz: 'on', x: 1250, y: 460, w: 300, h: 180, rot: .12, tohum: 910, a: sm(3, 3.6, t), golge: true }] : []) }),
-    maske: (st, kam) => { if (st.lt > 3) nesneMaske(M.camK(kam, 0), { x: 1250, y: 460, w: 300, h: 180, rot: .12, a: sm(3, 3.6, st.lt) }); } });
+  // H06 · yakin · MASA (v3): sağda sarı zarf yığını; "kayboldu"da yarısı birer birer solar; "üç"te üç kitap (sırtı ve sayfa kenarı görünür) tek tek masaya konur; "girişini"de üstteki açılır.
+  //   (tek çizgili koyu levha kara tahta okunuyordu; 7 sn donuktu)
+  const H6z = yigin(24, { x: 1380, y: 470, dx: 320, dy: 200, tohum: 920 });
+  const H6k = i => ({ tur: 'kitap', x: 700 + i * 14, y: 470 - i * 30, w: 380, h: 280, rot: -.06 + i * .05, tohum: 900 + i, golge: true, renkK: [[.42, .3, .22], [.36, .27, .21], [.46, .34, .24]][i] });
+  const h6a = (st, t, i) => { const tk = cIdx(st, 'H06@kayboldu'); return i % 2 ? 1 - sm(tk - .3 + i * .05, tk + .3 + i * .05, t) : 1; };
+  plan({ id: 'H06', at: 'H06', sahne: 'masa', olcek: 'yakin', not: 'Kaybolan mektuplar; 1914: üç cilt',
+    kamera: kamYol([1000, 450, 1.2], [960, 450, 1.3], u => u),
+    durum: st => { const tu = cIdx(st, 'H06@üç'), tg = cIdx(st, 'H06@girişini'); return { cekmece: false, nesneler: t => [
+      ...H6z.map((it, i) => ({ ...it, a: h6a(st, t, i) })),
+      ...[0, 1, 2].map(i => (i === 2 && t > tg ? { tur: 'acikdefter', x: 740, y: 410, w: 700, h: 280, rot: .02, tohum: 905, satirL: 10, satirR: 6, akis: clamp((t - tg) / 1.2) } : duser(H6k(i), t, tu - .3 + i * .45, .5))).filter(Boolean)] }; },
+    maske: (st, kam) => { const c = M.camK(kam, 0); H6z.forEach((it, i) => nesneMaske(c, it, h6a(st, st.lt, i))); } });
   // H07 · genis · TARLA: buğday tarlaları, alçak taş duvar, sarmaşık (mezar taşı, haç, kilise yok)
   plan({ id: 'H07', at: 'H07', sahne: 'tarla', olcek: 'genis', not: 'Auvers: buğday tarlaları arasında',
     kamera: kamYol([960, 560, 1.02], [960, 570, 1.08], u => u), durum: st => ({ agac: false, duvar: true }) });
@@ -282,16 +324,19 @@ export function planlar2(M, IMG, FIG, H) {
   plan({ id: 'H08', at: 'H08', sahne: 'tarla', olcek: 'orta', not: 'Birlikte yatıyorlar',
     kamera: kamYol([900, 700, 1.4], [920, 700, 1.46], u => u),
     durum: st => ({ agac: false, duvar: true, figur: (t, S) => figurBas(S, FIG.jo_dur, t, [860, 990], 430, { gunes: [1500, 500], hava: [.35, .33, .33], havaK: .2 }) }) });
-  // H09 · ayrinti · MASA (lamba): çeviri sayfaları yığını üçte iki yükseklikte; kalem sayfanın ortasında durur
-  plan({ id: 'H09', at: 'H09', sahne: 'masa', olcek: 'ayrinti', not: 'Çeviri üçte ikide kalır',
-    kamera: kamYol([960, 430, 1.4], [960, 440, 1.48], u => u),
-    durum: st => ({ cekmece: false, nesneler: t => [...Array.from({ length: Math.max(1, Math.min(8, 1 + Math.floor(t / 1.1))) }, (_, i) => ({ tur: 'kagit', x: 820 + (hsh(i) - .5) * 10, y: 450 - i * 4, w: 440, h: 600, rot: (hsh(i, 2) - .5) * .06, tohum: 1000 + i, satir: 16, olc: .9 })),
-      { tur: 'kalem', x: 900, y: 520, w: 240, h: 10, rot: -.4, tohum: 1010 }, ...yigin(8, { x: 1380, y: 430, dx: 120, dy: 80, tohum: 1020 })] }),
-    maske: (st, kam) => { const c = M.camK(kam, 0); for (const it of yigin(8, { x: 1380, y: 430, dx: 120, dy: 80, tohum: 1020 })) nesneMaske(c, it); } });
+  // H09 · ayrinti · MASA (lamba, v3): solda üç cilt, ortada çevrilmiş sayfa yığını büyür, kalem yazar; "üçte ikisi"nde iki cilde ayraç (çevrilen) girer; "öldüğünde" kalem bırakılır
+  //   (G07'deki taslakla aynı kare oluyordu)
+  const H9k = i => ({ tur: 'kitap', x: 520 + i * 10, y: 520 - i * 24, w: 300, h: 220, rot: -.05 + i * .04, tohum: 1030 + i, golge: true, renkK: [[.42, .3, .22], [.36, .27, .21], [.46, .34, .24]][i] });
+  plan({ id: 'H09', at: 'H09', sahne: 'masa', olcek: 'ayrinti', not: 'Çeviri: üç ciltten ikisi',
+    kamera: kamYol([980, 440, 1.32], [980, 450, 1.4], u => u),
+    durum: st => { const tu = cIdx(st, 'H09@üçte'), to = cIdx(st, 'H09@öldüğünde'); return { cekmece: false, nesneler: t => { const n = Math.max(1, Math.min(9, 1 + Math.floor(Math.min(t, to) / .55)));
+      return [...[0, 1, 2].map(i => ({ ...H9k(i), serit: i < 2 ? sm(tu + i * .3, tu + i * .3 + .4, t) : 0 })),
+        ...Array.from({ length: n }, (_, i) => ({ tur: 'kagit', x: 1040 + (hsh(i) - .5) * 12, y: 450 - i * 4, w: 400, h: 540, rot: (hsh(i, 2) - .5) * .06, tohum: 1000 + i, satir: 15, olc: .85, akis: i === n - 1 && t < to ? clamp((t % .55) / .55) : 1 })),
+        t < to ? { tur: 'kalem', x: 960 + 280 * clamp((t % .55) / .55), y: 300 + 300 * ((Math.floor(t / .55) % 3) / 3), w: 240, h: 10, rot: -.5, tohum: 1010, kalk: .3 } : (duser({ tur: 'kalem', x: 1330, y: 640, w: 240, h: 10, rot: -.5, tohum: 1010 }, t, to, .5) || { tur: 'kalem', x: 1330, y: 640, w: 240, h: 10, rot: -.5, tohum: 1010 })]; } }; } });
   // H10a · genis · SALON (bugün, v2): figürsüz; sol duvarda büyük Badem Çiçeği (perspektifle, renkli: karenin tek renkli ve en parlak yeri); kamera tabloya döner
   plan({ id: 'H10', at: 'H10', sahne: 'salon', olcek: 'genis', not: 'Bugünkü müze: Badem Çiçeği yan duvarda',
     kamera: kamYol([960, 540, 1.0], [560, 380, 1.55]),
-    durum: st => ({ duvar: 'seyrek', bademDuvar: true, expo: .98, ust: (t, S) => { const [a, b] = SE(-1.25, 4.3, -45.9), [c, d] = SE(1.25, 0, -45.9); S.push({ x: (a + c) / 2, y: (b + d) / 2, ang: Math.PI / 2, len: d - b, wid: c - a, c: [.3, .28, .25], c2: [.28, .26, .24], seed: 4, type: KNIFE, alpha: .85, hgt: .2 }); } }),   // kapı ışığı koyulaşır: tek parlak yer tablo
+    durum: st => ({ duvar: 'seyrek', bademDuvar: true, expo: .98 }),   // v3: kapı H05'teki gibi temiz (koyulaştırma yırtık kenar bırakıyordu)
     maske: (st, kam) => { const c = M.camK(kam, .72), Q = [SE(-4.46, 4.8, -9.6), SE(-4.46, 4.8, -14.2), SE(-4.46, 1.2, -14.2), SE(-4.46, 1.2, -9.6)], k = MW / 1920;
       mx.save(); mx.fillStyle = '#fff'; mx.filter = 'blur(1.5px)'; mx.beginPath(); Q.forEach(([x, y], i) => { const [X, Y] = ekrana(c, x, y); i ? mx.lineTo(X * k, Y * k) : mx.moveTo(X * k, Y * k); }); mx.closePath(); mx.fill(); mx.restore(); } });
   // H10b · orta · MASA (bugün, soğuk ışık): arşiv çekmecesinde sarı zarflı mektuplar; masada açık sergi kataloğunda Badem Çiçeği: iki motif aynı karede.
@@ -303,18 +348,24 @@ export function planlar2(M, IMG, FIG, H) {
     maske: (st, kam) => { const c = M.camK(kam, 0), tb = cIdx(st, 'H10@badem#1'), a = sm(tb - .2, tb + .8, st.lt); for (const it of H10z) nesneMaske(c, it, .25 + .75 * a); mRect(c, 1470, 150, 310, 245, .3 + .7 * a, 2); } });
 
   // ================= I: Cevap =================
-  // I01 · yakin · MASA (v2, B04 eşlemesi tek döngü): "her ay bir zarf"ta banknot zarfa girer, zarf kapanır; "sergilere giden tablolar"da bir çerçeve kayarak çıkar;
-  //   "gece treni"nde iki bilet düşer
+  // I01 · yakin · MASA (v3, B04 eşlemesi): "her ay bir zarf"ta banknot zarfa girer, zarf kapanır. Sonra sözcüğe bağlı iki kesme: I01b tablolar, I01c gece treni
   const I1y = yigin(8, { x: 560, y: 420, dx: 160, dy: 100, tohum: 1100 });
-  plan({ id: 'I01', at: 'I01', sahne: 'masa', olcek: 'yakin', not: 'Önce Theo: zarf, tablolar, gece treni',
+  plan({ id: 'I01', at: 'I01', sahne: 'masa', olcek: 'yakin', not: 'Önce Theo: her ay bir zarf',
     kamera: kamYol([960, 400, 1.3], [960, 410, 1.38], u => u),
-    durum: st => { const tz = cIdx(st, 'I01@her'), ts = cIdx(st, 'I01@sergilere'), tg = cIdx(st, 'I01@gece'); return { cekmece: false, isik: 'gece', nesneler: t => {
-      const u = io(clamp((t - tz) / 1.0)), kap = io(clamp((t - tz - 1.1) / .5)), cu = io(clamp((t - ts) / 1.4));
+    durum: st => { const tz = cIdx(st, 'I01@her'); return { cekmece: false, isik: 'gece', nesneler: t => {
+      const u = io(clamp((t - tz) / 1.0)), kap = io(clamp((t - tz - 1.1) / .5));
       return [...I1y, { tur: 'zarf', renk: 'gri', yuz: kap > .5 ? 'on' : 'arka', x: 1000, y: 430, w: 360, h: 220, rot: -.04, tohum: 1110, golge: true },
-        ...(u < 1 ? [{ tur: 'banknot', x: lerp(620, 1000, u), y: lerp(330, 430, u), w: 280 * (1 - .3 * u), h: 140 * (1 - .3 * u), rot: -.3 + .26 * u, tohum: 1115, a: 1 - sm(.85, 1, u), kalk: .3 * (1 - u) }] : []),
-        ...(t > ts - .2 && cu < 1 ? [{ tur: 'cilt', x: 1450 + 700 * cu, y: 720, w: 300, h: 220, rot: .05, tohum: 1116, golge: true, kalk: .2 }] : []),
-        ...[0, 1].map(i => duser({ tur: 'bilet', x: 1380 + i * 60, y: 560 + i * 30, w: 160, h: 86, rot: .2 - i * .3, tohum: 1120 + i }, t, tg + i * .3, .5)).filter(Boolean)]; } }; },
+        ...(u < 1 ? [{ tur: 'banknot', x: lerp(620, 1000, u), y: lerp(330, 430, u), w: 280 * (1 - .3 * u), h: 140 * (1 - .3 * u), rot: -.3 + .26 * u, tohum: 1115, a: 1 - sm(.85, 1, u), kalk: .3 * (1 - u) }] : [])]; } }; },
     maske: (st, kam) => { const c = M.camK(kam, 0); for (const it of I1y) nesneMaske(c, it); } });
+  // I01b · orta · SALON: "sergilere giden tablolar": E04'ün İrisler'i bölme duvarda (renkli)
+  plan({ id: 'I01b', at: 'I01@sergilere', sahne: 'salon', olcek: 'orta', not: 'Sergilere giden tablolar: İrisler',
+    kamera: kamYol([IR[0] + IR[2] / 2, IR[1] + IR[3] / 2, 1.3], [IR[0] + IR[2] / 2, IR[1] + IR[3] / 2, 1.42], u => u),
+    durum: st => ({ duvar: 'seyrek', iris: true }),
+    maske: (st, kam) => mRect(M.camK(kam, .72), IR[0] + 6, IR[1] + 6, IR[2] - 12, IR[3] - 12, 1, 2) });
+  // I01c · genis · TREN (gece): "nişanlandığı hafta bir gece treni" (D03'ün gidişi)
+  plan({ id: 'I01c', at: 'I01@nişanlandığı', sahne: 'tren', olcek: 'genis', not: 'Gece treni',
+    kamera: kamYol([960, 560, 1.04], [960, 560, 1.08], u => u),
+    durum: st => ({ gun: () => 0, tren: t => [[-300 + 700 * t, 1]] }) });
   // I02 · orta · MASA (v2, gün ışığı; A03'ün karşılığı): Jo'nun gölgesi çekmecenin üstünde; "saklayan"da çekmece açık, sarı zarflar; "taşıyan"da bir zarf kalkar
   //   ve kameraya, bize doğru büyür; "kurye"de kadrajı doldurur (I03'e geçiş)
   const I2y = yigin(30, { tohum: 1700 });
@@ -322,7 +373,7 @@ export function planlar2(M, IMG, FIG, H) {
     kamera: kamYol([960, 700, 1.05], [960, 720, 1.12], u => u),
     durum: st => { const tt = cIdx(st, 'I02@taşıyan') - .3; return { isik: 'gun', nesneler: t => { const u = clamp((t - tt) / (st.d - tt - .1)), k = io(u);
         return [...I2y, ...(u > 0 ? [{ tur: 'zarf', renk: 'sari', yuz: 'on', x: lerp(1000, 960, k), y: lerp(820, 560, k), w: 240 * (1 + 7 * k * k), h: 146 * (1 + 7 * k * k), rot: .1 * (1 - k), kalk: .8 * k, tohum: 1720 }] : [])]; },
-      golge: (t, S) => figurBas(S, FIG.jo_dur, t, [1640, 2900], 3000, { golge: (.3) * .55, adim: 2, temas: false }) }; },
+      golge: (t, S) => figurBas(S, FIG.jo_dur, t, [1960, 2900], 3000, { golge: (.3) * .55, adim: 2, temas: false }) }; },   // v3: gölge zarfların üstüne düşmez (sarıda yanık lekesi okunuyordu)
     maske: (st, kam) => { const c = M.camK(kam, 0), tt = cIdx(st, 'I02@taşıyan') - .3, u = clamp((st.lt - tt) / (st.d - tt - .1)), k = io(u);
       for (const it of I2y) nesneMaske(c, it); if (u > 0) nesneMaske(c, { x: lerp(1000, 960, k), y: lerp(820, 560, k), w: 240 * (1 + 7 * k * k), h: 146 * (1 + 7 * k * k), rot: .1 * (1 - k) }); } });
   // I03 · yakin · MASA (bugün): tek sarı zarf izleyiciye dönük açılır; içi boş beyaz kâğıt (≤ 2 sn), sonra kalem kayar

@@ -75,10 +75,13 @@ export function salonKur(M, IMG = {}) {
           tabloCiz(IMG.irisler, x0, y0, x1 - x0, y1 - y0, { maxR: 5, grup: 'iristablo' })(R); }, R: [10, 5, 2.6, 1.5], T: 8, olcek: .75, alfa: (t, du) => (du && du.iris ? 1 : 0) }; })()] : []),
       ...(IMG.badem ? [{ ad: 'bademDuvar', d: .72, ciz: tabloDuvar(IMG.badem, -1, -9.6, -14.2, 1.2, 4.8), R: [12, 6, 3, 1.6], T: 8, olcek: .75, alfa: (t, du) => (du && du.bademDuvar ? 1 : 0) }] : []),
       // H05 (1905 sergisi): yakın çerçevelerin yüzüne gerçek tablolar (Saint-Rémy, Auvers, Arles; adlandırılmaz, 1905 listesi iddia edilmez); renk örtüyle açılır
-      ...(() => { const ks = ['selviler', 'remy1', 'auvers1', 'irisler', 'remy2', 'sari_ev', 'remy3', 'firtina', 'remy5', 'yildizli'].filter(k => IMG[k]); if (!ks.length) return [];
-        const L = cerceveListesi('dolu').filter(f => f.z > -17).slice(0, 10);
+      ...(() => { const ks = ['selviler', 'remy1', 'auvers1', 'irisler', 'remy2', 'sari_ev', 'remy3', 'firtina', 'remy5', 'yildizli', 'remy4', 'auvers2', 'selvili_tarla', 'remy6', 'auvers3', 'sairin_bahcesi', 'aycicek', 'yatak'].filter(k => IMG[k]); if (!ks.length) return [];
+        const L = cerceveListesi('dolu').filter(f => f.z > -17);   // v3: iki duvar
         return [{ ad: 'g1905', d: .72, ciz: R => L.forEach((f, i) => { const kc = .08; tabloDuvar(IMG[ks[i % ks.length]], f.s, f.z + f.gen / 2 - kc, f.z - f.gen / 2 + kc, f.y + kc, f.y + f.yuk - kc, { maxR: 3, cercevesiz: true, grup: i })(R); }),
           R: [8, 4, 2, 1.3], T: 8, olcek: .75, alfa: (t, du) => (du && du.g1905 ? 1 : 0) }]; })(),
+      // v3: tek başına bölme duvar (C03, F08, I01b: duvara asılan tuvaller canlı katmanda, cephe düz)
+      { ad: 'bolme', d: .72, ciz: R => { const [bx0, by0] = ekr(-2.9, 3.5, -8.05), [bx1, by1] = ekr(2.9, 0, -8.05); R.fill(P([[bx0, by0], [bx1, by0], [bx1, by1], [bx0, by1]]), '#8a8478', { dir: 90, maxR: 8, type: 1, group: 'bolme2', jit: .05 });
+          R.line(c => { c.moveTo(bx0, by0); c.lineTo(bx1, by0); }, '#3a342c', 8, { dir: 0, maxR: 2, type: 1, group: 'bolmeust', jit: .03 }); }, R: [12, 6, 3, 1.6], T: 9, alfa: (t, du) => (du && du.bolme ? 1 : 0) },
       { ad: 'nesne', d: .72, canli: (t, S, c, x, du) => { if (du && du.nesneler) for (const it of du.nesneler(t)) nesne(S, it); }, kap: 2000, wet: .15, run: 0 },
       { ad: 'figur', d: .72, canli: (t, S, c, x, du) => { if (du && du.figur) du.figur(t, S); }, kap: 16000, wet: .2, run: 0 },
       { ad: 'ust', d: .72, canli: (t, S, c, x, du) => { if (du && du.ust) du.ust(t, S); }, kap: 4000, wet: .2, run: 0 },
