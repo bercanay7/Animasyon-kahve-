@@ -90,7 +90,7 @@ Bu dosya her oturuma kendiliğinden yüklenir. Bu yüzden içinde yalnız **bug�
 5. **Kaynak denetimi seslendirmeden önce** (`kaynak/DOGRULAMA.md`): her tarih, sayı ve alıntı kaynağıyla.
    - Kamu malı özgün metin satır numarasıyla depoya alınır.
    - İç dünya uydurulmaz: kişinin kendi mektup, hatırat ve sözlerine dayanır.
-   - Telifli kaynaktan yalnız fikir alınır; kısa alıntı künyeyle verilir. Künye açıklamaya yazılır.
+   - Telifli kaynaktan fikir alınır; kısa alıntı künyeyle verilir (ölçü: "Hassasiyet ve hukuk" → Telif ölçüsü). Künye açıklamaya yazılır.
    - Kullanıcının hatırladığı sahne de kaynakla sınanır.
 6. **Seslendirme:** her bölüm iki çekim; iyi olan seçilir.
    - Whisper varsa `tools/transcribe.py` + `tools/build_vo.py` (`milton/tools`).
@@ -166,6 +166,10 @@ Kanıt sayıları `analiz/2026-11-22-genel-karsilastirma.md` dosyasında. Yeni v
 
 ## Hassasiyet ve hukuk (estetik oyla geçilmez)
 - **Yanlış bilgi, telif ve 5816 bulguları düzeltilmeden iş bitmez.** Hassasiyet taraması sona bırakılmaz; üslup karesinde başlar ve görüntüye de bakar.
+- **Telif ölçüsü (kullanıcının kararı, 27 Kasım):** hak talebi (Content ID: gelir hak sahibine gider) göze alınır; **telif ihtarı (kaldırma) riski alınmaz**, çünkü 90 günde 3 ihtar kanalı kapatır.
+  - Serbest: künyeli kısa alıntı (FSEK m. 35), örneğin modern bir çeviriden birkaç dize. Eleştiri ve yorum için birkaç saniyelik film karesi ya da kesiti, modern bir eserin görseli; künyeyle, yorumun malzemesi olarak, tek başına içerik olarak değil.
+  - Yok: uzun film klibi, eserin bütünü ya da ana kısmı, telifli müzik (filmin müziği dahil), oyuncuya benzeyen gerçekçi çizim, telifli karakter tasarımı kopyası.
+  - Esnemez: 5816 ve bayrak kuralları, doğru bilgi, simge taraması.
 - **Görüntüde yakalananlar** (Milton → Dorian). Taramada bunlara bakılır, tam boy karede:
   - sıra hâlinde eğilen figürler (namaz safı); baştan ayağa siyah örtülü kadın;
   - dört kollu yıldız (haç); göğsünde alev tutan önden simetrik figür (Kutsal Kalp);
@@ -183,12 +187,12 @@ Kanıt sayıları `analiz/2026-11-22-genel-karsilastirma.md` dosyasında. Yeni v
 - **Dinî karşılaştırma yapılmaz;** eser kendi edebî bağlamında okunur (Milton kararı). Tanrı figürle çizilmez, ışıkla gösterilir.
 - **Kapak yazısı da taranır.** Türkçe kelime tuzaklarına dikkat: "dönme" argo okunur, "ŞEYTAN AĞLADI" vaaz gibi okunur.
 - **Atatürk:** 5816 ve saygı kuralları; ona söz ya da düşünce uydurulmaz. **Türk bayrağı** 2893'e göre çizilir: `cumhuriyet/lib/act6.js` → `a6_flagImg`.
-- **Film videoları:** film görüntüsü yok, oyuncuya benzeyen gerçekçi çizim yok, telifli karakter tasarımı kopyası yok, filmden diyalog yok. Fikir kendi animasyonumuzla anlatılır.
-- **Gerçek görseller** yalnız CC0 ya da kamu malı.
+- **Film videoları:** fikir kendi animasyonumuzla anlatılır. Film görüntüsü yalnız yorumlanan sahnenin birkaç saniyelik alıntısı olarak, künyeyle; filmin sesi ve müziği yok. Oyuncuya benzeyen gerçekçi çizim ve telifli karakter tasarımı kopyası yok.
+- **Gerçek görseller** öncelikle CC0 ya da kamu malı. Telifli görsel yalnız yukarıdaki eleştiri amaçlı alıntı ölçüsünde ve künyeyle.
   - Kayıt yerleri: `araclar/ASSETS.md`, proje kaynak kaydı ve açıklamadaki künye.
   - Dışarıdan eklenen her varlıkta `lisans-kontrol` becerisi kullanılır.
   - Kaynaklar: Met Open Access API (`isPublicDomain`). Commons'ta oran sınırı var.
-- **Türkçe çeviriler çoğunlukla telifli:** dizeler kamu malı özgün metinden ya da kamu malı çeviriden kendi Türkçemizle verilir.
+- **Türkçe çeviriler çoğunlukla telifli:** uzun pasajlar kamu malı özgün metinden ya da kamu malı çeviriden kendi Türkçemizle verilir; birkaç dizelik alıntı modern çeviriden künyeyle verilebilir.
 
 ## Kapak kuralları
 Ayrıntı ve kompozisyon menüsü: `kanal/KAPAK_DERSLERI.md`.
