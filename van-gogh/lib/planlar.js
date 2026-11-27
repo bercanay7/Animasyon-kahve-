@@ -20,6 +20,7 @@ const GORSEL = {
   yatak: AD + 'yatak_odasi_1889_aic28560.jpg', oda_yatak: AD + 'yatak_odasi_1889_aic28560.jpg',
   auvers1: AD + 'yesil_bugday_tarlalari_1890_auvers_nga163323.jpg', auvers2: AD + 'beyazli_kiz_1890_auvers_nga46505.jpg', auvers3: AD + 'adeline_ravoux_1890_auvers_cma1958.31.jpg',
   remy1: AD + 'zeytin_agaclari_1889_saintremy_met437998.jpg', remy2: AD + 'zeytinlik_1889_saintremy_nga46627.jpg', remy3: AD + 'cinarlar_yol_iscileri_1889_saintremy_cma1947.209.jpg',
+  sairin_bahcesi: AD + 'sairin_bahcesi_1888_arles_aic14586.jpg',
   remy4: AD + 'alpiller_iki_kavak_1889_saintremy_cma1958.32.jpg', remy5: AD + 'vazoda_irisler_1890_saintremy_met436528.jpg', remy6: AD + 'guller_1890_saintremy_met436534.jpg',
 };
 export async function gorselYukle() {
@@ -55,7 +56,9 @@ export function setleriKur(M, IMG, FIG) { masaKur(M); odaKur(M, IMG); salonKur(M
     katmanlar: MZ.map((k, i) => { const cx = 330 + (i % 3) * 630, cy = 200 + Math.floor(i / 3) * 340, im = IMG[k], ar = im.width / im.height, h = 300, w = Math.min(560, h * ar), hh = w / ar;
       return { ad: k, d: .72, ciz: tabloCiz(im, cx - w / 2, cy - hh / 2, w, hh, { maxR: 5 }), R: [10, 5, 2.6, 1.5], T: 8, olcek: .75 }; }),
     bitir: () => ({ light: [-.5, -.6, .7], norm: 2, expo: 1.04, contrast: 1.05, vig: .3, spec: .12, shin: 26, weave: .05 }) });
-  for (const k of ['sari_ev', 'yatak', 'selviler', 'selvili_tarla', 'yildizli', 'badem', 'irisler', 'firtina']) tabloSahnesi(M, 'tb_' + k, IMG[k] || IMG.selvili_tarla, { dunya: true });
+  // Commons (VGM) gelmezse CC0 yedek: Sarı Ev → Şairin Bahçesi (AIC; Arles 1888, sarı evin karşısındaki park); Fırtınalı gök → Yeşil Buğday Tarlaları, Auvers (NGA)
+  const YEDEK = { sari_ev: 'sairin_bahcesi', firtina: 'auvers1' };
+  for (const k of ['sari_ev', 'yatak', 'selviler', 'selvili_tarla', 'yildizli', 'badem', 'irisler', 'firtina']) tabloSahnesi(M, 'tb_' + k, IMG[k] || IMG[YEDEK[k]] || IMG.selvili_tarla, { dunya: true });
 }
 
 // ---------- yardımcılar ----------
