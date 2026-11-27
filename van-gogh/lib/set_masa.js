@@ -18,6 +18,14 @@ function yuzey(R) {
   R.fill(P([[-80, 590], [W + 80, 590], [W + 80, 625], [-80, 625]]), '#24190f', { dir: 0, maxR: 4, type: 1, len: 3, wid: .5, hgt: .7, group: 'kenar', jit: .05 });
   R.fill(P([[-80, 625], [W + 80, 625], [W + 80, H + 80], [-80, H + 80]]), '#120d0a', { dir: 90, maxR: 8, type: 1, group: 'karanlik', jit: .05 });
 }
+// çekmecesiz planlar: masa yüzü bütün kareyi kaplar
+function yuzeyTam(R) {
+  const [lx, ly] = ISIK;
+  R.fill(P([[-80, -80], [W + 80, -80], [W + 80, H + 80], [-80, H + 80]]), rad([[0, '#9a8064'], [.35, '#6e5640'], [.75, '#3a2c22'], [1, '#1e1612']], lx, ly + 200, 1600),
+    { dir: 0, maxR: 16, type: 1, len: 3.2, wid: .45, hgt: .45, group: 'masa', jit: .07, aj: .06 });
+  for (let i = 0; i < 24; i++) { const y = -30 + i * 48 + 30 * hsh(i, 9), a = 6 + 10 * hsh(i, 2), x0 = -80 + 900 * hsh(i, 5), x1 = x0 + 500 + 1200 * hsh(i, 6);
+    R.line(c => { c.moveTo(x0, y); for (let x = x0; x <= x1; x += 40) c.lineTo(x, y + a * Math.sin(x * .003 + i * 1.7) + 4 * Math.sin(x * .011 + i)); }, `rgba(24,16,11,${.12 + .14 * hsh(i, 3)})`, 1.5 + 3 * hsh(i, 4), { dir: 0, maxR: 3, type: 1, len: 3, wid: .5, group: 'damar' + (i % 4), jit: .06 }); }
+}
 function cekmece(R) {
   const { x0, x1, y0, y1 } = CEKMECE, [lx] = ISIK;
   // yan duvarlar ve arka duvar (içe doğru koyulaşan)
@@ -34,7 +42,8 @@ export function masaKur(M) {
     zemin: [.06, .05, .04],
     kamera: () => ({ x: W / 2, y: H / 2, z: 1 }),
     katmanlar: [
-      { ad: 'yuzey', d: 0, ciz: yuzey, R: [26, 13, 6.5, 3.2, 1.7], T: 10 },
+      { ad: 'yuzey', d: 0, ciz: yuzey, R: [26, 13, 6.5, 3.2, 1.7], T: 10, alfa: (t, du) => (du && du.cekmece === false ? 0 : 1) },
+      { ad: 'yuzeyTam', d: 0, ciz: yuzeyTam, R: [26, 13, 6.5, 3.2, 1.7], T: 10, alfa: (t, du) => (du && du.cekmece === false ? 1 : 0) },
       { ad: 'cekmece', d: 0, ciz: cekmece, R: [20, 10, 5, 2.6, 1.5], T: 10, alfa: (t, du) => (du && du.cekmece === false ? 0 : 1) },
       { ad: 'nesne', d: 0, canli: (t, S, cam, c, du) => { if (du && du.nesneler) for (const it of du.nesneler(t)) nesne(S, it); if (du && du.ust) du.ust(t, S); }, kap: 6000, wet: .15, run: 0 },
     ],

@@ -78,10 +78,13 @@ export function tabloCiz(img, x, y, w, h, o = {}) {
     c.save(); c.beginPath(); P(c); c.clip(); c.drawImage(img, sx, sy, sw, sh, x, y, w, h); c.restore();
   };
 }
-// tam kare tablo sahnesi (renk doruğu ve tablo planları): tablo kadrajı doldurur, kenarı biraz taşar (kamera yaklaşınca kenar görünmesin)
+// tam kare tablo sahnesi (renk doruğu ve tablo planları): tablo kadrajı doldurur, kenarı biraz taşar (kamera yaklaşınca kenar görünmesin).
+// o.dunya: Vincent'in tablosu gri dünya olarak (grisaille; renk örtüyle açılır), üstünde canlı katmanlar (figür, nesne, üst).
 export function tabloSahnesi(M, ad, img, o = {}) {
-  const pay = o.pay ?? 60;
+  const pay = o.pay ?? 60, d = o.d ?? .72;
+  const canli = (k, kap = 12000) => ({ ad: k, d, canli: (t, S, c, x, du) => { if (du && du[k]) du[k](t, S); }, kap, wet: .2, run: 0 });
   M.tanimla(ad, { zemin: o.zemin || [.08, .07, .06], kamera: () => ({ x: W / 2, y: H / 2, z: 1 }),
-    katmanlar: [{ ad: 'tablo', d: 0, ciz: tabloCiz(img, -pay, -pay, W + 2 * pay, H + 2 * pay, o), R: o.R || [22, 11, 5.5, 2.8, 1.5], T: o.T ?? 9, olcek: o.olcek ?? .5 }, ...(o.ek || [])],
-    bitir: o.bitir || (() => ({ light: [-.5, -.6, .7], norm: 2.2, expo: 1.03, sat: 1.05, contrast: 1.04, vig: .25, spec: .12, shin: 26, weave: .05 })) });
+    katmanlar: [{ ad: 'tablo', d, ciz: tabloCiz(img, -pay, -pay, W + 2 * pay, H + 2 * pay, o), R: o.R || [22, 11, 5.5, 2.8, 1.5], T: o.T ?? 9, olcek: o.olcek ?? .5 }, ...(o.ek || []), canli('nesne', 4000), canli('figur', 16000), canli('ust', 4000)],
+    bitir: o.bitir || ((t, du) => ({ light: [-.5, -.6, .7], norm: 2.2, expo: du && du.expo ? du.expo(t) : 1.03, sat: 1.05, contrast: 1.04, vig: .25, spec: .12, shin: 26, weave: .05,
+      mono: o.dunya ? 1 : 0, monoK: [.05, .045, .045], monoA: [.96, .94, .9] })) });
 }

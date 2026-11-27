@@ -4,6 +4,10 @@ import { figurDarbe, blenderKaynak, blenderKareleri } from '../../araclar/tablo/
 import { nesneMaske, RENK } from './nesne.js';
 import { masaKur, CEKMECE } from './set_masa.js';
 import { odaKur, ODA, TK } from './set_oda.js';
+import { salonKur, SALON } from './set_salon.js';
+import { tarlaKur, trenKur } from './set_disari.js';
+import { planlar2 } from './planlar2.js';
+import { tabloSahnesi } from './film_t.js';
 import { BRUSH, DAB, KNIFE } from '../../araclar/tablo/impasto.js';
 
 // ---------- görseller (CC0 / kamu malı; araclar/ASSETS.md) ----------
@@ -18,10 +22,28 @@ export async function gorselYukle() {
 }
 // ---------- figür klipleri (Blender, 15 kare/sn; blender/klip.js) ----------
 const KLIP = { theo_oda: ['blender/kare_oda', 121] };
+for (const k of ['theo_dur', 'jo_dur', 'vincent_dur', 'theo_dis_dur', 'theo_oku', 'theo_yuru', 'jo_yuru', 'gauguin_yuru', 'vincent_yuru', 'theo_louvre', 'vincent_louvre']) KLIP[k] = ['blender/klip_' + k + '/kare', 121];
 export async function figurYukle() { const o = {}; for (const [k, [d, n]] of Object.entries(KLIP)) o[k] = await blenderKareleri(d, n); return o; }
+// döngülü kare (duruş klipleri 8 sn'de döner); yürüyüş klipleri son karede durur
+const kareD = (BK, t, dongu = true) => { const n = BK.length, i = Math.round(ikiser(Math.max(0, t)) * 15); return BK[dongu ? i % (n - 1) : Math.min(n - 1, i)]; };
+// figür yerleştirme: klibin ilk karesindeki boy ölçü; ayak ekranda [x, y], boy piksel
+function figurBas(S, BK, t, ayak, boy, o = {}) {
+  const k = kareD(BK, t + (o.kay || 0), o.dongu !== false); if (!k) return; const r = BK.find(Boolean); if (!r) return;
+  const h0 = r.h, sc = boy / (h0 * 2), xc = r.x0 + r.w / 2, yb = r.y0 + r.h;
+  figurDarbe(S, blenderKaynak(k), { W, konum: [ayak[0] - xc * 2 * sc, ayak[1] - yb * 2 * sc, sc], gunes: o.gunes || [ayak[0] - 400, ayak[1] - 900], hava: o.hava || [.1, .09, .085], havaK: o.havaK ?? .25, cz: Math.floor(t * 15),
+    altin: o.altin || [1, .9, .74], kenarKirik: .45, kenarAlfa: o.kenarAlfa ?? .7, adim: o.adim || (boy > 500 ? 2 : 1) });
+}
+// ekran yazısı (alt banda inmez: y < 880): soluk krem, ince gölge; a saydamlık
+function yazi(ctx, s, x, y, px, a = 1, hiz = 'center') {
+  if (a <= 0) return; ctx.save(); ctx.globalAlpha = clamp(a); ctx.font = `italic 600 ${px}px 'Cormorant Garamond', serif`; ctx.textAlign = hiz; ctx.textBaseline = 'alphabetic';
+  ctx.shadowColor = 'rgba(0,0,0,.55)'; ctx.shadowBlur = px * .12; ctx.fillStyle = '#efe6d2'; ctx.fillText(s, x, Math.min(y, 860)); ctx.restore();
+}
 const kare = (BK, t) => BK[Math.max(0, Math.min(BK.length - 1, Math.round(ikiser(t) * 15)))];
 
-export function setleriKur(M, IMG, FIG) { masaKur(M); odaKur(M, IMG); }
+export function setleriKur(M, IMG, FIG) { masaKur(M); odaKur(M, IMG); salonKur(M, IMG); tarlaKur(M); trenKur(M);
+  // tablo sahneleri (gri dünya; renk örtüyle). Görsel gelmediyse yer tutucu: Selvili Buğday Tarlası
+  for (const k of ['sari_ev', 'yatak', 'selviler', 'selvili_tarla', 'yildizli', 'badem', 'irisler', 'firtina']) tabloSahnesi(M, 'tb_' + k, IMG[k] || IMG.selvili_tarla, { dunya: true });
+}
 
 // ---------- yardımcılar ----------
 const kamYol = (a, b, e = io) => u => { const k = e(clamp(u)); return { x: lerp(a[0], b[0], k), y: lerp(a[1], b[1], k), z: lerp(a[2], b[2], k) }; };
@@ -87,4 +109,66 @@ export function planlariKur(M, IMG, FIG) {
     durum: st => ({ expo: 1.05 - .75 * sm(st.d - 1.1, st.d - .1, st.lt), nesneler: () => Y1.slice(0, 20),
       }),
     maske: (st, kam) => { const c = M.camK(kam, 0); for (const it of Y1.slice(0, 20)) nesneMaske(c, it, 1 - sm(st.d - 1.1, st.d - .1, st.lt)); } });
+
+  // ================= B: Louvre'daki pusula =================
+  const SE = SALON.ekr;
+  // B01 · orta · SALON (Goupil şubesi): Theo sırttan, duvardaki çerçevelere bakar; kamera yanından kayar
+  plan({ id: 'B01', at: 'B01', sahne: 'salon', olcek: 'orta', not: 'Goupil: Theo sırttan, çerçeveler',
+    kamera: kamYol([1180, 560, 1.5], [1120, 560, 1.58], u => u),
+    durum: st => ({ duvar: 'dolu', figur: (t, S) => figurBas(S, FIG.theo_dur, t, SE(1.4, 0, -5.2), 600, { gunes: [960, -300] }) }) });
+  // B01b · ayrinti · MASA (çekmecesiz): katlı pusula açılır; ağabeyinin el yazısı (okunmaz)
+  plan({ id: 'B01b', at: 'B01@pusula', sahne: 'masa', olcek: 'ayrinti', not: 'Pusula açılır',
+    kamera: kamYol([960, 330, 1.45], [960, 340, 1.55], u => u),
+    durum: st => ({ cekmece: false, nesneler: t => { const u = io(clamp(t / 1.3)); return [{ tur: 'kagit', x: 960, y: 330, w: 300 + 300 * u, h: 400, rot: -.06, tohum: 7, satir: 11, yazi: clamp(.15 + u), olc: 1.1, golge: true }]; } }) });
+  // B02 · genis · SALON (Louvre, duvarlar dolu): Theo salonun derinliğine yürür; uzakta Vincent bir tabloya bakar, sonra döner
+  plan({ id: 'B02', at: 'B02', sahne: 'salon', olcek: 'genis', not: 'Louvre: Theo yürür, uzakta Vincent',
+    kamera: kamYol([960, 540, 1.0], [960, 545, 1.1], u => u),
+    durum: st => ({ duvar: 'dolu', figur: (t, S) => { for (const k of ['vincent_louvre', 'theo_louvre']) { const B = FIG[k][Math.min(120, Math.round(ikiser(t + .6) * 15))]; if (B) figurDarbe(S, blenderKaynak(B), { W, gunes: [960, -400], hava: [.42, .4, .37], havaK: k === 'vincent_louvre' ? .35 : .15, cz: Math.floor(t * 15), altin: [1, .95, .85], kenarKirik: .5, kenarAlfa: .5 }); } } }) });
+  // B03 · yakin · SALON (Goupil): bir çerçevenin önü; "satmak"ta köşesine satış etiketi asılır; Theo omzu kadrajın sağında
+  plan({ id: 'B03', at: 'B03', sahne: 'salon', olcek: 'yakin', not: 'Başkalarının tabloları; satış etiketi',
+    kamera: kamYol([380, 460, 2.3], [420, 470, 2.45], u => u),
+    durum: st => { const te = A('B03@satmak') - st.at; return { duvar: 'dolu',
+      nesneler: t => (t < te ? [] : [{ tur: 'bilet', x: 470, y: 560 + 30 * (1 - io(clamp((t - te) / .5))), w: 46, h: 28, rot: .25 + .1 * Math.sin((t - te) * 3) * Math.exp(-(t - te)), tohum: 3, golge: true }]),
+      figur: (t, S) => figurBas(S, FIG.theo_dur, t, [760, 1300], 980, { gunes: [300, -200], adim: 2 }) }; } });
+  // B04 · ayrinti · MASA: banknotlar zarfa girer, zarf kapanır; aynı hareket üç kez, üç mevsim ışığı (ritim)
+  const B04 = [0, 1, 2];
+  plan({ id: 'B04', at: 'B04', sahne: 'masa', olcek: 'ayrinti', not: 'Her ay bir zarf: üç tekrar, üç ışık',
+    kamera: kamYol([960, 400, 1.3], [960, 400, 1.36], u => u),
+    durum: st => { const T3 = st.d / 3, k = Math.min(2, Math.floor(st.lt / T3)), lt = st.lt - k * T3; return { cekmece: false, expo: [1.08, .92, 1.15][k],
+      nesneler: () => { const u = io(clamp((lt - .3) / 1.2)), kap = io(clamp((lt - 1.7) / .6));
+        return [{ tur: 'zarf', renk: 'gri', yuz: 'arka', x: 980, y: 420, w: 360, h: 220, rot: -.04 + k * .03, tohum: 40 + k, golge: true },
+          ...[0, 1, 2].map(i => ({ tur: 'banknot', x: lerp(620 - i * 30, 980, u), y: lerp(330 + i * 18, 420, u), w: 300 * (1 - .3 * u), h: 150 * (1 - .3 * u), rot: -.3 + .26 * u + i * .05, tohum: 60 + i + k * 3, a: 1 - sm(.85, 1, u), kalk: .3 * (1 - u) })),
+          ...(kap > 0 ? [{ tur: 'zarf', renk: 'gri', yuz: 'on', x: 980, y: 420, w: 360, h: 220, rot: -.04 + k * .03, tohum: 90 + k, a: kap }] : [])]; } }; },
+    bitir: st => { const k = Math.min(2, Math.floor(st.lt / (st.d / 3))); return { light: [[-.45, -.7, .65], [.6, -.5, .6], [-.2, -.9, .5]][k], lightCol: [[1, .92, .8], [.85, .9, 1], [1, .97, .9]][k] }; } });
+  // B05 · yakin · MASA: iki banknot destesi yan yana büyür: ince (işçinin aylığı) ve kalın (Theo'nun zarfı); üstte rakamlar (≤ 4 sn)
+  plan({ id: 'B05', at: 'B05', sahne: 'masa', olcek: 'yakin', not: '32 gulden ve 50–75 gulden',
+    kamera: kamYol([960, 420, 1.15], [960, 430, 1.22], u => u),
+    durum: st => { const t1 = A('B05@otuz') - st.at, t2 = A('B05@bu') - st.at; return { cekmece: false,
+      nesneler: t => { const L = []; const n1 = Math.round(4 * clamp((t - t1) / 1.2)), n2 = Math.round(9 * clamp((t - t2) / 2));
+        // yelpaze: her banknot bir öncekinin üstüne kayık açılır (kalınlık tepeden görünmez; sayı yelpazenin genişliğiyle okunur)
+        for (let i = 0; i < n1; i++) L.push({ tur: 'banknot', x: 520 + i * 34, y: 470 - i * 6, w: 280, h: 140, rot: -.25 + i * .09, tohum: 200 + i, golge: true });
+        for (let i = 0; i < n2; i++) L.push({ tur: 'banknot', x: 1060 + i * 34, y: 470 - i * 6, w: 280, h: 140, rot: -.36 + i * .09, tohum: 300 + i, golge: true });
+        return L; } }; },
+    ust: (ctx, st) => { const t1 = A('B05@otuz') - st.at, t2 = A('B05@bu') - st.at;
+      yazi(ctx, 'işçi: 32 gulden', 600, 250, 64, sm(t1, t1 + .4, st.lt) * (1 - sm(t1 + 3.6, t1 + 4, st.lt)));
+      yazi(ctx, 'zarf: 50–75 gulden', 1260, 250, 64, sm(t2, t2 + .4, st.lt) * (1 - sm(t2 + 3.6, t2 + 4, st.lt))); } });
+  // B06 · orta · ODA (rue Lepic, aynı daire: atölye): Vincent şövalenin başında, sırttan; "atölye"de şövaledeki tablo renge döner
+  plan({ id: 'B06', at: 'B06', sahne: 'oda', olcek: 'orta', not: 'Odalardan biri atölye: şövalede renkli tablo',
+    kamera: kamYol([900, 520, 1.45], [940, 500, 1.55], u => u),
+    durum: st => ({ isik: 'ogle', tablo: 'oda_otoportre', figur: (t, S) => figurBas(S, FIG.vincent_dur, t, [520, 1020], 560, { gunes: [200, 200] }) }),
+    maske: (st, kam) => { const ta = A('B06@atölye') - st.at; tabloMaske(kam, sm(ta, ta + .8, st.lt)); } });
+
+  // B07 · orta · TARLA (akşam, park yolu): Theo ile Jo aralarında bir adım; "hayır"da Jo döner ve uzaklaşır
+  plan({ id: 'B07', at: 'B07', sahne: 'tarla', olcek: 'orta', not: 'Evlenme teklifi; Jo hayır der, uzaklaşır',
+    kamera: kamYol([1000, 640, 1.25], [980, 660, 1.32], u => u),
+    durum: st => { const th = A('B07@hayır') - st.at; return { agac: true, expo: t => 1.0 - .06 * sm(th, th + 2, t),
+      figur: (t, S) => { figurBas(S, FIG.theo_dis_dur, t, [860, 1010], 420, { gunes: [1500, 500], hava: [.3, .28, .3], havaK: .2 });
+        if (t < th) figurBas(S, FIG.jo_dur, t, [1100, 1010], 390, { gunes: [1500, 500], hava: [.3, .28, .3], havaK: .2 });
+        else figurBas(S, FIG.jo_yuru, t - th, [1100 + 160 * clamp((t - th) / 3), 1010 - 120 * clamp((t - th) / 3)], 390 * (1 - .3 * clamp((t - th) / 3)), { dongu: false, gunes: [1500, 500], hava: [.3, .28, .3], havaK: .2 + .2 * clamp((t - th) / 3) }); } }; } });
+  // B08 · genis · TREN: gece treni güneye; "Ertesi"de gök ve ova öğleden sonra ışığına döner, tren yine geçer
+  plan({ id: 'B08', at: 'B08', sahne: 'tren', olcek: 'genis', not: 'Gece treni; ertesi gün öğleden sonra',
+    kamera: kamYol([960, 560, 1.04], [960, 560, 1.1], u => u),
+    durum: st => { const te = A('B08@ertesi') - st.at; return { gun: t => sm(te, te + 1.2, t),
+      tren: t => [[-200 + 520 * t, 1]] }; } });
+  planlar2(M, IMG, FIG, { kamYol, yigin, duser, bademDali, figurBas, yazi, tabloMaske, kareD });
 }

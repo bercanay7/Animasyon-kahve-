@@ -2,8 +2,10 @@
 <html lang="tr"><head><meta charset="utf-8"><title>Van Gogh'a Kim İnandı?</title>
 <style>html,body{margin:0;background:#000}canvas{display:block;width:100vw;height:auto}</style></head><body>
 <canvas id="c" width="1920" height="1080"></canvas>
+<link rel="stylesheet" href="../sisifos/fonts.css">
 <script src="timeline.js"></script>
 <script src="lib/oda_ciz.js"></script>
+<script src="../kurye/lib/tablo_ciz.js"></script>
 <script type="module">
 // Van Gogh'a Kim İnandı? — film sayfası. Sözleşme: window.READY, DUR, renderAt(t) → <canvas id="c">, BITIR, PLANLAR (plan tablosu).
 // ?t=12.3 tek kare; ?plan=A02 yalnız o planın kareleri için ön yükleme (kare aracı); ?ss=1 hızlı önizleme.
@@ -28,6 +30,7 @@ window.BITIR = () => M.bitir();
 window.READY = false;
 (async () => {
   M = motor({ W, H, ss: +(Q.get('ss') || 1.5), enCok: 3, log: !!Q.get('log') });
+  await document.fonts.load("italic 600 40px 'Cormorant Garamond'");
   const IMG = await gorselYukle();
   const FIG = await figurYukle(Q.get('plan'));
   setleriKur(M, IMG, FIG);
