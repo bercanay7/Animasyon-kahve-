@@ -138,7 +138,7 @@ export function planlariKur(M, IMG, FIG) {
     durum: st => { const ti = A('A03@iki') - st.at, tk = A('A03@ikincisi') - st.at; return {
       expo: 1.05 - .7 * sm(st.d - 1.1, st.d - .1, st.lt), cekmeceAc: t => 1 - .93 * io(clamp((t - tk) / 1.0)),
       nesneler: t => { const L = Y1.slice(0, 20); const u = clamp((t - ti) / 1.2); if (u > 0) L.push({ tur: 'zarf', renk: 'sari', yuz: 'on', x: 1050 + 120 * u, y: 790 - 700 * io(u), w: 240, h: 146, rot: .1 + .4 * u, kalk: .6 * u, tohum: 98 }); return L; },
-      golge: (t, S) => figurBas(S, FIG.jo_dur, t, [1380, 2900], 3000, { golge: .38, adim: 4, temas: false }) }; },
+      golge: (t, S) => figurBas(S, FIG.jo_dur, t, [1640, 2900], 3000, { golge: (.38) * .55, adim: 2, temas: false }) }; },
     maske: (st, kam) => { const c = M.camK(kam, 0), ti = A('A03@iki') - st.at, tk = A('A03@ikincisi') - st.at, k = 1 - sm(st.d - 1.1, st.d - .1, st.lt);
       for (const it of Y1.slice(0, 20)) nesneMaske(c, it, k); const u = clamp((st.lt - ti) / 1.2); if (u > 0) nesneMaske(c, { x: 1050 + 120 * u, y: 790 - 700 * io(u), w: 240, h: 146, rot: .1 + .4 * u });
       const ac = 1 - .93 * io(clamp((st.lt - tk) / 1.0)); mSil(c, 0, 625, 1920, (1 - ac) * 575); } });

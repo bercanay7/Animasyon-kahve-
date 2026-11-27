@@ -183,9 +183,9 @@ export function planlar2(M, IMG, FIG, H) {
     kamera: kamYol([900, 600, 1.35], [930, 600, 1.42], u => u),
     durum: st => ({ tablo: 'oda_guller', isik: 'sabah', figur: (t, S) => figurBas(S, FIG.vincent_dur, t, [620, 1000], 560, { gunes: [300, 300] }) }) });
   // G02 · yakin · ODA: beşiğin önünde iki erkek sırtı (yüz yok; "gözleri yaşlı" seste kalır)
-  plan({ id: 'G02', at: 'G02', sahne: 'oda', olcek: 'yakin', not: 'İki kardeş aşağıya, beşiğe eğilir (beşik kadraj dışında)',
+  plan({ id: 'G02', at: 'G02', sahne: 'oda', olcek: 'yakin', not: 'İki kardeş yan yana, beşik kadraj dışında',
     kamera: kamYol([1000, 640, 1.7], [1000, 650, 1.76], u => u),
-    durum: st => ({ tablo: 'oda_guller', isik: 'sabah', figur: (t, S) => { figurBas(S, FIG.theo_oku, t, [820, 1340], 980, { gunes: [300, 200], adim: 2 }); figurBas(S, FIG.vincent_oku, t + 1.5, [1230, 1340], 980, { gunes: [300, 200], adim: 2 }); } }) });
+    durum: st => ({ tablo: 'oda_guller', isik: 'sabah', figur: (t, S) => { figurBas(S, FIG.theo_dur, t, [780, 1300], 900, { gunes: [300, 200], adim: 2 }); figurBas(S, FIG.vincent_dur, t + 1.5, [1220, 1300], 900, { gunes: [300, 200], adim: 2 });   // ayakta (eğik ikili namaz safı okunuyordu) } }) });
   // G03 · orta · TARLA: tarla kenarında şövale; tuval hızlı kesmelerle gün gün değişir (Auvers 1890 işleri, renkli)
   const AUV = Object.keys(IMG).filter(k => k.startsWith('auvers')).sort();
   plan({ id: 'G03', at: 'G03', sahne: 'tarla', olcek: 'orta', not: 'Auvers: neredeyse her gün bir eser',
@@ -259,7 +259,7 @@ export function planlar2(M, IMG, FIG, H) {
   plan({ id: 'H04', at: 'H04', sahne: 'masa', olcek: 'yakin', not: 'Mektupları saklar',
     kamera: kamYol([960, 800, 1.4], [960, 820, 1.46], u => u),
     durum: st => { const ts = cIdx(st, 'H04@saklar'); return { nesneler: () => H4, expo: .95, cekmeceAc: t => 1 - .92 * io(clamp((t - ts) / 1.0)),
-      golge: (t, S) => figurBas(S, FIG.jo_dur, t, [1380, 2900], 3000, { golge: .36, adim: 4, temas: false }) }; },
+      golge: (t, S) => figurBas(S, FIG.jo_dur, t, [1640, 2900], 3000, { golge: (.36) * .55, adim: 2, temas: false }) }; },
     maske: (st, kam) => { const c = M.camK(kam, 0), ts = cIdx(st, 'H04@saklar'); for (const it of H4) nesneMaske(c, it); mSil(c, 0, 625, 1920, .92 * io(clamp((st.lt - ts) / 1.0)) * 575); } });
   // H05 · genis · SALON (1905, v2): G09'dan beri ilk geniş renk dönüşü: "en büyük"te yakın çerçevelerdeki tablolar yakından uzağa birer birer renge açılır; kamera yan duvar boyunca kayar
   const H5L = cerceveListesi('dolu').filter(f => f.z > -17).slice(0, 10);
@@ -322,7 +322,7 @@ export function planlar2(M, IMG, FIG, H) {
     kamera: kamYol([960, 700, 1.05], [960, 720, 1.12], u => u),
     durum: st => { const tt = cIdx(st, 'I02@taşıyan') - .3; return { isik: 'gun', nesneler: t => { const u = clamp((t - tt) / (st.d - tt - .1)), k = io(u);
         return [...I2y, ...(u > 0 ? [{ tur: 'zarf', renk: 'sari', yuz: 'on', x: lerp(1000, 960, k), y: lerp(820, 560, k), w: 240 * (1 + 7 * k * k), h: 146 * (1 + 7 * k * k), rot: .1 * (1 - k), kalk: .8 * k, tohum: 1720 }] : [])]; },
-      golge: (t, S) => figurBas(S, FIG.jo_dur, t, [1380, 2900], 3000, { golge: .3, adim: 4, temas: false }) }; },
+      golge: (t, S) => figurBas(S, FIG.jo_dur, t, [1640, 2900], 3000, { golge: (.3) * .55, adim: 2, temas: false }) }; },
     maske: (st, kam) => { const c = M.camK(kam, 0), tt = cIdx(st, 'I02@taşıyan') - .3, u = clamp((st.lt - tt) / (st.d - tt - .1)), k = io(u);
       for (const it of I2y) nesneMaske(c, it); if (u > 0) nesneMaske(c, { x: lerp(1000, 960, k), y: lerp(820, 560, k), w: 240 * (1 + 7 * k * k), h: 146 * (1 + 7 * k * k), rot: .1 * (1 - k) }); } });
   // I03 · yakin · MASA (bugün): tek sarı zarf izleyiciye dönük açılır; içi boş beyaz kâğıt (≤ 2 sn), sonra kalem kayar
