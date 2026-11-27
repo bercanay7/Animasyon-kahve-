@@ -26,7 +26,8 @@ export function tarlaKur(M) {
     katmanlar: [
       { ad: 'gok', d: 0, ciz: TB.gok, R: [30, 15, 7.5, 3.6, 1.8], T: 10 },
       { ad: 'daglar', d: .2, ciz: TB.daglar },
-      { ad: 'tarla', d: .45, ciz: R => TB.tarla(R, []) },
+      { ad: 'tarla', d: .45, ciz: R => TB.tarla(R, [], { golge: false }) },
+      { ad: 'tgolge', d: .45, ciz: TB.tarlaGolge, alfa: (t, du) => (du && du.agac === false ? 0 : 1) },
       { ad: 'agac', d: .5, ciz: TB.agac, R: [20, 10, 5, 2.6, 1.5], T: 10, alfa: (t, du) => (du && du.agac === false ? 0 : 1) },
       { ad: 'duvar', d: .7, ciz: duvar, R: [12, 6, 3, 1.6], T: 9, alfa: (t, du) => (du && du.duvar ? 1 : 0) },
       { ad: 'figur', d: .6, canli: (t, S, c, x, du) => { if (du && du.figur) du.figur(t, S); }, kap: 16000, wet: .2, run: 0 },

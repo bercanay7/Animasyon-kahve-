@@ -25,7 +25,7 @@ window.kapak = (v, o = {}) => {
   if (v === 'A') {
     const kam = { x: 1010, y: 470, z: 2.3 }; Y.tabloMaske(kam);
     M.ciz(ctx, 'oda', 2.2, { kamera: kam, durum: { isik: 'gece', tablo: 'oda_otoportre', figur: (t, S) => Y.theo(t, S) }, bitir: { maske: m, expo: .92, vig: .62 } });
-    if (!o.yazisiz) yazi(o.satir || ['TEK KİŞİ', 'İNANDI'], 60, 360, 270);
+    if (!o.yazisiz) yazi(o.satir || ['SEKİZ YIL', 'HER AY'], 60, 360, 270);   // 'TEK KİŞİ İNANDI' filmin iki cevabıyla çelişiyordu (v2 eleştirisi)
   } else {
     const kam = { x: 1000, y: 820, z: 1.42 }, du = Y.cekmeceDurum();
     M.ciz(ctx, 'masa', 3, { kamera: kam, durum: du, bitir: { expo: 1.0 } });   // önce dal izini topla

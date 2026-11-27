@@ -25,7 +25,7 @@ const GORSEL = {
   sari_ev: AD + 'sari_ev_1888_vgm_f464_gap.jpg',
   badem: AD + 'badem_cicegi_1890_vgm_s0176V1962.jpg',
   sairin_bahcesi: AD + 'sairin_bahcesi_1888_arles_aic14586.jpg',
-  remy4: AD + 'alpiller_iki_kavak_1889_saintremy_cma1958.32.jpg', remy5: AD + 'vazoda_irisler_1890_saintremy_met436528.jpg', remy6: AD + 'guller_1890_saintremy_met436534.jpg',
+  remy4: AD + 'alpiller_iki_kavak_1889_saintremy_cma1958.32.jpg', remy5: AD + 'vazoda_irisler_1890_saintremy_met436528.jpg', remy6: AD + 'guller_1890_saintremy_met436534.jpg', oda_guller: AD + 'guller_1890_saintremy_met436534.jpg',
 };
 export async function gorselYukle() {
   const o = {};
@@ -109,10 +109,10 @@ export function planlariKur(M, IMG, FIG) {
   const Y1 = yigin(34, { tohum: 10 });
   plan({ id: 'A01b', at: 'A01@alt', sahne: 'masa', olcek: 'yakin', not: 'Çekmece, sarı zarflar; bir zarf daha; badem dalı ucu',
     kamera: kamYol([960, 820, 1.35], [960, 860, 1.48], u => u),
-    durum: st => { const te = A('A01@bir') - st.at, tb = A('A01@ekleniyor') - st.at; return {
+    durum: st => { const te = A('A01@bir#1') - st.at + .25, tb = A('A01@ekleniyor') - st.at; return {
       nesneler: t => { const L = Y1.slice(); const z = duser({ tur: 'zarf', x: 1010, y: 800, w: 240, h: 146, rot: .12, renk: 'sari', yuz: 'on', tohum: 99 }, t, te - .2); if (z) L.push(z); return L; },
       ust: (t, S) => bademDali(S, 700, 960, -.95, clamp((t - tb) / 1.7)) }; },
-    maske: (st, kam) => { const c = M.camK(kam, 0); for (const it of Y1) nesneMaske(c, it); const te = A('A01@bir') - st.at, tb = A('A01@ekleniyor') - st.at; const z = duser({ tur: 'zarf', x: 1010, y: 800, w: 240, h: 146, rot: .12 }, st.lt, te - .2); if (z) nesneMaske(c, z); mDaire(c, 860, 800, 260, clamp((st.lt - tb) / .6), 6); } });
+    maske: (st, kam) => { const c = M.camK(kam, 0); for (const it of Y1) nesneMaske(c, it); const te = A('A01@bir#1') - st.at + .25, tb = A('A01@ekleniyor') - st.at; const z = duser({ tur: 'zarf', x: 1010, y: 800, w: 240, h: 146, rot: .12 }, st.lt, te - .2); if (z) nesneMaske(c, z); mDaire(c, 860, 800, 260, clamp((st.lt - tb) / .6), 6); } });
   // A02 · orta · MASA: masanın tamamı; solda sarı zarflar birer birer düşer (yığın yükselir), sağda ince gri deste (Theo'nun 39 mektubu);
   //   "attı ya yaktı": gri desteden birkaç yaprak kalkar, kadrajdan uçar (ateş gösterilmez)
   const Y2 = yigin(40, { x: 760, y: 820, dx: 420, dy: 160, tohum: 50 }), G2 = yigin(6, { x: 1430, y: 840, dx: 40, dy: 30, renk: 'gri', rot: .15, tohum: 200, kat: 1.2 });
@@ -180,15 +180,15 @@ export function planlariKur(M, IMG, FIG) {
     maske: (st, kam) => { const ta = A('B06@atölye') - st.at; tabloMaske(kam, sm(ta, ta + .8, st.lt)); } });
 
   // B07 · orta · TARLA (akşam, park yolu): Theo ile Jo aralarında bir adım; "hayır"da Jo döner ve uzaklaşır
-  plan({ id: 'B07', at: 'B07', sahne: 'tarla', olcek: 'orta', not: 'Evlenme teklifi; Jo hayır der, uzaklaşır',
-    kamera: kamYol([1000, 640, 1.25], [980, 660, 1.32], u => u),
+  plan({ id: 'B07', at: 'B07', sahne: 'tarla', olcek: 'genis', not: 'Evlenme teklifi; Jo hayır der, uzaklaşır',
+    kamera: kamYol([960, 560, 1.0], [960, 570, 1.06], u => u),
     durum: st => { const th = A('B07@hayır') - st.at; return { agac: true, expo: t => 1.0 - .06 * sm(th, th + 2, t),
       figur: (t, S) => { figurBas(S, FIG.theo_dis_dur, t, [860, 1010], 420, { gunes: [1500, 500], hava: [.3, .28, .3], havaK: .2 });
         if (t < th) figurBas(S, FIG.jo_dur, t, [1100, 1010], 390, { gunes: [1500, 500], hava: [.3, .28, .3], havaK: .2 });
         else figurBas(S, FIG.jo_yuru, t - th, [1100 + 160 * clamp((t - th) / 3), 1010 - 120 * clamp((t - th) / 3)], 390 * (1 - .3 * clamp((t - th) / 3)), { dongu: false, gunes: [1500, 500], hava: [.3, .28, .3], havaK: .2 + .2 * clamp((t - th) / 3) }); } }; } });
   // B08 · genis · TREN: gece treni güneye; "Ertesi"de gök ve ova öğleden sonra ışığına döner, tren yine geçer
-  plan({ id: 'B08', at: 'B08', sahne: 'tren', olcek: 'genis', not: 'Gece treni; ertesi gün öğleden sonra',
-    kamera: kamYol([960, 560, 1.04], [960, 560, 1.1], u => u),
+  plan({ id: 'B08', at: 'B08', sahne: 'tren', olcek: 'orta', not: 'Gece treni; ertesi gün öğleden sonra',
+    kamera: kamYol([1000, 690, 1.5], [1060, 690, 1.58], u => u),
     durum: st => { const te = A('B08@ertesi') - st.at; return { gun: t => sm(te, te + 1.2, t),
       tren: t => [[-200 + 520 * t, 1]] }; } });
   planlar2(M, IMG, FIG, { kamYol, yigin, duser, bademDali, figurBas, yazi, tabloMaske, kareD });

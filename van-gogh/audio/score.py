@@ -193,7 +193,7 @@ SUS.append((W('G09', 'öldü'), S('G10') - .2))                     # olay anı:
 dizi(ZARF_MIN, S('G10') + .1, bpm=54, v=.28, pan=.2)
 ak('D2 A2 F3', W('G10', 'ah') - .1, 4, .3)
 dizi(ZARF_MIN, S('G11') + .2, bpm=50, v=.22, pan=.2)
-SUS.append((W('G11', 'otuz') + 1.2, S('H01') - .4))
+SUS.append((E('G11') + .2, S('H01') - .4))
 # H · Jo: tren (gündüz, yumuşak), sergi, defter, motif (saklar), 1905 kabarma, üç cilt, tarla, çeviri, müze (motif tam)
 tren(S('H01') - .3, S('H02'), bpm=112, v=.18, kok='F2'); dron('A3 C4 F4', S('H01'), S('H02'), .2)
 dizi(ZARF, S('H01') + 2, bpm=70, v=.24, pan=.25)

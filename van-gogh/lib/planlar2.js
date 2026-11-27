@@ -64,17 +64,14 @@ export function planlar2(M, IMG, FIG, H) {
   // C06 · orta · ODA gece: Theo masaya eğilmiş mektup okur
   plan({ id: 'C06', at: 'C06', sahne: 'oda', olcek: 'orta', not: 'Sanatçılara para verirken sen de sanatçı işi yapıyorsun',
     kamera: kamYol([1180, 600, 1.35], [1220, 610, 1.45], u => u),
-    durum: st => ({ isik: 'gece', figur: (t, S) => figurBas(S, FIG.theo_oku, t, [1260, 1160], 640, { gunes: ODA.LAMBA }) }) });
+    durum: st => ({ tablo: 'oda_otoportre', isik: 'gece', figur: (t, S) => figurBas(S, FIG.theo_oku, t, [1260, 1160], 640, { gunes: ODA.LAMBA }) }) });
   // C07 · yakin · YATAK ODASI tablosu kadrajı doldurur, kamera yaklaşır (renkli)
   tabloPlan('C07', 'C07', 'yatak', 'yakin', 'Yatak Odası tablosu', kamYol([960, 540, 1.0], [960, 560, 1.18], u => u));
-  // C07b · ayrinti · MASA: "Sensiz": Paris'te açık mektup, lamba ışığı
-  plan({ id: 'C07b', at: 'C07@sensiz', sahne: 'masa', olcek: 'ayrinti', not: 'Sensiz hiçbir şey yapamazdım',
-    kamera: kamYol([960, 420, 1.55], [960, 430, 1.62], u => u),
-    durum: st => ({ cekmece: false, nesneler: () => [{ tur: 'kagit', x: 960, y: 420, w: 560, h: 380, rot: .04, tohum: 140, satir: 9, olc: 1.1, golge: true }] }) });
-  // C08 · orta · ODA (öğle): şövalede Yatak Odası (renkli), sandalyede katlı mektup
-  plan({ id: 'C08', at: 'C08', sahne: 'oda', olcek: 'orta', not: 'Birlikte sanatsal bir şey: şövalede Yatak Odası',
-    kamera: kamYol([960, 520, 1.6], [940, 520, 1.5], u => u),
-    durum: st => ({ isik: 'ogle', tablo: IMG.oda_yatak ? 'oda_yatak' : 'oda_otoportre' }), maske: (st, kam) => tabloMaske(kam) });
+  // C08 · orta · ODA gece: Theo masada Arles'dan gelen mektubu okur; şövalede Paris'teki otoportre (Yatak Odası o sırada Arles'da: Paris odasına konmaz).
+  //   C07b (2,6 sn'lik masa ayrıntısı) kaldırıldı: masa filmin %37'siydi.
+  plan({ id: 'C08', at: 'C08', sahne: 'oda', olcek: 'orta', not: 'Bir yıl sonra birlikte: Theo mektubu okur',
+    kamera: kamYol([1000, 560, 1.15], [1080, 585, 1.28], u => u),
+    durum: st => ({ isik: 'gece', tablo: 'oda_otoportre', figur: (t, S) => figurBas(S, FIG.theo_oku, t + 2, [1250, 1130], 600, { gunes: ODA.LAMBA }) }) });
   // C09 · genis · SARI EV (gri): sabah, valizli siluet eve yürür (Gauguin)
   tabloPlan('C09', 'C09', 'sari_ev', 'genis', 'Gauguin gelir', kamYol([960, 540, 1.0], [960, 540, 1.06], u => u),
     { maske: () => {}, durum: st => ({ figur: (t, S) => figurBas(S, FIG.gauguin_yuru, t, [760 + 60 * t, 1030 - 30 * t], 300 - 14 * t, { dongu: false, gunes: [1600, 200], hava: [.5, .48, .44], havaK: .15 }) }) });
@@ -88,7 +85,7 @@ export function planlar2(M, IMG, FIG, H) {
   // D01 · orta · ODA (kış ışığı): Theo ve Jo yan yana, aralarındaki mesafe B07'dekinden az; kamera geri çekilir
   plan({ id: 'D01', at: 'D01', sahne: 'oda', olcek: 'orta', not: 'Nişan: Theo ve Jo yan yana',
     kamera: kamYol([700, 560, 1.45], [760, 560, 1.3], u => u),
-    durum: st => ({ isik: 'kis', figur: (t, S) => { figurBas(S, FIG.theo_dur, t, [600, 1000], 520, { gunes: [350, 400] }); figurBas(S, FIG.jo_dur, t + 2, [790, 1000], 480, { gunes: [350, 400] }); } }) });
+    durum: st => ({ tablo: 'oda_otoportre', isik: 'kis', figur: (t, S) => { figurBas(S, FIG.theo_dur, t, [600, 1000], 520, { gunes: [350, 400] }); figurBas(S, FIG.jo_dur, t + 2, [790, 1000], 480, { gunes: [350, 400] }); } }) });
   // D02 · ayrinti · MASA: kapının altından telgraf kâğıdı kayar (yazı okunmaz; Arles, beden, oda gösterilmez)
   plan({ id: 'D02', at: 'D02', sahne: 'masa', olcek: 'ayrinti', not: 'Telgraf',
     kamera: kamYol([960, 430, 1.55], [960, 440, 1.6], u => u),
@@ -108,7 +105,7 @@ export function planlar2(M, IMG, FIG, H) {
   // D06 · genis · ODA (sabah): yeni daire; sandıklar, Theo ve Jo
   plan({ id: 'D06', at: 'D06', sahne: 'oda', olcek: 'genis', not: 'Evlilik ve yeni daire',
     kamera: kamYol([960, 540, 1.0], [960, 545, 1.06], u => u),
-    durum: st => ({ isik: 'sabah', ust: (t, S) => { sandik(S, 760, 1010, 180, 120, 1); sandik(S, 900, 1040, 150, 100, 2); sandik(S, 1480, 1060, 220, 140, 3); },
+    durum: st => ({ tablo: 'oda_otoportre', isik: 'sabah', ust: (t, S) => { sandik(S, 760, 1010, 180, 120, 1); sandik(S, 900, 1040, 150, 100, 2); sandik(S, 1480, 1060, 220, 140, 3); },
       figur: (t, S) => { figurBas(S, FIG.theo_dur, t, [380, 1000], 460, { gunes: [350, 300] }); figurBas(S, FIG.jo_dur, t + 3, [1180, 990], 420, { gunes: [350, 300] }); } }) });
   // D07 · orta · MASA: çekmece açılır, içi gri zarflarla dolu (eski mektuplar); kamera masadan çekmeceye iner
   const D7g = yigin(30, { renk: 'gri', tohum: 400 });
@@ -136,10 +133,12 @@ export function planlar2(M, IMG, FIG, H) {
   tabloPlan('E03c', 'E03@yıldızlı', 'yildizli', 'orta', 'Yıldızlı Gece', kamYol([960, 520, 1.02], [980, 520, 1.1], u => u));
   // E03d · genis · MOZAİK: "yüz elli resim": duvar boyu Saint-Rémy tabloları; kamera geri çekilir
   plan({ id: 'E03d', at: 'E03@yüz', sahne: 'tb_mozaik', olcek: 'genis', not: 'Yaklaşık yüz elli resim', kamera: kamYol([960, 540, 1.5], [960, 540, 1.0]) });
-  // E04 · yakin · SALON (seyrek): Theo omuz üstü, sergide İrisler
-  plan({ id: 'E04', at: 'E04', sahne: 'tb_irisler', olcek: 'yakin', not: 'Bağımsızlar 1889: İrisler',
-    kamera: kamYol([960, 540, 1.1], [990, 550, 1.2], u => u), maske: () => mTam(1),
-    durum: st => ({ figur: (t, S) => figurBas(S, FIG.theo_dur, t, [1560, 1500], 1300, { gunes: [600, 200], adim: 3, hava: [.05, .05, .05], havaK: .35 }) }) });
+  // E04 · yakin · SALON (Bağımsızlar 1889, seyrek): salonun ortasındaki bölme duvarda çerçeveli İrisler (renkli, yalnız tuval); Theo sağda omuz üstü, koyu
+  const IR = (() => { const [x0, y0] = SE(-1.3, 2.7, -8), [x1, y1] = SE(1.3, .7, -8); return [x0, y0, x1 - x0, y1 - y0]; })();
+  plan({ id: 'E04', at: 'E04', sahne: 'salon', olcek: 'yakin', not: 'Bağımsızlar 1889: İrisler (sergide)',
+    kamera: kamYol([IR[0] + IR[2] / 2, IR[1] + IR[3] / 2, 1.75], [IR[0] + IR[2] / 2 + 60, IR[1] + IR[3] / 2 + 20, 1.5], u => u),
+    durum: st => ({ duvar: 'seyrek', iris: true, figur: (t, S) => figurBas(S, FIG.theo_dur, t, [IR[0] + IR[2] + 200, 1180], 760, { gunes: [960, -300], adim: 2, hava: [.05, .05, .05], havaK: .35 }) }),
+    maske: (st, kam) => mRect(M.camK(kam, .72), IR[0] + 6, IR[1] + 6, IR[2] - 12, IR[3] - 12, 1, 2) });
 
   // ================= F: Badem dalı =================
   // F01 · ayrinti · BADEM: tablonun köşesi (mavi gök, dal ucu); kamera yavaş kayar
@@ -180,11 +179,11 @@ export function planlar2(M, IMG, FIG, H) {
   // G01 · orta · ODA (sabah): hasır şapkalı siluet; beşik önde
   plan({ id: 'G01', at: 'G01', sahne: 'oda', olcek: 'orta', not: 'Amca gelir: hasır şapka, beşik',
     kamera: kamYol([900, 600, 1.35], [930, 600, 1.42], u => u),
-    durum: st => ({ isik: 'sabah', figur: (t, S) => figurBas(S, FIG.vincent_dur, t, [620, 1000], 560, { gunes: [300, 300] }) }) });
+    durum: st => ({ tablo: 'oda_guller', isik: 'sabah', figur: (t, S) => figurBas(S, FIG.vincent_dur, t, [620, 1000], 560, { gunes: [300, 300] }) }) });
   // G02 · yakin · ODA: beşiğin önünde iki erkek sırtı (yüz yok; "gözleri yaşlı" seste kalır)
   plan({ id: 'G02', at: 'G02', sahne: 'oda', olcek: 'yakin', not: 'İki kardeş beşiğin başında',
     kamera: kamYol([1000, 640, 1.7], [1000, 650, 1.76], u => u),
-    durum: st => ({ isik: 'sabah', figur: (t, S) => { figurBas(S, FIG.theo_dur, t, [780, 1300], 900, { gunes: [300, 200], adim: 2 }); figurBas(S, FIG.vincent_dur, t + 1.5, [1220, 1300], 900, { gunes: [300, 200], adim: 2 }); } }) });
+    durum: st => ({ tablo: 'oda_guller', isik: 'sabah', figur: (t, S) => { figurBas(S, FIG.theo_dur, t, [780, 1300], 900, { gunes: [300, 200], adim: 2 }); figurBas(S, FIG.vincent_dur, t + 1.5, [1220, 1300], 900, { gunes: [300, 200], adim: 2 }); } }) });
   // G03 · orta · TARLA: tarla kenarında şövale; tuval hızlı kesmelerle gün gün değişir (Auvers 1890 işleri, renkli)
   const AUV = Object.keys(IMG).filter(k => k.startsWith('auvers')).sort();
   plan({ id: 'G03', at: 'G03', sahne: 'tarla', olcek: 'orta', not: 'Auvers: neredeyse her gün bir eser',
@@ -199,7 +198,7 @@ export function planlar2(M, IMG, FIG, H) {
   // G05 · orta · ODA (öğle, lamba sönük): üç siluet ayakta, aralarında masa yok
   plan({ id: 'G05', at: 'G05', sahne: 'oda', olcek: 'orta', not: 'Temmuz: gergin gün',
     kamera: kamYol([1150, 640, 1.3], [880, 620, 1.36]),
-    durum: st => ({ isik: 'ogle', alev: () => .2,
+    durum: st => ({ tablo: 'oda_guller', isik: 'ogle', alev: () => .2,
       figur: (t, S) => { figurBas(S, FIG.vincent_dur, t, [520, 1000], 500); figurBas(S, FIG.theo_dur, t + 1, [880, 1000], 520); figurBas(S, FIG.jo_dur, t + 2.5, [1230, 990], 470); } }) });
   // G06 · genis · FIRTINALI GÖK ALTINDA BUĞDAY TARLASI: gri dünya; "tarlaları"nda renk tarladan yükselir
   tabloPlan('G06', 'G06', 'firtina', 'genis', 'Uçsuz bucaksız buğday tarlaları: renk', kamYol([960, 560, 1.06], [960, 540, 1.0], u => u),
@@ -220,11 +219,11 @@ export function planlar2(M, IMG, FIG, H) {
   // G10 · orta · ODA gece: Theo masada tek başına (okur)
   plan({ id: 'G10', at: 'G10', sahne: 'oda', olcek: 'orta', not: 'Ah anneciğim',
     kamera: kamYol([1200, 620, 1.4], [1180, 640, 1.5], u => u),
-    durum: st => ({ isik: 'gece', figur: (t, S) => figurBas(S, FIG.theo_oku, t, [1260, 1160], 640, { gunes: ODA.LAMBA }) }) });
+    durum: st => ({ tablo: 'oda_guller', isik: 'gece', figur: (t, S) => figurBas(S, FIG.theo_oku, t, [1260, 1160], 640, { gunes: ODA.LAMBA }) }) });
   // G11 · ayrinti · ODA (kış): boş masa, lamba fitili kısılır ve söner; pencereden kış ışığı kayar
   plan({ id: 'G11', at: 'G11', sahne: 'oda', olcek: 'ayrinti', not: 'Theo da öldü: lamba söner',
     kamera: kamYol([1200, 690, 2.2], [1180, 690, 2.3], u => u),
-    durum: st => { const ts = cIdx(st, 'G11@otuz'); return { isik: 'kis', alev: t => 1 - sm(ts, ts + 1.6, t) }; } });
+    durum: st => { const ts = Se('G11') - st.at + .3; return { tablo: 'oda_guller', isik: 'kis', alev: t => 1 - sm(ts, ts + 1.6, t) }; } });
 
   // ================= H: Çekmecedeki mektuplar =================
   // H01 · genis · TREN (gündüz): sağdan sola, Hollanda'ya dönüş
@@ -288,7 +287,7 @@ export function planlar2(M, IMG, FIG, H) {
   // I02 · orta · ODA (sabah): Jo pencerenin ışığına doğru yürür; kamera yerinde kalır
   plan({ id: 'I02', at: 'I02', sahne: 'oda', olcek: 'orta', not: 'Sonra Jo: kurye',
     kamera: kamYol([800, 560, 1.25], [800, 560, 1.3], u => u),
-    durum: st => ({ isik: 'sabah', figur: (t, S) => figurBas(S, FIG.jo_yuru, t, [760 - 40 * t, 1080 - 30 * t], 560 - 40 * t, { dongu: false, gunes: [350, 300] }) }) });
+    durum: st => ({ tablo: 'oda_guller', isik: 'sabah', figur: (t, S) => figurBas(S, FIG.jo_yuru, t, [700, 1020], 620, { dongu: false, gunes: [350, 300] }) }) });
   // I03 · yakin · MASA (bugün): tek sarı zarf izleyiciye dönük açılır; içi boş beyaz kâğıt (≤ 2 sn), sonra kalem kayar
   plan({ id: 'I03', at: 'I03', sahne: 'masa', olcek: 'yakin', not: 'Sen kime inanıyorsun?',
     kamera: kamYol([960, 440, 1.3], [960, 440, 1.36], u => u),

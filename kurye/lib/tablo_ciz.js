@@ -73,7 +73,16 @@
     R.fill(sirt(UFUK - 2, 44, .0034, 4.1), lin([[0, '#8a6684'], [1, '#b08088']], 0, UFUK - 50, 0, UFUK + 30), { dir: 0, maxR: 8, type: 1, len: 2.4, wid: .6, hgt: .3, group: 'd2', jit: .05 });
   }
   // ---------------- tarla ----------------
-  function tarla(R, patika) {
+  function tarlaGolge(R) {
+  // ağacın gölgesi: gövde gölgesi incecik başlar, taç gölgesi önde yumuşak, loblu bir göl olur (güneşten uzağa: sağa ve bize)
+  { const gk = [], n = 40, A = [1318, 748], B = [1780, 1230];
+    for (let i = 0; i <= n; i++) { const u = i / n, x = A[0] + (B[0] - A[0]) * u, y = A[1] + (B[1] - A[1]) * Math.pow(u, 1.15);
+      const gen = (u < .12 ? 6 + 40 * u : 11 + 330 * Math.pow((u - .12) / .88, .9)), lob = .55 + .9 * fbm(u * 6, 3), lob2 = .55 + .9 * fbm(u * 6, 11);
+      gk.push([x - gen * lob + 14 * Math.sin(u * 41), y, x + gen * 1.1 * lob2 + 14 * Math.sin(u * 37 + 1), y]); }
+    R.fill(S([...gk.map(p => [p[0], p[1]]), ...gk.reverse().map(p => [p[2], p[3]])]), 'rgba(52,30,52,.62)',
+      { dir: { fn: () => Math.atan2(482, 462) }, maxR: 9, type: 1, len: 2, wid: .6, hgt: .2, group: 'tgolge', jit: .08, alpha: .8 }); }
+  }
+  function tarla(R, patika, o = {}) {
     const r = rng(5);
     // uzak çit ve ağaç öbekleri: ufku kırar (cetvel çizgisi yok); pusun içinde gül-mor
     const cit = [[-120, UFUK + 30]];
@@ -94,13 +103,7 @@
       for (let k = 0; k <= 16; k++) { const u = k / 16; pts.push([x - w + 2 * w * u, y - (1.5 + i * .9) * Math.sin(PI * u) * (.5 + fbm(u * 5, i))]); }
       for (let k = 16; k >= 0; k--) { const u = k / 16; pts.push([x - w + 2 * w * u, y + (1.5 + i * .9) * Math.sin(PI * u) * (.5 + fbm(u * 5, i + 20))]); }
       R.fill(P(pts), `rgba(255,${214 - i * 8},${146 - i * 8},${.75 - i * .05})`, { dir: 0, maxR: 4, type: 1, len: 3, wid: .5, hgt: .3, group: 'tarla', jit: .06 }); }
-    // ağacın gölgesi: gövde gölgesi incecik başlar, taç gölgesi önde yumuşak, loblu bir göl olur (güneşten uzağa: sağa ve bize)
-    { const gk = [], n = 40, A = [1318, 748], B = [1780, 1230];
-      for (let i = 0; i <= n; i++) { const u = i / n, x = A[0] + (B[0] - A[0]) * u, y = A[1] + (B[1] - A[1]) * Math.pow(u, 1.15);
-        const gen = (u < .12 ? 6 + 40 * u : 11 + 330 * Math.pow((u - .12) / .88, .9)), lob = .55 + .9 * fbm(u * 6, 3), lob2 = .55 + .9 * fbm(u * 6, 11);
-        gk.push([x - gen * lob + 14 * Math.sin(u * 41), y, x + gen * 1.1 * lob2 + 14 * Math.sin(u * 37 + 1), y]); }
-      R.fill(S([...gk.map(p => [p[0], p[1]]), ...gk.reverse().map(p => [p[2], p[3]])]), 'rgba(52,30,52,.62)',
-        { dir: { fn: () => Math.atan2(482, 462) }, maxR: 9, type: 1, len: 2, wid: .6, hgt: .2, group: 'tgolge', jit: .08, alpha: .8 }); }
+    if (o.golge !== false) tarlaGolge(R);   // Van Gogh: ağaçsız planlarda gölge ayrı katman (tek koyu tümsek taze mezar okunuyordu)
     // patika: iki tekerlek izi ve arada otlu sırt; kenarlar düzensiz
     if (patika && patika.length) {
       const yol = (k0, k1, renk, grup, pr) => { const sol = [], sag = [];
@@ -168,5 +171,5 @@
       yaprak(x0, y0, h, eg, 2 + r() * 3.5, sol ? 'onsol' : 'onsag');
       if (r() < .12) basak(x0 + Math.sin(eg) * h, y0 - Math.cos(eg) * h, eg, sol ? 'onsol' : 'onsag'); }
   }
-  g.TABLO = { gok, daglar, tarla, agac, on, GUNES, UFUK, AGAC, KUM, fbm };
+  g.TABLO = { gok, daglar, tarla, tarlaGolge, agac, on, GUNES, UFUK, AGAC, KUM, fbm };
 })(window);

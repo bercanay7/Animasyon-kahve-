@@ -55,6 +55,12 @@ export function salonKur(M, IMG = {}) {
       { ad: 'dolu', d: .72, ciz: cerceveCiz(cerceveListesi('dolu')), R: [12, 6, 3, 1.6], T: 9, alfa: (t, du) => (du && du.duvar === 'dolu' ? 1 : 0) },
       { ad: 'seyrek', d: .72, ciz: cerceveCiz(cerceveListesi('seyrek')), R: [12, 6, 3, 1.6], T: 9, alfa: (t, du) => (du && du.duvar === 'seyrek' ? 1 : 0) },
       ...(IMG.badem ? [{ ad: 'arkaTablo', d: .72, ciz: tabloCiz(IMG.badem, ax, ay, bx - ax, by - ay, { maxR: 2 }), R: [4, 2.4, 1.4], T: 8, olcek: 1, alfa: (t, du) => (du && du.arkaTablo ? 1 : 0) }] : []),
+      ...(IMG.irisler ? [(() => { const [x0, y0] = ekr(-1.3, 2.7, -8), [x1, y1] = ekr(1.3, .7, -8), k = 16;   // E04: salonun ortasında bölme duvar, çerçeveli İrisler
+        return { ad: 'iris', d: .72, ciz: R => { const P_ = (a, b, c, d) => q => { q.moveTo(a, b); q.lineTo(c, b); q.lineTo(c, d); q.lineTo(a, d); q.closePath(); };
+          const [bx0, by0] = ekr(-1.9, 3.3, -8.05), [bx1, by1] = ekr(1.9, 0, -8.05);
+          R.fill(P_(bx0, by0, bx1, by1), '#8a8478', { dir: 90, maxR: 8, type: 1, group: 'bolme', jit: .05 });
+          R.fill(P_(x0 - k, y0 - k, x1 + k, y1 + k), '#2a2420', { dir: 'edge', maxR: 3, type: 1, hgt: .9, group: 'ircer', jit: .05 });
+          tabloCiz(IMG.irisler, x0, y0, x1 - x0, y1 - y0, { maxR: 5, grup: 'iristablo' })(R); }, R: [10, 5, 2.6, 1.5], T: 8, olcek: .75, alfa: (t, du) => (du && du.iris ? 1 : 0) }; })()] : []),
       { ad: 'nesne', d: .72, canli: (t, S, c, x, du) => { if (du && du.nesneler) for (const it of du.nesneler(t)) nesne(S, it); }, kap: 2000, wet: .15, run: 0 },
       { ad: 'figur', d: .72, canli: (t, S, c, x, du) => { if (du && du.figur) du.figur(t, S); }, kap: 16000, wet: .2, run: 0 },
       { ad: 'ust', d: .72, canli: (t, S, c, x, du) => { if (du && du.ust) du.ust(t, S); }, kap: 4000, wet: .2, run: 0 },

@@ -30,7 +30,9 @@ for i in range(1, len(kon)): env[i] = env[i - 1] + ((a if kon[i] > env[i - 1] el
 duck = np.interp(np.arange(N) / SR, np.arange(len(env)) * .02, db(-7) * (1 - env) + db(-15) * env)   # müzik: boşlukta -7 dB, konuşma altında -15 dB
 muzik = mu * duck[:, None]
 fx = np.zeros((N, 2), np.float32)
-EF = {k: oku(HERE / 'efekt' / f'{k}.mp3') for k in ['oda', 'zarf', 'tren', 'ruzgar', 'galeri', 'kalem', 'besik', 'lamba']}
+EF = {k: oku(HERE / 'efekt' / f'{k}.mp3') for k in ['oda', 'zarf', 'tren', 'ruzgar', 'galeri', 'kalem', 'lamba']}
+EF['zarf'] = EF['zarf'][int(1.25 * SR):]   # dosyada vuruş 1,35. saniyede: ses inişle aynı anda
+EF['lamba'] = EF['lamba'][:int(1.6 * SR)] * np.linspace(1, 0, int(1.6 * SR))[:, None]
 for k in EF: EF[k] /= (np.max(np.abs(EF[k])) + 1e-9)           # her efekt kendi tepesine (yatak ölçeği taşmasın)
 def koy(k, t, g, d=None, fi=.05, fo=.3):
     s = EF[k]
@@ -46,13 +48,23 @@ for p in PL:
     y = YATAK.get(p['sahne']);
     if y and p['d'] > .2: koy(y[0], p['s'], y[1], d=p['d'] + .4, fi=.3, fo=.4)
     if p['sahne'] == 'tren' and p['id'] in ('B08', 'D03', 'H01'): koy('tren', p['s'] + .2, -20 if p['id'] != 'H01' else -26, fi=.4, fo=1.2)
-# nokta efektler (sözcüğe bağlı)
-koy('zarf', W('A01', 'bir') - .1, -22)
-for i in range(12): koy('zarf', CUES['A02']['s'] - 1.2 + i * .45, -30 - (i % 3) * 2)
-for i in range(8): koy('zarf', W('D07', 'sarı') + i * .28 * 2, -28)
+# nokta efektler (sözcüğe bağlı; v2: görüntüdeki inişle eşleşir)
+koy('zarf', W('A01', 'bir', 1) + .25 + .6 - .05, -20, fi=.02)                       # "her hafta bir zarf daha": A01b'de düşen zarf
+
+for i in range(0, 40, 3):
+    t_ = CUES['A02']['s'] + i * .12 - 1.2 + .5
+    if t_ >= CUES['A02']['s']: koy('zarf', t_, -28 - (i % 7), fi=.02)
+for i in range(0, 26, 2):
+    t_ = W('D07', 'sarı') + i * .28 + .45
+    if t_ < CUES['E01']['s'] - .3: koy('zarf', t_, -28, fi=.02)
+koy('zarf', W('B01', 'pusula') + .1, -26, fi=.02)                                     # pusula açılır
+koy('zarf', W('D02', 'ertesi'), -26, fi=.1)                                            # telgraf kapı altından kayar
+koy('zarf', CUES['D04']['s'] + .8, -28, fi=.02); koy('zarf', CUES['D04']['s'] + 1.2, -30, fi=.02)   # iki bilet
+for k in (.7, 1.2, 1.7): koy('zarf', CUES['H06']['s'] + k, -24, fi=.02)               # üç cilt
+koy('zarf', CUES['I03']['s'] + .5, -28, fi=.02)                                        # son zarf açılır
 koy('kalem', CUES['C01']['s'] + .2, -26); koy('kalem', CUES['G07']['s'] + .3, -28); koy('kalem', CUES['H03']['s'] + .2, -30); koy('kalem', CUES['F07']['s'] + .4, -28)
-for c in ('F03', 'G01'): koy('besik', CUES[c]['s'] + .4, -26)
-koy('lamba', W('G11', 'otuz') - .2, -18)
+koy('kalem', W('F03', 'vincent') - .1, -26)                                            # doğum mektubunda ad yazılır (beşik kaldırıldı)
+koy('lamba', CUES['G11']['e'] + .3, -27, fi=.15, fo=.3)                                # lamba cümle bittikten sonra söner
 koy('ruzgar', W('G09', 'öldü'), -22, d=CUES['G10']['s'] - W('G09', 'öldü'), fi=.8, fo=1.0)   # ölüm anı: yalnız rüzgâr
 if os.environ.get('STEM') == 'muzik': mix = muzik
 else: mix = muzik + fx + vo[:, None] * db(0)
