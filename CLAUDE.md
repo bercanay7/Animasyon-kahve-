@@ -21,7 +21,7 @@ Bu dosya her oturuma kendiliğinden yüklenir. Bu yüzden içinde yalnız **bug�
   - Uymayan öneri gerekçesiyle geri çevrilir, uygunsa sonraki işe not edilir. Onu memnun etmek için öneri kabul edilmez.
 - **Yayın:** YouTube Studio'da kullanıcı elle yapar.
   - Dosyalar `SendUserFile` ile gönderilir; her video için adım adım bir `yayin.md` yazılır.
-  - **Takvim (23 Kasım):** dört günde bir uzun video, 18:00. Narkissos 24 Kasım, Dorian Gray 28 Kasım, Gılgamış 2 Aralık, Frankenstein 6 Aralık, Lale Çılgınlığı 10 Aralık (27 Kasım: şerit denemesi için yer değiştirdi, `analiz/tahminler.md`).
+  - **Takvim (27 Kasım):** dört günde bir uzun video, 18:00. Narkissos 24 Kasım, Dorian Gray 28 Kasım, Gılgamış 2 Aralık, Frankenstein 6 Aralık, Lale Çılgınlığı 10 Aralık (27 Kasım: şerit denemesi için yer değiştirdi, `analiz/tahminler.md`), Çernobil 14 Aralık, Stanford 18 Aralık.
   - Önceki videonun 48. saat ölçümü yeni video yayına girmeden alınır.
 - **Anlatıcı:** ElevenLabs'te **"Emrullah"**. Kanalın sesidir, değiştirilmez. `voice_id` her seferinde `creative_list_voices` ile bulunur, ezberden yazılmaz.
 - **Kredi harcayan üretim** (ElevenLabs, Abracadabrax): yalnız kullanıcı açıkça istediğinde.
@@ -29,7 +29,7 @@ Bu dosya her oturuma kendiliğinden yüklenir. Bu yüzden içinde yalnız **bug�
   - Aynı çağrı "yeniden dene" diye tekrarlanmaz; her tekrar yeniden ücretlendirilir.
   - Scribe'ın `estimate_only` tahmini ~16 kat düşük (gerçek ≈ 5,5 kredi/sn).
 - **Süre:** sabit sınır yok; hikâye ne kadar gerektiriyorsa o kadar. Tutmayı sağlayan süre değil tempo.
-- **Kitle (Sisifos verisi):** telefon %48, TV %22. İzleyicilerin %38'i Türkçe altyazıyla izliyor: her videoya doğru SRT şart. İngilizce dublaj düşük öncelik.
+- **Kitle:** telefon %47–61, TV %9–32 (uzun ve sakin videolar TV'de daha çok izleniyor: Mary Stuart %32). İzleyicilerin %24–44'ü Türkçe altyazıyla izliyor: her videoya doğru SRT şart. İngilizce dublaj düşük öncelik (dil denemesi askıda).
 
 ## Çalışma düzeni (kullanıcının kararları)
 - **Başkan:** ana oturum yönetmendir. Kararları kendisi verir, kullanıcıya her adımda sormaz. Reddettiği öneriyi gerekçesiyle yazar.
@@ -48,6 +48,7 @@ Bu dosya her oturuma kendiliğinden yüklenir. Bu yüzden içinde yalnız **bug�
 - **Deney (23 Kasım):** Lale Çılgınlığı ayrıntılı promptla, Gılgamış yalnız yönle üretiliyor (`analiz/2026-11-23-deney-yon-promptu.md`).
 - **Git:**
   - Her video kendi dalında üretilir; video bitince dal `main`'e birleştirilir.
+  - **Hatırlatıcılar (27 Kasım):** ölçüm hatırlatıcıları ana oturuma gelir, ana oturum `create_session` ile depoya bağlı yeni oturum açar (`kanal/hatirlaticilar/README.md`). Hatırlatıcının kendi açtığı oturum (create_new_session_on_fire) depoya yazamaz.
   - **Dal durumu (26 Kasım):** her oturum `main`'den başlar; başka dalda kalan iş görünmez. Oturum başı kancası (`.claude/hooks/dal_durumu.sh`) `main`'e birleşmemiş dalları bağlama yazar; işlerin aşaması `kanal/DURUM.md` panosunda. Her iş parçası bitince pano güncellenir.
   - Her iş parçasından sonra commit ve push. Commit mesajı Türkçe, sonunda oturumun atıf satırları.
   - PR yalnız kullanıcı isterse açılır.
@@ -55,7 +56,7 @@ Bu dosya her oturuma kendiliğinden yüklenir. Bu yüzden içinde yalnız **bug�
 
 ## İş akışı
 1. **Konu ve talep kontrolü** (`uretim_plani.md`, senaryodan önce):
-   - (a) Türk izleyici bu adı tanıyor mu? `python3 araclar/talep/talep.py "sorgu" …` (otomatik tamamlama + ilk 10 izlenme). Kontrol satırı olarak kanalın eski konuları da aranır.
+   - (a) Türk izleyici bu adı tanıyor mu? `python3 araclar/talep/talep.py "sorgu" …` (otomatik tamamlama + ilk 10 izlenme). Kontrol satırı olarak kanalın eski konuları da aranır. Ne ölçtüğü: tanıdık ad başlıkta tıklamayı taşır; arama trafiği getirmez (trafiğin ~%80'i ana sayfa).
    - Türkçede boşluk, dünyada yankı: `araclar/talep/iki_dil.py "tr|en"`.
    - (b) Başlık ve kapak izleyiciye kendi hayatından bir soru soruyor mu?
    - Kontrol zayıfsa açı kullanıcıya önerilir; konuyu değiştirmek kullanıcının kararıdır.
@@ -117,9 +118,12 @@ Bu dosya her oturuma kendiliğinden yüklenir. Bu yüzden içinde yalnız **bug�
     - Ölçüt: izlemeye devam eden ≥ %60.
     - En güçlü cümle ve kare ilk saniyede olur; 25–40 sn.
     - Yayın uzun videodan birkaç gün sonra; Shorts uzun videoya izleyici taşımaz, ayrı içerik sayılır.
+    - Sonuç (27 Kasım): dikey Narkissos %43 (kanalın en iyisi, ölçütün altında); her Shorts ~1,2 B'de duruyor.
+    - **Konu dışı Shorts yapılmaz:** Shorts sekmesi kanalın kimliğini taşır; ilgisiz bilgi Shorts'ları kanalı iki ayrı kanal gibi gösteriyordu (`analiz/2026-11-27-marka-altyapi.md`).
 13. **Yayın paketi ve teslim:**
     - `yayin.md`: başlık, bölüm zaman damgalı açıklama, künye ve kaynaklar, etiketler, SRT, bitiş ekranı, kapak testi.
     - Bitiş ekranı tarifi son karenin kendisinden yazılır.
+    - **Videolar birbirine bağlanır:** bitiş ekranında anlatımın adını verdiği video kalır, ikinci öğe aynı şeritteki komşu video ya da oynatma listesi olur; sabit yorum da ona bağlanır. Yeni video yayına girince bir önceki videonun bitiş ekranına eklenir. (27 Kasım öncesi bitiş ekranı payı %0,1.)
     - Üç kopya:
       - YouTube için yüksek kalite (≤ 400 MiB, `SendUserFile` sınırı);
       - telefon için H.265 küçük kopya (`libx265 -crf 26–33 -tag:v hvc1`, BT.709, `-c:a copy`);
@@ -170,19 +174,7 @@ Kanıt sayıları `analiz/2026-11-22-genel-karsilastirma.md` dosyasında. Yeni v
   - Serbest: künyeli kısa alıntı (FSEK m. 35), örneğin modern bir çeviriden birkaç dize. Eleştiri ve yorum için birkaç saniyelik film karesi ya da kesiti, modern bir eserin görseli; künyeyle, yorumun malzemesi olarak, tek başına içerik olarak değil.
   - Yok: uzun film klibi, eserin bütünü ya da ana kısmı, telifli müzik (filmin müziği dahil), oyuncuya benzeyen gerçekçi çizim, telifli karakter tasarımı kopyası.
   - Esnemez: 5816 ve bayrak kuralları, doğru bilgi, simge taraması.
-- **Görüntüde yakalananlar** (Milton → Dorian). Taramada bunlara bakılır, tam boy karede:
-  - sıra hâlinde eğilen figürler (namaz safı); baştan ayağa siyah örtülü kadın;
-  - dört kollu yıldız (haç); göğsünde alev tutan önden simetrik figür (Kutsal Kalp);
-  - siluetin karnındaki küçük figür (hamilelik);
-  - havaya kalkmış düz kol (selam); simetrik açık kanatlı kuş (amblem kartalı);
-  - siyah giysideki küçük beyaz dikdörtgen (papaz yakası); kan gibi okunan kırmızı leke;
-  - gerçek görselin köşesindeki küçük ek resim (Mary Stuart'ta idam sahnesi);
-  - koyu kaftan önünde açık dikey şerit + yatay kuşak (haç);
-  - koyu kalabalıkta beyaz sivri börk (kukuleta); kemer ortasında asılı kandil (mihrap);
-  - başın yanında açık bohça (hale); belde çizgili oval (kalkan); alna giden el (selam);
-  - yuvarlak nesnede halka tarama (hedef tahtası). Yeni sette yuvarlak nesneye halka tarama verilmez.
-  - (Çernobil) sıra hâlinde dik, yuvarlak tepeli nesneler (çuval, güğüm: mezar taşı); dikenli tel + baraka + çantalı figür (toplama kampı); ters L direk ve sarkan ince çizgi (vinç: darağacı); kırmızı dolu dairede eş merkezli halka (hedef, bayrak); toprakta tek tümsek + dik saplanmış kürek (taze mezar).
-  - (Stanford) masa + karşılıklı iki figür + tepeden tek ışık konisi (sorgu odası); gözü bağlı figürün sırtına yapışık figür (taciz); taşınan yastıklı yatak (sedyede ceset); yerde düz uzanan beden (ceset, dayak); bileğe kadar koyu etek + küt saç (çarşaf, rahibe); burun buruna iki figür; belge tutan ince uzun kol + yuvarlak el (uygunsuz); gözlükte oval beyaz parıltı (beyaz göz: parıltı çapraz şerit olur).
+- **Simge taraması:** kodla çizilen masum şekil küçük boyda başka bir şey okunabilir (namaz safı, haç, selam, kan, hale, darağacı…). Her video tam boy karede `kanal/HASSASIYET.md` listesiyle taranır; yeni yakalanan simge oraya eklenir.
 - **Düzeltme yeni simge üretebilir:** düzeltilen her plan tam boy karede yeniden bakılır (Lale).
 - **Dinî karşılaştırma yapılmaz;** eser kendi edebî bağlamında okunur (Milton kararı). Tanrı figürle çizilmez, ışıkla gösterilir.
 - **Kapak yazısı da taranır.** Türkçe kelime tuzaklarına dikkat: "dönme" argo okunur, "ŞEYTAN AĞLADI" vaaz gibi okunur.
@@ -203,7 +195,7 @@ Ayrıntı ve kompozisyon menüsü: `kanal/KAPAK_DERSLERI.md`.
 - **Yazı:**
   - Bebas Neue; büyük harf yüksekliği karenin ≥ %18'i (1080 ölçeğinde font ≥ 290 px). Figürlere ≥ 30 px boşluk.
   - Sağ alt köşe süre rozetine ayrılır (önerilen listesinde x 1440–1874, y 829–1034).
-  - Deneme önerisi: 4–6 kelimelik iki satırlık yazı.
+  - En çok 2 satır, 2–4 kelime (kapak sistemi).
 - **Test seti:**
   - tam boy; 246×138, 168×94, 120×68 küçültmeler;
   - odak ısı haritası (`araclar/kapak/odak.py`); gri değer;
@@ -219,32 +211,24 @@ Ayrıntı ve kompozisyon menüsü: `kanal/KAPAK_DERSLERI.md`.
   - TO iyi ama gösterim yoksa sorun paketleme değil gösterim havuzudur.
 - **Hesaplar:** gösterim başına izlenme süresi = TO × ortalama izleme. Görüntüleme/gösterim TO değildir. Abone sayısı Studio gelişmiş moddan alınır.
 - **Okuma araçları:** elde tutma eğrisi Studio ekran görüntüsünden `araclar/analiz/elde_tutma.py` ile okunur. Eğri ~100–400 izleyicilik; ±3 puanın altındaki fark yok sayılır.
-- **Durum (22 Kasım):** kanalda geniş kitleye açılan tek video Sisifos oldu ve havuzu sönüyor.
-  - Talep kontrolü TO'yu medyanın üstüne taşıyor (Kafka, Ran, Mary Stuart), ama dalga için yetmiyor; büyüme yeni bir kapıya bağlı.
+- **Teşhis (27 Kasım):** kanalda geniş kitleye açılan tek video Sisifos oldu; onun havuzu söndükçe kanalın toplam gösterimi düşüyor, yeni videoların denemesi ise sabit (48 saatte 2–3 B).
+  - Talep kontrolü TO'yu medyanın üstüne taşıyor, ama arama trafiği getirmiyor: "narsisizm" (Narkissos, 48 sa) ve "I. Elizabeth" (Mary Stuart, 7 gün) kapıları aramadan 5–7 görüntüleme getirdi. Trafiğin ~%80'i ana sayfa.
+  - Kalan açıklamalar: videolar birbirini beslemiyor (bitiş ekranı payı %0,1) ve kitle kimliği dağınık. Şerit denemesi ikisini sınıyor (`analiz/tahminler.md` Ş1–Ş2, sonuç 13 Aralık).
   - **Kanal denetimi (26 Kasım): ceza yok.** İhtar, kısıtlama, özgün olmayan içerik uyarısı yok; "değiştirilmiş içerik" ayarı gösterimi açıklamıyor. Kanalın haftalık gösterimi Sisifos'tan sonra her hafta yarıya yakın düşüyor (158 B → 64 B → 34 B); yeni videolar bu havuzda 48 saatte 2–3 B alıyor. Ayrıntı: `analiz/2026-11-26-narkissos-48saat.md`.
   - Video video kayıt: `kanal/OLCUTLER_GECMIS.md` ve `analiz/`.
 
 ## Teknik notlar ve tuzaklar
+Projeye özel tuzaklar (SwiftShader, motor ayrıntıları, ses sentezi, kurulumsuz araçlar): `kanal/TEKNIK.md`.
 - **Playwright:** `require('playwright')` her yerden çalışır. `NODE_PATH` ayarlanmaz (bozuyor), `playwright install` çalıştırılmaz.
 - **Süreçler:** PID ile durdurulur, `pkill -f` kullanılmaz. Uzun render ve miks arka planda, uzun `timeout` ile.
   - İki iş aynı çekirdekleri paylaşırken öncelikli olan için ötekine `kill -STOP` / `-CONT`.
-- **Render önbelleği:** `.parts*/` kod ve ayar özetini (`KEY`) saklar; şüphede klasör elle silinir.
-  - Ara parçalar iş bitince silinir; disk payı sınırlı.
+- **Ara parçalar ve render önbelleği** (`.parts*/`) iş bitince silinir; disk payı sınırlı.
   - Bitmiş video depoya girmez (`.gitignore`: `*.mp4`; 27 Kasım'da çıkarılanlar ve geri alma: `kanal/arsiv/cikarilan_videolar_2026-11-27.md`). Teslim kopyasının kalıcı yeri kullanıcının Drive arşivi.
 - **file:// görselleri WebGL tuvalini kirletir:** render ve kare araçları yerel http sunucusuyla çalışır (`dorian-gray/tools/sunucu.js`).
-- **Yazılımsal WebGL (SwiftShader):** önce ölç, sonra hızlandır.
-  - Konuma bağlı gürültü dokuya önceden yazılır.
-  - Canvas `filter: blur` pahalıdır; düşük çözünürlüklü tuvale çizilip büyütülür.
-  - Sessiz film 15 kare/sn.
 - **Belirlenimcilik:** `Math.random` yerine tohumlu gürültü; işçiler arası aynı kare.
 - **Sözdizimi denetimi:** `node -e "new Function(require('fs').readFileSync('dosya.js','utf8'))"`. Render işçileri sayfayı başta yükler; ortadaki değişiklik yalnız sonraki render'a geçer (gerekirse `ONLY=` ile parça).
-- **Piyano sentezi:** MIDI < ~37'de sönüm katsayısı negatife düşüyordu; düzeltme `dec = max(.3, …)` (`dorian-gray/audio/score.py`).
-- **milton motoru:** iç içe `GR.frame` göreli değil, mutlak koordinata döner.
 - **Yeni videoda `film.js` Lale'den alınır.** Milton ve Dorian'ın `txt()`'si sola hizalı künyenin panelini kaydırıyordu; düzeltme `softBand`.
-- **Karma üslupta renk katmanı örtüyle basılır.** Çarpma boyası katman sırası bilmez; önünden geçen figürü de boyar (`lale-cilginligi/lib/lale.js` örtü maskesi).
-- **Kapta paket eksikse:** Whisper ve scipy olmadan çalışan yollar `ikaros/tools/hizala.py`, `ikaros/audio/dsp_shim.py`, `ikaros/tools/mix_ffmpeg.py`.
 - **Fontlar:** `sisifos/fonts.css`, `orfeus/fonts.css` (Türkçe karakterli woff2 depoda).
-- **Dosya boyu:** ağaç baskı gibi karede değişen gürültü dosyayı şişirir; gürültü iki karede bir değiştirilir.
 
 ## Depo dizini
 | Yer | Ne |
@@ -264,9 +248,9 @@ Ayrıntı ve kompozisyon menüsü: `kanal/KAPAK_DERSLERI.md`.
 | `shorts-sart/` | dikey mitoloji Shorts serisi "Şart" (Narkissos, Gılgamış): filmin sesinden kesit, dikey mercek ya da dikey kil sahneleri, Shorts'a özel müzik; `README.md` hat |
 | `gunluk-shorts/` | Şarlken, Medici (Python motoru); dersler `DERSLER.md` |
 | `analiz/` | Studio analizleri, konu taramaları, `tahminler.md`, **`2026-11-22-genel-karsilastirma.md`**, `2026-11-17-kanal-ortalamasi.md` |
-| `araclar/` | `talep/` (talep ve iki dil), `analiz/` (tempo, elde tutma), `hareket/`, `kapak/odak.py`, `lemo/KATALOG.md`, `ASSETS.md`, `ADAYLAR.md` |
+| `araclar/` | `talep/` (talep ve iki dil), `analiz/` (tempo, elde tutma), `hareket/`, `kapak/odak.py`, `lemo/KATALOG.md`, `efekt/KAYNAKLAR.md` (dış depolardan geçiş, parçacık, 2.5D kamera tarifleri), `ASSETS.md`, `ADAYLAR.md` |
 | `kanal/DURUM.md` | **durum panosu:** hangi iş hangi dalda, hangi aşamada, sıradaki adım |
-| `kanal/` | `logo/` kanal kimliği (avatar, kapak, filigran, logo hareketi; `KIMLIK.md`, 26 Kasım) · bu dosyadan taşınan ayrıntı: `DERSLER.md` (video video dersler), `OLCUTLER_GECMIS.md`, `KANAL_YONU.md`, `KAPAK_DERSLERI.md`, `KURUL_YONTEMI.md` (arşiv), `arsiv/` (ayrıntılı eski depo tablosu ve iş akışı) |
+| `kanal/` | `logo/` kanal kimliği (avatar, kapak, filigran, logo hareketi; `KIMLIK.md`, 26 Kasım) · bu dosyadan taşınan ayrıntı: `DERSLER.md` (video video dersler), `OLCUTLER_GECMIS.md`, `KANAL_YONU.md`, `KAPAK_DERSLERI.md`, `KAPAK_SISTEMI.md`, `HASSASIYET.md` (simge listesi), `TEKNIK.md` (projeye özel tuzaklar), `hatirlaticilar/`, `KURUL_YONTEMI.md` (arşiv), `arsiv/` (ayrıntılı eski depo tablosu ve iş akışı) |
 | `.claude/skills/` | `yonetmenlik`, `cizim`, `karakter`, `ses`, `render`, `lisans-kontrol`; `cinecode` (yalnız `/cinecode` ile çalışır; kanal videolarında başvuru kütüphanesi) |
 | kök dizin | eski Navitas kahve Story'si; kanalla ilgisiz |
 
