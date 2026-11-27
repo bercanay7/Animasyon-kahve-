@@ -172,7 +172,7 @@ Ortak alanlar: **İlgili video** o mitin uzun videosu · **Oynatma listesi** Mit
 ### 9) Gılgamış, Shorts'a özel seslendirme (4 Aralık, 20:00) · `gilgamis-ses/gilgamis_ses.mp4` · S5
 Kanalın ilk ayrı seslendirilmiş Shorts'u (Emrullah, 746 kredi, 27 Kasım). Metin ve kararlar: `gilgamis-ses/metin.md`.
 **Önce:** Studio'da 4 Aralık'a film sesli Gılgamış şart Shorts'u (`gilgamis/gilgamis_sart.mp4`, "Gılgamış'a Ölümsüzlük İçin Tek Şart") planlandıysa planı kaldır ve sil (taslak ya da planlı; yayına girmediyse iz bırakmaz). İkisi birden çıkarsa ikincisi neredeyse hiç gösterilmez (Narkissos dersi) ve S5 ölçülemez.
-- **Dosya:** `gilgamis_ses.mp4` (28,2 sn, 1080×1920, 30 fps, H.264, −14,3 LUFS). Yüklemeden önce adı: `gilgamis-yedi-ekmek.mp4`.
+- **Dosya:** `gilgamis_ses.mp4` (28,2 sn, 1080×1920, 30 fps, H.264 CRF 18, BT.709, AAC tur, −14,3 LUFS, −1,2 dBTP, 22,7 MB). Yüklemeden önce adı: `gilgamis-yedi-ekmek.mp4`.
 - **Yayın:** **Cuma 4 Aralık 20:00** (Gılgamış uzun videosundan iki gün sonra; uzun videonun 48. saat ölçümü 18:00'de alındıktan sonra). Görünürlük: Planla.
 - **Başlık (34 karakter):** `Gılgamış'ın Başucundaki Yedi Ekmek`
   - İlk kare soruyor ("Bu uyku neye mal oldu?"), başlık cevabı vermez, somut bir nesne vaat eder. Önceki şart Shorts'larının "<Ad>'a … İçin Tek Şart" kalıbı bilerek kullanılmadı (aynı mit için ikinci kez).
@@ -189,4 +189,9 @@ Kanalın ilk ayrı seslendirilmiş Shorts'u (Emrullah, 746 kredi, 27 Kasım). Me
 - **Altyazı:** yüklenmez (videoya yakılı). Yedek: `gilgamis-ses/gilgamis_ses.tr.srt`.
 - **Sabit yorum (cevabı tekrar etmez, izleyiciye döner):** `Gözünü bir an kapadığını sandı, yedi gün geçmişti. Sen en son ne zaman "bir dakika" deyip saatlerini kaybettin?`
 - **Kapak karesi:** uygulamada seçilebiliyorsa **0:00** (soru yazısı + uyuyan Gılgamış).
+- **Yüklemeden önce kulakla (telefon hoparlöründe):**
+  1. İlk cümle "Yedi gündür uyuyorsun": çekimde kısık (`[softly]`) geldi, miksde +7 dB eşitlendi. Fısıltı gibi değil, anlaşılır mı?
+  2. "Gılgamış" ve "közde" telaffuzu.
+  3. Döngü: video sona gelip başa sararken müzik ve ses tıkırtısız mı (son 0,8 sn söner)?
+  Biri bozuksa söyle; tek cümle yaması kredisi küçük (~30–60 kredi), yine onayınla.
 - **Ölçüm (S5):** Cumartesi 5 Aralık 16:00 (20. saat) ve Pazar 6 Aralık 20:00 (48. saat): Studio → Shorts → video → "İzlemeye devam eden / Kaydıran", görüntüleme, ortalama izleme yüzdesi (döngü %100'ü geçebilir). Ekran görüntüleri `olcum/` altına. **≥ %55 tutmazsa Shorts bir süre bırakılır** (`analiz/tahminler.md` S5).

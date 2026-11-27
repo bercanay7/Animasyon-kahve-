@@ -30,6 +30,6 @@ window.KURGU = {
            "y": 330, "ara": 0.95, "bitis": 1.9, "panel": 0},
  "yazilar": [{"t0": 26.45, "t1": 99, "satir": [["BU UYKU", "krem", 210], ["ÖLÜMSÜZLÜĞE", "vurgu", 150], ["MAL OLDU.", "krem", 150]],
               "y": 330, "ara": 0.95, "altyok": 99}],
- "altyazi": {"y": 1370, "px": 100, "bas": 1.9},
+ "altyazi": {"y": 1370, "px": 100, "bas": 2.05},
  "renk": {"krem": "#FBEBD0", "vurgu": "#E8622E", "golge": "rgba(28,14,4,.88)"}
 };

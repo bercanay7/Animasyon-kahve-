@@ -35,7 +35,7 @@ postHazirla = function () {   // kenar kararması dikey tuvale göre elips (bkz.
     const n = o.ekmek || 0;
     for (let i = 0; i < 7; i++) { const p = clamp(n - i); if (p > 0) YAR.ekmek(R, 130 + i * 136, FY + 150, 64 * (.6 + .4 * E.outBack(p)), EKMEK[i]); }   // ilk karede okunsun diye filmden büyük (52 → 64)
     // yedincisi közde: önde, son ekmeğin altında kor (şimdi planlarında tek renkli nesne; kapak ve yazı vurgusuyla aynı renk)
-    if (o.kor && n >= 7) { const [kx, ky] = R.scr(130 + 6 * 136, FY + 185); R.L.pts.push({ x: kx, y: ky, z: 40 * R.z, r: 330 * R.z, i: o.kor * (.82 + .18 * Math.sin(FIG_T * 5.3) * Math.sin(FIG_T * 2.1 + 1)), col: [1.3, .5, .15] }); }
+    if (o.kor && n >= 7) { const [kx, ky] = R.scr(130 + 6 * 136, FY + 185); R.L.pts.push({ x: kx, y: ky, z: 40 * R.z, r: 330 * R.z, i: o.kor * (.82 + .18 * Math.sin(TAU * FIG_T / DUR * 24) * Math.sin(TAU * FIG_T / DUR * 9 + 1))   /* döngüde sürekli: süreye tam sayı kez */, col: [1.3, .5, .15] }); }
     const P = o.poz || {};
     const ku = clamp(((P.egilme ?? .08) - .08) / .16);   // 0 uyanık … 1 uyuyor
     FIG.fig(R, FX, FY, FS, { tip: 'gilgamis', giysi: 'etek', f: 1, otur: 1, egilme: P.egilme ?? .08, bas: P.bas ?? 0, kol: kolPoz(ku), basO: { kapali: !!P.kapali } });
@@ -144,7 +144,7 @@ postHazirla = function () {   // kenar kararması dikey tuvale göre elips (bkz.
     R.cam(lerp(525, ILK[0], z), lerp(940, ILK[1], z), lerp(1.08, ILK[2], z));
     // 'bir an' yedi gün olur: gözler kapanınca çentikler bir bir kazınır, H1'in duvarına varır (döngü dikişi)
     const cen = ramp(st.t, A('C10@kapadın') + .25, DUR - .25, E.lin);
-    oda(R, st, { poz: { ...uyku(u), egilme: lerp(.08, .24, u) + nefes(st.t) }, mesale: lerp(1, .45, u), centik: cen, ekmek: cen * 7, kor: cen >= 1 ? 1.2 : 0 });
+    oda(R, st, { poz: { ...uyku(u), egilme: lerp(.08, .24, u) + nefes(st.t) }, mesale: lerp(1, .45, u), centik: cen, ekmek: Math.min(7, cen * 7.4), kor: 1.2 * ramp(st.t, DUR - .9, DUR - .25, E.io2) });
     sis(R, lerp(-.1, SIS0, ramp(st.t, t0, DUR, E.lin)), 1); R.L.int = lerp(1, .62, u);
   }, { tr: COZ });
 })();
