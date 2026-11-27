@@ -1,0 +1,926 @@
+[
+ {
+  "id": "A01",
+  "olcek": "genis",
+  "baslangic_sn": 0,
+  "sure_sn": 5.48,
+  "not": "Kapak A odası: Theo, lamba, renkli tuval",
+  "sozcukler": [
+   {
+    "w": "van",
+    "t": 0.5
+   },
+   {
+    "w": "gogha",
+    "t": 0.96
+   },
+   {
+    "w": "kim",
+    "t": 1.56
+   },
+   {
+    "w": "inandı",
+    "t": 1.82
+   },
+   {
+    "w": "pariste",
+    "t": 3.28
+   },
+   {
+    "w": "bir",
+    "t": 3.82
+   },
+   {
+    "w": "yazı",
+    "t": 4.02
+   },
+   {
+    "w": "masası",
+    "t": 4.32
+   }
+  ]
+ },
+ {
+  "id": "B06",
+  "olcek": "orta",
+  "baslangic_sn": 78.91,
+  "sure_sn": 9.97,
+  "not": "Odalardan biri atölye: şövalede renkli tablo",
+  "sozcukler": [
+   {
+    "w": "bir",
+    "t": 0
+   },
+   {
+    "w": "ressam",
+    "t": 0.22
+   },
+   {
+    "w": "kardeşinin",
+    "t": 0.76
+   },
+   {
+    "w": "evine",
+    "t": 1.44
+   },
+   {
+    "w": "sığar",
+    "t": 1.76
+   },
+   {
+    "w": "mı",
+    "t": 2.14
+   },
+   {
+    "w": "haziranda",
+    "t": 2.68
+   },
+   {
+    "w": "üçüncü",
+    "t": 3.57
+   },
+   {
+    "w": "kattaki",
+    "t": 3.8
+   },
+   {
+    "w": "bir",
+    "t": 4.2
+   },
+   {
+    "w": "daireye",
+    "t": 4.46
+   },
+   {
+    "w": "taşınırlar",
+    "t": 4.86
+   },
+   {
+    "w": "üç",
+    "t": 5.8
+   },
+   {
+    "w": "oda",
+    "t": 6
+   },
+   {
+    "w": "ve",
+    "t": 6.32
+   },
+   {
+    "w": "küçük",
+    "t": 6.58
+   },
+   {
+    "w": "bir",
+    "t": 6.88
+   },
+   {
+    "w": "bölme",
+    "t": 7.16
+   },
+   {
+    "w": "odalardan",
+    "t": 8.04
+   },
+   {
+    "w": "biri",
+    "t": 8.5
+   },
+   {
+    "w": "atölye",
+    "t": 8.8
+   },
+   {
+    "w": "olur",
+    "t": 9.36
+   }
+  ]
+ },
+ {
+  "id": "C06",
+  "olcek": "orta",
+  "baslangic_sn": 144.43,
+  "sure_sn": 6.95,
+  "not": "Sanatçılara para verirken sen de sanatçı işi yapıyorsun",
+  "sozcukler": [
+   {
+    "w": "ekimde",
+    "t": 0
+   },
+   {
+    "w": "bir",
+    "t": 0.4
+   },
+   {
+    "w": "mektupta",
+    "t": 0.64
+   },
+   {
+    "w": "theoya",
+    "t": 1.24
+   },
+   {
+    "w": "şöyle",
+    "t": 1.76
+   },
+   {
+    "w": "der",
+    "t": 2.04
+   },
+   {
+    "w": "sanatçılara",
+    "t": 2.96
+   },
+   {
+    "w": "para",
+    "t": 3.46
+   },
+   {
+    "w": "verirken",
+    "t": 3.72
+   },
+   {
+    "w": "sen",
+    "t": 4.4
+   },
+   {
+    "w": "de",
+    "t": 4.7
+   },
+   {
+    "w": "sanatçı",
+    "t": 4.86
+   },
+   {
+    "w": "işi",
+    "t": 5.28
+   },
+   {
+    "w": "yapıyorsun",
+    "t": 5.42
+   }
+  ]
+ },
+ {
+  "id": "D01",
+  "olcek": "orta",
+  "baslangic_sn": 183.39,
+  "sure_sn": 11.49,
+  "not": "Nişan: Theo ve Jo yan yana",
+  "sozcukler": [
+   {
+    "w": "aynı",
+    "t": 0
+   },
+   {
+    "w": "hafta",
+    "t": 0.44
+   },
+   {
+    "w": "iki",
+    "t": 1.04
+   },
+   {
+    "w": "haber",
+    "t": 1.26
+   },
+   {
+    "w": "alan",
+    "t": 1.54
+   },
+   {
+    "w": "bir",
+    "t": 1.74
+   },
+   {
+    "w": "adam",
+    "t": 2.06
+   },
+   {
+    "w": "hangisine",
+    "t": 2.3
+   },
+   {
+    "w": "koşar",
+    "t": 2.82
+   },
+   {
+    "w": "aralık",
+    "t": 4.2
+   },
+   {
+    "w": "bin",
+    "t": 4.5
+   },
+   {
+    "w": "sekiz",
+    "t": 4.71
+   },
+   {
+    "w": "yüz",
+    "t": 5.07
+   },
+   {
+    "w": "seksen",
+    "t": 5.28
+   },
+   {
+    "w": "sekiz",
+    "t": 5.71
+   },
+   {
+    "w": "theo",
+    "t": 6.72
+   },
+   {
+    "w": "bir",
+    "t": 7.36
+   },
+   {
+    "w": "buçuk",
+    "t": 7.5
+   },
+   {
+    "w": "yıl",
+    "t": 7.84
+   },
+   {
+    "w": "önce",
+    "t": 7.94
+   },
+   {
+    "w": "ona",
+    "t": 8.34
+   },
+   {
+    "w": "hayır",
+    "t": 8.66
+   },
+   {
+    "w": "diyen",
+    "t": 9.02
+   },
+   {
+    "w": "joyla",
+    "t": 9.54
+   },
+   {
+    "w": "nişanlanır",
+    "t": 9.72
+   }
+  ]
+ },
+ {
+  "id": "D06",
+  "olcek": "genis",
+  "baslangic_sn": 217.79,
+  "sure_sn": 7.75,
+  "not": "Evlilik ve yeni daire: Theo masayı gösterir",
+  "sozcukler": [
+   {
+    "w": "nisanda",
+    "t": 0
+   },
+   {
+    "w": "theo",
+    "t": 1.03
+   },
+   {
+    "w": "ile",
+    "t": 1.35
+   },
+   {
+    "w": "jo",
+    "t": 1.58
+   },
+   {
+    "w": "amsterdamda",
+    "t": 1.6
+   },
+   {
+    "w": "evlenir",
+    "t": 2.52
+   },
+   {
+    "w": "yirmi",
+    "t": 3.52
+   },
+   {
+    "w": "nisanda",
+    "t": 3.76
+   },
+   {
+    "w": "pariste",
+    "t": 4.6
+   },
+   {
+    "w": "yeni",
+    "t": 5.26
+   },
+   {
+    "w": "bir",
+    "t": 5.48
+   },
+   {
+    "w": "daireye",
+    "t": 5.76
+   },
+   {
+    "w": "taşınırlar",
+    "t": 6.18
+   }
+  ]
+ },
+ {
+  "id": "F03",
+  "olcek": "yakin",
+  "baslangic_sn": 290.28,
+  "sure_sn": 4.62,
+  "not": "Oğul doğar: Jo kucağında bebek, Theo eğilir",
+  "sozcukler": [
+   {
+    "w": "iki",
+    "t": 0
+   },
+   {
+    "w": "gün",
+    "t": 0.26
+   },
+   {
+    "w": "sonra",
+    "t": 0.4
+   },
+   {
+    "w": "otuz",
+    "t": 1.3
+   },
+   {
+    "w": "bir",
+    "t": 1.44
+   },
+   {
+    "w": "ocakta",
+    "t": 1.54
+   },
+   {
+    "w": "theo",
+    "t": 2.63
+   },
+   {
+    "w": "ile",
+    "t": 2.93
+   },
+   {
+    "w": "jonun",
+    "t": 3.02
+   },
+   {
+    "w": "oğlu",
+    "t": 3.4
+   },
+   {
+    "w": "doğar",
+    "t": 3.74
+   }
+  ]
+ },
+ {
+  "id": "G01",
+  "olcek": "orta",
+  "baslangic_sn": 344.84,
+  "sure_sn": 9.01,
+  "not": "Amca gelir: hasır şapka, beşik",
+  "sozcukler": [
+   {
+    "w": "bir",
+    "t": 0
+   },
+   {
+    "w": "amca",
+    "t": 0.3
+   },
+   {
+    "w": "yeğenini",
+    "t": 0.8
+   },
+   {
+    "w": "ilk",
+    "t": 1.36
+   },
+   {
+    "w": "kez",
+    "t": 1.64
+   },
+   {
+    "w": "görünce",
+    "t": 1.84
+   },
+   {
+    "w": "ne",
+    "t": 2.18
+   },
+   {
+    "w": "yapar",
+    "t": 2.4
+   },
+   {
+    "w": "on",
+    "t": 3.28
+   },
+   {
+    "w": "yedi",
+    "t": 3.39
+   },
+   {
+    "w": "mayıs",
+    "t": 3.6
+   },
+   {
+    "w": "sabahı",
+    "t": 3.94
+   },
+   {
+    "w": "vincent",
+    "t": 4.5
+   },
+   {
+    "w": "paristedir",
+    "t": 4.92
+   },
+   {
+    "w": "üç",
+    "t": 6.16
+   },
+   {
+    "w": "gün",
+    "t": 6.42
+   },
+   {
+    "w": "kardeşinin",
+    "t": 6.62
+   },
+   {
+    "w": "evinde",
+    "t": 7.24
+   },
+   {
+    "w": "kalır",
+    "t": 7.68
+   }
+  ]
+ },
+ {
+  "id": "G02",
+  "olcek": "yakin",
+  "baslangic_sn": 353.85,
+  "sure_sn": 11.77,
+  "not": "İki kardeş beşiğin başında; Vincent örtüyü gösterir",
+  "sozcukler": [
+   {
+    "w": "jo",
+    "t": 0
+   },
+   {
+    "w": "o",
+    "t": 0.22
+   },
+   {
+    "w": "günleri",
+    "t": 0.5
+   },
+   {
+    "w": "yıllar",
+    "t": 0.96
+   },
+   {
+    "w": "sonra",
+    "t": 1.48
+   },
+   {
+    "w": "yazacak",
+    "t": 1.66
+   },
+   {
+    "w": "iki",
+    "t": 2.76
+   },
+   {
+    "w": "kardeş",
+    "t": 2.98
+   },
+   {
+    "w": "beşiğin",
+    "t": 3.65
+   },
+   {
+    "w": "başında",
+    "t": 3.9
+   },
+   {
+    "w": "duruyordu",
+    "t": 4.32
+   },
+   {
+    "w": "ikisinin",
+    "t": 5.42
+   },
+   {
+    "w": "de",
+    "t": 5.78
+   },
+   {
+    "w": "gözleri",
+    "t": 5.98
+   },
+   {
+    "w": "yaşlıydı",
+    "t": 6.4
+   },
+   {
+    "w": "sonra",
+    "t": 7.64
+   },
+   {
+    "w": "vincent",
+    "t": 8
+   },
+   {
+    "w": "tığ",
+    "t": 8.64
+   },
+   {
+    "w": "işi",
+    "t": 8.96
+   },
+   {
+    "w": "bir",
+    "t": 9.14
+   },
+   {
+    "w": "örtüyü",
+    "t": 9.34
+   },
+   {
+    "w": "gösterip",
+    "t": 9.76
+   },
+   {
+    "w": "şaka",
+    "t": 10.16
+   },
+   {
+    "w": "yapar",
+    "t": 10.48
+   }
+  ]
+ },
+ {
+  "id": "G05",
+  "olcek": "orta",
+  "baslangic_sn": 375.92,
+  "sure_sn": 12.45,
+  "not": "Temmuz: bebek hasta, zam, gergin gün",
+  "sozcukler": [
+   {
+    "w": "temmuzda",
+    "t": 0
+   },
+   {
+    "w": "pariste",
+    "t": 1.16
+   },
+   {
+    "w": "bebek",
+    "t": 1.76
+   },
+   {
+    "w": "hastalanır",
+    "t": 2.06
+   },
+   {
+    "w": "theo",
+    "t": 3.24
+   },
+   {
+    "w": "patronlarıyla",
+    "t": 3.4
+   },
+   {
+    "w": "sıkışmıştır",
+    "t": 4.14
+   },
+   {
+    "w": "zam",
+    "t": 5.28
+   },
+   {
+    "w": "ister",
+    "t": 5.58
+   },
+   {
+    "w": "işten",
+    "t": 6.28
+   },
+   {
+    "w": "ayrılmayı",
+    "t": 6.56
+   },
+   {
+    "w": "düşünür",
+    "t": 6.96
+   },
+   {
+    "w": "altı",
+    "t": 7.84
+   },
+   {
+    "w": "temmuzda",
+    "t": 8.1
+   },
+   {
+    "w": "vincentin",
+    "t": 9.17
+   },
+   {
+    "w": "parise",
+    "t": 9.46
+   },
+   {
+    "w": "geldiği",
+    "t": 10.04
+   },
+   {
+    "w": "gün",
+    "t": 10.42
+   },
+   {
+    "w": "gergin",
+    "t": 10.58
+   },
+   {
+    "w": "geçer",
+    "t": 11
+   }
+  ]
+ },
+ {
+  "id": "G10",
+  "olcek": "orta",
+  "baslangic_sn": 430.49,
+  "sure_sn": 7.62,
+  "not": "Ah anneciğim: Theo ve sarı zarflar",
+  "sozcukler": [
+   {
+    "w": "ağustosta",
+    "t": 0
+   },
+   {
+    "w": "theo",
+    "t": 0.7
+   },
+   {
+    "w": "annesine",
+    "t": 1.06
+   },
+   {
+    "w": "yazar",
+    "t": 1.6
+   },
+   {
+    "w": "ah",
+    "t": 2.52
+   },
+   {
+    "w": "anneciğim",
+    "t": 2.76
+   },
+   {
+    "w": "o",
+    "t": 3.74
+   },
+   {
+    "w": "benim",
+    "t": 3.9
+   },
+   {
+    "w": "kendi",
+    "t": 4.22
+   },
+   {
+    "w": "kardeşimdi",
+    "t": 4.58
+   },
+   {
+    "w": "öyle",
+    "t": 5.66
+   },
+   {
+    "w": "benimdi",
+    "t": 5.96
+   },
+   {
+    "w": "ki",
+    "t": 6.44
+   }
+  ]
+ },
+ {
+  "id": "G11",
+  "olcek": "ayrinti",
+  "baslangic_sn": 438.11,
+  "sure_sn": 11.48,
+  "not": "Theo da öldü: boş masa, lamba söner",
+  "sozcukler": [
+   {
+    "w": "altı",
+    "t": 0
+   },
+   {
+    "w": "ay",
+    "t": 0.78
+   },
+   {
+    "w": "sonra",
+    "t": 1
+   },
+   {
+    "w": "yirmi",
+    "t": 1.58
+   },
+   {
+    "w": "beş",
+    "t": 1.95
+   },
+   {
+    "w": "ocak",
+    "t": 2.18
+   },
+   {
+    "w": "bin",
+    "t": 2.56
+   },
+   {
+    "w": "sekiz",
+    "t": 2.81
+   },
+   {
+    "w": "yüz",
+    "t": 3.23
+   },
+   {
+    "w": "doksan",
+    "t": 3.48
+   },
+   {
+    "w": "birde",
+    "t": 3.98
+   },
+   {
+    "w": "theo",
+    "t": 4.67
+   },
+   {
+    "w": "da",
+    "t": 5.07
+   },
+   {
+    "w": "utrechtte",
+    "t": 5.38
+   },
+   {
+    "w": "öldü",
+    "t": 5.48
+   },
+   {
+    "w": "otuz",
+    "t": 6.42
+   },
+   {
+    "w": "üç",
+    "t": 6.59
+   },
+   {
+    "w": "yaşındaydı",
+    "t": 6.68
+   }
+  ]
+ },
+ {
+  "id": "H01",
+  "olcek": "yakin",
+  "baslangic_sn": 449.59,
+  "sure_sn": 8.12,
+  "not": "Bir bebek, bir çekmece mektup, yüzlerce tablo: Jo",
+  "sozcukler": [
+   {
+    "w": "yirmi",
+    "t": 0
+   },
+   {
+    "w": "sekiz",
+    "t": 0.25
+   },
+   {
+    "w": "yaşında",
+    "t": 0.5
+   },
+   {
+    "w": "kucağında",
+    "t": 1.68
+   },
+   {
+    "w": "bir",
+    "t": 2.18
+   },
+   {
+    "w": "bebek",
+    "t": 2.42
+   },
+   {
+    "w": "bir",
+    "t": 3.18
+   },
+   {
+    "w": "çekmece",
+    "t": 3.36
+   },
+   {
+    "w": "mektup",
+    "t": 3.76
+   },
+   {
+    "w": "ve",
+    "t": 4.34
+   },
+   {
+    "w": "yüzlerce",
+    "t": 4.68
+   },
+   {
+    "w": "tabloyla",
+    "t": 5.34
+   },
+   {
+    "w": "kalan",
+    "t": 5.82
+   },
+   {
+    "w": "bir",
+    "t": 6.14
+   },
+   {
+    "w": "kadın",
+    "t": 6.34
+   },
+   {
+    "w": "ne",
+    "t": 6.62
+   },
+   {
+    "w": "yapar",
+    "t": 6.96
+   }
+  ]
+ }
+]

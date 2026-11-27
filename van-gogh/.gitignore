@@ -8,3 +8,7 @@ blender/klip_*/log.txt
 blender/klip_*/eklem.json
 audio/*.wav
 vangogh_v*.mp4
+blender_v4/plaka/
+blender_v4/varlik/
+blender_v4/*.blend
+blender_v4/*.blend1
