@@ -14,7 +14,7 @@ function ozet() {
   const h = crypto.createHash('sha1'), ekle = f => h.update(fs.readFileSync(f));
   for (const d of [path.join(KOK, 'lib'), path.join(KOK, '..', 'araclar', 'tablo')]) for (const f of fs.readdirSync(d).filter(f => /\.js$/.test(f)).sort()) ekle(path.join(d, f));
   for (const f of ['film.html', 'timeline.js']) ekle(path.join(KOK, f));
-  for (const d of fs.readdirSync(path.join(KOK, 'blender')).filter(d => d.startsWith('klip_'))) { const k = path.join(KOK, 'blender', d, 'kare'); h.update(d + (fs.existsSync(k) ? fs.readdirSync(k).length : 0)); }
+  // figür klipleri anahtara girmez (yeniden çizilen klip parçayı bozmaz; gerekirse ONLY= ile plan yeniden çizilir)
   return h.digest('hex').slice(0, 10);
 }
 async function isci() {
