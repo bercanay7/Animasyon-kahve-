@@ -85,3 +85,35 @@ Türkçe cümleler bizim çevirimiz (özgün metin kamu malı). Ekranda özgün 
 - **İlk övgü:** Aurier'nin "Les Isolés" yazısı (*Mercure de France*, Ocak 1890).
 - **Theo'nun ölümünden sonra:** ilk mezarı (Utrecht) ve 1914 naklinin yeri.
 - **Kapanış:** Vincent Willem'in sonraki rolü (Vakıf 1962, müze 1973).
+
+## 6. İkinci tur (27 Kasım; 4 araştırmacı + 4 doğrulayıcı; ham: `arastirma2_ham.json`)
+- vangoghletters.org bu turda Playwright ile okunabildi: notlar ve metin doğrudan.
+- 75 olgunun 57'si doğrulandı, 16'sı düzeltildi, 2'si doğrulanamadı.
+
+**Kullanılır** (düzeltilmiş hâliyle):
+
+| Olgu | Senaryoda | Kaynak |
+|---|---|---|
+| **Sarı zarflar (kanca)** | Jo, Nisan 1889'da cité Pigalle'deki dairede Theo'nun küçük yazı masasının alt çekmecesini Vincent'ın mektuplarıyla dolu bulur; her hafta "yakında çok tanınacak sarı zarflar" eklenir | Jo, Voorwoord 1914 (DBNL): *"vond ik onder in een klein bureau een lade vol brieven van Vincent, en week aan week zag ik daarna de weldra zoo bekende gele enveloppes met het karakteristieke schrift den inhoud der lade vergrooten"* |
+| Louvre pusulası | Vincent Şubat 1886 sonunda (VGM: c. 28 Şubat) habersiz Paris'e gelir; Theo'ya Louvre'da, Salon Carré'de buluşmak için bir pusula yollar | VGM 567 (1914 no. 459): *"Ne m'en veux pas d'être venu tout d'un trait…"* |
+| Paris adresleri | önce 25 rue Laval; Haziran 1886'dan 54 rue Lepic (3. kat; üç oda ve bir cabinet, biri atölye); evlilikten sonra 8 cité Pigalle (taşınma 20 Nisan 1889) | VGM 218 n., 570, 745 n.16, 759 |
+| Yanlış adres | Vincent Arles'tan iki kez mektubu eski adrese (rue de Laval) yollar; ikincisi açılmış hâlde geri döner (kısa, hafif an) | VGM 601, 634 |
+| Arles'a gidiş | 19 Şubat 1888 gece treni, 20 Şubat öğleden sonra Arles; bir gün bir gece | VGM 577 n. |
+| Sarı Ev | 1 Mayıs 1888'de Place Lamartine 2'de kiralandı, ayda 15 frank; ilk gece Eylül 1888 | VGM 602, 682 |
+| Gauguin | 23 Ekim 1888 sabahı geldi. Theo'nun düzeni: ayda 150 frank, karşılığında tablo; yol parasını da Theo ödedi | VGM |
+| Aralık 1888 | Theo ile Jo o hafta nişanlanmıştı (teklif günü bilinmiyor; ilk teklif 22 Temmuz 1887'de reddedilmişti). Theo 25 Aralık sabahı Arles'ta, aynı akşam dönüş. Vincent 7 Ocak 1889'da hastaneden (Hôtel-Dieu) çıktı | VGM; Jo 1914 |
+| Saint-Rémy | 8 Mayıs 1889, kendi isteğiyle. Theo ayda 100 frank ödedi; kız kardeşler katkı için para biriktirdi | VGM; Peyron mektubu |
+| İlk övgü | Albert Aurier, "Les Isolés: Vincent van Gogh", *Mercure de France*, Ocak 1890. Theo dergiyi 29 Ocak sabahı eve getirdi; bebek 31 Ocak'ta doğdu | Aurier 1890 (kamu malı); VGM |
+| Sergiler | Theo 1888'den beri Bağımsızlar'a gönderdi: 1888'de 3, 1889'da 2 (İrisler, Rhône'da Yıldızlı Gece), 1890'da 10 eser. Les XX 1890'da 6 tablo | VGM |
+| Mayıs 1890 | Vincent 17 Mayıs sabahı Paris'te; üç gün cité Pigalle'de. Jo'yu ve bebeği **ilk kez** görür ("tek kez" yanlış: sonra 8 Haziran Auvers'de ve 6 Temmuz Paris'te). Jo'nun sahnesi: iki kardeş beşiğin başında, gözleri yaşlı. Vincent tığ işi örtüyü gösterip şaka yapar | Jo 1914 |
+| Auvers | 20 Mayıs 1890 varış | VGM |
+| Temmuz 1890 | Bebek hasta; Theo patronlarıyla (Boussod & Valadon) sıkışmış, zam ister, ayrılmayı düşünür; 6 Temmuz Paris günü gergin geçer | VGM 894, 897, 898 |
+| Sonrası | Theo Utrecht'e gömüldü (mezarlık adı doğrulanamadı). Jo 1891'de bebek ve koleksiyonla Bussum'a yerleşti, pansiyon açtı (Villa Helma). 1892'de ilk sergiler (Lahey; Amsterdam Panorama), 1905 Stedelijk, 1914 mektuplar ve nakil | VGM; Polak |
+| Oğul | Koleksiyon oğula geçti; 1962'de Vincent van Gogh Vakfı. Müzeyi Kraliçe Juliana 2 Haziran 1973'te açtı | VGM |
+| Mektuplar bugün | Müze 820 mektubun çoğunu saklıyor; nadiren sergileniyor (son büyük sergi 2020–21) | VGM |
+
+**Kullanılmaz:**
+- "Jo ve bebeği ilk ve tek kez gördü."
+- "Auvers'ten ilk kez Fransızca yazdı" (zaten Fransızca yazıyordu).
+- Arles–Paris posta süresi kaynakta yok; "bir iki gün" denmez.
+- Theo'nun mezarlığının adı.

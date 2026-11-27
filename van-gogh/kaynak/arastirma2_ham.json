@@ -1,0 +1,966 @@
+{
+ "arastirma": {
+  "2 Arles": {
+   "grup": "2 Arles",
+   "olgular": [
+    {
+     "olgu": "(a) Vincent, Paris'ten trenle bir gün bir gece süren yolculuktan sonra 20 Şubat 1888'de Arles'a vardı.",
+     "kaynak": "https://www.vangoghmuseum.nl/en/art-and-stories/vincents-life-1853-1890/from-dark-to-light",
+     "kanit": "\"Following a train journey that lasted a day and a night, he arrived on 20 February 1888 in Arles, a small town on the River Rhône.\"",
+     "guven": "yuksek"
+    },
+    {
+     "olgu": "(a) Teyit: Arles'taki Fondation Vincent van Gogh da varış tarihini 20 Şubat 1888 verir. Van Gogh Müzesi kataloğu Paris'ten ayrılışı 19 Şubat 1888 olarak yazar. Vincent'ın Arles'tan ilk mektubu Jo'nun 1914 baskısında 463 numara ve '(21/2 '88)' tarihiyle durur; ilk cümlesi yolda Theo'yu düşündüğünü söyler.",
+     "kaynak": "https://www.fondation-vincentvangogh-arles.org/en/vincent/ ; https://catalogues.vangoghmuseum.com/contemporaries-of-van-gogh-1/introductory-essay ; https://www.dbnl.org/tekst/gogh006brie03_01/gogh006brie03_01_0002.php",
+     "kanit": "Fondation: \"On 20 February 1888, Vincent van Gogh arrived in Arles.\" Katalog: \"After Vincent left for Arles on 19 February 1888\". DBNL, mektup 463: \"Mon cher Theo, (21/2 '88). Durant le voyage j'ai pour le moins autant pensé à toi, qu'au nouveau pays que je voyais.\"",
+     "guven": "yuksek"
+    },
+    {
+     "olgu": "(a) Jo'nun 1914 girişi göçü Theo'nun gözünden anlatır. Theo'ya göre Vincent daha ılık bir havaya muhtaçtı; önce Arles'a, sonra belki Marsilya'ya gidecekti. Gidişinden önce birlikte Wagner konserine gitmişlerdi. Theo ayrılıştan sonra 'son zamanlarda benim için o kadar çok şeydi ki' diye yazar.",
+     "kaynak": "https://www.dbnl.org/tekst/gogh006brie01_01/gogh006brie01_01_0002.php",
+     "kanit": "\"in Februari '88 trekt hij naar het Zuiden. 'Hij is eerst naar Arles om zich wat te oriënteeren, dan waarschijnlijk naar Marseille. ... Het blijft mij vreemd dat hij weg is, hij was den laatsten tijd zoo veel voor mij.'\" (Theo, Jo'nun girişinde alıntılanmış; kamu malı)",
+     "guven": "yuksek"
+    },
+    {
+     "olgu": "(b) Vincent Sarı Ev'in sağ kanadını 1 Mayıs 1888'de ayda 15 franka kiraladı: Place Lamartine 2, dört oda (aslında iki oda ve iki küçük bölme). Kiralamayı aynı gün Theo'ya yazdığı mektupta haber verdi; mektupta evin krokisi de var.",
+     "kaynak": "https://www.dbnl.org/tekst/gogh006brie03_01/gogh006brie03_01_0002.php (1914 baskısında mektup 480, 'Mei '88') ; https://www.vangoghmuseum.nl/en/collection/b0520aV1962 (aynı mektubun kâğıdı, 'Arles, 1 May 1888')",
+     "kanit": "Mektup 480: \"j'ai aujourd'hui loué l'aile droite de cette construction, qui contient 4 pièces ou plutôt deux avec deux cabinets. C'est peint en jaune dehors ... je l'ai loué à raison de 15 francs par mois.\" Müzenin koleksiyon sayfası: \"Sheet 1 of a letter from Vincent van Gogh to Theo van Gogh with sketch of The Yellow House ... Arles, 1 May 1888\".",
+     "guven": "yuksek"
+    },
+    {
+     "olgu": "(b) Van Gogh Müzesi kiralamayı 'Mayıs 1888, Place Lamartine'de dört oda' diye verir. Yeni baskının numarası 602'dir ve notlarında evin 1 Mayıs'tan itibaren kiralandığı yazar.",
+     "kaynak": "https://www.vangoghmuseum.nl/en/collection/s0032V1962 ; https://vangoghletters.org/vg/letters/let602/notes.html (yalnız arama özeti)",
+     "kanit": "Müze: \"In May 1888, Van Gogh rented four rooms in a house on Place Lamartine in Arles\". Arama özeti (let602 notları): evin sağ yanı 1 Mayıs'tan itibaren kiralandı, Place Lamartine 2, kentin kuzey ucu.",
+     "guven": "yuksek"
+    },
+    {
+     "olgu": "(b) Vincent Sarı Ev'de ilk geceyi Eylül 1888'de geçirdi. Bunu Theo'ya yazdığı, yeni baskıda 682 numaralı ve 18 Eylül 1888 (salı) tarihli mektupta haber verir; 1914 baskısında bu mektup 538 numaradır.",
+     "kaynak": "https://www.dbnl.org/tekst/gogh006brie03_01/gogh006brie03_01_0002.php (mektup 538) ; https://catalogues.vangoghmuseum.com/contemporaries-of-van-gogh-1/introductory-essay (682 = 18 Eylül 1888)",
+     "kanit": "Mektup 538: \"Cette nuit j'ai couché dans la maison et quoiqu'il y a encore à faire, je m'y sens bien content.\" Aynı mektubun Bernard/Gauguin pasajını Van Gogh Müzesi kataloğu \"letter to Theo van Gogh, 18 September 1888 [682]\" diye künyeler; bu da 538 ile 682'nin aynı mektup olduğunu doğrular. Gün kesinliği: arama özetine göre vangoghletters 682'yi 'Tuesday, 18 September 1888' diye tarihler (yalnız arama özeti).",
+     "guven": "yuksek"
+    },
+    {
+     "olgu": "(b) Ek ayrıntı: kira başlangıçta Saint-Michel'e (29 Eylül) kadardı. Vincent 1 Eylül'de evi üç ay, sonra aylık olarak yeniden tuttu. Ocak 1889'da evdeki iki küçük odayı da tutmuştu; aylık kira 21,50 frank oldu.",
+     "kaynak": "https://www.dbnl.org/tekst/gogh006brie03_01/gogh006brie03_01_0002.php (mektuplar 530 ve 570)",
+     "kanit": "Mektup 530 '(1 September)': \"je l'ai louée jusqu'à la St. Michel ... J'ai dit à mon bonhomme, que je reprenais pour 3 mois seulement ou au mois\". Mektup 570 '(9 Januari)': \"le loyer est de fr 21.50 par mois\".",
+     "guven": "yuksek"
+    },
+    {
+     "olgu": "(c) Paul Gauguin 23 Ekim 1888'de Arles'a geldi.",
+     "kaynak": "https://catalogues.vangoghmuseum.com/contemporaries-of-van-gogh-1/introductory-essay ; https://www.fondation-vincentvangogh-arles.org/en/vincent/",
+     "kanit": "Van Gogh Müzesi kataloğu: \"Gauguin agreed to Theo's plan, but he did not arrive in Arles until 23 October 1888.\" Fondation: \"On 23 October, Paul Gauguin came to Arles.\"",
+     "guven": "yuksek"
+    },
+    {
+     "olgu": "(c) Saat bilgisi: Gauguin salı, 23 Ekim sabahı erken, yaklaşık saat dörtte geldi. Vincent haberi önce telgrafla, sonra mektupla Theo'ya verdi. Uyarı: 1914 baskısı bu mektuba (557) yanlışlıkla '(20 October.)' tarihi verir.",
+     "kaynak": "https://vangoghletters.org/vg/letters/let712/notes.html (yalnız arama özeti) ; https://www.dbnl.org/tekst/gogh006brie03_01/gogh006brie03_01_0002.php (mektup 557)",
+     "kanit": "Mektup 557: \"Comme tu l'as appris par ma dépêche Gauguin est arrivé en bonne santé. Il me fait même l'effet de se porter mieux que moi.\" Arama özeti (let712 notları): varış salı, 23 Ekim, sabah saat dörtte.",
+     "guven": "orta"
+    },
+    {
+     "olgu": "(c) Theo'nun Gauguin'le anlaşması: Theo, Mayıs ya da Haziran 1888'de Vincent'ın isteğiyle Gauguin'e bir teklif yaptı. Gauguin Arles'a gelirse Theo ona ayda 150 frank verecekti; karşılığında Gauguin ayda bir tablo verecekti. Vincent 18 Eylül 1888 mektubunda bu teklifi kendi sözleriyle anar.",
+     "kaynak": "https://catalogues.vangoghmuseum.com/contemporaries-of-van-gogh-1/introductory-essay ; https://www.dbnl.org/tekst/gogh006brie03_01/gogh006brie03_01_0002.php (mektup 538 = 682)",
+     "kanit": "Katalog: \"Theo would support him with an allowance of 150 francs a month. In return, Gauguin only had to give him one painting each month.\" Mektup 538: \"Je ne crois pas qu'il soit sage d'offrir immédiatement à Bernard 150 francs pour un tableau par mois, comme on l'a offert à Gauguin.\"",
+     "guven": "yuksek"
+    },
+    {
+     "olgu": "(c) Jo'nun 1914 girişi de planı aynı biçimde anlatır: Gauguin Arles'a gelecek, Theo masrafları ödeyecek, Gauguin de karşılığını tablolarla verecekti. Van Gogh Müzesi'ne göre Theo, Gauguin'in yol parasını da ödedi.",
+     "kaynak": "https://www.dbnl.org/tekst/gogh006brie01_01/gogh006brie01_01_0002.php ; https://www.vangoghmuseum.nl/en/art-and-stories/vincents-life-1853-1890/south-of-france",
+     "kanit": "Jo: \"Hij moet naar Arles komen, samen zullen zij wonen en werken, Theo zal de onkosten betalen en Gauguin hem met schilderijen daarvoor vergoeden.\" Müze: \"Theo had to stump up his travel expenses, for instance, but he was glad to do so for Vincent's sake\".",
+     "guven": "yuksek"
+    },
+    {
+     "olgu": "(c) Uygulamada Kasım 1888'de iki ressam kişi başı ayda 150 frankla geçiniyordu. Theo'nun gönderdiği para 'her biri için 150' olarak hesaplanıyordu.",
+     "kaynak": "https://vangoghletters.org/vg/letters/let717/notes.html ; https://vangoghletters.org/vg/letters/let715/letter.html (yalnız arama özeti)",
+     "kanit": "Arama özeti: ayda 300 frank (her biri için 150), üç taksitte 100'er frank; Vincent ikisinin ayda 150'şer frankla iyi idare ettiğini yazar.",
+     "guven": "orta"
+    },
+    {
+     "olgu": "(d) Theo'nun Jo'ya evlenme teklifi: tam gün DOĞRULANAMADI. Nişanın Aralık 1888'in ikinci yarısında, Paris'te olduğu kesin. Jo kendi girişinde 24 Aralık'ta (Noel'den önceki gün) 'Theo ile yeni nişanlanmıştık' der ve o sırada Paris'te ağabeyi Andries Bonger'in yanında kaldığını yazar. Theo'nun annesine 21 Aralık 1888 tarihli mektubu haberi verir: Jo'yla birkaç gün önce Paris'te karşılaştığını ve Jo'nun da onu sevdiğini söylediğini yazar. Bu yüzden 'c. 21 Aralık' teklifin değil haberin tarihidir.",
+     "kaynak": "https://www.dbnl.org/tekst/gogh006brie01_01/gogh006brie01_01_0002.php ; https://www.webexhibits.org/vangogh/letter/18/etc-Theo-1888-s.htm (Harrison çevirisi, ikincil aktarım)",
+     "kanit": "Jo: \"Den dag vóór Kerstmis - Theo en ik waren juist verloofd en zouden samen naar Holland reizen - (ik logeerde te Parijs bij mijn broer A. Bonger ...)\". Theo'dan annesine, 21 Aralık 1888: \"Imagine a few days ago I met Jo Bonger here\" ve \"she has told me that she loves me too\".",
+     "guven": "orta"
+    },
+    {
+     "olgu": "(d) Bağlam: Theo, Jo'ya ilk kez 22 Temmuz 1887'de Amsterdam'da evlenme teklif etmiş, Jo reddetmişti. Basılı nişan duyurusu yaklaşık 6 Ocak 1889 tarihlidir; Vincent onu 9 Ocak'ta aldı. Nişan kutlaması 9 Ocak 1889'da Amsterdam'daydı.",
+     "kaynak": "https://vangoghletters.org/vg/letters/let572/notes.html ve https://vangoghletters.org/vg/letters/let731/print.html (yalnız arama özeti) ; https://www.theartnewspaper.com/2025/04/11/was-van-goghs-mutilation-of-his-ear-connected-to-his-brothers-engagement (Martin Bailey)",
+     "kanit": "Arama özeti (let572 notları): 22 Temmuz 1887 cuma günü Theo, Jo'ya Amsterdam'da evlenme teklif etti, Jo geri çevirdi. Bailey: Vincent'ın 9 Ocak mektubu \"the very day of his brother's engagement party in Amsterdam\".",
+     "guven": "orta"
+    },
+    {
+     "olgu": "(d) Noel'den önceki gün Gauguin'den gelen telgraf Theo'yu Arles'a çağırdı. Theo Vincent'ı hastanede buldu, Noel günlerini yanında geçirdi, sonra Gauguin'le birlikte Paris'e döndü. Theo'nun 28 Aralık 1888'de Jo'ya yazdığı mektup Van Gogh Müzesi'nde alıntılanır.",
+     "kaynak": "https://www.dbnl.org/tekst/gogh006brie01_01/gogh006brie01_01_0002.php ; https://www.vangoghmuseum.nl/en/art-and-stories/vincents-life-1853-1890/south-of-france",
+     "kanit": "Jo: \"kwam een telegram van Gauguin dat Theo naar Arles riep ... Daar vond Theo hem ... en bleef de Kerstdagen bij hem.\" Müze: \"'I found Vincent in the hospital in Arles.' Theo van Gogh to Jo Bonger, 28 December 1888\" ve \"Theo returned to Paris immediately after visiting the hospital, and so did Gauguin.\"",
+     "guven": "yuksek"
+    },
+    {
+     "olgu": "(d) Vincent'ın tedavi gördüğü yer Arles hastanesi, 16-17. yüzyıldan kalma Hôtel-Dieu'ydü (tam adı Hôtel-Dieu Saint-Esprit). Onunla ilgilenen hekim hastanenin stajyer doktoru Félix Rey'di; Jo 'Dr. Reij' diye yazar.",
+     "kaynak": "https://www.fondation-vincentvangogh-arles.org/en/vincent/ ; https://www.dbnl.org/tekst/gogh006brie01_01/gogh006brie01_01_0002.php ; https://www.theartnewspaper.com/2025/01/24/van-goghs-two-pictures-of-the-hospital-in-arlespainted-while-he-was-recovering-after-cutting-his-earhead-to-the-courtauld (ad, arama özetinden)",
+     "kanit": "Fondation: \"the hospital of Arles, the 16th-17th century Hôtel-Dieu\". Jo: \"Dr. Reij, de interne van het hospitaal, in wiens zorg Theo den zieke zoo dringend had aanbevolen\". 'Hôtel-Dieu Saint-Esprit' adı The Art Newspaper'ın arama özetinden; sayfa açılıp okunmadı.",
+     "guven": "yuksek"
+    },
+    {
+     "olgu": "(d) Vincent hastaneden 7 Ocak 1889'da çıktı. Van Gogh Müzesi yalnız 'Ocak 1889 başı' der; günü Jo'nun girişi verir.",
+     "kaynak": "https://www.dbnl.org/tekst/gogh006brie01_01/gogh006brie01_01_0002.php ; https://www.vangoghmuseum.nl/en/art-and-stories/vincents-life-1853-1890/south-of-france",
+     "kanit": "Jo: \"Den 7den Januari verlaat Vincent het hospitaal, schijnbaar genezen\". Müze: \"when he was discharged from the hospital in early January 1889, he resumed painting.\" Ayrıca arama özeti (let732 notları): 7 Ocak 1889'da taburcu.",
+     "guven": "yuksek"
+    },
+    {
+     "olgu": "(d) Taburculuk öncesi Theo'ya haber taşıyanlar: Dr. Rey (29 Aralık mektubu), Protestan papaz Frédéric Salles (31 Aralık'ta Vincent'ı sakin bulur) ve postacı Joseph Roulin. Roulin'in 3 Ocak mektubu Vincent'ın iyileştiğini yazar.",
+     "kaynak": "https://www.dbnl.org/tekst/gogh006brie01_01/gogh006brie01_01_0002.php",
+     "kanit": "Dr. Rey: \"car moi aussi j'ai un frère, moi aussi j'ai été éloigné de ma famille\" (29 Aralık). Roulin, 3 Ocak: \"l'ami Vincent est complètement guéri\".",
+     "guven": "yuksek"
+    },
+    {
+     "olgu": "(e) Vincent 8 Mayıs 1889'da Saint-Rémy'deki Saint-Paul-de-Mausole akıl hastanesine kendi isteğiyle yattı. Oraya onu papaz Salles götürdü.",
+     "kaynak": "https://www.fondation-vincentvangogh-arles.org/en/vincent/ ; https://www.vangoghmuseum.nl/en/art-and-stories/vincents-life-1853-1890/south-of-france ; https://www.dbnl.org/tekst/gogh006brie01_01/gogh006brie01_01_0002.php",
+     "kanit": "Fondation: \"had himself interned voluntarily in the asylum in Saint-Rémy on 8 May 1889.\" Müze: \"voluntarily admitted to Saint-Paul-de-Mausole psychiatric hospital in Saint-Rémy in May.\" Jo: \"vertrekt Vincent den 8en Mei er heen, vergezeld van Ds. Salles\".",
+     "guven": "yuksek"
+    },
+    {
+     "olgu": "(e) Kimin ayarladığı: Saint-Rémy'yi papaz Salles araştırıp önerdi; Arles'taki hekimler de onayladı. Yatış koşullarını Theo, kurumun müdürü Dr. Théophile Peyron'la düzenledi: Vincent'a ayrı bir yatak odası, bir çalışma odası ve kurumun dışına çıkabilme serbestliği. Theo kararı bir geri çekilme değil, kısa bir dinlenme olarak gördü.",
+     "kaynak": "https://www.dbnl.org/tekst/gogh006brie01_01/gogh006brie01_01_0002.php",
+     "kanit": "Jo: \"Ds. Salles had toen inlichtingen ingewonnen en raadde de inrichting te St. Remy aan\" ve \"Nadat Theo alles met den directeur der inrichting, Dr. Peyron, geregeld heeft, een vrije kamer voor Vincent en een kamer om te werken, en zooveel mogelijk vrijheid\". Theo: \"Je ne considère pas ton aller à St. Remy comme une retraite ... mais simplement comme un repos d'un moment\".",
+     "guven": "yuksek"
+    },
+    {
+     "olgu": "(e) Kimin ödediği: Theo. Dr. Peyron 29 Nisan 1889'da Theo'ya yazdığı mektupta pansiyon ücretinin ayda 100 frank olduğunu ve indirim yapamayacağını bildirir. Theo bu 100 frankı aylık olarak gönderdi.",
+     "kaynak": "https://webexhibits.org/vangogh/letter/20/etc-Peyron-1-Theo.htm (Harrison çevirisi, ikincil aktarım) ; https://vangoghletters.org/vg/letters/let895/notes.html (yalnız arama özeti)",
+     "kanit": "Peyron'dan Theo'ya, 29 Nisan 1889: \"the price of the pension remains fixed at 100 f. per month, and that it would be impossible for me to make a reduction.\" Arama özeti (let895 notları): Theo'nun gönderdiği aylık 100 franktan Peyron'da para artmış olmalı.",
+     "guven": "orta"
+    },
+    {
+     "olgu": "(e) Para konusunda ayrıntı: kız kardeşler Willemien ve Lies van Gogh, Vincent'ın Saint-Rémy masraflarına katkı için para biriktirmişti. Theo Mayıs 1889'da bu paradan 300 frankla Gauguin'in 'Arlésiennes (Mistral)' tablosunu satın aldı.",
+     "kaynak": "https://catalogues.vangoghmuseum.com/contemporaries-of-van-gogh-1/introductory-essay",
+     "kanit": "\"The 300 francs paid for this work came from money that his sisters Willemien and Lies van Gogh had saved to defray the cost of Vincent's hospitalization in the psychiatric institution in Saint-Rémy\".",
+     "guven": "yuksek"
+    }
+   ],
+   "not": "Kaynak notları:\n- Bu ajanların ortak kullandığı geçici klasörde (/tmp/claude-0/-home-user/1251b65f-a684-562c-b86b-a58164cef97e/scratchpad/vg/) başka bir oturumun indirdiği DBNL metinleri vardı. Hiçbirine olduğu gibi güvenilmedi: Jo'nun girişindeki ve 3. ciltteki her alıntı canlı DBNL sayfasından yeniden çekilip doğrulandı.\n- vangoghletters.org bir JavaScript uygulaması; curl yalnız boş kabuk döndürdü. Oradan gelen her bilgi 'yalnız arama özeti' diye işaretli.\n- Jo'nun 1914 baskısı mektup numaraları ve tarihleri yeni baskıdan farklı. 480 = 602 (1 Mayıs 1888), 538 = 682 (18 Eylül 1888), 557 = 712 (24 Ekim 1888; 1914 baskısındaki '20 October' yanlış).\n\nSenaryo için uyarılar:\n- (d) 'Teklif c. 21 Aralık' kesin değil. 21 Aralık, Theo'nun nişanı annesine haber verdiği mektubun tarihi. Teklifin günü DOĞRULANAMADI. Güvenli ifade: 'Aralık 1888'in ikinci yarısında Paris'te; 24 Aralık'ta nişanlıydılar.'\n- Theo ile Jo'nun yazışması (Brief Happiness, 1999) teliflidir. Theo'nun Jo'ya mektuplarından yalnız Jo'nun 1914 girişinde ya da Van Gogh Müzesi sayfasında alıntılananlar kullanılmalı.\n- Kulak olayı için ayrıntı verilmedi; yalnız tarih ve yer var."
+  },
+  "1 Paris ve kanca": {
+   "grup": "1 Paris ve kanca",
+   "olgular": [
+    {
+     "olgu": "(a) Vincent Paris'e geldiğinde önce Theo'nun 25 rue Laval'daki (rue de Laval, bugün rue Victor Massé, 9. bölge) dairesine yerleşti. Theo bu adreste Nisan 1882'den Haziran 1886'ya kadar oturdu.",
+     "kaynak": "https://vangoghletters.org/en/let218 (Notlar sekmesi, Playwright ile okundu); Jo van Gogh-Bonger, Inleiding 1914: https://www.dbnl.org/tekst/gogh006brie01_01/gogh006brie01_01_0002.php",
+     "kanit": "VGM 218 notu: \"Theo, in Paris, had moved to 25 rue Laval (also called rue de Laval, now rue Victor Massé)... Theo lived at this address until June 1886.\" Jo: \"van dien tijd af nam Vincent zijn intrek in Theo's woning in de Rue de Laval\".",
+     "guven": "yuksek"
+    },
+    {
+     "olgu": "(a) Kardeşler Haziran 1886'da 54 rue Lepic'e (Montmartre) taşındı ve Vincent Şubat 1888'de gidene kadar orada birlikte yaşadılar. Daire üçüncü kattaydı: üç oda, bir küçük oda (Vincent'ın yattığı cabinet), atölye ve küçük bir mutfak. Vincent'ın 25 Ekim 1886 tarihli mektubunun başlığında da \"54 Rue Lepic\" yazıyor.",
+     "kaynak": "https://www.vangoghmuseum.nl/en/collection/s0057V1962 ; Jo, Inleiding 1914: https://www.dbnl.org/tekst/gogh006brie01_01/gogh006brie01_01_0002.php ; https://vangoghletters.org/en/let570",
+     "kanit": "VGM: \"In June 1886, they moved into an apartment on Rue Lepic.\" Jo: \"toen zij in Juni verhuisden naar de Rue Lepic 54 op Montmartre kreeg hij een eigen atelier\"; \"Het nieuwe appartement, op de derde verdieping, had drie tamelijk groote kamers, een cabinet en een keukentje.\" VGM 570'in başlığı: \"54 Rue Lepic\".",
+     "guven": "yuksek"
+    },
+    {
+     "olgu": "(a) Kanca için ayrıntı: Vincent Arles'tan iki kez Theo'ya giden mektubu yanlışlıkla eski adrese, \"rue de Laval\"e yazdı ve mektuplar geri döndü. İkinci seferde postacılar mektubu açık olarak geri göndermiş, içindeki Bernard çizimini görmüşlerdi.",
+     "kaynak": "https://vangoghletters.org/en/let601 (c. 25 Nisan 1888, 1914 no. 479) ; https://vangoghletters.org/en/let634 (c. 28 Haziran 1888, 1914 no. 503) ; 1914 metni: https://www.dbnl.org/tekst/gogh006brie03_01/gogh006brie03_01_0002.php",
+     "kanit": "VGM 634: \"j'ai encore fait la bêtise de t'adresser ma lettre 54 rue de Laval au lieu de 54 Rue Lepic. Les employés de la poste ont donc eu en me renvoyant la lettre ouverte le plaisir de pouvoir s'édifier en contemplant le bordel de Bernard.\" 601: \"adressée Rue de Laval au lieu de Rue Lepic\".",
+     "guven": "yuksek"
+    },
+    {
+     "olgu": "(a) Evlilikten sonraki daire 8 cité Pigalle'deydi. Theo daireyi 4 Şubat 1889'da kiraladı; 16 Mart 1889'da yeni daireyi düzenlediğini yazıyor. Jo'yla birlikte 20 Nisan 1889'da taşındılar. Düğün duyurusu 18 Nisan 1889 tarihli ve \"Paris, 8, cité Pigalle\" adresini taşıyor. Theo daha önce rue Rodier'ye taşınmayı düşünmüş ama bu taşınma olmamış (Vincent 3 Şubat 1889'da hâlâ rue Rodier diye yazıyor). Jo yerin seçilmesini öğle yemeğine eve gelebilmeye bağlıyor.",
+     "kaynak": "https://vangoghletters.org/en/let745 (n. 16) ; https://vangoghletters.org/en/let759 ; https://vangoghletters.org/en/let749 ; Jo, Voorwoord 1914: https://www.dbnl.org/tekst/gogh006brie01_01/gogh006brie01_01_0001.php",
+     "kanit": "745 n.16: \"This move did not take place; on 4 February Theo rented an apartment at 8 cité Pigalle. He moved into the apartment with Jo on 20 April 1889.\" 759: \"Paris, 8, cité Pigalle.\" Theo, 749: \"En arrangeant mon nouvel appartement je revois avec tant de plaisir tes tableaux.\" Jo: \"Toen ik in April 1889 als Theo's jonge vrouw ons appartement in de Cité Pigalle te Parijs betrad...\"",
+     "guven": "yuksek"
+    },
+    {
+     "olgu": "(a/d) Kanca için birincil ayrıntı: Jo, Theo'nun küçük bir yazı masasının alt çekmecesinde Vincent'ın mektuplarıyla dolu bir çekmece bulduğunu ve her hafta \"o çok tanınacak sarı zarfların\" çekmeceye eklendiğini yazıyor. Kamu malı Hollandaca metin, olduğu gibi alıntılanabilir.",
+     "kaynak": "https://www.dbnl.org/tekst/gogh006brie01_01/gogh006brie01_01_0001.php (Voorwoord, Brieven aan zijn broeder, Deel 1, 1914)",
+     "kanit": "\"vond ik onder in een klein bureau een lade vol brieven van Vincent, en week aan week zag ik daarna de weldra zoo bekende gele enveloppes met het karakteristieke schrift den inhoud der lade vergrooten.\"",
+     "guven": "yuksek"
+    },
+    {
+     "olgu": "(b) Vincent Paris'e habersiz geldi ve Theo'ya Louvre'da, Salon Carré'de buluşmak için bir pusula gönderdi: VGM 567, 1914'te no. 459. VGM'nin tarihi \"on or about Sunday, 28 February 1886\", yani Mart değil Şubat sonu. Jo 1914'te mektubun başına \"(Maart '86)\" yazmış, girişinde ise \"Şubat sonunda bir sabah\" diyor. Pusula Antwerpen'de başladığı bir eskiz defterinden koparılmış. Kâğıdın üstünde Theo'nun kurşun kalemle yazdığı bir çamaşır listesi ve 6 Mart tarihi de var.",
+     "kaynak": "https://vangoghletters.org/en/let567 (Playwright ile okundu: metin, Metadata ve Notes) ; 1914: https://www.dbnl.org/tekst/gogh006brie03_01/gogh006brie03_01_0001.php",
+     "kanit": "VGM n.1: \"Van Gogh went hotfoot from Antwerp to Paris with no prior warning.\" VGM: \"apparently without Theo's knowledge – he went straight to Paris\"; \"Also in pencil in Theo's writing a laundry list and the date 6 March.\" COMPLETE LETTERS: 459.",
+     "guven": "yuksek"
+    },
+    {
+     "olgu": "(b) Pusulanın özgün Fransızca metni. VGM yazımı: \"ne m'en veux pas d'être venu tout d'un trait. J'y ai tant réfléchi & je crois que de cette manière nous gagnons du temps.– Serai au Louvre à partir de midi ou plus tôt si tu veux. Réponse s.v.p. pour savoir à quelle heure tu pourrais venir dans la Salle carrée.\" 1914 DBNL yazımı: \"Ne m'en veux pas d'être venu tout d'un trait, j'y ai tant réfléchi et je crois que de cette manière nous gagnons du temps. Serai au Louvre à partir de midi ou plus tôt si tu veux. Réponse s.v.p. pour savoir à quelle heure tu pourrais venir dans la Salle Carrée.\" İmza \"b. à t. Vincent\" (VGM).",
+     "kaynak": "https://www.dbnl.org/tekst/gogh006brie03_01/gogh006brie03_01_0001.php ; https://vangoghletters.org/en/let567",
+     "kanit": "Satır iki edisyonda da var. Farklar Jo'nun normalleştirmesinden geliyor: '&'→'et', 'chôse'→'chose', 'Salle carrée'→'Salle Carrée', ek virgüller. Ekranda tek bir edisyonun yazımı kullanılmalı.",
+     "guven": "yuksek"
+    },
+    {
+     "olgu": "(b) Pusulanın nasıl ulaştığı konusunda Jo'nun 1914'teki iki anlatımı küçük bir fark taşıyor. Dipnota göre Vincent pusulayı istasyonda kara tebeşirle yazdı ve bir hamalla Theo'ya gönderdi. Girişe göre pusula sabah Theo'ya, Bulvar'daki işyerine getirildi. VGM ise tarih notunda Vincent'ın Theo'nun aynı sabah gelebileceğini varsaydığını söylüyor. \"İstasyon\" ve \"kara tebeşir\" ayrıntılarını VGM ayrıca doğrulamıyor; yalnız Jo'ya dayanıyorlar.",
+     "kaynak": "https://www.dbnl.org/tekst/gogh006brie03_01/gogh006brie03_01_0001.php (voetnoot bij 459) ; https://www.dbnl.org/tekst/gogh006brie01_01/gogh006brie01_01_0002.php (Inleiding)",
+     "kanit": "Dipnot: \"Onverwacht was Vincent te Parijs gekomen en aan het station schreef hij haastig met zwart krijt dit briefje, dat hij door een kruier bij Theo liet bezorgen.\" Giriş: \"op een morgen in 't eind van Februari wordt bij Theo op de Boulevard een met zwart krijt geschreven briefje bezorgd, dat Vincent is aangekomen en hem wacht in de Salon carré van het Louvre.\"",
+     "guven": "orta"
+    },
+    {
+     "olgu": "(c) Vincent Paris'ten Pazar, 19 Şubat 1888'de ayrıldı. 21.40'taki Paris–Marsilya ekspresine (PLM) bindi ve ertesi gün, Pazartesi 20 Şubat'ta 16.49'da Arles'a vardı. VGM'nin biyografi sayfası yolculuğu \"bir gün bir gece süren tren yolculuğu\" diye anlatıyor. Arles'tan ilk mektup VGM 577, 21 Şubat 1888 (1914 no. 463).",
+     "kaynak": "https://vangoghletters.org/en/let577 (n. 1 ve n. 3; Murphy 2016'ya dayanıyor) ; https://www.vangoghmuseum.nl/en/art-and-stories/vincents-life-1853-1890/from-dark-to-light",
+     "kanit": "577 n.1: Theo, Willemien'e Vincent'ın \"last Sunday\" ayrıldığını yazıyor, \"this was therefore Sunday, 19 February\". n.3: \"express train... left at 9.40 p.m. on Sunday 19 February and arrived in Arles at 4.49 p.m. the following day.\" VGM: \"Following a train journey that lasted a day and a night, he arrived on 20 February 1888 in Arles\".",
+     "guven": "yuksek"
+    },
+    {
+     "olgu": "(c) Ayrılışla ilgili Theo cephesinden kamu malı iki ayrıntı. Theo'nun bir mektubu: \"Het blijft mij vreemd dat hij weg is, hij was den laatsten tijd zoo veel voor mij.\" Ayrıca Gitmeden önce ikisi birlikte birkaç kez Wagner konserine gitmişti. Bernard'ın anlattığına göre Vincent son gün atölyeyi \"de telle sorte que mon frère me croie encore ici\" düzenledi.",
+     "kaynak": "https://www.dbnl.org/tekst/gogh006brie01_01/gogh006brie01_01_0002.php (Jo, Inleiding, s. L–LI)",
+     "kanit": "\"Vóór hij wegging ging ik een paar maal een Wagnerconcert met hem hooren... Het blijft mij vreemd dat hij weg is, hij was den laatsten tijd zoo veel voor mij.\" \"En Bernard vertelt hoe Vincent den laatsten dag in Parijs bezig was het atelier te schikken 'de telle sorte que mon frère me croie encore ici.'\"",
+     "guven": "yuksek"
+    },
+    {
+     "olgu": "(d) Kanca için en güçlü aday VGM 705, Arles, Salı 16 Ekim 1888 (1914 no. 554). Zarftan Yatak Odası'nın ayrı bir kâğıda çizilmiş taslağı çıkıyor (\"enclosed sketch\", JH 1609). Taslak mektupla aynı boyda ve aynı kareli kâğıtta, katlama izi tek, bugün Van Gogh Müzesi'nde. Mektup şöyle açılıyor: \"Mon cher Theo – Enfin je t'envoie un petit croquis pour te donner au moins une idée de la tournure que prend le travail.\" Renkler de tek tek sayılıyor (\"Les murs sont d'un violet pâle. Le sol – est à carreaux rouges.\"), sonunda da \"Je te ferai un jour des croquis des autres pieces aussi.\" deniyor.",
+     "kaynak": "https://vangoghletters.org/en/let705 (Playwright ile okundu)",
+     "kanit": "Artworks: \"The bedroom (F - / JH 1609), enclosed sketch\". Additional: \"The enclosed sketch is the same size as the letter and was drawn on the same squared paper. Both have one crease.\" Konum: Amsterdam, Van Gogh Museum, b0599V1962 (yaprak 1) ve d0311V1970 (yaprak 2).",
+     "guven": "yuksek"
+    },
+    {
+     "olgu": "(d) VGM 691, Arles, c. Cumartesi 29 Eylül 1888 (1914 no. 543). Mektup \"Ci inclus petit croquis d'une toile de 30 carrée – enfin le ciel étoilé peint la nuit même, sous un bec de gaz.\" diye başlıyor ve ekli taslak Rhône Üzerinde Yıldızlı Gece (JH 1593). Ama bu taslağın bugün nerede olduğu bilinmiyor. Mektubun içinde ayrıca Sarı Ev'in (\"The street\", F 1453 / JH 1590) mektup taslağı ve küçük bir hilal ile yıldız çizimi var. Not: Aynı Rhône taslağının Eugène Boch'a giden 2 Ekim 1888 tarihli kopyası (VGM 693) Van Gogh Müzesi'nde duruyor.",
+     "kaynak": "https://vangoghletters.org/en/let691 ; https://vangoghletters.org/en/let693",
+     "kanit": "691 Artworks: \"Starry night over the Rhône (F 1515 / JH 1593), enclosed sketch (present whereabouts unknown)\"; \"The Yellow House ('The street') (F 1453 / JH 1590), letter sketch\"; \"Crescent moon and star\". 693: \"Starry night over the Rhône (F - / JH 1594), enclosed sketch (inv. no. b598 b V/1962)\".",
+     "guven": "yuksek"
+    },
+    {
+     "olgu": "(d) Arles'tan Theo'ya gidip içinde taslak bulunan diğer mektuplar (VGM 577–760 tarandı; 725 açılamadı): 589 (c. 25 Mart 1888, Seine ve Clichy köprüsü); 592 (c. 3 Nisan, çerçeve köşesi); 597 (c. 13 Nisan, üç meyve bahçesi); 600 (c. 20 Nisan, çiçek açmış armut ağaçları); 602 (1 Mayıs, Sarı Ev); 609 (12 Mayıs, buğday tarlasında çiftlik evi ve süsenli Arles); 611 (c. 20 Mayıs, cezveli natürmort); 615 (28 Mayıs, çizim albümü); 636 (5 Temmuz); 638 (9/10 Temmuz, ağustosböceği); 644 (17–20 Temmuz, çiçekli bahçe); 660 (c. 13 Ağustos, kum mavnalı rıhtım); 687 (25 Eylül, sürülmüş tarlalar); 689 (26 Eylül, Şairin Bahçesi, ayrı kâğıt); 709 (21 Ekim, servi sırası ve çift); 714 (27/28 Ekim, ekinci ve sürülmüş tarla); 718 (10 Kasım, Kırmızı Bağ ile çerçeve örneği); 719 (11/12 Kasım, Laval'ın otoportresinden taslak); 722 (c. 21 Kasım, Batan Güneşte Ekinci).",
+     "kaynak": "https://vangoghletters.org/en/let602 ; https://vangoghletters.org/en/let589 ; https://vangoghletters.org/en/let689 ; https://vangoghletters.org/en/let722 (öteki numaralar aynı adres kalıbında: /en/letNNN)",
+     "kanit": "Her mektubun Artworks bölümünde \"letter sketch\" ya da \"enclosed sketch\" kaydı var. Örnek: 602 \"The Yellow House (F - / JH 1413), letter sketch\"; 689 \"The public garden ('The poet's garden') (F 1465 / JH 1583), enclosed sketch (private collection)\". Liste Artworks metninin otomatik taranmasıyla çıktı; tam olmayabilir.",
+     "guven": "orta"
+    },
+    {
+     "olgu": "(d) Ayçiçeği taslağı içeren ve Arles'tan Theo'ya giden bir mektup bulunamadı. Taranan 577–760 arasında Artworks bölümünde ayçiçeği taslağı yok (725 açılamadı). 644'teki bahçe taslağının yanında yalnız \"tournesols\" diye bir renk notu var. 666 ve 668 ayçiçeği tablolarını anlatıyor ama taslak içermiyor. Kancada ayçiçeği taslağı kullanılmamalı. DOĞRULANAMADI.",
+     "kaynak": "https://vangoghletters.org/en/let644 ; https://vangoghletters.org/en/let666 (yalnız arama özeti)",
+     "kanit": "644 notu: \"...cyprès noir/ laurier rose et figuier/ tournesols\". Ayçiçeği taslağı kaydı yok.",
+     "guven": "orta"
+    },
+    {
+     "olgu": "(e) Arles–Paris posta süresini açıkça yazan bir kaynak bulunamadı. DOĞRULANAMADI. Dolaylı kanıtlar 1 ile 2 gün arasını gösteriyor. 15 Ağustos 1888 Çarşamba günü yazılan VGM 662'de Vincent, Theo'nun mektubu Cuma sabahından önce alacağını varsayıyor ve cevabı \"vendredi ou samedi\" bekliyor. Theo'nun 16 Mart 1889 tarihli mektubu (VGM 749) 17'sinde damgalanmış, Vincent 19'unda cevap vermiş. 21 Nisan 1889 Paskalya Pazarı'nda yazılan 760'ı Theo 23 Nisan'da almış (762'de \"dün\" diyor). Karşılaştırma için: VGM editörleri Pont-Aven–Arles için iki gün varsayıyor; Arles'tan Paris'e yollanan tablo sandığının ise yaklaşık on gün sürdüğü yazıyor. Tren yolculuğu 21.40'tan ertesi gün 16.49'a kadardı.",
+     "kaynak": "https://vangoghletters.org/en/let662 ; https://vangoghletters.org/en/let749 ; https://vangoghletters.org/en/let760 ; https://vangoghletters.org/en/let611 ; https://vangoghletters.org/en/let577",
+     "kanit": "662 tarih notu: \"Since Vincent assumes that Theo will receive the letter before Friday morning... he cannot have written it on Thursday.\" Metin: \"j'espère bien avoir de tes nouvelles vendredi ou samedi.\" 749: \"On the front of the envelope, which was postmarked the 17th\". 760: \"Theo's remark in letter 762 of 24 April that he received the present letter 'yesterday'\". 611: \"sent on about 10 May and would take about ten day[s]\".",
+     "guven": "orta"
+    }
+   ],
+   "not": "Yöntem: vangoghletters.org'un kamuya açık sayfaları başsız Playwright'ta açılıp ekrandaki metin, Metadata ve Notes sekmeleri okundu (veri servisine dokunulmadı). Bu yüzden \"yalnız arama özeti\" işareti yalnız 666 için geçerli. Ham metinler /tmp/claude-0/-home-user/1251b65f-a684-562c-b86b-a58164cef97e/scratchpad/g1/ (let567.txt, let705.txt, let691.txt, *_notes.txt) ve /tmp/claude-0/-home-user/1251b65f-a684-562c-b86b-a58164cef97e/scratchpad/g1/arl/ (VGM 577–760) altında. 1914 metni DBNL'den, Jo'nun Voorwoord ve Inleiding'i deel 1'den (0001, 0002), Paris mektupları deel 3'ten (0001).\n\nGörevdeki varsayımlara iki düzeltme:\n(1) Pusula VGM 567, ama tarihi Mart değil \"on or about 28 February 1886\".\n(2) Rhône taslağı 691'e ekli, fakat taslağın kendisi kayıp. Kancada \"zarftan çıkan çizim\" için en sağlam seçenek 705, Yatak Odası: ayrı kâğıt, müzede duruyor.\n\nAyçiçeği taslaklı bir Theo mektubu bulunamadı.\n\nKanca için yeni bulgu: Jo'nun \"gele enveloppes\" cümlesi ve rue de Laval'a yanlış adreslenip açık olarak geri dönen mektup (634)."
+  },
+  "4 sonrası": {
+   "grup": "4 sonrası",
+   "olgular": [
+    {
+     "olgu": "(a) Theo 25 Ocak 1891'de Utrecht'te öldü. Jo'nun 1914 girişi tarihi yalnız böyle veriyor: 'den 25en Januari 1891'.",
+     "kaynak": "https://www.dbnl.org/tekst/gogh006brie01_01/gogh006brie01_01_0002.php (Jo van Gogh-Bonger, Inleiding, Brieven aan zijn broeder, Deel 1, 1914; kamu malı)",
+     "kanit": "\"Theo's reeds wankele gezondheid was gebroken. Zes maanden later, den 25en Januari 1891 was hij zijn broeder gevolgd.\"",
+     "guven": "yuksek"
+    },
+    {
+     "olgu": "(a) Van Gogh Müzesi'ne göre Theo Utrecht'te bir kliniğe yatırıldı ve Ocak 1891 sonunda orada öldü. Sayfada bir fotoğrafın alt yazısı 'Theo's grave in Utrecht', yani ilk mezarı Utrecht'teydi. Müze mezarlığın adını vermiyor.",
+     "kaynak": "https://www.vangoghmuseum.nl/en/art-and-stories/vincents-life/after-vincents-death",
+     "kanit": "\"Theo was admitted to a clinic in Utrecht... He died there at the end of January 1891\" ve görsel alt yazısı \"Theo’s grave in Utrecht\".",
+     "guven": "yuksek"
+    },
+    {
+     "olgu": "(a) Mezarlığın adı: Utrecht'te Soestbergen (Eerste Algemeene Begraafplaats Soestbergen). Bu ad yalnız Find a Grave ve BurialMap gibi ikincil, kullanıcı katkılı sitelerde geçiyor. Müze, Utrechts Archief ya da defter kaydı gibi bir birincil kaynakta bulunamadı. Senaryoda adıyla kullanılacaksa önce doğrulanmalı. Mezarlık adı birincil kaynakla DOĞRULANAMADI.",
+     "kaynak": "https://es.findagrave.com/memorial/33580782/theodorus-van_gogh ; https://www.burialmap.com/cemetery/utrecht-soestbergen-general-cemetery (yalnız arama özeti)",
+     "kanit": "Find a Grave: ilk defnedildiği yer \"Eerste Algemeene Begraafplaats Soestbergen\", Utrecht; BurialMap, Soestbergen kayıtları arasında Theo van Gogh (1857–1891) adını listeliyor.",
+     "guven": "dusuk"
+    },
+    {
+     "olgu": "(a)/(b) Art Newspaper'da (Martin Bailey) Theo'nun 1891'de Utrecht'te, öldüğü akıl hastanesinin bulunduğu şehirde gömüldüğü yazıyor. Jo onu Auvers'e taşımaya, Vincent'in kalıntıları 1905'te taşınınca karar verdi. Taşıma gecikti ve ancak 1914'te, Birinci Dünya Savaşı'ndan birkaç ay önce yapılabildi.",
+     "kaynak": "https://www.theartnewspaper.com/2021/09/10/where-was-van-gogh-originally-buried-we-still-dont-know",
+     "kanit": "\"move her husband's remains from Utrecht, where he had been buried after his death in 1891 in an asylum there\"; \"only accomplished in 1914, just months before the outbreak of the First World War\".",
+     "guven": "orta"
+    },
+    {
+     "olgu": "(b) 1914'te Theo'nun kalıntıları Jo'nun isteğiyle Auvers-sur-Oise'a taşındı ve Vincent'in yanına gömüldü. Yıl kesin. Ay ya da gün hiçbir yetkin kaynakta yok; 'Nisan 1914' iddiası da desteklenmiyor. Ay DOĞRULANAMADI.",
+     "kaynak": "https://www.vangoghmuseum.nl/en/art-and-stories/vincents-life/after-vincents-death ; https://www.vangoghmuseum.nl/en/stories/the-end-of-a-difficult-road",
+     "kanit": "\"In 1914... she had Theo reinterred in Auvers-sur-Oise, in a grave alongside his brother’s.\" / \"His remains were reinterred in 1905 and his brother Theo (deceased in 1891) was placed alongside him in 1914.\"",
+     "guven": "yuksek"
+    },
+    {
+     "olgu": "(b) Dikkat edilecek ayrıntı: Jo'nun 'Aralık 1913' tarihli girişi, iki kardeşin Auvers'te birlikte yattığını şimdiki zamanla söylüyor. Ya taşıma önceden planlanmıştı ya da metin taşımayı öne alarak yazılmıştı. Bu cümle taşımanın kesin tarihini göstermez.",
+     "kaynak": "https://www.dbnl.org/tekst/gogh006brie01_01/gogh006brie01_01_0002.php",
+     "kanit": "\"Zij rusten samen op het kleine kerkhof tusschen de korenakkers te Auvers. December 1913. J. van Gogh-Bonger.\"",
+     "guven": "yuksek"
+    },
+    {
+     "olgu": "(b) Arka plan: Vincent'in ilk mezarının 15 yıllık kirası 1905'te doldu ve kalıntıları o yıl aynı mezarlıkta yeni bir yere taşındı.",
+     "kaynak": "https://www.theartnewspaper.com/2021/09/10/where-was-van-gogh-originally-buried-we-still-dont-know ; https://www.vangoghmuseum.nl/en/stories/the-end-of-a-difficult-road",
+     "kanit": "\"Vincent's remains needed to be moved in 1905, when the original 15-year lease on his first grave in the cemetery expired\"; VGM: \"His remains were reinterred in 1905\".",
+     "guven": "yuksek"
+    },
+    {
+     "olgu": "(c) 1891'den sonra Jo, oğlu Vincent Willem ve koleksiyonla Hollanda'ya döndü ve Bussum'a yerleşti. Orada bir pansiyon açtı. Bussum'da yaşayan yazar ve sanatçılar ona sanat dünyasında yol gösterdi.",
+     "kaynak": "https://www.vangoghmuseum.nl/en/stories/the-woman-who-made-vincent-famous",
+     "kanit": "\"She moved from Paris to the Dutch town of Bussum, where she opened a guest house. Bussum was home to many writers and artists\".",
+     "guven": "yuksek"
+    },
+    {
+     "olgu": "(c) Pansiyonun adı Villa Helma'ydı. Jo Ocak 1891'de Hollanda'ya döndü. Vincent Willem çocukluğunu burada, amcasının tablolarıyla çevrili geçirdi: şömine üstünde Patates Yiyenler, karşısında Hasat. Adresi Bussum Historische Kring, Koningslaan 4 olarak veriyor (yalnız arama özeti).",
+     "kaynak": "https://dbnl.org/tekst/_van012199501_01/_van012199501_01_0003.php (Van Gogh Museum Journal 1995, V.W. van Gogh makalesi); adres için https://database.historischekringbussum.nl/sites/default/files/objects/attachments/Documenten/01-2021/80644.pdf (yalnız arama özeti)",
+     "kanit": "\"moved back to the Netherlands in January 1891, where she opened a boarding house in Bussum called Villa Helma\"; \"Hanging above the mantelpiece... was The potato eaters\".",
+     "guven": "yuksek"
+    },
+    {
+     "olgu": "(c) 1892 sergilerini adıyla Jo düzenlemedi. Lahey'deki Haagsche Kunstkring sergisini Jan Toorop düzenledi; Polak'a göre bu Hollanda'daki ilk Van Gogh sergisidir. Bussum Historische Kring tarihi 16–29 Mayıs 1892 veriyor (40 tablo, 40 çizim, Café Riche; yalnız arama özeti). Eserlerin kaynağı Jo'nun koleksiyonuydu. VGM genel olarak 'satış sergileri düzenledi' diyor. Senaryoda 'Jo eser verdi ve ortak çalıştı' demek daha doğru.",
+     "kaynak": "https://www.dbnl.org/tekst/pola011find01_01/pola011find01_01_0018.php (Bettina Polak, Het fin-de-siècle in de Nederlandse schilderkunst); https://www.vangoghmuseum.nl/en/stories/the-woman-who-made-vincent-famous",
+     "kanit": "Polak: \"de door hem [Toorop] georganiseerde Van Gogh-tentoonstelling in de Haagse Kunstkring, - de eerste tentoonstelling van Van Gogh's oeuvre in Nederland gehouden\"; VGM: \"She organised sales exhibitions to boost the visibility of Vincent’s work.\"",
+     "guven": "orta"
+    },
+    {
+     "olgu": "(c) Amsterdam'daki Kunstzaal Panorama sergisi 1892'de açıldı ve 112 eser içeriyordu. Düzenleyen R.N. Roland Holst'tu; galeri müdürü Christiaan van Kesteren asım için Jo'ya bir kat planı yolladı. Tarihler 17 Aralık 1892 – 5 Şubat 1893 (vangoghletters, yalnız arama özeti). Kataloğa mektuplardan kısa alıntılar konmuştu.",
+     "kaynak": "https://www.dbnl.org/tekst/_van012199901_01/_van012199901_01_0007.php (Andreas Blühm, 'Displaying Van Gogh', Van Gogh Museum Journal 1999); https://vangoghletters.org/vg/publications_2.html (yalnız arama özeti)",
+     "kanit": "\"Roland Holst... was responsible for an exhibition at the Kunstzaal Panorama in Amsterdam in 1892 which included 112 works. The manager... sent Jo a floorplan to help her prepare the hanging.\"",
+     "guven": "yuksek"
+    },
+    {
+     "olgu": "(c) Jo'nun en büyük işi 1905'te Amsterdam Stedelijk Museum'daki büyük retrospektifti. Eser seçiminden bekçi ücretlerine kadar her şeyi kendisi ayarladı, sergiden sonra fiyatlar hızla yükseldi. Eser sayısı kaynağa göre değişiyor: VGM '480'den fazla', Blühm '474' diyor.",
+     "kaynak": "https://www.vangoghmuseum.nl/en/stories/the-woman-who-made-vincent-famous ; https://www.dbnl.org/tekst/_van012199901_01/_van012199901_01_0007.php",
+     "kanit": "VGM: \"In 1905... the largest ever retrospective... at the Stedelijk Museum in Amsterdam. More than 480 artworks were on display.\" Blühm: \"No fewer than 474 pictures were on view.\"",
+     "guven": "yuksek"
+    },
+    {
+     "olgu": "(c) 1914 mektupları: Jo, Vincent'in Theo'ya mektuplarını 1914'te Amsterdam'da üç cilt olarak yayımladı: Brieven aan zijn broeder. Kendi biyografik girişi 'Aralık 1913' tarihli. Edisyonda yalnız Vincent'ten Theo'ya giden mektuplar var; Theo'nun mektupları yok. Jo 1925'te öldüğünde mektupların yaklaşık üçte ikisini İngilizceye çevirmişti; İngilizce baskı dört yıl sonra çıktı.",
+     "kaynak": "https://www.dbnl.org/tekst/gogh006brie00_01 ; https://www.vangoghmuseum.nl/en/stories/the-woman-who-made-vincent-famous ; https://vangoghletters.org/vg/publications_3.html (yalnız arama özeti)",
+     "kanit": "VGM: \"Thanks to the publication of the letters in 1914, appreciation rose... for him as a human being.\" vangoghletters: \"she published only the letters from Vincent to Theo\" (arama özeti).",
+     "guven": "yuksek"
+    },
+    {
+     "olgu": "(c) Ek bilgi: Jo 1901'de ressam Johan Cohen Gosschalk'la evlendi, aile iki yıl sonra Amsterdam'a taşındı. 1891–1925 arasında Vincent'in 200'e yakın eserini sattı.",
+     "kaynak": "https://www.vangoghmuseum.nl/en/art-and-stories/vincents-life/after-vincents-death ; https://www.vangoghmuseum.nl/en/stories/the-woman-who-made-vincent-famous",
+     "kanit": "\"She remarried in 1901 to the painter Johan Cohen Gosschalk, and the family moved to Amsterdam two years later.\" / \"Between 1891 and 1925, Jo sold nearly 200 of Vincent’s artworks.\"",
+     "guven": "yuksek"
+    },
+    {
+     "olgu": "(d) Jo 1925'te ölünce koleksiyon oğlu, mühendis Vincent Willem van Gogh'a geçti. O, eserleri 1930'da Stedelijk Museum'a ödünç verdi. 1962'de Hollanda Devleti'nin onayıyla koleksiyonu Vincent van Gogh Vakfı'na (Vincent van Gogh Stichting) devretti. Karşılığında devlet bir müze yapmayı ve koleksiyonu herkese açık tutmayı üstlendi.",
+     "kaynak": "https://www.vangoghmuseum.nl/en/art-and-stories/vincents-life/after-vincents-death",
+     "kanit": "\"In 1962, with the consent of the State of the Netherlands, ‘the Engineer’ transferred the Van Gogh collection to the Vincent van Gogh Foundation. In return, the State undertook to build the Van Gogh Museum\".",
+     "guven": "yuksek"
+    },
+    {
+     "olgu": "(d) Devir bedeli 18.470.000 gulden olarak kayda geçti. Johan van Gogh'a göre koleksiyon fiilen 15 milyon gulden'e alındı; fark işletme sermayesi ve veraset vergisiydi. Düzenleme, koleksiyonun mirasçılar arasında bölünmesini önledi.",
+     "kaynak": "https://dbnl.org/tekst/_van012199501_01/_van012199501_01_0003.php (Van Gogh Museum Journal 1995)",
+     "kanit": "\"In 1962... Van Gogh's collections were transferred to the Vincent van Gogh Foundation for 18,470,000 guilders.\"; dipnot 26: \"the collection was in fact bought for Dfl. 15m\".",
+     "guven": "yuksek"
+    },
+    {
+     "olgu": "(d) Gerrit Rietveld'in tasarladığı Van Gogh Müzesi'ni Kraliçe Juliana 2 Haziran 1973'te açtı. Vincent Willem inşaatta danışmanlık yaptı.",
+     "kaynak": "https://www.vangoghmuseum.nl/en/art-and-stories/vincents-life/after-vincents-death ; https://dbnl.org/tekst/_van012199501_01/_van012199501_01_0003.php",
+     "kanit": "\"Queen Juliana opened the Van Gogh Museum on 2 June 1973\"; VGMJ: \"Van Gogh was appointed advisor for the construction of the museum.\"",
+     "guven": "yuksek"
+    },
+    {
+     "olgu": "(e) Müze, Vincent'in 820 mektubunun çoğunu saklıyor; çoğu Theo'ya yazılmış. Mektuplar kırılgan ve ışığa duyarlı olduğu için nadiren sergileniyor, kalıcı sergide sürekli durmuyor. Son büyük mektup sergisi 'Your loving Vincent': Van Gogh's Greatest Letters' (9 Ekim 2020 – 10 Ocak 2021). Sergide yaklaşık 40 mektup vardı ve ilk mektuptan son mektuba kadar Theo'yla ilişkiyi anlatıyordu. Bugün Vincent'in ve Theo'nun mektuplarının müzede yan yana sergilendiği DOĞRULANAMADI.",
+     "kaynak": "https://www.vangoghmuseum.nl/en/about/news-and-press/press-releases/opening-this-friday-exhibition-on-van-goghs-greatest-letters",
+     "kanit": "\"Due to their fragility and sensitivity to light, the letters are rarely exhibited.\"; \"some 40 letters, all from the Van Gogh Museum collection\"; \"the close relationship with his brother Theo, from the first to the very last letter\".",
+     "guven": "yuksek"
+    },
+    {
+     "olgu": "(e) Yazışmada toplam 903 mektup var: 820'si Vincent'in, 83'ü ona yazılmış. Theo, Vincent'in mektuplarını özenle sakladı; Vincent ise gelen mektupların çoğunu attı ya da yaktı. Theo'nun mektuplarının azlığı bundan.",
+     "kaynak": "https://www.vangoghmuseum.nl/en/art-and-stories/stories/all-stories/van-goghs-letters",
+     "kanit": "\"The total correspondence features 903 letters: 820 by Van Gogh and 83 to him... Theo kept Vincent’s letters with great care. Vincent was less careful – he threw lots of letters away, or burned them.\"",
+     "guven": "yuksek"
+    }
+   ],
+   "not": "Kalan belirsizlikler:\n- Theo'nun Utrecht'teki ilk mezarı: Soestbergen adı yalnız Find a Grave ve BurialMap'te geçiyor; birincil kaynakta bulunamadı. Senaryoda 'Utrecht'te bir mezarlık' demek güvenli.\n- 1914 taşımasının ayı: hiçbir yetkin kaynakta yok.\n- Jo'nun 'Aralık 1913' tarihli girişi, kardeşleri şimdiden 'birlikte yatıyor' diye anıyor.\n- 1892 sergileri: kurucuları Toorop (Lahey) ve Roland Holst (Amsterdam Panorama); Jo eser verdi ve asımı birlikte hazırladı. 'Jo düzenledi' demek abartılı olur.\n- 1905 eser sayısı: VGM '480'den fazla', Blühm '474'.\n- Mektupların bugün sergilenip sergilenmediği: müze mektupların nadiren sergilendiğini söylüyor; iki kardeşin mektuplarının bugün yan yana sergilendiğine dair kaynak yok.\n- vangoghletters.org sayfaları boş geldi; o kaynaktan gelen her şey 'yalnız arama özeti' olarak işaretli.\n- Ara dosyalar: /tmp/claude-0/-home-user/1251b65f-a684-562c-b86b-a58164cef97e/scratchpad/vg/"
+  },
+  "3 1890 ilk övgü ve tek buluşma": {
+   "grup": "3 1890 ilk övgü ve tek buluşma",
+   "olgular": [
+    {
+     "olgu": "(a) Aurier'nin yazısı: G.-Albert Aurier, \"Les Isolés: Vincent van Gogh\", Mercure de France, yeni seri, N° 1, Ocak 1890, s. 24–29. Bu sayı, derginin yeniden kurulduğu ilk sayıdır.",
+     "kaynak": "https://archive.org/details/MercureFrance1890BNF01 (Gallica bpt6k1051017 taramasının OCR metni: MercureFrance1890BNF01_djvu.txt) + https://vangoghletters.org/en/let845 (not 2; tarayıcıda açıldı)",
+     "kanit": "İçindekiler: \"N° 1. — JANVIER 1890 … G.-Albert Aurier … Les Isolés, Vincent van Gogh\". VGL not 2: \"Albert Aurier, 'Les isolés: Vincent van Gogh', Mercure de France (January 1890), pp. 24-29.\" OCR sayfa numaralarını 34–39 diye yanlış okuyor; içindekiler sırası (22, 23, Aurier, 30) s. 24–29'u doğruluyor.",
+     "guven": "yuksek"
+    },
+    {
+     "olgu": "(a) Kamu malı özgün Fransızca ifadeler (Aurier 1892'de öldü): \"un terrible et affolé génie, sublime souvent, grotesque quelquefois, toujours relevant presque de la pathologie\" (s. 26–27). Kapanış: \"Vincent Van Gogh est, à la fois, trop simple et trop subtil pour l'esprit-bourgeois contemporain.\" (s. 29). Kısa alıntı için: \"œuvres étranges, intensives et fiévreuses\".",
+     "kaynak": "https://archive.org/download/MercureFrance1890BNF01/MercureFrance1890BNF01_djvu.txt",
+     "kanit": "OCR metninde birebir: \"…irrésistiblement, un terrible et affolé génie, sublime souvent, grotesque quelquefois, toujours relevant presque de la pathologie.\" Son paragraf: \"…trop simple et trop subtil pour l'esprit-bourgeois contemporain. Il ne sera jamais pleinement compris que de ses frères, les artistes très artistes…\"",
+     "guven": "yuksek"
+    },
+    {
+     "olgu": "(a) Theo'nun bakış açısı için önemli sahne: Theo dergiyi 29 Ocak 1890 sabahı eve getirdi. Jo o gece doğumu bekliyordu ve Vincent'a yazdı. Bebek iki gün sonra, 31 Ocak 1890 Cuma günü doğdu.",
+     "kaynak": "https://vangoghletters.org/en/let845 (Jo'dan Vincent'a, 29 Ocak 1890; tarih notu ve not 2)",
+     "kanit": "Özgün Felemenkçe: \"van morgen bracht Theo het artikel mee uit de Mercure en nadat we het gelezen hadden hebben Wil en ik nog lang over je gesproken\". Tarih notu: \"the child was finally born on Friday, 31 January\".",
+     "guven": "yuksek"
+    },
+    {
+     "olgu": "(a) Yazının kısaltılmış hâli Brüksel'de, Les XX sergisi sırasında da çıktı: \"Vincent van Gogh\", L'Art Moderne, 19 Ocak 1890, no. 3, s. 20–22. Vincent cevabını Aurier'ye 853 numaralı mektupla yazdı (Saint-Rémy, 9 ya da 10 Şubat 1890). 854'te Theo'ya övgünün asıl Gauguin'e yakışacağını söyler.",
+     "kaynak": "https://vangoghletters.org/en/let845 (not 2); https://vangoghletters.org/en/let853 (başlık); https://vangoghletters.org/en/let854",
+     "kanit": "845 n.2: \"Aurier published a shortened version… in L'Art Moderne… (19 January 1890), no. 3, pp. 20-22\". 854: \"on devrait dire des chôses comme cela de Gauguin, et de moi rien que très secondairement\".",
+     "guven": "yuksek"
+    },
+    {
+     "olgu": "(b) Genel çerçeve: Theo, 1888'den başlayarak Vincent'ın tablolarını her yıl Paris'teki Salon des Indépendants'a gönderdi. 1890 başında Brüksel'deki Les XX sergisinde altı tablo gösterildi ve Kırmızı Bağ (La Vigne rouge) orada satıldı.",
+     "kaynak": "https://www.vangoghmuseum.nl/en/art-and-stories/vincents-life-1853-1890/hospitalization",
+     "kanit": "VGM: \"Theo had been submitting his paintings since 1888 to the annual 'Salon des Indépendants' in Paris\"; \"Six of Vincent's paintings were shown in Brussels in early 1890… The Red Vineyard, was sold during the show\".",
+     "guven": "yuksek"
+    },
+    {
+     "olgu": "(b) Indépendants 1888 (4. sergi, Paris, 22 Mart – 3 Mayıs 1888): 3 eser, katalog no. 658–660. Eserler: Montmartre: Moulin de la Galette'in arkası (F 316), Montmartre'de sebze bahçeleri (F 350) ve 'Romans parisiens' (F 359). Üçüncü eseri Theo seçti. Theo, Willemien'e sergiyi Vincent'ın tanınması için \"en iyi yol\" diye yazdı (14 Mart 1888).",
+     "kaynak": "https://vangoghletters.org/en/let582 (notlar 8–9; tarayıcıda açıldı)",
+     "kanit": "n.8: \"from 22 March to 3 May 1888\"; n.9: \"The third work Theo chose was… ('Romans parisiens')… cat. nos. 658-660\"; Theo: \"it's essential to make himself known and the exhibition is the best means\".",
+     "guven": "yuksek"
+    },
+    {
+     "olgu": "(b) Indépendants 1889 (5. sergi, Eylül 1889): 2 eser, Süsenler (F 608) ve Rhône Üzerinde Yıldızlı Gece (F 474). Theo 5 Eylül 1889'da sergi açık diye yazdı; Yıldızlı Gece kötü asılmıştı. Mektup VGM/VGL 799. Sergi tarihleri DOĞRULANAMADI; 3 Eylül açılışı tek kaynaklı.",
+     "kaynak": "https://vangoghletters.org/en/let799 (başlık tarayıcıda doğrulandı: \"Theo van Gogh to Vincent van Gogh. Paris, Thursday, 5 September 1889\"; içerik yalnız arama özeti)",
+     "kanit": "Yalnız arama özeti: Theo sergide \"The irises\" ve \"Starry night\" olduğunu yazıyor; Yıldızlı Gece'nin \"yeterince uzaktan bakılamayacak\" biçimde asıldığını söylüyor. Not, eserleri F 608 ve F 474 diye tanımlıyor.",
+     "guven": "orta"
+    },
+    {
+     "olgu": "(b) Indépendants 1890 (6. sergi, Paris): 10 tablo. Açılış 19 Mart 1890'daydı; Cumhurbaşkanı Carnot geldi, Theo Jo'yla oradaydı. Gauguin Vincent'ın tablolarına serginin \"clou\"su (en çarpıcı parçası) dedi. Mektup VGM 858. Kapanış tarihi (27 Nisan) yalnız ikincil kaynakta (Wikipedia).",
+     "kaynak": "https://vangoghletters.org/en/let858 (Theo'dan, 19 Mart 1890; not 3) + https://www.vangoghmuseum.nl/en/art-and-stories/vincents-life-1853-1890/hospitalization",
+     "kanit": "858: \"C'était le jour de vernissage où Carnot est venu. J'y étais avec Jo. Tes tableaux sont bien placés… Gauguin disait que tes tableaux sont le clou de l'exposition.\" n.3: Theo, Willemien'e: \"with ten paintings by him\".",
+     "guven": "yuksek"
+    },
+    {
+     "olgu": "(b) Basında Indépendants 1890: Mercure de France Mayıs 1890 sayısı (N° 5, s. 175–176, \"J. L.\" imzalı) on tablodan söz eder.",
+     "kaynak": "https://archive.org/download/MercureFrance1890BNF01/MercureFrance1890BNF01_djvu.txt",
+     "kanit": "\"Il y a de Van Gogh aux Indépendants dix tableaux qui attestent un génie rare.\" Yazı Aurier'nin \"trop bien défini\" ettiği yeteneğe de gönderme yapar.",
+     "guven": "yuksek"
+    },
+    {
+     "olgu": "(b) Les XX 1890 (7. yıllık sergi, Brüksel, Musée Royal de Peinture et de Sculpture, 18 Ocak – 23 Şubat 1890): altı tablo. Bunlar arasında Ayçiçekleri, Sarmaşık, Çiçekli bahçe, Gündoğumunda buğday tarlası ve Kırmızı Bağ var. Kırmızı Bağ'ı Anna Boch 400 franka aldı. Theo parayı 6 Mart 1890'da hesap defterine yazdı ve Vincent'a 858'de haber verdi. Octave Maus'un Theo'ya yazdığı söz: \"de vives sympathies artistiques\".",
+     "kaynak": "https://library.vangoghmuseum.nl/Details/exhibit/2062 ; https://vangoghletters.org/en/let855 (not 5) ; https://vangoghletters.org/en/let858 (not 10–11) ; Mercure de France Mart 1890, N° 3 (archive.org OCR)",
+     "kanit": "VGM kütüphanesi: \"Les XX. VIIe exposition annuelle… 1890-01-18 - 1890-02-23\". 855 n.5: \"400 francs, received from 'Mlle Bock pour tab Vigne rouge'\". Mercure: \"M. Vincent van Gogh a envoyé au Salon des XX: Tournesols, Le lierre, Verger en fleurs, Champ de blé au soleil levant, et la très belle Vigne rouge.\"",
+     "guven": "yuksek"
+    },
+    {
+     "olgu": "(c) Paris ziyareti, 17–20 Mayıs 1890: Vincent 16 Mayıs Cuma günü Saint-Rémy'den resmen taburcu oldu ve aynı gün yola çıktı. Gare de Lyon'a 17 Mayıs Cumartesi sabahı vardı ve üç gün Theo ile Jo'nun evinde (8 cité Pigalle) kaldı. Jo'yu ve bebeği ilk ve tek kez burada gördü. Jo ev defterine 17 Mayıs'ta çiçek, 18 Mayıs'ta bira ve şarap yazdı. Planı 872 numaralı mektupta (13 Mayıs).",
+     "kaynak": "https://vangoghletters.org/en/let872 (not 1) ; https://vangoghletters.org/en/let873 (not 7)",
+     "kanit": "872 n.1: \"officially released from the asylum on Friday, 16 May 1890… arrived on Saturday, 17 May… After staying with Theo and Jo for three days, he travelled to Auvers.\" 873 n.7: \"Theo and Jo lived at 8 cité Pigalle.\"",
+     "guven": "yuksek"
+    },
+    {
+     "olgu": "(c) Jo'nun 1914 girişindeki buluşma sahnesi (özgün Felemenkçe, kamu malı). Theo o gece korkudan uyumadı. Açık bir arabayla gülerek geldiler. İki kardeş beşikteki bebeğe sessizce bakarken ikisinin de gözleri yaşlıydı. Vincent, Jo'ya beşikteki dantel örtüyü işaret ederek takıldı.",
+     "kaynak": "https://www.dbnl.org/tekst/gogh006brie01_01/gogh006brie01_01_0002.php (J. van Gogh-Bonger, 'Inleiding', Brieven aan zijn broeder, Deel 1, 1914, s. LX–LXI)",
+     "kanit": "\"Theo sliep dien nacht niet van angst\"; \"Dan troonde Theo hem mee naar de slaapkamer, waar het wiegje stond van onzen kleinen jongen… zwijgend keken de twee broers naar het rustig slapend kindje - zij hadden beiden tranen in de oogen.\" Vincent: \"Je moet hem maar niet te veel in de kanten leggen, zusje.\"",
+     "guven": "yuksek"
+    },
+    {
+     "olgu": "(c) Jo'nun ilk izlenimi ve kalış: hasta birini beklerken karşısında güçlü, sağlıklı biri buldu. Vincent üç gün boyunca neşeliydi. Odalar ve yatak altları tablolarla doluydu: Patates Yiyenler, Rhône'da Yıldızlı Gece, çiçekli bahçeler.",
+     "kaynak": "https://www.dbnl.org/tekst/gogh006brie01_01/gogh006brie01_01_0002.php (s. LX–LXI)",
+     "kanit": "\"'Hij is volkomen gezond, hij ziet er veel sterker uit dan Theo,' was mijn eerste gedachte.\" \"Drie dagen bleef hij bij ons en was al dien tijd vroolijk en opgewekt. Over St. Remy werd niet gesproken.\"",
+     "guven": "yuksek"
+    },
+    {
+     "olgu": "(d) Auvers'e varış: 20 Mayıs 1890 Salı. Vincent ilk mektubunu (873) o gün Auvers'ten Theo ile Jo'ya birlikte yazdı ve ilk kez Fransızca yazacağını söyledi. Dr Gachet'yi gördü. Gachet'nin önerdiği 6 franklık han yerine günü 3,50 franklık bir hana yerleşti (Auberge Ravoux). DİKKAT: Jo'nun 1914 girişinde tarih \"den 21en Mei\" diye geçer. VGL ve genel kabul 20 Mayıs'tır; senaryoda 20 Mayıs kullanılmalı.",
+     "kaynak": "https://vangoghletters.org/en/let873 (başlık, metin, not 1) ; https://www.dbnl.org/tekst/gogh006brie01_01/gogh006brie01_01_0002.php (s. LXI)",
+     "kanit": "873 başlık: \"Auvers-sur-Oise, Tuesday, 20 May 1890\"; metin: \"Après avoir fait connaissance avec Jo il me sera désormais difficile d'écrire à Theo seul\". Jo: \"En zoo vertrok hij den 21en Mei naar Auvers, met een introductie aan Dr. Gachet\".",
+     "guven": "yuksek"
+    },
+    {
+     "olgu": "(e) Theo'nun Haziran sonu kaygıları (VGM 894; 30 Haziran – 1 Temmuz 1890). Bebek günlerce ağır hastaydı; eşek sütüne geçtiler. Jo tükenmişti. Başka daireye taşınıp taşınmamayı, Auvers'e ya da Hollanda'ya gitmeyi tartıyorlardı. Boussod & Valadon onu yeni girmiş biri gibi tutuyordu; Theo istifa edip kendi işini kurmayı düşünüyordu. Ertesi sabah daireyi tutmaya kesin karar verdi.",
+     "kaynak": "https://vangoghletters.org/en/let894",
+     "kanit": "\"notre chéri a été très souffrant\"; \"Devons nous prendre un autre appartement…?\"; \"ces rats de Boussod & Valadon me traitent comme si je venais d'entrer chez eux\"; \"je vais me mettre marchand en chambre?\"; \"je vais louer l'appartement en question.\"",
+     "guven": "yuksek"
+    },
+    {
+     "olgu": "(e) Davet: Theo 5 Temmuz 1890'da (VGM 897) bebeğin iyileştiğini yazdı ve Vincent'ı Pazar günü ilk trenle çağırdı. Yeni dairenin düzeni için onun fikrini istedi; Dries ile Annie Bonger alt kata gelebilirdi.",
+     "kaynak": "https://vangoghletters.org/en/let897",
+     "kanit": "\"Vient donc si tu veux Dimanche avec le premier train… tu nous donneras conseil pour l'arrangement de notre nouvel appartement. Probablement Dries & Annie viendront au rez de chaussée\".",
+     "guven": "yuksek"
+    },
+    {
+     "olgu": "(e) 6 Temmuz 1890 Pazar ziyareti: Vincent tek günlüğüne Paris'e geldi. Aurier tabloları onunla birlikte yeniden inceledi. Toulouse-Lautrec öğle yemeğine kaldı. Andries Bonger de oradaydı ve Theo'yla ortak iş kurma teklifini sonra geri çekti (900, n.6). Guillaumin'i beklemeden aceleyle Auvers'e döndü. Jo sonradan pişmanlığını Theo'ya yazdı (31 Temmuz ve 1 Ağustos 1890).",
+     "kaynak": "https://vangoghletters.org/en/let898 (not 3, 8, 9) ; https://vangoghletters.org/en/let900 (not 6) ; https://www.dbnl.org/tekst/gogh006brie01_01/gogh006brie01_01_0002.php (s. LXII–LXIII)",
+     "kanit": "898 n.3: \"Vincent had visited Theo and Jo in Paris on Sunday, 6 July (see letter 897)\". Jo: \"In de eerste dagen van Juli kwam Vincent nog eens bij ons te Parijs… dus waren het dagen vol zorg en spanning.\" Jo'nun 31 Temmuz mektubu: \"If only I'd been a bit kinder to him\".",
+     "guven": "yuksek"
+    },
+    {
+     "olgu": "(e) Dönüşten sonra (VGM 898, ~10 Temmuz 1890, Theo ile Jo'ya): Vincent ziyaretten ağır bir yükle döndü, ama Jo'nun (kayıp) mektubunu bir kurtuluş gibi karşıladı. Üç büyük buğday tarlası tuvali yaptı: \"tristesse, solitude extrême\". VGM özeti: Vincent, Theo'nun işten ayrılmayı düşündüğünü öğrenince geleceği için kaygılandı.",
+     "kaynak": "https://vangoghletters.org/en/let898 ; https://www.vangoghmuseum.nl/en/art-and-stories/vincents-life-1853-1890/vincents-final-months",
+     "kanit": "898: \"avais continué à sentir peser sur moi aussi l'orage qui vous menace… ma vie à moi aussi est attaquée à la racine même, mon pas aussi est chancelant.\" VGM: \"he learned that his brother was thinking of quitting his job… Vincent returned to Auvers a worried man.\"",
+     "guven": "yuksek"
+    },
+    {
+     "olgu": "(e) İş sorununun sonucu: Theo 8 Temmuz civarında Boussod'lardan zam istedi ve olmazsa ayrılacağını söyledi. Tehdit etkili olmadı; 14 Temmuz'da (VGM 900) hâlâ cevap yoktu. Theo sonunda şimdilik firmada kaldı (901, n.5). Theo, Jo ve bebek 15 Temmuz'da Leiden'e gitti; Theo 18 Temmuz'da Paris'e döndü. Vincent'ın Theo'ya gönderdiği son mektup 902 (23 Temmuz 1890).",
+     "kaynak": "https://vangoghletters.org/en/let900 (metin ve not 4) ; https://vangoghletters.org/en/let898 (not 6) ; https://vangoghletters.org/en/let902 (başlık)",
+     "kanit": "900: \"Quoique les huit jours soient écoulés ces messieurs n'ont rien dit à l'égard de ce qu'ils pensent faire avec moi.\" n.4: \"Theo finally decided to stay with the firm for the time being\". 898 n.6: \"Theo, Jo and little Vincent left on 15 July for Leiden.\"",
+     "guven": "yuksek"
+    }
+   ],
+   "not": "Yöntem: vangoghletters.org JavaScript uygulaması; mektuplar (582, 799 yalnız başlık, 845, 852, 853 başlık, 854, 855, 858, 872, 873, 894, 897, 898, 900, 902) Playwright ile tarayıcıda açılıp metinleri okundu. Bunlar arama özeti değil, sitenin kendi metni. Yalnız 799'un içeriği arama özetine dayanıyor. Ham metinler: /tmp/claude-0/-home-user/1251b65f-a684-562c-b86b-a58164cef97e/scratchpad/g3out/ ve /tmp/claude-0/-home-user/1251b65f-a684-562c-b86b-a58164cef97e/scratchpad/g3out2/. Jo'nun girişi: /tmp/claude-0/-home-user/1251b65f-a684-562c-b86b-a58164cef97e/scratchpad/dbnl/inleiding.txt. Mercure 1890 OCR: /tmp/claude-0/-home-user/1251b65f-a684-562c-b86b-a58164cef97e/scratchpad/mdf.txt. Gallica Cloudflare ile engelli; aynı tarama archive.org'da. Uyarılar: (1) Jo Auvers'e gidişi 21 Mayıs diye yazıyor, mektup 873 20 Mayıs tarihli: 20 Mayıs kullanılmalı. (2) Jo'nun 1914 girişi Temmuz ziyaretini 'de eerste dagen van Juli' diye veriyor; kesin tarih (6 Temmuz) VGL 897/898'den. (3) Theo'nun 30 Haziran mektubundaki 'ces rats de Boussod & Valadon' ve 'ces c... de B&V.' sert ifadeler; senaryoda kullanılırsa kaynak notu verilmeli. (4) Indépendants 1889 ve 1890'ın kesin açılış ve kapanış tarihleri birincil kaynakla tam doğrulanmadı (1890 açılışı 19 Mart, Theo'nun mektubundan). Scratchpad'deki vgl/898*.txt dosyaları bu ajandan önce başka bir işlemce yazılmıştı. İçerikleri sitenin metniyle tutarlı, ama 898 notları ayrıca yeniden çekilmedi."
+  }
+ },
+ "dogrulama": {
+  "2 Arles": {
+   "grup": "2 Arles",
+   "kararlar": [
+    {
+     "olgu": "(a) Vincent, Paris'ten trenle bir gün bir gece süren yolculuktan sonra 20 Şubat 1888'de Arles'a vardı.",
+     "durum": "dogrulandi",
+     "kaynak": "https://www.vangoghmuseum.nl/en/art-and-stories/vincents-life-1853-1890/from-dark-to-light ; https://www.fondation-vincentvangogh-arles.org/en/vincent/",
+     "kanit": "Müze sayfası canlı çekildi: \"Following a train journey that lasted a day and a night, he arrived on 20 February 1888 in Arles\". Fondation ayrıca: \"On 20 February 1888, Vincent van Gogh arrived in Arles.\""
+    },
+    {
+     "olgu": "(a) Teyit: Fondation varışı 20 Şubat 1888 verir; VGM kataloğu ayrılışı 19 Şubat 1888 yazar; Jo'nun 1914 baskısında ilk Arles mektubu 463, '(21/2 '88)', ilk cümlesi yolda Theo'yu düşündüğünü söyler.",
+     "durum": "dogrulandi",
+     "kaynak": "https://catalogues.vangoghmuseum.com/contemporaries-of-van-gogh-1/introductory-essay ; https://www.dbnl.org/tekst/gogh006brie03_01/gogh006brie03_01_0002.php",
+     "kanit": "Katalog: \"After Vincent left for Arles on 19 February 1888\" (iki ayrı yerde). DBNL 3. cilt: \"463 Mon cher Theo, (21/2 '88). Durant le voyage j'ai pour le moins autant pensé à toi, qu'au nouveau pays que je voyais.\" Bölüm başlığı: \"Arles 21 februari 1888 - 8 mei 1889\"."
+    },
+    {
+     "olgu": "(a) Jo'nun 1914 girişi: Theo'ya göre Vincent daha ılık havaya muhtaçtı; önce Arles, sonra belki Marsilya. Gidişten önce birlikte Wagner konserine gitmişlerdi. Theo: 'son zamanlarda benim için o kadar çok şeydi ki'.",
+     "durum": "duzeltme",
+     "duzeltme": "Wagner konserine bir kez değil 'birkaç kez' (een paar maal) gittiler. Theo'nun sözü 'daha ılık hava' değil 'biraz daha yumuşak bir havada bulunma ihtiyacı' (behoefte om in wat zachter lucht te zijn). Jo bu alıntının kime yazıldığını burada söylemez; senaryoda alıcı adı verilmemeli.",
+     "kaynak": "https://www.dbnl.org/tekst/gogh006brie01_01/gogh006brie01_01_0002.php",
+     "kanit": "Canlı DBNL metni: \"gevoelde bepaald behoefte om in wat zachter lucht te zijn' schrijft Theo. 'Hij is eerst naar Arles om zich wat te oriënteeren, dan waarschijnlijk naar Marseille. Vóór hij wegging ging ik een paar maal een Wagnerconcert met hem hooren, wij vonden het beiden zeer mooi. Het blijft mij vreemd dat hij weg is, hij was den laatsten tijd zoo veel voor mij.'\""
+    },
+    {
+     "olgu": "(b) Vincent Sarı Ev'in sağ kanadını 1 Mayıs 1888'de ayda 15 franka kiraladı: Place Lamartine 2, dört oda (aslında iki oda ve iki küçük bölme). Kiralamayı aynı gün Theo'ya yazdığı, krokili mektupta haber verdi.",
+     "durum": "dogrulandi",
+     "kaynak": "https://www.dbnl.org/tekst/gogh006brie03_01/gogh006brie03_01_0002.php (480) ; https://www.vangoghmuseum.nl/en/collection/b0520aV1962 ; https://www.vangoghmuseum.nl/en/art-and-stories/vincent-van-gogh-faq/does-the-yellow-house-still-exist (2 numara, arama özeti)",
+     "kanit": "Mektup 480 'Mei '88': \"j'ai aujourd'hui loué l'aile droite de cette construction, qui contient 4 pièces ou plutôt deux avec deux cabinets ... à raison de 15 francs par mois\"; aynı mektupta \"un croquis hâtif sur papier jaune\". Müze koleksiyonu: \"Sheet 1 of a letter ... with sketch of The Yellow House ... Arles, 1 May 1888\". Webexhibits 480 de 'Arles, 1 May 1888'. 'No. 2 Place Lamartine' bilgisi yalnız arama özetinde (VGM SSS ve Wikipedia); mektupta numara yok."
+    },
+    {
+     "olgu": "(b) VGM kiralamayı 'Mayıs 1888, Place Lamartine'de dört oda' diye verir; yeni baskı numarası 602, notlarına göre ev 1 Mayıs'tan itibaren kiralandı.",
+     "durum": "dogrulandi",
+     "kaynak": "https://www.vangoghmuseum.nl/en/collection/s0032V1962 ; https://vangoghletters.org/vg/letters/let602/notes.html (yalnız arama özeti)",
+     "kanit": "Müze sayfası canlı: \"In May 1888, Van Gogh rented four rooms in a house on Place Lamartine in Arles\". 602 numarası ve not içeriği yalnız arama özetinden; vangoghletters JS uygulaması curl ile boş döndü."
+    },
+    {
+     "olgu": "(b) Vincent Sarı Ev'de ilk geceyi Eylül 1888'de geçirdi; yeni baskıda 682 (salı, 18 Eylül 1888), 1914 baskısında 538.",
+     "durum": "dogrulandi",
+     "kaynak": "https://www.dbnl.org/tekst/gogh006brie03_01/gogh006brie03_01_0002.php ; https://catalogues.vangoghmuseum.com/contemporaries-of-van-gogh-1/introductory-essay ; https://www.webexhibits.org/vangogh/letter/18/538.htm",
+     "kanit": "538 başlığı DBNL'de bulundu: \"538 Mon cher Theo, Merci beaucoup de ta lettre et du billet de 50 francs ... Cette nuit j'ai couché dans la maison\". Bernard/150 frank pasajı aynı 538'in içinde (metin konumuyla doğrulandı); katalog bu pasajı \"18 September 1888 [682]\" diye künyeler, yani 538 = 682. Not: Webexhibits 538'i 'c. 17 September' tarihler; yeni baskı mektubu 18 Eylül'e koyar (yalnız arama özeti). Güvenli ifade: ilk gece 17'yi 18 Eylül'e bağlayan gece."
+    },
+    {
+     "olgu": "(b) Kira başlangıçta Saint-Michel'e kadardı; 1 Eylül'de üç ay ya da aylık yeniledi. Ocak 1889'da iki küçük odayı da tutmuştu; kira 21,50 frank oldu.",
+     "durum": "duzeltme",
+     "duzeltme": "İki küçük odayı Ocak'ta değil, Gauguin henüz evdeyken (Aralık 1888 ya da öncesi) tuttu; Ocak mektubu bunu geriye dönük anlatır. 21,50 frank Aralık 1888 kirasıdır (mektup 571, 17 Ocak: Roulin 'les 21.50 de loyer de décembre' ödedi). Doğru ifade: 'Aralık 1888'den itibaren kira 21,50 franktı.' Saint-Michel'in 29 Eylül olduğu mektupta yazmaz; genel takvim bilgisidir.",
+     "kaynak": "https://www.dbnl.org/tekst/gogh006brie03_01/gogh006brie03_01_0002.php (530, 570, 571)",
+     "kanit": "530 '(1 September)': \"je l'ai louée jusqu'à la St. Michel ... je reprenais pour 3 mois seulement ou au mois\". 570 '(9 Januari.)': \"dans le cas où Gauguin lui-même aurait demeuré plus longtemps avec moi ... j'avais loué deux petits chambres ... (le loyer est de fr 21.50 par mois)\". 571 '(17 Januari.)': \"les 21.50 de loyer de décembre\"."
+    },
+    {
+     "olgu": "(c) Paul Gauguin 23 Ekim 1888'de Arles'a geldi.",
+     "durum": "dogrulandi",
+     "kaynak": "https://catalogues.vangoghmuseum.com/contemporaries-of-van-gogh-1/introductory-essay ; https://www.fondation-vincentvangogh-arles.org/en/vincent/",
+     "kanit": "Katalog: \"he did not arrive in Arles until 23 October 1888.\" Fondation: \"On 23 October, Paul Gauguin came to Arles.\" VGM 'South of France': \"Gauguin arrived in late October 1888\"."
+    },
+    {
+     "olgu": "(c) Gauguin salı 23 Ekim sabahı yaklaşık saat dörtte geldi; Vincent önce telgraf, sonra mektupla bildirdi; 1914 baskısı 557'ye yanlışlıkla '(20 October.)' verir.",
+     "durum": "dogrulandi",
+     "kaynak": "https://www.dbnl.org/tekst/gogh006brie03_01/gogh006brie03_01_0002.php ; https://www.webexhibits.org/vangogh/letter/18/557.htm ; https://vangoghletters.org/vg/letters/let712/notes.html (yalnız arama özeti)",
+     "kanit": "DBNL: \"557 Mon cher Theo, (20 October.) ... Comme tu l'as appris par ma dépêche Gauguin est arrivé en bonne santé.\" Webexhibits aynı mektubu 'Arles, 24 October 1888' tarihler; 20 Ekim varıştan önce olduğundan 1914 tarihi yanlış. Saat dört yalnız arama özetinden (let712 notları; Gauguin'in kendi anlatımı da 'gecenin sonunda varıp gece kahvesinde şafağı bekledim' der, o da arama özeti). Saat senaryoda 'şafaktan önce' diye verilmeli."
+    },
+    {
+     "olgu": "(c) Theo Mayıs ya da Haziran 1888'de Vincent'ın isteğiyle Gauguin'e teklif yaptı: ayda 150 frank, karşılığında ayda bir tablo. Vincent 18 Eylül mektubunda bunu anar.",
+     "durum": "dogrulandi",
+     "kaynak": "https://catalogues.vangoghmuseum.com/contemporaries-of-van-gogh-1/introductory-essay ; https://www.dbnl.org/tekst/gogh006brie03_01/gogh006brie03_01_0002.php",
+     "kanit": "Katalog: \"At Vincent's behest, Theo decided in May or June 1888 to make Gauguin a proposal ... 150 francs a month. In return, Gauguin only had to give him one painting each month.\" Pasaj 538'in içinde: \"comme on l'a offert à Gauguin\"."
+    },
+    {
+     "olgu": "(c) Jo'nun girişi: Gauguin Arles'a gelecek, Theo masrafları ödeyecek, Gauguin tablolarla karşılayacak. VGM'ye göre Theo yol parasını da ödedi.",
+     "durum": "dogrulandi",
+     "kaynak": "https://www.dbnl.org/tekst/gogh006brie01_01/gogh006brie01_01_0002.php ; https://www.vangoghmuseum.nl/en/art-and-stories/vincents-life-1853-1890/south-of-france",
+     "kanit": "Jo: \"Hij moet naar Arles komen, samen zullen zij wonen en werken, Theo zal de onkosten betalen en Gauguin hem met schilderijen daarvoor vergoeden.\" Müze: \"Theo had to stump up his travel expenses, for instance, but he was glad to do so for Vincent's sake\"."
+    },
+    {
+     "olgu": "(c) Kasım 1888'de iki ressam kişi başı ayda 150 frankla geçiniyordu; Theo'nun parası 'her biri için 150' hesaplanıyordu.",
+     "durum": "dogrulandi",
+     "kaynak": "https://vangoghletters.org/vg/letters/let717/notes.html ; https://vangoghletters.org/vg/letters/let715/letter.html ; https://vangoghletters.org/vg/letters/let721/notes.html (hepsi yalnız arama özeti) ; https://www.dbnl.org/tekst/gogh006brie03_01/gogh006brie03_01_0002.php",
+     "kanit": "Arama özeti (717 notu): ayda 300 frank, her biri için 150, 100'er franklık üç taksit. 715 (c. 29 Ekim) Vincent'ın kendisi ve Gauguin için ayda 150 önerdiğini, 'iyi idare ettiklerini' ise 721 notlarının yazdığını gösterir. Canlı doğrulama: DBNL'de Vincent 'Gauguin parti - nous remettrons le mois à 150 fr' der. Kaynak satırına 721 eklenmeli; 'iyi idare ediyoruz' cümlesi 715'te değil 721 civarında."
+    },
+    {
+     "olgu": "(d) Teklifin günü DOĞRULANAMADI; nişan Aralık 1888'in ikinci yarısında Paris'te. Jo 24 Aralık'ta 'yeni nişanlanmıştık' der, ağabeyi Andries'in yanında kalıyordu. Theo'nun annesine 21 Aralık mektubu haberi verir.",
+     "durum": "dogrulandi",
+     "kaynak": "https://www.dbnl.org/tekst/gogh006brie01_01/gogh006brie01_01_0002.php ; https://www.webexhibits.org/vangogh/letter/18/etc-Theo-1888-s.htm ; https://www.theartnewspaper.com/2025/04/11/was-van-goghs-mutilation-of-his-ear-connected-to-his-brothers-engagement",
+     "kanit": "Jo: \"Den dag vóór Kerstmis - Theo en ik waren juist verloofd ... (ik logeerde te Parijs bij mijn broer A. Bonger ...)\". Webexhibits, Theo'dan annesine, Paris 21 Aralık 1888: \"Imagine a few days ago I met Jo Bonger here\"; mektup teklifin gününü vermez. Bailey de yalnız \"engaged ... in December 1888\" der. Teklif günü bilinmiyor kaydı doğru."
+    },
+    {
+     "olgu": "(d) Theo ilk kez 22 Temmuz 1887'de Amsterdam'da teklif etti, Jo reddetti. Basılı nişan duyurusu c. 6 Ocak 1889; Vincent 9 Ocak'ta aldı. Nişan kutlaması 9 Ocak 1889, Amsterdam.",
+     "durum": "dogrulandi",
+     "kaynak": "https://www.dbnl.org/tekst/gogh006brie03_01/gogh006brie03_01_0002.php (570) ; https://vangoghletters.org/vg/letters/let572/notes.html ve let731 (yalnız arama özeti) ; https://www.theartnewspaper.com/2025/04/11/was-van-goghs-mutilation-of-his-ear-connected-to-his-brothers-engagement",
+     "kanit": "Canlı: mektup 570 '(9 Januari.)': \"j'avais reçu ce matin de la part de ta fiancée une lettre de faire part\". Arama özeti: let731 duyuru kartı 'Verloofd', kabul günü çarşamba 9 Ocak, Weteringschans 121; 6 Ocak tarihi editörlerin çıkarımı. 22 Temmuz 1887 teklif ve ret yalnız arama özetinden (let572 notları, Wikipedia aynı)."
+    },
+    {
+     "olgu": "(d) Noel'den önceki gün Gauguin'in telgrafı Theo'yu Arles'a çağırdı; Theo Vincent'ı hastanede buldu, Noel günlerini yanında geçirdi, sonra Gauguin'le Paris'e döndü. Theo'nun 28 Aralık mektubu VGM'de alıntılanır.",
+     "durum": "duzeltme",
+     "duzeltme": "'Noel günlerini yanında geçirdi' Jo'nun gevşek ifadesi ('bleef de Kerstdagen bij hem'). Theo 24 Aralık gecesi trene bindi, 25 Aralık sabahı Arles'a vardı ve aynı akşam Gauguin'le Paris'e döndü; Arles'ta yalnız bir gün kaldı. VGM de 'hastane ziyaretinden hemen sonra döndü' der. Senaryoda 'Noel'i yanında geçirdi' değil 'Noel gününü hastanede, yanında geçirdi; akşam trenine bindi' yazılmalı.",
+     "kaynak": "https://www.vangoghmuseum.nl/en/art-and-stories/vincents-life-1853-1890/south-of-france ; https://www.dbnl.org/tekst/gogh006brie01_01/gogh006brie01_01_0002.php ; https://vangoghletters.org/vg/letters/let728/notes.html (yalnız arama özeti)",
+     "kanit": "Müze (canlı): \"Theo rushed down on the train ... 'I found Vincent in the hospital in Arles.' ... Theo van Gogh to Jo Bonger, 28 December 1888\" ve \"Theo returned to Paris immediately after visiting the hospital, and so did Gauguin.\" Arama özeti: 25 Aralık'ta vardı, aynı akşam Gauguin'le ayrıldı, 26 Aralık'ta Paris'teydiler. Jo da Theo'nun 'met Gauguin naar Parijs was teruggekeerd' diye yazar."
+    },
+    {
+     "olgu": "(d) Vincent'ın tedavi gördüğü yer 16-17. yüzyıldan kalma Hôtel-Dieu (Hôtel-Dieu Saint-Esprit); hekim stajyer doktor Félix Rey; Jo 'Dr. Reij' yazar.",
+     "durum": "dogrulandi",
+     "kaynak": "https://www.fondation-vincentvangogh-arles.org/en/vincent/ ; https://www.dbnl.org/tekst/gogh006brie01_01/gogh006brie01_01_0002.php ; https://en.wikipedia.org/wiki/Hospital_in_Arles (yalnız arama özeti)",
+     "kanit": "Fondation (canlı): \"the hospital of Arles, the 16th-17th century Hôtel-Dieu\" (ikinci yatış bağlamında, ama aynı hastane). Jo: \"Dr. Reij, de interne van het hospitaal\". 'Hôtel-Dieu Saint-Esprit' adı ikinci bir kaynakta da (Wikipedia 'Hospital in Arles', arama özeti) geçiyor; canlı birincil kaynakta okunmadı."
+    },
+    {
+     "olgu": "(d) Vincent hastaneden 7 Ocak 1889'da çıktı; VGM yalnız 'Ocak başı' der.",
+     "durum": "dogrulandi",
+     "kaynak": "https://www.dbnl.org/tekst/gogh006brie01_01/gogh006brie01_01_0002.php ; https://www.vangoghmuseum.nl/en/art-and-stories/vincents-life-1853-1890/south-of-france",
+     "kanit": "Jo: \"Den 7den Januari verlaat Vincent het hospitaal, schijnbaar genezen\". Müze: \"discharged from the hospital in early January 1889\". Bailey de 9 Ocak mektubunu taburculuktan iki gün sonraya koyar."
+    },
+    {
+     "olgu": "(d) Taburculuk öncesi Theo'ya haber taşıyanlar: Dr. Rey (29 Aralık), papaz Salles (31 Aralık'ta Vincent'ı sakin bulur), postacı Roulin (3 Ocak: 'tamamen iyileşti').",
+     "durum": "dogrulandi",
+     "kaynak": "https://www.dbnl.org/tekst/gogh006brie01_01/gogh006brie01_01_0002.php",
+     "kanit": "Jo: \"car moi aussi j'ai un frère, moi aussi j'ai été éloigné de ma famille' schrijft hij 29 December\"; \"Ds. Salles schrijft 31 December dat hij bij zijn bezoek Vincent volmaakt kalm heeft gevonden\"; \"3 Januari een opgetogen schrijven van Roulin: 'l'ami Vincent est complètement guéri'\". Not: Salles'ın 31 Aralık tarihi mektubun tarihidir, ziyaretin günü değil."
+    },
+    {
+     "olgu": "(e) Vincent 8 Mayıs 1889'da Saint-Rémy'deki Saint-Paul-de-Mausole'ye kendi isteğiyle yattı; onu papaz Salles götürdü.",
+     "durum": "dogrulandi",
+     "kaynak": "https://www.fondation-vincentvangogh-arles.org/en/vincent/ ; https://www.vangoghmuseum.nl/en/art-and-stories/vincents-life-1853-1890/south-of-france ; https://www.dbnl.org/tekst/gogh006brie01_01/gogh006brie01_01_0002.php",
+     "kanit": "Fondation: \"had himself interned voluntarily in the asylum in Saint-Rémy on 8 May 1889.\" Müze: \"voluntarily admitted to Saint-Paul-de-Mausole psychiatric hospital in Saint-Rémy in May.\" Jo: \"vertrekt Vincent den 8en Mei er heen, vergezeld van Ds. Salles\"."
+    },
+    {
+     "olgu": "(e) Saint-Rémy'yi Salles önerdi, Arles hekimleri onayladı. Theo, müdür Dr. Peyron'la ayrı yatak odası, çalışma odası ve kurum dışına çıkabilme serbestliğini düzenledi. Theo kararı geri çekilme değil kısa dinlenme olarak gördü.",
+     "durum": "duzeltme",
+     "duzeltme": "Dışarı çıkma serbestliği baştan verilmedi. Peyron 29 Nisan 1889 mektubunda Theo'nun 'istediği zaman kurumdan çıkabilme' koşulunu önceden kabul edemeyeceğini yazdı; bir süre gözlemden sonra vereceğine söz verdi. Jo'nun ifadesi de 'mümkün olduğunca serbestlik'tir (zooveel mogelijk vrijheid). Senaryoda 'Theo serbestlik istedi; Peyron önce gözlem dedi' gibi verilmeli. Öteki parçalar doğru.",
+     "kaynak": "https://www.dbnl.org/tekst/gogh006brie01_01/gogh006brie01_01_0002.php ; https://webexhibits.org/vangogh/letter/20/etc-Peyron-1-Theo.htm",
+     "kanit": "Jo: \"Ds. Salles had toen inlichtingen ingewonnen en raadde de inrichting te St. Remy aan\"; \"ook de doktoren te Arles dit goedkeuren\"; \"Nadat Theo alles met den directeur ... Dr. Peyron, geregeld heeft, een vrije kamer ... en zooveel mogelijk vrijheid\"; Theo: \"Je ne considère pas ton aller à St. Remy comme une retraite ... mais simplement comme un repos d'un moment\". Peyron (Harrison çevirisi): \"there is one that I cannot accept in advance, that of granting him permission to walk out of the establishment any time that he wants.\""
+    },
+    {
+     "olgu": "(e) Theo ödedi; Peyron 29 Nisan 1889'da pansiyonun ayda 100 frank olduğunu, indirim yapamayacağını yazdı; Theo aylık 100 frank gönderdi.",
+     "durum": "dogrulandi",
+     "kaynak": "https://webexhibits.org/vangogh/letter/20/etc-Peyron-1-Theo.htm ; https://vangoghletters.org/vg/letters/let895/notes.html (yalnız arama özeti)",
+     "kanit": "Peyron (canlı, Harrison çevirisi): \"the price of the pension remains fixed at 100 f. per month, and that it would be impossible for me to make a reduction.\" Ek: ilk ay için 10 franklık sağlık raporu ücreti de istendi. Mektup Salles'ın Theo'nun başvuru mektubunu Peyron'a teslim ettiğini de söyler. Aylık gönderim yalnız arama özetinden."
+    },
+    {
+     "olgu": "(e) Kız kardeşler Willemien ve Lies, Saint-Rémy masraflarına katkı için para biriktirmişti; Theo Mayıs 1889'da bu paradan 300 frankla Gauguin'in 'Arlésiennes (Mistral)' tablosunu aldı.",
+     "durum": "dogrulandi",
+     "kaynak": "https://catalogues.vangoghmuseum.com/contemporaries-of-van-gogh-1/introductory-essay",
+     "kanit": "Katalog (canlı): \"In May 1889, Theo managed to buy another painting by Gauguin: Arlésiennes (Mistral) ... The 300 francs paid for this work came from money that his sisters Willemien and Lies van Gogh had saved to defray the cost of Vincent's hospitalization\"."
+    }
+   ]
+  },
+  "4 sonrası": {
+   "grup": "4 sonrası",
+   "kararlar": [
+    {
+     "olgu": "(a) Theo 25 Ocak 1891'de Utrecht'te öldü. Jo'nun 1914 girişi tarihi 'den 25en Januari 1891' diye veriyor.",
+     "durum": "dogrulandi",
+     "kaynak": "https://www.dbnl.org/tekst/gogh006brie01_01/gogh006brie01_01_0002.php ; https://www.vangoghmuseum.nl/en/art-and-stories/vincents-life/after-vincents-death",
+     "kanit": "Jo'nun metni ayrıca indirilip okundu: \"Theo's reeds wankele gezondheid was gebroken. Zes maanden later, den 25en Januari 1891 was hij zijn broeder gevolgd.\" Jo'nun girişi ölüm yeri olarak Utrecht'i anmıyor (metinde Utrecht yalnız aile tarihi ve Begemann bağlamında geçiyor). Ölüm yeri VGM'den geliyor: \"Theo was admitted to a clinic in Utrecht... He died there at the end of January 1891\". Gün Jo'dan, yer VGM'den alınmalı."
+    },
+    {
+     "olgu": "(a) VGM'ye göre Theo Utrecht'te bir kliniğe yatırıldı ve Ocak 1891 sonunda orada öldü. Görsel alt yazısı 'Theo's grave in Utrecht'. Müze mezarlığın adını vermiyor.",
+     "durum": "dogrulandi",
+     "kaynak": "https://www.vangoghmuseum.nl/en/art-and-stories/vincents-life/after-vincents-death",
+     "kanit": "Sayfa curl ile alındı: \"Theo was admitted to a clinic in Utrecht, possibly suffering from syphilis-related physical and mental symptoms. He died there at the end of January 1891\" ve alt yazı \"Theo’s grave in Utrecht\". Sayfada mezarlık adı yok."
+    },
+    {
+     "olgu": "(a) Utrecht'teki ilk mezarlığın adı Soestbergen (Eerste Algemeene Begraafplaats Soestbergen). Ad yalnız Find a Grave ve BurialMap'te geçiyor.",
+     "durum": "dogrulanamadi",
+     "kaynak": "https://es.findagrave.com/memorial/33580782/theodorus-van_gogh ; https://www.burialmap.com/cemetery/utrecht-soestbergen-general-cemetery (yalnız arama özeti); denenen: utrecht.nl Soestbergen sayfaları ve cultuurhistorie-soestbergen.pdf",
+     "kanit": "Bağımsız bir birincil kaynak arandı: Utrecht belediyesinin Soestbergen sayfası ve kültür tarihi PDF'i 'Pagina niet gevonden' döndü. VGMJ 1995 ve The Art Newspaper yalnız 'Utrecht' diyor. Ad hâlâ yalnız kullanıcı katkılı sitelerde geçiyor. Araştırmacının önerdiği 'Utrecht'te bir mezarlık' ifadesi güvenli."
+    },
+    {
+     "olgu": "(a)/(b) Bailey (The Art Newspaper): Theo 1891'de, öldüğü akıl hastanesinin bulunduğu Utrecht'te gömüldü. Vincent'in kalıntılarının taşınması gerekince Jo, Theo'yu da Auvers'e taşımaya karar verdi. Taşıma gecikti ve ancak 1914'te, savaştan birkaç ay önce yapıldı.",
+     "durum": "dogrulandi",
+     "kaynak": "https://www.theartnewspaper.com/2021/09/10/where-was-van-gogh-originally-buried-we-still-dont-know",
+     "kanit": "Metin indirildi: \"Once it was realised that Vincent’s remains needed to be moved, Jo decided that it would be appropriate to move her husband’s remains from Utrecht... The move of Theo’s bones was delayed... only accomplished in 1914\". Ek ayrıntı: Theo'nun mezar taşına 'Theodore' yazıldı, ikisinde de 'Ici repose' var."
+    },
+    {
+     "olgu": "(b) 1914'te Theo'nun kalıntıları Jo'nun isteğiyle Auvers'e taşındı ve Vincent'in yanına gömüldü. Ay ya da gün DOĞRULANAMADI.",
+     "durum": "dogrulandi",
+     "kaynak": "https://www.vangoghmuseum.nl/en/art-and-stories/vincents-life/after-vincents-death ; https://www.vangoghmuseum.nl/en/stories/the-end-of-a-difficult-road",
+     "kanit": "Yıl iki VGM sayfasında ve Bailey'de aynı: \"that same year she had Theo reinterred in Auvers-sur-Oise\"; \"his brother Theo (deceased in 1891) was placed alongside him in 1914\". Ay için iki ayrı aramada hiçbir kaynak çıkmadı. Bailey'nin 'savaştan birkaç ay önce' sözü ayı belirlemez."
+    },
+    {
+     "olgu": "(b) Jo'nun 'Aralık 1913' tarihli girişi kardeşlerin Auvers'te birlikte yattığını şimdiki zamanla söylüyor; bu cümle taşımanın tarihini göstermez.",
+     "durum": "dogrulandi",
+     "kaynak": "https://www.dbnl.org/tekst/gogh006brie01_01/gogh006brie01_01_0002.php",
+     "kanit": "Metin harfi harfine eşleşiyor: \"Zij rusten samen op het kleine kerkhof tusschen de korenakkers te Auvers. December 1913. J. van Gogh-Bonger.\" Yorum da yerinde: Bailey'ye göre taşıma 1914'te yapıldı, giriş ise Aralık 1913 tarihli."
+    },
+    {
+     "olgu": "(b) Vincent'in ilk mezarının 15 yıllık kirası 1905'te doldu ve kalıntıları o yıl yeniden gömüldü.",
+     "durum": "dogrulandi",
+     "kaynak": "https://www.theartnewspaper.com/2021/09/10/where-was-van-gogh-originally-buried-we-still-dont-know ; https://www.vangoghmuseum.nl/en/stories/the-end-of-a-difficult-road",
+     "kanit": "TAN: \"Vincent’s remains needed to be moved in 1905, when the original 15-year lease on his first grave in the cemetery expired. The exhumation and reburial was arranged by Paul Gachet\". VGM: \"His remains were reinterred in 1905\"."
+    },
+    {
+     "olgu": "(c) 1891'den sonra Jo, oğlu ve koleksiyonla Bussum'a yerleşti, bir pansiyon açtı. Bussum'daki yazar ve sanatçılar ona yol gösterdi.",
+     "durum": "dogrulandi",
+     "kaynak": "https://www.vangoghmuseum.nl/en/stories/the-woman-who-made-vincent-famous ; https://www.vangoghmuseum.nl/en/art-and-stories/vincents-life/after-vincents-death",
+     "kanit": "\"She moved from Paris to the Dutch town of Bussum, where she opened a guest house. Bussum was home to many writers and artists... They were able to help her find her way in the art world.\" İkinci sayfa oğlunu ve koleksiyonu da anıyor."
+    },
+    {
+     "olgu": "(c) Pansiyonun adı Villa Helma. Jo Ocak 1891'de döndü. Şöminenin üstünde Patates Yiyenler, karşısında Hasat asılıydı. Adres Koningslaan 4.",
+     "durum": "dogrulandi",
+     "kaynak": "https://dbnl.org/tekst/_van012199501_01/_van012199501_01_0003.php ; adres: https://database.historischekringbussum.nl/sites/default/files/objects/attachments/Documenten/01-2021/80644.pdf (yalnız arama özeti)",
+     "kanit": "VGMJ 1995 metni: \"moved back to the Netherlands in January 1891, where she opened a boarding house in Bussum called Villa Helma... Hanging above the mantelpiece in the living room was The potato eaters, ‘facing it, above the large cupboard, was The harvest’\". Adres: PDF doğrudan açılmadı ('Pagina niet gevonden'). Arama özeti: \"Villa Helma, Koningslaan 4\". Adres yalnız arama özetine dayanıyor."
+    },
+    {
+     "olgu": "(c) Lahey'deki Haagsche Kunstkring sergisini Jan Toorop düzenledi; Polak'a göre Hollanda'daki ilk Van Gogh sergisi. Tarih 16–29 Mayıs 1892; 40 tablo, 40 çizim, Café Riche. Jo eser verdi.",
+     "durum": "duzeltme",
+     "duzeltme": "Tarih artık yalnız arama özeti değil: Polak'ın dipnotu birincil künyeyi veriyor: 'Catalogus voor de eerste Van Gogh-tentoonstelling, 16-29 Mei 1892'. Ancak 'Hollanda'daki ilk Van Gogh sergisi' kesin yazılmamalı. VGM kütüphane kataloğu, Roland Holst'un De Amsterdammer'deki 21 Şubat 1892 tarihli yazısını 'Tentoonstelling Vincent van Gogh - Amsterdam, 1892-02' başlığı altında kaydediyor; yani Lahey'den önce Amsterdam'da bir gösterim olmuş olabilir. Senaryoda 'Polak'a göre ilk' denmeli ya da 'ilk' sözcüğü hiç kullanılmamalı. '40 tablo, 40 çizim, Café Riche' DOĞRULANAMADI. Aynı salondaki 14 Temmuz 1892 XX / Association pour l'Art sergisiyle karıştırılmamalı. 'Jo düzenledi denmemeli' yargısı yerinde.",
+     "kaynak": "https://www.dbnl.org/tekst/pola011find01_01/pola011find01_01_0018.php ; https://library.vangoghmuseum.nl/Details/fullCatalogue/300038505",
+     "kanit": "Polak: \"de door hem [Toorop] georganiseerde Van Gogh-tentoonstelling in de Haagse Kunstkring, - de eerste tentoonstelling van Van Gogh's oeuvre in Nederland gehouden\"; dipnot: \"Catalogus voor de eerste Van Gogh-tentoonstelling, 16-29 Mei 1892\". VGM kütüphanesi: \"De Amsterdammer (21 februari 1892) ... Tentoonstelling Vincent van Gogh - Amsterdam, 1892-02\"."
+    },
+    {
+     "olgu": "(c) Amsterdam Kunstzaal Panorama sergisi, 1892, 112 eser. Düzenleyen Roland Holst; Van Kesteren Jo'ya kat planı yolladı. Tarihler 17 Aralık 1892 – 5 Şubat 1893. Kataloğa mektuplardan alıntılar konmuştu.",
+     "durum": "duzeltme",
+     "duzeltme": "Çekirdek doğru. Aralık 1892 açılışını Polak da doğruluyor ve Roland Holst'un eserleri seçmek için Bussum'a Jo'ya gittiğini ekliyor. Kesin tarihler (17 Aralık – 5 Şubat) hâlâ yalnız arama özeti. 'Kataloğa mektuplardan kısa alıntılar konmuştu' DOĞRULANAMADI: Blühm'de bu yok. Blühm'ün aktardığı katalog notu başka bir şey söylüyor: Holst resimlere ad vermek yerine yapıldıkları yıl ve yeri yazmayı seçti, asımı da yerlere göre (Nuenen, Paris, Arles, Saint-Rémy, Auvers) düzenledi. Senaryoda bu ayrıntı kullanılmalı, mektup alıntısı iddiası çıkarılmalı.",
+     "kaynak": "https://www.dbnl.org/tekst/_van012199901_01/_van012199901_01_0007.php ; https://www.dbnl.org/tekst/pola011find01_01/pola011find01_01_0018.php",
+     "kanit": "Blühm: \"Roland Holst... was responsible for an exhibition at the Kunstzaal Panorama in Amsterdam in 1892 which included 112 works... sent Jo a floorplan\"; katalog: \"het jaar waarin en de plaats waar het doek geshilderd werd op te geven, dan ieder schilderij apart te betitelen\". Polak: \"In het Panorama-gebouw te Amsterdam waren in de Decembermaand van 1892 door Roland Holst, die ook naar Bussum was geweest om bij de weduwe van Theo het werk uit te zoeken\"."
+    },
+    {
+     "olgu": "(c) 1905 Stedelijk retrospektifi Jo'nun en büyük işiydi. Eser seçiminden bekçi ücretlerine kadar her şeyi o ayarladı, sonra fiyatlar hızla yükseldi. Eser sayısı: VGM '480'den fazla', Blühm '474'.",
+     "durum": "dogrulandi",
+     "kaynak": "https://www.vangoghmuseum.nl/en/stories/the-woman-who-made-vincent-famous ; https://www.dbnl.org/tekst/_van012199901_01/_van012199901_01_0007.php",
+     "kanit": "VGM: \"More than 480 artworks were on display. Following this exhibition, the prices of Vincent’s work rose rapidly... from the choice of works to be exhibited to payments to the attendants.\" Blühm: \"No fewer than 474 pictures were on view.\" İki sayı arasındaki çelişki gerçek; senaryoda 'yaklaşık 480' ya da 'dört yüz yetmişi aşkın' denmeli."
+    },
+    {
+     "olgu": "(c) Mektuplar 1914'te üç cilt olarak yayımlandı; giriş Aralık 1913 tarihli. Edisyonda yalnız Vincent'ten Theo'ya giden mektuplar var. Jo 1925'te öldüğünde yaklaşık üçte ikisini çevirmişti; İngilizce baskı dört yıl sonra çıktı.",
+     "durum": "duzeltme",
+     "duzeltme": "Üç cilt, 1914 ve Aralık 1913 doğru. 'Yalnız Vincent→Theo' ifadesine şu eklenmeli: arama özetine göre Theo'nun ölümünden sonra Jo'ya yazılan birkaç mektup da edisyonda var. İngilizce baskı için 'dört yıl sonra' (1929) VGM'nin sözü, ama tamamlanma yılını gösteriyor. Kütüphane kaydına göre ilk iki cilt (1872–1886) 1927'de Constable ve Houghton Mifflin'den çıktı (yalnız arama özeti). Kalan mektuplar vangoghletters'a göre iki yıl sonra geldi. Güvenli ifade: 'İngilizce baskı 1927'de çıkmaya başladı.'",
+     "kaynak": "https://www.dbnl.org/tekst/gogh006brie01_01/colofon.php ; https://www.vangoghmuseum.nl/en/stories/the-woman-who-made-vincent-famous ; https://vangoghletters.org/vg/publications_3.html ve publications_4.html (yalnız arama özeti)",
+     "kanit": "DBNL künyesi: \"in de editie in drie delen van J. van Gogh-Bonger uit 1914\". VGM: \"When she died in 1925, Jo had translated about two-thirds... published four years later.\" Kütüphane kaydı (özet): \"London: Constable & co.; Boston; New York: Houghton Mifflin co., 1927\"."
+    },
+    {
+     "olgu": "(c) Jo 1901'de Johan Cohen Gosschalk'la evlendi, aile iki yıl sonra Amsterdam'a taşındı. 1891–1925 arasında 200'e yakın eser sattı.",
+     "durum": "dogrulandi",
+     "kaynak": "https://www.vangoghmuseum.nl/en/art-and-stories/vincents-life/after-vincents-death ; https://www.vangoghmuseum.nl/en/stories/the-woman-who-made-vincent-famous",
+     "kanit": "\"She remarried in 1901 to the painter Johan Cohen Gosschalk, and the family moved to Amsterdam two years later.\" / \"Between 1891 and 1925, Jo sold nearly 200 of Vincent’s artworks.\""
+    },
+    {
+     "olgu": "(d) Jo 1925'te ölünce koleksiyon mühendis Vincent Willem'e geçti. O 1930'da eserleri Stedelijk'e ödünç verdi. 1962'de devlet onayıyla Vakfa devretti; devlet karşılığında müze yapmayı ve koleksiyonu herkese açık tutmayı üstlendi.",
+     "durum": "dogrulandi",
+     "kaynak": "https://www.vangoghmuseum.nl/en/art-and-stories/vincents-life/after-vincents-death ; https://dbnl.org/tekst/_van012199501_01/_van012199501_01_0003.php",
+     "kanit": "VGM: \"loaned his uncle’s paintings to the Stedelijk Museum in Amsterdam in 1930... In 1962, with the consent of the State... transferred... In return, the State undertook to build the Van Gogh Museum\". VGMJ ödüncü 1930 retrospektifinin ardına koyuyor ve koleksiyonun 'büyük kısmı' diyor."
+    },
+    {
+     "olgu": "(d) Devir 18.470.000 gulden olarak kayda geçti. Johan van Gogh'a göre fiilen 15 milyon; fark işletme sermayesi ve veraset vergisi. Düzenleme koleksiyonun mirasçılar arasında bölünmesini önledi.",
+     "durum": "dogrulandi",
+     "kaynak": "https://dbnl.org/tekst/_van012199501_01/_van012199501_01_0003.php",
+     "kanit": "\"transferred to the Vincent van Gogh Foundation for 18,470,000 guilders\". Dipnot 26: \"the collection was in fact bought for Dfl. 15m. The difference was the working capital and the sum that the heirs would have had to pay in inheritance tax\". Dipnot 23: \"the collection would not have to be divided among the heirs... split up and possibly dispersed\". İşletme sermayesi 1 milyon gulden."
+    },
+    {
+     "olgu": "(d) Rietveld'in tasarladığı müzeyi Kraliçe Juliana 2 Haziran 1973'te açtı. Vincent Willem inşaatta danışmanlık yaptı.",
+     "durum": "dogrulandi",
+     "kaynak": "https://www.vangoghmuseum.nl/en/art-and-stories/vincents-life/after-vincents-death ; https://dbnl.org/tekst/_van012199501_01/_van012199501_01_0003.php",
+     "kanit": "VGM: \"a specially designed building by Gerrit Rietveld. Queen Juliana opened the Van Gogh Museum on 2 June 1973\". VGMJ: \"Van Gogh was appointed advisor for the construction of the museum. Although he was now over 70\"."
+    },
+    {
+     "olgu": "(e) Müze 820 mektubun çoğunu saklıyor ve mektuplar nadiren sergileniyor. Son büyük mektup sergisi 'Your loving Vincent' (9 Ekim 2020 – 10 Ocak 2021), yaklaşık 40 mektup. Bugün yan yana sergilendikleri DOĞRULANAMADI.",
+     "durum": "dogrulandi",
+     "kaynak": "https://www.vangoghmuseum.nl/en/about/news-and-press/press-releases/opening-this-friday-exhibition-on-van-goghs-greatest-letters ; https://vangoghmuseum.nl/en/about/news-and-press/news/van-goghs-letters-take-centre-stage-this-autumn",
+     "kanit": "Basın bülteni: \"9 October 2020 t/m 10 January 2021... majority of the 820 letters... rarely exhibited... some 40 letters\". 2021–2026 arasında daha sonraki bir mektup sergisi aramada çıkmadı, ama 'son' sözcüğü kesin olarak kanıtlanmış değil. Sergide Vincent'in son mektubu ve üzerinde taşıdığı bitmemiş taslak da vardı."
+    },
+    {
+     "olgu": "(e) Toplam 903 mektup: 820'si Vincent'in, 83'ü ona yazılmış. Theo mektupları özenle sakladı, Vincent çoğunu attı ya da yaktı.",
+     "durum": "dogrulandi",
+     "kaynak": "https://www.vangoghmuseum.nl/en/art-and-stories/stories/all-stories/van-goghs-letters",
+     "kanit": "\"The total correspondence features 903 letters: 820 by Van Gogh and 83 to him... Theo kept Vincent’s letters with great care. Vincent was less careful – he threw lots of letters away, or burned them.\" Not: 83 mektubun hepsi Theo'dan değil, bütün yazışanlardan. 'Theo'nun mektuplarının azlığı bundan' cümlesi müzenin değil araştırmacının çıkarımı, ama makul. Müze ayrıca Vincent'in toplamda muhtemelen 2.000'den fazla mektup yazdığını söylüyor."
+    }
+   ]
+  },
+  "1 Paris ve kanca": {
+   "grup": "1 Paris ve kanca",
+   "kararlar": [
+    {
+     "olgu": "(a) Vincent Paris'e gelince önce Theo'nun 25 rue Laval'daki (rue de Laval, bugün rue Victor Massé, 9. bölge) dairesine yerleşti. Theo orada Nisan 1882'den Haziran 1886'ya kadar oturdu.",
+     "durum": "dogrulandi",
+     "kaynak": "https://vangoghletters.org/en/let218 (Notes, başsız tarayıcıyla kendim açtım) ; https://www.dbnl.org/tekst/gogh006brie01_01/gogh006brie01_01_0002.php",
+     "kanit": "218 notu: \"Theo, in Paris, had moved to 25 rue Laval (also called rue de Laval, now rue Victor Massé), in the ninth arrondissement... beginning of April. Theo lived at this address until June 1886.\" Jo: \"van dien tijd af nam Vincent zijn intrek in Theo's woning in de Rue de Laval\"."
+    },
+    {
+     "olgu": "(a) Haziran 1886'da 54 rue Lepic'e taşındılar. Daire üçüncü kattaydı: üç oda, bir küçük oda (cabinet), atölye ve küçük bir mutfak. 25 Ekim 1886 tarihli mektubun başlığında \"54 Rue Lepic\" yazıyor.",
+     "durum": "duzeltme",
+     "duzeltme": "Jo'ya göre daire \"üç oldukça büyük oda, bir cabinet ve küçük bir mutfak\"tan oluşuyordu. Atölye ayrı bir dördüncü oda değil, bu üç odadan biri: oturma odası, Theo'nun yatak odası ve cabinet'in arkasındaki atölye (\"een gewone kamer met één, niet bizonder groot raam\"). Vincent cabinet'te yatıyordu. 25 Ekim 1886 tarihli VGM 570 Theo'ya değil, Charles Angrand'a yazılmış; başlıktaki \"54 Rue Lepic\" doğru.",
+     "kaynak": "https://www.dbnl.org/tekst/gogh006brie01_01/gogh006brie01_01_0002.php ; https://www.vangoghmuseum.nl/en/collection/s0057V1962 ; https://vangoghletters.org/en/let570",
+     "kanit": "Jo: \"Het nieuwe appartement, op de derde verdieping, had drie tamelijk groote kamers, een cabinet en een keukentje... daarnaast was Theo's slaapkamer. Vincent sliep in het cabinet, en daarachter was het atelier, een gewone kamer met één, niet bizonder groot raam.\" VGM s0057: \"In June 1886, they moved into an apartment on Rue Lepic.\" 570'in başlığı: \"To Charles Angrand. Paris, Monday, 25 October 1886\"."
+    },
+    {
+     "olgu": "(a) Vincent Arles'tan iki kez Theo'ya yazdığı mektubu yanlışlıkla rue de Laval'a adresledi ve mektuplar geri döndü. İkincisi açık olarak geri gönderildi; postacılar içindeki Bernard çizimini görmüştü.",
+     "durum": "dogrulandi",
+     "kaynak": "https://vangoghletters.org/en/let601 ; https://vangoghletters.org/en/let634 ; https://vangoghletters.org/en/let630",
+     "kanit": "601 (c. 25 Nisan 1888): \"adressée Rue de Laval au lieu de Rue Lepic\". 634 (c. 28 Haziran 1888): \"t'adresser ma lettre 54 rue de Laval au lieu de 54 Rue Lepic. Les employés de la poste ont donc eu en me renvoyant la lettre ouverte le plaisir... le bordel de Bernard.\" 634 n.2'ye göre geri dönen mektup 630. 630'da şöyle geçiyor: \"il m'envoie aujourd'hui un croquis de bordel que je t'envoie ci-inclus\"."
+    },
+    {
+     "olgu": "(a) Evlilikten sonraki daire 8 cité Pigalle'deydi. Theo 4 Şubat 1889'da kiraladı, 16 Mart'ta düzenliyordu, Jo'yla 20 Nisan 1889'da taşındılar. Duyuru 18 Nisan tarihli. Rue Rodier'ye taşınma olmadı. Jo yerin seçilmesini öğle yemeğine eve gelebilmeye bağlıyor.",
+     "durum": "duzeltme",
+     "duzeltme": "Öğle yemeği gerekçesi Jo'nun 1914 metninde yok. Öğle yemeğini Vincent 745'te (3 Şubat 1889) rue Rodier planı için söylüyor: \"le principal est que justement toi aussi déjeunes chez toi avec ta femme\". VGM n.16'ya göre bulvara yakınlıktan, Theo'nun öğlenleri Jo'yla evde yiyebilecek olmasından memnun olan Jo'nun anne babası (FR b2892, 9 Şubat 1889). 759 de Theo'nun duyurusu değil. Anne babaların (Bonger'ler ve Anna van Gogh-Carbentus) basılı evlilik duyurusu, üzerinde \"Paris, 8, cité Pigalle\" adresi var. Öteki tarihler doğru.",
+     "kaynak": "https://vangoghletters.org/en/let745 (metin ve n.16) ; https://vangoghletters.org/en/let749 ; https://vangoghletters.org/en/let759 ; https://www.dbnl.org/tekst/gogh006brie01_01/gogh006brie01_01_0001.php",
+     "kanit": "745 n.16: \"on 4 February Theo rented an apartment at 8 cité Pigalle. He moved into the apartment with Jo on 20 April 1889... Jo's parents were particularly pleased about the short distance to boulevard Montmartre, which meant that Theo could at least lunch regularly with Jo at home\". 759: \"Printed announcement of marriage... Printed '18 April 1889'\". 749 (16 Mart 1889): \"En arrangeant mon nouvel appartement...\". DBNL Voorwoord ve Inleiding'de öğle yemeği geçmiyor."
+    },
+    {
+     "olgu": "(a/d) Jo, Theo'nun küçük yazı masasının alt çekmecesinde Vincent'ın mektuplarıyla dolu bir çekmece bulduğunu ve her hafta sarı zarfların eklendiğini yazıyor.",
+     "durum": "dogrulandi",
+     "kaynak": "https://www.dbnl.org/tekst/gogh006brie01_01/gogh006brie01_01_0001.php",
+     "kanit": "Voorwoord: \"Toen ik in April 1889 als Theo's jonge vrouw ons appartement in de Cité Pigalle te Parijs betrad, vond ik onder in een klein bureau een lade vol brieven van Vincent, en week aan week zag ik daarna de weldra zoo bekende gele enveloppes met het karakteristieke schrift den inhoud der lade vergrooten.\""
+    },
+    {
+     "olgu": "(b) Louvre/Salon Carré pusulası VGM 567 (1914'te 459), tarihi \"on or about Sunday, 28 February 1886\". Jo mektubun başına \"(Maart '86)\" yazmış, girişinde \"Şubat sonu\" diyor. Pusula eskiz defterinden koparılmış; üstünde Theo'nun çamaşır listesi ve 6 Mart tarihi var.",
+     "durum": "dogrulandi",
+     "kaynak": "https://vangoghletters.org/en/let567 ; https://www.dbnl.org/tekst/gogh006brie03_01/gogh006brie03_01_0001.php ; https://www.dbnl.org/tekst/gogh006brie01_01/gogh006brie01_01_0002.php",
+     "kanit": "567: \"Paris, on or about Sunday, 28 February 1886\"; \"COMPLETE LETTERS: 459\"; \"Van Gogh tore this sheet from the sketchbook... Also in pencil in Theo's writing a laundry list and the date 6 March.\" n.1: \"hotfoot from Antwerp to Paris with no prior warning\". DBNL: \"459 ... Mon cher Theo, (Maart '86)\"; Jo: \"op een morgen in 't eind van Februari\"."
+    },
+    {
+     "olgu": "(b) Pusulanın Fransızca metni iki edisyonda (VGM ve 1914 DBNL) farklı yazımla geçiyor; imza \"b. à t. Vincent\".",
+     "durum": "dogrulandi",
+     "kaynak": "https://vangoghletters.org/en/let567 ; https://www.dbnl.org/tekst/gogh006brie03_01/gogh006brie03_01_0001.php",
+     "kanit": "VGM: \"ne m'en veux pas d'être venu tout d'un trait. J'y ai tant réfléchi & je crois que de cette manière nous gagnons du temps.– Serai au Louvre à partir de midi... dans la Salle carrée.\" İmza \"b. à t. / Vincent\". DBNL: \"Ne m'en veux pas d'être venu tout d'un trait, j'y ai tant réfléchi et je crois... dans la Salle Carrée.\" Tek bir edisyon seçilmeli."
+    },
+    {
+     "olgu": "(b) Jo'nun iki anlatımı farklı: dipnotta pusula istasyonda kara tebeşirle yazılıp bir hamalla gönderiliyor, girişte sabah Theo'ya Bulvar'daki işyerine getiriliyor. \"İstasyon\" ve \"kara tebeşir\" yalnız Jo'ya dayanıyor.",
+     "durum": "dogrulandi",
+     "kaynak": "https://www.dbnl.org/tekst/gogh006brie03_01/gogh006brie03_01_0001.php ; https://www.dbnl.org/tekst/gogh006brie01_01/gogh006brie01_01_0002.php ; https://vangoghletters.org/en/let567",
+     "kanit": "Dipnot: \"aan het station schreef hij haastig met zwart krijt dit briefje, dat hij door een kruier bij Theo liet bezorgen.\" Giriş: \"bij Theo op de Boulevard een met zwart krijt geschreven briefje bezorgd\". VGM'nin tarih notunda istasyon ya da tebeşir yok; yalnız \"he took it for granted that Theo would be able to meet him that same morning\" ve \"he had to communicate by note\" deniyor."
+    },
+    {
+     "olgu": "(c) Vincent Pazar 19 Şubat 1888'de 21.40 PLM ekspresiyle Paris'ten ayrıldı, 20 Şubat 16.49'da Arles'a vardı. VGM'ye göre yolculuk \"bir gün bir gece\" sürdü. Arles'tan ilk mektup 577 (1914 no. 463).",
+     "durum": "dogrulandi",
+     "kaynak": "https://vangoghletters.org/en/let577 ; https://www.vangoghmuseum.nl/en/art-and-stories/vincents-life-1853-1890/from-dark-to-light",
+     "kanit": "577 n.1: \"'last Sunday'; this was therefore Sunday, 19 February\". n.3: \"express train... left at 9.40 p.m. on Sunday 19 February and arrived in Arles at 4.49 p.m. the following day\" (Murphy 2016). \"COMPLETE LETTERS: 463\". VGM: \"Following a train journey that lasted a day and a night, he arrived on 20 February 1888 in Arles\"."
+    },
+    {
+     "olgu": "(c) Theo'nun \"Het blijft mij vreemd dat hij weg is...\" cümlesi, ikisinin birlikte gittiği Wagner konserleri ve Bernard'ın aktardığı \"de telle sorte que mon frère me croie encore ici\" sözü.",
+     "durum": "dogrulandi",
+     "kaynak": "https://www.dbnl.org/tekst/gogh006brie01_01/gogh006brie01_01_0002.php ; https://vangoghletters.org/en/let577 (n.1)",
+     "kanit": "Jo: \"Vóór hij wegging ging ik een paar maal een Wagnerconcert met hem hooren, wij vonden het beiden zeer mooi. Het blijft mij vreemd dat hij weg is, hij was den laatsten tijd zoo veel voor mij.\" Bernard: \"'de telle sorte que mon frère me croie encore ici.'\" Theo'nun sözü 577 n.1'e göre Willemien'e 24–26 Şubat 1888 tarihli mektuptan (FR b914)."
+    },
+    {
+     "olgu": "(d) VGM 705, Arles, Salı 16 Ekim 1888 (1914 no. 554), içinden Yatak Odası'nın ayrı kâğıda çizilmiş taslağı çıkıyor (JH 1609). Taslak aynı boy ve aynı kareli kâğıtta, tek katlama izi var, Van Gogh Müzesi'nde. Açılış \"Enfin je t'envoie un petit croquis...\".",
+     "durum": "dogrulandi",
+     "kaynak": "https://vangoghletters.org/en/let705 ; https://www.vangoghmuseum.nl/en/collection/d0311V1970",
+     "kanit": "705: \"Mon cher Theo – Enfin je t'envoie un petit croquis pour te donner au moins une idée de la tournure que prend le travail.\" \"The bedroom (F - / JH 1609), enclosed sketch\"; \"same size as the letter... same squared paper. Both have one crease.\" Konum b0599V1962 (yaprak 1) ve d0311V1970 (yaprak 2, taslak). VGM sayfa başlığı: \"Sketch of The Bedroom, enclosed in a letter from Vincent van Gogh to Theo van Gogh\"."
+    },
+    {
+     "olgu": "(d) VGM 691 (c. 29 Eylül 1888, 1914 no. 543) \"Ci inclus petit croquis...\" diye başlıyor; ekli Rhône Üzerinde Yıldızlı Gece taslağı kayıp. Mektupta Sarı Ev taslağı ve hilal ile yıldız çizimi de var. Boch'a giden kopya (693) VGM'de.",
+     "durum": "duzeltme",
+     "duzeltme": "Mektup \"Ci inclus\" ile başlamıyor. İlk paragraf \"Mon cher Theo, merci beaucoup de ta lettre et du billet de 50 francs qu'elle contenait...\"; \"Ci inclus petit croquis d'une toile de 30 carrée – enfin le ciel étoilé peint la nuit même, sous un bec de gaz.\" ikinci paragraf. Öteki ayrıntılar doğru.",
+     "kaynak": "https://vangoghletters.org/en/let691 ; https://vangoghletters.org/en/let693",
+     "kanit": "691: \"COMPLETE LETTERS: 543\"; \"Starry night over the Rhône (F 1515 / JH 1593), enclosed sketch (present whereabouts unknown)\"; \"The Yellow House ('The street') (F 1453 / JH 1590), letter sketch\"; \"Crescent moon and star (F - / JH -), letter sketch\". 693 (Boch'a, 2 Ekim 1888): \"enclosed sketch (inv. no. b598 b V/1962)\", konum \"Amsterdam, Van Gogh Museum, b0598V1962\"."
+    },
+    {
+     "olgu": "(d) Arles'tan Theo'ya giden ve taslak içeren öteki mektupların listesi (589, 592, 597, 600, 602, 609, 611, 615, 636, 638, 644, 660, 687, 689, 709, 714, 718, 719, 722).",
+     "durum": "dogrulandi",
+     "kaynak": "https://vangoghletters.org/en/let589 ; https://vangoghletters.org/en/let592 ; https://vangoghletters.org/en/let602 ; https://vangoghletters.org/en/let689 ; https://vangoghletters.org/en/let718 ; https://vangoghletters.org/en/let719 ; https://vangoghmuseum.nl/en/about/news-and-press/press-image-bank/images-letters/letter-from-vincent-van-gogh-to-theo-van-gogh-with-sketch-of-sower-with-setting-sun",
+     "kanit": "Örneklemle doğrulandı; listenin hepsi denetlenmedi. 589 \"The Seine with the Clichy bridge... letter sketch\"; 592 \"Corner of a frame... letter sketch\"; 602 \"The Yellow House (F - / JH 1413), letter sketch\"; 689 \"The poet's garden... enclosed sketch (private collection)\" (1997'de Sotheby's'te satılmış); 718 \"Example of a simple frame, with The red vineyard\"; 719 \"Sketch after Charles Laval, Self-portrait\". 722 VGM basın görselinde yer alıyor. Not: 725 açılamamıştı, ama 725 Milliet'nin Vincent'a mektubu (Guelma, 11 Aralık 1888); Theo'ya giden bir mektup değil, listede boşluk bırakmıyor."
+    },
+    {
+     "olgu": "(d) Arles'tan Theo'ya giden ve ayçiçeği taslağı içeren bir mektup bulunamadı. 644'te yalnız \"tournesols\" renk notu var; 666 ve 668'de taslak yok.",
+     "durum": "dogrulandi",
+     "kaynak": "https://vangoghletters.org/en/let644 ; https://vangoghletters.org/en/let666 ; https://vangoghletters.org/en/let668",
+     "kanit": "666 ve 668'i kendim açtım, ikisinde de \"sketch\" kaydı yok. 644: \"Garden with flowers (F - / JH 1511), letter sketch... 'cyprès noir/ laurier rose et figuier/ tournesols'\". Ayrı bir web aramasında da Theo'ya giden ayçiçeği taslağı çıkmadı. Yokluk iddiası kesin kanıtlanamaz; kancada ayçiçeği taslağı kullanılmaması önerisi yerinde."
+    },
+    {
+     "olgu": "(e) Arles–Paris posta süresini açıkça yazan kaynak yok. Dolaylı kanıtlar 1–2 günü gösteriyor (662, 749, 760/762); tablo sandığı yaklaşık on gün sürüyordu.",
+     "durum": "dogrulanamadi",
+     "kaynak": "https://vangoghletters.org/en/let662 ; https://vangoghletters.org/en/let749 ; https://vangoghletters.org/en/let760 ; https://vangoghletters.org/en/let762 ; https://vangoghletters.org/en/let611",
+     "kanit": "Açık bir posta süresi yine bulunamadı; dolaylı kanıtlar doğru aktarılmış. 662 (Çarşamba 15 Ağustos 1888): \"Since Vincent assumes that Theo will receive the letter before Friday morning... he cannot have written it on Thursday\"; metinde \"vendredi ou samedi\". 749: \"postmarked the 17th\", Vincent 19 Mart'ta (750) yanıt veriyor. 760 Paskalya Pazarı 21 Nisan; 762 (24 Nisan): \"ta lettre que nous avons reçu hier\". 611: crate \"would take about ten days to get to Paris\" (bu yük sandığı, mektup değil). Pont-Aven–Arles iki gün varsayımını ayrıca denetlemedim."
+    }
+   ]
+  },
+  "3 1890 ilk övgü ve tek buluşma": {
+   "grup": "3 1890 ilk övgü ve tek buluşma",
+   "kararlar": [
+    {
+     "olgu": "(a) Aurier, \"Les Isolés: Vincent van Gogh\", Mercure de France, N° 1, Ocak 1890, s. 24–29; derginin yeniden kurulduğu ilk sayı.",
+     "durum": "duzeltme",
+     "duzeltme": "Künye doğru: N° 1, Ocak 1890, s. 24–29. Ama OCR'da \"yeni seri\" etiketi yok. Doğru ifade: Vallette'in La Pléiade'nin devamı olarak kurduğu, eski bir adı yeniden kullanan modern Mercure de France'ın ilk sayısı. \"Yeni seri\" sözü kaynak gösterilmeden kullanılmamalı.",
+     "kaynak": "https://archive.org/download/MercureFrance1890BNF01/MercureFrance1890BNF01_djvu.txt ; https://vangoghletters.org/en/let845 (not 2-3, tarayıcıda okundu)",
+     "kanit": "İçindekiler: \"No i. — JANVIER 1890 … G.-Albert Aurier … Les Isolés, Vincent van Gogh. 34 [=24]\"; sonraki yazı 30'da. L'Art Moderne alıntısı (845 n.3): \"Mercure de France (ancienne Pléiade), numéro de janvier 1890\". Vallette'in açılış yazısı: \"la Pléiade ne fut point décadente et le Mercure de France ne le sera pas davantage\"."
+    },
+    {
+     "olgu": "(a) Fransızca alıntılar: \"un terrible et affolé génie, sublime souvent, grotesque quelquefois, toujours relevant presque de la pathologie\" (s. 26–27); \"trop simple et trop subtil pour l'esprit-bourgeois contemporain\" (s. 29); \"œuvres étranges, intensives et fiévreuses\".",
+     "durum": "dogrulandi",
+     "kaynak": "https://archive.org/download/MercureFrance1890BNF01/MercureFrance1890BNF01_djvu.txt",
+     "kanit": "OCR'da üçü de var: \"un terrible et affolé génie, sublime souvent, grotesque [sayfa başı 37=27] quelquefois, toujours relevant presque de la pathologie\"; \"œuvres étranges, intensives et fiévreuses de Vincent Van Gogh\"; s. 29'da: \"Vincent Van Gogh est, à la fois, trop simple et trop subtil pour l'esprit-bourgeois contemporain. Il ne sera jamais pleinement compris que de ses frères, les artistes très artistes…\". Sayfa başlıkları OCR'da 10 fazla okunuyor (35/37/39 = 25/27/29)."
+    },
+    {
+     "olgu": "(a) Theo dergiyi 29 Ocak 1890 sabahı eve getirdi; Jo doğumu bekliyordu ve Vincent'a yazdı; bebek 31 Ocak 1890 Cuma doğdu.",
+     "durum": "dogrulandi",
+     "kaynak": "https://vangoghletters.org/en/let845 (tarayıcıda okunan site metni)",
+     "kanit": "\"van morgen bracht Theo het artikel mee uit de Mercure en nadat we het gelezen hadden hebben Wil en ik nog lang over je gesproken\". Tarih notu: doktor geceyi evde geçiriyor; \"the child was finally born on Friday, 31 January\". Mektup \"Wednesday evening\" başlıklı. Willemien de oradaydı."
+    },
+    {
+     "olgu": "(a) Kısaltılmış hâl: L'Art Moderne, 19 Ocak 1890, no. 3, s. 20–22. Vincent'ın Aurier'ye cevabı 853 (9 ya da 10 Şubat 1890). 854'te övgünün Gauguin'e yakışacağını söyler.",
+     "durum": "dogrulandi",
+     "kaynak": "https://vangoghletters.org/en/let845 (not 3) ; https://vangoghletters.org/en/let853 ; https://vangoghletters.org/en/let854 (tarayıcıda yeniden açıldı)",
+     "kanit": "845 notu: \"L'Art Moderne… 10 (19 January 1890), no. 3, pp. 20-22\". 853 başlığı: \"To Albert Aurier. Saint-Rémy-de-Provence, Sunday, 9 or Monday, 10 February 1890\". 854 (12 Şubat 1890): \"on devrait dire des chôses comme cela de Gauguin, et de moi rien que très secondairement\"."
+    },
+    {
+     "olgu": "(b) Theo 1888'den beri tabloları her yıl Indépendants'a gönderdi; 1890 başında Les XX'te altı tablo gösterildi, Kırmızı Bağ orada satıldı.",
+     "durum": "dogrulandi",
+     "kaynak": "https://www.vangoghmuseum.nl/en/art-and-stories/vincents-life-1853-1890/hospitalization (curl ile ayrıca çekildi)",
+     "kanit": "VGM: \"Six of Vincent's paintings were shown in Brussels in early 1890\"; \"The Red Vineyard, was sold during the show\"; \"Theo had been submitting his paintings since 1888 to the annual 'Salon des Indépendants'\"."
+    },
+    {
+     "olgu": "(b) Indépendants 1888: 22 Mart – 3 Mayıs; 3 eser, katalog no. 658–660 (F 316, F 350, F 359 'Romans parisiens'); üçüncüsünü Theo seçti; Theo, Willemien'e sergiyi \"en iyi yol\" diye yazdı (14 Mart 1888).",
+     "durum": "dogrulandi",
+     "kaynak": "https://vangoghletters.org/en/let582 (notlar; site metni)",
+     "kanit": "\"from 22 March to 3 May 1888\"; \"The third work Theo chose was Piles of French novels and roses in a glass ('Romans parisiens') (F 359)… cat. nos. 658-660\"; \"the exhibition is the best means of doing it\" (FR b915, 14 March 1888)."
+    },
+    {
+     "olgu": "(b) Indépendants 1889: 2 eser, Süsenler (F 608) ve Rhône Üzerinde Yıldızlı Gece (F 474); Theo 5 Eylül 1889'da sergi açık diye yazdı; Yıldızlı Gece kötü asılmıştı (799). Sergi tarihleri doğrulanamadı.",
+     "durum": "dogrulandi",
+     "kaynak": "https://vangoghletters.org/en/let799 (bu kez site metni tarayıcıda okundu; arama özeti değil)",
+     "kanit": "\"l'exposition des Indépendants est ouverte et qu'il y a tes deux tableaux, 'les iris' et la nuit étoilée. Le dernier est mal placé car on ne peut pas se mettre à une distance assez grande, la salle étant très étroite\". Not: F 608 ve F 474. Ek bilgi: sanatçı başına yalnız iki eser; yer Salle de la Société d'horticulture, 84 rue de Grenelle. Açılış ve kapanış tarihleri hâlâ DOĞRULANAMADI."
+    },
+    {
+     "olgu": "(b) Indépendants 1890: 10 tablo; açılış 19 Mart 1890, Carnot geldi, Theo Jo'yla oradaydı; Gauguin \"clou\" dedi (858).",
+     "durum": "dogrulandi",
+     "kaynak": "https://vangoghletters.org/en/let858 (tarayıcıda yeniden okundu; araştırmacının kayıtlı dosyası boştu)",
+     "kanit": "\"C'était le jour de vernissage où Carnot est venu. J'y étais avec Jo. Tes tableaux sont bien placés… Gauguin disait que tes tableaux sont le clou de l'exposition.\" n.3: açılış 19 Mart; Theo'nun Willemien'e mektubu: \"with ten paintings by him\" (FR b927, 14 March 1890). Kapanış tarihi doğrulanmadı."
+    },
+    {
+     "olgu": "(b) Mercure de France Mayıs 1890 (N° 5, s. 175–176, \"J. L.\") on tablodan söz eder.",
+     "durum": "dogrulandi",
+     "kaynak": "https://archive.org/download/MercureFrance1890BNF01/MercureFrance1890BNF01_djvu.txt",
+     "kanit": "\"No 5. - MAI 1890\"; s. 176: \"Il y a de Van Gogh aux Indépendants dix tableaux qui attestent un génie rare. J. L.\"; bir önceki sayfada: \"G. Albert Aurier a, dans cette revue, trop bien défini la nature du talent de Vincent Van Gogh\"."
+    },
+    {
+     "olgu": "(b) Les XX 1890 (Musée Royal, Brüksel, 18 Ocak – 23 Şubat): altı tablo (Ayçiçekleri, Sarmaşık, Çiçekli bahçe, Gündoğumunda buğday tarlası, Kırmızı Bağ…). Anna Boch Kırmızı Bağ'ı 400 franka aldı; Theo 6 Mart'ta deftere yazdı ve 858'de Vincent'a haber verdi; Maus: \"de vives sympathies artistiques\".",
+     "durum": "duzeltme",
+     "duzeltme": "İki düzeltme var. (1) \"Verger en fleurs\" çiçekli bahçe değil, \"çiçek açmış meyve bahçesi\". (2) Theo satışı Vincent'a 858'de duyurmadı. Satış haberi daha önce, bugün kayıp bir mektupla gitmişti. Vincent bunu Şubat'ta annesine yazdığı 855'te anar (\"gisteren… melde Theo me\"). 858 (19 Mart) yalnız paranın Brüksel'den geldiğini ve Maus'un sözünü bildirir. Tarihler, yer ve 400 frank doğru.",
+     "kaynak": "https://library.vangoghmuseum.nl/Details/exhibit/2062 ; https://vangoghletters.org/en/let855 (not 5) ; https://vangoghletters.org/en/let858 ; Mercure de France Mart 1890 (archive.org OCR)",
+     "kanit": "VGM kütüphanesi: \"Les XX. VIIe exposition annuelle Musée Royal de Peinture et de Sculpture, Brussel, 1890-01-18 - 1890-02-23\". 855 n.5: \"The letter in which Theo reported this to Vincent is not known… 6 March 1890… 400 francs… 'Mlle Bock pour tab Vigne rouge'\". 858: \"J'ai reçu de Bruxelles l'argent de ton tableau & Maus m'écrit… de vives sympathies artistiques\". Mercure: \"Tournesols, Le lierre, Verger en fleurs, Champ de blé au soleil levant, et la très belle Vigne rouge\"."
+    },
+    {
+     "olgu": "(c) 16 Mayıs 1890'da taburcu oldu ve yola çıktı; 17 Mayıs sabahı Gare de Lyon'a vardı; 3 gün 8 cité Pigalle'de kaldı; Jo'yu ve bebeği ilk ve tek kez burada gördü; Jo'nun ev defteri (17 Mayıs çiçek, 18 Mayıs bira ve şarap).",
+     "durum": "duzeltme",
+     "duzeltme": "\"İlk ve tek kez\" yanlış; doğrusu \"ilk kez\". Vincent Jo'yu ve bebeği sonra iki kez daha gördü. Birincisi, Jo'nun \"omstreeks 10 Juni\" dediği Pazar: Theo, Jo ve bebek bütün gün Auvers'deydi (genel kabul 8 Haziran 1890; bu doğrulamada tarih ayrıca sınanmadı). İkincisi 6 Temmuz Pazar, Paris'te. Grup başlığındaki \"tek buluşma\" da buna göre düzeltilmeli. Kalan ayrıntılar doğru: taburcu ve yola çıkış tarihi, varış, Gare de Lyon (Jo: sabah 10 sularında), adres, ev defteri.",
+     "kaynak": "https://vangoghletters.org/en/let872 (not 1; yeniden okundu) ; https://vangoghletters.org/en/let873 (not 7) ; https://www.dbnl.org/tekst/gogh006brie01_01/gogh006brie01_01_0002.php (s. LX, LXII)",
+     "kanit": "872 n.1: \"officially released… Friday, 16 May 1890… arrived on Saturday, 17 May… After staying with Theo and Jo for three days\"; \"17 May 1890… flowers – on the 18th she bought beer and wine\". Jo: \"Van de Cité Pigalle naar de Gare de Lyon\". Jo: \"Al spoedig omstreeks 10 Juni ontvingen wij van hem een uitnoodiging om met het kind een geheelen dag in Auvers te komen doorbrengen. Vincent haalde ons van den trein…\""
+    },
+    {
+     "olgu": "(c) Jo'nun 1914 sahnesi: Theo korkudan uyumadı; açık arabayla gülerek geldiler; iki kardeş beşiğe bakarken gözleri yaşlıydı; Vincent beşikteki dantel örtüyü gösterip takıldı.",
+     "durum": "duzeltme",
+     "duzeltme": "Örtü dantel değil. Jo onu \"het eenvoudige gehaakte spreitje\" diye anlatır: sade, tığ işi bir örtü. Vincent'ın şakası tam da bu yüzden komik: \"Onu fazla dantellere boğma, kardeşim.\" Sahnenin geri kalanı birebir doğru.",
+     "kaynak": "https://www.dbnl.org/tekst/gogh006brie01_01/gogh006brie01_01_0002.php (DBNL'den doğrudan curl ile çekildi; s. LX–LXI)",
+     "kanit": "\"Theo sliep dien nacht niet van angst\"; \"een open fiacre… twee vroolijk lachende gezichten\"; \"zwijgend keken de twee broers naar het rustig slapend kindje - zij hadden beiden tranen in de oogen\"; \"wijzend naar het eenvoudige gehaakte spreitje op de wieg: 'Je moet hem maar niet te veel in de kanten leggen, zusje.'\""
+    },
+    {
+     "olgu": "(c) Jo hasta birini beklerken sağlıklı biri buldu; Vincent 3 gün neşeliydi; odalar ve yatak altları tablolarla doluydu: Patates Yiyenler, Rhône'da Yıldızlı Gece, çiçekli bahçeler.",
+     "durum": "duzeltme",
+     "duzeltme": "Asılı ve yerdeki tablolar ayrılmalı. Duvarlarda: yatak odasında çiçek açmış meyve bahçeleri (\"bloeiende boomgaarden\"; \"çiçekli bahçeler\" yanlış çeviri), yemek odasında şöminenin üstünde Patates Yiyenler, oturma odasında büyük bir Arles manzarası ve Rhône üzerinde gece görünümü. Yatağın, kanepenin ve dolapların altında ise gerilmemiş tuval yığınları vardı. Vincent ilk sabah erkenden bu yığınları yere serip inceledi.",
+     "kaynak": "https://www.dbnl.org/tekst/gogh006brie01_01/gogh006brie01_01_0002.php (s. LX–LXI)",
+     "kanit": "\"'Hij is volkomen gezond, hij ziet er veel sterker uit dan Theo,'\"; \"Drie dagen bleef hij bij ons en was al dien tijd vroolijk en opgewekt. Over St. Remy werd niet gesproken.\" \"in de slaapkamer hingen de bloeiende boomgaarden, in de eetkamer boven den schoorsteen de Aardappeleters… het nachtgezicht op de Rhône; verder lagen overal… onder het bed… groote stapels onopgezette doeken\"."
+    },
+    {
+     "olgu": "(d) Auvers'e varış 20 Mayıs 1890; 873'ü Theo ile Jo'ya birlikte yazdı ve ilk kez Fransızca yazacağını söyledi; Gachet'yi gördü; 6 franklık han yerine 3,50 franklık hana yerleşti (Ravoux); Jo 21 Mayıs diyor.",
+     "durum": "duzeltme",
+     "duzeltme": "\"İlk kez Fransızca\" yanlış. Vincent Theo'ya zaten Fransızca yazıyordu; Saint-Rémy'den son mektup 872 de Fransızcadır. 873'te istediği şu: artık mektupları Theo ile Jo'ya birlikte yazacak ve Felemenkçe konuşan Jo'dan bunları Fransızca yazmak için izin rica ediyor. Gerekçesi, iki yıl Güney'de yaşadıktan sonra kendini Fransızcada daha iyi anlatması. Diğer ayrıntılar doğru: 20 Mayıs, Gachet, 6 frank yerine 3,50, Auberge Ravoux, Jo'nun 21 Mayıs yazması.",
+     "kaynak": "https://vangoghletters.org/en/let873 (site metni ve not 1) ; https://vangoghletters.org/en/let872 (Fransızca metin) ; DBNL Jo girişi s. LXI",
+     "kanit": "873: \"Après avoir fait connaissance avec Jo il me sera désormais difficile d'écrire à Theo seul mais Jo me permettra j'espère d'ecrire en français parceque après deux ans dans le midi…\"; \"une auberge où l'on demandait 6 francs\"; \"je payerai 3.50 par jour\"; n.1: \"preferred the less expensive Auberge Ravoux\". 872: \"Mon cher frère, Après une dernière discussion avec Monsieur Peyron…\". Jo: \"vertrok hij den 21en Mei naar Auvers\"."
+    },
+    {
+     "olgu": "(e) 894 (30 Haziran – 1 Temmuz 1890): bebek ağır hasta, eşek sütü; Jo tükenmiş; daire, Auvers ya da Hollanda soruları; \"ces rats de Boussod & Valadon\"; kendi işini kurma düşüncesi; ertesi sabah daireyi tutmaya karar.",
+     "durum": "dogrulandi",
+     "kaynak": "https://vangoghletters.org/en/let894 (site metni)",
+     "kanit": "\"notre chéri a été très souffrant\"; \"nous lui donnons du lait d'anesse\"; \"elle s'est beaucoup fatiguée\"; \"Devons nous prendre un autre appartement… dans la même maison au premier? Devons nous aller à Auvers, en Hollande ou non\"; \"ces rats de Boussod & Valadon me traitent comme si je venais d'entrer chez eux\"; \"Ce matin… C'est déçidé… je vais louer l'appartement en question.\""
+    },
+    {
+     "olgu": "(e) 897 (5 Temmuz 1890): bebek iyileşti; Pazar ilk trenle davet; yeni daire için fikir; Dries ile Annie alt kata gelebilir.",
+     "durum": "dogrulandi",
+     "kaynak": "https://vangoghletters.org/en/let897 (site metni)",
+     "kanit": "Başlık: \"Paris, Saturday, 5 July 1890\". \"Après quelques jours de souffrance il a recommencé à être gai\"; \"Vient donc si tu veux Dimanche avec le premier train\"; \"tu nous donneras conseil pour l'arrangement de notre nouvel appartement. Probablement Dries & Annie viendront au rez de chaussée\"."
+    },
+    {
+     "olgu": "(e) 6 Temmuz 1890 ziyareti: Aurier, Toulouse-Lautrec (öğle yemeği), Andries Bonger (ortaklık teklifini sonra geri çekti); Guillaumin'i beklemeden döndü; Jo'nun pişmanlığı (31 Temmuz, 1 Ağustos).",
+     "durum": "dogrulandi",
+     "kaynak": "https://vangoghletters.org/en/let898 (not 3) ; https://vangoghletters.org/en/let900 (not 6) ; DBNL Jo girişi s. LXII–LXIII",
+     "kanit": "Jo: \"Aurier… nu nog eens met den schilder zelf al het werk bezag, en Toulouse Lautrec, die bij ons bleef dejeuneeren… Guillaumin zou ook nog gekomen zijn… hij wachtte dit bezoek niet meer af\". 900 n.6: \"Andries Bonger was also at Theo and Jo's… on Sunday, 6 July… had again withdrawn his offer\". 898 n.3: \"If only I'd been a bit kinder to him\" (31 July), \"being impatient with him\" (1 August)."
+    },
+    {
+     "olgu": "(e) 898 (~10 Temmuz 1890): ağır yükle döndü, Jo'nun kayıp mektubu bir kurtuluş gibiydi; üç büyük buğday tarlası tuvali, \"tristesse, solitude extrême\"; VGM: Theo'nun işi bırakmayı düşündüğünü öğrenip kaygıyla döndü.",
+     "durum": "dogrulandi",
+     "kaynak": "https://vangoghletters.org/en/let898 ; https://www.vangoghmuseum.nl/en/art-and-stories/vincents-life-1853-1890/vincents-final-months (curl ile ayrıca çekildi)",
+     "kanit": "898: \"la lettre de Jo a été pour moi réellement comme un évangile, une délivrance d'angoisse\"; \"l'orage qui vous menace… ma vie à moi aussi est attaquée à la racine même\"; \"trois grandes toiles… de la tristesse, de la solitude extrême\"; n.1: \"This letter from Jo… is not known\". VGM: \"learned that his brother was thinking of quitting his job… Vincent returned to Auvers a worried man.\""
+    },
+    {
+     "olgu": "(e) Theo ~8 Temmuz'da zam istedi, olmazsa ayrılacaktı; 14 Temmuz'da (900) cevap yok; şimdilik firmada kaldı; 15 Temmuz Leiden, Theo 18 Temmuz'da Paris'e döndü; Vincent'ın Theo'ya son gönderdiği mektup 902 (23 Temmuz).",
+     "durum": "dogrulandi",
+     "kaynak": "https://vangoghletters.org/en/let900 (not 4) ; https://vangoghletters.org/en/let898 (not 6) ; https://vangoghletters.org/en/let902 (başlık)",
+     "kanit": "900: \"Quoique les huit jours soient écoulés ces messieurs n'ont rien dit\"; n.4: \"Around 8 July Theo had asked… for a rise… His threat to quit… made little impression… Theo finally decided to stay with the firm for the time being (see letter 901, n. 5)\". 898 n.6: \"left on 15 July for Leiden… returning to Paris on Friday evening, 18 July\". 902: \"To Theo van Gogh. Auvers-sur-Oise, Wednesday, 23 July 1890\". (Üzerinde bulunan gönderilmemiş taslak RM25 ayrı tutulmalı.)"
+    }
+   ]
+  }
+ }
+}
