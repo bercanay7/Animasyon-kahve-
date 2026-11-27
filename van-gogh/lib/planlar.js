@@ -25,6 +25,7 @@ const GORSEL = {
   sari_ev: AD + 'sari_ev_1888_vgm_f464_gap.jpg',
   badem: AD + 'badem_cicegi_1890_vgm_s0176V1962.jpg',
   sairin_bahcesi: AD + 'sairin_bahcesi_1888_arles_aic14586.jpg',
+  rhone: 'gorsel/aday_v3/rhone_yildizli_gece_1888_orsay.jpg', kirmizi_bag: 'gorsel/aday_v3/kirmizi_bag_1888_pushkin.jpg',   // v3: Commons PD-Art (Google Art Project / Puşkin); ASSETS.md
   remy4: AD + 'alpiller_iki_kavak_1889_saintremy_cma1958.32.jpg', remy5: AD + 'vazoda_irisler_1890_saintremy_met436528.jpg', remy6: AD + 'guller_1890_saintremy_met436534.jpg', oda_guller: AD + 'guller_1890_saintremy_met436534.jpg',
 };
 export async function gorselYukle() {
@@ -64,8 +65,10 @@ export function setleriKur(M, IMG, FIG) { masaKur(M, IMG); odaKur(M, IMG); salon
       return { ad: k, d: .72, ciz: tabloCiz(im, cx - w / 2, cy - hh / 2, w, hh, { maxR: 5 }), R: [10, 5, 2.6, 1.5], T: 8, olcek: .75 }; }),
     bitir: () => ({ light: [-.5, -.6, .7], norm: 2, expo: 1.04, contrast: 1.05, vig: .3, spec: .12, shin: 26, weave: .05 }) });
   // Commons (VGM) gelmezse CC0 yedek: Sarı Ev → Şairin Bahçesi (AIC; Arles 1888, sarı evin karşısındaki park); Fırtınalı gök → Yeşil Buğday Tarlaları, Auvers (NGA)
-  const YEDEK = { sari_ev: 'sairin_bahcesi', firtina: 'auvers1' };
-  for (const k of ['sari_ev', 'yatak', 'selviler', 'selvili_tarla', 'yildizli', 'badem', 'irisler', 'firtina']) tabloSahnesi(M, 'tb_' + k, IMG[k] || IMG[YEDEK[k]] || IMG.selvili_tarla, { dunya: true });
+  const YEDEK = { sari_ev: 'sairin_bahcesi', firtina: 'auvers1', rhone: 'yildizli' };
+  // v3: Yatak Odası ince darbeyle (kırmızı yorgan büyük darbede dokusuz düz lekeye dönüyordu: kan okuması); Rhône karanlık çekim, ışık açılır
+  const TS = { yatak: { maxR: 6, detail: 1, R: [11, 5.5, 2.8, 1.5] }, rhone: { maxR: 8 } };
+  for (const k of ['sari_ev', 'yatak', 'selviler', 'selvili_tarla', 'yildizli', 'badem', 'irisler', 'firtina', 'rhone']) tabloSahnesi(M, 'tb_' + k, IMG[k] || IMG[YEDEK[k]] || IMG.selvili_tarla, { dunya: true, ...(TS[k] || {}) });
 }
 
 // ---------- yardımcılar ----------
@@ -103,11 +106,13 @@ function bademDali(S, x0, y0, aci, u, sd = 3, olc = 1, iz = null) {   // iz: [x,
 //   kesit: tablonun üst ortasındaki çiçekli sürgün; kök kesitin sağ kenarında (kx, ky)
 const BKR = [.27, 0, .48, .4], BKOK = [.97, .47];
 let BKS = null;
-function bademKes(img, N = 190) {
+function bademKes(img, N = 240) {
   if (BKS || !img) return BKS; const sw = BKR[2] * img.width, sh = BKR[3] * img.height, Mh = Math.round(N * sh / sw);
   const cv = new OffscreenCanvas(N, Mh), cx = cv.getContext('2d'); cx.drawImage(img, BKR[0] * img.width, BKR[1] * img.height, sw, sh, 0, 0, N, Mh);
   const d = cx.getImageData(0, 0, N, Mh).data, P = [], sil = new OffscreenCanvas(N, Mh), sx = sil.getContext('2d'), sd = sx.createImageData(N, Mh);
-  for (let y = 0; y < Mh; y++) for (let x = 0; x < N; x++) { const i = (y * N + x) * 4, r = d[i], g = d[i + 1], b = d[i + 2]; if (b > r + 20 && g > r + 5) continue;
+  const gok = (x, y) => { if (x < 0 || y < 0 || x >= N || y >= Mh) return true; const i = (y * N + x) * 4; return d[i + 2] > d[i] + 14 && d[i + 1] > d[i] + 2; };
+  for (let y = 0; y < Mh; y++) for (let x = 0; x < N; x++) { const i = (y * N + x) * 4, r = d[i], g = d[i + 1], b = d[i + 2]; if (gok(x, y)) continue;
+    let k = 0; for (let dy = -1; dy <= 1; dy++) for (let dx = -1; dx <= 1; dx++) if ((dx || dy) && !gok(x + dx, y + dy)) k++; if (k < 5) continue;   // v3: gök kenarındaki kırıntı (küf gibi benek) atılır
     P.push([x / N, y / Mh, r / 255, g / 255, b / 255, Math.hypot(x / N - BKOK[0], (y / Mh - BKOK[1]) * Mh / N)]); sd.data[i] = sd.data[i + 1] = sd.data[i + 2] = sd.data[i + 3] = 255; }
   sx.putImageData(sd, 0, 0); P.sort((a, b) => a[5] - b[5]); return (BKS = { P, sil, N, M: Mh, dmax: P.length ? P[P.length - 1][5] : 1 });
 }
@@ -116,7 +121,7 @@ function bademKesCiz(S, B, x0, y0, aci, u, gen = 560) {
   if (!B || u <= 0) return; const s = gen / B.N, a = aci - Math.PI, ca = Math.cos(a), sa = Math.sin(a), lim = u * B.dmax * 1.02;
   for (const [px, py, r, g, b, dd] of B.P) { if (dd > lim) break; const lx = (px - BKOK[0]) * gen, ly = (py - BKOK[1]) * gen * B.M / B.N;
     const X = x0 + lx * ca - ly * sa, Y = y0 + lx * sa + ly * ca, c = [r, g, b];
-    S.push({ x: X, y: Y, ang: a + (px * 9 % 1) * .6, len: s * 1.7, wid: s * 1.35, c, c2: c.map(v => v * .9), seed: px * 977 + py * 131, type: DAB, alpha: clamp((lim - dd) / (B.dmax * .05)), hgt: .5 }); }
+    S.push({ x: X, y: Y, ang: a + (px * 9 % 1) * .6, len: s * 1.5, wid: s * 1.25, c, c2: c.map(v => v * .9), seed: px * 977 + py * 131, type: DAB, alpha: clamp((lim - dd) / (B.dmax * .05)), hgt: .5 }); }
 }
 function bademKesMaske(c, B, x0, y0, aci, u, gen = 560) {
   if (!B || u <= 0) return; const k = MW / 1920, [X, Y] = ekrana(c, x0, y0), sc = gen / B.N * c.zoom * k;
@@ -142,11 +147,11 @@ export function planlariKur(M, IMG, FIG) {
     kamera: kamYol([960, 820, 1.35], [960, 860, 1.48], u => u),
     durum: st => { const te = A('A01@bir#1') - st.at + .25, tb = A('A01@dolu') - st.at; return {
       nesneler: t => { const L = Y1.slice(); const z = duser({ tur: 'zarf', x: 1010, y: 800, w: 240, h: 146, rot: .12, renk: 'sari', yuz: 'on', tohum: 99 }, t, te - .2); if (z) L.push(z); return L; },
-      ust: (t, S) => (BK ? bademKesCiz(S, BK, 720, 980, -.95, clamp((t - tb) / 1.4)) : bademDali(S, 700, 960, -.95, clamp((t - tb) / 1.2))) }; },
+      ust: (t, S) => (BK ? bademKesCiz(S, BK, 1120, 770, -2.2, clamp((t - tb) / 1.4), 700) : bademDali(S, 700, 960, -.95, clamp((t - tb) / 1.2))) }; },
     maske: (st, kam) => { const c = M.camK(kam, 0), ts = A('A01@sarı') - st.at, te = A('A01@bir#1') - st.at + .25, tb = A('A01@dolu') - st.at;
       Y1.forEach((it, i) => nesneMaske(c, it, clamp((st.lt - ts - Math.hypot(it.x - 960, it.y - 860) / 900) / .35)));   // sarı yığına merkezden yayılır (masa gri kalır)
       const z = duser({ tur: 'zarf', x: 1010, y: 800, w: 240, h: 146, rot: .12 }, st.lt, te - .2); if (z) nesneMaske(c, z);
-      if (BK) bademKesMaske(c, BK, 720, 980, -.95, clamp((st.lt - tb) / 1.4)); else mDaire(c, 860, 800, 260, clamp((st.lt - tb) / .6), 6); } });   // v3: örtü yalnız dalın kendisi (hale yok)
+      if (BK) bademKesMaske(c, BK, 1120, 770, -2.2, clamp((st.lt - tb) / 1.4), 700); else mDaire(c, 860, 800, 260, clamp((st.lt - tb) / .6), 6); } });   // v3: örtü yalnız dalın kendisi (hale yok)
   // A02 · orta · MASA (v2): masanın tamamı; sarı yığın "mektup"a dek yükselir; sağda kalın gri blok (Theo'nun 39 mektubu); "altı yüz elli bir" ve "otuz dokuz" ekranda (≤ 4 sn);
   //   "attı ya yaktı"da gri bloktan yapraklar kalkar, kadrajdan uçar (ateş gösterilmez)
   const Y2 = yigin(40, { x: 700, y: 760, dx: 420, dy: 160, tohum: 50 }), G2 = yigin(39, { x: 1400, y: 780, dx: 20, dy: 12, renk: 'gri', w: 200, h: 120, rot: .12, tohum: 200, kat: 1.5 });
@@ -192,13 +197,13 @@ export function planlariKur(M, IMG, FIG) {
   const B3 = [{ tur: 'cerceve', x: 650, y: 440, w: 170, h: 210, tohum: 33, ic: [.46, .44, .4] }, { tur: 'cerceve', x: 1190, y: 430, w: 200, h: 150, tohum: 35, ic: [.56, .53, .47] }];
   const B3k = kamYol([930, 500, 1.78], [950, 505, 1.86], u => u);
   plan({ id: 'B03', at: 'B03', sahne: 'salon', olcek: 'yakin', not: 'Başkalarının tabloları: biri satılır, duvardan iner', kamera: B3k,
-    durum: st => { const te = A('B03@satmak') - st.at; return { duvar: 'seyrek', bolme: true,
+    durum: st => { const te = A('B03@başkalarının') - st.at; return { duvar: 'seyrek', bolme: true,
       nesneler: t => { const k = io(clamp((t - te - 1.5) / 1.4)), dy = -700 * k, kart = io(clamp((t - te) / .5)), sal = .12 * Math.sin((t - te) * 4) * Math.exp(-1.5 * Math.max(0, t - te));
         return [...B3, ...(k > 0 ? [{ tur: 'kagit', x: 915, y: 460, w: 236, h: 176, satir: 0, a: .2 * k, tohum: 36 }] : []),
           { tur: 'cerceve', x: 915, y: 460 + dy, w: 240, h: 180, tohum: 34, ic: [.6, .56, .48] },
           ...(kart > 0 ? [{ tur: 'bilet', x: 1000, y: 575 + dy - 26 * (1 - kart), w: 92, h: 46, rot: .08 + sal, tohum: 37, a: kart, golge: true }] : [])]; },
       figur: (t, S) => figurBas(S, FIG.theo_dur, t, [1330, 1180], 860, { gunes: [700, -200], adim: 2 }) }; },
-    ust: (ctx, st) => { const te = A('B03@satmak') - st.at, kart = io(clamp((st.lt - te) / .5)); if (kart <= 0) return; const k = io(clamp((st.lt - te - 1.5) / 1.4)), dy = -700 * k, sal = .12 * Math.sin((st.lt - te) * 4) * Math.exp(-1.5 * Math.max(0, st.lt - te));
+    ust: (ctx, st) => { const te = A('B03@başkalarının') - st.at, kart = io(clamp((st.lt - te) / .5)); if (kart <= 0) return; const k = io(clamp((st.lt - te - 1.5) / 1.4)), dy = -700 * k, sal = .12 * Math.sin((st.lt - te) * 4) * Math.exp(-1.5 * Math.max(0, st.lt - te));
       const c = M.camK(B3k(st.u), .72), [x, y] = ekrana(c, 1000, 575 + dy - 26 * (1 - kart)); if (y < -50) return;
       ctx.save(); ctx.globalAlpha = kart; ctx.translate(x, Math.min(y, 860)); ctx.rotate(.08 + sal); ctx.font = `italic 700 ${Math.round(26 * c.zoom)}px 'Cormorant Garamond', serif`; ctx.fillStyle = '#2a1f18'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillText('satıldı', 0, 2); ctx.restore(); } });
   // B04 · ayrinti · MASA: banknotlar zarfa girer, zarf kapanır; aynı hareket üç kez, üç mevsim ışığı (ritim)

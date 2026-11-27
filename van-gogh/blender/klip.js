@@ -31,10 +31,10 @@ const KLIP = {
   jo_dur: { kos: 'jo', poz: t => nefes(I.POZ.dur(YER, Math.PI * .78, { basEgim: .08 }), t, .7) },
   theo_oku: { kos: 'theo', poz: t => nefes(I.POZ.oku([0, -3.6], Math.PI * .85, .76, (t % 8) / 8, { basEgim: .5 }), t, .4) },
   vincent_oku: { kos: 'vincent', poz: t => nefes(I.POZ.oku([0, -3.6], Math.PI * .8, .7, (t % 8) / 8, { basEgim: .55 }), t, .4) },   // G02: beşiğe eğilir (beşik kadraj dışında)
-  // v3: Jo kucağında bebekle (¾, sola dönük: battaniye ve bebeğin başı görünür)
-  jo_bebek: { kos: 'jo_b', poz: t => { const yaw = Math.PI * 1.4, p = nefes(I.POZ.dur(YER, yaw, { basEgim: .32 }), t, .7); p.kol = [{ hedef: nok(YER, yaw, .24, .12, 1.08) }, { hedef: nok(YER, yaw, .27, -.12, 1.14) }]; return p; } },
+  // v3: Jo bebeği omzunda taşır (sırttan ¾; bebeğin başı omzun üstünden görünür)
+  jo_bebek: { kos: 'jo_b', poz: t => { const yaw = Math.PI * .86, p = nefes(I.POZ.dur(YER, yaw, { basEgim: .12, basDon: .15 }), t, .7); p.kol = [{ hedef: nok(YER, yaw, .12, .2, 1.1) }, { hedef: nok(YER, yaw, .14, .1, 1.36) }]; return p; } },
   // v3 G05: Jo beşiğe eğilir (2–3,5 sn arası eğilir, kalır)
-  jo_egil: { kos: 'jo', poz: t => { const yaw = Math.PI * .8, u = sm(2, 3.5, t), p = nefes(I.POZ.dur(YER, yaw, { basEgim: .08 + .45 * u }), t, .5); p.egim = .02 + .42 * u; p.gogusEgim = .1 * u;
+  jo_egil: { kos: 'jo', poz: t => { const yaw = Math.PI * 1.2, u = sm(2, 3.5, t), p = nefes(I.POZ.dur(YER, yaw, { basEgim: .08 + .45 * u }), t, .5); p.egim = .02 + .42 * u; p.gogusEgim = .1 * u;
     p.kol = [{ hedef: lerp3(nok(YER, yaw, .04, .22, .8), nok(YER, yaw, .5, .12, .62), u) }, { hedef: lerp3(nok(YER, yaw, .04, -.22, .8), nok(YER, yaw, .5, -.12, .64), u) }]; return p; } },
   // v3 G05: Theo pencereye (ekranın soluna) döner (2–4 sn)
   theo_don: { kos: 'theo', poz: t => nefes(I.POZ.dur(YER, ARKA + (Math.PI * 1.25 - ARKA) * sm(2, 4, t), { basEgim: .1 }), t) },

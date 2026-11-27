@@ -50,7 +50,7 @@ export function masaKur(M, IMG = {}) {
       { ad: 'yuzey', d: 0, ciz: yuzey, R: [26, 13, 6.5, 3.2, 1.7], T: 10, alfa: (t, du) => (du && du.cekmece === false ? 0 : 1) },
       { ad: 'yuzeyTam', d: 0, ciz: yuzeyTam, R: [26, 13, 6.5, 3.2, 1.7], T: 10, alfa: (t, du) => (du && du.cekmece === false ? 1 : 0) },
       { ad: 'cekmece', d: 0, ciz: cekmece, R: [20, 10, 5, 2.6, 1.5], T: 10, alfa: (t, du) => (du && du.cekmece === false ? 0 : 1) },
-      { ad: 'nesne', d: 0, canli: (t, S, cam, c, du) => { if (du && du.nesneler) for (const it of du.nesneler(t)) nesne(S, it); if (du && du.ust) du.ust(t, S); }, kap: 6000, wet: .15, run: 0 },
+      { ad: 'nesne', d: 0, canli: (t, S, cam, c, du) => { if (du && du.nesneler) for (const it of du.nesneler(t)) nesne(S, it); if (du && du.ust) du.ust(t, S); }, kap: 18000, wet: .15, run: 0 },
       // çekmece kapağı (du.cekmeceAc(t): 1 açık, 0 kapalı): masanın ön kenarından aşağı kayan koyu ahşap; içerisi kapandıkça kaybolur
       // H10b: masada açık sergi kataloğu, sayfada Badem Çiçeği (bugünkü müze; renk örtüyle)
       ...(IMG.badem ? [{ ad: 'katalog', d: 0, ciz: R => { const Pq = (a, b, c, d) => q => { q.moveTo(a, b); q.lineTo(c, b); q.lineTo(c, d); q.lineTo(a, d); q.closePath(); };

@@ -73,6 +73,7 @@ Türkçe cümleler bizim çevirimiz (özgün metin kamu malı). Ekranda özgün 
   - *Rhône Üzerinde Yıldızlı Gece* (`Starry_Night_Over_the_Rhone.jpg`);
   - *Kargalı Buğday Tarlası* (rötuşlu dosya).
   - Müze kaynaklı sürüm bulunmazsa sahne başka tabloyla kurulur.
+- **v3 (27 Kasım):** müze kaynaklı sürümler bulundu ve kullanılıyor: *Rhône Üzerinde Yıldızlı Gece* Google Art Project dosyası (Orsay RF 1975 19; C05) ve *Kırmızı Bağ* Puşkin kaynaklı Commons dosyası (Ж-3372; F06). Gerekçe ve reddedilen kopyalar `araclar/ASSETS.md`'de.
 - **Mezar ve aile fotoğrafları** dosya dosya lisansla okunur (çoğu CC, biri kamu malı).
 
 ## 5. Eksik (senaryodan önce ikinci araştırma turu)

@@ -79,6 +79,12 @@ export function salonKur(M, IMG = {}) {
         const L = cerceveListesi('dolu').filter(f => f.z > -17);   // v3: iki duvar
         return [{ ad: 'g1905', d: .72, ciz: R => L.forEach((f, i) => { const kc = .08; tabloDuvar(IMG[ks[i % ks.length]], f.s, f.z + f.gen / 2 - kc, f.z - f.gen / 2 + kc, f.y + kc, f.y + f.yuk - kc, { maxR: 3, cercevesiz: true, grup: i })(R); }),
           R: [8, 4, 2, 1.3], T: 8, olcek: .75, alfa: (t, du) => (du && du.g1905 ? 1 : 0) }]; })(),
+      // v3 F06: bölme duvarda çerçeveli Kırmızı Bağ (1888; Brüksel'de satılan tuval). Gri dünya; renk örtüyle açılır
+      ...(IMG.kirmizi_bag ? [(() => { const ar = IMG.kirmizi_bag.width / IMG.kirmizi_bag.height, hy = 1.3, hx = hy * ar, [x0, y0] = ekr(-hx / 2, 1.1 + hy, -8), [x1, y1] = ekr(hx / 2, 1.1, -8), k = 14;
+        return { ad: 'bag', d: .72, ciz: R => { const [bx0, by0] = ekr(-2.9, 3.5, -8.05), [bx1, by1] = ekr(2.9, 0, -8.05);
+          R.fill(P([[bx0, by0], [bx1, by0], [bx1, by1], [bx0, by1]]), '#8a8478', { dir: 90, maxR: 8, type: 1, group: 'bagbolme', jit: .05 });
+          R.fill(P([[x0 - k, y0 - k], [x1 + k, y0 - k], [x1 + k, y1 + k], [x0 - k, y1 + k]]), '#2a2420', { dir: 'edge', maxR: 3, type: 1, hgt: .9, group: 'bagcer', jit: .05 });
+          tabloCiz(IMG.kirmizi_bag, x0, y0, x1 - x0, y1 - y0, { maxR: 5, grup: 'bagtablo' })(R); }, R: [10, 5, 2.6, 1.5], T: 8, olcek: .75, alfa: (t, du) => (du && du.bag ? 1 : 0), kutu: [x0, y0, x1 - x0, y1 - y0] }; })()] : []),
       // v3: tek başına bölme duvar (C03, F08, I01b: duvara asılan tuvaller canlı katmanda, cephe düz)
       { ad: 'bolme', d: .72, ciz: R => { const [bx0, by0] = ekr(-2.9, 3.5, -8.05), [bx1, by1] = ekr(2.9, 0, -8.05); R.fill(P([[bx0, by0], [bx1, by0], [bx1, by1], [bx0, by1]]), '#8a8478', { dir: 90, maxR: 8, type: 1, group: 'bolme2', jit: .05 });
           R.line(c => { c.moveTo(bx0, by0); c.lineTo(bx1, by0); }, '#3a342c', 8, { dir: 0, maxR: 2, type: 1, group: 'bolmeust', jit: .03 }); }, R: [12, 6, 3, 1.6], T: 9, alfa: (t, du) => (du && du.bolme ? 1 : 0) },

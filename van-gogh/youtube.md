@@ -29,6 +29,8 @@ Görseller (kamu malı)
 Vincent van Gogh'un tabloları, müzelerin kamu malı görüntüleri (CC0 ya da PD-Art):
 - Badem Çiçeği (1890), Sarı Ev (1888), Yatak Odası (1888), Fırtınalı Gök Altında Buğday Tarlası (1890): Van Gogh Museum, Amsterdam (Vincent van Gogh Foundation)
 - Yıldızlı Gece (1889): The Museum of Modern Art, New York
+- Rhône Üzerinde Yıldızlı Gece (1888): Musée d'Orsay, Paris
+- Kırmızı Bağ (1888): Puşkin Devlet Güzel Sanatlar Müzesi, Moskova
 - Hasır Şapkalı Otoportre (1887), Selviler (1889), Selvili Buğday Tarlası (1889), Zeytin Ağaçları (1889), Vazoda İrisler (1890), Güller (1890): The Metropolitan Museum of Art, New York
 - İrisler (1889): J. Paul Getty Museum, Los Angeles
 - Şairin Bahçesi (1888): Art Institute of Chicago

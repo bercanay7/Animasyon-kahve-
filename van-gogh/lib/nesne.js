@@ -11,6 +11,7 @@ function govde(S, it, c, o = {}) {
   // üst üste binen, yönü ve tonu hafif oynayan darbeler; kenarda saydamlaşır (kesik bant değil, boyanmış kâğıt)
   const w = it.w, h = it.h, sd = it.tohum || 0, al = (it.a ?? 1) * (o.a ?? 1), wid = o.wid || Math.max(8, Math.min(26, h / 3.2));
   const ton = 1 + (hsh(sd, 91) - .5) * (o.tonOyna ?? .12), sic = (hsh(sd, 92) - .5) * .05;   // nesneye özgü ton ve sıcaklık
+  { const [x, y] = rot(it, 0, 0); S.push({ x, y, ang: it.rot || 0, len: w * .985, wid: h * .985, c: c.map(q => q * ton * .97), c2: c.map(q => q * ton * .94), seed: sd * 17 + 3, type: KNIFE, alpha: al, hgt: (o.hgt ?? .3) * .6 }); }   // v3: alt kat (darbe aralığından gölge sızıp kenarı tırtıklı gösteriyordu)
   const sat = Math.max(2, Math.ceil(h / (wid * .62))), uz = Math.max(30, Math.min(140, w * .55)), n = Math.max(2, Math.ceil(w / (uz * .62)));
   for (let j = 0; j < sat; j++) for (let i = 0; i < n; i++) {
     // v3: satırlar kayık, boylar düzensiz (tuğla dizisi okunuyordu)
@@ -25,8 +26,8 @@ function kenar(S, it, c, k = .78) {
   const w = it.w, h = it.h, sd = it.tohum || 0, al = (it.a ?? 1) * .8;
   for (const [u0, v0, u1, v1] of [[-w / 2, -h / 2, w / 2, -h / 2], [w / 2, -h / 2, w / 2, h / 2], [w / 2, h / 2, -w / 2, h / 2], [-w / 2, h / 2, -w / 2, -h / 2]]) {
     const L = Math.hypot(u1 - u0, v1 - v0), n = Math.max(1, Math.round(L / 40));
-    for (let i = 0; i < n; i++) { if (hsh(sd, i, u0 + v0) < .25) continue; const a = (i + .5) / n, [x, y] = rot(it, u0 + (u1 - u0) * a, v0 + (v1 - v0) * a);
-      S.push({ x, y, ang: (it.rot || 0) + Math.atan2(v1 - v0, u1 - u0), len: L / n * (.8 + .4 * hsh(sd, i, 3)), wid: 1.8, c: c.map(q => q * k), c2: c.map(q => q * k * .9), seed: sd * 13 + i, type: KNIFE, alpha: al, hgt: .25 }); }
+    for (let i = 0; i < n; i++) { const a = (i + .5) / n, [x, y] = rot(it, u0 + (u1 - u0) * a, v0 + (v1 - v0) * a);   // v3: boşluksuz (kesik koyu kenar tırtıklı okunuyordu)
+      S.push({ x, y, ang: (it.rot || 0) + Math.atan2(v1 - v0, u1 - u0), len: L / n * 1.08, wid: 1.5, c: c.map(q => q * k), c2: c.map(q => q * k * .9), seed: sd * 13 + i, type: KNIFE, alpha: al, hgt: .25 }); }
   }
 }
 function cizgi(S, it, u0, v0, u1, v1, c, w = 2, al = .8, sd = 0) {
@@ -46,7 +47,7 @@ function golge(S, it) {
   if (!it.kalk && !it.golge) return;
   const k = it.kalk || 0, [x, y] = [it.x + 8 + 30 * k, it.y + 10 + 40 * k], a0 = (.32 - .2 * k) * (it.a ?? 1);
   // v3: yuvarlak DAB kâğıdın arkasından yarım daire disk taşırıyordu; dikdörtgen, kenara doğru üç kat
-  for (const [p, f] of [[0, .45], [10, .3], [22, .2]]) S.push({ x, y, ang: it.rot || 0, len: it.w * (1 + .1 * k) + p, wid: it.h * (1 + .1 * k) + p, c: [.05, .04, .035], c2: [.05, .04, .035], seed: (it.tohum || 0) + 77 + p, type: KNIFE, alpha: a0 * f, hgt: 0 });
+  for (const [p, f] of [[0, .45], [10, .3], [22, .2]]) S.push({ x: x + p / 2, y: y + p / 2, ang: it.rot || 0, len: it.w * (1 + .1 * k) + p, wid: it.h * (1 + .1 * k) + p, c: [.05, .04, .035], c2: [.05, .04, .035], seed: (it.tohum || 0) + 77 + p, type: KNIFE, alpha: a0 * f, hgt: 0 });
 }
 export function nesne(S, it) {
   if ((it.a ?? 1) <= .01) return;
