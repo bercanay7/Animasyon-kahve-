@@ -20,6 +20,7 @@ Bu dosya her oturuma kendiliğinden yüklenir. Bu yüzden içinde yalnız **bug�
   - Önerilerini öneri olarak verir; uzman gözüyle tartılmalarını bekler ("karar sana ait", "sen patronsun").
   - Uymayan öneri gerekçesiyle geri çevrilir, uygunsa sonraki işe not edilir. Onu memnun etmek için öneri kabul edilmez.
 - **Yayın:** YouTube Studio'da kullanıcı elle yapar.
+  - YouTube'un "değiştirilmiş veya yapay içerik" sorusu kullanıcının kararı. Başkan, gerçekçi insan canlandırmasında YouTube kuralına göre ne gerektiğini `yayin.md`'ye öneri olarak yazar.
   - Dosyalar `SendUserFile` ile gönderilir; her video için adım adım bir `yayin.md` yazılır.
   - **Takvim (23 Kasım):** dört günde bir uzun video, 18:00. Narkissos 24 Kasım, Dorian Gray 28 Kasım, Gılgamış 2 Aralık, Lale Çılgınlığı 6 Aralık.
   - Önceki videonun 48. saat ölçümü yeni video yayına girmeden alınır.
@@ -96,11 +97,12 @@ Bu dosya her oturuma kendiliğinden yüklenir. Bu yüzden içinde yalnız **bug�
    - Whisper yoksa cümle düzeyinde hizalama: `narkissos/tools/hizala_cumle.py`.
    - Tek cümle düzeltmesi tüm seslendirmeyi yenilemeden: `mary-stuart/tools/yama_vo.py`.
    - Kesim gerçek duraklamada yapılır.
-7. **Üslup ve motor:** önce kendi motorlarımız (gravür `milton/lib`, vazo `sisifos/lib`/`prometheus`, kâğıt kesme `orfeus`, ağaç baskı `kafka`, mürekkep `ran`, sessiz film `mary-stuart`, karma üslup `dorian-gray`). Uymazsa cinecode tarifleri (`.claude/skills/cinecode/styles/`, önce `BIZIM_NOT.md`), sonra `araclar/lemo/KATALOG.md`.
+7. **Üslup ve motor (kullanıcının kararı, 27 Kasım):** kalite önce gelir. Hazır yüksek kaliteli varlıklar (insan modelleri, giysi, dokular, HDRI) ve ekran kartlı Blender ya da three.js tercih edilir. Kullanıcı bilgisayarını (GPU) Remote Control ile verir. Yüz, gerçekçi insan ve fiziksel ışık serbest. Koyu siluet, yüzsüz figür ve "kendi motorumuzla çiz" kısıtları kalktı; eski motorlar yalnız işe yaradıkları yerde kullanılır.
+   - Eski sıra (arşiv): önce kendi motorlarımız (gravür `milton/lib`, vazo `sisifos/lib`/`prometheus`, kâğıt kesme `orfeus`, ağaç baskı `kafka`, mürekkep `ran`, sessiz film `mary-stuart`, karma üslup `dorian-gray`). Uymazsa cinecode tarifleri (`.claude/skills/cinecode/styles/`, önce `BIZIM_NOT.md`), sonra `araclar/lemo/KATALOG.md`.
    - Lemo belgeleri CC BY-NC: okunur, depoya kopyalanmaz. Kodu MIT.
-   - Motor yazmak en pahalı aşama; hazır motor işe yarıyorsa yenisi yazılmaz.
+   - Hazır varlık ve araç, kendi yazdığımız motordan önce gelir.
    - **Üslup kapısı** tek kare değil: manzara + orta plan figür + yakın plan + 15 sn hareket.
-   - Kodla çizimin zayıf yanı yüz, el ve karmaşık beden hareketi. Güçlü yanı siluet, profil, ışık, dönüşüm. Fikir görüntünün kuralı olabilir: Dorian'da yalnız tablo renkliydi, Kafka'da böcek hiç görünmedi.
+   - Fikir yine görüntünün kuralı olabilir (Dorian'da yalnız tablo renkliydi, Kafka'da böcek hiç görünmedi); ama kısıt kaliteden ödün olarak kullanılmaz.
 8. **Animasyon:** Canvas 2D / WebGL2. Her çekim bir cümleye (`S('B04')`) ya da kelimeye (`Wd('B04','kelime')`) bağlanır; ses değişince görüntü kendiliğinden kayar (çekim sistemi `film.js`; en yenisi `lale-cilginligi/lib/film.js`). Görüntü kuralları aşağıda.
 9. **Ses:** müzik her videonun tonuna göre o video için yazılır; seri ya da kategori kuralı yok (20 Kasım). Efektler ayrıca üretilir.
    - Miks: konuşmanın altında kısma; -14 LUFS, -1 dBTP.
@@ -152,11 +154,9 @@ Kanıt sayıları `analiz/2026-11-22-genel-karsilastirma.md` dosyasında. Yeni v
 - **Yazı levhası:** plan başına ≤ 8 sn ve toplamda filmin beşte birini geçmez. Boş kâğıt ≤ 2 sn.
 - **Geçiş:** aynı mekânda kesme. Yumuşak geçiş yalnız mekân ya da zaman sıçramasında, kısa ve sessizlikte. İki levha saydamlıkla karıştırılmaz (gri üretir).
 - **Palet ya da geçiş değişimi** sözcüğe bağlanır ve plan içinde olur.
-- **Ana figür koyu siluettir;** iç çizgisiz açık figür "kâğıt kesme" okunur.
-  - Gövde kutu olmaz.
-  - Kollar ayrı yolla çizilir.
-  - Yakın planda baş kadrajın içinde kalır.
-- **Karikatür okuması:** koyu siluet + bembeyaz göz + kıvırcık yuvarlak baş + çıkık ağız birleşimi kullanılmaz. Göz küçük ve sıcak tonda olur.
+- **Figür (27 Kasım'dan beri):** yüzlü, giysili, iyi modellenmiş insan (hazır model + riglenmiş hareket). Eski "koyu siluet, yüzsüz" kuralı kalktı.
+  - Hâlâ geçerli: gövde kutu olmaz; yakın planda baş kadrajın içinde kalır; karikatür yüz (bembeyaz göz + çıkık ağız) yok.
+  - Yaşayan bir kişiye, oyuncuya ya da telifli karaktere benzeyen yüz yok (hukuk). Tarihî kişi portrelerden canlandırılabilir.
 - **Yürüyen, koşan ya da bir şey taşıyan figür** `araclar/hareket/` ile çizilir (ayak kaymaz; `serit.js` kanıt şeridi).
 - **Ekran yazısı ve künye alt banda (y > 880) konmaz;** orası altyazının yeri.
   - Kod taramasıyla değil ölçümle denetlenir: `lale-cilginligi/tools/alt_bant.js` her planda çizilen bütün yazıların y'sini ölçer.
@@ -183,7 +183,7 @@ Kanıt sayıları `analiz/2026-11-22-genel-karsilastirma.md` dosyasında. Yeni v
 - **Kapak yazısı da taranır.** Türkçe kelime tuzaklarına dikkat: "dönme" argo okunur, "ŞEYTAN AĞLADI" vaaz gibi okunur.
 - **Atatürk:** 5816 ve saygı kuralları; ona söz ya da düşünce uydurulmaz. **Türk bayrağı** 2893'e göre çizilir: `cumhuriyet/lib/act6.js` → `a6_flagImg`.
 - **Film videoları:** film görüntüsü yok, oyuncuya benzeyen gerçekçi çizim yok, telifli karakter tasarımı kopyası yok, filmden diyalog yok. Fikir kendi animasyonumuzla anlatılır.
-- **Gerçek görseller** yalnız CC0 ya da kamu malı.
+- **Dış varlıklar (27 Kasım'dan beri):** ticari kullanıma izin veren her lisans: CC0, kamu malı, CC BY (açıklamada atıf), Mixamo, Sketchfab/Fab Standard, kullanıcının satın aldığı paketler. NC (ticari olmayan) lisans hâlâ yasak (kanal para kazanıyor). Lisansı doğrulanamayan varlık kullanılmaz.
   - Kayıt yerleri: `araclar/ASSETS.md`, proje kaynak kaydı ve açıklamadaki künye.
   - Dışarıdan eklenen her varlıkta `lisans-kontrol` becerisi kullanılır.
   - Kaynaklar: Met Open Access API (`isPublicDomain`). Commons'ta oran sınırı var.
