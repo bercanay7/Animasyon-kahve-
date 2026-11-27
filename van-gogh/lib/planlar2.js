@@ -112,7 +112,7 @@ export function planlar2(M, IMG, FIG, H) {
   plan({ id: 'D07', at: 'D07', sahne: 'masa', olcek: 'orta', not: 'Jo çekmeceyi açar: mektuplarla dolu',
     kamera: kamYol([1000, 700, 1.55], [960, 760, 1.25]),   // A03'ün kamerasından açılır (çerçeve kapanır ve yeniden açılır)
     durum: st => { const ta = cIdx(st, 'D07@açar'); return { nesneler: () => D7g, cekmeceAc: t => .07 + .93 * io(clamp((t - ta) / 1.1)),
-      golge: (t, S) => figurBas(S, FIG.jo_dur, t, [1380, 2900], 3000, { golge: .36 * (1 - sm(st.d - 1.5, st.d, t)), adim: 4, temas: false }) }; } });
+      golge: (t, S) => figurBas(S, FIG.jo_dur, t, [1640, 2900], 3000, { golge: .2 * (1 - sm(st.d - 1.5, st.d, t)), adim: 2, temas: false }) }; } });
   // D07b · yakin · MASA: "Sonra hafta hafta": filmin ilk sarı zarfları gri yığının üstüne düşer, çekmece kabarır
   const D7s = yigin(26, { tohum: 430, dy: 160, kat: .8 });
   plan({ id: 'D07b', at: 'D07@sonra', sahne: 'masa', olcek: 'yakin', not: 'Sarı zarflar başlar (ilk kez)',
@@ -185,7 +185,7 @@ export function planlar2(M, IMG, FIG, H) {
   // G02 · yakin · ODA: beşiğin önünde iki erkek sırtı (yüz yok; "gözleri yaşlı" seste kalır)
   plan({ id: 'G02', at: 'G02', sahne: 'oda', olcek: 'yakin', not: 'İki kardeş yan yana, beşik kadraj dışında',
     kamera: kamYol([1000, 640, 1.7], [1000, 650, 1.76], u => u),
-    durum: st => ({ tablo: 'oda_guller', isik: 'sabah', figur: (t, S) => { figurBas(S, FIG.theo_dur, t, [780, 1300], 900, { gunes: [300, 200], adim: 2 }); figurBas(S, FIG.vincent_dur, t + 1.5, [1220, 1300], 900, { gunes: [300, 200], adim: 2 });   // ayakta (eğik ikili namaz safı okunuyordu) } }) });
+    durum: st => ({ tablo: 'oda_guller', isik: 'sabah', figur: (t, S) => { figurBas(S, FIG.theo_dur, t, [780, 1300], 900, { gunes: [300, 200], adim: 2 }); figurBas(S, FIG.vincent_dur, t + 1.5, [1220, 1300], 900, { gunes: [300, 200], adim: 2 }); /* ayakta: eğik ikili namaz safı okunuyordu */ } }) });
   // G03 · orta · TARLA: tarla kenarında şövale; tuval hızlı kesmelerle gün gün değişir (Auvers 1890 işleri, renkli)
   const AUV = Object.keys(IMG).filter(k => k.startsWith('auvers')).sort();
   plan({ id: 'G03', at: 'G03', sahne: 'tarla', olcek: 'orta', not: 'Auvers: neredeyse her gün bir eser',
