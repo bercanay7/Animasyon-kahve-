@@ -118,3 +118,7 @@ Türkçe cümleler bizim çevirimiz (özgün metin kamu malı). Ekranda özgün 
 - "Auvers'ten ilk kez Fransızca yazdı" (zaten Fransızca yazıyordu).
 - Arles–Paris posta süresi kaynakta yok; "bir iki gün" denmez.
 - Theo'nun mezarlığının adı.
+
+## 7. Sergi duvarları (v3, 27 Kasım)
+- 1888 Bağımsızlar (22 Mart – 3 Mayıs): F316, F350, F359 (vangoghletters 582 n. 9; katalog no. 658–660).
+- 1890 Bağımsızlar (20 Mart – 27 Nisan): on eser (854 n. 7; katalog no. 832–841). F517 "büyük olasılıkla"; Ayçiçekleri F454 ya da F456 (not karar vermiyor; açıklamada belirtildi). F609 kayıp, yalnız siyah-beyaz fotoğrafı var.

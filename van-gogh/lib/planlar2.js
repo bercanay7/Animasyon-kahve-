@@ -65,8 +65,8 @@ export function planlar2(M, IMG, FIG, H) {
         nesneler: t => L.map(i => { const a = u(st, t, i); if (a <= 0) return null; const [x, y, w, h] = sergiRect(kume, i, IMG); return { tur: 'cerceve', bos: true, x: x + w / 2, y: y + h / 2, w: w + 14, h: h + 14, cer: 8, tohum: 140 + i, a, golge: true }; }).filter(Boolean) }),
       maske: (st, kam) => { const c = M.camK(kam, .72); for (const i of L) { const [x, y, w, h] = sergiRect(kume, i, IMG); mRect(c, x, y, w, h, u(st, st.lt, i), 1); } } }; };
   const C3s = sergiPlan('s88', st => cIdx(st, 'C03@üç') - .2, st => cIdx(st, 'C03@üç') + 1.0);
-  plan({ id: 'C03', at: 'C03', sahne: 'salon', olcek: 'genis', not: 'Bağımsızlar 1888: üç tablo asılır (renkli)',
-    kamera: kamYol([960, 520, 1.12], [960, 510, 1.24], u => u), durum: C3s.durum, maske: C3s.maske });
+  plan({ id: 'C03', at: 'C03', sahne: 'salon', olcek: 'yakin', not: 'Bağımsızlar 1888: üç tablo asılır (renkli)',
+    kamera: kamYol([960, 480, 1.55], [960, 472, 1.72], u => u), durum: C3s.durum, maske: C3s.maske });
   // C04 · orta · SARI EV (tablo dünyası, gri): siluet kapıyı açar; "sarı"da renk evden yayılır (plan içinde palet değişimi)
   tabloPlan('C04', 'C04', 'sari_ev', 'orta', 'Sarı ev: "sarı"da renk', kamYol([980, 560, 1.12], [1000, 540, 1.2], u => u),
     { renk: st => { const ts = cIdx(st, 'C04@sarı'); return 0; },
@@ -213,7 +213,7 @@ export function planlar2(M, IMG, FIG, H) {
   // F08 · genis · SALON (Bağımsızlar 1890, v3): C03'ün bölme duvarı; on gri çerçeve birer birer asılır (C03'te üçtü; önleri gösterilmez)
   const F8s = sergiPlan('s90', st => cIdx(st, 'F08@bağımsızlar'), st => cIdx(st, 'F08@tablosunu') + .4);
   plan({ id: 'F08', at: 'F08', sahne: 'salon', olcek: 'genis', not: 'Bağımsızlar 1890: on tablo asılır (renkli)',
-    kamera: kamYol([960, 470, 1.2], [960, 465, 1.3], u => u), durum: F8s.durum, maske: F8s.maske });
+    kamera: kamYol([960, 468, 1.36], [960, 464, 1.48], u => u), durum: F8s.durum, maske: F8s.maske });
 
   // ================= G: Auvers'te bir yaz =================
   // G01 · orta · ODA (sabah): hasır şapkalı siluet; beşik önde
