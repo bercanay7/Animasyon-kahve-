@@ -58,6 +58,14 @@ export function tabloDuvar(img, s, z0, z1, y0, y1, o = {}) {
   };
 }
 export const SALON = { ekr, GX, GY, Z0, Z1 };
+// v3: sergi duvarındaki gerçek tablolar (C03: 1888 Bağımsızlar, 3 eser, vangoghletters 582 n. 9; F08: 1890 Bağımsızlar, 10 eser, 854 n. 7).
+//   Her tablo kendi oranında; dikdörtgen dünya koordinatı (bölme duvar, d .72)
+export const SERGI = { s88: ['sergi88_1', 'sergi88_2', 'sergi88_3'], s90: ['selviler', 'remy3', 'sergi90_ravine', 'sergi90_kestane', 'sergi90_dut', 'sergi90_sarmasik', 'sergi90_gundogumu', 'sergi90_aycicek', 'sergi90_dagli', 'sergi90_zeytin'] };
+export function sergiRect(kume, i, IMG) {
+  const im = IMG[SERGI[kume][i]], ar = im ? im.width / im.height : 1.27;
+  const [cx, cy, wm, hm] = kume === 's88' ? [[760, 960, 1160][i], 470, 168, 128] : [620 + (i % 5) * 170, i < 5 ? 380 : 545, 146, 112];
+  let w = wm, h = w / ar; if (h > hm) { h = hm; w = h * ar; } return [cx - w / 2, cy - h / 2, w, h];
+}
 export function salonKur(M, IMG = {}) {
   const [ax, ay] = ekr(-1.6, 4.4, -45.8), [bx, by] = ekr(1.6, 1.4, -45.8);
   M.tanimla('salon', {
@@ -88,6 +96,8 @@ export function salonKur(M, IMG = {}) {
       // v3: tek başına bölme duvar (C03, F08, I01b: duvara asılan tuvaller canlı katmanda, cephe düz)
       { ad: 'bolme', d: .72, ciz: R => { const [bx0, by0] = ekr(-2.9, 3.5, -8.05), [bx1, by1] = ekr(2.9, 0, -8.05); R.fill(P([[bx0, by0], [bx1, by0], [bx1, by1], [bx0, by1]]), '#8a8478', { dir: 90, maxR: 8, type: 1, group: 'bolme2', jit: .05 });
           R.line(c => { c.moveTo(bx0, by0); c.lineTo(bx1, by0); }, '#3a342c', 8, { dir: 0, maxR: 2, type: 1, group: 'bolmeust', jit: .03 }); }, R: [12, 6, 3, 1.6], T: 9, alfa: (t, du) => (du && du.bolme ? 1 : 0) },
+      ...Object.entries(SERGI).flatMap(([kume, L]) => L.map((k, i) => (IMG[k] ? { ad: 'sg_' + kume + i, d: .72, ciz: tabloCiz(IMG[k], ...sergiRect(kume, i, IMG), { maxR: 3, grup: 'sg' + kume + i }), R: [6, 3, 1.6], T: 8, olcek: .75,
+        alfa: (t, du) => (du && du.sergi && du.sergi[kume] ? du.sergi[kume](i, t) : 0) } : null)).filter(Boolean)),
       { ad: 'nesne', d: .72, canli: (t, S, c, x, du) => { if (du && du.nesneler) for (const it of du.nesneler(t)) nesne(S, it); }, kap: 2000, wet: .15, run: 0 },
       { ad: 'figur', d: .72, canli: (t, S, c, x, du) => { if (du && du.figur) du.figur(t, S); }, kap: 16000, wet: .2, run: 0 },
       { ad: 'ust', d: .72, canli: (t, S, c, x, du) => { if (du && du.ust) du.ust(t, S); }, kap: 4000, wet: .2, run: 0 },

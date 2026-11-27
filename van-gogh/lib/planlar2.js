@@ -2,7 +2,7 @@
 import { W, A, S, Se, plan, sm, clamp, lerp, io, hsh, ikiser, mRect, mDaire, mTam, mx, MW, ekrana } from './film_t.js';
 import { nesneMaske, nesne } from './nesne.js';
 import { tuvalK } from './set_masa.js';
-import { SALON, cerceveListesi } from './set_salon.js';
+import { SALON, cerceveListesi, SERGI, sergiRect } from './set_salon.js';
 import { ODA, TK } from './set_oda.js';
 import { BRUSH, DAB, KNIFE } from '../../araclar/tablo/impasto.js';
 
@@ -58,10 +58,15 @@ export function planlar2(M, IMG, FIG, H) {
     maske: (st, kam) => { const ty = cIdx(st, 'C02@yollar'), ti = cIdx(st, 'C02@ikincisi'), t = st.lt, k = t < ti ? io(clamp((t - ty + .5) / 1.0)) : 1 - io(clamp((t - ti) / 1.2)); nesneMaske(M.camK(kam, 0), { x: 960 + 1300 * k, y: 430, w: 400, h: 250, rot: -.04 + .12 * k }); } });
   // C03 · genis · SALON (Bağımsızlar 1888, v3): cepheden bölme duvar; "üç"te üç gri çerçeve birer birer asılır (önleri gösterilmez; hangi tablolar olduğu iddia edilmez)
   //   F08'de aynı duvara on çerçeve asılır (eşleme). Yürüyen figür ve kopuk gölgesi kaldırıldı.
-  const C3 = [760, 960, 1160].map((x, i) => ({ tur: 'cerceve', x, y: 470, w: 150, h: 118, tohum: 140 + i, ic: [.5 + .04 * i, .48, .43], cer: 9 }));
-  plan({ id: 'C03', at: 'C03', sahne: 'salon', olcek: 'genis', not: 'Bağımsızlar 1888: üç tablo asılır',
-    kamera: kamYol([960, 520, 1.12], [960, 510, 1.24], u => u),
-    durum: st => { const tu = cIdx(st, 'C03@üç'); return { duvar: 'seyrek', bolme: true, nesneler: t => C3.map((c, i) => { const u = io(clamp((t - tu + .2 - i * .4) / .45)); return u > 0 ? { ...c, y: c.y - 40 * (1 - u), a: u, kalk: .3 * (1 - u), golge: true } : null; }).filter(Boolean) }; } });
+  // v3: gri yer tutucu yerine sergilenen gerçek tablolar (1888: Moulin de la Galette'in arkası, Montmartre bostanları, Romans parisiens; renkli: Vincent'in tablosu)
+  const sergiPlan = (kume, tA, tB) => { const L = SERGI[kume].map((k, i) => (IMG[k] ? i : -1)).filter(i => i >= 0), n = SERGI[kume].length;
+    const u = (st, t, i) => io(clamp((t - tA(st) - (tB(st) - tA(st)) * i / n) / .35));
+    return { durum: st => ({ duvar: 'seyrek', bolme: true, sergi: { [kume]: (i, t) => u(st, t, i) },
+        nesneler: t => L.map(i => { const a = u(st, t, i); if (a <= 0) return null; const [x, y, w, h] = sergiRect(kume, i, IMG); return { tur: 'cerceve', bos: true, x: x + w / 2, y: y + h / 2, w: w + 14, h: h + 14, cer: 8, tohum: 140 + i, a, golge: true }; }).filter(Boolean) }),
+      maske: (st, kam) => { const c = M.camK(kam, .72); for (const i of L) { const [x, y, w, h] = sergiRect(kume, i, IMG); mRect(c, x, y, w, h, u(st, st.lt, i), 1); } } }; };
+  const C3s = sergiPlan('s88', st => cIdx(st, 'C03@üç') - .2, st => cIdx(st, 'C03@üç') + 1.0);
+  plan({ id: 'C03', at: 'C03', sahne: 'salon', olcek: 'genis', not: 'Bağımsızlar 1888: üç tablo asılır (renkli)',
+    kamera: kamYol([960, 520, 1.12], [960, 510, 1.24], u => u), durum: C3s.durum, maske: C3s.maske });
   // C04 · orta · SARI EV (tablo dünyası, gri): siluet kapıyı açar; "sarı"da renk evden yayılır (plan içinde palet değişimi)
   tabloPlan('C04', 'C04', 'sari_ev', 'orta', 'Sarı ev: "sarı"da renk', kamYol([980, 560, 1.12], [1000, 540, 1.2], u => u),
     { renk: st => { const ts = cIdx(st, 'C04@sarı'); return 0; },
@@ -206,10 +211,9 @@ export function planlar2(M, IMG, FIG, H) {
     ust: (ctx, st) => { const td = cIdx(st, 'F07@deftere'), k = M.camK(F7k(st.u), 0), [x, y] = ekrana(k, 1080, 540);
       murekkep(ctx, 'Bruxelles — 400 fr.', x - 90 * k.zoom, y, 48 * k.zoom, clamp((st.lt - td + .2) / 1.4), 'left'); } });
   // F08 · genis · SALON (Bağımsızlar 1890, v3): C03'ün bölme duvarı; on gri çerçeve birer birer asılır (C03'te üçtü; önleri gösterilmez)
-  const F8 = Array.from({ length: 10 }, (_, i) => ({ tur: 'cerceve', x: 620 + (i % 5) * 170, y: i < 5 ? 380 : 545, w: 136, h: 108, tohum: 540 + i, ic: [.46 + .08 * hsh(i, 1), .44 + .06 * hsh(i, 2), .4], cer: 8 }));
-  plan({ id: 'F08', at: 'F08', sahne: 'salon', olcek: 'genis', not: 'Bağımsızlar 1890: on tablo asılır',
-    kamera: kamYol([960, 500, 1.2], [960, 495, 1.3], u => u),
-    durum: st => { const t0 = cIdx(st, 'F08@bağımsızlar'), t1 = cIdx(st, 'F08@tablosunu'); return { duvar: 'seyrek', bolme: true, nesneler: t => F8.map((c, i) => { const u = io(clamp((t - t0 - (t1 - t0 + .4) * i / 10) / .35)); return u > 0 ? { ...c, y: c.y - 30 * (1 - u), a: u, kalk: .3 * (1 - u), golge: true } : null; }).filter(Boolean) }; } });
+  const F8s = sergiPlan('s90', st => cIdx(st, 'F08@bağımsızlar'), st => cIdx(st, 'F08@tablosunu') + .4);
+  plan({ id: 'F08', at: 'F08', sahne: 'salon', olcek: 'genis', not: 'Bağımsızlar 1890: on tablo asılır (renkli)',
+    kamera: kamYol([960, 470, 1.2], [960, 465, 1.3], u => u), durum: F8s.durum, maske: F8s.maske });
 
   // ================= G: Auvers'te bir yaz =================
   // G01 · orta · ODA (sabah): hasır şapkalı siluet; beşik önde

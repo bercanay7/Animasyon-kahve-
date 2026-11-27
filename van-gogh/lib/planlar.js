@@ -25,7 +25,11 @@ const GORSEL = {
   sari_ev: AD + 'sari_ev_1888_vgm_f464_gap.jpg',
   badem: AD + 'badem_cicegi_1890_vgm_s0176V1962.jpg',
   sairin_bahcesi: AD + 'sairin_bahcesi_1888_arles_aic14586.jpg',
-  rhone: 'gorsel/aday_v3/rhone_yildizli_gece_1888_orsay.jpg', kirmizi_bag: 'gorsel/aday_v3/kirmizi_bag_1888_pushkin.jpg',   // v3: Commons PD-Art (Google Art Project / Puşkin); ASSETS.md
+  rhone: 'gorsel/aday_v3/rhone_yildizli_gece_1888_orsay.jpg',
+  // v3: sergilenen eserler (C03 1888, F08 1890; vangoghletters 582 n. 9, 854 n. 7; künye ASSETS.md)
+  sergi88_1: 'gorsel/aday_v3/sergi88_1_montmartre_moulin_f316.jpg', sergi88_2: 'gorsel/aday_v3/sergi88_2_montmartre_bostan_f350.jpg', sergi88_3: 'gorsel/aday_v3/sergi88_3_romans_parisiens_f359.jpg',
+  sergi90_ravine: 'gorsel/aday_v3/sergi90_ravine_f662.jpg', sergi90_kestane: 'gorsel/aday_v3/sergi90_kestane_f517.jpg', sergi90_dut: 'gorsel/aday_v3/sergi90_dut_f637.jpg', sergi90_sarmasik: 'gorsel/aday_v3/sergi90_sarmasik_f609.jpg',
+  sergi90_gundogumu: 'gorsel/aday_v3/sergi90_gundogumu_f737.jpg', sergi90_aycicek: 'gorsel/aday_v3/sergi90_aycicek_f454.jpg', sergi90_dagli: 'gorsel/aday_v3/sergi90_dagli_f611.jpg', sergi90_zeytin: 'gorsel/aday_v3/sergi90_zeytin_f586.jpg', kirmizi_bag: 'gorsel/aday_v3/kirmizi_bag_1888_pushkin.jpg',   // v3: Commons PD-Art (Google Art Project / Puşkin); ASSETS.md
   remy4: AD + 'alpiller_iki_kavak_1889_saintremy_cma1958.32.jpg', remy5: AD + 'vazoda_irisler_1890_saintremy_met436528.jpg', remy6: AD + 'guller_1890_saintremy_met436534.jpg', oda_guller: AD + 'guller_1890_saintremy_met436534.jpg',
 };
 export async function gorselYukle() {

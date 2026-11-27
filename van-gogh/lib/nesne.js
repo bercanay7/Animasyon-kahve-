@@ -83,8 +83,8 @@ export function nesne(S, it) {
     cizgi(S, it, 0, -it.h / 2, 0, it.h / 2, [.5, .45, .38], 2, .6);
   } else if (t === 'cerceve') {
     // v3: duvardaki çerçeveli tablo (gri, adlandırılmaz): koyu çerçeve + boyalı yüz (yatay ve dikey düzensiz darbeler; halka ya da çapraz yok)
-    const c = it.ic || [.5, .48, .44]; govde(S, it, c, { wid: Math.max(6, it.h / 9), tonOyna: .3, hgt: .45 });
-    for (let q = 0; q < 6; q++) { const [x, y] = rot(it, (hsh(it.tohum, q) - .5) * it.w * .7, (hsh(it.tohum, q, 2) - .5) * it.h * .6); S.push({ x, y, ang: (it.rot || 0) + (hsh(q, it.tohum) - .5) * .6, len: it.w * (.15 + .2 * hsh(q, 3)), wid: it.h * .08, c: c.map(v => v * (.7 + .5 * hsh(q, it.tohum, 4))), seed: it.tohum * 9 + q, type: BRUSH, alpha: .8 * (it.a ?? 1), hgt: .4 }); }
+    const c = it.ic || [.5, .48, .44]; if (!it.bos) govde(S, it, c, { wid: Math.max(6, it.h / 9), tonOyna: .3, hgt: .45 });   // bos: yalnız çerçeve (içi gerçek tablo katmanı)
+    if (!it.bos) for (let q = 0; q < 6; q++) { const [x, y] = rot(it, (hsh(it.tohum, q) - .5) * it.w * .7, (hsh(it.tohum, q, 2) - .5) * it.h * .6); S.push({ x, y, ang: (it.rot || 0) + (hsh(q, it.tohum) - .5) * .6, len: it.w * (.15 + .2 * hsh(q, 3)), wid: it.h * .08, c: c.map(v => v * (.7 + .5 * hsh(q, it.tohum, 4))), seed: it.tohum * 9 + q, type: BRUSH, alpha: .8 * (it.a ?? 1), hgt: .4 }); }
     const f = it.cer ?? Math.max(8, it.w * .06), cc = [.16, .12, .09], w = it.w, h = it.h;
     for (const [u0, v0, u1, v1] of [[-w / 2, -h / 2, w / 2, -h / 2], [w / 2, -h / 2, w / 2, h / 2], [w / 2, h / 2, -w / 2, h / 2], [-w / 2, h / 2, -w / 2, -h / 2]]) cizgi(S, it, u0, v0, u1, v1, cc, f, 1, it.tohum + u0);
   } else if (t === 'tuvalsirt') {
