@@ -1,0 +1,847 @@
+{
+ "voice": "Emrullah (ElevenLabs; voice_id creative_list_voices ile bulunur)",
+ "revizyon": "taslak C",
+ "not": "Yapı C, para ve inanç sayımı: her bölüm bir zarf ve bir tutarla açılır ve 'bu para neyi satın aldı?' diye sorar. A kanca (Paris 1889, kapak A'nın odası; kapıdaki adsız kadın ve defteri ekilir) · B ayda 100–150 frank (1882–1888: zaman; Louvre pusulası, rue Lepic, otoportre) · C ayda 15 frank (Sarı Ev: atölye; VGM 702, 707) · D ayda 150 frank (konuk ressam; Aralık 1888, tutarı yazılmayan gece treni) · E ayda 100 frank (Saint-Rémy; çekmece ve ilk renkli sarı zarflar; bir yılda ~150 resim) · F 400 frank (Kırmızı Bağ, belgesi kesin tek tuval satışı; Badem Çiçeği, renk doruğu, kapak B) · G üç gün (Mayıs 1890 beşik sahnesi; Temmuz'da Theo'nun kendi parası; VGM 898; ölüm tek cümle + sessizlik) · H gönderilmemiş mektup (RM25 'benim aracılığımla' hesabın karşılığı olarak, veda değil; Theo'nun annesine sözü; Theo'nun 39 mektubu; Theo'nun ölümü) · I son hesap: kapıdaki kadının defteri (~200 resim satıldı, mektuplar saklandı; 1905, 1914, nakil, çeviri) · J kurye: ad 'Jo' J01'de, cevap sahnede; izleyiciye soru ve abone çağrısı son anın içinde. İskelet Harmon, kahraman Theo (uretim_plani §6). Seste adlar: Vincent, Theo, Jo; Gauguin bir kez (D02). Kaynak kısaltmaları kaynak/DOGRULAMA.md (§1, §2, §6); alıntılar bizim Türkçemiz. Renk: yalnız Vincent'in tabloları (kamu malı fotoğraf) ve Nisan 1889 sonrası sarı zarflar; 1888 ve öncesi zarflar gri. Kırmızı Bağ ve Rhône'da Yıldızlı Gece renkli gösterilmez (DOGRULAMA §4). Başkanın doğrulayacakları: C02 için Met'ten Arles 1888 tarihli tablo seçimi (lisans-kontrol); D08 La Berceuse'ün 'yeniden şövale' görüntüsü; G05–G08 sırası (para kaygısı ile ölüm arasında nedensellik okunmasın diye G07 araya kondu); B06 VGM 567 alıntısı yalnız §6 satırından.",
+ "segments": [
+  {
+   "id": "A01",
+   "bolum": "Kanca: lambanın altındaki hesap",
+   "tts": "[calmly] Van Gogh'a kim inandı? Paris, bin sekiz yüz seksen dokuz: gri bir oda, bir lamba ve masada bir yığın sarı zarf.",
+   "alt": "Van Gogh'a kim inandı? Paris, 1889: gri bir oda, bir lamba ve masada bir yığın sarı zarf.",
+   "gorsel": {
+    "ekran": "İLK KARE = KAPAK A'NIN ODASI. Gri oda, masada lamba ve sarı zarf yığını; sırtı dönük bir erkek silueti (Theo) bir tuvali lambaya tutuyor. Tuval karenin en parlak noktası. İlk saniyeden yavaş yaklaşma; 'sarı zarf' sözcüğünde lamba alevi titrer, zarflar ışıkta parlar.",
+    "renkli": "Theo'nun elindeki tuval: Ayçiçekleri (Met 436524, 1887, CC0) ve sarı zarflar; gerisi gri yağlıboya (grisaille)",
+    "olcek": "genis"
+   },
+   "kaynak": "DOGRULAMA §6 'Sarı zarflar' (Jo, Voorwoord 1914: 'gele enveloppes'; Nisan 1889 sonrası cité Pigalle). Başlığın sorusu ilk cümlede; ilk 5 sn kapak A'nın vaadi (gri oda, lamba, mektuplar, tek renkli tablo)"
+  },
+  {
+   "id": "A02",
+   "bolum": "Kanca: lambanın altındaki hesap",
+   "tts": "[calmly] Lambanın önündeki adam Theo. Zarfların hepsi ağabeyi Vincent'ten geliyor; bugün elimizde yalnız Theo'ya yazılmış altı yüz elli bir mektup var.",
+   "alt": "Lambanın önündeki adam Theo. Zarfların hepsi ağabeyi Vincent'ten geliyor; bugün elimizde yalnız Theo'ya yazılmış 651 mektup var.",
+   "gorsel": {
+    "ekran": "Theo'nun elleri bir sarı zarfı açar; kâğıtta sık el yazısı dokusu (okunur metin yok), kenarda küçük bir kalem eskizi. Kamera kâğıt boyunca kayar.",
+    "renkli": "yalnız sarı zarf; kâğıt ve eller gri",
+    "olcek": "ayrinti"
+   },
+   "kaynak": "DOGRULAMA §1 'Kalan yazışma' (651'i yalnız Theo'ya)"
+  },
+  {
+   "id": "A03",
+   "bolum": "Kanca: lambanın altındaki hesap",
+   "tts": "[softly] Mektuplar güneyden Paris'e geliyor; para Paris'ten güneye gidiyor. Sekiz yıl boyunca, ay ay.",
+   "alt": "Mektuplar güneyden Paris'e geliyor; para Paris'ten güneye gidiyor. Sekiz yıl boyunca, ay ay.",
+   "gorsel": {
+    "ekran": "Masa tepeden: soldan sarı zarflar masaya kayar, sağdan gri bir zarf masadan çıkar; lambanın gölgesi her geçişte döner (zaman akışı). Ekran yazısı yok.",
+    "renkli": "gelen sarı zarflar; giden zarf gri",
+    "olcek": "orta"
+   },
+   "kaynak": "DOGRULAMA §1 'Theo'nun desteği' (düzenli destek 1882'den 1890'a: sekiz yıl)"
+  },
+  {
+   "id": "A04",
+   "bolum": "Kanca: lambanın altındaki hesap",
+   "tts": "[curious] Bu video o paranın hesabı. Her zarfta bir tutar var ve her tutar aynı şeyi soruyor: bu para neyi satın aldı?",
+   "alt": "Bu video o paranın hesabı. Her zarfta bir tutar var ve her tutar aynı şeyi soruyor: bu para neyi satın aldı?",
+   "gorsel": {
+    "ekran": "Lamba ışığında açık bir hesap defteri sayfası: boş sütunlar. 'tutar' sözcüğünde ilk satıra bir rakam yazılmaya başlar ama okunmadan kamera kalkar.",
+    "renkli": "hiçbiri; gerisi gri yağlıboya (grisaille)",
+    "olcek": "yakin"
+   },
+   "kaynak": "Yapı C'nin sorusu (para ve inanç sayımı). Defter: DOGRULAMA §1 'Hesap defteri' (Theo ile Jo'nun defteri)"
+  },
+  {
+   "id": "A05",
+   "bolum": "Kanca: lambanın altındaki hesap",
+   "tts": "[calmly] Kapının eşiğinde bir kadın duruyor, elinde bir defter. Bu hesabın son satırını o yazacak; onu sona saklıyoruz.",
+   "alt": "Kapının eşiğinde bir kadın duruyor, elinde bir defter. Bu hesabın son satırını o yazacak; onu sona saklıyoruz.",
+   "gorsel": {
+    "ekran": "Kamera Theo'nun omzunun üstünden kapıya döner: eşikte kadın silueti sırttan ve yandan (açık gri giysi, toplu saç; baştan ayağa koyu örtü yok), göğsüne bastırdığı bir defter. 'saklıyoruz' sözcüğünde kadın koridora döner, ışık kapıyı kapatır.",
+    "renkli": "hiçbiri; gerisi gri yağlıboya (grisaille)",
+    "olcek": "orta"
+   },
+   "kaynak": "Jo ekilir, adsız (uretim_plani §6; Ran dersi). Defter: DOGRULAMA §1 'Hesap defteri' (1890–1924). Köprü yok: B01 doğrudan hikâye"
+  },
+  {
+   "id": "B01",
+   "bolum": "Ayda yüz ile yüz elli frank (1882–1888)",
+   "tts": "[curious] İlk zarf, bin sekiz yüz seksen iki. Tutarı ayda yüz ile yüz elli frank arası. Bu para neyi satın alıyor?",
+   "alt": "İlk zarf, 1882. Tutarı ayda 100 ile 150 frank arası. Bu para neyi satın alıyor?",
+   "gorsel": {
+    "ekran": "Gri bir zarf masada; yanına üst bantta ekran yazısı belirir: '1882 · ayda 100–150 frank' (≤ 5 sn, y < 880). Bir el zarfı kapatıp mühürler.",
+    "renkli": "hiçbiri (1889 öncesi zarflar gri kâğıt); gerisi gri yağlıboya (grisaille)",
+    "olcek": "ayrinti"
+   },
+   "kaynak": "DOGRULAMA §1 'Theo'nun desteği' (1882'den; ilk yıllarda ayda ortalama 100–150 frank; 'her ay 150' denmez, §3)"
+  },
+  {
+   "id": "B02",
+   "bolum": "Ayda yüz ile yüz elli frank (1882–1888)",
+   "tts": "[calmly] Theo Paris'te bir sanat galerisinde çalışıyor; bin sekiz yüz seksen birden beri bulvardaki şubenin yöneticisi. Ağabeyi Vincent bir yıl önce, yirmi yedi yaşında, ressam olmaya karar vermiş.",
+   "alt": "Theo Paris'te bir sanat galerisinde çalışıyor; 1881'den beri bulvardaki şubenin yöneticisi. Ağabeyi Vincent bir yıl önce, 27 yaşında, ressam olmaya karar vermiş.",
+   "gorsel": {
+    "ekran": "Paris bulvarı, yağmurlu gri; galeri vitrini, içeride çerçeveli gri salon resimleri. Siyah redingotlu bir erkek silueti (Theo) sırttan, bir müşteriye tuval gösteriyor. Kamera vitrinden içeri girer.",
+    "renkli": "hiçbiri; gerisi gri yağlıboya (grisaille)",
+    "olcek": "genis"
+   },
+   "kaynak": "DOGRULAMA §1 'Theo'nun işi' (1879 sonundan beri Paris; 1881'de bulvar şubesi yöneticisi; '1881'de işe başladı' denmez) ve 'Üretim' (27 yaşında, 1880). Firma adı seste yok (ad yükü)"
+  },
+  {
+   "id": "B03",
+   "bolum": "Ayda yüz ile yüz elli frank (1882–1888)",
+   "tts": "[calmly] O yıllarda yedi kişilik ailesine bakan bir işçinin aylığı otuz iki gulden. Theo'nun gönderdiği para elli ile yetmiş beş gulden ediyor.",
+   "alt": "O yıllarda yedi kişilik ailesine bakan bir işçinin aylığı 32 gulden. Theo'nun gönderdiği para 50 ile 75 gulden ediyor.",
+   "gorsel": {
+    "ekran": "Masa üstünde iki para yığını yan yana büyür: solda küçük yığın (işçi), sağda iki katından büyük yığın (Theo'nun zarfı). Madeni paralarda halka tarama yok, yalnız kenar çentiği. Üst bantta '32' ve '50–75' (≤ 4 sn).",
+    "renkli": "hiçbiri; gerisi gri yağlıboya (grisaille)",
+    "olcek": "yakin"
+   },
+   "kaynak": "DOGRULAMA §1 'Paranın değeri' (100–150 frank ≈ 50–75 gulden; yedi kişilik aileye bakan işçi 32 gulden). Karşılaştırma bir cümlede, olaydan (gönderme) sonra"
+  },
+  {
+   "id": "B04",
+   "bolum": "Ayda yüz ile yüz elli frank (1882–1888)",
+   "tts": "[warmly] Bu para Vincent'e zaman satın alıyor: başka iş aramadan, her gün resim yapacağı zaman.",
+   "alt": "Bu para Vincent'e zaman satın alıyor: başka iş aramadan, her gün resim yapacağı zaman.",
+   "gorsel": {
+    "ekran": "Kırda bir şövale, sırttan bir figür (Vincent; hasır şapka, iş gömleği, renksiz) fırça vurur; güneş kadrajda hızla döner (günler geçer), şövaledeki tuvaller değişir.",
+    "renkli": "hiçbiri; tuvaller izleyiciye sırtını döner",
+    "olcek": "genis"
+   },
+   "kaynak": "Yapı C cevabı (çıkarım, tek cümle, B02–B03 olayından sonra). Üretim: DOGRULAMA §1 'Üretim' (yaklaşık 10 yıl)"
+  },
+  {
+   "id": "B05",
+   "bolum": "Ayda yüz ile yüz elli frank (1882–1888)",
+   "tts": "[calmly] Şubat bin sekiz yüz seksen altı sonunda Theo'ya bir pusula geliyor. Vincent habersiz Paris'e gelmiş; Louvre'da, Salon Carré'de buluşmak istiyor.",
+   "alt": "Şubat 1886 sonunda Theo'ya bir pusula geliyor. Vincent habersiz Paris'e gelmiş; Louvre'da, Salon Carré'de buluşmak istiyor.",
+   "gorsel": {
+    "ekran": "Galeride bir çocuk (siluet) Theo'ya katlanmış küçük bir kâğıt uzatır; Theo açar. Kesme: Louvre'un büyük salonu, tavan pencerelerinden gri ışık, uzakta bir bankta sırtı dönük bir figür bekliyor.",
+    "renkli": "hiçbiri; gerisi gri yağlıboya (grisaille)",
+    "olcek": "orta"
+   },
+   "kaynak": "DOGRULAMA §6 'Louvre pusulası' (VGM 567; c. 28 Şubat 1886). Pusulayı getiren çocuk görsel yorum, seste yok"
+  },
+  {
+   "id": "B06",
+   "bolum": "Ayda yüz ile yüz elli frank (1882–1888)",
+   "tts": "[softly] Pusulada şu satır var: [pause] \"Birden geldim diye bana kızma.\"",
+   "alt": "Pusulada şu satır var: \"Birden geldim diye bana kızma.\"",
+   "gorsel": {
+    "ekran": "Pusulanın ayrıntısı: dört satırlık kalem yazısı, kâğıdın katı açılırken ışık geçer. Ekranda özgün metin üst bantta küçük (VGM el yazması yazımı): 'Ne m'en veux pas d'être venu tout d'un trait'.",
+    "renkli": "hiçbiri; gerisi gri yağlıboya (grisaille)",
+    "olcek": "ayrinti"
+   },
+   "kaynak": "DOGRULAMA §6 'Louvre pusulası' (VGM 567, 1914 no. 459: 'Ne m'en veux pas d'être venu tout d'un trait'); Türkçe bizim"
+  },
+  {
+   "id": "B07",
+   "bolum": "Ayda yüz ile yüz elli frank (1882–1888)",
+   "tts": "[calmly] Haziranda iki kardeş rue Lepic'te üçüncü kattaki bir daireye taşınıyor. Odalardan biri atölye oluyor.",
+   "alt": "Haziranda iki kardeş rue Lepic'te üçüncü kattaki bir daireye taşınıyor. Odalardan biri atölye oluyor.",
+   "gorsel": {
+    "ekran": "Dar bir merdiven boşluğu, iki siluet bir sandığı yukarı taşır (araclar/hareket ile; ayak kaymaz). Kesme: boş oda, pencereden gri çatılar; 'atölye' sözcüğünde odaya bir şövale konur.",
+    "renkli": "hiçbiri; gerisi gri yağlıboya (grisaille)",
+    "olcek": "genis"
+   },
+   "kaynak": "DOGRULAMA §6 'Paris adresleri' (Haziran 1886'dan 54 rue Lepic, 3. kat; biri atölye)"
+  },
+  {
+   "id": "B08",
+   "bolum": "Ayda yüz ile yüz elli frank (1882–1888)",
+   "tts": "[calmly] Atölyede Vincent aynaya bakıp kendini boyuyor. Bu filmde göreceğimiz tek yüz, onun kendi elinden çıkan yüz.",
+   "alt": "Atölyede Vincent aynaya bakıp kendini boyuyor. Bu filmde göreceğimiz tek yüz, onun kendi elinden çıkan yüz.",
+   "gorsel": {
+    "ekran": "Şövalenin arkasından: gri atölye, ayna, sırtı dönük figür. 'yüz' sözcüğünde tuval dönüp kadrajı doldurur: Hasır Şapkalı Otoportre, gerçek rengiyle; çevre gri kalır.",
+    "renkli": "Hasır Şapkalı Otoportre (Met 436532, 1887, CC0; gorsel/otoportre_hasir_sapka_1887_met436532.jpg); gerisi gri yağlıboya (grisaille)",
+    "olcek": "yakin"
+   },
+   "kaynak": "DOGRULAMA §4 (Met 436532, Paris 1887). Kanal kuralı: yüz yalnız otoportrede"
+  },
+  {
+   "id": "B09",
+   "bolum": "Ayda yüz ile yüz elli frank (1882–1888)",
+   "tts": "[calmly] On dokuz Şubat bin sekiz yüz seksen sekiz gecesi Vincent güneye giden trene biniyor. Ertesi gün öğleden sonra Arles'da.",
+   "alt": "19 Şubat 1888 gecesi Vincent güneye giden trene biniyor. Ertesi gün öğleden sonra Arles'da.",
+   "gorsel": {
+    "ekran": "Gece garı, buhar; vagon penceresinde sırttan bir siluet. Kesme (zaman ve mekân sıçraması, kısa yumuşak geçiş, sessizlikte): pencereden gün ışığında düz bir ova akar.",
+    "renkli": "hiçbiri; gerisi gri yağlıboya (grisaille)",
+    "olcek": "orta"
+   },
+   "kaynak": "DOGRULAMA §6 'Arles'a gidiş' (VGM 577 n.: 19 Şubat gece treni, 20 Şubat öğleden sonra)"
+  },
+  {
+   "id": "C01",
+   "bolum": "Ayda on beş frank: Sarı Ev (1888)",
+   "tts": "[curious] Sıradaki tutar küçük: ayda on beş frank. On beş franka ne kiralanır?",
+   "alt": "Sıradaki tutar küçük: ayda 15 frank. 15 franka ne kiralanır?",
+   "gorsel": {
+    "ekran": "Gri zarf masada; üst bantta '1888 · ayda 15 frank' (≤ 4 sn). Zarfın gölgesi bir evin çatısına dönüşür (kesmeyle C02'ye).",
+    "renkli": "hiçbiri; gerisi gri yağlıboya (grisaille)",
+    "olcek": "ayrinti"
+   },
+   "kaynak": "DOGRULAMA §6 'Sarı Ev' (ayda 15 frank)"
+  },
+  {
+   "id": "C02",
+   "bolum": "Ayda on beş frank: Sarı Ev (1888)",
+   "tts": "[calmly] Bir Mayıs bin sekiz yüz seksen sekiz. Vincent Arles'da, Place Lamartine ikide bir ev kiralıyor: Sarı Ev. Ama ilk gecesini orada ancak Eylülde geçiriyor.",
+   "alt": "1 Mayıs 1888. Vincent Arles'da, Place Lamartine 2'de bir ev kiralıyor: Sarı Ev. Ama ilk gecesini orada ancak Eylülde geçiriyor.",
+   "gorsel": {
+    "ekran": "Gri bir meydan, köşede iki katlı ev; bir siluet anahtarı kilide sokar. 'Sarı Ev' sözcüğünde evin cephesi gri kalır ama kapı aralığından içerideki tuvallerin rengi sızar (ev renklenmez: renk yalnız tablolarda).",
+    "renkli": "kapı aralığından görünen tuval kenarları (Met CC0, Arles 1888 tarihli bir tablo; lisans-kontrol ile seçilir); gerisi gri yağlıboya (grisaille)",
+    "olcek": "genis"
+   },
+   "kaynak": "DOGRULAMA §6 'Sarı Ev' (1 Mayıs 1888, Place Lamartine 2, ayda 15 frank; ilk gece Eylül 1888; VGM 602, 682)"
+  },
+  {
+   "id": "C03",
+   "bolum": "Ayda on beş frank: Sarı Ev (1888)",
+   "tts": "[warmly] Bu arada iki kez mektubunu Theo'nun eski adresine yolluyor. İkincisi açılmış hâlde geri dönüyor.",
+   "alt": "Bu arada iki kez mektubunu Theo'nun eski adresine yolluyor. İkincisi açılmış hâlde geri dönüyor.",
+   "gorsel": {
+    "ekran": "Postacı silueti bir zarfı Vincent'in kapısına geri bırakır; zarfın kenarı yırtık, üstünde eski adres çizilmiş. Sırttan figür zarfı alır, omuzları düşer, sonra güler gibi başını sallar (hafif an).",
+    "renkli": "hiçbiri; gerisi gri yağlıboya (grisaille)",
+    "olcek": "orta"
+   },
+   "kaynak": "DOGRULAMA §6 'Yanlış adres' (VGM 601, 634; rue de Laval; kısa, hafif an)"
+  },
+  {
+   "id": "C04",
+   "bolum": "Ayda on beş frank: Sarı Ev (1888)",
+   "tts": "[calmly] Paris'te Theo, ağabeyinin üç tablosunu Bağımsızlar Sergisi'ne gönderiyor.",
+   "alt": "Paris'te Theo, ağabeyinin üç tablosunu Bağımsızlar Sergisi'ne gönderiyor.",
+   "gorsel": {
+    "ekran": "Gri sergi salonu, kalabalık siluetler; duvarda üç tuval, sırtları kameraya dönük asılırken çerçevelerin arkası görünür. Theo silueti bir köşede durur.",
+    "renkli": "hiçbiri; tuvallerin yüzü görünmez",
+    "olcek": "genis"
+   },
+   "kaynak": "DOGRULAMA §6 'Sergiler' (Theo 1888'den beri Bağımsızlar'a: 1888'de 3)"
+  },
+  {
+   "id": "C05",
+   "bolum": "Ayda on beş frank: Sarı Ev (1888)",
+   "tts": "[calmly] Arles'dan gelen bir mektupta Vincent geceleri dışarı çıkıp yıldızları boyadığını yazıyor.",
+   "alt": "Arles'dan gelen bir mektupta Vincent geceleri dışarı çıkıp yıldızları boyadığını yazıyor.",
+   "gorsel": {
+    "ekran": "Gece, gri bir nehir kıyısı; sırttan figür şövalenin önünde, şapkasının çevresinde küçük ışıklar. Tuval sırtı kameraya dönük; 'yıldızları' sözcüğünde gökyüzündeki gri noktalar hafifçe parlar ama renklenmez.",
+    "renkli": "hiçbiri: Rhône'da Yıldızlı Gece dosyası renk kaynağı olarak kullanılmaz (DOGRULAMA §4); tuval görünmez",
+    "olcek": "orta"
+   },
+   "kaynak": "DOGRULAMA §2.4 (VGM 691, c. 29 Eylül 1888: 'je vais la nuit dehors pour peindre les étoiles'; 'religion' sözcüğü kullanılmaz)"
+  },
+  {
+   "id": "C06",
+   "bolum": "Ayda on beş frank: Sarı Ev (1888)",
+   "tts": "[softly] On Ekim dolaylarında Theo'ya şunu yazıyor: [pause] \"Sanatçılara para verirken sen de sanatçı işi yapıyorsun.\"",
+   "alt": "10 Ekim dolaylarında Theo'ya şunu yazıyor: \"Sanatçılara para verirken sen de sanatçı işi yapıyorsun.\"",
+   "gorsel": {
+    "ekran": "Sarı Ev'in içi, masada lamba; elin yazdığı kâğıt yakından, kalemin ucu ilerler. Ekranda özgün metin üst bantta küçük: 'en donnant l'argent aux artistes, tu fais toi-même oeuvre d'artiste'.",
+    "renkli": "duvarda yarısı görünen bir tuval (C02'deki Arles tablosu); gerisi gri yağlıboya (grisaille)",
+    "olcek": "yakin"
+   },
+   "kaynak": "DOGRULAMA §2.2 (VGM 702, Arles, 10 ya da 11 Ekim 1888)"
+  },
+  {
+   "id": "C07",
+   "bolum": "Ayda on beş frank: Sarı Ev (1888)",
+   "tts": "[calmly] Birkaç gün sonra, yatak odasının resmini bitirdiği gün, iki cümle daha: \"Sensiz hiçbir şey yapamazdım.\" [pause] Ve: \"Bir yıl sonra, ikimizin birlikte sanatsal bir şey yaptığımızı hissedeceğini umuyorum.\"",
+   "alt": "Birkaç gün sonra, yatak odasının resmini bitirdiği gün, iki cümle daha: \"Sensiz hiçbir şey yapamazdım.\" Ve: \"Bir yıl sonra, ikimizin birlikte sanatsal bir şey yaptığımızı hissedeceğini umuyorum.\"",
+   "gorsel": {
+    "ekran": "Kesme Paris'e: cité değil rue Lepic'teki gri oda, Theo lambanın altında mektubu okur (sırttan, omuz üstü). İkinci alıntıda kamera mektuptan masadaki para zarfına kayar.",
+    "renkli": "Vincent'in mektup zarfı (Paris'e giden); gerisi gri yağlıboya (grisaille). Yatak Odası tablosu gösterilmez (müze kaynaklı dosya seçilmedi)",
+    "olcek": "orta"
+   },
+   "kaynak": "DOGRULAMA §2.1 ve §2.3 (VGM 707, Arles, 17 Ekim 1888, Yatak Odası'nı bitirdiği gün). İki alıntı ayrı verilir, birleştirilmez"
+  },
+  {
+   "id": "C08",
+   "bolum": "Ayda on beş frank: Sarı Ev (1888)",
+   "tts": "[warmly] On beş franklık ev bir atölye kiralıyor; Vincent'in hesabında Theo'nun parası ise bir ortaklık payı.",
+   "alt": "15 franklık ev bir atölye kiralıyor; Vincent'in hesabında Theo'nun parası ise bir ortaklık payı.",
+   "gorsel": {
+    "ekran": "Sarı Ev'in içi geniş: duvarlar boyunca dizili tuvaller (sırtları dönük); ortada iki sandalye. 'ortaklık' sözcüğünde Paris'teki masa ile Arles'taki masa bölünmüş kadrajda yan yana belirir.",
+    "renkli": "hiçbiri; gerisi gri yağlıboya (grisaille)",
+    "olcek": "genis"
+   },
+   "kaynak": "Bölümün cevabı (çıkarım, tek cümle, C06–C07 alıntılarından sonra)"
+  },
+  {
+   "id": "D01",
+   "bolum": "Ayda yüz elli frank: konuk ressam (Ekim–Aralık 1888)",
+   "tts": "[curious] Yeni bir tutar: ayda yüz elli frank. Theo bu kez kimin için ödüyor?",
+   "alt": "Yeni bir tutar: ayda 150 frank. Theo bu kez kimin için ödüyor?",
+   "gorsel": {
+    "ekran": "Gri zarf; üst bantta 'Ekim 1888 · ayda 150 frank' (≤ 4 sn). Zarfın üstünde iki ayrı adres satırı (okunmaz), biri silinir.",
+    "renkli": "hiçbiri; gerisi gri yağlıboya (grisaille)",
+    "olcek": "ayrinti"
+   },
+   "kaynak": "DOGRULAMA §6 'Gauguin' (ayda 150 frank)"
+  },
+  {
+   "id": "D02",
+   "bolum": "Ayda yüz elli frank: konuk ressam (Ekim–Aralık 1888)",
+   "tts": "[calmly] Yirmi üç Ekim sabahı Sarı Ev'e bir ressam daha geliyor: Gauguin. Theo'nun düzeni şu: ona ayda yüz elli frank, karşılığında tablo; yol parasını da Theo ödüyor.",
+   "alt": "23 Ekim sabahı Sarı Ev'e bir ressam daha geliyor: Gauguin. Theo'nun düzeni şu: ona ayda 150 frank, karşılığında tablo; yol parasını da Theo ödüyor.",
+   "gorsel": {
+    "ekran": "Sabah, gri meydan; bavullu bir siluet (araclar/hareket ile yürür) Sarı Ev'in kapısına gelir, kapı açılır. Yüz yok; iki siluet eşikte.",
+    "renkli": "hiçbiri; gerisi gri yağlıboya (grisaille)",
+    "olcek": "genis"
+   },
+   "kaynak": "DOGRULAMA §6 'Gauguin' (23 Ekim 1888 sabahı; ayda 150 frank karşılığında tablo; yol parasını Theo ödedi). Gauguin seste tek kez"
+  },
+  {
+   "id": "D03",
+   "bolum": "Ayda yüz elli frank: konuk ressam (Ekim–Aralık 1888)",
+   "tts": "[calmly] Bu kez para Vincent'e bir ev arkadaşı satın alıyor, Theo'ya da tablo.",
+   "alt": "Bu kez para Vincent'e bir ev arkadaşı satın alıyor, Theo'ya da tablo.",
+   "gorsel": {
+    "ekran": "Sarı Ev'in içi: masada iki tabak, iki fırça kutusu; duvarda iki şövale yan yana. Kamera iki şövalenin arasından geçer.",
+    "renkli": "hiçbiri; gerisi gri yağlıboya (grisaille)",
+    "olcek": "orta"
+   },
+   "kaynak": "Bölümün cevabı (D02 olayından sonra tek cümle)"
+  },
+  {
+   "id": "D04",
+   "bolum": "Ayda yüz elli frank: konuk ressam (Ekim–Aralık 1888)",
+   "tts": "[calmly] Aralık. Paris'te Theo o hafta nişanlanıyor. Nişanlısı, kancadaki kapının eşiğinde duran kadın.",
+   "alt": "Aralık. Paris'te Theo o hafta nişanlanıyor. Nişanlısı, kancadaki kapının eşiğinde duran kadın.",
+   "gorsel": {
+    "ekran": "Paris, karlı gri sokak; bir pencerede iki siluet yan yana (aradaki mesafe dar değil; burun buruna değil). Kamera pencereden geri çekilir.",
+    "renkli": "hiçbiri; gerisi gri yağlıboya (grisaille)",
+    "olcek": "yakin"
+   },
+   "kaynak": "DOGRULAMA §6 'Aralık 1888' (Theo ile Jo o hafta nişanlanmıştı; teklif günü bilinmiyor). Jo ikinci kez ekilir, adsız"
+  },
+  {
+   "id": "D05",
+   "bolum": "Ayda yüz elli frank: konuk ressam (Ekim–Aralık 1888)",
+   "tts": "[softly] Yirmi üç Aralık akşamı Arles'da Vincent ağır bir kriz geçiriyor. Ertesi gün Paris'e bir telgraf geliyor.",
+   "alt": "23 Aralık akşamı Arles'da Vincent ağır bir kriz geçiriyor. Ertesi gün Paris'e bir telgraf geliyor.",
+   "gorsel": {
+    "ekran": "Kriz gösterilmez. Sarı Ev'in lambası söner (karanlık kadraj, 1 sn). Kesme: Paris'te kapı altından ince bir telgraf kâğıdı kayar; Theo'nun eli alır.",
+    "renkli": "hiçbiri; gerisi gri yağlıboya (grisaille)",
+    "olcek": "ayrinti"
+   },
+   "kaynak": "DOGRULAMA §1 'Aralık 1888' (23 Aralık akşamı kriz, ayrıntı verilmez; 24 Aralık telgraf). Kulak, yara, kan yok"
+  },
+  {
+   "id": "D06",
+   "bolum": "Ayda yüz elli frank: konuk ressam (Ekim–Aralık 1888)",
+   "tts": "[calmly] Theo gece trenine biniyor; yirmi beş Aralık sabahı Arles'da. Aynı akşam Paris'e dönüyor.",
+   "alt": "Theo gece trenine biniyor; 25 Aralık sabahı Arles'da. Aynı akşam Paris'e dönüyor.",
+   "gorsel": {
+    "ekran": "Gece treni: vagonda sırttan oturan siluet, pencerede karanlık; peronda sabah sisi; aynı peronda akşam ışığı, aynı siluet ters yönde vagona biner.",
+    "renkli": "hiçbiri; gerisi gri yağlıboya (grisaille)",
+    "olcek": "genis"
+   },
+   "kaynak": "DOGRULAMA §1 ve §6 'Aralık 1888' (25 Aralık sabahı Arles'ta, aynı akşam dönüş)"
+  },
+  {
+   "id": "D07",
+   "bolum": "Ayda yüz elli frank: konuk ressam (Ekim–Aralık 1888)",
+   "tts": "[softly] Bu zarfın tutarı yazılmıyor: bir gece treni, gidiş ve dönüş aynı gün.",
+   "alt": "Bu zarfın tutarı yazılmıyor: bir gece treni, gidiş ve dönüş aynı gün.",
+   "gorsel": {
+    "ekran": "Theo'nun eli cebinden iki tren biletini masaya, zarf yığınının yanına bırakır. Lamba titrer.",
+    "renkli": "sarı zarf yığını (Paris odası, 1889 sonrası değil: burada zarflar gri) → hiçbiri; gerisi gri yağlıboya (grisaille)",
+    "olcek": "ayrinti"
+   },
+   "kaynak": "Yapı C ritmi (tutar bilinmiyor, uydurulmaz). Olgular D06'da"
+  },
+  {
+   "id": "D08",
+   "bolum": "Ayda yüz elli frank: konuk ressam (Ekim–Aralık 1888)",
+   "tts": "[calmly] Yedi Ocak bin sekiz yüz seksen dokuzda Vincent hastaneden çıkıyor ve yeniden şövalesinin başına geçiyor.",
+   "alt": "7 Ocak 1889'da Vincent hastaneden çıkıyor ve yeniden şövalesinin başına geçiyor.",
+   "gorsel": {
+    "ekran": "Hastane avlusu gri; kemerli kapıdan sırttan bir figür çıkar (pencerelerde yalnız dikey çubuk). Kesme: Sarı Ev'de şövale; 'şövalesinin' sözcüğünde tuval döner: La Berceuse, gerçek rengiyle.",
+    "renkli": "La Berceuse (Met 437984, 1889, CC0); gerisi gri yağlıboya (grisaille)",
+    "olcek": "orta"
+   },
+   "kaynak": "DOGRULAMA §6 'Aralık 1888' (7 Ocak 1889 Hôtel-Dieu'den çıkış); tablo Met 437984 (Arles, 1889; §4). 'Yeniden şövale' görüntünün kanıtı tablonun tarihi"
+  },
+  {
+   "id": "E01",
+   "bolum": "Ayda yüz frank: Saint-Rémy (1889)",
+   "tts": "[curious] Mayıs bin sekiz yüz seksen dokuz, yeni bir zarf: ayda yüz frank. Bu kez para neyi ödüyor?",
+   "alt": "Mayıs 1889, yeni bir zarf: ayda 100 frank. Bu kez para neyi ödüyor?",
+   "gorsel": {
+    "ekran": "İLK SARI GİDEN ZARF YOK: zarf gri; üst bantta 'Mayıs 1889 · ayda 100 frank' (≤ 4 sn). Zarfın yanında küçük bir anahtar.",
+    "renkli": "hiçbiri; gerisi gri yağlıboya (grisaille)",
+    "olcek": "ayrinti"
+   },
+   "kaynak": "DOGRULAMA §6 'Saint-Rémy' (Theo ayda 100 frank ödedi)"
+  },
+  {
+   "id": "E02",
+   "bolum": "Ayda yüz frank: Saint-Rémy (1889)",
+   "tts": "[calmly] Sekiz Mayısta Vincent kendi isteğiyle Saint-Rémy'de bir hastaneye yatıyor. Theo her ay yüz frank ödüyor; kız kardeşleri de katkı için para biriktiriyor.",
+   "alt": "8 Mayıs'ta Vincent kendi isteğiyle Saint-Rémy'de bir hastaneye yatıyor. Theo her ay 100 frank ödüyor; kız kardeşleri de katkı için para biriktiriyor.",
+   "gorsel": {
+    "ekran": "Taş duvarlı bir bahçe, gri zeytinlikler; sırttan figür bir kemer altından geçer. Pencerelerde yalnız dikey çubuk (yatay kuşak yok). Kamera bahçe duvarı boyunca kayar.",
+    "renkli": "hiçbiri; gerisi gri yağlıboya (grisaille)",
+    "olcek": "genis"
+   },
+   "kaynak": "DOGRULAMA §6 'Saint-Rémy' (8 Mayıs 1889, kendi isteğiyle; 100 frank; kız kardeşler para biriktirdi)"
+  },
+  {
+   "id": "E03",
+   "bolum": "Ayda yüz frank: Saint-Rémy (1889)",
+   "tts": "[calmly] Paris'te Theo artık evli. Kapının eşiğindeki kadınla Nisanda evlenmiş; cité Pigalle'deki yeni evde oturuyorlar.",
+   "alt": "Paris'te Theo artık evli. Kapının eşiğindeki kadınla Nisanda evlenmiş; cité Pigalle'deki yeni evde oturuyorlar.",
+   "gorsel": {
+    "ekran": "KANCANIN ODASI geri gelir (aynı açı, gündüz): kadın silueti sırttan bir sandığı açıyor, Theo bir tuvali duvara asıyor.",
+    "renkli": "duvara asılan tuval: Ayçiçekleri (Met 436524) — kancadakiyle aynı; gerisi gri yağlıboya (grisaille)",
+    "olcek": "orta"
+   },
+   "kaynak": "DOGRULAMA §1 'Jo' (Nisan 1889'da Amsterdam'da evlendi); §6 'Paris adresleri' (8 cité Pigalle, taşınma 20 Nisan 1889). Çerçeve kancaya bağlanır"
+  },
+  {
+   "id": "E04",
+   "bolum": "Ayda yüz frank: Saint-Rémy (1889)",
+   "tts": "[softly] Kadın, Theo'nun küçük yazı masasının alt çekmecesini açıyor: çekmece Vincent'in mektuplarıyla dolu. Sonra hafta hafta yeni sarı zarflar geliyor ve çekmece kabarıyor.",
+   "alt": "Kadın, Theo'nun küçük yazı masasının alt çekmecesini açıyor: çekmece Vincent'in mektuplarıyla dolu. Sonra hafta hafta yeni sarı zarflar geliyor ve çekmece kabarıyor.",
+   "gorsel": {
+    "ekran": "Çekmece tepeden: iplikle bağlı desteler. 'sarı zarflar' sözcüğünde ilk renkli zarf desteye düşer; kısa kesmelerle her biri bir öncekinin üstüne, lamba açısı değişerek (haftalar).",
+    "renkli": "sarı zarflar (filmde zarfın renklendiği ilk an; DOGRULAMA §6 yalnız 1889 sonrası için 'gele enveloppes' der); gerisi gri yağlıboya (grisaille)",
+    "olcek": "ayrinti"
+   },
+   "kaynak": "DOGRULAMA §6 'Sarı zarflar' (Jo, Voorwoord 1914: 'onder in een klein bureau een lade vol brieven van Vincent … week aan week … gele enveloppes')"
+  },
+  {
+   "id": "E05",
+   "bolum": "Ayda yüz frank: Saint-Rémy (1889)",
+   "tts": "[warmly] Yüz frankın karşılığı o zarflarla birlikte Paris'e geliyor: Saint-Rémy'de bir yılda yaklaşık yüz elli resim.",
+   "alt": "100 frankın karşılığı o zarflarla birlikte Paris'e geliyor: Saint-Rémy'de bir yılda yaklaşık 150 resim.",
+   "gorsel": {
+    "ekran": "Gri bir buğday tarlası Vincent'in baktığı yerden renklenir: 'resim' sözcüğünde kadraj Selvili Buğday Tarlası'na dönüşür (plan içi palet değişimi). Ardından kısa kesmelerle Selviler ve Yıldızlı Gece.",
+    "renkli": "Selvili Buğday Tarlası (Met 436535, 1889, CC0; gorsel/), Selviler (Met 437980, 1889), Yıldızlı Gece (MoMA, Google Art Project, PD-Art); gerisi gri yağlıboya (grisaille)",
+    "olcek": "genis"
+   },
+   "kaynak": "DOGRULAMA §1 'Saint-Rémy, Auvers' (bir yılda yaklaşık 150 resim); görseller §4. 'zarflarla birlikte geliyor' görsel çerçeve: tabloların gönderiliş yolu kaynakta yok, seste 'zarfla gönderildi' denmez"
+  },
+  {
+   "id": "E06",
+   "bolum": "Ayda yüz frank: Saint-Rémy (1889)",
+   "tts": "[calmly] Theo bunlardan ikisini yine Bağımsızlar Sergisi'ne gönderiyor.",
+   "alt": "Theo bunlardan ikisini yine Bağımsızlar Sergisi'ne gönderiyor.",
+   "gorsel": {
+    "ekran": "C04'teki gri sergi salonu, bu kez iki tuval; sırtları dönük asılırken Theo silueti yakından, omuz üstü.",
+    "renkli": "hiçbiri: sergilenen İrisler Met'teki 1890 İrisler değil; yanlış eşleşme kurulmaz",
+    "olcek": "yakin"
+   },
+   "kaynak": "DOGRULAMA §6 'Sergiler' (1889'da 2: İrisler, Rhône'da Yıldızlı Gece). Tablo adları seste verilmez (görüntüyle yanlış eşleşmesin)"
+  },
+  {
+   "id": "F01",
+   "bolum": "Dört yüz frank: badem dalı (1890)",
+   "tts": "[curious] Bin sekiz yüz doksan. İlk kez para ters yönden geliyor: dört yüz frank. Bu parayı kim ödüyor?",
+   "alt": "1890. İlk kez para ters yönden geliyor: 400 frank. Bu parayı kim ödüyor?",
+   "gorsel": {
+    "ekran": "Zarf hareketi ters döner: bu kez zarf sağdan masaya kayar. Üst bantta '1890 · 400 frank' (≤ 4 sn).",
+    "renkli": "hiçbiri; gerisi gri yağlıboya (grisaille)",
+    "olcek": "ayrinti"
+   },
+   "kaynak": "DOGRULAMA §1 'Kırmızı Bağ' (400 frank)"
+  },
+  {
+   "id": "F02",
+   "bolum": "Dört yüz frank: badem dalı (1890)",
+   "tts": "[calmly] Brüksel'de bir sergide Vincent'in altı tablosu asılı. Bir alıcı Kırmızı Bağ'ı dört yüz franka satın alıyor; ödeme altı Martta deftere geçiyor.",
+   "alt": "Brüksel'de bir sergide Vincent'in altı tablosu asılı. Bir alıcı Kırmızı Bağ'ı 400 franka satın alıyor; ödeme 6 Mart'ta deftere geçiyor.",
+   "gorsel": {
+    "ekran": "Gri Brüksel sergi salonu; uzun paltolu siluetler. Bir tuvalin önünde tek bir siluet durur, eli kalkmaz (selam okunmasın); kesme: bir hesap defteri satırına mürekkeple '400' yazılır.",
+    "renkli": "hiçbiri: Kırmızı Bağ'ın Commons dosyası rötuşlu, renk kaynağı olarak kullanılmaz (DOGRULAMA §4); tuval yalnız çerçeve sırtından görünür",
+    "olcek": "genis"
+   },
+   "kaynak": "DOGRULAMA §1 'Kırmızı Bağ' (Les XX, 18 Ocak – 23 Şubat 1890; 400 frank; ödeme 6 Mart 1890'da kaydedildi) ve §6 'Sergiler' (Les XX 1890'da 6 tablo). Alıcının adı seste yok (ad yükü)"
+  },
+  {
+   "id": "F03",
+   "bolum": "Dört yüz frank: badem dalı (1890)",
+   "tts": "[calmly] Bu, belgesi kesin olan tek tuval satışı.",
+   "alt": "Bu, belgesi kesin olan tek tuval satışı.",
+   "gorsel": {
+    "ekran": "Defter satırının ayrıntısı, mürekkep kurur; kamera satırdan geri çekilir, sayfanın geri kalanı boş.",
+    "renkli": "hiçbiri; gerisi gri yağlıboya (grisaille)",
+    "olcek": "yakin"
+   },
+   "kaynak": "DOGRULAMA §1 'Kırmızı Bağ' ve '\"Tek tablo sattı\" efsanesi' (§3: 'hayatı boyunca tek tablo sattı' denmez)"
+  },
+  {
+   "id": "F04",
+   "bolum": "Dört yüz frank: badem dalı (1890)",
+   "tts": "[calmly] Aynı Ocakta bir dergide Vincent üzerine ilk övgü yazısı çıkıyor. Theo dergiyi yirmi dokuz Ocak sabahı eve getiriyor.",
+   "alt": "Aynı Ocakta bir dergide Vincent üzerine ilk övgü yazısı çıkıyor. Theo dergiyi 29 Ocak sabahı eve getiriyor.",
+   "gorsel": {
+    "ekran": "Kancanın odası, sabah: Theo silueti kapıdan girer, elinde katlı bir dergi; masaya bırakır. Kapı eşiğinde kadın (hamilelik figürle gösterilmez: siluetin karnında figür yok, yalnız yavaş yürüyüş).",
+    "renkli": "hiçbiri; gerisi gri yağlıboya (grisaille)",
+    "olcek": "orta"
+   },
+   "kaynak": "DOGRULAMA §6 'İlk övgü' (Mercure de France, Ocak 1890; Theo dergiyi 29 Ocak sabahı eve getirdi). Yazarın adı seste yok (ad yükü)"
+  },
+  {
+   "id": "F05",
+   "bolum": "Dört yüz frank: badem dalı (1890)",
+   "tts": "[curious] O sırada Saint-Rémy'de Vincent mavi bir göğe karşı beyaz badem çiçekleri boyuyor. Bu dal kimin için?",
+   "alt": "O sırada Saint-Rémy'de Vincent mavi bir göğe karşı beyaz badem çiçekleri boyuyor. Bu dal kimin için?",
+   "gorsel": {
+    "ekran": "Gri atölye, şövale; tuvalin üstünde badem dalı kadrajın içinde dal dal büyür (kapak B'nin vaadi: gri mektupların arasından renkli dal). Filmin renk doruğu.",
+    "renkli": "Badem Çiçeği (Van Gogh Müzesi s0176V1962; Commons Google Art Project, PD-Art); gerisi gri yağlıboya (grisaille)",
+    "olcek": "genis"
+   },
+   "kaynak": "DOGRULAMA §1 'Badem Çiçeği' ve §2.5 (VGM 855). Kapak B'nin vaadi burada karşılanır. Merak döngüsü: kimin için → F06"
+  },
+  {
+   "id": "F06",
+   "bolum": "Dört yüz frank: badem dalı (1890)",
+   "tts": "[warmly] İki gün sonra doğan bebek için: otuz bir Ocakta Theo ile eşinin oğlu dünyaya geliyor. Adı Vincent. Dallar onların yatak odasına asılacak.",
+   "alt": "İki gün sonra doğan bebek için: 31 Ocak'ta Theo ile eşinin oğlu dünyaya geliyor. Adı Vincent. Dallar onların yatak odasına asılacak.",
+   "gorsel": {
+    "ekran": "Kancanın odası gece: beşik silueti, lamba kısık. Kesme: duvara büyük bir tuval asılır, badem dalı odadaki tek renk olur.",
+    "renkli": "Badem Çiçeği (duvarda); gerisi gri yağlıboya (grisaille)",
+    "olcek": "orta"
+   },
+   "kaynak": "DOGRULAMA §1 'Badem Çiçeği' (Vincent Willem 31 Ocak 1890; VGM 855: 'yatak odalarına asılmak üzere'); 'İki gün sonra' = 29 → 31 Ocak (§6 'İlk övgü')"
+  },
+  {
+   "id": "F07",
+   "bolum": "Dört yüz frank: badem dalı (1890)",
+   "tts": "[softly] On dokuz Şubatta annesine yazıyor: \"Mavi bir göğe karşı beyaz badem çiçeklerinin büyük dalları.\" [pause] Aynı mektupta bir haber daha: Theo ona, Brüksel'de resimlerinden birinin dört yüz franka satıldığını bildirmiş.",
+   "alt": "19 Şubat'ta annesine yazıyor: \"Mavi bir göğe karşı beyaz badem çiçeklerinin büyük dalları.\" Aynı mektupta bir haber daha: Theo ona, Brüksel'de resimlerinden birinin 400 franka satıldığını bildirmiş.",
+   "gorsel": {
+    "ekran": "Badem Çiçeği'nin ayrıntısı: beş yapraklı tek bir çiçek, fırça izi; kamera çiçekten dala kayar. Üst bantta Felemenkçe özgün metin küçük: 'groote takken witte amandelbloesem tegen een blauwe lucht'.",
+    "renkli": "Badem Çiçeği (ayrıntı); gerisi gri yağlıboya (grisaille)",
+    "olcek": "ayrinti"
+   },
+   "kaynak": "DOGRULAMA §2.5 (VGM 855, annesine, 19 Şubat 1890; '…verkochten voor 400 francs' aynı mektupta). Beş yaprak: dört yapraklı çiçek yok (haç)"
+  },
+  {
+   "id": "F08",
+   "bolum": "Dört yüz frank: badem dalı (1890)",
+   "tts": "[calmly] Mart ortasında bu dal için \"belki en sabırla yaptığım\" diyor. Nisan sonunda ise şunu yazıyor: \"Badem çiçeklerini yaparken hastalandım.\"",
+   "alt": "Mart ortasında bu dal için \"belki en sabırla yaptığım\" diyor. Nisan sonunda ise şunu yazıyor: \"Badem çiçeklerini yaparken hastalandım.\"",
+   "gorsel": {
+    "ekran": "Badem Çiçeği tam kare, sonra kamera geri çekilir; tablo gri atölyenin duvarında küçülür; 'hastalandım' sözcüğünde atölyenin penceresinden ışık çekilir, tablo renkli kalır.",
+    "renkli": "Badem Çiçeği; gerisi gri yağlıboya (grisaille)",
+    "olcek": "genis"
+   },
+   "kaynak": "DOGRULAMA §1 'Badem Çiçeği'nden sonra' (VGM 857, c. 17 Mart 1890; VGM 863, 29 Nisan 1890) ve §2.6"
+  },
+  {
+   "id": "G01",
+   "bolum": "Üç günlük ziyaret: Paris ve Auvers (Mayıs–Temmuz 1890)",
+   "tts": "[curious] On yedi Mayıs sabahı Vincent Paris'te. Badem dalını boyadığı bebeği henüz hiç görmedi; görünce ne olacak?",
+   "alt": "17 Mayıs sabahı Vincent Paris'te. Badem dalını boyadığı bebeği henüz hiç görmedi; görünce ne olacak?",
+   "gorsel": {
+    "ekran": "Gar, sabah; bavullu sırttan siluet (araclar/hareket) kalabalığın içinden yürür. Kesme: cité Pigalle'nin kapısı açılır.",
+    "renkli": "hiçbiri; gerisi gri yağlıboya (grisaille)",
+    "olcek": "genis"
+   },
+   "kaynak": "DOGRULAMA §6 'Mayıs 1890' (17 Mayıs sabahı Paris; Jo'yu ve bebeği ilk kez görür; 'tek kez' denmez)"
+  },
+  {
+   "id": "G02",
+   "bolum": "Üç günlük ziyaret: Paris ve Auvers (Mayıs–Temmuz 1890)",
+   "tts": "[softly] Üç gün kardeşinin evinde kalıyor. Kapının eşiğindeki kadın o anı yıllar sonra yazacak: iki kardeş beşiğin başında, gözleri yaşlı.",
+   "alt": "Üç gün kardeşinin evinde kalıyor. Kapının eşiğindeki kadın o anı yıllar sonra yazacak: iki kardeş beşiğin başında, gözleri yaşlı.",
+   "gorsel": {
+    "ekran": "Kancanın odası, gün ışığı: iki erkek silueti beşiğin iki yanında, sırttan ve yandan; kadın kapı eşiğinde (A05'in aynı kompozisyonu). Duvarda Badem Çiçeği.",
+    "renkli": "Badem Çiçeği (duvarda); gerisi gri yağlıboya (grisaille)",
+    "olcek": "orta"
+   },
+   "kaynak": "DOGRULAMA §6 'Mayıs 1890' (üç gün cité Pigalle; Jo 1914: beşiğin başında, gözleri yaşlı)"
+  },
+  {
+   "id": "G03",
+   "bolum": "Üç günlük ziyaret: Paris ve Auvers (Mayıs–Temmuz 1890)",
+   "tts": "[warmly] Sonra Vincent tığ işi bir örtüyü gösterip şaka yapıyor.",
+   "alt": "Sonra Vincent tığ işi bir örtüyü gösterip şaka yapıyor.",
+   "gorsel": {
+    "ekran": "Beşiğin kenarından sarkan tığ işi örtü; bir el ucunu kaldırır (örtüde halka tarama yok, düz ağ dokusu). Kadının omzu güler gibi sarsılır.",
+    "renkli": "hiçbiri; gerisi gri yağlıboya (grisaille)",
+    "olcek": "ayrinti"
+   },
+   "kaynak": "DOGRULAMA §6 'Mayıs 1890' (Jo 1914: tığ işi örtüyü gösterip şaka yapar). Şakanın sözü kaynakta yok, uydurulmaz"
+  },
+  {
+   "id": "G04",
+   "bolum": "Üç günlük ziyaret: Paris ve Auvers (Mayıs–Temmuz 1890)",
+   "tts": "[calmly] Yirmi Mayısta Auvers'e geçiyor. Orada neredeyse her gün bir eser çıkıyor.",
+   "alt": "20 Mayıs'ta Auvers'e geçiyor. Orada neredeyse her gün bir eser çıkıyor.",
+   "gorsel": {
+    "ekran": "Auvers, gri köy yolu ve tarlalar; sırttan figür şövale taşıyarak yürür (araclar/hareket). Güneş kadrajda hızla döner, şövaledeki tuvaller arka arkaya değişir (sırtları dönük).",
+    "renkli": "hiçbiri; gerisi gri yağlıboya (grisaille)",
+    "olcek": "genis"
+   },
+   "kaynak": "DOGRULAMA §6 'Auvers' (20 Mayıs 1890) ve §1 'Saint-Rémy, Auvers' (neredeyse günde bir eser)"
+  },
+  {
+   "id": "G05",
+   "bolum": "Üç günlük ziyaret: Paris ve Auvers (Mayıs–Temmuz 1890)",
+   "tts": "[calmly] Temmuzda hesap Theo'nun kendi cebine dönüyor. Bebek hasta; Theo patronlarından zam istiyor, firmadan ayrılmayı bile düşünüyor.",
+   "alt": "Temmuzda hesap Theo'nun kendi cebine dönüyor. Bebek hasta; Theo patronlarından zam istiyor, firmadan ayrılmayı bile düşünüyor.",
+   "gorsel": {
+    "ekran": "Galerinin arka odası: masa başında iki koyu siluet, karşılarında ayakta Theo (sorgu odası düzeni yok: tepeden tek ışık konisi yok, pencere ışığı yandan). Theo'nun eli cebindeki boş zarfı sıkar.",
+    "renkli": "hiçbiri; gerisi gri yağlıboya (grisaille)",
+    "olcek": "orta"
+   },
+   "kaynak": "DOGRULAMA §6 'Temmuz 1890' (bebek hasta; Theo patronlarıyla sıkışmış, zam ister, ayrılmayı düşünür; VGM 894, 897, 898)"
+  },
+  {
+   "id": "G06",
+   "bolum": "Üç günlük ziyaret: Paris ve Auvers (Mayıs–Temmuz 1890)",
+   "tts": "[calmly] Altı Temmuzda Vincent bir günlüğüne Paris'e geliyor; o gün gergin geçiyor.",
+   "alt": "6 Temmuz'da Vincent bir günlüğüne Paris'e geliyor; o gün gergin geçiyor.",
+   "gorsel": {
+    "ekran": "Kancanın odası öğle ışığında: üç siluet, aralarında masa; kimse oturmaz. Lamba sönük. Kamera beşikten masaya yavaş kayar.",
+    "renkli": "Badem Çiçeği (duvarda, kadrajın kenarında); gerisi gri yağlıboya (grisaille)",
+    "olcek": "yakin"
+   },
+   "kaynak": "DOGRULAMA §6 'Temmuz 1890' (6 Temmuz Paris günü gergin geçer)"
+  },
+  {
+   "id": "G07",
+   "bolum": "Üç günlük ziyaret: Paris ve Auvers (Mayıs–Temmuz 1890)",
+   "tts": "[calmly] Auvers'e dönünce bulutlu göğün altında uçsuz bucaksız buğday tarlaları boyuyor. Theo'ya, bu tuvallerin kırda sağlıklı ve güç verici bulduğu şeyi kelimelerden iyi anlatacağını yazıyor.",
+   "alt": "Auvers'e dönünce bulutlu göğün altında uçsuz bucaksız buğday tarlaları boyuyor. Theo'ya, bu tuvallerin kırda sağlıklı ve güç verici bulduğu şeyi kelimelerden iyi anlatacağını yazıyor.",
+   "gorsel": {
+    "ekran": "Gri tarla, alçak bulutlar; 'buğday' sözcüğünde tarla Vincent'in baktığı yerden renklenir ve Fırtınalı Gök Altında Buğday Tarlası'na dönüşür (plan içi palet değişimi). Rüzgâr başakları dalgalandırır.",
+    "renkli": "Fırtınalı Gök Altında Buğday Tarlası (Van Gogh Müzesi; Commons PD-Art); gerisi gri yağlıboya (grisaille)",
+    "olcek": "genis"
+   },
+   "kaynak": "DOGRULAMA §2.7 (VGM 898, c. 10 Temmuz 1890: uçsuz bucaksız buğday tarlaları, bulutlu gök; kırın sağlıklı ve güç verici yanı). 'Son resim' kurulmaz (§3)"
+  },
+  {
+   "id": "G08",
+   "bolum": "Üç günlük ziyaret: Paris ve Auvers (Mayıs–Temmuz 1890)",
+   "tts": "[softly] Yirmi dokuz Temmuz bin sekiz yüz doksanda Vincent Auvers'te ölüyor; Theo yanında. [long pause]",
+   "alt": "29 Temmuz 1890'da Vincent Auvers'te ölüyor; Theo yanında.",
+   "gorsel": {
+    "ekran": "Olay gösterilmez, figür yok. G07'nin renkli tarlası 'ölüyor' sözcüğünde yavaşça griye döner; rüzgâr durur. 4 sn sessizlik, yalnız tarlanın sesi. Ekranda tarih yazısı yok.",
+    "renkli": "renk sözcükte söner; sonra hiçbiri",
+    "olcek": "ayrinti"
+   },
+   "kaynak": "DOGRULAMA §1 'Ölüm' (anlatımda yalnız '29 Temmuz 1890'da öldü; Theo yanındaydı'). Biçim, silah, yara söylenmez ve gösterilmez (§3). Kullanıcı kararı: tek cümle ve sessizlik"
+  },
+  {
+   "id": "H01",
+   "bolum": "Gönderilmemiş mektup (Temmuz 1890 – Ocak 1891)",
+   "tts": "[curious] Theo'nun eline bir mektup geçiyor: zarfı yok, tutarı yok, hiç gönderilmemiş. İçinde ne yazıyor?",
+   "alt": "Theo'nun eline bir mektup geçiyor: zarfı yok, tutarı yok, hiç gönderilmemiş. İçinde ne yazıyor?",
+   "gorsel": {
+    "ekran": "Gri bir masa, zarfsız katlı bir kâğıt; Theo'nun eli açar. Lamba yok, pencere ışığı.",
+    "renkli": "hiçbiri; gerisi gri yağlıboya (grisaille)",
+    "olcek": "yakin"
+   },
+   "kaynak": "DOGRULAMA §1 'Cebindeki mektup' (RM25: bitmemiş, gönderilmemiş taslak; Theo'nun kurşun kalem notu). 'Veda' ya da 'son mektup' denmez (§3)"
+  },
+  {
+   "id": "H02",
+   "bolum": "Gönderilmemiş mektup (Temmuz 1890 – Ocak 1891)",
+   "tts": "[calmly] Yirmi üç Temmuz tarihli, yarım kalmış bir taslak. İçinde şu cümle var: [pause] \"Biz ancak resimlerimizi konuşturabiliriz.\"",
+   "alt": "23 Temmuz tarihli, yarım kalmış bir taslak. İçinde şu cümle var: \"Biz ancak resimlerimizi konuşturabiliriz.\"",
+   "gorsel": {
+    "ekran": "Kâğıdın ayrıntısı: yazı sayfanın ortasında kesilir, altı boş. Üst bantta özgün metin küçük: 'nous ne pouvons faire parler que nos tableaux'.",
+    "renkli": "hiçbiri; gerisi gri yağlıboya (grisaille)",
+    "olcek": "ayrinti"
+   },
+   "kaynak": "DOGRULAMA §1 'Cebindeki mektup' (RM25, 23 Temmuz 1890) ve §2.8. 'Ma raison…' cümlesi okunmaz (§3)"
+  },
+  {
+   "id": "H03",
+   "bolum": "Gönderilmemiş mektup (Temmuz 1890 – Ocak 1891)",
+   "tts": "[warmly] Aynı taslakta sekiz yıllık zarfların karşılığı tek bir cümle: [pause] \"Benim aracılığımla bazı tuvallerin yapımında senin de payın var.\"",
+   "alt": "Aynı taslakta sekiz yıllık zarfların karşılığı tek bir cümle: \"Benim aracılığımla bazı tuvallerin yapımında senin de payın var.\"",
+   "gorsel": {
+    "ekran": "Kamera kâğıttan kalkar: Theo'nun masasında sekiz yılın zarfları yığılı; 'payın' sözcüğünde yığının üstündeki sarı zarflar ışıkta parlar. Özgün metin üst bantta küçük: '…que par mon intermédiaire tu as ta part à la production même de certaines toiles…'.",
+    "renkli": "sarı zarflar; gerisi gri yağlıboya (grisaille)",
+    "olcek": "orta"
+   },
+   "kaynak": "DOGRULAMA §2.9 (RM25; 'benim aracılığımla' korunur). Veda olarak sunulmaz: cümle hesabın karşılığı olarak okunur"
+  },
+  {
+   "id": "H04",
+   "bolum": "Gönderilmemiş mektup (Temmuz 1890 – Ocak 1891)",
+   "tts": "[softly] Ağustosta Theo annesine yazıyor: [pause] \"Ah anneciğim, o benim kendi kardeşimdi; öyle benimdi ki.\"",
+   "alt": "Ağustosta Theo annesine yazıyor: \"Ah anneciğim, o benim kendi kardeşimdi; öyle benimdi ki.\"",
+   "gorsel": {
+    "ekran": "Theo sırttan, masada yazıyor; omuz üstünden kalem ve kâğıt. Bu kez zarfı kendisi kapatır; zarf gri.",
+    "renkli": "hiçbiri; gerisi gri yağlıboya (grisaille)",
+    "olcek": "yakin"
+   },
+   "kaynak": "DOGRULAMA §2.10 (Theo'dan annesine, Ağustos 1890; Jo'nun 1914 girişi: 'O moeder, hij was zoo mijn eigen broer')"
+  },
+  {
+   "id": "H05",
+   "bolum": "Gönderilmemiş mektup (Temmuz 1890 – Ocak 1891)",
+   "tts": "[calmly] Theo'nun Vincent'e yazdığı mektuplardan bugün yalnız otuz dokuzu var. Vincent çoğunu attı ya da yaktı.",
+   "alt": "Theo'nun Vincent'e yazdığı mektuplardan bugün yalnız 39'u var. Vincent çoğunu attı ya da yaktı.",
+   "gorsel": {
+    "ekran": "İki yığın yan yana: solda yüksek sarı zarf yığını (Vincent'in), sağda ince gri bir deste (Theo'nun 39'u). Sağdaki deste rüzgârda birkaç yaprak kaybeder. Ateş gösterilmez.",
+    "renkli": "Vincent'in sarı zarfları; gerisi gri yağlıboya (grisaille)",
+    "olcek": "genis"
+   },
+   "kaynak": "DOGRULAMA §1 'Kalan yazışma' (Theo'dan yalnız 39) ve 'Theo'nun mektupları' ('çoğunu attı ya da yaktı'; 'hiç saklamadı' denmez)"
+  },
+  {
+   "id": "H06",
+   "bolum": "Gönderilmemiş mektup (Temmuz 1890 – Ocak 1891)",
+   "tts": "[softly] Altı ay sonra, yirmi beş Ocak bin sekiz yüz doksan birde, Theo da Utrecht'te ölüyor. Otuz üç yaşında. [long pause]",
+   "alt": "Altı ay sonra, 25 Ocak 1891'de, Theo da Utrecht'te ölüyor. 33 yaşında.",
+   "gorsel": {
+    "ekran": "Kancanın odası, kış ışığı: masanın başındaki sandalye boş; lamba söner. Figür yok. 3 sn sessizlik.",
+    "renkli": "duvarda Badem Çiçeği renkli kalır; gerisi gri yağlıboya (grisaille)",
+    "olcek": "orta"
+   },
+   "kaynak": "DOGRULAMA §1 'Theo'nun ölümü' (25 Ocak 1891, Utrecht, 33 yaşında). Ölüm nedeni söylenmez ('olası' bile, §3)"
+  },
+  {
+   "id": "I01",
+   "bolum": "Son hesap: kapıdaki kadının defteri (1891–1925)",
+   "tts": "[curious] Kapının eşiğindeki kadın yirmi sekiz yaşında. Kucağında bir bebek, elinde yüzlerce tablo ve bir çekmece dolusu mektup. Bunlarla ne yapacak?",
+   "alt": "Kapının eşiğindeki kadın 28 yaşında. Kucağında bir bebek, elinde yüzlerce tablo ve bir çekmece dolusu mektup. Bunlarla ne yapacak?",
+   "gorsel": {
+    "ekran": "Kancanın odası boşaltılıyor: duvara yaslı tuval sıraları (sırtları dönük), çekmece açık. Kadın sırttan, açık gri giysi (baştan ayağa koyu örtü yok), kucağında bebek silueti; kamera onun omzunun üstünden odaya bakar.",
+    "renkli": "Badem Çiçeği (sandığa konurken); gerisi gri yağlıboya (grisaille)",
+    "olcek": "genis"
+   },
+   "kaynak": "DOGRULAMA §1 'Jo' (Theo öldüğünde 28 yaşında, bir bebekle). 'Yüzlerce tablo': §1 'Üretim' (850'den fazla), 'Jo'nun satışları' (en az 192) ve '1905 sergisi' (484 eser)"
+  },
+  {
+   "id": "I02",
+   "bolum": "Son hesap: kapıdaki kadının defteri (1891–1925)",
+   "tts": "[calmly] Bin sekiz yüz doksan birde bebek ve tablolarla Bussum'a yerleşiyor ve bir pansiyon açıyor.",
+   "alt": "1891'de bebek ve tablolarla Bussum'a yerleşiyor ve bir pansiyon açıyor.",
+   "gorsel": {
+    "ekran": "Gri bir villa, bahçe kapısı; arabadan sandıklar ve tuvaller iner (araclar/hareket ile taşıyan iki figür). Pencerede 'pansiyon' levhası okunmaz, yalnız biçim.",
+    "renkli": "hiçbiri; gerisi gri yağlıboya (grisaille)",
+    "olcek": "orta"
+   },
+   "kaynak": "DOGRULAMA §6 'Sonrası' (1891 Bussum, pansiyon Villa Helma)"
+  },
+  {
+   "id": "I03",
+   "bolum": "Son hesap: kapıdaki kadının defteri (1891–1925)",
+   "tts": "[calmly] Defter dolmaya başlıyor: satış satış, ölümüne kadar yaklaşık iki yüz resim.",
+   "alt": "Defter dolmaya başlıyor: satış satış, ölümüne kadar yaklaşık 200 resim.",
+   "gorsel": {
+    "ekran": "A04'teki hesap defteri, bu kez dolu: satırlar hızla akar (okunur ad yok, yalnız rakam dokusu). Kadının eli sayfayı çevirir; lamba aynı lamba.",
+    "renkli": "hiçbiri; gerisi gri yağlıboya (grisaille)",
+    "olcek": "ayrinti"
+   },
+   "kaynak": "DOGRULAMA §1 'Jo'nun satışları' (1891–1925 en az 192 resim ve 55 kâğıt üstü eser; 'yaklaşık 200 resim' denebilir, 'neredeyse 200 eser' denmez) ve 'Hesap defteri' (200'ü aşkın satış kaydı). Yapı C'nin son sayımı"
+  },
+  {
+   "id": "I04",
+   "bolum": "Son hesap: kapıdaki kadının defteri (1891–1925)",
+   "tts": "[warmly] Ama tabloları satarken mektupları saklıyor. Bin sekiz yüz doksan ikide ilk sergiler; bin dokuz yüz beşte Amsterdam'da dört yüz seksen dört eserlik, gelmiş geçmiş en büyük Van Gogh sergisi.",
+   "alt": "Ama tabloları satarken mektupları saklıyor. 1892'de ilk sergiler; 1905'te Amsterdam'da 484 eserlik, gelmiş geçmiş en büyük Van Gogh sergisi.",
+   "gorsel": {
+    "ekran": "Çekmecenin kapağı kapanır (mektuplar içeride). Kesme: büyük gri müze salonu, duvarlar baştan sona çerçevelerle dolu; 'en büyük' sözcüğünde çerçevelerin yüzleri birer birer renkle dolar (E05 ve F05'teki tablolar).",
+    "renkli": "duvardaki tablolar (Badem Çiçeği, Selvili Buğday Tarlası, Selviler, İrisler Met 436528, Ayçiçekleri); gerisi gri yağlıboya (grisaille)",
+    "olcek": "genis"
+   },
+   "kaynak": "DOGRULAMA §6 'Sonrası' (1892 ilk sergiler) ve §1 '1905 sergisi' (Stedelijk, 15 Temmuz 1905, 484 eser, en büyük Van Gogh sergisi). 'Mektupları saklıyor': §6 'Mektuplar bugün' (müze 820 mektubun çoğunu saklıyor)"
+  },
+  {
+   "id": "I05",
+   "bolum": "Son hesap: kapıdaki kadının defteri (1891–1925)",
+   "tts": "[calmly] Bin dokuz yüz on dörtte mektupları üç cilt hâlinde yayımlıyor, kendi yazdığı bir girişle. Aynı yıl Theo'yu Auvers'e, Vincent'in yanına taşıtıyor.",
+   "alt": "1914'te mektupları üç cilt hâlinde yayımlıyor, kendi yazdığı bir girişle. Aynı yıl Theo'yu Auvers'e, Vincent'in yanına taşıtıyor.",
+   "gorsel": {
+    "ekran": "Üç cilt masada üst üste konur; kadının eli ilk cildin kapağını açar, ilk sayfa beyaz kalır (≤ 2 sn). Kesme: buğday tarlası, rüzgâr.",
+    "renkli": "hiçbiri; gerisi gri yağlıboya (grisaille)",
+    "olcek": "orta"
+   },
+   "kaynak": "DOGRULAMA §1 '1914' (üç cilt, Jo'nun girişiyle, Brieven aan zijn broeder) ve 'Nakil' (1914; ay verilmez)"
+  },
+  {
+   "id": "I06",
+   "bolum": "Son hesap: kapıdaki kadının defteri (1891–1925)",
+   "tts": "[softly] Girişte şöyle yazıyor: [pause] \"Auvers'te buğday tarlalarının arasındaki küçük mezarlıkta birlikte yatıyorlar.\"",
+   "alt": "Girişte şöyle yazıyor: \"Auvers'te buğday tarlalarının arasındaki küçük mezarlıkta birlikte yatıyorlar.\"",
+   "gorsel": {
+    "ekran": "Çok uzaktan gri buğday tarlaları, ortada alçak bir duvar ve sarmaşık altında yan yana iki alçak taş; haç yok, sıra hâlinde taş yok, kürek ya da tümsek yok. Rüzgâr başakları dalgalandırır, kamera yavaş yaklaşır.",
+    "renkli": "hiçbiri; gerisi gri yağlıboya (grisaille)",
+    "olcek": "genis"
+   },
+   "kaynak": "DOGRULAMA §2.11 (Jo'nun 1914 girişi, imza Aralık 1913; nakilden önce mi yazıldığı kesin değil: 'Jo şöyle yazdı' diye verilir)"
+  },
+  {
+   "id": "I07",
+   "bolum": "Son hesap: kapıdaki kadının defteri (1891–1925)",
+   "tts": "[calmly] Mektupları İngilizceye de çeviriyor. Öldüğünde çevirinin üçte ikisi bitmiş.",
+   "alt": "Mektupları İngilizceye de çeviriyor. Öldüğünde çevirinin üçte ikisi bitmiş.",
+   "gorsel": {
+    "ekran": "Kancanın odası son kez: lamba yanıyor, masada kadın sırttan yazıyor; yanında açık defter ve sarı zarf destesi. Kamera omzunun üstünden yaklaşır.",
+    "renkli": "sarı zarflar; gerisi gri yağlıboya (grisaille)",
+    "olcek": "yakin"
+   },
+   "kaynak": "DOGRULAMA §1 '1914' (İngilizce çeviriyi sürdürdü, ölümünde yaklaşık üçte ikisi bitmişti) ve 'Jo' (ölüm 2 Eylül 1925)"
+  },
+  {
+   "id": "J01",
+   "bolum": "Kurye: Van Gogh'a kim inandı?",
+   "tts": "[warmly] Kapının eşiğindeki kadının adı Jo. Van Gogh'a kim inandı? Önce Theo: sekiz yıl boyunca, ay ay bir zarf.",
+   "alt": "Kapının eşiğindeki kadının adı Jo. Van Gogh'a kim inandı? Önce Theo: sekiz yıl boyunca, ay ay bir zarf.",
+   "gorsel": {
+    "ekran": "A01'in kompozisyonu geri gelir: aynı oda, aynı lamba; masada Theo'nun boş sandalyesi, kapı eşiğinde kadın. 'Theo' sözcüğünde sandalyenin yanındaki zarf yığını parlar.",
+    "renkli": "sarı zarflar ve duvarda Ayçiçekleri (A01'deki tuval); gerisi gri yağlıboya (grisaille)",
+    "olcek": "genis"
+   },
+   "kaynak": "Ana merak sorusunun cevabı bir sahne (kancanın odası). Ad burada verilir (DOGRULAMA §1 'Jo'). Theo: §1 'Theo'nun desteği'"
+  },
+  {
+   "id": "J02",
+   "bolum": "Kurye: Van Gogh'a kim inandı?",
+   "tts": "[warmly] Sonra Jo: tabloları satarken mektupları saklayan ve onları geleceğe, bize taşıyan kurye.",
+   "alt": "Sonra Jo: tabloları satarken mektupları saklayan ve onları geleceğe, bize taşıyan kurye.",
+   "gorsel": {
+    "ekran": "Kadın sırttan defteri kapatır; bir sarı zarfı alır ve kapıdan dışarı, ışığa doğru yürür (araclar/hareket). Kamera eşikte kalır.",
+    "renkli": "elindeki sarı zarf; gerisi gri yağlıboya (grisaille)",
+    "olcek": "orta"
+   },
+   "kaynak": "DOGRULAMA §1 '1914', 'Jo'nun satışları'; §6 'Mektuplar bugün'. Kanalın kurye fikri (uretim_plani §3)"
+  },
+  {
+   "id": "J03",
+   "bolum": "Kurye: Van Gogh'a kim inandı?",
+   "tts": "[calmly] Bugün o mektupların çoğu Amsterdam'da, badem dalıyla aynı müzede duruyor.",
+   "alt": "Bugün o mektupların çoğu Amsterdam'da, badem dalıyla aynı müzede duruyor.",
+   "gorsel": {
+    "ekran": "Kapının öbür yanı bugüne açılır: gri bir müze vitrini, içinde sarı zarflı mektuplar; arkadaki duvarda Badem Çiçeği renkli. Vitrinin camında izleyici gibi duran tek bir sırt silueti.",
+    "renkli": "Badem Çiçeği ve vitrindeki sarı zarflar; gerisi gri yağlıboya (grisaille)",
+    "olcek": "yakin"
+   },
+   "kaynak": "DOGRULAMA §6 'Mektuplar bugün' (müze 820 mektubun çoğunu saklıyor; nadiren sergileniyor: vitrin görsel yorum, seste 'sergileniyor' denmez) ve §1 'Badem Çiçeği' (Van Gogh Müzesi s0176V1962)"
+  },
+  {
+   "id": "J04",
+   "bolum": "Kurye: Van Gogh'a kim inandı?",
+   "tts": "[softly] Sana kimse inanmazken kim inandı? [pause] Sen kime inanıyorsun?",
+   "alt": "Sana kimse inanmazken kim inandı? Sen kime inanıyorsun?",
+   "gorsel": {
+    "ekran": "Kamera vitrinden kendi masasına döner: lamba, boş bir sarı zarf, kalem. Zarf açık bekliyor.",
+    "renkli": "sarı zarf; gerisi gri yağlıboya (grisaille)",
+    "olcek": "ayrinti"
+   },
+   "kaynak": "Kişisel soru son anın içinde (uretim_plani §4, §6 adım 8)"
+  },
+  {
+   "id": "J05",
+   "bolum": "Kurye: Van Gogh'a kim inandı?",
+   "tts": "[warmly] Bu kanal da bir kurye: geçmişten bugüne böyle sorular taşıyor. Sıradaki zarfı kaçırmamak için abone ol; o zarf şimdi ekranda.",
+   "alt": "Bu kanal da bir kurye: geçmişten bugüne böyle sorular taşıyor. Sıradaki zarfı kaçırmamak için abone ol; o zarf şimdi ekranda.",
+   "gorsel": {
+    "ekran": "BİTİŞ EKRANI (son 20 sn): zarf kapanır ve kadraj geri çekilir; masada iki sarı zarf kartı (önerilen video ve abone düğmesinin yeri), lamba yanık kalır. Yazı alt banda (y > 880) konmaz.",
+    "renkli": "sarı zarflar; gerisi gri yağlıboya (grisaille)",
+    "olcek": "orta"
+   },
+   "kaynak": "Abone çağrısı ve bitiş ekranı hikâyenin son anının içinde; 'ekranda' sözcüğü son 20 sn'de (CLAUDE.md)"
+  }
+ ]
+}
