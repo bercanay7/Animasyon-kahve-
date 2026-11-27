@@ -147,7 +147,7 @@ export function planlar2(M, IMG, FIG, H) {
   // ================= E: Bir yılda yüz elli resim =================
   // E01 · genis · SELVİLİ TARLA (gri dünya): duvarla çevrili hastane bahçesinin ötesi; kamera yavaş kayar
   tabloPlan('E01', 'E01', 'selvili_tarla', 'genis', 'Saint-Rémy: gri dünya; yürüyen siluet', kamYol([860, 560, 1.14], [1040, 530, 1.02], u => u), { maske: () => {},
-    durum: st => ({ figur: (t, S) => figurBas(S, FIG.vincent_yuru, t * .55, [760 + 22 * t, 1020 - 4 * t], 400 - 12 * t, { dongu: false, gunes: [1600, 200], hava: [.5, .48, .44], havaK: .15 }) }) });   // v3: siluet okunur boyda (birkaç pikseldi)
+    durum: st => ({ figur: (t, S) => figurBas(S, FIG.vincent_yuru, t * .4, [760 + 22 * t, 1020 - 4 * t], 400 - 10 * t, { dongu: false, gunes: [1600, 200], hava: [.5, .48, .44], havaK: .15 }) }) });   // v3: siluet okunur boyda (birkaç pikseldi)
   // E02 · ayrinti · MASA: makbuz ve banknotlar; başka bir el yazısıyla küçük bir zarf kadraja kayar (kız kardeşler)
   plan({ id: 'E02', at: 'E02', sahne: 'masa', olcek: 'ayrinti', not: 'Hastane parası; kız kardeşlerin katkısı',
     kamera: kamYol([960, 430, 1.5], [960, 440, 1.56], u => u),
@@ -183,7 +183,7 @@ export function planlar2(M, IMG, FIG, H) {
   plan({ id: 'F03', at: 'F03', sahne: 'oda', olcek: 'yakin', not: 'Oğul doğar: Jo kucağında bebek, Theo eğilir',
     kamera: kamYol([980, 640, 1.42], [1000, 650, 1.5], u => u),
     durum: st => ({ tablo: 'oda_otoportre', isik: 'kis', figur: (t, S) => { figurBas(S, FIG.theo_egil, t - (cIdx(st, 'F03@oğlu') - 1.2), [800, 1090], 640, { gunes: [350, 300], dongu: false, adim: 2 });
-      figurBas(S, FIG.jo_bebek, t, [1170, 1090], 610, { gunes: [350, 300], adim: 2 }); } }) });
+      figurBas(S, FIG.jo_yan, t, [1170, 1090], 610, { gunes: [350, 300], adim: 2 }); } }) });   /* v3: bebek F03b'deki adla anlatılır (yakın planda omuzdaki küçük baş ikinci baş okunuyordu) */
   // F03b · ayrinti · MASA (gece): Theo'nun Vincent'e mektubu (31 Ocak 1890); "amcasından"da ad satırların altında ayrı bir satıra mürekkeple yazılır: Vincent
   const F3k = kamYol([960, 430, 1.55], [960, 440, 1.62], u => u);
   plan({ id: 'F03b', at: 'F03@adını', sahne: 'masa', olcek: 'ayrinti', not: 'Mektupta "Vincent" adı yazılır', kamera: F3k,
@@ -288,7 +288,7 @@ export function planlar2(M, IMG, FIG, H) {
   const H1z = Array.from({ length: 6 }, (_, i) => ({ tur: 'zarf', renk: 'sari', yuz: hsh(i, 4) < .5 ? 'on' : 'arka', x: 1010 + (hsh(i, 1) - .5) * 60, y: 985 + (hsh(i, 2) - .5) * 10 - i * 3, w: 80, h: 34, rot: (hsh(i, 3) - .5) * .3, tohum: 1900 + i, kalinlik: false }));
   plan({ id: 'H01', at: 'H01', sahne: 'oda', olcek: 'yakin', not: 'Bir bebek, bir çekmece mektup, yüzlerce tablo: Jo',
     kamera: kamYol([760, 700, 1.55], [820, 690, 1.66], u => u),
-    durum: st => ({ tablo: 'oda_guller', isik: 'kis', nesneler: () => H1z, ust: (t, S) => { sandik(S, 1010, 1060, 220, 130, 11); sandik(S, 1200, 1080, 170, 110, 12);
+    durum: st => ({ tablo: 'oda_guller', isik: 'kis', ust: (t, S) => { sandik(S, 1010, 1060, 220, 130, 11); sandik(S, 1200, 1080, 170, 110, 12); for (const it of H1z) nesne(S, it);
         for (let i = 0; i < 4; i++) nesne(S, { tur: 'tuvalsirt', x: 470 + i * 46, y: 930 - i * 4, w: 150 - i * 8, h: 210 - i * 14, rot: .08 - i * .02, tohum: 20 + i }); },
       figur: (t, S) => figurBas(S, FIG.jo_bebek, t, [840, 1080], 640, { gunes: [350, 300] }) }),
     maske: (st, kam) => { const c = M.camK(kam, .3); for (const it of H1z) nesneMaske(c, it); tabloMaske(kam, .7); } });
