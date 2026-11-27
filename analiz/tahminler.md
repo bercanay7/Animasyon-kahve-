@@ -97,6 +97,14 @@ Yeni değişken: senaryodan önce kanca araştırması (`stanford/arastirma/`). 
 - **Tahmin S1:** izlemeye devam eden **≥ %60** (Elizabeth %27, Milton %32–38). Tutarsa: kırpma biçimi bırakılır, Shorts dikey merceğe geçer. %40–60: biçim yardımcı ama ilk saniye hâlâ zayıf. **< %40:** sorun kadraj değil, kanalın Shorts'taki konusu ya da ilk cümle; Shorts bir süre bırakılır.
 - **Ölçüm:** Shorts'un 48. saati (Studio → Shorts → "izlemeye devam eden" ve görüntüleme).
 
+## Van Gogh'a Kim İnandı? (27 Kasım 2026, yayından önce yazıldı; film 9:59)
+Karma üslup (gri yağlıboya dünya, yalnız Vincent'in tabloları ve zarfları renkli); kahraman Theo, doruğu taşıyan Jo kancada ekildi (A03: "ikincisi sonda").
+| # | Tahmin | Ölçü | Sonuç |
+|---|---|---|---|
+| VG1 | **Kanca:** ilk 13 sn'de kapak A'nın odası (0:00), çekmecedeki sarı zarflar ve yığından çıkan badem dalı (kapak B, ≈0:11). 0:10'dan 0:30'a kayıp ≤ 6 puan; 48. saatte 0:30 ≥ %70. Tutmazsa ders: iki kapağın vaadini ilk 13 sn'ye sığdırmak tek vaat kadar tutmuyor. | elde tutma 0:10, 0:30 (48. saat, 7. gün) | |
+| VG2 | **Renk doruğu** (F04, ≈4:58 Badem Çiçeği'nin bütün kareyi doldurduğu an) eğride "Önemli an" ya da düzleşme olur: 4:50–5:20 arası dakika başına kayıp gövde ortalamasının yarısından az. Tutmazsa ders: grisaille-renk kuralı görsel ödül olarak izleyiciyi tutmuyor; renk daha erken ve sık açılmalı. | 4:50–5:20 dakika başına kayıp; Önemli anlar | |
+| VG3 | **Ölümden sonra izleyici kalır:** G09–G11 (≈7:01–7:25, olay gösterilmez, iki sessizlik) sonrası 7:25–8:25 dakika başına kayıp gövde ortalamasını aşmaz, çünkü ikinci cevap (Jo) kancada ekildi. Aşarsa ders: "hikâye bitince izleyici gider" kuralı kahramanın ölümünde de geçerli; ikinci kahramanın sorusu ölümden önce yeniden sorulmalı. | 7:25–8:25 dakika başına kayıp | |
+
 ## Sonuçlar
 (48. saat ve 7. gün verisi geldikçe doldurulur. Üç tahminden ikisi tutmazsa araç ve kurallar gözden geçirilir.)
 - **Mary Stuart (45. saat, 22 Kasım):** M1 ve M3 tuttu, M2 tutmadı. Tempo aracının M işareti inceltilir: "göre" sözcüğü değil, olaydan kopuk açıklama kaybettiriyor (1:12–1:36 arma ve meşruiyet: 24 sn'de −11; 17:38–18:03 "Neden kırmızı?" yorumu: −7). Ayrıntı `2026-11-22-mary-stuart-45saat.md`.

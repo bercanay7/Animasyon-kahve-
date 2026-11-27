@@ -1,0 +1,26 @@
+# Van Gogh'a Kim İnandı?: geriye bakış (üretim sırasında yazılır)
+
+## Hat
+- **Motor:** `araclar/tablo` (canlanan yağlıboya) ilk kez tam filmde. Setler `lib/set_*.js`, planlar `lib/planlar.js` (A–B) ve `lib/planlar2.js` (C–I), çekim sistemi `lib/film_t.js` (cümleye ve kelimeye bağlı plan: `A('C04@sarı')`).
+- **Karma üslup tek kuralla:** finish geçişinde grisaille (`mono: 1`) + ekran uzayında **renk örtüsü** (`finish({maske})`, 480×270 tuval; beyaz = renkli kalır). Tablonun gri dünyadan renge açılması, zarfların renkli kalması, badem dalı: hepsi örtü çizimi. Ayrı renk katmanı gerekmedi.
+- **Gerçek tablo = darbe katmanı:** `tabloCiz` resmi Ref tuvaline basar, `paintRef` darbe yönünü resmin değer kenarlarından alır. Fotoğraf yapıştırılmış gibi durmuyor; dünyayla aynı kabartma.
+- **Tablo dünyası:** Vincent'in tablosu gri olarak sahnenin kendisi (C04 Sarı Ev, E01 Selvili tarla, G06 Fırtınalı gök); "sarı"/"tarlaları" sözcüğünde renk örtüyle yayılır. Fikir görüntünün kuralı: dünya ancak Vincent'in resminde renklenir.
+- **Figürler Blender'da, sahneden bağımsız klip:** `blender/klip.js` (iskelet + hareket) → `figur_bpy.py` → saydam kareler; sahneye `figurBas(ayak, boy)` ile 2B yerleştirilir. Yürüyüş gibi perspektif isteyen planlarda set kamerasıyla ayrı klip (`theo_louvre`).
+- **Seslendirme:** 9 bölüm × 2 çekim (15.784 kredi). Kelime zamanları **faster-whisper** ile kredisiz (`tools/transcribe_fw.py`; openai-whisper kapta yok, model HuggingFace'ten). Rakamlar Türkçe okunuşa açılır, karşılaştırma senaryoyla.
+
+## Kurgu özetinde yakalananlar (hassasiyet)
+- Tığ işi örtü: yatay ve dikey kısa darbeler dönüşümlü → **küçük artılar (haç)**. Örtü yumuşak tümsek darbesine döndü.
+- Koyu dikdörtgen beşik → **tabut** okunabilir. Açık ahşap, kavisli sallanma ayağı, baş ucu kubbesi.
+- Şövalenin tuval rafı ayağı kesiyordu → **haç**. Ayaklar tepede birleşir, raf yalnız aralarında.
+- H07 taş duvarın üstünde sıra hâlinde koyu sarmaşık lekeleri → **mezar taşı sırası**. Kaldırıldı.
+- Müze vitrini koyu gövde + sarı-siyah dizi → **ikaz bandı**. Açık ahşap, cam, aralıklı zarflar.
+- Erkek figürde başın arkasına eklenen saç parçaları büyük planda **topuz** (kadın) okunuyordu. Baş tek parça saç renginde.
+- Ders (Stanford'la aynı): bu tuzakları plan yazarken biliyordum, yine de karede gördüm. Tarama tam boy karede yapılır.
+
+## Ses
+- Müzik özgün sentez (`audio/score.py`, zarf motifi). Düzey eğrisi: medyan −33 dBFS; telefon bandında saniyelerin %87'sinde duyuluyor. İlk ölçümde tren ostinatosu (re2) ve telgraf tremolosu telefon bandının altındaydı; üst oktav eklendi. Bilerek sessiz: G09 "öldü" ve G11 lamba söner.
+- Efektler ElevenLabs (8 × 4 çeşitleme, 544 kredi).
+
+## Açık işler
+- VGM kaynaklı tablolar (Badem Çiçeği, Sarı Ev, Fırtınalı gök, 1888 Yatak Odası, Yıldızlı Gece) Commons PD-Art'tan bekleniyor; gelmezse yer tutucu planlar yeniden düşünülür.
+- Render süresi: tek işçide ~2,5–4 sn/çizim (ss 1,5), 15 çizim/sn × 599 sn ≈ 9.000 çizim.
