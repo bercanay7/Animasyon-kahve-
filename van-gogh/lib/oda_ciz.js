@@ -76,7 +76,7 @@
     const m = [[.55, -3.15], [.85, -3.1], [.82, -3.4], [.5, -3.42]].map(([x, z]) => ekr(x, .765, z));
     R.fill(P(m), '#e4dac4', { dir: 0, maxR: 4, type: 1, len: 2.4, wid: .5, hgt: .3, group: 'acikmektup', jit: .03 });
     // gaz lambası: geniş taban, ince gövde, cam hazne, ince baca (ayaklı kâse biçimi urn okunuyordu)
-    const tb = ekr(.62, .77, -3.0), gv = ekr(.62, .92, -3.0), hz = ekr(.62, .99, -3.0), bc = ekr(.62, 1.2, -3.0);
+    const tb = ekr(.62, .77, -3.0), gv = ekr(.62, .975, -3.0), hz = ekr(.62, .99, -3.0)   /* v3: gövde hazneye bağlanır (hazne havada asılı okunuyordu) */, bc = ekr(.62, 1.2, -3.0);
     R.fill(Ell(tb[0], tb[1] - 5, 38, 9), '#2e241c', { dir: 0, maxR: 4, type: 1, group: 'lamba', jit: .04 });
     R.fill(P([[tb[0] - 6, tb[1] - 8], [tb[0] + 6, tb[1] - 8], [gv[0] + 5, gv[1]], [gv[0] - 5, gv[1]]]), '#3a2e24', { dir: 90, maxR: 3, type: 1, group: 'lamba', jit: .04 });
     R.fill(Ell(hz[0], hz[1], 26, 18), '#4e4032', { dir: 0, maxR: 4, type: 1, group: 'lamba', jit: .04 });

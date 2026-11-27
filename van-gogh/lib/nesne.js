@@ -39,7 +39,7 @@ function yazi(S, it, satir, pay = 1, olc = 1, akis = null) {
   const w = it.w, h = it.h, sd = it.tohum || 0, c = RENK.murekkep;
   for (let j = 0; j < satir; j++) {
     const v = -h / 2 + h * (j + 1) / (satir + 1), uzun = (.55 + .4 * hsh(sd, j)) * w * .85; let u = -w * .42;
-    const pj = akis == null ? pay : clamp(akis * satir - j); if (pj <= 0) break;   // v3: akış: satır satır dolar
+    const pj = akis == null ? pay : clamp(akis * satir - j) * pay; if (pj <= 0) break;   // v3: akış: satır satır dolar
     while (u < -w * .42 + uzun * pj) { const L = (10 + 18 * hsh(sd, j, u)) * olc; cizgi(S, it, u, v + (hsh(u, sd, j) - .5) * 2, u + L, v + (hsh(u + 1, sd, j) - .5) * 3, c, 1.6 * olc, .75, sd * 7 + j * 31 + u); u += L + 5 * olc; }
   }
 }
@@ -68,7 +68,7 @@ export function nesne(S, it) {
     for (const [a, b, c2, d] of [[-.42, -.36, .42, -.36], [.42, -.36, .42, .36], [.42, .36, -.42, .36], [-.42, .36, -.42, -.36]]) cizgi(S, it, w * a, h * b, w * c2, h * d, cc, 1.6, .6);
     yazi(S, { ...it, w: w * .5, h: h * .4 }, 2, .7, .7);
   } else if (t === 'bilet') {
-    govde(S, it, RENK.bilet, { wid: 5 }); kenar(S, it, RENK.bilet, .7); yazi(S, { ...it, w: it.w * .7, h: it.h * .6 }, 2, .8, .6);
+    govde(S, it, RENK.bilet, { wid: 5 }); kenar(S, it, RENK.bilet, .7); if (!it.bos) yazi(S, { ...it, w: it.w * .7, h: it.h * .6 }, 2, .8, .6);   // bos: üstüne yazı basılan kart (çizgiler yazıyı üstü çizili gösteriyordu)
   } else if (t === 'kagit' || t === 'telgraf') {
     govde(S, it, t === 'telgraf' ? [.8, .76, .66] : RENK.kagit); kenar(S, it, RENK.kagit, .85);
     yazi(S, it, it.satir ?? Math.max(3, Math.round(it.h / 26)), it.yazi ?? 1, it.olc ?? 1, it.akis ?? null);

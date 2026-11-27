@@ -107,7 +107,7 @@ def kurye(k):
     # bacaklar
     for b in k['bacak']:
         ka, di, bi = B(b['kalca']), B(b['diz']), B(b['bilek']); ao, ax, ay, az = cer(b['ayak'])
-        i = len(P); P += [ka, di, bi, bi + az * .16 - ay * .05]; R += [.085, .06, .045, (.045, .03)]
+        i = len(P); P += [ka, di, bi, bi + az * .15 + ay * .005]; R += [.085, .06, .045, (.046, .028)]   # v3: ayak yere paralel (aşağı dönük ayak ucu asılı beden okunuyordu)
         E += [(0, i), (i, i + 1), (i + 1, i + 2), (i + 2, i + 3)]
     # kollar bedenden örülmez: omuz ucu paltonun üstünde apolet gibi çıkıyordu (kollar aşağıda palto renginde ayrı)
     # palto ya da ceket: halkalardan örülür; yaka (dik), yakaya eğimli omuz, göğüs, bel, kalça, etek (açık, düz kesik)
@@ -140,10 +140,10 @@ def kurye(k):
         om, de, bl = B(c['omuz']), B(c['dirsek']), B(c['bilek'])
         om2 = om - gy * .1 + (go + gy * .2 - om) * .38          # kol giysinin içinden başlar
         L.append(deri('kol', [om2, de, bl], [(0, 1), (1, 2)], [.04, .04, .036] if KOS['giysi'] == 'elbise' else [.046, .048, .043], M['elbise'] if KOS['giysi'] == 'elbise' else M['palto']))
-        uc = bl + (bl - de).normalized() * .075
-        L.append(deri('el', [bl, uc], [(0, 1)], [.034, .03], M['el'], sub=2))   # yuvarlak, kol tonunda
+        uc = bl + (bl - de).normalized() * .095
+        L.append(deri('el', [bl - (bl - de).normalized() * .02, uc], [(0, 1)], [.036, .027], M['el'], sub=2))   # yuvarlak, kol tonunda; kolun içinden başlar (kopuk top okunuyordu)
     # baş ve boyun teni
-    L.append(deri('boyun', [bo + by * .01, ho + hy * .01], [(0, 1)], [.05, .048], M['sac'], sub=1))   # v3: kısa, yakanın içinden
+    L.append(deri('boyun', [bo - by * .045, ho + hy * .01], [(0, 1)], [.052, .05], M['sac'], sub=1))   # v3: yakanın içinden başlar (elbise yakası alçak: baş kopuk okunuyordu)
     # baş: ten (yüz yandan görünebilir); saç ayrı takke: arkada ve tepede (bütün baş saç olunca yandan kukuleta okunuyordu)
     # baş saç renginde; yüz önde ayrı ten yaması (sırttan bütün baş saç okunur, yandan yüz görünür)
     # baş tek parça saç renginde, arkası yuvarlak (ek saç parçaları büyük planda topuz okunuyordu); ensede hafif dolgunluk
@@ -178,7 +178,7 @@ def kurye(k):
       # v3: bebek omuzda (sırttan bakınca başı omzun üstünden görünür): dik gri battaniye göğüste, baş omuz hizasının üstünde; beyaz değil (kefen okunmasın)
       c = go + gy * .19 + gz * .07 + gx * .15
       L.append(deri('battaniye', [c - gy * .17, c + gy * .06], [(0, 1)], [(.1, .085), (.095, .08)], M['battaniye'], sub=2))
-      bpy.ops.mesh.primitive_uv_sphere_add(radius=.062, location=c + gy * .15 + gx * .015 - gz * .01, segments=24, ring_count=12); bb = bpy.context.object; bb.data.materials.append(M['bebek']); bpy.ops.object.shade_smooth(); L.append(bb)   # baş: küre (iki noktalı deri yassı disk veriyordu)
+      bpy.ops.mesh.primitive_uv_sphere_add(radius=.048, location=c + gy * .13 + gx * .02 - gz * .01, segments=24, ring_count=12); bb = bpy.context.object; bb.data.materials.append(M['bebek']); bpy.ops.object.shade_smooth(); L.append(bb)   # baş: küre (iki noktalı deri yassı disk veriyordu)
       P_ek = [c + gy * .25]
     if KOS['canta']:
       # çanta ve kayış

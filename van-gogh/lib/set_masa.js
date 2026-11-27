@@ -60,8 +60,8 @@ export function masaKur(M, IMG = {}) {
       // G08: masaya açılan tuval (Selvili Buğday Tarlası); du.tuval(t) görünürlük
       ...(IMG.selvili_tarla ? [{ ad: 'tuval', d: 0, ciz: tabloCizM(IMG.selvili_tarla, ...tuvalK(IMG), { maxR: 5 }), R: [10, 5, 2.6, 1.5], T: 8, olcek: .75, alfa: (t, du) => (du && du.tuval ? du.tuval(t) : 0) }] : []),
       { ad: 'kapak', d: 0, canli: (t, S, cam, c, du) => { if (!du || !du.cekmeceAc) return; const a = clamp(du.cekmeceAc(t)), y0 = 625, y1 = y0 + (1 - a) * (CEKMECE.y1 - y0 + 40); if (y1 - y0 < 2) return;
-        for (let y = y0 + 9; y < y1; y += 18) S.push({ x: 960, y: Math.min(y, y1 - 9), ang: 0, len: 1380, wid: 20, c: [.17, .12, .08], c2: [.13, .09, .06], seed: y, type: KNIFE, alpha: 1, hgt: .5 });
-        S.push({ x: 960, y: y1 - 3, ang: 0, len: 1380, wid: 7, c: [.42, .32, .22], c2: [.36, .27, .19], seed: 3, type: KNIFE, alpha: 1, hgt: .6 }); }, kap: 200, wet: .1, run: 0 },
+        for (let y = y0 + 9; y < y1; y += 18) S.push({ x: 960, y: Math.min(y, y1 - 9), ang: 0, len: 2160, wid: 20, c: [.17, .12, .08], c2: [.13, .09, .06], seed: y, type: KNIFE, alpha: 1, hgt: .5 });
+        S.push({ x: 960, y: y1 - 3, ang: 0, len: 2160, wid: 7, c: [.42, .32, .22], c2: [.36, .27, .19], seed: 3, type: KNIFE, alpha: 1, hgt: .6 }); }, kap: 200, wet: .1, run: 0 },
       { ad: 'golge', d: 0, canli: (t, S, cam, c, du) => { if (du && du.golge) du.golge(t, S); }, kap: 16000, wet: .1, run: 0 },
     ],
     bitir: (t, du) => ({ light: [-.45, -.7, .65], norm: 1.8, ground: [.06, .05, .04], contrast: 1.08, vig: .4, spec: .14, shin: 26, weave: .05, lightCol: [1, .92, .8],

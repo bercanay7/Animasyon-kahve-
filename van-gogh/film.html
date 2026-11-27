@@ -32,7 +32,8 @@ window.BITIR = () => M.bitir();
 window.READY = false;
 (async () => {
   M = motor({ W, H, ss: +(Q.get('ss') || 1.5), enCok: 3, log: !!Q.get('log') });
-  await document.fonts.load("italic 600 40px 'Cormorant Garamond'");
+  // v3: Türkçe harfler latin-ext alt kümesinde; metinle yüklenmezse ş, ğ, ı yedek fonttan geliyordu (B05)
+  for (const f of ["italic 600", "italic 500", "normal 600", "normal 500", "italic 700"]) await document.fonts.load(f + " 40px 'Cormorant Garamond'", "aşğıİçöüŞĞÇÖÜ—–");
   const IMG = await gorselYukle();
   const FIG = await figurYukle(Q.get('plan'));
   setleriKur(M, IMG, FIG);

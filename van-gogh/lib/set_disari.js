@@ -65,13 +65,15 @@ function ova(R, gun) {
 }
 // tren: lokomotif + 5 vagon siluet, aydınlık pencereler (sıcak), buhar; x: lokomotifin burnu; yon: +1 sağa
 function tren(t, S, x0, yon, gun, k = 1.6) {
-  const y = 772, kar = gun ? [.16, .15, .14] : [.05, .05, .06], pen = gun ? [.5, .48, .44] : [1, .86, .58];
-  const parca = [{ L: 150 * k, h: 70 * k, lok: true }, ...Array.from({ length: 5 }, () => ({ L: 200 * k, h: 78 * k }))];
+  const y = 772, kar = gun ? [.3, .28, .26] : [.05, .05, .06], pen = gun ? [.8, .78, .72] : [1, .86, .58];
+  // v3: gündüz açık gövde, açık pencere, üç vagon, tekerlek, görünür duman (boş ovada kapkara uzun tren sürgün treni okunuyordu)
+  const parca = [{ L: 150 * k, h: 70 * k, lok: true }, ...Array.from({ length: gun ? 3 : 5 }, () => ({ L: 200 * k, h: 78 * k }))];
   let x = x0;
   parca.forEach((p, i) => { const xm = x - yon * p.L / 2;
     S.push({ x: xm, y: y - p.h / 2 - 8, ang: 0, len: p.L - 10, wid: p.h, c: kar, c2: kar, seed: i, type: KNIFE, alpha: 1, hgt: .4 });
+    for (const q of [-.3, .3]) S.push({ x: xm + q * p.L, y: y - 6, ang: 0, len: 20 * k, wid: 20 * k, c: [.08, .07, .07], seed: i * 3 + q, type: DAB, alpha: 1, hgt: .4 });   // tekerlek (düz disk, halka yok)
     if (p.lok) { S.push({ x: x - yon * 30 * k, y: y - p.h - 22 * k, ang: 0, len: 22 * k, wid: 34 * k, c: kar, seed: 50, type: KNIFE, alpha: 1, hgt: .4 });   // baca
-      for (let q = 0; q < 8; q++) { const a = (t * .9 + q * .13) % 1; S.push({ x: x - yon * 30 * k - yon * a * 420, y: y - p.h - 60 * k - a * 110 + 10 * Math.sin(q + t), ang: 0, len: 60 + 180 * a, wid: 44 + 90 * a, c: gun ? [.85, .84, .8] : [.4, .4, .42], seed: 60 + q, type: DAB, alpha: .5 * (1 - a), hgt: 0 }); } }
+      for (let q = 0; q < 8; q++) { const a = (t * .9 + q * .13) % 1; S.push({ x: x - yon * 30 * k - yon * a * 420, y: y - p.h - 60 * k - a * 110 + 10 * Math.sin(q + t), ang: 0, len: 60 + 180 * a, wid: 44 + 90 * a, c: gun ? [.62, .6, .58] : [.4, .4, .42], seed: 60 + q, type: DAB, alpha: (gun ? .7 : .5) * (1 - a), hgt: 0 }); } }
     else for (let q = 0; q < 4; q++) S.push({ x: xm + (q - 1.5) * 42 * k, y: y - p.h / 2 - 12 * k, ang: Math.PI / 2, len: 30 * k, wid: 22 * k, c: pen, c2: pen.map(v => v * .9), seed: i * 10 + q, type: KNIFE, alpha: gun ? .8 : 1, hgt: .2 });
     x -= yon * (p.L + 8 * k); });
   if (!gun) S.push({ x: x0 - yon * 600, y: y + 40, ang: 0, len: 1300, wid: 50, c: [1, .85, .55], seed: 99, type: DAB, alpha: .06, hgt: 0 });   // pencerelerin yere düşen ışığı

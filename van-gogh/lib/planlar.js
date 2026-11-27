@@ -45,7 +45,7 @@ function figurBas(S, BK, t, ayak, boy, o = {}) {
   const h0 = r.h, sc = boy / (h0 * 2), xc = r.x0 + r.w / 2, yb = r.y0 + r.h;
   // zemine temas gölgesi (havada durma); v3: o karenin ayak noktasından (yürüyen figürde ilk karenin yerinde kalıyordu)
   if (!o.golge && o.temas !== false) { const fx = ayak[0] + ((k.x0 + k.w / 2) - xc) * 2 * sc, fy = ayak[1] + ((k.y0 + k.h) - yb) * 2 * sc, bk = boy * (k.h / h0);
-    S.push({ x: fx, y: fy + bk * .006, ang: 0, len: bk * .3, wid: bk * .045, c: [.03, .025, .02], c2: [.03, .025, .02], seed: 7, type: DAB, alpha: .4, hgt: 0 }); }
+    S.push({ x: fx, y: fy - bk * .004, ang: 0, len: bk * .34, wid: bk * .036, c: [.03, .025, .02], c2: [.03, .025, .02], seed: 7, type: DAB, alpha: .4, hgt: 0 }); }
   figurDarbe(S, blenderKaynak(k), { W, konum: [ayak[0] - xc * 2 * sc, ayak[1] - yb * 2 * sc, sc], gunes: o.gunes || [ayak[0] - 400, ayak[1] - 900], hava: o.hava || [.1, .09, .085], havaK: o.havaK ?? .25, cz: Math.floor(t * 15),
     altin: o.altin || [1, .9, .74], kenarKirik: .45, kenarAlfa: o.kenarAlfa ?? .7, adim: o.adim || (boy > 500 ? 2 : 1), golge: o.golge });
 }
@@ -201,7 +201,7 @@ export function planlariKur(M, IMG, FIG) {
       nesneler: t => { const k = io(clamp((t - te - 1.5) / 1.4)), dy = -700 * k, kart = io(clamp((t - te) / .5)), sal = .12 * Math.sin((t - te) * 4) * Math.exp(-1.5 * Math.max(0, t - te));
         return [...B3, ...(k > 0 ? [{ tur: 'kagit', x: 915, y: 460, w: 236, h: 176, satir: 0, a: .2 * k, tohum: 36 }] : []),
           { tur: 'cerceve', x: 915, y: 460 + dy, w: 240, h: 180, tohum: 34, ic: [.6, .56, .48] },
-          ...(kart > 0 ? [{ tur: 'bilet', x: 1000, y: 575 + dy - 26 * (1 - kart), w: 92, h: 46, rot: .08 + sal, tohum: 37, a: kart, golge: true }] : [])]; },
+          ...(kart > 0 ? [{ tur: 'bilet', bos: true, x: 1000, y: 575 + dy - 26 * (1 - kart), w: 92, h: 46, rot: .08 + sal, tohum: 37, a: kart, golge: true }] : [])]; },
       figur: (t, S) => figurBas(S, FIG.theo_dur, t, [1330, 1180], 860, { gunes: [700, -200], adim: 2 }) }; },
     ust: (ctx, st) => { const te = A('B03@başkalarının') - st.at, kart = io(clamp((st.lt - te) / .5)); if (kart <= 0) return; const k = io(clamp((st.lt - te - 1.5) / 1.4)), dy = -700 * k, sal = .12 * Math.sin((st.lt - te) * 4) * Math.exp(-1.5 * Math.max(0, st.lt - te));
       const c = M.camK(B3k(st.u), .72), [x, y] = ekrana(c, 1000, 575 + dy - 26 * (1 - kart)); if (y < -50) return;
