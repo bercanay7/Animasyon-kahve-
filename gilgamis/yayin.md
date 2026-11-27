@@ -3,7 +3,7 @@
 Yükleme YouTube Studio'da bilgisayardan yapılır. YouTube'un kendi zamanlaması kullanıldığı için yükleme bittikten sonra bilgisayarın açık kalması gerekmez.
 
 ## Zamanlama (Europe/Istanbul)
-- **Uzun video:** 2 Aralık 2026 Çarşamba, 18:00 (kullanıcının kararı, 23 Kasım: Gılgamış Lale Çılgınlığı'ndan önce çıkar; dört günde bir: Narkissos 24 Kasım, Dorian Gray 28 Kasım, Gılgamış 2 Aralık, Lale Çılgınlığı 6 Aralık).
+- **Uzun video:** 2 Aralık 2026 Çarşamba, 18:00 (kullanıcının kararı, 23 Kasım: Gılgamış Lale Çılgınlığı'ndan önce çıkar; dört günde bir: Narkissos 24 Kasım, Dorian Gray 28 Kasım, Gılgamış 2 Aralık; 27 Kasım: Frankenstein 6 Aralık, Lale Çılgınlığı 10 Aralık).
 - **Ölçüm:** 48. saat 4 Aralık 18:00; 7. gün 9 Aralık (6 Aralık'ta çıkan Frankenstein'la üst üste biner; 27 Kasım'da Lale'yle yer değiştirdi; bilerek okunur). Dorian Gray'in 48. saat ölçümü (30 Kasım) bu video yayına girmeden alınır.
 
 ## Dosyalar
