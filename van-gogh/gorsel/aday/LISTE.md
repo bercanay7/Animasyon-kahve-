@@ -35,4 +35,29 @@ Ortak kanıt satırları:
 | `guller_1890_saintremy_met436534.jpg` | Güller | Roses | 1890, Saint-Rémy | Met 1993.400.5 (objectID 436534) | https://images.metmuseum.org/CRDImages/ep/original/DP346475.jpg / https://www.metmuseum.org/art/collection/search/436534 | CC0; `isPublicDomain: true` | 3167×4000, 5,2 MB | Eserdeki pembe boya zamanla solmuştur (eserin kendi durumu; dosyada renk bozulması değil). Ay bilgisi API'de yok. |
 | `vazoda_cicekler_1890_met436525.jpg` | Vazoda Çiçek Buketi | Bouquet of Flowers in a Vase | Met: 1890 | Met 1993.400.4 (objectID 436525) | https://images.metmuseum.org/CRDImages/ep/original/DT7098.jpg / https://www.metmuseum.org/art/collection/search/436525 | CC0; `isPublicDomain: true` | 3092×3711, 4,0 MB | **Yeri doğrulanamadı; Auvers grubuna sayılmadı.** Met tarihi 1890 diyor, ama Wikidata kaydı (Q19905329) yaratılış yeri "Paris" ve eski katalog numarası JH1335 (Paris dönemi) taşıyor; Met'in web sayfası bu oturumdan 429 verdi. Ayrıca atfı tartışmalı eserlerden biri olarak bilinir; kullanılacaksa önce Met sayfası okunmalı. |
 
-<!-- COMMONS -->
+
+## B. Wikimedia Commons (PD-Art) gerektirenler: İNDİRİLEMEDİ
+
+**Neden:** Bu oturumda Wikimedia'nın bütün uçları (commons.wikimedia.org API, api.wikimedia.org, upload.wikimedia.org) 08:21'den 09:18'e kadar hemen her istekte `429 Too Many Requests` döndü. Engel ağ politikası değil, Wikimedia'nın oran sınırı (paylaşılan çıkış IP'si). 5 dakikalık aralıkla bir saate yakın beklendi.
+Lisans bölümü ve kaynak satırı dosya sayfasında okunamadığı için kurala uyularak **hiçbir Commons dosyası indirilmedi.**
+Aşağıdaki dosya adları Wikidata'nın P18 alanından ve müze toplu yüklemesinin ad kalıbından (`<Hollandaca ad> - <envanter> - Van Gogh Museum.jpg`) geliyor. Her biri için dosya sayfası açılıp lisans şablonu (PD-Art / PD-old-100), kaynak (Van Gogh Museum ya da Google Art Project) ve "Retouched" kategorisi kontrol edilmeden kullanılmaz.
+
+| İstenen tablo | Aday Commons dosyası | Bilinen | Durum |
+|---|---|---|---|
+| 3. Badem Çiçeği, Şubat 1890, VGM s0176V1962 | `File:Amandelbloesem - s0176V1962 - Van Gogh Museum.jpg` | Wikidata P18 (Q1432536). Tek başarılı istekte: özgün 7149×5649, 8,3 MB; 2015'te BotMultichill ile yüklenmiş (VGM toplu yüklemesi). Rötuşlu değil görünüyor (adında "Retouched" yok). | Lisans satırı okunmadı; indirilmedi. |
+| 4. Sarı Ev (Sokak), Eylül 1888, VGM s0032V1962 | `File:Vincent van Gogh - The yellow house ('The street').jpg` (Wikidata P18, Q2200610); VGM toplu yükleme adı bilinmiyor | Kaynağı bilinmiyor. | Bulunamadı / doğrulanamadı. |
+| 5. Yatak Odası, Ekim 1888 ilk sürüm, VGM s0047V1962 | `File:Vincent van Gogh - De slaapkamer - Google Art Project.jpg` (Wikidata P18, Q18713070) | Google Art Project kaynaklı. | Lisans satırı okunmadı; indirilmedi. Yedek AIC sürümü A bölümünde (CC0). |
+| 7. Fırtınalı Gök Altında Buğday Tarlası, Temmuz 1890, VGM s0106V1962 | Wikidata P18: `File:Van Gogh - Weizenfeld unter einem Gewitterhimmel.jpeg` (Directmedia taraması, müze kaynaklı değil, **kullanılmamalı**). Müze kaynaklı adı bilinmiyor (olası: `Korenveld onder onweerslucht - s0106V1962 - Van Gogh Museum.jpg`, doğrulanmadı). | Q16589468. | Bulunamadı. |
+| 8. Yıldızlı Gece, 1889, MoMA 472.1941 | `File:Van Gogh - Starry Night - Google Art Project.jpg` (Wikidata P18, Q45585) | Google Art Project kaynaklı. MoMA'nın açık erişim CC0 görseli yok; tek yol Commons PD-Art. | Lisans satırı okunmadı; indirilmedi. |
+| 9. Auvers, VGM | `De tuin van Daubigny - s0104V1962 - Van Gogh Museum.jpg` (Daubigny'nin Bahçesi), `Landschap bij avondschemering - s0107V1962 - Van Gogh Museum.jpg` (Alacakaranlıkta Manzara), `Gezicht op Auvers - s0105V1962 - Van Gogh Museum.jpg` (Auvers Görünümü), `Boerderij - s0108V1962 - Van Gogh Museum.jpg` (Çiftlik Evi), `Vaas met bloemen - s0109V1962 - Van Gogh Museum.jpg` (Vazoda Çiçekler), `Korenaren - s0088V1962 - Van Gogh Museum.jpg` (Buğday Başakları) | Hepsi Wikidata'da "Auvers-sur-Oise" yaratılış yeriyle. | İndirilmedi. |
+| 9. Auvers, başka müzeler | `Vincent van Gogh - Street in Auvers-sur-Oise - Google Art Project.jpg` (Ateneum/Fin Ulusal Galerisi A I 755), `Vincent van Gogh - Houses at Auvers - Google Art Project.jpg` (Toledo 1935.5), `Vincent van Gogh - Stairway at Auvers - 1-1935 - Saint Louis Art Museum.jpg`, `Vincent van Gogh - Sheaves of Wheat - 1985.R.80 - Dallas Museum of Art.jpg`, `Vincent van Gogh - Bank of the Oise at Auvers - 70.159 - Detroit Institute of Arts.jpg`, `Vincent van Gogh - Poppy field - Google Art Project.jpg` (Kunstmuseum Den Haag, Haziran 1890) | Bu müzelerin kendi açık erişim sayfaları bu oturumdan okunamadı (JS uygulaması ya da 403). | İndirilmedi. |
+
+Yeniden denemek için: istek listesi `…/scratchpad/vg/titles2.txt`, yavaş betik `…/scratchpad/scripts/gw.py` (her istek arası 20 sn, 429'da 5 dk'ya kadar bekler; dosya ve sayfa kaynağını kaydeder). Yol tam hâliyle rapordadır.
+
+## C. Bulunamayanlar ve hariç tutulanlar
+
+- **Badem Çiçeği, Sarı Ev, Yatak Odası (1888 ilk sürüm), Fırtınalı Gök Altında Buğday Tarlası, Yıldızlı Gece:** CC0 müze kaynağı yok (VGM ve MoMA açık erişim CC0 sunmuyor; VGM sitesinin indirme düğmesi yalnız 800 px veriyor ve "Credits (obliged to state)" istiyor). Commons yolu yukarıdaki 429 engeli yüzünden doğrulanamadı.
+- **Auvers 6–8 tablo:** CC0 müze kaynaklı yalnız 2 manzara/figür + 1 portre bulundu ve indirildi (NGA Yeşil Buğday Tarlaları, NGA Beyazlı Kız, Cleveland Adeline Ravoux). Met'in "Vazoda Çiçek Buketi" yeri doğrulanamadığı için sayılmadı. Met, AIC, Getty'de Auvers dönemine ait CC0 yağlıboya yok (AIC'de yalnız 1890 tarihli bir karakalem ve Dr. Gachet gravürü var; istenmedi). Eksik kalan 3–5 tablo Commons'tan (B bölümü) tamamlanmalı.
+- **Hariç tutuldu (talimat gereği):** Auvers Kilisesi (Orsay RF 1951 42), Kargalı Buğday Tarlası (VGM s0149V1962), Kilise görünen "View of Auvers with Church" (35.770).
+- **Saint-Rémy:** istenen 3–4 yerine 8 CC0 aday var (Selviler, İrisler (Getty), Zeytin Ağaçları, Zeytinlik, Büyük Çınarlar, İki Kavak, Vazoda İrisler, Güller); başkan seçer.
+
