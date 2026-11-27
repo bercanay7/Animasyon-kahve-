@@ -18,10 +18,10 @@ Videodaki bütün sözler Milliyet arşivinin **OCR metninden** alındı (`kayna
 |---|---|
 | `teslim/cernobil_youtube.mp4` | **YouTube'a yüklenecek dosya** (351 MB, 11:43; Fable'ın son okumasından sonraki sürüm): 1920×1080, 30 fps, H.264 iki geçiş 3,7 Mbps + AAC 256k, Türkçe ses (−14,2 LUFS, tepe −1,0 dBFS), BT.709. Tram dokusu yüzünden CRF 18 ara render 900 MB'ı aşıyordu; teslim bit hızıyla küçültüldü |
 | `teslim/cernobil_telefon.mp4` | Telefonda izlemek için küçük kopya (~93 MB; H.265 iki geçiş 920k, AAC 128k) |
-| `kapak/A.jpg` | Kapak A: "BAKAN İÇTİ" (kaldırılan bardak, mikrofonlar; yüz yok). İlk 5 sn'de karşılanıyor |
-| `kapak/B.jpg` | Kapak B: "58 BİN TON NEREYE?" (naylonla örtülü çuvallar, dökülen çay). 0:09'da açılıyor, 7:04-9:42'de karşılanıyor, sayı 9:11'de duyuluyor |
+| `kapak/A.jpg` | Kapak A: "BAKAN İÇTİ" (kapak sistemi `kanal/KAPAK_SISTEMI.md`: yazı sol üstte lacivert, vurgu "İÇTİ" bardaktaki demin kırmızısı; bakan silueti sağda, uzanan kol ve bardak orta-sağda; yüz yok). Vaat 0:00–0:07'de karşılanıyor (A01: "Bir bakan gazetecilerin ve kameraların karşısında bir bardak çay içiyor."). Başlık "Sen içer miydin?" diye sorar, kapak "Bakan içti" der: aynı fiil bilerek iki yüzüyle (olay ve izleyiciye soru) |
+| `kapak/B.jpg` | Kapak B: "58 BİN TON NEREYE?" (kapak sistemi `kanal/KAPAK_SISTEMI.md`: yazı sol üstte lacivert, vurgu "NEREYE?" dökülen kuru çayın bakırı; naylonla örtülü çuval yığını sağda, önünde yırtık çuvaldan dökülen çay). Vaat 0:09–0:18'de açılıyor (A02: depolarda bekleyen çay), 7:04–9:42'de karşılanıyor (8:14 E08 fabrika bahçelerine gömme), sayı 9:11'de duyuluyor (E14: "elli sekiz bin tondan otuz beş bini imha edilmiş") |
 | `cernobil.tr.srt` | Türkçe altyazı (177 satır) |
-| `kapak/test/` | Kapak odak ölçümü (`araclar/kapak/odak.py`): A tek odak (yazının "İÇTİ" satırı); B dört tepe (yazı ve dökülen çay), test ve karşılaştır kararı verir |
+| `kapak/test/` | Kapak test seti (`araclar/kapak/test_seti.py`; `A_test.jpg/.txt`, `B_test.jpg/.txt`; yazısız kareler `kapak/A_yazisiz.jpg`, `kapak/B_yazisiz.jpg`): küçültmeler, gri değer, odak ısı haritası, mobil akış, TV satırı, süre rozeti bölgesi. İkisinde de rozete yazı binmiyor, harf yüksekliği karenin %19'u; test ve karşılaştır kararı verir |
 | `youtube.md` | Başlık, açıklama (bölümler, kaynaklar, yapım notu; 56/58 bin ton ve canlandırma notu), etiketler, sabit yorum |
 | `fable_son_okuma/` | Üç izleyicili son okuma ve başkanın doğrulaması: neyin neden değiştiği |
 
