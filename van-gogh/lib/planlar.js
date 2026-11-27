@@ -20,6 +20,7 @@ const GORSEL = {
   yatak: AD + 'yatak_odasi_1889_aic28560.jpg', oda_yatak: AD + 'yatak_odasi_1889_aic28560.jpg',
   auvers1: AD + 'yesil_bugday_tarlalari_1890_auvers_nga163323.jpg', auvers2: AD + 'beyazli_kiz_1890_auvers_nga46505.jpg', auvers3: AD + 'adeline_ravoux_1890_auvers_cma1958.31.jpg',
   remy1: AD + 'zeytin_agaclari_1889_saintremy_met437998.jpg', remy2: AD + 'zeytinlik_1889_saintremy_nga46627.jpg', remy3: AD + 'cinarlar_yol_iscileri_1889_saintremy_cma1947.209.jpg',
+  badem: AD + 'badem_cicegi_1890_vgm_s0176V1962.jpg',
   sairin_bahcesi: AD + 'sairin_bahcesi_1888_arles_aic14586.jpg',
   remy4: AD + 'alpiller_iki_kavak_1889_saintremy_cma1958.32.jpg', remy5: AD + 'vazoda_irisler_1890_saintremy_met436528.jpg', remy6: AD + 'guller_1890_saintremy_met436534.jpg',
 };
