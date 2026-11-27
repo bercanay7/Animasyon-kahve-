@@ -1,0 +1,857 @@
+{
+ "kumeler": [
+  {
+   "kume": "A sayılar",
+   "kalemler": [
+    {
+     "iddia": "Günümüze toplam 903 mektup ulaştı: 820'si Vincent'tan, 83'ü Vincent'a.",
+     "durum": "dogrulandi",
+     "kaynak": "https://www.vangoghmuseum.nl/en/art-and-stories/stories/van-goghs-letters",
+     "kanit": "VGM sayfasının HTML'inden (curl ile, sayfa metni JS'siz de gömülü) okundu: \"The total correspondence features 903 letters: 820 by Van Gogh and 83 to him.\" AU Press eki de aynı sayıları Letters (2009) 6:41'e dayandırıyor: \"Total number of letters surviving: 903\", \"Number written by Van Gogh: 820\". 903 − 820 = 83 tutarlı."
+    },
+    {
+     "iddia": "Vincent toplamda 2.000'den fazla mektup yazmış olabilir; tahmin mektuplardaki 'bugün … yazdım' türü göndermelerden.",
+     "durum": "dogrulandi",
+     "kaynak": "https://www.vangoghmuseum.nl/en/art-and-stories/stories/van-goghs-letters",
+     "kanit": "Aynı VGM sayfası: \"he probably wrote more than 2,000 in total. We can make this estimation thanks to comments in the letters such as 'I wrote to … today'\"."
+    },
+    {
+     "iddia": "Vincent'tan 659 mektup Theo ve/veya Jo'ya gidiyor: 651'i yalnız Theo'ya, 7'si Theo ile Jo'ya, 1'i yalnız Jo'ya.",
+     "durum": "dogrulandi",
+     "kaynak": "https://read.aupress.ca/read/reading-vincent-van-gogh/section/409fabf9-0bb5-4e80-9ad5-679eb912d57a",
+     "kanit": "AU Press eki (WebFetch ile okundu): \"Theo: 651\", \"Theo and Jo: 7\", \"Jo: 1\" (Letters 6:40). 651+7+1 = 659. vangoghletters.org/vg/overview.html sayfası JS uygulaması olduğu için doğrudan okunamadı; arama motoru özeti '659 went to Theo and Jo, including 651 to Theo alone' diyor (özet, birincil okuma değil). Not: İngilizce Wikipedia eski edisyona dayanan farklı sayılar da veriyor (844 mektup, 663'ü Theo'ya, 9'u Theo ve Jo'ya); senaryoda 2009 edisyonu sayıları kullanılmalı, karışık kullanılmamalı."
+    },
+    {
+     "iddia": "Theo ve Jo'dan Vincent'a kalan mektuplar toplam 46: Theo tek başına 39, Theo ile Jo birlikte 2, Jo tek başına 5.",
+     "durum": "dogrulandi",
+     "kaynak": "https://read.aupress.ca/read/reading-vincent-van-gogh/section/409fabf9-0bb5-4e80-9ad5-679eb912d57a",
+     "kanit": "AU Press eki: \"Theo: 39\", \"Theo and Jo: 2\", \"Jo: 5\" (Letters 6:41); toplam 46. Wikipedia 'The Letters of Vincent van Gogh' (curl ile okundu): \"Of the letters Vincent received from Theo, only 39 survive.\" vangoghletters.org correspondents_2 sayfası JS kabuğu döndürdü; arama özeti 39 sayısını ve çoğunun 1888–1890'dan olduğunu söylüyor (doğrudan okunamadı)."
+    },
+    {
+     "iddia": "Senaryo cümlesi: \"Theo'nun Vincent'a yazdığı mektuplardan yalnızca 39'u kaldı; Vincent onları saklamadı.\" VGM'ye göre Theo mektupları özenle sakladı, Vincent birçoğunu attı ya da yaktı.",
+     "durum": "duzeltme",
+     "duzeltme": "Sayı doğru, ama 'Vincent onları saklamadı' fazla mutlak: 39'u kaldığına göre bir kısmını sakladı. Öneri: \"Theo'nun Vincent'a yazdığı mektuplardan yalnızca 39'u kaldı; Vincent çoğunu atıp yaktı.\" ya da \"…; Vincent çoğunu saklamadı.\"",
+     "kaynak": "https://www.vangoghmuseum.nl/en/art-and-stories/stories/van-goghs-letters",
+     "kanit": "VGM: \"Theo kept Vincent's letters with great care. Vincent was less careful – he threw lots of letters away, or burned them.\" ('lots of', 'hepsini' değil)."
+    },
+    {
+     "iddia": "VGM'ye göre mirası: 850'den fazla resim ve 1.300'e yakın kâğıt üstü eser.",
+     "durum": "dogrulandi",
+     "kaynak": "https://www.vangoghmuseum.nl/en/art-and-stories/vincents-life-1853-1890/vincents-final-months",
+     "kanit": "Sayfa HTML'inden okundu: \"His legacy was a large body of art works: over 850 paintings and almost 1,300 works on paper.\" Not: kaynaklar arasında sayı değişiyor (İng. Wikipedia 'List of works': 'around 900 paintings and 1,100 drawings and sketches'); senaryoda VGM sayısı kaynağıyla anılmalı, 'yaklaşık' dili korunmalı."
+    },
+    {
+     "iddia": "27 yaşında (1880) ressam olmaya karar verdi, 1890'da öldü; yani yaklaşık 10 yıl.",
+     "durum": "dogrulandi",
+     "kaynak": "https://www.vangoghmuseum.nl/en/art-and-stories/vincents-life-1853-1890/after-vincents-death",
+     "kanit": "Sayfa HTML'indeki biyografi özeti: \"Vincent van Gogh was born on 30 March 1853 and decided to become an artist at the age of 27.\" 30 Mart 1853 doğumlu biri 1880'de 27 yaşındadır; 1880–1890 ≈ 10 yıl."
+    },
+    {
+     "iddia": "Saint-Rémy'de bir yılda yaklaşık 150 resim yaptı.",
+     "durum": "dogrulandi",
+     "kaynak": "https://www.vangoghmuseum.nl/en/art-and-stories/vincents-life-1853-1890/hospitalization",
+     "kanit": "Sayfa HTML'inden: \"he made about 150 paintings in a year, including Almond Blossom\" ve \"he completed around 150 paintings in the space of a year\"."
+    },
+    {
+     "iddia": "Auvers'te neredeyse her gün bir eser tamamladı.",
+     "durum": "dogrulandi",
+     "kaynak": "https://www.vangoghmuseum.nl/en/art-and-stories/vincents-life-1853-1890/vincents-final-months",
+     "kanit": "Sayfa HTML'inden: \"Vincent threw himself entirely into his painting in this period, completing virtually a work a day.\" Ara başlık 'A painting a day'."
+    }
+   ],
+   "not": "VGM sayfaları WebFetch'te boş geldi ama curl ile alınan HTML'de metin gömülü olduğundan cümleler sayfanın kendisinden okundu (/tmp/claude-0/-home-user/1251b65f-a684-562c-b86b-a58164cef97e/scratchpad/vgm/). vangoghletters.org (overview.html, correspondents_2.html) yalnız 'Textannoviz' JS kabuğu döndürdü; oradan gelen destek yalnız arama motoru özetlerine dayanıyor, birincil okuma değil. 651/7/1 ve 39/2/5 dökümü AU Press ekinden (Letters 2009, c. 6 s. 40–41) doğrudan okundu. Wikipedia'daki 844/663/9/84 sayıları eski edisyondan; 2009 sayılarıyla karıştırılmamalı. Tek düzeltme: 'Vincent onları saklamadı' → 'çoğunu saklamadı / attı ya da yaktı'."
+  },
+  {
+   "kume": "C badem çiçeği",
+   "kalemler": [
+    {
+     "iddia": "Theo ile Jo'nun oğlu Vincent Willem 31 Ocak 1890'da Paris'te doğdu; Theo aynı gün Vincent'a yazdı (VGM 847, Paris, 31 Ocak 1890).",
+     "durum": "dogrulandi",
+     "kaynak": "https://vangoghletters.org/vg/letters/let847/letter.html ; https://vangoghletters.org/vg/letters/let850/letter.html ; https://www.webexhibits.org/vangogh/letter/20/T27.htm",
+     "kanit": "vangoghletters.org sayfaları doğrudan okunamadı (JS kabuğu); arama motoru özetine göre let847: Paris, 31 January 1890, not: 'On 31 January 1890 Jo gave birth to a son, who was named Vincent Willem, after his godfather'. let850 notu: 'On 31 January Theo had informed Vincent of the birth of his son, Vincent Willem (see letter 847)'. webexhibits T27: 'Paris, 31 January 1890'. Ayrıca matbu doğum duyurusu VGM 848, aynı gün."
+    },
+    {
+     "iddia": "Jo'nun doğumdan önceki gece Vincent'a yazdığı mektup T26 / VGM 846'dır (29 Ocak 1890).",
+     "durum": "yanlis",
+     "kaynak": "https://vangoghletters.org/vg/letters/let845/letter.html ; https://vangoghletters.org/vg/letters/let846/letter.html ; https://www.webexhibits.org/vangogh/letter/20/T26.htm",
+     "duzeltme": "Jo'nun 29 Ocak 1890 mektubu VGM 845'tir (Paris, Çarşamba akşamı, 29 Ocak 1890; eski numara T26). VGM 846, Vincent'ın Saint-Rémy'den 31 Ocak 1890'da Jo'ya yazdığı cevaptır. Ayrıca mektup doğumdan 'önceki gece' değil, iki gün önce yazıldı (doğum 31 Ocak Cuma). Not: webexhibits T26'yı yanlışlıkla 'Theo van Gogh to Vincent' başlığıyla veriyor.",
+     "kanit": "Arama özetine göre let845: Jo van Gogh-Bonger'den Vincent'a, 'Wednesday, 29 January 1890', 'headed Wednesday evening'; let846: Vincent'tan Jo'ya, Saint-Rémy, 31 Ocak, 'Van Gogh responds to Jo's letter 845 of 29 January'. vangoghletters.org doğrudan okunamadı, yalnız arama motoru özetleri."
+    },
+    {
+     "iddia": "Vincent'ın resmi andığı mektup annesine yazılmıştır: VGM 855, Saint-Rémy, 19 Şubat 1890; 1914 baskısında cilt 3, no. 627 ('15 Februari').",
+     "durum": "dogrulandi",
+     "kaynak": "https://www.dbnl.org/tekst/gogh006brie03_01/gogh006brie03_01_0003.php ; https://vangoghletters.org/vg/letters/let855/letter.html ; https://vangoghmuseum.nl/en/art-and-stories/vincents-life-1853-1890/hospitalization",
+     "kanit": "DBNL 1914 metni: '627 Beste Moeder, (15 Februari.) Reeds dagen lang was ik van plan uw brief te beantwoorden...'. VGM Hospitalization sayfası alıntının altına 'Vincent to his mother, 19 February 1890' yazıyor. let855 arama özeti: annesi Anna van Gogh-Carbentus'a, Saint-Rémy, Wednesday 19 February 1890, Complete Letters 627, el yazması VGM b676 V/1962. webexhibits 627: 'c. 20 February 1890'. (vangoghletters.org doğrudan okunamadı.)"
+    },
+    {
+     "iddia": "5a Felemenkçe cümle: \"Veel liever had ik gehad, dat hij zijn jongen naar Pa had genoemd, aan wien ik dezer dagen zoo dikwijls dacht, dan naar mij, maar enfin nu het eenmaal zoo is, ben ik dadelijk begonnen een schilderij voor hem te maken, om in hun slaapkamer te hangen, groote takken witte amandelbloes[e]m tegen een blauwe lucht.\"",
+     "durum": "dogrulandi",
+     "kaynak": "https://www.dbnl.org/tekst/gogh006brie03_01/gogh006brie03_01_0003.php",
+     "kanit": "DBNL 1914 metni harfi harfine aynı: 'Veel liever had ik gehad, dat hij zijn jongen naar Pa had genoemd, aan wien ik dezer dagen zoo dikwijls dacht, dan naar mij, maar enfin nu het eenmaal zoo is, ben ik dadelijk begonnen een schilderij voor hem te maken, om in hun slaapkamer te hangen, groote takken witte amandelbloes m tegen een blauwe lucht.' OCR boşluğu 'amandelbloes m' -> 'amandelbloesem' düzeltmesi doğru. Anlam VGM'nin İngilizce çevirisiyle örtüşüyor. VGM edisyonundaki harf harf yazım hâlâ karşılaştırılmadı."
+    },
+    {
+     "iddia": "Badem çiçekleri ve hastalık cümlesi Theo'ya yazılan VGM 863'tedir, Saint-Rémy, c. 29 Nisan 1890; 1914 cilt 3, no. 629. Metin: \"Je suis tombé malade à l'époque où je faisais les fleurs d'amandier. Si j'avais pu continuer à travailler, tu peux de là juger que j'en aurais fait d'autres des arbres en fleur.\"",
+     "durum": "duzeltme",
+     "kaynak": "https://www.dbnl.org/tekst/gogh006brie03_01/gogh006brie03_01_0003.php ; https://vangoghletters.org/vg/letters/let863/letter.html ; https://webexhibits.org/vangogh/letter/20/629.htm",
+     "duzeltme": "Numara, alıcı ve cümle doğru. Tarih için 'c.' gerekmez: VGM 'Salı, 29 Nisan 1890' veriyor (1914 baskısı '29 April', webexhibits '30 April 1890'). VGM metnindeki 'l'epoque' aksansızlığı doğrulanamadı.",
+     "kanit": "DBNL 1914: '629 Mon cher Theo, (29 April.) ...' ve aynı mektupta 'Je suis tombé malade à l'époque où je faisais les fleurs d'amandier. Si j'avais pu continuer à travailler, tu peux de là juger que j'en aurais fait d'autres des arbres en fleur.' let863 arama özeti: Saint-Rémy, Tuesday 29 April 1890, Theo'ya, Complete Letters 629; tarih 1914 baskısına dayanıyor. Not resmi F 671 / JH 1891 olarak tanımlıyor."
+    },
+    {
+     "iddia": "5c 'En sabırlı resmim' alıntısı Theo'ya, 1914 no. 628 ('half April'), VGM numarası doğrulanamadı; metin: \"Le travail allait bien, la dernière toile des branches en fleur - tu verras, c'était peut-être ce que j'avais fait le plus patiemment et le mieux, peint avec calme et une sûreté de touche plus grande. Et le lendemain fichu comme une brute.\"",
+     "durum": "duzeltme",
+     "kaynak": "https://www.dbnl.org/tekst/gogh006brie03_01/gogh006brie03_01_0003.php ; https://vangoghletters.org/vg/letters/let857/letter.html ; https://www.webexhibits.org/vangogh/letter/20/628.htm",
+     "duzeltme": "VGM numarası bulundu: VGM 857, Saint-Rémy, Theo'ya, 'c. Pazartesi 17 Mart 1890' (Complete Letters 628, Brieven 1990 863). 1914 baskısının 'half April' tarihi VGM'ce kabul edilmiyor. Fransızca metin 1914 baskısıyla aynı.",
+     "kanit": "DBNL 1914: '628 Mon cher Theo, (half April.)' ve metin harfi harfine 'Le travail allait bien, la dernière toile des branches en fleur - tu verras, c'était peut-être ce que j'avais fait le plus patiemment et le mieux, peint avec calme et une sûreté de touche plus grande. Et le lendemain fichu comme une brute.' Arama özeti let857: Theo'ya, Saint-Rémy, 'on or about Monday, 17 March 1890', Complete Letters 628, 'most patiently worked'. webexhibits 628: 'c. 15 March 1890'. (vangoghletters.org doğrudan okunamadı.)"
+    },
+    {
+     "iddia": "Resim bugün Van Gogh Müzesi'nde, Amsterdam; envanter s0176V1962 (F671).",
+     "durum": "dogrulandi",
+     "kaynak": "https://www.vangoghmuseum.nl/en/collection/s0176V1962",
+     "kanit": "VGM koleksiyon sayfası (curl ile okundu): 'F-number F0671 JH-number JH1891 Object number s0176V1962', 'Saint-Rémy-de-Provence, February 1890 oil on canvas, 73.3 cm x 92.4 cm', 'Credits: Van Gogh Museum, Amsterdam (Vincent van Gogh Foundation)', 'Currently on view'. Künyede 'Vincent van Gogh Foundation' ibaresi zorunlu."
+    },
+    {
+     "iddia": "Commons dosya sayfasına göre resim 1-20 Şubat 1890 arasında başlandı, 29 Nisan'dan önce bitti.",
+     "durum": "dogrulanamadi",
+     "kaynak": "https://commons.wikimedia.org/wiki/File:Amandelbloesem_-_s0176V1962_-_Van_Gogh_Museum.jpg ; https://commons.wikimedia.org/wiki/File:Vincent_van_Gogh_-_Almond_blossom_-_Google_Art_Project.jpg ; https://www.wikidata.org/wiki/Q1432536 ; https://www.vangoghmuseum.nl/en/collection/s0176V1962",
+     "duzeltme": "Bulunan kaynaklarda bu aralık yok. Commons s0176V1962 dosyasında 'date = 1890', Google Art Project dosyasında 'February 1890', Wikidata'da '1890-02'. VGM 'February 1890' diyor. Mektuplara dayanan bir tarih yazılabilir: 19 Şubat'ta (VGM 855) başlamıştı; 22 Şubat'taki krizle iş kesildi (VGM 857 notu); VGM provenansına göre Nisan sonunda Theo'ya gönderildi. Yazılacak tarih: 'Şubat 1890 (VGM)'.",
+     "kanit": "Commons ham vikimetni: '|date = 1890', lisans '{{PD-Art|PD-old-auto-expired|deathyear=1890}}', '|accession number = s0176V1962'. Wikidata P571: +1890-02 (ay hassasiyeti). Hiçbirinde '1-20 Şubat' ya da '29 Nisan'dan önce' ifadesi yok."
+    },
+    {
+     "iddia": "VGM 'Hospitalization' sayfası, Vincent'ın resmi hastaneden Theo ile Jo'ya gönderdiğini söylüyor.",
+     "durum": "dogrulandi",
+     "kaynak": "https://vangoghmuseum.nl/en/art-and-stories/vincents-life-1853-1890/hospitalization ; https://www.vangoghmuseum.nl/en/collection/s0176V1962",
+     "kanit": "Hospitalization sayfası (curl): 'Vincent sent them a special painting from the hospital: Almond Blossom.' Koleksiyon sayfasının provenansı daha kesin: 'Sent by the artist from Saint-Rémy-de-Provence to his brother Theo van Gogh, Paris, at the end of April 1890'. Aynı sayfa 'In January 1890, Vincent received a birth announcement' diyor; oysa Theo'nun mektubu 31 Ocak tarihli, Vincent 1 Şubat'ta cevap verdi (VGM 850). Commons Amandelbloesem.jpg açıklamasına göre resim Mayıs başında ulaştı ve piyanonun üstüne asıldı."
+    }
+   ],
+   "not": "vangoghletters.org sayfaları (let845, 846, 847, 850, 855, 857, 863) WebFetch ile boş 'Textannoviz' kabuğu döndürdü. VGM numaraları ve tarihleri arama motoru özetlerinden alındı. DBNL 1914 cilt 3 metni (gogh006brie03_01_0003.php) curl ile indirildi; 627, 628 ve 629'daki üç alıntı harfi harfine karşılaştırıldı ve hepsi örtüşüyor. VGM koleksiyon sayfası ile Hospitalization sayfası curl ile okundu. Başlıca düzeltmeler: (1) Jo'nun 29 Ocak mektubu VGM 846 değil, VGM 845; mektup doğumdan iki gün önce yazıldı. (2) 5c'nin VGM numarası 857, tarihi c. 17 Mart 1890; 'half April' değil. (3) Commons'a atfedilen '1-20 Şubat / 29 Nisan'dan önce' tarih aralığı hiçbir kaynakta bulunamadı. (4) Künyede 'Van Gogh Museum, Amsterdam (Vincent van Gogh Foundation)' yazılmalı. Senaryo için uyarı: resim yatak odası için yapıldı (VGM 855), ama VGM'ye göre önce oturma odasında piyanonun üstüne asıldı."
+  },
+  {
+   "kume": "B destek ve satışlar",
+   "kalemler": [
+    {
+     "iddia": "Vincent 1882'den itibaren Theo'dan para aldı; ilk yıllarda ayda ortalama 100–150 frank.",
+     "durum": "dogrulandi",
+     "kaynak": "https://www.vangoghmuseum.nl/en/art-and-stories/vincent-van-gogh-faq/was-van-gogh-poor",
+     "kanit": "Sayfanın HTML'i curl ile okundu: \"From 1882, he received financial support from his brother Theo... In the first few years, he received an average of 100 to 150 francs a month.\" Not: vangoghletters.org 'context 3' (yalnız arama özeti) ilk desteği Haziran 1880'deki 50 frank olarak veriyor. Yani düzenli destek 1882'de başlıyor, ara sıra yapılan yardım daha eski."
+    },
+    {
+     "iddia": "100–150 frank o dönem 50–75 gulden ediyordu; yedi kişilik aileye bakan bir fabrika işçisinin aldığı 32 guldenden çok fazlaydı; paranın çoğu boya ve tuvale gidiyordu.",
+     "durum": "dogrulandi",
+     "kaynak": "https://www.vangoghmuseum.nl/en/art-and-stories/vincent-van-gogh-faq/was-van-gogh-poor",
+     "kanit": "\"about 50 or 75 guilders, in any case a lot more than the 32 guilders a factory worker received back then to support a family of seven\"; \"Painting supplies are expensive and he usually used up most of his money\"."
+    },
+    {
+     "iddia": "Arles'da miktar daha yüksekti: Vincent 1914 edisyonundaki 523 numaralı mektupta (c. 18 Ağustos 1888) \"Alors si je mets que tu m'envoies à présent 250 francs par mois…\" diye yazıyor. VGM numarası doğrulanmadı.",
+     "durum": "duzeltme",
+     "kaynak": "https://www.dbnl.org/tekst/gogh006brie03_01/gogh006brie03_01_0002.php ; https://vangoghletters.org/vg/letters/let664/letter.html (sayfa boş kabuk döndürdü, bilgi arama motoru özetinden)",
+     "kanit": "DBNL 1914 metni tam olarak şöyle: \"Le jour où tu pourras, voudrais-tu non pas me donner, mais me prêter pour un an 300 francs d'un seul coup? Alors si je mets que tu m'envoies à présent 250 francs par mois, tu ne m'en enverrais plus que 200 après...\" vangoghletters.org özetine göre bu mektup VGM 664; tarihi \"Sunday 19 or Monday 20 August 1888\"; karşılık numaraları Brieven 1990 668 ve Complete Letters 523.",
+     "duzeltme": "VGM numarası 664, VGM tarihi 19 ya da 20 Ağustos 1888 (18 Ağustos değil). Cümle bir hesap varsayımıdır (\"si je mets\", yani \"diyelim ki\"): Vincent mobilya için 300 frank borç isterken yazıyor. Senaryoda \"Arles'da ayda yaklaşık 250 frank\" denebilir. Bu rakamı başka mektuplar da destekliyor; Kasım 1888'deki bir mektupta Vincent tek başına 250 yerine Gauguin'le kişi başı 150'yle geçindiklerini yazıyor (vangoghletters, arama özeti)."
+    },
+    {
+     "iddia": "Anlaşma şuydu: Theo aylık parayı gönderecek, karşılığında Vincent'ın bütün eserleri Theo'nun olacak ve Theo onları satmaya çalışacaktı.",
+     "durum": "dogrulandi",
+     "kaynak": "https://www.vangoghmuseum.nl/en/art-and-stories/stories/van-goghs-letters",
+     "kanit": "\"The brothers had agreed that in exchange for providing Vincent with a monthly allowance, Theo would receive all of his artworks. And that Theo would then try to sell them.\""
+    },
+    {
+     "iddia": "Theo'nun toplam ~17.500 frank verdiği tahmini DOĞRULANMADI.",
+     "durum": "duzeltme",
+     "kaynak": "https://vangoghletters.org/vg/context_3.html (JavaScript uygulaması; bilgi yalnız arama motoru özetinden)",
+     "kanit": "Arama özetine göre vangoghletters.org şunları söylüyor: Theo'nun toplam \"around 17,500 francs\" verdiği tahmin ediliyor, bu o dönem yaklaşık 8.225 gulden ediyordu; rakam \"can only be an estimate\" çünkü ödemelerin hepsi belgeli değil. Aynı yerde 1888 için 2.900 frank var; Vincent Temmuz 1888'de kendi hesabını ~15.000 frank olarak veriyor.",
+     "duzeltme": "Rakam vangoghletters.org'un (VGM edisyonu) kendi tahmini: \"yaklaşık 17.500 frank, ancak tahmin\". Sayfa göz ile görülemedi, bilgi arama özetinden alındı; seslendirmeden önce tarayıcıda bir kez bakılmalı. Senaryoda \"yaklaşık\" ya da \"tahminen\" denmeli."
+    },
+    {
+     "iddia": "Theo, Goupil & Cie'nin Paris'teki galerisinde çalıştı; firma 1884'te Boussod, Valadon & Cie adını aldı.",
+     "durum": "dogrulandi",
+     "kaynak": "https://collection.sciencemuseumgroup.org.uk/people/cp121018/goupil-cie ; https://www.vangoghmuseum.nl/en/impressionism-special/theo-van-gogh-and-impressionism",
+     "kanit": "Science Museum Group'un kaydı Goupil & Cie için 1850–1884 tarihini veriyor ve 1884'te Goupil ailesi çekilince firmanın yeniden adlandırıldığını yazıyor. VGM: \"Boussod, Valadon & Cie (previously known as Goupil & Cie)\". Firmanın tam adı \"Boussod, Valadon & Cie, successeurs de Goupil & Cie\"."
+    },
+    {
+     "iddia": "Theo, 19 boulevard Montmartre'daki şubenin yöneticisiydi (gérant); adres yalnız arama özetinden alındığı için kısmen doğrulandı.",
+     "durum": "dogrulandi",
+     "kaynak": "https://www.dbnl.org/tekst/_van012200001_01/_van012200001_01_0004.php",
+     "kanit": "Van Gogh Museum Journal 2000 (DBNL) 1881 için şunu yazıyor: Theo \"was appointed gérant of Goupil's oldest establishment in Paris, at 19, Boulevard Montmartre\" ve bu atandığında 23 yaşındaydı. Adres ve unvan böylece VGM yayınıyla doğrulanmış oluyor; dosyadaki \"kısmen\" kaydı kaldırılabilir."
+    },
+    {
+     "iddia": "VGM'ye göre Theo 1881'de Paris'teki galeride (Boussod, Valadon & Cie, eski adı Goupil & Cie) işe başladı ve patronunu İzlenimci eser satmaya ikna etti.",
+     "durum": "duzeltme",
+     "kaynak": "https://www.vangoghmuseum.nl/en/impressionism-special/theo-van-gogh-and-impressionism ; https://www.dbnl.org/tekst/_van012200001_01/_van012200001_01_0004.php",
+     "kanit": "VGM sayfası gerçekten şunu yazıyor: \"his younger brother Theo starts work at the Parisian gallery Boussod, Valadon & Cie (previously known as Goupil & Cie). The year is 1881\"; ayrıca Theo'nun \"convinced his boss... that they should also start trading Impressionist art\". Ama VGM Journal 2000 1881'i gérant atanma yılı olarak veriyor. Arama özetlerine göre Theo 1879 sonundan beri Goupil'in Paris merkezinde çalışıyordu. Firma 1881'de henüz Goupil & Cie adını taşıyordu; Boussod, Valadon adı 1884'te geldi.",
+     "duzeltme": "Senaryoda \"1881'de Theo, Goupil'in 19 boulevard Montmartre'daki şubesinin yöneticisi oldu\" denmeli; \"1881'de işe başladı\" denmemeli. Theo 1879 sonundan beri Paris'te Goupil'deydi. Firmanın adı 1884'ten sonra Boussod, Valadon & Cie oldu."
+    },
+    {
+     "iddia": "VGM SSS sayfası Theo'yu \"manager of the Parisian branch of the Goupil art dealership\" diye tanımlıyor.",
+     "durum": "dogrulandi",
+     "kaynak": "https://www.vangoghmuseum.nl/en/art-and-stories/vincent-van-gogh-faq/was-van-gogh-poor",
+     "kanit": "\"his brother Theo, who had been appointed manager of the Parisian branch of the Goupil art dealership\"."
+    },
+    {
+     "iddia": "Jo'nun 1914 girişine göre Theo bulvardaki şubeyi İzlenimcilerin buluşma yeri yapmıştı (Monet, Sisley, Pissarro, Raffaëlli, Degas, Seurat); halk \"'s middags van 5 tot 7\" küçük asma katı (\"entresol\") dolduruyordu; Theo \"ces Messieurs\"e, yani firmanın sahiplerine karşı genç ressamların hakkını savunuyordu.",
+     "durum": "duzeltme",
+     "kaynak": "https://www.dbnl.org/tekst/gogh006brie01_01/gogh006brie01_01_0002.php",
+     "kanit": "Jo'nun metni: \"de zaak op de Boulevard had hij gemaakt tot een middelpunt van de impressionisten, men vond er Monet en Sisley, Pissarro en Raffaëlli, Degas, die nergens anders exposeerde, Seurat, enz., maar om dit werk ingang te doen vinden bij het publiek, dat 's middags van 5 tot 7 de kleine entresol vulde ... tegenover 'ces Messieurs' zooals Vincent de eigenaars van de zaak altijd noemde, strijden voor het goed recht der jongere schilders.\"",
+     "duzeltme": "Özü doğru, iki ayrıntı eklenmeli. \"ces Messieurs\" Jo'nun değil Vincent'ın deyişi: Jo, Vincent'ın firmanın sahiplerini hep böyle andığını yazıyor. Jo sokak numarası vermiyor, yalnız \"de zaak op de Boulevard\" diyor. Metin Paris kışını (1886–87) anlatıyor; Degas için \"başka hiçbir yerde sergilemiyordu\" diyor."
+    },
+    {
+     "iddia": "Kırmızı Bağ (La vigne rouge, Kasım 1888) Brüksel'de 1890 başındaki Les XX sergisinde Anna Boch'a (Eugène Boch'un kız kardeşi) 400 franka satıldı.",
+     "durum": "dogrulandi",
+     "kaynak": "https://vangoghletters.org/vg/letters/let855/notes.html (arama özeti) ; https://www.dbnl.org/tekst/gogh006brie03_01/gogh006brie03_01_0003.php ; https://en.wikipedia.org/wiki/1890_in_art",
+     "kanit": "Arama özetine göre let855 notu: Eugène Boch'un kız kardeşi ressam Anna Boch \"had bought Van Gogh's The red vineyard (F 495 / JH 1626) at the exhibition of Les Vingt in Brussels\". Theo'nun hesap defterinde 6 Mart 1890 tarihli kayıt: 400 frank, \"Mlle Bock pour tab Vigne rouge\". DBNL'de Vincent'ın Les XX'e önerdiği listede \"5 la vigne rouge\" var. Les XX sergisi 18 Ocak–23 Şubat 1890'da açıktı. Tablo Kasım 1888'de, Gauguin'le görülen bağın ardından yapıldı (DBNL cilt 3: \"nous avons vu une vigne rouge, toute rouge comme du vin rouge\")."
+    },
+    {
+     "iddia": "Birincil kaynak Vincent'ın annesine mektubu, VGM 855, Saint-Rémy, 19 Şubat 1890: \"gisteren bovendien meldde Theo me, dat zij een van mijn schilderijen te Brussel verkochten voor 400 francs.\" (DBNL 1914, cilt 3, no. 627).",
+     "durum": "duzeltme",
+     "kaynak": "https://www.dbnl.org/tekst/gogh006brie03_01/gogh006brie03_01_0003.php ; https://vangoghletters.org/vg/letters/let855/letter.html (arama özeti)",
+     "kanit": "DBNL metninde mektup \"627 Beste Moeder, (15 Februari.)\" diye başlıyor ve cümle harfi harfine \"gisteren bovendien meldde Theo me, dat zij een van mijn schilderijen te Brussel verkochten voor 400 francs.\" Arama özetine göre vangoghletters.org tarihi \"Wednesday, 19 February 1890\".",
+     "duzeltme": "Numara ve metin doğru. Tarih notuna şu eklenmeli: Jo'nun 1914 edisyonu mektubu \"15 Februari\" diye tarihliyor, VGM edisyonu 19 Şubat 1890 diyor. VGM tarihi esas alınmalı."
+    },
+    {
+     "iddia": "Aynı yerde Jo'nun 1914 dipnotu: \"La vigne rouge, gekocht door Mlle Anna Boch.\"",
+     "durum": "dogrulandi",
+     "kaynak": "https://www.dbnl.org/tekst/gogh006brie03_01/gogh006brie03_01_0003.php",
+     "kanit": "DBNL dipnotu harfi harfine: \"voetnoot *) La vigne rouge, gekocht door Mlle Anna Boch.\""
+    },
+    {
+     "iddia": "VGM SSS sayfası Kırmızı Bağ'ı Anna Boch'un aldığını söylüyor.",
+     "durum": "dogrulandi",
+     "kaynak": "https://www.vangoghmuseum.nl/en/art-and-stories/vincent-van-gogh-faq/how-many-paintings-did-vincent-sell-during-his-lifetime",
+     "kanit": "\"The Red Vineyard, which Vincent painted in 1888, was bought by Anna Boch, the sister of Vincent's friend Eugène Boch.\" VGM sayfası fiyatı ve Les XX'i anmıyor."
+    },
+    {
+     "iddia": "Martin Bailey (The Art Newspaper, 23 Eylül 2022): \"400 francs (then £16)\"; Bailey sergiyi \"March 1890\" diye yazıyor, bu büyük olasılıkla hata.",
+     "durum": "duzeltme",
+     "kaynak": "https://www.theartnewspaper.com/2022/09/23/what-were-the-first-12-van-gogh-paintings-ever-sold",
+     "kanit": "Bailey: \"Going for 400 francs (then £16), it was bought by Anna Boch\" ve \"It was shown in an exhibition in Brussels in March 1890\". Les XX 23 Şubat 1890'da kapandı; Theo'nun deftere 400 frankı kaydettiği tarih 6 Mart 1890 (let855 notu, arama özeti).",
+     "duzeltme": "Bailey'nin \"Mart\"ı sergi tarihi olarak yanlış (sergi 18 Ocak–23 Şubat 1890), ama ödeme gerçekten 6 Mart 1890'da kaydedildi. Karışıklık bundan çıkmış olabilir. Senaryoda \"1890 başı, Brüksel\" güvenli."
+    },
+    {
+     "iddia": "Tablo bugün Moskova'da, Puşkin Güzel Sanatlar Müzesi'nde.",
+     "durum": "dogrulandi",
+     "kaynak": "https://conservation.pushkinmuseum.art/data/specprojects/van-gogh-red-vineyard/index-eng.html ; https://www.vangoghmuseum.nl/en/art-and-stories/vincent-van-gogh-faq/how-many-paintings-did-vincent-sell-during-his-lifetime",
+     "kanit": "VGM görsel altyazısı: \"Vincent van Gogh, 'The Red Vineyard', 1888. Pushkin Museum of Fine Arts, Moscow.\" Puşkin Müzesi'nin kendi sitesinde tablonun koruma projesi sayfası var."
+    },
+    {
+     "iddia": "Tablonun Puşkin envanter numarası Ж-3372 (Commons dosya sayfası).",
+     "durum": "dogrulanamadi",
+     "kaynak": "https://www.pubhist.com/w13877 (arama özeti)",
+     "kanit": "Numara yalnız ikincil derleme sitelerinin arama özetlerinde göründü (pubhist ve benzerleri). Puşkin Müzesi'nin koleksiyon sayfasında ya da Commons dosya sayfasında bu oturumda okunamadı. Commons API isteği JSON döndürmedi."
+    },
+    {
+     "iddia": "VGM: \"We don't know exactly how many paintings Van Gogh sold during this lifetime, but in any case, it was more than a couple.\"",
+     "durum": "dogrulandi",
+     "kaynak": "https://www.vangoghmuseum.nl/en/art-and-stories/vincent-van-gogh-faq/how-many-paintings-did-vincent-sell-during-his-lifetime",
+     "kanit": "Cümle sayfada harfi harfine geçiyor; sayfa \"during this lifetime\" yazım hatasını da taşıyor. Sayfa şöyle bitiyor: \"In this sense, Vincent actually 'sold' quite a lot of work during his lifetime.\""
+    },
+    {
+     "iddia": "İlk siparişi amcası Cor'dan geldi: Lahey'den 19 şehir görünümü, 1882, çizim.",
+     "durum": "dogrulandi",
+     "kaynak": "https://www.vangoghmuseum.nl/en/art-and-stories/vincent-van-gogh-faq/how-many-paintings-did-vincent-sell-during-his-lifetime ; https://vangoghletters.org/vg/letters/let214/print.html (arama özeti)",
+     "kanit": "VGM: \"Vincent's first commission was from his uncle Cor... he ordered 19 cityscapes of The Hague.\" VGM sayfası yılı ve tekniği vermiyor. Mektup notlarına göre (arama özeti) Mart 1882'de 12 küçük kalem çizimi istendi, Nisan–Haziran 1882'de 7 tane daha gönderildi: toplam 19, 1882, kalem çizim."
+    },
+    {
+     "iddia": "Vincent ilk resmini Paris'te boya satıcısı Julien Tanguy'ye sattı; Theo bir eserini Londra'da bir galeriye sattı.",
+     "durum": "dogrulandi",
+     "kaynak": "https://www.vangoghmuseum.nl/en/art-and-stories/vincent-van-gogh-faq/how-many-paintings-did-vincent-sell-during-his-lifetime",
+     "kanit": "\"Vincent sold his first painting to the Parisian paint and art dealer Julien Tanguy, and his brother Theo successfully sold another work to a gallery in London.\" Bu bir VGM görüşü; Tanguy satışının hangi eser olduğunu VGM belirtmiyor."
+    },
+    {
+     "iddia": "Genç yıllarında yiyecek ve malzeme karşılığında sık sık eser takas etti.",
+     "durum": "duzeltme",
+     "kaynak": "https://www.vangoghmuseum.nl/en/art-and-stories/vincent-van-gogh-faq/how-many-paintings-did-vincent-sell-during-his-lifetime",
+     "kanit": "\"Van Gogh often traded work with other artists – in his younger years, often in exchange for some food or drawing and painting supplies.\"",
+     "duzeltme": "VGM'nin ana cümlesi şu: Vincent diğer sanatçılarla sık sık eser takas etti (ör. Gauguin, Bernard). Yiyecek ve malzeme karşılığı takas genç yıllar için verilmiş bir ek. İkisi ayrı yazılmalı."
+    },
+    {
+     "iddia": "Martin Bailey: Kırmızı Bağ \"the only painting that Van Gogh is certain to have sold in his lifetime\"; yani kesin belgeli tek tuval satışı bu.",
+     "durum": "dogrulandi",
+     "kaynak": "https://www.theartnewspaper.com/2022/09/23/what-were-the-first-12-van-gogh-paintings-ever-sold",
+     "kanit": "Bailey ifadeyi bu sözcüklerle kullanıyor. Theo'nun hesap defterindeki 6 Mart 1890 kaydı satışı belgeliyor (let855 notu, arama özeti)."
+    },
+    {
+     "iddia": "Londra'daki satışın alıcısı ve eseri (Sulley & Lori, 1888 olduğu söylenir) DOĞRULANMADI.",
+     "durum": "duzeltme",
+     "kaynak": "https://www.theartnewspaper.com/2020/01/17/is-a-van-gogh-self-portrait-hidden-in-a-london-attic",
+     "kanit": "Martin Bailey (2020): Theo'nun Goupil'den 3 Ekim 1888 tarihli, \"Messieurs Sulley et Lori/Londres\" adresli bir mektubu var. Mektup V. van Gogh'un bir otoportresi ile bir Corot manzarasının satışını kaydediyor. Alıcılar Arthur Sulley ve William Lawrie olarak tanımlanıyor. Mektubu Tralbaut 1964'te yayımladı; aslı kayıp. Bailey \"likely to be authentic\" diyor ama kesin değil. Otoportre de kayıp.",
+     "duzeltme": "Şöyle yazılmalı: \"Theo'nun 3 Ekim 1888 tarihli mektubuna göre (Tralbaut 1964'te yayımladı, aslı kayıp) Londra'daki Sulley & Lawrie'ye Vincent'ın bir otoportresi satıldı. Bailey mektubu muhtemelen gerçek sayıyor; tablo kayıp.\" Kesin belgeli satış sayılmamalı. Fiyat bilinmiyor."
+    },
+    {
+     "iddia": "Senaryo önerisi: \"hayattayken belgeli olarak satılan tek tuval Kırmızı Bağ'dı; birkaç küçük satış ve takas daha var.\"",
+     "durum": "dogrulandi",
+     "kaynak": "https://www.vangoghmuseum.nl/en/art-and-stories/vincent-van-gogh-faq/how-many-paintings-did-vincent-sell-during-his-lifetime ; https://www.theartnewspaper.com/2022/09/23/what-were-the-first-12-van-gogh-paintings-ever-sold",
+     "kanit": "VGM \"more than a couple\" diyor; Bailey \"the only painting ... certain to have sold\" diyor. Öneri ikisiyle de uyumlu. Dikkat: Londra otoportresi muhtemel ama kanıtı kesin değil; bu yüzden \"kesin belgeli\" sözcüğü önemli ve korunmalı."
+    }
+   ],
+   "not": "vangoghletters.org sayfaları (let664, let855 notları, context_3) bu oturumda da boş JavaScript kabuğu döndürdü. Bu sayfalara dayanan kararlar yalnız arama motoru özetlerinden alındı ve öyle işaretlendi. VGM SSS sayfaları ile Jo'nun DBNL'deki 1914 metni curl ile doğrudan okundu. En önemli düzeltmeler: 250 frank mektubu VGM 664'tür ve tarihi 19 ya da 20 Ağustos 1888'dir. Theo 1881'de işe başlamadı; o yıl 19 bd Montmartre şubesinin gérant'ı oldu. 17.500 frank vangoghletters.org'un kendi tahminidir. Sulley & Lori satışı Bailey 2020'de ayrıntılı olarak geçiyor (muhtemel, kesin değil). Bailey'nin \\\"Mart 1890\\\"ı sergi için yanlış (sergi 23 Şubat'ta kapandı), ama ödeme 6 Mart 1890'da kaydedildi."
+  },
+  {
+   "kume": "D kriz ve ölüm",
+   "kalemler": [
+    {
+     "iddia": "23 Aralık 1888 akşamı Vincent, Gauguin'le kavgadan sonra bir kriz sırasında kulağını yaraladı; ertesi sabah hastaneye kaldırıldı.",
+     "durum": "dogrulandi",
+     "kaynak": "https://www.dbnl.org/tekst/gogh006brie01_01/gogh006brie01_01_0002.php ; https://www.vangoghmuseum.nl/en/art-and-stories/vincent-van-gogh-faq/why-did-vincent-van-gogh-cut-off-his-ear",
+     "kanit": "Jo 1914: \"Vincent had zich den avond van 23 December in een toestand van hevige opwinding 'un accès de fièvre chaude' een stuk van het oor afgesneden\". VGM SSS: \"Just before Christmas 1888 they had a blazing row\" ... \"The next morning police found Vincent at home and took him to hospital.\""
+    },
+    {
+     "iddia": "24 Aralık'ta Gauguin'in telgrafı Theo'yu Arles'a çağırdı; Theo ile Jo o günlerde yeni nişanlanmıştı.",
+     "durum": "dogrulandi",
+     "kaynak": "https://www.dbnl.org/tekst/gogh006brie01_01/gogh006brie01_01_0002.php",
+     "kanit": "Jo 1914: \"Den dag vóór Kerstmis - Theo en ik waren juist verloofd en zouden samen naar Holland reizen - ... kwam een telegram van Gauguin dat Theo naar Arles riep.\""
+    },
+    {
+     "iddia": "25 Aralık'ta Theo gece treniyle Arles'a vardı ve aynı akşam Gauguin'le Paris'e döndü (26 Aralık'ta Paris'e vardılar).",
+     "durum": "dogrulandi",
+     "kaynak": "https://www.theartnewspaper.com/2024/10/25/four-days-after-finding-van-gogh-with-a-mutilated-ear-gauguin-witnessed-the-guillotining-of-a-murderer ; https://www.vangoghmuseum.nl/en/art-and-stories/vincents-life-1853-1890/south-of-france",
+     "kanit": "Bailey (2024): Theo arrived \"from Paris on Christmas Day\", left with Gauguin that evening, reached Paris 26 December. VGM: \"Theo returned to Paris immediately after visiting the hospital, and so did Gauguin.\" vangoghletters 728 notu (Theo 25 Aralık Salı ayrıldı) yalnız arama özetinden görüldü; uygulama JavaScript olduğu için sayfa açılamadı."
+    },
+    {
+     "iddia": "Çelişki: Jo 1914'te Theo'nun Noel günlerini Vincent'ın yanında geçirdiğini yazıyor; bugünkü araştırma tek gün diyor.",
+     "durum": "dogrulandi",
+     "kaynak": "https://www.dbnl.org/tekst/gogh006brie01_01/gogh006brie01_01_0002.php",
+     "kanit": "Jo 1914: \"Daar vond Theo hem in een hevige zenuwcrisis, en bleef de Kerstdagen bij hem.\" Bailey 2024 ve VGM ise aynı gün dönüş diyor. Senaryo için \"Noel günü Arles'a koştu\" iki kaynakla da uyumlu."
+    },
+    {
+     "iddia": "27 Temmuz 1890 akşamı Vincent yaralandı; 28 Temmuz sabahı Dr. Gachet'nin mektubu Theo'ya ulaştı ve Theo hemen Auvers'e gitti.",
+     "durum": "dogrulandi",
+     "kaynak": "https://www.dbnl.org/tekst/gogh006brie01_01/gogh006brie01_01_0002.php ; https://www.vangoghmuseum.nl/en/stories/the-end-of-a-difficult-road",
+     "kanit": "Jo 1914: \"aan den avond van den 27en Juli\" ... \"Het briefje bereikte Theo dan ook eerst den volgenden morgen en onmiddellijk vertrok hij naar Auvers.\" VGM: \"Theo was notified the following morning\". Ek ayrıntı: Jo'ya göre mektubu Auvers'teki bir Hollandalı ressam getirdi."
+    },
+    {
+     "iddia": "29 Temmuz 1890 sabahın erken saatlerinde Vincent Auvers-sur-Oise'da öldü; Theo yanındaydı.",
+     "durum": "dogrulandi",
+     "kaynak": "https://www.dbnl.org/tekst/gogh006brie01_01/gogh006brie01_01_0002.php ; https://www.vangoghmuseum.nl/en/art-and-stories/vincents-life-1853-1890/vincents-final-months",
+     "kanit": "Jo 1914: \"In den vroegen morgen van 29 Juli ontsliep Vincent.\" VGM: \"Theo rushed from Paris to Auvers and was present when his brother died of his injuries on 29 July.\""
+    },
+    {
+     "iddia": "30 Temmuz 1890'da Auvers'te gömüldü.",
+     "durum": "dogrulandi",
+     "kaynak": "https://www.vangoghmuseum.nl/en/art-and-stories/vincents-life-1853-1890/vincents-final-months ; https://www.vangoghmuseum.nl/en/stories/the-end-of-a-difficult-road",
+     "kanit": "VGM: \"Vincent was buried at Auvers on 30 July 1890.\" Öteki sayfa: cenaze alayı \"at three o'clock on Wednesday 30 July\" yola çıktı."
+    },
+    {
+     "iddia": "Üzerinde bulunan gönderilmemiş mektup VGM RM25'tir: Auvers-sur-Oise, 23 Temmuz 1890, Theo'ya, bitmemiş taslak. Gönderilen son hâli VGM 902 (aynı tarih).",
+     "durum": "dogrulandi",
+     "kaynak": "https://www.vangoghmuseum.nl/en/letters/collection/b0700V1962 ; https://www.vangoghmuseum.nl/en/letters/collection/b0699V1962 ; https://vangoghletters.org/vg/letters/RM25/letter.html",
+     "kanit": "VGM koleksiyonu: b0700V1962 ve b0699V1962 (Daubigny'nin Bahçesi eskizli, 902) ikisi de \"Auvers-sur-Oise, 23 July 1890\". vangoghletters arama özeti: RM25 \"earlier, unfinished version of letter 902\", gönderilmemiş; envanter b700 V/1962. vangoghletters sayfası JavaScript, yalnız arama özetinden."
+    },
+    {
+     "iddia": "RM25, Theo'nun 22 Temmuz 1890 tarihli mektubuna (901) ve içindeki paraya teşekkür ediyor.",
+     "durum": "dogrulandi",
+     "kaynak": "https://vangoghletters.org/vg/letters/RM25/letter.html ; https://www.dbnl.org/tekst/gogh006brie03_01/gogh006brie03_01_0004.php",
+     "kanit": "vangoghletters arama özeti: RM25 Theo'nun \"letter dated 22 July 1890 (901)\" ve içindeki para için teşekkür ediyor. 1914 metni (no. 652): \"Merci de ta bonne lettre et du billet de 50 fr. qu'elle contenait.\""
+    },
+    {
+     "iddia": "1914 baskısı: cilt 3, no. 652; başlıkta Theo'nun notu \"(Lettre qu'il portait sur lui le 29 juillet)\".",
+     "durum": "dogrulandi",
+     "kaynak": "https://dbnl.org/tekst/gogh006brie03_01/gogh006brie03_01_0004.php",
+     "kanit": "DBNL: \"652 (Lettre qu'il portait sur lui le 29 juillet) (Bijschrift van Theo.) Mon cher frère, Merci de ta bonne lettre...\""
+    },
+    {
+     "iddia": "Theo'nun notunun tarihi kaynaklarda farklı: 1914 ve webexhibits 29 Temmuz, vangoghletters 27 Temmuz diyor (dosyada DOĞRULANMADI).",
+     "durum": "duzeltme",
+     "kaynak": "https://www.vangoghmuseum.nl/en/stories/the-end-of-a-difficult-road ; https://vangoghletters.org/vg/letters/RM25/letter.html",
+     "kanit": "VGM: \"with a note in Theo's hand: 'The letter he had on him on 27 July, the day of the accident'\". vangoghletters arama özeti el yazmasındaki kurşun kalem notu şöyle veriyor: \"lettre qu'il portait sur lui le 27 Juillet jour du sinistre\".",
+     "duzeltme": "Çelişki artık çözüldü. El yazmasındaki kurşun kalem not \"le 27 Juillet jour du sinistre\" diyor (VGM ve vangoghletters). 1914 baskısı bunu \"le 29 juillet\" diye basmış. Senaryoda notun tarihi 27 Temmuz olarak verilmeli; 29 Temmuz yalnız 1914 baskısının okuması."
+    },
+    {
+     "iddia": "1914 metninde fiil \"fondré\": \"ma raison y a fondré à moitié\"; Konbini \"fondrée\" yazıyor; \"sombré\" hiçbir kaynakta yok.",
+     "durum": "duzeltme",
+     "kaynak": "https://dbnl.org/tekst/gogh006brie03_01/gogh006brie03_01_0004.php ; https://www.artnewspaper.fr/2023/11/16/le-suicide-en-peinture-de-vincent-van-gogh ; https://www.konbini.com/popculture/que-disait-la-derniere-lettre-inachevee-et-dechirante-de-vincent-van-gogh-a-son-frere-theo-juste-avant-sa-mort/",
+     "kanit": "DBNL 1914: \"Eh bien, mon travail à moi, j'y risque ma vie et ma raison y a fondré à moitié - bon -\". The Art Newspaper France (2023) ise \"ma raison y a sombré à moitié\" diye aktarıyor. VGM ve vangoghletters'ın İngilizcesi: \"my reason has half foundered in it\". Konbini'deki \"fondrée\" arama özetinden görüldü.",
+     "duzeltme": "\"Fondré\" 1914 baskısında doğru. \"Sombré hiçbir kaynakta yok\" cümlesi ise yanlış: The Art Newspaper France (16 Kasım 2023) \"sombré\" biçimini kullanıyor. Bu biçim düzeltilmiş ya da modernleştirilmiş bir aktarım. Birincil metin (1914/DBNL) \"fondré\" diyor. vangoghletters'ın Fransızca transkripsiyonu doğrudan okunamadı."
+    },
+    {
+     "iddia": "Bu cümle yalnız RM25'te var; gönderilen 902'de yok (902'nin 1914 metni, no. 651, okundu).",
+     "durum": "dogrulanamadi",
+     "kaynak": "https://dbnl.org/tekst/gogh006brie03_01/gogh006brie03_01_0004.php ; https://www.vangoghmuseum.nl/en/stories/the-end-of-a-difficult-road",
+     "kanit": "1914 baskısındaki 651 (\"(23 Juli.) Merci de ta lettre d'aujourd'hui...\") metninde \"raison\", \"Corot\" ve \"fondré\" geçmiyor. VGM cümleyi \"Final sentence of the unfinished letter\" diye tanıtıyor. Ama 1914 baskısı yer yer kısaltılmış olabilir ve vangoghletters'taki tam 902 metni açılamadı.",
+     "duzeltme": "Şöyle yazılmalı: 1914 baskısındaki 651'de yok; VGM bu cümleyi bitmemiş mektubun (RM25) son cümlesi olarak veriyor. Tam 902 el yazmasıyla karşılaştırma yapılamadı."
+    },
+    {
+     "iddia": "Alıntı 7a-1: \"Eh bien vraiment, nous ne pouvons faire parler que nos tableaux. Mais pourtant mon cher frère, ... qui même dans le débâcle gardent leur calme.\"",
+     "durum": "dogrulandi",
+     "kaynak": "https://dbnl.org/tekst/gogh006brie03_01/gogh006brie03_01_0004.php",
+     "kanit": "DBNL 1914 no. 652 metni harfi harfine aynı: \"...je considérerai toujours que tu es autre chose qu'un simple marchand de Corot, que par mon intermédiaire tu as ta part à la production même de certaines toiles, qui même dans le débâcle gardent leur calme.\""
+    },
+    {
+     "iddia": "Alıntı 7a-2: \"Eh bien, mon travail à moi, j'y risque ma vie et ma raison y a fondré à moitié - bon - mais tu n'es pas dans les marchands d'hommes ... mais que veux-tu?\"",
+     "durum": "dogrulandi",
+     "kaynak": "https://dbnl.org/tekst/gogh006brie03_01/gogh006brie03_01_0004.php",
+     "kanit": "DBNL 1914 metni dosyadaki alıntıyla birebir aynı; \"...agissant réellement avec humanité, mais que veux-tu?\" ile bitiyor."
+    },
+    {
+     "iddia": "Theo 25 Ocak 1891'de Utrecht'te, yattığı bir klinikte öldü (VGM: olası frengiyle ilgili belirtiler).",
+     "durum": "dogrulandi",
+     "kaynak": "https://www.dbnl.org/tekst/gogh006brie01_01/gogh006brie01_01_0002.php ; https://www.vangoghmuseum.nl/en/art-and-stories/vincents-life-1853-1890/after-vincents-death ; https://en.wikipedia.org/wiki/Theo_van_Gogh_(art_dealer)",
+     "kanit": "Jo 1914: \"Zes maanden later, den 25en Januari 1891 was hij zijn broeder gevolgd.\" VGM: \"admitted to a clinic in Utrecht, possibly suffering from syphilis-related physical and mental symptoms. He died there at the end of January 1891\". Wikipedia de 25 Ocak diyor. Not: Wikipedia'nın gövde metni kliniği \"Willem Arntz\" olarak adlandırıp Den Dolder diyor, bilgi kutusu ise Utrecht diyor. Senaryoda VGM'ye uyup \"Utrecht\" demek güvenli."
+    },
+    {
+     "iddia": "Vincent'ın ölümünden altı hafta sonra Theo bir anma sergisi düzenledi, ardından Boussod'dan istifa etti ve ağır bir sinir krizi geçirdi.",
+     "durum": "dogrulandi",
+     "kaynak": "https://www.vangoghmuseum.nl/en/art-and-stories/vincents-life-1853-1890/after-vincents-death",
+     "kanit": "VGM: \"Six weeks after Vincent's death, Theo organized a memorial exhibition\" ... \"he resigned from Boussod with immediate effect, and promptly suffered a severe nervous breakdown.\""
+    },
+    {
+     "iddia": "1914'te Jo, Theo'yu Auvers-sur-Oise'a, Vincent'ın yanına naklettirdi; Vincent'ın kalıntıları 1905'te mezarlık içinde yeniden gömülmüştü.",
+     "durum": "dogrulandi",
+     "kaynak": "https://www.vangoghmuseum.nl/en/art-and-stories/vincents-life-1853-1890/after-vincents-death ; https://www.vangoghmuseum.nl/en/stories/the-end-of-a-difficult-road ; https://www.theartnewspaper.com/2021/09/10/where-was-van-gogh-originally-buried-we-still-dont-know",
+     "kanit": "VGM: \"that same year she had Theo reinterred in Auvers-sur-Oise, in a grave alongside his brother's\"; \"His remains were reinterred in 1905 and his brother Theo ... was placed alongside him in 1914.\" Art Newspaper: 1905'te 15 yıllık mezar kirası dolunca Gachet kalıntıları yeniden gömdürdü, Jo da oradaydı."
+    },
+    {
+     "iddia": "Theo'nun 1914'teki naklinin ayı (genellikle \"Nisan 1914\" denir).",
+     "durum": "dogrulanamadi",
+     "kaynak": "https://www.theartnewspaper.com/2021/09/10/where-was-van-gogh-originally-buried-we-still-dont-know",
+     "kanit": "Taranan hiçbir kaynakta ay geçmiyor. Art Newspaper yalnızca nakil 1914'te yapıldı, \"just months before the outbreak of the First World War\" diyor. VGM yalnız yılı veriyor.",
+     "duzeltme": "Senaryoda ay verilmemeli; \"1914'te\" ya da \"Birinci Dünya Savaşı'ndan birkaç ay önce\" denmeli."
+    },
+    {
+     "iddia": "Jo girişini \"December 1913\" diye imzalamış; son cümlesi \"Zij rusten samen op het kleine kerkhof tusschen de korenakkers te Auvers.\"",
+     "durum": "dogrulandi",
+     "kaynak": "https://www.dbnl.org/tekst/gogh006brie01_01/gogh006brie01_01_0002.php",
+     "kanit": "DBNL: \"Zij rusten samen op het kleine kerkhof tusschen de korenakkers te Auvers. December 1913. J. van Gogh-Bonger.\""
+    },
+    {
+     "iddia": "Yorum: nakil kararı kitap basılmadan önce verilmişti; metin nakil gerçekleşmeden \"birlikte yatıyorlar\" diyor.",
+     "durum": "dogrulanamadi",
+     "kaynak": "https://www.dbnl.org/tekst/gogh006brie01_01/gogh006brie01_01_0002.php",
+     "kanit": "Metin ve imza tarihi doğrulandı, ama nakil ve kitabın basım tarihleri (ay olarak) bulunamadı. Bu yüzden \"nakil gerçekleşmeden yazıldı\" çıkarımı sınanamadı.",
+     "duzeltme": "Senaryoda \"Jo, Aralık 1913'te 'birlikte yatıyorlar' diye yazdı\" denebilir; nakilden önce yazıldığı kesin bilgi gibi verilmemeli."
+    }
+   ],
+   "not": "vangoghletters.org bir JavaScript uygulaması; düz istekte boş kabuk döndü, print.html ise 403 verdi. Playwright'la sayfayı açma denemesi izin sisteminde reddedildi. Bu yüzden RM25/902/728 notlarına yalnız arama özetlerinden ulaşıldı. Not tarihi (27 Temmuz) VGM'nin \\\"The end of a difficult road\\\" sayfasında doğrudan doğrulandı. 1914 metinleri DBNL'den indirilip tarandı (cilt 1 Inleiding ve cilt 3, 651 ile 652)."
+  },
+  {
+   "kume": "E Jo",
+   "kalemler": [
+    {
+     "iddia": "Jo van Gogh-Bonger 4 Ekim 1862'de doğdu, 2 Eylül 1925'te öldü.",
+     "durum": "dogrulandi",
+     "kaynak": "https://www.vangoghmuseum.nl/en/about/knowledge-and-research/completed-research-projects/research-project-biography-of-jo-van-gogh-bonger",
+     "kanit": "VGM sayfasının ham HTML'i curl ile okundu (WebFetch boş kabuk döndürdü): \"Jo was born on 4 October 1862.\" ... \"She died on 2 September 1925.\" Wikipedia da aynı tarihleri veriyor."
+    },
+    {
+     "iddia": "İngilizce okudu ve öğretmenlik yaptı.",
+     "durum": "dogrulandi",
+     "kaynak": "https://www.vangoghmuseum.nl/en/about/knowledge-and-research/completed-research-projects/research-project-biography-of-jo-van-gogh-bonger",
+     "kanit": "\"She studied English and worked as a teacher at a girls' boarding school in Elburg and at a secondary school in Utrecht, also for girls.\""
+    },
+    {
+     "iddia": "Theo ile Nisan 1889'da Amsterdam'da evlendi.",
+     "durum": "dogrulandi",
+     "kaynak": "https://vangoghletters.org/vg/letters/let759/translation.html ; https://en.wikipedia.org/wiki/Johanna_van_Gogh-Bonger",
+     "kanit": "vangoghletters.org sayfası JavaScript kabuğu döndürdü; arama motoru özetine göre mektup 759, ailelerin basılı evlilik duyurusu: \"Amsterdam/Breda/Paris, Thursday, 18 April 1889\" (VGM envanteri b1492 a-c V/1962). Wikipedia: \"married in Amsterdam on 17 April 1889\". Ay ve yer kesin; gün ayrıntısı (17 Nisan) yalnız ikincil kaynakta geçiyor."
+    },
+    {
+     "iddia": "Theo öldüğünde Jo 28 yaşındaydı.",
+     "durum": "dogrulandi",
+     "kaynak": "https://www.vangoghmuseum.nl/en/stories/the-woman-who-made-vincent-famous",
+     "kanit": "\"When Jo was 28, she lost the love of her life. Her husband Theo died...\" Hesap da tutuyor: 4 Ekim 1862 doğumlu, Theo 25 Ocak 1891'de öldü."
+    },
+    {
+     "iddia": "Theo'nun ölümünden sonra Bussum'a taşınıp pansiyon açtı; 1901'de ressam Johan Cohen Gosschalk'la evlendi; 1903'te Amsterdam'a geçti.",
+     "durum": "dogrulandi",
+     "kaynak": "https://www.vangoghmuseum.nl/en/art-and-stories/vincents-life-1853-1890/after-vincents-death",
+     "kanit": "\"She remarried in 1901 to the painter Johan Cohen Gosschalk, and the family moved to Amsterdam two years later.\" Pansiyon için VGM öyküsü: \"She moved from Paris to the Dutch town of Bussum, where she opened a guest house.\""
+    },
+    {
+     "iddia": "1905 Stedelijk sergisi Amsterdam'da Temmuz–Ağustos 1905'te yapıldı; katalog adı 'Catalogus der tentoonstelling van schilderijen en teekeningen door Vincent van Gogh – juli en augustus 1905'.",
+     "durum": "dogrulandi",
+     "kaynak": "https://library.vangoghmuseum.nl/Details/fullCatalogue/300035168 ; https://commons.wikimedia.org/wiki/File:Catalogus_der_tentoonstelling_van_schilderijen_en_teekeningen_door_Vincent_van_Gogh_-_juli_en_augustus,_1905_(IA_catalogusdertent00gogh).pdf",
+     "kanit": "VGM kütüphane kaydında sergi adı \"Tentoonstelling Vincent van Gogh - Amsterdam, 1905-07-15\" (Steenhoff'un 29.07.1905 tarihli yazısı). Commons dosya adında katalog başlığı \"juli en augustus, 1905\". Kesin kapanış tarihi bulunamadı; 'Temmuz–Ağustos' güvenli ifade."
+    },
+    {
+     "iddia": "1905 sergisi Vincent'ın o güne kadarki en büyük retrospektifiydi; 480'den fazla eser sergilendi, sergiden sonra fiyatlar hızla yükseldi; Jo seçimden görevlilerin ücretine kadar her şeyi düzenledi.",
+     "durum": "dogrulandi",
+     "kaynak": "https://www.vangoghmuseum.nl/en/stories/the-woman-who-made-vincent-famous ; https://www.vangoghmuseum.nl/en/about/news-and-press/press-releases/book-launch-all-for-vincent-the-life-of-jo-van-gogh-bonger",
+     "kanit": "VGM: \"the largest ever retrospective... More than 480 artworks were on display. Following this exhibition, the prices of Vincent's work rose rapidly.\" \"She arranged everything from the choice of works to be exhibited to payments to the attendants.\" Luijten (VGM basın bülteni) tam sayıyı veriyor: \"no less than 484 of Van Gogh's works\". Not: VGM 'o güne kadarki' değil 'gelmiş geçmiş en büyük' diyor; Luijten de bu boyutta bir serginin bir daha yapılmadığını söylüyor."
+    },
+    {
+     "iddia": "The Art Newspaper 1905 sergisi için '400'den fazla' eser diyor.",
+     "durum": "dogrulanamadi",
+     "kaynak": "https://www.vangoghmuseum.nl/en/about/news-and-press/press-releases/book-launch-all-for-vincent-the-life-of-jo-van-gogh-bonger",
+     "kanit": "The Art Newspaper'daki ifade bulunup okunamadı. Önemi yok: VGM ve Luijten'in 484 sayısı (\"more than 480\") esas alınmalı."
+    },
+    {
+     "iddia": "1914'te üç ciltlik 'Brieven aan zijn broeder' yayımlandı; Jo mektupları sıraya koydu, düzenledi ve biyografik bir giriş yazdı; bu metin yıllarca sanatçı hakkındaki öteki metinlerin kaynağı oldu. Künye: 'Uitgegeven en toegelicht door zijn schoonzuster J. van Gogh-Bonger', MCMXIV.",
+     "durum": "dogrulandi",
+     "kaynak": "https://www.dbnl.org/tekst/gogh006brie01_01/colofon.php ; https://www.vangoghmuseum.nl/en/stories/the-woman-who-made-vincent-famous",
+     "kanit": "DBNL künyesi: \"(ed. J. van Gogh-Bonger). Mij. voor goede en goedkoope lectuur, Amsterdam 1914\", \"in de editie in drie delen\". Başlık sayfası: \"UITGEGEVEN EN TOEGELICHT DOOR ZIJN SCHOONZUSTER ... OVERTOOM 230 TE AMSTERDAM - MCMXIV\". VGM: \"Jo categorised and edited the letters, and wrote a biographical introduction... For years, this text would remain the source for other texts about the artist.\""
+    },
+    {
+     "iddia": "Jo İngilizce çeviriye başladı; 1925'teki ölümünde mektupların yaklaşık üçte ikisini çevirmişti; İngilizce baskı 'dört yıl sonra' çıktı.",
+     "durum": "dogrulandi",
+     "kaynak": "https://www.vangoghmuseum.nl/en/stories/the-woman-who-made-vincent-famous",
+     "kanit": "\"When she died in 1925, Jo had translated about two-thirds of the letters. The English edition of the letters was published four years later.\""
+    },
+    {
+     "iddia": "İngilizce baskının ilk iki cildi 1927'de, üçüncü cildi C. de Dood çevirisiyle 1929'da çıktı.",
+     "durum": "duzeltme",
+     "duzeltme": "Yıllar doğrulandı: 'The Letters of Vincent van Gogh to his Brother 1872–1886' iki cilt, 1927 (Londra: Constable; Boston: Houghton Mifflin). Üçüncü ve son cilt 'Further Letters of Vincent van Gogh to his Brother 1886–1889', 1929 (Constable; ABD baskısı Houghton Mifflin 1930 olarak da kayıtlı). VGM'nin 'dört yıl sonra'sı 1929'daki tamamlanışı anlatıyor; ilk iki cilt ölümünden iki yıl sonra çıkmıştı. Üçüncü cildin C. de Dood'a ait olduğu bağımsız kaynakta DOĞRULANAMADI. Yalnız OCR'li bir taramada de Dood'un 'çevirmen ve düzeltmen' olarak adı geçiyor. Senaryoda çevirmen adı verilmemeli.",
+     "kaynak": "https://openlibrary.org/works/OL44620108W ; https://vangoghletters.org/vg/publications_4.html (arama özeti)",
+     "kanit": "Open Library'deki yayıncı notu: \"This volume contains the third and final selection... The earlier letters--those written between 1872 and 1886--were published in two volumes... in 1927.\" Kapakta \"III\" yazıyor. 1927 kütüphane kaydına göre (arama özeti) Fransızca üçüncü cilt çevirmen öldüğünde kısmen çevrilmişti ve 1927 baskısına alınmadı. vangoghletters.org sayfası boş kabuk döndürdü, yalnız özetten okundu."
+    },
+    {
+     "iddia": "Hesap defteri yayımlandı: Chris Stolwijk ve Han Veenenbos (ed.), 'The Account Book of Theo van Gogh and Jo van Gogh-Bonger', Cahier Vincent 8, Van Gogh Museum / Primavera Pers, Leiden 2002.",
+     "durum": "dogrulandi",
+     "kaynak": "https://www.primaverapers.nl/en/p/the-account-book-of-theo-van-gogh-and-jo-van-gogh-bonger/",
+     "kanit": "Primavera Pers: \"Hardcover, 2002, 224 pp., 220 ill. ISBN 978-90-74310-82-6\". Kitapçı kaydına göre (arama özeti) \"Leiden, Primavera Pers - Amsterdam Van Gogh Museum, 2002... Published as Cahier Vincent N° 8\"."
+    },
+    {
+     "iddia": "Defterdeki satış kayıtlarının kapsamı ve tarih aralığı (dosyada DOĞRULANMADI diye işaretli).",
+     "durum": "duzeltme",
+     "duzeltme": "Kapsam artık doğrulandı. Yayıncıya göre defter 1890–1924 arasında Van Gogh'un 200'den fazla eserinin satışını kaydediyor. Kitapta Vincent'ın koleksiyondan satılan eserlerinin bir listesi de var. Kütüphane özetindeki 'Mayıs 1889 – Temmuz 1890' Vincent'la ilgili ev hesaplarının dönemi; satış kayıtlarının dönemi değil.",
+     "kaynak": "https://www.primaverapers.nl/en/p/the-account-book-of-theo-van-gogh-and-jo-van-gogh-bonger/ ; https://www.dbnl.org/tekst/_van012200201_01/_van012200201_01_0003.php",
+     "kanit": "Primavera: \"It lists the sale of more than 200 works by Van Gogh in the period 1890-1924.\" Van Gogh Museum Journal 2002: defter \"a wealth of information on sales of works from the family art collection\" içeriyor, \"the buyers and the prices paid\" dahil."
+    },
+    {
+     "iddia": "1891–1925 arasında Jo, Vincent'ın 'neredeyse 200' eserini sattı. VGM sayısı, The Art Newspaper'ın 'neredeyse 200 resim ve 50'den fazla kâğıt üstü eser' sayısına tercih edilmeli.",
+     "durum": "duzeltme",
+     "duzeltme": "VGM'nin öykü sayfası gerçekten 'nearly 200 of Vincent's artworks' diyor. Ama VGM'nin kendi basın bülteni (Luijten) 'en az 192 resim ve 55 kâğıt üstü eser' veriyor; toplam yaklaşık 250 eser eder. Art Newspaper'ın sayısı bununla örtüşüyor. Yayıncı da defterde 200'den fazla satış olduğunu söylüyor. Doğru ifade: 'yaklaşık 200 resim' ya da 'yaklaşık 200 resim ve 50'yi aşkın çizim'. 'Neredeyse 200 eser' denmemeli. Dosyadaki 'VGM sayısı esas alınmalı' notu ters çeviriliyor.",
+     "kaynak": "https://www.vangoghmuseum.nl/en/about/news-and-press/press-releases/book-launch-all-for-vincent-the-life-of-jo-van-gogh-bonger ; https://www.vangoghmuseum.nl/en/stories/the-woman-who-made-vincent-famous",
+     "kanit": "VGM basın bülteni: \"Between 1891 and 1925, Jo sold at least 192 paintings by Van Gogh and 55 works on paper.\" VGM öyküsü: \"Between 1891 and 1925, Jo sold nearly 200 of Vincent's artworks.\""
+    },
+    {
+     "iddia": "Jo, Ayçiçekleri'nden birini 1924'te Londra'daki National Gallery'ye sattı ve müzenin müdürüne 'It is a sacrifice for the sake of Vincent's glory' diye yazdı.",
+     "durum": "dogrulandi",
+     "kaynak": "https://www.vangoghmuseum.nl/en/stories/the-woman-who-made-vincent-famous ; https://www.nationalgallery.org.uk/paintings/learn-about-art/paintings-in-depth/the-sunflowers",
+     "kanit": "VGM: \"Jo eventually sold one of the paintings to the National Gallery in London in 1924. 'It is a sacrifice for the sake of Vincent's glory', wrote Jo to the director of the museum.\" National Gallery: \"acquired by the National Gallery in 1924 with assistance from the Courtauld Fund\" ve Jo \"eventually relented 'for the sake of Vincent's glory'\". Notlar: Art Newspaper'a göre tablo Millbank'taki galeri (bugünkü Tate) için Mart 1924'te 1.304 sterline alındı. Bir ikincil kaynağa göre mektup 24 Ocak 1924 tarihli ve Charles Aitken'e yazılmış; Holmes'a değil. Bu doğrulanamadı. Cümlenin özgün dili de doğrulanamadı. Senaryoda alıcı adı verilmemeli, 'müzenin müdürüne' denmeli."
+    },
+    {
+     "iddia": "Hans Luijten, 'Alles voor Vincent. Het leven van Jo van Gogh-Bonger', Prometheus ve Van Gogh Müzesi, Amsterdam, 18 Eylül 2019; İngilizcesi 'Jo van Gogh-Bonger: The Woman Who Made Vincent Famous', Bloomsbury, 3 Kasım 2022.",
+     "durum": "dogrulandi",
+     "kaynak": "https://www.vangoghmuseum.nl/en/about/knowledge-and-research/completed-research-projects/research-project-biography-of-jo-van-gogh-bonger ; https://www.vangoghmuseum.nl/en/about/news-and-press/press-releases/bloomsbury-publishes-english-biography-of-jo-bonger",
+     "kanit": "\"The biography was published by Uitgeverij Prometheus in collaboration with the Van Gogh Museum on 18 September 2019. The English translation is launched on 3 November 2022 by Bloomsbury Publishing\". Bloomsbury bülteni Felemenkçe adı \"Alles voor Vincent. Het leven van Jo van Gogh-Bonger\" olarak veriyor; çevirmen Lynne Richards, ISBN 9781350299580. Felemenkçe baskının ISBN'i 9789044641660."
+    },
+    {
+     "iddia": "VGM'nin hükmü: 'Without Jo's dedication, this would never have been possible.' Jo'nun günlükleri bongerdiaries.org'da çevrim içi.",
+     "durum": "dogrulandi",
+     "kaynak": "https://www.vangoghmuseum.nl/en/art-and-stories/vincent-van-gogh-faq/how-did-van-gogh-become-famous-after-his-death ; https://www.vangoghmuseum.nl/en/about/news-and-press/press-releases/bloomsbury-publishes-english-biography-of-jo-bonger",
+     "kanit": "SSS sayfasında cümle harfi harfine geçiyor: \"Without Jo's dedication, this would never have been possible.\" Bloomsbury bülteni Luijten'in Jo'nun günlüklerinin dijital edisyonunu yayımladığını söylüyor; arama özetine göre adres \"www.bongerdiaries.org (2019)\"."
+    }
+   ],
+   "not": "The VGM pages render empty in WebFetch, but their raw HTML downloaded with curl holds the full text, so all VGM quotes come from the page itself. The vangoghletters.org pages (let759, publications_4) returned an empty shell; the evidence for them comes only from search-engine snippets. Two corrections matter. (1) Do not say 'nearly 200 works' sold. VGM's own press release gives at least 192 paintings and 55 works on paper, and the publisher says the account book records more than 200 sales. (2) The English edition came out as 2 volumes in 1927 and the third volume in 1929; the third volume's translator (C. de Dood) could not be confirmed. Who received the Sunflowers letter (possibly Charles Aitken, not Holmes) and the letter's original language are also unconfirmed, so the script should say only 'to the director of the museum'."
+  },
+  {
+   "kume": "G Theo ve Jo alıntıları",
+   "kalemler": [
+    {
+     "iddia": "7b: Theo'nun Jo'ya Auvers'ten 28 Temmuz 1890 tarihli Felemenkçe mektubu Jo'nun 1914 girişinde (cilt 1, Inleiding, s. LXIII–LXIV) yer alıyor; alıntı 1: \"Ik ging er dadelijk heen, alles in den steek latende en vond hem nog beter dan ik gedacht had.\"",
+     "durum": "dogrulandi",
+     "kaynak": "https://www.dbnl.org/tekst/gogh006brie01_01/gogh006brie01_01_0002.php",
+     "kanit": "DBNL Inleiding, harfi harfine aynı: \"Van daar uit schreef hij mij dienzelfden dag, 28 Juli: '... Ik ging er dadelijk heen, alles in den steek latende en vond hem nog beter dan ik gedacht had.\" Bu cümle s. LXIII'te, sayfa işareti {==LXIV==} hemen ardından geliyor."
+    },
+    {
+     "iddia": "7b: alıntı 2: \"Arme kerel, hem werd het geluk niet in groote mate toegedeeld en illusie's blijven hem niet over. Het wordt hem soms te zwaar, hij gevoelt zich zoo alleen....\"",
+     "durum": "dogrulandi",
+     "kaynak": "https://www.dbnl.org/tekst/gogh006brie01_01/gogh006brie01_01_0002.php",
+     "kanit": "DBNL (s. LXIV): \"....Arme kerel, hem werd het geluk niet in groote mate toegedeeld en illusie's blijven hem niet over. Het wordt hem soms te zwaar, hij gevoelt zich zoo alleen....Hij vroeg zoo naar jou en den jongen...\" Noktalama ve dört nokta aynı."
+    },
+    {
+     "iddia": "7c: Theo'nun Jo'ya ölümden sonraki mektubu (Jo'nun girişinde): \"Een van zijn laatste woorden was: “ik wilde dat ik zóó heen kon gaan,” en zoo was het ook; eenige oogenblikken en het was gedaan, en hij vond die rust, die hij op aarde niet vinden kon.......\"",
+     "durum": "dogrulandi",
+     "kaynak": "https://www.dbnl.org/tekst/gogh006brie01_01/gogh006brie01_01_0002.php",
+     "kanit": "DBNL (s. LXIV): \"In den vroegen morgen van 29 Juli ontsliep Vincent. Theo schreef mij: 'Een van zijn laatste woorden was: “ik wilde dat ik zóó heen kon gaan,” en zoo was het ook; ... die hij op aarde niet vinden kon.......\" Yedi nokta dahil aynı."
+    },
+    {
+     "iddia": "7c: \"Dr. Gachet was de eerste, die een groote bouquet zonnebloemen bracht omdat hij daar zooveel van hield.......\" ve \"Hij ligt op een zonnig plekje midden in de korenvelden.\"; Türkçe özü: \"Gachet ilk gelendi; Vincent çok sevdiği için kocaman bir ayçiçeği demeti getirdi.\"",
+     "durum": "duzeltme",
+     "duzeltme": "Felemenkçe metin doğru. Türkçe özü düzeltilmeli. Metin \"ilk gelen\" demiyor, \"ilk getiren\" diyor: \"Büyük bir ayçiçeği demetini ilk getiren Dr. Gachet oldu, çünkü (Vincent) onları çok severdi.\" \"Hij\" zamiri metinde belirsiz; Vincent'ı göstermesi bağlamdan çıkıyor. Ayrıca aynı pasajda geçen \"8 vriend\" ve odanın onun resimleriyle donatılması da kaynakta var.",
+     "kaynak": "https://www.dbnl.org/tekst/gogh006brie01_01/gogh006brie01_01_0002.php",
+     "kanit": "DBNL: \"Er waren veel bouquetten en kransen. Dr. Gachet was de eerste, die een groote bouquet zonnebloemen bracht omdat hij daar zooveel van hield....... Hij ligt op een zonnig plekje midden in de korenvelden.'\" Felemenkçe harfi harfine aynı."
+    },
+    {
+     "iddia": "7d: Theo'dan annesine (Jo'nun girişinde): \"Het leven woog hem zoo zwaar; maar zooals het meer gaat is nu ieder vol lof voor zijn talent.......\" ve \"O moeder, hij was zoo mijn eigen broer.\"; Türkçe özü: \"Hayat ona çok ağır geldi; şimdi, her zaman olduğu gibi, herkes yeteneğini övüyor.\"",
+     "durum": "duzeltme",
+     "duzeltme": "Felemenkçe metin doğru. Türkçe özü düzeltilmeli. \"zooals het meer gaat\" sözü \"her zaman olduğu gibi\" demek değil, \"çoğu zaman olduğu gibi\" ya da \"hep böyle olur ya\" demek. Öneri: \"Hayat ona çok ağır geliyordu; ama hep böyle olur ya, şimdi herkes yeteneğini övüyor.\" Kurgu notundaki kelimesi kelimesine çeviri (\"o öyle benim kendi kardeşimdi\") doğru.",
+     "kaynak": "https://www.dbnl.org/tekst/gogh006brie01_01/gogh006brie01_01_0002.php",
+     "kanit": "DBNL (s. LXIV): \"Uit een brief aan zijn moeder: '... Het leven woog hem zoo zwaar; maar zooals het meer gaat is nu ieder vol lof voor zijn talent....... O moeder, hij was zoo mijn eigen broer.'\" Bu, girişin son alıntısı (Aralık 1913)."
+    },
+    {
+     "iddia": "11a: VGM 847, 31 Ocak 1890, Paris, Goupil/Boussod antetli kâğıt, Theo'dan Vincent'a, Fransızca: \"Comme nous te l'avions dit nous l'appèlerons comme toi & je fais le voeux qu'il puisse être aussi persévérant & aussi courageux que toi.\"",
+     "durum": "dogrulandi",
+     "kaynak": "https://vangoghletters.org/vg/letters/let847/letter.html ; https://www.webexhibits.org/vangogh/letter/20/T27.htm",
+     "kanit": "vangoghletters sayfası JavaScript uygulaması olduğu için boş açıldı. Arama motoru dizini sayfa başlığını \"[Letterhead: Goupil and Boussod Paris]\" olarak veriyor ve cümleyi aynı yazımla (\"appèlerons\", \"&\") döndürüyor. Bağımsız İngilizce çeviri (Jo'nun çevirisi, T27, \"Paris, 31 January 1890\"): \"we are going to name him after you, and I devoutly hope that he will be able to be as persevering and as courageous as you.\" Harf harf denetim yalnız arama özetine dayanıyor; seslendirmeden önce sayfada bir kez daha bakılması önerilir."
+    },
+    {
+     "iddia": "11b: VGM 858, 19 Mart 1890, Paris, Theo'dan Vincent'a, Bağımsızlar Salonu açılışı: \"Gauguin disait que tes tableaux sont le clou de l'exposition.\"; başlık: \"sergide en çok konuşulan senin resimlerin\"",
+     "durum": "duzeltme",
+     "duzeltme": "Numara, tarih ve Fransızca cümle doğrulandı. Başlıktaki çeviri yanlış: \"le clou de l'exposition\" \"en çok konuşulan\" demek değil, \"serginin baş yapıtı / yıldızı / en çok dikkat çeken parçası\" demek. Türkçe özündeki \"sergide en dikkat çeken şey\" doğru, başlık ona uydurulmalı. Not: açılış (vernissage) 19 Mart'ta, mektubun yazıldığı gün; sergi 20 Mart–27 Nisan 1890 arası açık kaldı. Eski Complete Letters/webexhibits baskısı bu mektubu (T29) 29 Mart 1890 diye tarihliyor; esas alınması gereken VGM tarihi 19 Mart.",
+     "kaynak": "https://vangoghletters.org/en/let858 ; https://www.webexhibits.org/vangogh/letter/20/T29.htm",
+     "kanit": "vangoghletters sayfası boş açıldı. Arama dizini özeti: el yazması VGM b756 V/1962, başlığı 'Paris le 19 Mars 1890'; notlara göre açılış o gün yapılmış. Cümle aynı yazımla geçiyor: \"Gauguin disait que tes tableaux sont le clou de l'exposition.\" Jo'nun İngilizce çevirisi (T29): \"Gauguin said that your pictures were the chief attraction of the exhibition - the 'clou,' he said.\""
+    },
+    {
+     "iddia": "11c: Theo'nun kız kardeşine mektubu (Jo'nun 1914 girişi, cilt 1, Paris bölümü): \"Het is een zekerheid dat hij artist is ... komt er stellig een dag dat hij zal beginnen te verkoopen.\" ve \"Ik ben vast besloten om door te gaan zooals ik het tot nu toe deed\"; Jo'nun çerçevesi: \"Doch als de zuster aanraadt Vincent dan toch in 's hemelsnaam aan zijn eigen lot over te laten…\"",
+     "durum": "dogrulandi",
+     "kaynak": "https://www.dbnl.org/tekst/gogh006brie01_01/gogh006brie01_01_0002.php",
+     "kanit": "DBNL (s. XLIX), harfi harfine aynı: \"Het is een zekerheid dat hij artist is en wat hij nu maakt mag soms niet mooi zijn, maar 't komt hem later stellig te pas en dan is het mogelijk subliem, ... dat hij zal beginnen te verkoopen................ Ik ben vast besloten om door te gaan zooals ik het tot nu toe deed, maar ik hoop dat hij ... van woning veranderen zal.'\" İkinci alıntı cümle ortasında kesilmiş (\"deed\" sözünden sonra \", maar ik hoop...\" geliyor). Kesik yer üç noktayla gösterilmeli."
+    },
+    {
+     "iddia": "11c: Alıcı en küçük kız kardeş Wil; tarih 1887 başı (sık sık 14 Mart 1887 deniyor); kurgu notu: mektup, kız kardeşi \"onu kendi hâline bırak\" dediği için yazıldı.",
+     "durum": "duzeltme",
+     "duzeltme": "Alıcı ve tarih destekleniyor: Harrison'ın tam metinli İngilizce çevirisinde başlık \"Theo to Wil 14 March 1887\". Ancak bu ikincil bir kaynak; VGM kayıt numarası bulunamadı. Önemli düzeltme: Jo iki ayrı mektup varmış gibi bir düzen kurmuş, oysa Harrison'ın metninde \"evde dayanılmaz\", \"onda iki insan var\", \"kendi kendinin düşmanı\" yakınmaları ile \"sanatçı olduğu kesin\" ve \"devam etmeye kararlıyım\" cümleleri aynı 14 Mart mektubunda. Sıralama da şöyle: önce \"özel durum… sanatçı olduğu kesin\", sonra yakınmalar, en sonda \"devam etmeye kararlıyım\". Kurgu notundaki \"kız kardeşi bırak dediği için\" doğru (\"what you advised me\"), ama sahne \"önce yakınma, sonra cevap\" diye iki mektupla kurulmamalı. Aynı mektupta \"bir zamanlar Vincent'ı çok severdim, en iyi dostumdu, artık bitti\" cümlesi de var; filmde \"inanç\" sahnesi yalnız tek yanıyla verilirse yanıltıcı olur.",
+     "kaynak": "https://www.webexhibits.org/vangogh/letter/17/etc-fam-1886.htm ; https://www.dbnl.org/tekst/gogh006brie01_01/gogh006brie01_01_0002.php",
+     "kanit": "Webexhibits: \"Theo to Wil 14 March 1887 ... This is such a special case... It is certain that he is an artist... There was a time when I loved Vincent a lot and he was my best friend but that is over now... I have firmly decided to continue as I have done up to now.\" DBNL'de Jo önce \"schrijft Theo eens aan zijn jongste zuster\" diye yakınmayı veriyor, sonra \"Doch als de zuster aanraadt ... antwoordt Theo:\" diyor."
+    },
+    {
+     "iddia": "11d: Theo'dan Jo'ya, Arles'dan döndükten sonra (Aralık 1888): \"Er is weinig hoop, maar in zijn leven heeft hij meer gedaan dan zoovelen en meer geleden en gestreden dan voor de meeste menschen mogelijk is. Moet hij ter ruste gaan, het zij zoo, maar mijn hart breekt als ik er aan denk.\"",
+     "durum": "dogrulandi",
+     "kaynak": "https://www.dbnl.org/tekst/gogh006brie01_01/gogh006brie01_01_0002.php",
+     "kanit": "DBNL (s. LIV), harfi harfine aynı. Jo'ya göre bu satır, Gauguin'le Paris'e döndükten sonraki ilk mektubun \"bir gün sonrası\"nda yazılmış: \"schreef Theo mij, nadat hij met Gauguin naar Parijs was teruggekeerd; en een dag later: 'Er is weinig hoop...'\" Hemen ardından Dr. Rey'in 29 Aralık mektubu geliyor."
+    },
+    {
+     "iddia": "11e: Theo'dan Jo'ya, 25 Temmuz 1890: \"er is een brief van Vincent, die ik weer zeer onbegrijpelijk vind. Wanneer zal er voor hem eens een gelukkige tijd aanbreken! En hij is zoo door en door goed.\"",
+     "durum": "dogrulandi",
+     "kaynak": "https://www.dbnl.org/tekst/gogh006brie01_01/gogh006brie01_01_0002.php",
+     "kanit": "DBNL (s. LXIII): \"Den 25en schreef hij: 'er is een brief van Vincent, die ik weer zeer onbegrijpelijk vind. Wanneer zal er voor hem eens een gelukkige tijd aanbreken! En hij is zoo door en door goed.'\" Bağlam: Vincent'ın Paris ziyaretinden aceleyle Auvers'e dönüşü ve Theo'nun 20 Temmuz'da Jo'yu çocukla Hollanda'ya götürmesi. Türkçe özündeki \"hiç anlamadığım\" ifadesi \"yine çok anlaşılmaz bulduğum\" olarak daha sadık olur."
+    }
+   ],
+   "not": "Jo'nun 1914 Inleiding'i DBNL tam metninden (gogh006brie01, Inleiding sayfası _0002.php) yerel aramayla, harf ve nokta sayısıyla karşılaştırıldı. Sayfa numaraları DBNL'deki {==sayfa==} işaretlerinden çıkarıldı. Hiçbir dosya değiştirilmedi. vangoghletters.org sayfaları (let847, let858, documentation) JavaScript uygulaması olduğu için boş açıldı. 847 ve 858'in Fransızca metni yalnız arama motoru dizin özetlerinden ve webexhibits'teki Jo/Harrison İngilizce çevirilerinden doğrulandı; aksan ve '&' yazımı tarayıcıda bir kez daha görülmeli. Uygulamanın arka uç API'sini yoklama girişimi izin sistemince reddedildi, o yol denenmedi. En önemli bulgu 11c'de: Jo, Theo'nun Wil'e yazdığı 14 Mart 1887 mektubunu iki parçaya bölüp sırasını değiştirmiş. Aynı mektupta 'en iyi dostumdu, artık bitti' cümlesi de var. Sahne kurgusu buna göre gözden geçirilmeli."
+  },
+  {
+   "kume": "F Vincent alıntıları",
+   "kalemler": [
+    {
+     "iddia": "10a: VGM 702, 10 ya da 11 Ekim 1888, Arles, Theo'ya, Fransızca. 'Mais est-ce que j'y tiens ... mécontent de ton travail.' 1914 edisyonu: cilt 3, no. 550.",
+     "durum": "duzeltme",
+     "kaynak": "https://vangoghletters.org/en/let702 ; https://www.dbnl.org/tekst/gogh006brie03_01/gogh006brie03_01_0002.php",
+     "kanit": "VGM başlığı: 'To Theo van Gogh. Arles, Wednesday, 10 or Thursday, 11 October 1888.' 'COMPLETE LETTERS: 550'. DBNL Deel 3'te metin dosyadakiyle harfi harfine aynı, no. 550 içinde ('Mon cher Theo, Lorsque de ces jours-ci...'). VGM metni: 'Mais est ce que j'y tiens à ce que mon travail marche. Non et mille fois non. Je voudrais en arriver à te faire bien sentir cette vérité qu'en donnant l'argent aux artistes tu fais toi-meme oeuvre d'artiste et que je desirerais seulement que mes toiles deviennent telles que tu ne sois pas trop mécontent de ton travail.'",
+     "duzeltme": "Numara, tarih ve 1914 no. 550 doğru. Alıntı 1914 metnidir; VGM (Vincent'ın el yazması) farkları: 'est-ce' yerine 'est ce', soru işareti yerine nokta ('marche.'), 'toi-même' yerine 'toi-meme', 'désirerais' yerine 'desirerais'; 'vérité,', 'artistes,', 'd'artiste,', 'telles,' sonrasındaki virgüller el yazmasında yok (Jo eklemiş). 1914'te alıntıdan çıkarılmış ya da değiştirilmiş cümle yok (bitişik cümlede Jo 'l'on déplace' yerine 'l'on place' basmış; alıntının dışında). Türkçe öz düzeltilmeli: 'tu fais toi-même oeuvre d'artiste' 'sen de sanatçı işi yapıyorsun' demektir, 'sanat eseri yapıyorsun' değil; 'que tu ne sois pas trop mécontent de ton travail' 'emeğinden pek hoşnutsuz kalmayasın' demektir, 'seni utandırmasın' değil."
+    },
+    {
+     "iddia": "10b-1: VGM 707, 17 Ekim 1888, Arles, Theo'ya, Yatak Odası'nı bitirdiği gün. 'Je ne ferais rien de rien sans toi ... avec moins de douleur.' 1914: cilt 3, no. 555.",
+     "durum": "duzeltme",
+     "kaynak": "https://vangoghletters.org/en/let707 ; https://www.dbnl.org/tekst/gogh006brie03_01/gogh006brie03_01_0002.php",
+     "kanit": "VGM: 'To Theo van Gogh. Arles, Wednesday, 17 October 1888.', 'COMPLETE LETTERS: 555'. Tarih notu: Vincent ek yazıda Yatak Odası'nı 'this afternoon' bitirdiğini söylüyor (VGM metni: 'j'ai terminé cet après midi la toile representant la chambre à coucher'). VGM metni: 'Je ne ferais rien de rien sans toi, et voilà, ne nous montons pas le cou pour ce que nous produisons ainsi à nous deux mais fumons nos pipes en paix d'autre part, sans trop nous tourmenter jusqu'à la melancolie de ne pas produire séparement et avec moins de douleur.' DBNL no. 555'te dosyadaki metinle birebir aynı.",
+     "duzeltme": "Numara, tarih, 1914 no. 555 ve Yatak Odası bağlantısı doğru. Dosyadaki 'VGM yazımı DOĞRULANMADI' notu artık kapanabilir. VGM farkları: 'voilà,' (virgüllü), 'à nous deux' sonrası virgül yok, 'd'autre part,' (virgüllü), 'mélancolie' yerine 'melancolie', 'mélancolie,' sonrası virgül yok, 'séparément' yerine 'séparement'. 1914'te bu cümlede kesinti yok."
+    },
+    {
+     "iddia": "10b-2: VGM 707. 'Dans un an j'espère que tu sentiras qu'à nous deux nous avons fait une chose artistique.'",
+     "durum": "duzeltme",
+     "kaynak": "https://vangoghletters.org/en/let707 ; https://www.dbnl.org/tekst/gogh006brie03_01/gogh006brie03_01_0002.php",
+     "kanit": "VGM metni: 'Dans un an j'espère que tu sentiras qu'à nous deux nous avons fait une chôse artistique.' DBNL no. 555: '... une chose artistique.' İki cümle bitişik değil: arada iki paragraf var ('Certes à des moments...', 'Mais acceptons...'); iki edisyonda da aynı.",
+     "duzeltme": "Tek fark: el yazmasında 'chose' değil 'chôse' (Vincent'ın kendi yazımı; Jo düzeltmiş). Ekranda iki cümle ayrı alıntı olarak gösterilmeli; tek bir pasajmış gibi birleştirilmemeli."
+    },
+    {
+     "iddia": "10c: VGM 741, 22 Ocak 1889, Arles (kulak olayından sonra), Theo'ya. 'Il me paraîtrait juste que cela retourne ... de causer de l'argent.' 1914: cilt 3, no. 573. Türkçe öz: ne yaptıysak ikimiz yaptık; parayı konuşmak ikimize de acı veriyor.",
+     "durum": "duzeltme",
+     "kaynak": "https://vangoghletters.org/en/let741 ; https://www.dbnl.org/tekst/gogh006brie03_01/gogh006brie03_01_0002.php",
+     "kanit": "VGM: 'To Theo van Gogh. Arles, Tuesday, 22 January 1889.', 'COMPLETE LETTERS: 573'. Tarih notu: Roulin'in 'yesterday' gittiği yazıyor; Theo mektubu 23 Ocak'ta Jo'ya iletmiş. Jo 1914'te mektubu '(23 Januari.)' diye tarihlemiş. VGM metni: 'Il me paraitrait juste que cela retourne je ne dis pas dans tes mains puisque nous avons fait ce que nous avons fait à nous deux et que cela nous cause tant de peine de causer de l'argent.' Ardından gelen cümle: 'Mais que cela aille dans les mains de ta femme qui d'ailleurs se joindra à nous autres pour travailler avec les artistes.'",
+     "duzeltme": "Numara, VGM tarihi (22 Ocak) ve 1914 no. 573 doğru; 1914 baskısı mektubu 23 Ocak diye tarihliyor. Yazım farkları: VGM 'paraitrait' (şapkasız); 'retourne,' ve 'à nous deux,' sonrasındaki virgüller Jo'nun eki. Bağlam eksik: 'cela', Vincent'ın 'ressam eğitimine harcanan parayı' geri kazanma isteği; cümle 'senin eline değil' diye başlıyor ve sonraki cümlede paranın Jo'ya (Theo'nun karısına) gitmesini istiyor. Türkçe öz bu bağlamı vermeli; 'ikimiz birlikte yaptık' kısmı tek başına kullanılırsa paranın kime gideceği konusu atlanmış olur."
+    },
+    {
+     "iddia": "10d: VGM 691, c. 29 Eylül 1888, Arles, Theo'ya. 'Cela n'empêche, que j'ai un besoin terrible de - dirai-je le mot - de religion - alors je vais la nuit dehors pour peindre les étoiles...' 1914: cilt 3, no. 543.",
+     "durum": "duzeltme",
+     "kaynak": "https://vangoghletters.org/en/let691 ; https://www.dbnl.org/tekst/gogh006brie03_01/gogh006brie03_01_0002.php",
+     "kanit": "VGM: 'To Theo van Gogh. Arles, on or about Saturday, 29 September 1888.', 'COMPLETE LETTERS: 543'. VGM metni: 'Cela n'empêche que j'ai un besoin terrible de, dirai je le mot – de religion – alors je vais la nuit dehors pour peindre les étoiles et je rêve toujours un tableau comme cela avec un groupe de figures vivantes des copains.' DBNL no. 543'te dosyadaki metinle aynı.",
+     "duzeltme": "Numara, tarih ve 1914 no. 543 doğru. Noktalama farkları: el yazmasında 'empêche' sonrası virgül yok; 'de - dirai-je le mot -' yerine 'de, dirai je le mot –' (ilk tire yerine virgül, 'dirai je' tiresiz); 'étoiles' sonrası virgül yok. Kelime farkı yok, 1914'te kesinti yok."
+    },
+    {
+     "iddia": "10d ek: 'Ci-inclus petit croquis d'une toile de 30 carrée, enfin le ciel étoilé peint la nuit même sous un bec de gaz.' cümlesi 1914 no. 543'te; VGM'de bir yaprak 687'ye taşınmış; cümlenin 691'de mi 687'de mi durduğu doğrulanmadı.",
+     "durum": "duzeltme",
+     "kaynak": "https://vangoghletters.org/en/let691 ; https://vangoghletters.org/en/let687",
+     "kanit": "Cümle VGM 691'in ilk yaprağında (sayfa 1r:1): 'Ci inclus petit croquis d'une toile de 30 carrée – enfin le ciel étoilé peint la nuit même, sous un bec de gaz.' VGM 691 'Additional' notu: daha önce bu mektubun ikinci yaprağı sayılan yaprak 687'ye konmuş. VGM 687: 'Arles, Tuesday, 25 September 1888', 'COMPLETE LETTERS: 541a'. Paragrafları tek tek karşılaştırdım: 1914 no. 543'ün sonraki kısmı (Zola paragrafı, sergi, 'Pour le Ciel étoilé j'espère toujours bien le peindre', Tolstoy'un 'Ma religion'u) VGM 687'de.",
+     "duzeltme": "Açık soru kapandı: 'Ci inclus petit croquis…' cümlesi ve 'religion' cümlesi ikisi de VGM 691'de. VGM yazımı: 'Ci inclus' (tiresiz), 'carrée –' (virgül yerine tire), 'même, sous' (virgüllü). Dikkat: 1914 no. 543'ten alınacak başka cümle varsa (ör. Tolstoy ya da 'Pour le Ciel étoilé') o cümleler VGM 687'ye (25 Eylül 1888) aittir, 691'e değil."
+    },
+    {
+     "iddia": "10e: VGM 638, c. 9 Temmuz 1888, Arles, Theo'ya. 'Si nous prenons le train pour nous rendre à Tarascon ou à Rouen, nous prenons la mort pour aller dans une étoile.' 1914: cilt 2, no. 506 (Montmajour gezisiyle açılan mektup).",
+     "durum": "duzeltme",
+     "kaynak": "https://vangoghletters.org/en/let638 ; https://www.dbnl.org/tekst/gogh006brie03_01/gogh006brie03_01_0002.php",
+     "kanit": "VGM: 'To Theo van Gogh. Arles, Monday, 9 or Tuesday, 10 July 1888.', 'COMPLETE LETTERS: 506', açılış: 'je rentre d'une journée à Mont majour'. Tarih notu: Vincent Fontvieille'de Boch'u 'yesterday' gördüğünü yazıyor. Metin DBNL'de Deel 3'ün 'Arles 21 februari 1888 - 8 mei 1889' bölümünde, no. 506 içinde. Deel 2'de (2 ile 4 numaralı bölümler tarandı) bu cümle yok. VGM metni: '...à Tarascon ou à Rouen nous prenons la mort pour aller dans une étoile.'",
+     "duzeltme": "Cilt yanlış: 1914 edisyonunda cilt 3 (Arles bölümü), no. 506; cilt 2 değil. Tarih: VGM 'Pazartesi 9 ya da Salı 10 Temmuz 1888'; 'c. 9 Temmuz' yerine '9 ya da 10 Temmuz 1888' yazılmalı. Yazım: el yazmasında 'Rouen' sonrası virgül yok. 1914'te kesinti yok."
+    },
+    {
+     "iddia": "10f: VGM 782, c. 18 Haziran 1889, Saint-Rémy, Theo'ya. 'Enfin j'ai un paysage avec des oliviers et aussi une nouvelle étude de ciel étoilé.' Yıldızlı Gece (MoMA) burada ilk kez anılıyor. 1914: cilt 3, no. 595.",
+     "durum": "dogrulandi",
+     "kaynak": "https://vangoghletters.org/en/let782 ; https://www.dbnl.org/tekst/gogh006brie03_01/gogh006brie03_01_0003.php",
+     "kanit": "VGM: 'To Theo van Gogh. Saint-Rémy-de-Provence, on or about Tuesday, 18 June 1889.', 'COMPLETE LETTERS: 595'. VGM metni dosyadakiyle harfi harfine aynı: 'Enfin j'ai un paysage avec des oliviers7 et aussi une nouvelle étude de ciel étoilé.8'. VGM notu 8: 'Starry night (F 612 / JH 1731).' Not 7: zeytinlik F 712. DBNL no. 595 aynı metni veriyor; Jo mektubu '(19 Juni.)' diye tarihlemiş, VGM bunu damga tarihine bağlıyor.",
+     "duzeltme": "Metin, numara ve tarih doğrulandı. Not: 1914 baskısı mektubu 19 Haziran diye tarihliyor. 'İlk kez anılıyor' ifadesi için ayrıca önceki mektuplar taranmadı; VGM notu yalnız tabloyu (F 612) belirliyor."
+    },
+    {
+     "iddia": "10g: VGM 898, c. 10 Temmuz 1890, Auvers-sur-Oise, Theo ve Jo'ya. 'Ce sont d'immenses étendues de blés s[o]us des ciels troublés ... dans la campagne.' 1914: cilt 3, no. 649.",
+     "durum": "duzeltme",
+     "kaynak": "https://vangoghletters.org/en/let898 ; https://www.dbnl.org/tekst/gogh006brie03_01/gogh006brie03_01_0004.php",
+     "kanit": "VGM: 'To Theo van Gogh and Jo van Gogh-Bonger. Auvers-sur-Oise, on or about Thursday, 10 July 1890.', 'COMPLETE LETTERS: 649'. VGM metni: 'Ce sont d'immenses étendues de blés sous des ciels troublés ... Vous verrez cela j'espère sous peu – car j'espère vous les apporter à Paris le plus tôt possible puisque je croirais presque que ces toiles vous diront ce que je ne sais dire en paroles, ce que je vois de sain et de fortifiant dans la campagne.' DBNL no. 649'da 'sôus' OCR hatasıyla aynı metin var. VGM notu 4: Vincent 'de la solitude extrême' sözünü sonradan eklemiş.",
+     "duzeltme": "Numara, tarih, alıcılar ve 1914 no. 649 doğru; '[o]' düzeltmesi VGM'nin 'sous' yazımıyla uyuşuyor. Yazım: el yazmasında 'possible,' ve 'diront,' sonrasındaki virgüller yok. Kurgu için iki not: (1) 'de la solitude extrême' el yazmasında sonradan eklenmiş (VGM not 4); (2) Türkçe öz eksik: tuvallerin sözle söyleyemediği şey 'kırda gördüğüm sağlıklı ve güç veren şey'dir. Bunu atlayan öz, mektubu yalnız umutsuzluk diye okutur. Öz şöyle tamamlanmalı: '…sözle söyleyemediğimi, kırda gördüğüm sağlıklı ve güç veren şeyi söyleyecek.'"
+    },
+    {
+     "iddia": "10g kurgu notu: hangi tuvaller olduğu tartışmalı (Fırtınalı Gök Altında Buğday Tarlası, Kargalı Buğday Tarlası ve başkaları); mektup Kargalı Buğday Tarlası'nın 'son resim' olduğunu kanıtlamaz.",
+     "durum": "dogrulandi",
+     "kaynak": "https://vangoghletters.org/en/let898",
+     "kanit": "VGM notu 4: 'the most likely possibilities are Wheatfield under troubled skies (F 778 / JH 2097) and Wheatfield with crows (F 779 / JH 2117)'. Not 5: üçüncü tuval Daubigny'nin bahçesi (F 777). Bu, 1914 metniyle de uyuşuyor: 'Maintenant la troisième toile est le jardin de Daubigny'.",
+     "duzeltme": "Doğru. Ek bilgi: Vincent 'üç büyük tuval' diyor; bunlardan yalnız ikisi buğday tarlası, üçüncüsü Daubigny'nin bahçesi. VGM ikisini en olası olarak F 778 ve F 779 diye belirliyor."
+    },
+    {
+     "iddia": "10h: RM25'teki 'tu as ta part à la production même de certaines toiles' cümlesi; 1890.",
+     "durum": "duzeltme",
+     "kaynak": "https://vangoghletters.org/en/RM25 ; https://www.dbnl.org/tekst/gogh006brie03_01/gogh006brie03_01_0004.php",
+     "kanit": "VGM RM25: 'To Theo van Gogh. Auvers-sur-Oise, Wednesday, 23 July 1890.' VGM metni: '...autre chose qu'un simple marchand de Corots, que par mon intermediaire tu as ta part à la production même de certaines toiles, qui même dans la débacle gardent leur calme.' DBNL: '...marchand de Corot, que par mon intermédiaire tu as ta part ... dans le débâcle gardent leur calme.'",
+     "duzeltme": "Cümle iki edisyonda da var, yıl doğru. Tam alıntı verilecekse farklar: VGM 'Corots' / 1914 'Corot'; VGM 'intermediaire' / 1914 'intermédiaire'; VGM 'la débacle' / 1914 'le débâcle'. 'Par mon intermédiaire' ('benim aracılığımla') kısmı alıntıdan düşürülmemeli; Vincent Theo'nun payını kendi üzerinden tanımlıyor."
+    }
+   ],
+   "not": "I checked every quote in section 10 against the DBNL 1914 text (Deel 3; the Arles, St. Rémy and Auvers pages) and against the VGM edition itself. vangoghletters.org returns an empty JS shell to curl, so I rendered its public pages in headless Playwright and read the text the page displays; I did not touch its data service. All quotes in the dossier match the DBNL 1914 text letter for letter. The VGM numbers, the Complete Letters (= 1914) numbers 550/555/573/543/506/595/649 and the VGM dates were read from VGM's metadata panel. Jo's 1914 edition cut or changed no sentence inside the quotes. The differences are Jo's added commas and her normalized spelling and accents (Vincent's own forms: toi-meme, desirerais, melancolie, séparement, chôse, paraitrait, Ci inclus, dirai je). Two real errors: for 638, the 1914 volume is 3 (Arles), not 2; and VGM's date is 9 or 10 July 1888. The 691/687 question is closed: both quoted sentences are in 691, and only the later part of Jo's 543 (Tolstoy, 'Pour le Ciel étoilé', etc.) belongs to 687. Jo dates 741 as 23 January and 782 as 19 June; VGM dates them 22 January and 18 June. If French text appears on screen, pick one edition and use its spelling throughout. Text files used: /tmp/claude-0/-home-user/1251b65f-a684-562c-b86b-a58164cef97e/scratchpad/vgl/*.txt (VGM) and /tmp/claude-0/-home-user/1251b65f-a684-562c-b86b-a58164cef97e/scratchpad/dbnl/v3_000{2,3,4}.txt (DBNL)."
+  },
+  {
+   "kume": "H görseller",
+   "kalemler": [
+    {
+     "iddia": "Badem Çiçeği, Şubat 1890, Van Gogh Müzesi s0176V1962; Commons dosyası ve upload.wikimedia.org/…/6/68/… adresi var; PD-Art (PD-old-100-expired), CC-PD-Mark 1.0.",
+     "durum": "dogrulandi",
+     "kaynak": "https://commons.wikimedia.org/wiki/File:Vincent_van_Gogh_-_Almond_blossom_-_Google_Art_Project.jpg ; https://www.vangoghmuseum.nl/en/collection/s0176V1962",
+     "kanit": "Commons API imageinfo: url .../6/68/Vincent_van_Gogh_-_Almond_blossom_-_Google_Art_Project.jpg, 3139x2480, şablonlar PD-Art + PD-old-100-expired, kategori CC-PD-Mark, Institution:Van Gogh Museum, accession s0176V1962. VGM sayfası: 'Saint-Rémy-de-Provence, February 1890', F0671, JH1891, s0176V1962. Dosya geçmişi: Google Art Project kaynağı, 2014'te yalnız siyah kenar kırpılmış; renk düzeltmesi kaydı yok."
+    },
+    {
+     "iddia": "Kırmızı Bağ, Kasım 1888, Puşkin Müzesi; Commons File:Red_vineyards.jpg ve upload.wikimedia.org/…/3/35/Red_vineyards.jpg var; PD-Art (PD-old-100-expired), PD-Mark.",
+     "durum": "dogrulandi",
+     "kaynak": "https://commons.wikimedia.org/wiki/File:Red_vineyards.jpg ; https://conservation.pushkinmuseum.art/data/specprojects/van-gogh-red-vineyard/index-eng.html",
+     "kanit": "Commons API: url tam olarak .../3/35/Red_vineyards.jpg (2001x1560), {{PD-Art|PD-old-100-expired}}, CC-PD-Mark, Institution:Pushkin Museum, tarih 'Arles, 4 November 1888'. Puşkin müzesi koruma projesi sayfası: tablo Kasım 1888 başında, Gauguin Arles'a geldikten kısa süre sonra yapılmış. Dosyadan hesaplanan adres API'nin verdiği adresle aynı."
+    },
+    {
+     "iddia": "Kırmızı Bağ dosyası 'aslına sadık kamu malı reprodüksiyon'; renk ve kontrast 2015'te düzeltilmiş.",
+     "durum": "duzeltme",
+     "kaynak": "https://commons.wikimedia.org/wiki/File:Red_vineyards.jpg",
+     "kanit": "Dosyanın kaynağı müze değil: 'History of the Red Vineyard by Anna Boch.com, 2nd upload: wikipaintings'. Güncel sürümü 12 Mart 2015'te bir Commons kullanıcısı (Coldcreation) yüklemiş, açıklaması 'Adjusted colors and contrast, closer to original work'. 2014 sürümünde de sarının doygunluğu elle azaltılmış. Ayrıca tablo 2021–22'de Puşkin'de restore edildi; dosya restorasyondan önceki hâli gösteriyor.",
+     "duzeltme": "'Aslına sadık' denmemeli. Bu dosya müze fotoğrafı değil; üçüncü taraf sitelerden alınmış ve 2015'te bir Commons kullanıcısı renk ve kontrastını elle değiştirmiş, yani renk kaydırılmış bir kopya. Lisans (PD-Art) geçerli, ama renk referansı olarak güvenilmez; mümkünse müze kaynaklı ya da restorasyon sonrası bir görsel aranmalı."
+    },
+    {
+     "iddia": "Kırmızı Bağ'ın Puşkin envanter numarası Ж-3372.",
+     "durum": "dogrulanamadi",
+     "kaynak": "https://www.thehistoryofart.org/vincent-van-gogh/red-vineyard/",
+     "kanit": "Commons sayfasında 'accession number' alanı boş. Numara yalnız ikincil bir sitede (thehistoryofart.org) geçiyor; Puşkin müzesinin koleksiyon kaydında doğrulanamadı."
+    },
+    {
+     "iddia": "Yıldızlı Gece, Haziran 1889, MoMA 472.1941; Commons Google Art Project dosyası ve .../e/ea/... adresi; PD-Art (PD-old-100-expired), CC-PD-Mark.",
+     "durum": "dogrulandi",
+     "kaynak": "https://commons.wikimedia.org/wiki/File:Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg ; https://www.moma.org/collection/works/79802",
+     "kanit": "Commons API: url .../e/ea/Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg, PD-Art + PD-old-100-expired, CC-PD-Mark, Institution:Museum of Modern Art, F612/JH1731. MoMA kaydı (arama özeti, sayfa 403 verdi): object number 472.1941, Saint Rémy, June 1889. Not: güncel sürüm 2 Mart 2026'da yüklenmiş, 44.567×35.291 piksel, 663,94 MB; doğrudan indirilmesi pratik değil, küçük sürüm (thumb) kullanılmalı. Renk düzeltmesi kaydı yok."
+    },
+    {
+     "iddia": "Rhône Üzerinde Yıldızlı Gece, Eylül 1888, Musée d'Orsay RF 1975 19; Commons File:Starry_Night_Over_the_Rhone.jpg ve .../9/94/... adresi; kamu malı, ABD'de 1931 öncesi, CC-PD-Mark; 'başka ülkelerde kısıtlı olabilir' uyarısı var.",
+     "durum": "dogrulandi",
+     "kaynak": "https://commons.wikimedia.org/wiki/File:Starry_Night_Over_the_Rhone.jpg ; https://www.musee-orsay.fr/fr/oeuvres/la-nuit-etoilee-78696 ; https://fondation-vincentvangogh-arles.org/?p=504229",
+     "kanit": "Commons API: url tam olarak .../9/94/Starry_Night_Over_the_Rhone.jpg (5407x4191), {{PD-Art|PD-old-100-1923}}, CC-PD-Mark, Institution:Musée d'Orsay, tarih 1888-09. Sayfada 'In other jurisdictions, re-use of this content may be restricted' yazıyor. Orsay sanatçı listesi (arama özeti): 'La Nuit étoilée … 1888 RF 1975 19'. Fondation Van Gogh Arles: 'Arles, Sept. 1888'. Orsay sayfası doğrudan 403 verdi."
+    },
+    {
+     "iddia": "Rhône Üzerinde Yıldızlı Gece dosyası eserin aslına sadık fotoğrafı.",
+     "durum": "duzeltme",
+     "kaynak": "https://commons.wikimedia.org/wiki/File:Starry_Night_Over_the_Rhone.jpg",
+     "kanit": "Kaynak alanı müze değil, üçüncü taraf bir site: 'http://art-vangogh.com/image/Arles (1888-1889)/106 Starry Night Over the Rhone.jpg'. Dosya geçmişi: 2016'da bir kullanıcı (Pimbrils) 'iyileştirilmiş renkler' diye yüklemiş, 2017'de CFCF 'larger' sürümünü yüklemiş. Renk işleme yöntemi belirtilmemiş, müze kaynağı yok.",
+     "duzeltme": "Lisans doğru (PD-Art), ama dosya kaynağı belirsiz ve rengi kullanıcı tarafından değiştirilmiş olabilecek bir kopya. Renk referansı olarak güvenilmez. Orsay ya da Google Arts & Culture kaynaklı bir sürüm aranmalı; Google Arts varlığı: uQE3XORhSK37Dw."
+    },
+    {
+     "iddia": "Kargalı Buğday Tarlası, Temmuz 1890, Van Gogh Müzesi s0149V1962 (F779, JH2117); Commons dosyası ve .../a/a1/... adresi; PD-old-100-expired, PD-Art, CC-PD-Mark; pozlaması belirgin biçimde artırılmış rötuşlu dosya.",
+     "durum": "dogrulandi",
+     "kaynak": "https://commons.wikimedia.org/wiki/File:Korenveld_met_kraaien_-_s0149V1962_-_Van_Gogh_Museum.jpg ; https://www.vangoghmuseum.nl/en/collection/s0149V1962",
+     "kanit": "Commons API: url .../a/a1/Korenveld_met_kraaien_-_s0149V1962_-_Van_Gogh_Museum.jpg, {{PD-art|PD-old-100-expired}}, CC-PD-Mark, Category:Retouched pictures; {{retouched|The exposure of the original picture has been significantly increased…}}, F=779 JH=2117. Rötuşu 24 Ocak 2024'te Yann yapmış ('Brightness adjustment to match other images'). VGM: 'Auvers-sur-Oise, July 1890', F0779, JH2117, s0149V1962. Rötuşsuz özgün müze dosyası arşivde duruyor: https://upload.wikimedia.org/wikipedia/commons/archive/a/a1/20240124125713%21Korenveld_met_kraaien_-_s0149V1962_-_Van_Gogh_Museum.jpg (adres sayfadan alındı; oran sınırı yüzünden indirilerek denenmedi). Renk referansı için bu arşiv sürümü tercih edilmeli."
+    },
+    {
+     "iddia": "Fırtınalı Gök Altında Buğday Tarlası, Temmuz 1890, Van Gogh Müzesi s0106V1962; Commons dosyası ve .../5/5c/... adresi; PD-Art (PD-old-auto-expired), PD-old-100-expired, CC-PD-Mark.",
+     "durum": "dogrulandi",
+     "kaynak": "https://commons.wikimedia.org/wiki/File:Korenveld_onder_onweerslucht_-_s0106V1962_-_Van_Gogh_Museum.jpg ; https://www.vangoghmuseum.nl/en/collection/s0106V1962",
+     "kanit": "Commons API: url tam olarak .../5/5c/Korenveld_onder_onweerslucht_-_s0106V1962_-_Van_Gogh_Museum.jpg (7770x3815), {{PD-Art|PD-old-auto-expired|deathyear=1890}}, kategoriler PD-old-100-expired ve CC-PD-Mark, F778/JH2097. Tek sürüm var (2015, BotMultichill, VGM kaynaklı), rötuş notu yok. VGM: 'Auvers-sur-Oise, July 1890', F0778, JH2097."
+    },
+    {
+     "iddia": "Selvili Buğday Tarlası, 1889, Met objectID 436535; görsel DP-42549-001.jpg; isPublicDomain true (CC0).",
+     "durum": "dogrulandi",
+     "kaynak": "https://collectionapi.metmuseum.org/public/collection/v1/objects/436535",
+     "kanit": "API yanıtı: title 'Wheat Field with Cypresses', objectDate '1889', isPublicDomain True, accessionNumber 1993.132, primaryImage https://images.metmuseum.org/CRDImages/ep/original/DP-42549-001.jpg. Görsel adresi HTTP 206 ile yanıt verdi."
+    },
+    {
+     "iddia": "Met API'deki diğer Van Gogh eserleri: Ayçiçekleri (1887, 436524), İrisler (1890, 436528), Selviler (1889, 437980), La Berceuse (1889, 437984), Hasır Şapkalı Otoportre (1887, 436532), Çiçekli Bahçe (1888, 436527), Zeytin Ağaçları (1889, 437998), Ayakkabılar (1888, 436533), L'Arlésienne (1888–89, 436529); çizimler Buğday Tarlası (Temmuz 1888, 335537), Tımarhanede Koridor (Eylül 1889, 336327); baskı Dr. Gachet ya da Pipolu Adam (1890, 849056); hepsi isPublicDomain true.",
+     "durum": "dogrulandi",
+     "kaynak": "https://collectionapi.metmuseum.org/public/collection/v1/objects/436524 (ve aynı biçimde 436528, 437980, 437984, 436532, 436527, 437998, 436533, 436529, 335537, 336327, 849056)",
+     "kanit": "On iki ID'nin hepsi yanıt verdi ve hepsinde isPublicDomain True, artist Vincent van Gogh. Tarihler dosyayla aynı: 1887, 1890, 1889, 1889, 1887, 1888, 1889, 1888, 1888–89, 'July 1888' (Drawings), 'September 1889' (Drawings), 1890 (Prints, 'Portrait of Doctor Gachet or Man with a Pipe'). Not: 436532'nin görseli kırpılmış (DT1502_cropped2.jpg); obverse/reverse eser ('obverse: The Potato Peeler')."
+    },
+    {
+     "iddia": "Met'te arama v1.1/search ile yapılır; eski v1/search 1 Ekim 2026'da kapatıldı; görsel adresleri v1/objects/<ID> yanıtının primaryImage alanında.",
+     "durum": "dogrulandi",
+     "kaynak": "https://collectionapi.metmuseum.org/public/collection/v1/search?q=van%20gogh",
+     "kanit": "v1/search 'HTTP 410 Gone' döndü: '/public/collection/v1/search was retired on 2026-10-01… use /public/collection/v1.1/search'. v1.1/search 200 döndü. v1/objects/<ID> çalışıyor ve primaryImage alanını veriyor."
+    },
+    {
+     "iddia": "Commons'ta 'Theo van Gogh (art dealer)' kategorisinde Theo'nun 1873, 1878 ve 1888 tarihli fotoğrafları, 'Grave of Vincent van Gogh' ve 'Grave of Theo van Gogh' alt kategorileri var.",
+     "durum": "dogrulandi",
+     "kaynak": "https://commons.wikimedia.org/wiki/Category:Theo_van_Gogh_(art_dealer)",
+     "kanit": "Alt kategoriler arasında 'Grave of Theo van Gogh' ve 'Grave of Vincent van Gogh' var. Dosyalar: 'Theo van Gogh 1873.jpg', 'Theo van Gogh in 1878.jpg', 'Theo van Gogh May 1878.jpeg', 'Theo van Gogh (1888).jpg'. Dosya dosya lisanslar bakılmadı; dosya da bunu 'doğrulanmadı' diye belirtiyor."
+    },
+    {
+     "iddia": "Mezar fotoğrafları çağdaş fotoğraflar olduğundan CC lisanslıdır, kamu malı değildir; atıf ister.",
+     "durum": "duzeltme",
+     "kaynak": "https://commons.wikimedia.org/wiki/File:Gravestones_of_Vincent_and_Theo_van_Gogh_at_the_Cimetière_d'Auvers-sur-Oise._PK-F-B.00571.jpg",
+     "kanit": "Aynı kategorideki bu dosya 1951–52'de Emmy Andriesse (1914–1953) tarafından çekilmiş, kaynağı Leiden Üniversitesi Kütüphanesi; lisansı Public domain (PD Mark 1.0), CC BY değil.",
+     "duzeltme": "Genelleme yanlış. Mezar fotoğraflarının çoğu çağdaş ve CC lisanslı olabilir, ama en az biri (Andriesse, 1951–52, PK-F-B.00571) kamu malı. Her dosyanın lisansı tek tek okunmalı."
+    },
+    {
+     "iddia": "Genel: listedeki görsellerin hepsi kamu malı eserlerin aslına sadık fotoğrafları.",
+     "durum": "duzeltme",
+     "kaynak": "https://commons.wikimedia.org/wiki/File:Red_vineyards.jpg ; https://commons.wikimedia.org/wiki/File:Starry_Night_Over_the_Rhone.jpg ; https://commons.wikimedia.org/wiki/File:Korenveld_met_kraaien_-_s0149V1962_-_Van_Gogh_Museum.jpg",
+     "kanit": "Lisans açısından yedisi de kamu malı. Ancak Kırmızı Bağ'ın rengi kullanıcı tarafından değiştirilmiş (2015), Rhône dosyası müze dışı bir siteden alınmış ve 'iyileştirilmiş renkler' sürümü, Kargalı Buğday Tarlası ise resmî olarak 'retouched' etiketli.",
+     "duzeltme": "'Hepsi kamu malı' doğru; 'hepsi aslına sadık' yanlış. Üç dosya (Kırmızı Bağ, Rhône, Kargalı Buğday Tarlası) rötuşlu ya da rengi kaydırılmış kopya olarak işaretlenmeli. Kargalı Buğday Tarlası için arşivdeki rötuşsuz VGM sürümü kullanılmalı."
+    }
+   ],
+   "not": "Commons API oran sınırına (HTTP 429) takıldı. Altı dosyanın varlığı, adresi, lisans şablonları ve kategorileri tek bir API sorgusuyla alındı. Dosya geçmişleri Commons sayfalarından WebFetch ile okundu. upload.wikimedia.org adreslerine HEAD isteği de 429 verdi; adresler, API'nin döndürdüğü imageinfo.url değerleriyle karşılaştırılarak doğrulandı ve hepsi aynı çıktı. Hesaplandı denen üç adres (3/35, 9/94, 5/5c) de doğru. MoMA ve Orsay sayfaları 403 verdi; envanter numaraları arama sonuçlarındaki müze sayfası özetlerinden doğrulandı. Van Gogh Müzesi sayfaları curl ile okundu."
+  }
+ ],
+ "elestiri": {
+  "celiskiler": [
+   "Not: F kümesinin (Vincent alıntıları) kararları görev metninde 10b'nin ortasında kesiliyor. 10c–10g ile 11a ve 11b için F'nin ne dediği görülemedi. Aşağıdaki karşılaştırmalar A–E kümeleriyle ve F'nin görünen kısmıyla sınırlı.",
+   "VGM 855'in tarihi: B 'duzeltme' diyor (1914 baskısı '15 Februari', VGM 19 Şubat), C aynı kalemi 'dogrulandi' sayıyor. Değer aynı (19 Şubat 1890), yalnız etiket farklı. Dosyada VGM tarihi kalsın.",
+   "RM25 üzerindeki Theo notu: D, el yazmasının '27 Juillet jour du sinistre' dediğini doğruladı. Dosyanın 88. satırı başlığı hâlâ 1914 okumasıyla ('le 29 juillet') veriyor, 89. satır da 'DOĞRULANMADI' diyor. İkisi D'ye göre düzeltilmeli.",
+   "'Sombré': dosya bu biçimin 'hiçbir kaynakta yok' olduğunu söylüyor (90. satır). D, The Art Newspaper France'ın (2023) 'sombré' yazdığını buldu. 'Yok' cümlesi silinmeli.",
+   "Jo'nun 29 Ocak 1890 mektubu: dosya 'T26 / VGM 846, doğumdan önceki gece' diyor (69. satır). C'ye göre doğrusu VGM 845 ve mektup doğumdan iki gün önce yazıldı. VGM 846, Vincent'ın Jo'ya cevabı.",
+   "Badem Çiçeği'nin asıldığı yer: 5a (VGM 855) resmin 'yatak odaları için' yapıldığını söylüyor. C'nin notu ise resmin önce oturma odasında piyanonun üstüne asıldığını yazıyor (kaynağı Commons açıklaması, ikincil). Senaryo 'yatak odaları için yaptı' derse ikisine de uyar; 'yatak odalarında asılıydı' dememeli.",
+   "Badem Çiçeği'nin tarihi: dosya Commons'a dayanarak '1–20 Şubat'ta başlandı, 29 Nisan'dan önce bitti' diyor (72. satır). C bu aralığı hiçbir kaynakta bulamadı; VGM 'Şubat 1890' diyor. 5c'nin tarihi de çelişiyor: dosyada '1914: half April', C'de 'VGM 857, c. 17 Mart 1890'.",
+   "Theo'nun işe başlaması: dosya VGM sayfasına dayanarak '1881'de işe başladı' diyor (39. satır). B'ye göre 1881 gérant olarak atandığı yıl; Theo 1879 sonundan beri Paris'teydi ve firmanın adı 1881'de hâlâ Goupil & Cie idi. Aynı VGM sayfası 1881 için 'Boussod, Valadon' adını kullanıyor; bu da anakronizm.",
+   "Jo'nun sattığı eser sayısı: dosya 'VGM: neredeyse 200 eser, VGM sayısı esas alınmalı' diyor (121–122. satırlar). E'ye göre VGM'nin kendi basın bülteni en az 192 resim ve 55 kâğıt üstü eser veriyor, yani yaklaşık 250 eser. Dosyanın 'Art Newspaper yerine VGM' önceliği ters çevrilmeli.",
+   "1905 sergisi: dosya 'o güne kadarki en büyük retrospektif' diyor. VGM 'gelmiş geçmiş en büyük' diyor; Luijten'e göre 484 eser. Dosya 'Art Newspaper 400'den fazla diyor' notunu da tutuyor, ama E bu ifadeyi bulamadı.",
+   "Bailey'nin 'Mart 1890' tarihi: dosya hatayı 'Vincent satışı 19 Şubat'ta biliyordu' diye açıklıyor. B'ye göre sergi 23 Şubat'ta kapandı, ödeme 6 Mart 1890'da deftere geçti. Sonuç aynı, gerekçe farklı. 'Mart' ödemenin tarihi.",
+   "Theo'nun öldüğü yer: VGM 'Utrecht'teki bir klinik' diyor (D). Wikipedia'nın gövde metni Den Dolder'deki Willem Arntz kliniğini veriyor. Senaryo yalnız 'Utrecht' demeli.",
+   "Evlilik günü: düğün duyurusu 18 Nisan 1889 tarihli (let759, yalnız arama özeti), Wikipedia 17 Nisan diyor. Senaryoda yalnız 'Nisan 1889, Amsterdam' denmeli.",
+   "Mektup sayıları: 2009 edisyonu 903/820/659/39 veriyor, Wikipedia'nın eski edisyonu 844/663/9 (A). İki takım aynı cümlede karıştırılmamalı.",
+   "Bağış başlangıcı: VGM düzenli desteği 1882'den başlatıyor; vangoghletters'a göre ilk yardım Haziran 1880'de 50 frank (yalnız arama özeti). 'Theo on yıl boyunca para gönderdi' denirse hangi başlangıç kastedildiği belli olmalı."
+  ],
+  "kontrolsuz": [
+   "7b, 7c ve 7d: Theo'nun Jo'ya (28 Temmuz 1890 ve ölümden sonra) ve annesine yazdıkları, Jo'nun 1914 girişinden. Hiçbir küme bakmamış. Ben DBNL'de (cilt 1 Inleiding) taradım: altı cümlenin hepsi harfi harfine var. Bağlam notu: 28 Temmuz mektubunda Gachet'nin pusulasını getirenin 'een Hollandsche schilder' olduğu yazıyor.",
+   "11c, 11d ve 11e: Theo'nun kız kardeşine, Jo'ya Aralık 1888'de ve Jo'ya 25 Temmuz 1890'da yazdıkları. Hiçbir küme bakmamış. DBNL'de metinlerin hepsi doğru. Bağlam: 11d'yi Jo 'Paris'e döndükten bir gün sonra' diye veriyor, yani yaklaşık 27 Aralık 1888. 11e'yi Theo, Jo'yu çocukla Hollanda'ya götürüp Paris'e döndükten sonra yazmış. 11c'nin alıcısı metinde yalnız 'de zuster'; Wil olduğu ve 14 Mart 1887 tarihi hâlâ sınanmadı.",
+   "10c, 10d, 10e, 10f, 10g, 11a ve 11b: F kümesinin kararları kesildiği için durumları bilinmiyor. Ben 1914 metninde baktım: 10c (no. 573), 10d (no. 543; 'bec de gaz' cümlesi de aynı 1914 mektubunda), 10f (no. 595), 10g (no. 649) ve 10b'nin ikinci cümlesi ('Dans un an…', no. 555) metinde var. 10e (cilt 2, no. 506) ile Theo'nun 11a (VGM 847) ve 11b (VGM 858) cümleleri yalnız arama özetine dayanıyor.",
+   "Telif hükmü (13. satır): ölüm + 70 yıl, FSEK, 1 Ocak 1996, ABD'de 1931 öncesi yayın. Hiçbir küme sınamadı. Sonuç büyük olasılıkla doğru, ama `lisans-kontrol` becerisinden geçmeli.",
+   "Görseller tablosu: MoMA 472.1941, Orsay RF 1975 19, Met objectID'leri ve 'isPublicDomain', Commons'ta adı hesaplanıp açılmamış upload adresleri (Red_vineyards, Starry_Night_Over_the_Rhone, Korenveld_onder_onweerslucht), Kırmızı Bağ'ın 2015 renk düzeltmesi, 'Met v1/search 1 Ekim 2026'da kapandı' bilgisi. Hiçbiri sınanmadı. Kırmızı Bağ'ın Ж-3372 numarası B'de de 'dogrulanamadi'.",
+   "Theo'nun Commons'taki 1873, 1878 ve 1888 fotoğrafları ile mezar fotoğraflarının lisansı sınanmadı. 1888 tarihli bir Theo fotoğrafının kimliği ayrıca şüpheli; dosya dosya bakılmalı.",
+   "VGM edisyonunda 691'in bir yaprağının 687'ye taşındığı iddiası sınanmadı.",
+   "10g'nin kurgu notu ('son resim' efsanesi): yorum olarak sınanmadı. Dikkat: Jo'nun 1914 girişi de 'zwarte vogels, die in den storm over het korenveld jagen' diyerek bu efsaneyi besliyor.",
+   "Hassasiyet notu ('kulak görselleştirilmez') bir kural; olgu değil, bu yüzden sınanacak bir şey yok."
+  ],
+  "eksik": [
+   "Kanca sahnesi (Theo Paris'te mektup açıyor): hangi mektup olduğu, tarihi ve Theo'nun adresi yok. Gerekenler: 54 rue Lepic (Vincent'la 1886–88) ve evlilikten sonra 8 cité Pigalle. Mektubun eskizli olup olmadığı da gerekli (örneğin 691'deki Rhône taslağı, 902'deki Daubigny'nin Bahçesi). Arles–Paris posta süresi de yok.",
+   "Theo'nun kimliği: doğum tarihi (1 Mayıs 1857), Vincent'tan dört yaş küçük olduğu, öldüğünde 33 yaşında olduğu. Goupil'deki yolu da eksik: 1873 Brüksel, ardından Lahey, 1879 sonu Paris (B'de yalnız arama özetinden).",
+   "Paris'te birlikte yaşadıkları dönem: Vincent'ın Mart 1886'da habersiz gelişi (Louvre'dan gönderdiği pusula), Şubat 1888'de Arles'a gidişi. 11c'nin bağlamı için bunlar şart.",
+   "'Satış yok' bölümü: Theo'nun Vincent'ı nerede sergilediği yok. Bağımsızlar Salonu 1888, 1889 ve 1890; Les XX 1890. Albert Aurier'nin Ocak 1890'da Mercure de France'ta çıkan 'Les Isolés' yazısı da yok. Bu yazı ilk satışın hemen öncesi ve Theo'nun gözünden önemli bir an.",
+   "Arles: Vincent'ın 20 Şubat 1888'de varışı, Sarı Ev'in kiralanması (Mayıs 1888), Gauguin'in 23 Ekim 1888'de gelişi ve Theo'nun Gauguin'e para karşılığı tablo düzenini kurması.",
+   "Aralık 1888: Theo'nun Jo'ya evlenme teklif ettiği tarih (yaklaşık 21 Aralık 1888). Hastanenin adı (Hôtel-Dieu, Arles) ve Vincent'ın taburcu olduğu tarih (7 Ocak 1889) eksik.",
+   "Badem Çiçeği'ne köprü: Saint-Rémy'deki Saint-Paul-de-Mausole'a 8 Mayıs 1889'da yatış. Theo'nun doğumu haber veren mektubu var, ama ilk satışı haber veren mektubu yok; 855'teki 'gisteren meldde Theo me' hangi Theo mektubunu kastediyor (VGM numarası)?",
+   "Vincent'ın Theo, Jo ve bebekle tek karşılaşması: Paris, 17–20 Mayıs 1890. Auvers'e 20 Mayıs'ta varış, 6 Temmuz'daki Paris ziyareti ve Theo'nun o yazki işsizlik ve para kaygısı. Bu kaygı RM25 ve 902'nin bağlamı.",
+   "Theo'nun ölümü: anma sergisinin nerede yapıldığı (cité Pigalle'deki daire mi?), Theo'nun Paris'ten Hollanda'ya ne zaman götürüldüğü. Utrecht'teki ilk mezarı da yok; 1914'teki naklin 'nereden' sorusu cevapsız.",
+   "Jo'nun 1914'ü: mektupların yayımlandığı ay ve naklin ayı yok (D'de ikisi de 'dogrulanamadi'). İkisinin sırası senaryonun son sahnesi için gerekli. 1905 sergisinin kapanış tarihi de yok; yalnız 15 Temmuz 1905 açılışı var.",
+   "Kapanış için: Vincent Willem van Gogh'un sonraki rolü (Vincent van Gogh Vakfı 1962, müze 1973). Senaryoda kullanılırsa kaynak gerekiyor.",
+   "Hesap defterindeki 6 Mart 1890 kaydı ('Mlle Bock pour tab Vigne rouge'): Theo'nun bizzat yazdığı belge bu, ama yalnız arama özetinden alındı. Defter künyesiyle (Cahier Vincent 8) ve sayfasıyla doğrulanmalı."
+  ],
+  "guvenli_alintilar": [
+   "RM25 (1914 cilt 3, no. 652; Auvers, 23 Temmuz 1890, bitmemiş ve gönderilmemiş): \"Eh bien vraiment, nous ne pouvons faire parler que nos tableaux.\"",
+   "RM25 (1914 no. 652): \"…je considérerai toujours que tu es autre chose qu'un simple marchand de Corot, que par mon intermédiaire tu as ta part à la production même de certaines toiles, qui même dans le débâcle gardent leur calme.\"",
+   "VGM 855 (1914 no. 627; annesine, 19 Şubat 1890): \"…ben ik dadelijk begonnen een schilderij voor hem te maken, om in hun slaapkamer te hangen, groote takken witte amandelbloesem tegen een blauwe lucht.\"",
+   "VGM 855 (1914 no. 627): \"gisteren bovendien meldde Theo me, dat zij een van mijn schilderijen te Brussel verkochten voor 400 francs.\"",
+   "VGM 863 (1914 no. 629; Theo'ya, 29 Nisan 1890): \"Je suis tombé malade à l'époque où je faisais les fleurs d'amandier.\"",
+   "VGM 857 (1914 no. 628; Theo'ya, c. 17 Mart 1890): \"…la dernière toile des branches en fleur - tu verras, c'était peut-être ce que j'avais fait le plus patiemment et le mieux…\"",
+   "VGM 702 (1914 no. 550; 10 ya da 11 Ekim 1888): \"…qu'en donnant l'argent aux artistes, tu fais toi-même oeuvre d'artiste…\". Ekranda VGM yazımı kullanılmalı (ör. 'toi-meme', virgülsüz). Türkçe özü 'sen de sanatçı işi yapıyorsun' olmalı.",
+   "VGM 707 (1914 no. 555; 17 Ekim 1888, Yatak Odası'nı bitirdiği gün): \"Je ne ferais rien de rien sans toi\"",
+   "Jo'nun 1914 girişi (cilt 1; imza 'December 1913'): \"Zij rusten samen op het kleine kerkhof tusschen de korenakkers te Auvers.\"",
+   "Theo'dan annesine (Jo'nun 1914 girişinde, Ağustos 1890; DBNL'de harfi harfine var, VGM numarası yok): \"O moeder, hij was zoo mijn eigen broer.\""
+  ],
+  "riskli": [
+   "'Hayattayken tek bir resim sattı' ve Londra satışını kesin olgu gibi vermek. Yerine 'kesin belgeli tek tuval satışı Kırmızı Bağ'dı (1890 başı, Brüksel, 400 frank)' denmeli. Sulley & Lawrie otoportresi yalnız 'muhtemel' sayılmalı. Anna Boch'un parayı ödediği gün 6 Mart; sergi tarihiyle karıştırılmamalı.",
+   "11a, VGM 847'deki Theo cümlesi ('nous l'appèlerons comme toi & … aussi persévérant & aussi courageux que toi'). Doğum bölümünde kullanılacak, ama metin yalnız arama özetinden. Seslendirmeden önce VGM edisyonunda gözle okunmadan kullanılmamalı. Aynı uyarı 11b (VGM 858, Gauguin'in 'le clou de l'exposition' sözü) için de geçerli.",
+   "RM25 'son mektup', 'veda mektubu' ya da '29 Temmuz'da üzerinde bulunan mektup' diye sunulmamalı. Gönderilen son mektup 902. Theo'nun el yazması notu '27 Juillet' diyor. 'Ma raison y a fondré à moitié' cümlesi intiharın açıklaması gibi kurulmamalı. Kargalı Buğday Tarlası 'son resim' denmemeli; Jo'nun 'zwarte vogels' satırı da bu efsaneyi kanıtlamıyor.",
+   "Para rakamları kesin olgu gibi verilmemeli: '17.500 frank' vangoghletters'ın kendi tahmini ve yalnız arama özetinden; 'ayda 150 frank' sabit bir oran değil; '250 frank' VGM 664'te varsayım cümlesi ('si je mets'). Bunlar 'yaklaşık' ya da 'tahminen' diye yumuşatılmalı. Theo'nun ölüm nedeni de VGM'nin dediği gibi 'olası' kalmalı; kesin teşhis gibi verilmemeli.",
+   "Jo'nun bitişindeki ayrıntılar kesinleştirilmemeli: naklin ayı ('Nisan 1914') bilinmiyor; Jo'nun 'birlikte yatıyorlar' cümlesini nakilden önce yazdığı çıkarım; 'neredeyse 200 eser sattı' cümlesi (doğrusu en az 192 resim ve 55 kâğıt üstü eser); İngilizce baskının çevirmeni (C. de Dood) ve Ayçiçekleri mektubunun alıcısı. Theo için '1881'de işe başladı' ve 1884'ten önce 'Boussod, Valadon' adı da kullanılmamalı."
+  ]
+ }
+}

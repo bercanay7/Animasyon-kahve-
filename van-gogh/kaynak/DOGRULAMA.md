@@ -1,0 +1,87 @@
+# Van Gogh: kaynak doğrulaması (27 Kasım 2026)
+
+**Yöntem:**
+- Araştırma dosyası: `arastirma_dosyasi.md` (araştırma ajanı).
+- Sekiz bağımsız doğrulayıcı, her biri önce yanlışlamaya çalıştı; ardından tamlık eleştirmeni (iş akışı `van-gogh-kaynak-dogrulama`). Ham sonuç: 100'den fazla kalem.
+- Bu sayfa başkanın kararı: senaryo yalnız buradaki "kullanılır" satırlarını kullanır.
+
+**Kaynak notu:**
+- vangoghletters.org bir JavaScript uygulaması; bu kaptan okunamadı.
+- Özgün metin: Jo'nun 1914 baskısı (*Brieven aan zijn broeder*, DBNL; kamu malı).
+- El yazması yazımı (aksan, virgül): doğrulayıcıların VGM edisyonu karşılaştırması.
+- Müze bilgisi: vangoghmuseum.nl sayfalarının HTML'i.
+- Mektup sayıları: AU Press eki (Letters 2009, c. 6).
+
+## 1. Olgular: kullanılır (doğrulandı)
+| Olgu | Senaryoda söylenişi | Kaynak |
+|---|---|---|
+| Kalan yazışma | 903 mektup; 820'si Vincent'tan. 651'i yalnız Theo'ya (Theo ve/veya Jo'ya 659). Theo'dan yalnız 39 mektup kaldı | VGM "Van Gogh's letters"; AU Press eki |
+| Theo'nun mektupları | "Vincent çoğunu attı ya da yaktı." "Hiç saklamadı" denmez | VGM |
+| Yazdığı toplam | büyük olasılıkla 2.000'den fazla | VGM |
+| Üretim | 850'den fazla resim, 1.300'e yakın kâğıt üstü eser; ressamlığa 27 yaşında (1880) karar verdi, yaklaşık 10 yıl | VGM |
+| Saint-Rémy, Auvers | Saint-Rémy'de bir yılda yaklaşık 150 resim; Auvers'te neredeyse günde bir eser | VGM |
+| Theo'nun desteği | düzenli destek 1882'den; ilk yıllarda ayda ortalama 100–150 frank. Arles'da "yaklaşık 250 frank" (VGM 664, 19 ya da 20 Ağustos 1888; Vincent'ın varsayım cümlesi) | VGM SSS; VGM 664 |
+| Paranın değeri | 100–150 frank ≈ 50–75 gulden; yedi kişilik aileye bakan bir işçinin aylığı 32 gulden | VGM SSS |
+| Theo'nun işi | 1879 sonundan beri Paris'te Goupil'de. 1881'de bulvardaki şubenin yöneticisi; firma 1884'ten sonra Boussod, Valadon & Cie. "1881'de işe başladı" denmez | VGM, düzeltmeyle |
+| Kırmızı Bağ | 1890 başı, Brüksel (Les XX, 18 Ocak – 23 Şubat 1890), Anna Boch, 400 frank; ödeme 6 Mart 1890'da kaydedildi. **Kesin belgeli tek tuval satışı** | VGM 855; hesap defteri |
+| "Tek tablo sattı" efsanesi | VGM: "bir-iki taneden fazla" sattı, birçok takas yaptı. Londra (Sulley & Lawrie, bir otoportre) yalnız "muhtemel" | VGM; Bailey |
+| Badem Çiçeği | Theo ve Jo'nun oğlu Vincent Willem 31 Ocak 1890'da doğdu. Vincent annesine (VGM 855, 19 Şubat 1890) "yatak odalarına asılmak üzere" büyük beyaz badem dalları boyadığını yazdı. Tablo Van Gogh Müzesi'nde (s0176V1962) | VGM 855 |
+| Badem Çiçeği'nden sonra | Resmi yaparken hastalandı (VGM 863, 29 Nisan 1890). Önceki mektupta "belki en sabırla yaptığım" der (VGM 857, c. 17 Mart 1890) | VGM 863, 857 |
+| Aralık 1888 | 23 Aralık akşamı kriz (ayrıntı verilmez). 24 Aralık telgraf; 25 Aralık Theo gece treniyle geldi, aynı gün döndü | VGM; Jo 1914 (Jo "Noel günleri" diyor; bugünkü kaynaklar aynı gün) |
+| Ölüm | 27 Temmuz 1890 akşamı yaralandı; Theo 28'inde geldi; Vincent 29 Temmuz sabahı Auvers'te öldü, Theo yanındaydı; 30 Temmuz'da gömüldü. Anlatımda yalnız "29 Temmuz 1890'da öldü; Theo yanındaydı" | VGM |
+| Cebindeki mektup | RM25: 23 Temmuz 1890 tarihli, bitmemiş ve gönderilmemiş taslak. Theo'nun kurşun kalem notu: "le 27 Juillet jour du sinistre". Gönderilen son mektup VGM 902 | VGM; 1914 no. 652 |
+| Theo'nun ölümü | 25 Ocak 1891, Utrecht (bir klinik); 33 yaşında (doğum 1 Mayıs 1857) | VGM |
+| Nakil | 1914'te Jo, Theo'yu Auvers'e Vincent'ın yanına taşıttı. **Ay verilmez** | VGM |
+| Jo | 4 Ekim 1862 – 2 Eylül 1925. Nisan 1889'da Amsterdam'da evlendi. Theo öldüğünde 28 yaşında, bir bebekle | VGM; Luijten |
+| 1905 sergisi | Amsterdam, Stedelijk Museum (açılış 15 Temmuz 1905), 484 eser: gelmiş geçmiş en büyük Van Gogh sergisi | VGM; Luijten |
+| 1914 | Mektuplar üç cilt, Jo'nun girişiyle (*Brieven aan zijn broeder*). İngilizce çeviriyi sürdürdü, ölümünde yaklaşık üçte ikisi bitmişti. İngilizce: 1927 (2 cilt), 1929 (3. cilt) | VGM; künye |
+| Jo'nun satışları | 1891–1925 arasında en az 192 resim ve 55 kâğıt üstü eser. "Neredeyse 200 eser" denmez; "yaklaşık 200 resim" denebilir | VGM basın bülteni (Luijten) |
+| Hesap defteri | Theo ile Jo'nun defteri (Stolwijk ve Veenenbos 2002, Cahier Vincent 8); 1890–1924 arası 200'ü aşkın satış kaydı | Primavera Pers |
+
+## 2. Alıntılar: seslendirmede kullanılır
+Türkçe cümleler bizim çevirimiz (özgün metin kamu malı). Ekranda özgün metin verilirse VGM el yazması yazımı (aksansız ve virgülsüz farklar `arastirma_dosyasi.md` ve doğrulama raporunda) ya da açıkça "1914 baskısı" yazılır.
+1. **VGM 707**, Arles, 17 Ekim 1888 (Yatak Odası'nı bitirdiği gün): *"Je ne ferais rien de rien sans toi"*. "Sensiz hiçbir şey yapamazdım."
+2. **VGM 702**, Arles, 10 ya da 11 Ekim 1888: *"en donnant l'argent aux artistes, tu fais toi-même oeuvre d'artiste"*. "Sanatçılara para verirken sen de sanatçı işi yapıyorsun."
+3. **VGM 707**: *"Dans un an j'espère que tu sentiras qu'à nous deux nous avons fait une chose artistique."* Ayrı alıntı; 1'le birleştirilmez. "Bir yıl sonra, ikimizin birlikte sanatsal bir şey yaptığımızı hissedeceğini umuyorum."
+4. **VGM 691**, Arles, c. 29 Eylül 1888: gece dışarı çıkıp yıldızları boyamak (*"…je vais la nuit dehors pour peindre les étoiles"*). Rhône'da Yıldızlı Gece bağlamı. Cümledeki "religion" sözcüğü kullanılmaz (dinî karşılaştırma kuralı).
+5. **VGM 855**, annesine, 19 Şubat 1890 (Felemenkçe): *"groote takken witte amandelbloesem tegen een blauwe lucht"*. "Mavi bir göğe karşı beyaz badem çiçeklerinin büyük dalları." Aynı mektupta: *"gisteren bovendien meldde Theo me, dat zij een van mijn schilderijen te Brussel verkochten voor 400 francs"*.
+6. **VGM 863**, 29 Nisan 1890: *"Je suis tombé malade à l'époque où je faisais les fleurs d'amandier."* "Badem çiçeklerini yaparken hastalandım."
+7. **VGM 898**, Auvers, c. 10 Temmuz 1890: uçsuz bucaksız buğday tarlaları, bulutlu göğün altında. Kırın sağlığı ve güç verici yanı (Türkçe özü eksiksiz verilir; "son resim" efsanesi kurulmaz).
+8. **RM25**, 23 Temmuz 1890 (bitmemiş taslak): *"nous ne pouvons faire parler que nos tableaux"*. "Biz ancak resimlerimizi konuşturabiliriz."
+9. **RM25**: *"…que par mon intermédiaire tu as ta part à la production même de certaines toiles…"*. "Benim aracılığımla bazı tuvallerin yapımında senin de payın var." "Benim aracılığımla" düşürülmez.
+10. **Theo'dan annesine**, Ağustos 1890 (Jo'nun 1914 girişi, harfi harfine DBNL): *"O moeder, hij was zoo mijn eigen broer."* "Ah anneciğim, o benim kendi kardeşimdi; öyle benimdi ki."
+11. **Jo'nun 1914 girişi** (imza Aralık 1913): *"Zij rusten samen op het kleine kerkhof tusschen de korenakkers te Auvers."* "Auvers'te buğday tarlalarının arasındaki küçük mezarlıkta birlikte yatıyorlar." Nakilden önce mi yazıldığı kesin değil; "Jo şöyle yazdı" diye verilir.
+
+## 3. Kullanılmaz ya da yumuşatılır
+- **"Hayatı boyunca tek bir tablo sattı" denmez.** Yerine: "kesin belgeli tek tuval satışı."
+- **RM25 "veda" ya da "son mektup" değildir.** "Ma raison y a fondré à moitié" cümlesi ölümün açıklaması gibi kurulmaz ve okunmaz (YouTube ve saygı).
+- **Kargalı Buğday Tarlası "son resmi" denmez** (efsane).
+- **Para tahminleri:** "17.500 frank" (VGM edisyonunun kendi tahmini, gözle görülmedi), "her ay 150 frank" (sabit değil). İkisi de kullanılmaz ya da "yaklaşık" denir.
+- **Theo'nun mektupları VGM 847 (doğum) ve 858 ("le clou de l'exposition"):** metin yalnız arama özetinden. Tarayıcıda gözle okunmadan kullanılmaz.
+- **Theo'nun 1887'de kız kardeşine yazdığı mektup:** Jo'nun düzeni iki mektubu birleştiriyor olabilir; tarih (14 Mart 1887) ikincil kaynaktan. Kullanılırsa "1887'de kız kardeşine yazdığı bir mektupta" denir.
+- **Gösterilmez, söylenmez:** kulak olayının ayrıntısı, ölüm biçimi, silah; Theo'nun ölüm nedeni ("olası" bile denmez; söylenmez).
+- **Kırmızı Bağ'ın Puşkin envanter numarası** doğrulanamadı; açıklamaya yazılmaz.
+
+## 4. Görseller
+- **Kullanılır:**
+  - Met Open Access (CC0, `isPublicDomain`):
+    - *Hasır Şapkalı Otoportre* (436532) ve *Selvili Buğday Tarlası* (436535): `gorsel/`'de;
+    - Ayçiçekleri 436524, İrisler 436528, Selviler 437980, La Berceuse 437984 ve öbürleri gerekirse.
+  - Commons'ta müze kaynaklı PD-Art dosyaları: *Badem Çiçeği* (Google Art Project), *Yıldızlı Gece* (MoMA, Google Art Project), *Fırtınalı Gök Altında Buğday Tarlası* (VGM).
+- **Renk kaynağı olarak kullanılmaz** (rötuşlu ya da rengi kaydırılmış kopya):
+  - *Kırmızı Bağ* (`Red_vineyards.jpg`);
+  - *Rhône Üzerinde Yıldızlı Gece* (`Starry_Night_Over_the_Rhone.jpg`);
+  - *Kargalı Buğday Tarlası* (rötuşlu dosya).
+  - Müze kaynaklı sürüm bulunmazsa sahne başka tabloyla kurulur.
+- **Mezar ve aile fotoğrafları** dosya dosya lisansla okunur (çoğu CC, biri kamu malı).
+
+## 5. Eksik (senaryodan önce ikinci araştırma turu)
+- **Kanca mektubu:** hangi mektup, eskizli mi? Örnek: 691'deki Rhône taslağı. Theo'nun adresleri: 54 rue Lepic (1886–88), 8 cité Pigalle (evlilikten sonra). Arles'tan Paris'e posta süresi.
+- **Paris yılları:** Vincent'ın Mart 1886'da habersiz gelişi (Louvre'dan pusula); Şubat 1888'de Arles'a gidiş.
+- **Arles:** 20 Şubat 1888 varış; Sarı Ev; 23 Ekim 1888 Gauguin'in gelişi ve Theo'nun düzeni.
+- **Aralık 1888:** Theo'nun Jo'ya evlenme teklifi (yaklaşık 21 Aralık 1888); Arles'taki hastane; 7 Ocak 1889 taburcu.
+- **Saint-Rémy:** 8 Mayıs 1889'da yatış.
+- **Mayıs 1890:** Paris'te Theo, Jo ve bebekle tek buluşma (17–20 Mayıs 1890); 6 Temmuz ziyareti ve Theo'nun o yazki para kaygısı.
+- **İlk övgü:** Aurier'nin "Les Isolés" yazısı (*Mercure de France*, Ocak 1890).
+- **Theo'nun ölümünden sonra:** ilk mezarı (Utrecht) ve 1914 naklinin yeri.
+- **Kapanış:** Vincent Willem'in sonraki rolü (Vakıf 1962, müze 1973).
