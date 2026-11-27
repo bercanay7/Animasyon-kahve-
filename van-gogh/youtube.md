@@ -22,11 +22,18 @@ Sana kimse inanmazken kim inandı? Yorumlara yaz.
 Kaynaklar
 - Vincent van Gogh, Mektuplar. Van Gogh Museum ve Huygens ING, "Vincent van Gogh: The Letters" (vangoghletters.org), mektup numaraları: 691, 702, 707, 855, 863, 898, RM25. Türkçe cümleler özgün metinden bizim çevirimiz.
 - Johanna van Gogh-Bonger, "Inleiding" (Brieven aan zijn broeder, 1914; DBNL). Sarı zarflar, Theo'nun annesine mektubu, Auvers'teki mezarlık cümlesi buradan.
-- Satış ve para kayıtları: Van Gogh Museum araştırma yayınları (Theo'nun gönderdiği aylık tutarlar, 1890 Brüksel satışı, Jo'nun hesap defteri).
+- Para ve satışlar: Van Gogh Museum, "Sıkça sorulan sorular" (Theo'nun aylık desteği, gulden karşılığı); VGM 855 (1890 Brüksel satışı); Chris Stolwijk ve Han Veenenbos, The Account Book of Theo van Gogh and Jo van Gogh-Bonger (Cahier Vincent 8, 2002); Hans Luijten, Jo van Gogh-Bonger: The Woman Who Made Vincent Famous (Jo'nun satışları).
 - 1905 Stedelijk sergisi ve Van Gogh Museum'un kuruluşu: Van Gogh Museum.
 
 Görseller (kamu malı)
-[GÖRSEL KÜNYESİ: araclar/ASSETS.md kaydından doldurulur]
+Vincent van Gogh'un tabloları, müzelerin kamu malı görüntüleri (CC0 ya da PD-Art):
+- Badem Çiçeği (1890), Sarı Ev (1888), Yatak Odası (1888), Fırtınalı Gök Altında Buğday Tarlası (1890): Van Gogh Museum, Amsterdam (Vincent van Gogh Foundation)
+- Yıldızlı Gece (1889): The Museum of Modern Art, New York
+- Hasır Şapkalı Otoportre (1887), Selviler (1889), Selvili Buğday Tarlası (1889), Zeytin Ağaçları (1889), Vazoda İrisler (1890), Güller (1890): The Metropolitan Museum of Art, New York
+- İrisler (1889): J. Paul Getty Museum, Los Angeles
+- Şairin Bahçesi (1888): Art Institute of Chicago
+- Yeşil Buğday Tarlaları, Auvers (1890), Beyazlı Kız (1890), Zeytinlik (1889): National Gallery of Art, Washington
+- Büyük Çınarlar (1889), Alpiller'de İki Kavak (1889), Adeline Ravoux (1890): The Cleveland Museum of Art
 
 Yapım
 Animasyon, müzik ve sesler Zaman Kuryesi'nde kodla üretildi: dünya gri yağlıboya fırça darbeleriyle boyandı, yalnız Vincent'in tabloları ve zarfları renkli. Figürler sırttan siluet; yüzler yalnız Vincent'in kendi otoportresinde. Anlatım yapay zekâ sesiyle (ElevenLabs) seslendirildi. Ses efektlerinin bir kısmı ElevenLabs ile üretildi; müzik özgün sentez.
