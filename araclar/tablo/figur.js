@@ -25,10 +25,12 @@ export function blenderKaynak(BK) {
     renk: (x, y) => { const j = ((y - BK.y0) * BK.w + x - BK.x0) * 4; return [BK.d[j] / 255, BK.d[j + 1] / 255, BK.d[j + 2] / 255]; } };
 }
 // S: Strokes; o: {W (çıktı genişliği), gunes: [x, y] (ekran), hava: [r,g,b] (uzaklık rengi), havaK (0..1), cz (çizim sırası), kutu (kaynak pikseli; yoksa kaynağınki),
-//   adim (iç darbe adımı: yakın planda hız ve iri darbe; kenar tam çözünürlük), olcek (darbe boyu çarpanı), altin (kenar ışığı rengi), kenarEsik, kenarKirik (0..1, ışığın kesik payı), kenarKum (kesik öbeğin piksel boyu), kenarAlfa, kenarDis (dışa kayma)}
+//   konum ([x0, y0, s]: ekranda kaydırma ve büyütme), adim (iç darbe adımı: yakın planda hız ve iri darbe; kenar tam çözünürlük), olcek (darbe boyu çarpanı), altin (kenar ışığı rengi), kenarEsik, kenarKirik (0..1, ışığın kesik payı), kenarKum (kesik öbeğin piksel boyu), kenarAlfa, kenarDis (dışa kayma)}
 export function figurDarbe(S, src, o = {}) {
   const ad = Math.max(1, (o.adim || 1) | 0);   // iç darbe adımı: iç seyrek ve iri, kenar tam çözünürlük (seyrek kenar tırtıklı, kürk gibi okunur)
-  const W = o.W || 1920, w = src.w, h = src.h, sc = W / w, cz = o.cz || 0, k = o.olcek || 1;
+  // konum: [x0, y0, s] kaynağı ekranda kaydırır ve büyütür (Blender karesi sahnenin perspektifinden bağımsız yerleştirilir; darbe boyu da s ile büyür)
+  const [ox, oy, os] = o.konum || [0, 0, 1];
+  const W = o.W || 1920, w = src.w, h = src.h, sc = W / w * os, cz = o.cz || 0, k = o.olcek || 1;
   const [gx, gy] = o.gunes || [W / 2, -1e4], hava = o.hava || [.36, .24, .3], hk = o.havaK ?? .14, altin = o.altin || [1, .72, .42];
   const [x0, y0, x1, y1] = o.kutu || src.kutu || [1, 1, w - 2, h - 2];
   const fig = src.fig, KEN = [], KIS = [];
@@ -36,7 +38,7 @@ export function figurDarbe(S, src, o = {}) {
     if (!fig(x, y)) continue;
     const kenar = !(fig(x - 1, y) && fig(x + 1, y) && fig(x, y - 1) && fig(x, y + 1));
     let c = src.renk(x, y).map((v, i) => v + (hava[i] - v) * hk);
-    const X = (x + .5 + (hsh(x, y, cz + 1) - .5) * .5) * sc, Y = (y + .5 + (hsh(x, y, cz + 2) - .5) * .5) * sc;
+    const X = ox + (x + .5 + (hsh(x, y, cz + 1) - .5) * .5) * sc, Y = oy + (y + .5 + (hsh(x, y, cz + 2) - .5) * .5) * sc;
     if (!kenar) {
       // iri iç darbe yalnız kenardan uzakta (taşarsa siluet tüylenir); kenara yakın iç ince darbe
       const r = ad * 3, derin = ad > 1 && fig(x - r, y) && fig(x + r, y) && fig(x, y - r) && fig(x, y + r) && fig(x - r, y - r) && fig(x + r, y + r) && fig(x - r, y + r) && fig(x + r, y - r);

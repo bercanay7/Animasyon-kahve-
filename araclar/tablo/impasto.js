@@ -2,6 +2,7 @@
 // Kaynak: Lemo-Opuscar styles/impasto/demo/engine (MIT, LemoLab 2026; LICENSE-MIT.txt). Zaman Kuryesi değişiklikleri "ZK:" notuyla:
 //   ZK: katman önbelleği (onbellek/bas): durağan katman bir kez kendi dokusuna boyanır, her karede kamerayla basılır.
 //   ZK: finish({mono, monoK, monoA}): grisaille (tek renk) kipi; renkAc: [x, y, r, yumuşak] gri dünyanın bir noktadan renge açılışı (karma üslup).
+//   ZK: finish({maske}): renk örtüsü tuvali (ekran uzayı); beyaz yerler grisaille'den muaf (yalnız Vincent'in tabloları ve eşyası renkli).
 //   ZK: under() ve draw() görünüm boyunu this.vw/vh'den alır (önbelleğe boyarken payla büyür).
 // Every mark is an instanced "stroke": knife / brush / dab / line.
 // Pass 1 paints strokes into two targets at 2x resolution: colour (+coverage) and paint height.
@@ -157,6 +158,7 @@ uniform vec3 uGround, uLift, uGain;
 uniform float uSat, uExpo, uVig, uContrast, uWeave;
 uniform vec3 uLightCol;
 uniform float uMono; uniform vec3 uMonoK, uMonoA;   // ZK: tek renk (grisaille) kipi
+uniform sampler2D uMask; uniform float uMaskOn;   // ZK: renk örtüsü (ekran uzayı, üstten; beyaz = renkli kalır)
 uniform vec4 uRenkAc;   // ZK: renk açılışı: (x, y) merkez (0..1, üstten), r yarıçap (yükseklik oranı), yumuşaklık; r < 0 kapalı
 float h2(vec2 p){ return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453); }
 float H(vec2 uv){ return texture(uH, uv).r; }
@@ -195,6 +197,7 @@ void main(){
     float kir = (h2(floor(vUV * vec2(240., 135.))) - .5) * uRenkAc.w * .9;
     mono *= smoothstep(uRenkAc.z - uRenkAc.w, uRenkAc.z + uRenkAc.w, length(d) + kir);
   }
+  if (uMaskOn > .5) mono *= 1. - texture(uMask, vec2(vUV.x, 1. - vUV.y)).r;
   col = mix(col, mix(uMonoK, uMonoA, lm), mono);
   vec2 q = vUV - .5; q.x *= 1.78;
   col *= 1. - uVig * smoothstep(.35, 1.1, length(q));
@@ -388,6 +391,10 @@ export class Impasto {
     gl.uniform1f(u.uSat, p.sat); gl.uniform1f(u.uExpo, p.expo); gl.uniform1f(u.uVig, p.vig); gl.uniform1f(u.uContrast, p.contrast); gl.uniform1f(u.uWeave, p.weave);
     gl.uniform3fv(u.uLightCol, p.lightCol);
     gl.uniform1f(u.uMono, p.mono); gl.uniform3fv(u.uMonoK, p.monoK); gl.uniform3fv(u.uMonoA, p.monoA); gl.uniform4fv(u.uRenkAc, p.renkAc);
+    // ZK: renk örtüsü: p.maske bir tuval (ör. 480×270, beyaz = renk); her karede yüklenir
+    if (p.maske) { if (!this.tM) { this.tM = gl.createTexture(); gl.bindTexture(gl.TEXTURE_2D, this.tM); for (const [k, v] of [[gl.TEXTURE_MIN_FILTER, gl.LINEAR], [gl.TEXTURE_MAG_FILTER, gl.LINEAR], [gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE], [gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE]]) gl.texParameteri(gl.TEXTURE_2D, k, v); }
+      gl.activeTexture(gl.TEXTURE2); gl.bindTexture(gl.TEXTURE_2D, this.tM); gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, false); gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, p.maske); gl.uniform1i(u.uMask, 2); gl.uniform1f(u.uMaskOn, 1); }
+    else gl.uniform1f(u.uMaskOn, 0);
     gl.bindVertexArray(null);
     gl.bindBuffer(gl.ARRAY_BUFFER, this.quad); gl.enableVertexAttribArray(0); gl.vertexAttribPointer(0, 2, gl.FLOAT, false, 0, 0);
     gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);

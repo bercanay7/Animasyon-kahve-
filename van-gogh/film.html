@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="tr"><head><meta charset="utf-8"><title>Van Gogh'a Kim İnandı?</title>
+<style>html,body{margin:0;background:#000}canvas{display:block;width:100vw;height:auto}</style></head><body>
+<canvas id="c" width="1920" height="1080"></canvas>
+<script src="timeline.js"></script>
+<script src="lib/oda_ciz.js"></script>
+<script type="module">
+// Van Gogh'a Kim İnandı? — film sayfası. Sözleşme: window.READY, DUR, renderAt(t) → <canvas id="c">, BITIR, PLANLAR (plan tablosu).
+// ?t=12.3 tek kare; ?plan=A02 yalnız o planın kareleri için ön yükleme (kare aracı); ?ss=1 hızlı önizleme.
+import { motor } from '../araclar/tablo/sahne.js';
+import { W, H, planBul, maskeBasla, planTablosu } from './lib/film_t.js';
+import { gorselYukle, figurYukle, setleriKur, planlariKur } from './lib/planlar.js';
+const Q = new URLSearchParams(location.search);
+const cv = document.getElementById('c'), ctx = cv.getContext('2d');
+window.FPS = 30;
+let M;
+function renderFrame(t) {
+  const { p, st } = planBul(t);
+  const kam = p.kamera ? p.kamera(st.u, st.lt, st) : undefined;
+  const du = p.durum ? p.durum(st) : {};
+  let maske;
+  if (p.maske) { maske = maskeBasla(); p.maske(st, kam || M.kameraAl(p.sahne, st.lt), M, du); }
+  M.ciz(ctx, p.sahne, st.lt, { kamera: kam, durum: du, bitir: { ...(p.bitir ? p.bitir(st) : {}), ...(maske ? { maske } : {}) } });
+  if (p.ust) p.ust(ctx, st, kam);
+}
+Object.assign(window, { renderFrame, renderAt: t => (renderFrame(t), cv) });
+window.BITIR = () => M.bitir();
+window.READY = false;
+(async () => {
+  M = motor({ W, H, ss: +(Q.get('ss') || 1.5), enCok: 3, log: !!Q.get('log') });
+  const IMG = await gorselYukle();
+  const FIG = await figurYukle(Q.get('plan'));
+  setleriKur(M, IMG, FIG);
+  planlariKur(M, IMG, FIG);
+  window.DUR = window.DUR || 600; window.PLANLAR = planTablosu();
+  if (Q.get('t')) renderFrame(+Q.get('t'));
+  window.READY = true;
+})().catch(e => { window.HATA = String(e && e.stack || e); console.error(e); });
+</script>
+</body></html>

@@ -55,21 +55,23 @@ export function motor({ W = 1920, H = 1080, ss = 1.5, enCok = 2, log = false } =
   }
   function tanimla(ad, tanim) { SAH[ad] = tanim; if (KUR.has(ad)) bosalt(ad); }
   // sahneyi ctx'e çiz (t: sahnenin yerel zamanı). o.kamera: sahnenin kamera işlevini geçersiz kılar.
+  // o.durum: plana özgü durum (canlı katmanlara ve başlangıca 5./3. bağımsız değişken olarak geçer); o.bitir: bitiş ayarına eklenir (ör. maske, ışık)
   function ciz(ctx, ad, t, o = {}) {
     const tn = SAH[ad], s = hazirla(ad);
     const kam = o.kamera || (tn.kamera ? tn.kamera(t) : { x: W / 2, y: H / 2, z: 1 });
     E.begin(tn.zemin || [.1, .08, .12]);
-    const ctxS = tn.baslangic ? tn.baslangic(t, kam) : null;     // kare başı hesap (canlı katmanlar arası paylaşılan durum)
+    const ctxS = tn.baslangic ? tn.baslangic(t, kam, o.durum) : null;     // kare başı hesap (canlı katmanlar arası paylaşılan durum)
     for (const k of tn.katmanlar) {
       const cam = k.cam ? k.cam(kam, t, ctxS) : camK(kam, k.d ?? 0);
-      if (k.ciz) E.bas(s.katlar[k.ad].on, { cam, mul: k.mul ? k.mul(t) : 1 });
-      else if (k.canli) { const S = new Strokes(k.kap || 256); k.canli(t, S, cam, ctxS); if (S.n) E.drawNow(S.data(), { cam, t: 10, wet: k.wet ?? .3, run: k.run ?? 1 }); }
+      if (k.ciz) { const al = k.alfa ? k.alfa(t, o.durum) : 1; if (al > .002) E.bas(s.katlar[k.ad].on, { cam, mul: k.mul ? k.mul(t, o.durum) : 1, alpha: al }); }
+      else if (k.canli) { const S = new Strokes(k.kap || 256); k.canli(t, S, cam, ctxS, o.durum); if (S.n) E.drawNow(S.data(), { cam, t: 10, wet: k.wet ?? .3, run: k.run ?? 1 }); }
     }
-    E.finish(tn.bitir ? tn.bitir(t) : {});
+    E.finish({ ...(tn.bitir ? tn.bitir(t, o.durum) : {}), ...(typeof o.bitir === 'function' ? o.bitir(t) : o.bitir || {}) });
     ctx.save(); ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.drawImage(glc, 0, 0, ctx.canvas.width, ctx.canvas.height); ctx.restore();
   }
   const bitir = () => { const px = new Uint8Array(4); E.gl.readPixels(0, 0, 1, 1, E.gl.RGBA, E.gl.UNSIGNED_BYTE, px); };
   const durum = () => [...KUR].map(([a, v]) => ({ ad: a, darbe: v.n, ms: Math.round(v.sure) }));
-  return { E, W, H, tanimla, hazirla, ciz, bosalt, camK, camDon, bitir, durum, Strokes };
+  const kameraAl = (ad, t) => { const tn = SAH[ad]; return tn.kamera ? tn.kamera(t) : { x: W / 2, y: H / 2, z: 1 }; };
+  return { E, W, H, kameraAl, tanimla, hazirla, ciz, bosalt, camK, camDon, bitir, durum, Strokes };
 }
 if (typeof window !== 'undefined') window.TABLO_MOTOR = { motor };

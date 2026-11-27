@@ -51,6 +51,15 @@
       for (let yy = 1000; yy >= y0 - 60; yy -= 40) pts.push([b + 6 * Math.sin(yy * .025 + 1), yy]);
       R.fill(P(pts), lin([[0, '#1c1614'], [.5, '#3c302a'], [1, '#1a1412']], a, 0, b, 0), { dir: 90, maxR: 8, type: 1, len: 2.6, wid: .5, hgt: .5, group: 'perde', jit: .06 }); }
   }
+  // gündüz penceresi (sabah ve kış planları): soluk gök, açık gri çatılar; aynı kasa
+  function pencereGun(R) {
+    const x0 = 150, x1 = 560, y0 = 120, y1 = 780, r = rng(9);
+    R.fill(P([[x0, y0], [x1, y0], [x1, y1], [x0, y1]]), lin([[0, '#d8d4c8'], [.7, '#b8b2a4'], [1, '#a29a8a']], 0, y0, 0, y1), { dir: 0, maxR: 14, type: 1, len: 2.4, wid: .6, hgt: .3, group: 'gun', jit: .05 });
+    const cat = [[x0, y1]]; let x = x0;
+    while (x < x1) { const w = 40 + r() * 70, h = 520 + r() * 120; cat.push([x, h]); if (r() < .5) { const bx = x + w * .3; cat.push([bx, h], [bx, h - 30 - r() * 20], [bx + 12, h - 30 - r() * 20], [bx + 12, h]); } x += w; cat.push([Math.min(x, x1), h]); }
+    cat.push([x1, y1]);
+    R.fill(P(cat), '#6a645c', { dir: 0, maxR: 6, type: 1, len: 2, wid: .6, hgt: .3, group: 'catilar', jit: .05 });
+  }
   // masa, lamba gövdesi, mektup yığını, şövale ve tablonun çerçevesi (tablonun kendisi renkli fotoğraf olarak üstüne basılır)
   function esya(R) {
     const r = rng(21), [lx, ly] = LAMBA;
@@ -80,5 +89,5 @@
     // çerçeve (tablo fotoğrafı içine basılır)
     R.fill(P([[tx - 12, ty - 12], [tx + tw + 12, ty - 12], [tx + tw + 12, ty + th + 12], [tx - 12, ty + th + 12]]), '#4a3a28', { dir: 'edge', maxR: 3, type: 1, hgt: .8, group: 'cerceve', jit: .05 });
   }
-  g.ODA = { duvar, pencere, esya, LAMBA, SOVALE, tabloKose, ekr, ODAK };
+  g.ODA = { duvar, pencere, pencereGun, esya, LAMBA, SOVALE, tabloKose, ekr, ODAK };
 })(window);
