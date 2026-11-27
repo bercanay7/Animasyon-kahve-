@@ -99,3 +99,31 @@ Sonuç: iki Shorts. **Narkissos** "Kendini tanımazsa" (29,0 sn) ve **Gılgamı�
   - Sisifos II, D07'nin savaş ve kurban planları: kalkanlarda halka, kalkık bıçaklı kol; kullanılmadı.
 - **Zayıf bulup bırakılan:** kanatlı Thanatos "Azrail" gibi okunabilir. Hikâyenin ölüm figürü bu; anlatım adını söylüyor.
 - **Ders adayı (iki turda tekrarlandı):** ağaç baskı ve vazo filmlerinde ışın, halka ve kesişen çizgiler dikey kırpımda tek odak olunca simgeye dönüşüyor. Kırpma kipinde yazısız bağımsız tarama her Shorts için zorunlu.
+
+## Ek (27 Kasım): Gılgamış, Shorts'a özel seslendirme (`gilgamis-ses/`, S5)
+- **Kullanıcının yönü:** filmin sesinden kesme; 25–30 sn'lik ayrı metin, ilk sözcük olayın ortasında ya da izleyiciye, kısa cümleler, son cümle başa bağlanır. İlk kare hareketli; sessiz izleyene ne olduğunu soran tek yazı.
+- **Gerekçe (veri):** Pandora %38,7; kalan izleyicinin %92'si sonuna kadar izliyor. Kayıp ilk saniyede. Filmden kesilen açılış, akıştaki yabancıya durması için neden vermiyor.
+- **Seçtiklerim:**
+  - İzleyici Gılgamış'ın yerine konuyor ("Yedi gündür uyuyorsun").
+  - Cevap (ölümsüzlük) ilk karedeki soruyla eşleşiyor. Yazı sonda aynı tipografiyle dönüyor: "BU UYKU ÖLÜMSÜZLÜĞE MAL OLDU."
+  - Döngü dikişinde "bir an" yedi güne dönüşüyor: çentikler ve ekmekler bir bir belirip ilk kareye varıyor.
+  - Başlıkta şart kalıbı kullanılmadı (aynı mit için ikinci kez).
+  - 4 Aralık'taki film sesli Shorts'un yerine geçti. Aynı filmden iki Shorts kısa arayla çıkarsa ikincisi bastırılıyor.
+- **Ses:** 2 çekim × 373 = 746 kredi (kullanıcı onayı, 27 Kasım).
+  - Her iki çekimde de `[softly]` ilk iki cümleyi gövdeden 7 ve 4 dB kısık üretti; ilk saniye için kötü.
+  - A çekimi seçildi: ilk cümle sesli (sesli kare oranı 0,52, gövdeyle aynı). B'de 0,37, nefesli.
+  - Kısık parçalar `ses_ozel.py`'nin parça kazancıyla eşitlendi; miksin ilk saniyesi −14 dB.
+  - **Ders adayı:** Shorts metninde ilk cümleye `[softly]` konmaz; seslendirmeden sonra ilk parçanın düzeyi gövdeyle karşılaştırılır.
+- **Yeni araç `tools/ses_ozel.py`:**
+  - tek çekimi gerçek duraklamalarda parçalara ayırır; parça sayısı metinle tutmazsa durur;
+  - sözcükleri sesli karelere harf uzunluğuyla dağıtır (Scribe kredisi yok);
+  - plan sınırını cümle arası duraklamanın ortasına koyar.
+- **Bağımsız okuma (yazısız 36 kare), doğrulanıp düzeltilen:**
+  - **Güçlü: kelepçe ve hücre.** Uyuyan pozda iki halka el önde birleşiyordu. Yakın koldaki bilezik çizgisiyle (`figur.js`) kelepçe okundu; tuğla duvar ve çentiklerle sahne "gün sayan mahkûm" oldu. Eller ayrıldı: uyanıkken dizlerde, uyurken gevşek sarkık (`kolPoz`). Eski şart Shorts'unda "halka eller + çentik = mahkûm" bulgusu çentiklere yüklenmişti; asıl yük ellerdeydi.
+  - **Orta: üçüncü kol.** Postun iki pençesi omuzdan sedire inip bir kol gibi okundu. Bu Shorts'ta etek giydirildi.
+  - **İlk kare:** okuyucuya göre "durgunluk, soru değil" ve tek renkli. İlk plan yakından ortaya alındı: uyuyan adam, çentikler, önde (büyütülmüş) yedi ekmek, yedincisi közde titreyen tek renkli nesne. Rengi yazı vurgusuyla aynı.
+- **Zayıf bulunup bırakılanlar:**
+  - yerdeki ekmek sırası (mezar tümseği) ve tabletteki yarım daire ekmekler (mezar taşı): hikâyenin nesnesi;
+  - kor yatağının kahverengi lekeleri: filmin ocağı, önceki taramadan geçti;
+  - meşale (adak kandili);
+  - sedirde öne eğik oturuş (küçük boyda tuvalet).

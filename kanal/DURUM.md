@@ -7,7 +7,7 @@ Her oturumun başında `.claude/hooks/dal_durumu.sh` çalışır ve `main`'e bir
 - Video teslim edilince dalı `main`'e birleştirilir; satırda dal sütunu `main` olur.
 - Biten ya da yayına giren iş "Arşiv"e iner; tablo kısa kalır.
 
-Son güncelleme: 26 Kasım 2026.
+Son güncelleme: 27 Kasım 2026.
 
 ## Sürmekte olan
 | İş | Klasör | Dal | Aşama | Sıradaki adım |
@@ -19,6 +19,7 @@ Son güncelleme: 26 Kasım 2026.
 | Çernobil'in çayı | `cernobil/` | main | teslim (Fable düzeltmeleriyle) | yayın 14 Aralık 18:00 (öneri); 48. saat 16 Aralık |
 | Stanford Hapishane Deneyi | `stanford/` | main (26 Kasım birleşti) | teslim: YouTube 360 MB, telefon 93 MB | yayın 18 Aralık 18:00 (öneri); `stanford/yayin.md` |
 | Şart Shorts'ları | `shorts-sart/` | main (26 Kasım birleşti) | teslim; günlük takvim 26 Kasım – 4 Aralık, 20:00 | takvim ve ölçüm: `shorts-sart/yayin.md` |
+| Gılgamış Shorts'u, Shorts'a özel ses (S5) | `shorts-sart/gilgamis-ses/` | `claude/gilgamis-shorts-voice-frame-q7mi76` | render ve teslim (27 Kasım) | yayın 4 Aralık 20:00 (film sesli Gılgamış şart Shorts'unun yerine); S5 ölçümü 5 Aralık 16:00; bitince `main`'e birleşir |
 | Topluluk gönderileri | `topluluk/` | main (26 Kasım birleşti) | hazır | 26 Kasım Dorian, 30 Kasım Gılgamış, 4 Aralık Lale (19:00); `topluluk/gonderiler.md` |
 | Kanal kimliği (logo, avatar, kapak) | `kanal/logo/` | main | bitti (`KIMLIK.md`); 1440p yükleme deneyi yapılmayacak (kullanıcı kararı) | Studio'ya yükleme kullanıcıda |
 | Mektuplar: kanal tanıtımı (kurye, yağlıboya canlanan resim) + 3B manken aracı | `kurye/`, `araclar/manken/`, `araclar/tablo/` | `claude/3d-puppet-drawing-shader-4ca4y8` | **sürüyor** (v7, eleştiri turları) | bitince `main`'e birleşir; `CLAUDE.md`'de çakışma var, birleştirmede elle çözülür |
