@@ -17,6 +17,15 @@
 - Erkek figürde başın arkasına eklenen saç parçaları büyük planda **topuz** (kadın) okunuyordu. Baş tek parça saç renginde.
 - Ders (Stanford'la aynı): bu tuzakları plan yazarken biliyordum, yine de karede gördüm. Tarama tam boy karede yapılır.
 
+## v2: çok ajanlı eleştiri (dört mercek + çürütme; 30 bulgu, 24'ü geçti; `v2_duzeltme_listesi.md`)
+- En değerli bulgular hassasiyetteydi:
+  - görünmeyen ağacın tarlada kalan gölgesi, mezar cümlesinin yanında tek koyu tümsek oluyordu;
+  - şövaledeki otoportre her odada tekrarlanınca anma köşesine dönüyordu;
+  - "TEK KİŞİ İNANDI" kapağı filmin kendi "iki cevap" teziyle çelişiyordu.
+- Düzeltme yeni simge üretti (Lale dersi bir kez daha): beşiğe eğilen iki kardeş, yan yana iki eğik siluet olarak **namaz safı** okundu. Ayakta duruşa dönüldü. Kural: iki ya da daha çok figür aynı anda öne eğilmez.
+- Jo'nun gölgesi ilk denemede masada dikilen iri bir hayalet oldu; düşük alfa, sık darbe ve kenardan girişle "gölge" okunuyor.
+- Masa filmin %37'siydi: ışık mekâna ve zamana göre ayrıldı (gece lamba, gün pencere, bugün müze).
+
 ## Ses
 - Müzik özgün sentez (`audio/score.py`, zarf motifi). Düzey eğrisi: medyan −33 dBFS; telefon bandında saniyelerin %87'sinde duyuluyor. İlk ölçümde tren ostinatosu (re2) ve telgraf tremolosu telefon bandının altındaydı; üst oktav eklendi. Bilerek sessiz: G09 "öldü" ve G11 lamba söner.
 - Efektler ElevenLabs (8 × 4 çeşitleme, 544 kredi).
