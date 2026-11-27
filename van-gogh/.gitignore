@@ -12,3 +12,4 @@ blender_v4/plaka/
 blender_v4/varlik/
 blender_v4/*.blend
 blender_v4/*.blend1
+!gpu_test/oda_hareket*.mp4
