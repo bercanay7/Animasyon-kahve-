@@ -43,11 +43,11 @@ def koy(k, t, g, d=None, fi=.05, fo=.3):
     if f2 and len(s) > f2: s[-f2:] *= np.linspace(1, 0, f2)[:, None]
     i0 = int(t * SR); i1 = min(N, i0 + len(s))
     if i0 < N: fx[i0:i1] += s[:i1 - i0] * db(g)
-YATAK = {'oda': ('oda', -30), 'masa': ('oda', -33), 'salon': ('galeri', -30), 'tarla': ('ruzgar', -27), 'tb_sari_ev': ('ruzgar', -36), 'tb_selvili_tarla': ('ruzgar', -32), 'tb_firtina': ('ruzgar', -28), 'tren': ('ruzgar', -38)}
+YATAK = {'oda': ('oda', -30), 'masa': ('oda', -33), 'salon': ('galeri', -30), 'tarla': ('ruzgar', -27), 'tb_sari_ev': ('ruzgar', -36), 'tb_selvili_tarla': ('ruzgar', -32), 'tb_firtina': ('ruzgar', -28), 'tren': ('ruzgar', -38), 'tb_rhone': ('ruzgar', -38)}
 for p in PL:
     y = YATAK.get(p['sahne']);
     if y and p['d'] > .2: koy(y[0], p['s'], y[1], d=p['d'] + .4, fi=.3, fo=.4)
-    if p['sahne'] == 'tren' and p['id'] in ('B08', 'D03', 'H01t'): koy('tren', p['s'] + .2, -20 if p['id'] != 'H01t' else -26, fi=.4, fo=1.2)
+    if p['sahne'] == 'tren' and p['id'] in ('B08', 'D03', 'H01t', 'I01c'): koy('tren', p['s'] + .2, -20 if p['id'] not in ('H01t', 'I01c') else -26, fi=.4, fo=1.2)
 # nokta efektler (sözcüğe bağlı; v2: görüntüdeki inişle eşleşir)
 koy('zarf', W('A01', 'bir', 1) + .25 + .6 - .05, -20, fi=.02)                       # "her hafta bir zarf daha": A01b'de düşen zarf
 
@@ -60,10 +60,13 @@ for i in range(0, 26, 2):
 koy('zarf', W('B01', 'pusula') + .1, -26, fi=.02)                                     # pusula açılır
 koy('zarf', W('D02', 'ertesi'), -26, fi=.1)                                            # telgraf kapı altından kayar
 koy('zarf', CUES['D04']['s'] + .8, -28, fi=.02); koy('zarf', CUES['D04']['s'] + 1.2, -30, fi=.02)   # iki bilet
-for k in (.7, 1.2, 1.7): koy('zarf', CUES['H06']['s'] + k, -24, fi=.02)               # üç cilt
+for i in range(3): koy('zarf', W('H06', 'üç') - .3 + i * .45 + .5, -24, fi=.02)          # üç cilt masaya konur (v3: sözcüğe bağlı)
+koy('zarf', W('C02', 'yollar') - .5, -30, fi=.05); koy('zarf', W('C02', 'ikincisi') + .3, -28, fi=.05)   # zarf gider, açılmış döner
+for i in range(2): koy('zarf', W('C08', 'ikimizin') + .3 + i * .15, -30, fi=.05)      # iki zarf yan yana kayar
 koy('zarf', CUES['I03']['s'] + .5, -28, fi=.02)                                        # son zarf açılır
-koy('kalem', CUES['C01']['s'] + .2, -26); koy('kalem', CUES['G07']['s'] + .3, -28); koy('kalem', CUES['H03']['s'] + .2, -30); koy('kalem', CUES['F07']['s'] + .4, -28)
-koy('kalem', W('F03', 'vincent') - .1, -26)                                            # doğum mektubunda ad yazılır (beşik kaldırıldı)
+koy('kalem', CUES['C01']['s'] + .2, -26); koy('kalem', CUES['G07']['s'] + .3, -28); koy('kalem', W('H03', 'birer'), -30)
+koy('kalem', W('F03', 'amcasından'), -26)                                              # doğum mektubunda ad yazılır (v3: F03b)
+koy('kalem', W('F07', 'deftere') - .2, -28); koy('kalem', CUES['D02']['s'] + .2, -30); koy('kalem', CUES['H09']['s'] + .3, -30); koy('kalem', W('G07', 'biz') - .2, -30)
 koy('lamba', CUES['G11']['e'] + .3, -27, fi=.15, fo=.3)                                # lamba cümle bittikten sonra söner
 koy('ruzgar', W('G09', 'öldü'), -22, d=CUES['G10']['s'] - W('G09', 'öldü'), fi=.8, fo=1.0)   # ölüm anı: yalnız rüzgâr
 if os.environ.get('STEM') == 'muzik': mix = muzik

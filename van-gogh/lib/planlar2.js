@@ -217,7 +217,7 @@ export function planlar2(M, IMG, FIG, H) {
   //   Eller kol tonunda (açık eller kutu ya da şişe okunuyordu)
   plan({ id: 'G02', at: 'G02', sahne: 'oda', olcek: 'yakin', not: 'İki kardeş beşiğin başında; Vincent örtüyü gösterir',
     kamera: kamYol([1000, 660, 1.62], [1000, 670, 1.7], u => u),
-    durum: st => { const tg = cIdx(st, 'G02@tığ'); return { tablo: 'oda_guller', isik: 'sabah', ust: (t, S) => besik(S, 1010, 975, 380, Math.sin(t * 1.3)),
+    durum: st => { const tg = cIdx(st, 'G02@tığ'); return { tablo: 'oda_guller', isik: 'sabah',   /* v3: beşik kadraj dışında (alt kenarda yarım beşik beyaz kıvrım ve şerit okunuyordu); Vincent eliyle aşağıyı gösterir */
       figur: (t, S) => { figurBas(S, FIG.theo_dur, t, [760, 1290], 860, { gunes: [300, 200], adim: 2 }); figurBas(S, FIG.vincent_goster, t - (tg - 2.2), [1270, 1290], 860, { gunes: [300, 200], adim: 2, dongu: false }); } }; } });
   // G03 · orta · TARLA: tarla kenarında şövale; tuval hızlı kesmelerle gün gün değişir (Auvers 1890 işleri, renkli)
   const AUV = Object.keys(IMG).filter(k => k.startsWith('auvers')).sort();
@@ -234,7 +234,6 @@ export function planlar2(M, IMG, FIG, H) {
   plan({ id: 'G05', at: 'G05', sahne: 'oda', olcek: 'orta', not: 'Temmuz: bebek hasta, zam, gergin gün',
     kamera: kamYol([1150, 640, 1.3], [880, 620, 1.36]),
     durum: st => { const th = cIdx(st, 'G05@hastalanır'), ta = cIdx(st, 'G05@ayrılmayı'), tg = cIdx(st, 'G05@gergin'), tz = cIdx(st, 'G05@zam'); return { tablo: 'oda_guller', isik: 'ogle', alev: () => .2,
-      ust: (t, S) => besik(S, 1000, 1010, 230, Math.sin(t * 1.1) * .6),
       nesneler: t => (t > tz ? [{ tur: 'zarf', renk: 'gri', yuz: 'on', x: 1290, y: 872, w: 80, h: 34, rot: .1, tohum: 1800, kalinlik: false, a: sm(tz, tz + .5, t) }] : []),
       figur: (t, S) => { if (t < tg - .3) figurBas(S, FIG.vincent_dur, t, [420, 1000], 500); else figurBas(S, FIG.vincent_yuru, (t - tg + .3) * .9, [420, 1000], 500, { dongu: false });
         figurBas(S, FIG.theo_don, t - (ta - 2.2), [700, 1000], 520, { dongu: false }); figurBas(S, FIG.jo_egil, t - (th - 2.1), [1180, 995], 470, { dongu: false }); } }; } });   // Jo sola dönük, beşik önünde
