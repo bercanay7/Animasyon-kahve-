@@ -7,13 +7,20 @@ import { odaKur, ODA, TK } from './set_oda.js';
 import { salonKur, SALON } from './set_salon.js';
 import { tarlaKur, trenKur } from './set_disari.js';
 import { planlar2 } from './planlar2.js';
-import { tabloSahnesi } from './film_t.js';
+import { tabloSahnesi, tabloCiz } from './film_t.js';
 import { BRUSH, DAB, KNIFE } from '../../araclar/tablo/impasto.js';
 
 // ---------- görseller (CC0 / kamu malı; araclar/ASSETS.md) ----------
+const AD = 'gorsel/aday/';
 const GORSEL = {
   oda_otoportre: 'gorsel/otoportre_hasir_sapka_1887_met436532.jpg',
   selvili_tarla: 'gorsel/selvili_bugday_tarlasi_1889_met436535.jpg',
+  aycicek: AD + 'aycicekleri_1887_met436524.jpg', oda_aycicek: AD + 'aycicekleri_1887_met436524.jpg',
+  selviler: AD + 'selviler_1889_met437980.jpg', irisler: AD + 'irisler_1889_getty90PA20.jpg',
+  yatak: AD + 'yatak_odasi_1889_aic28560.jpg', oda_yatak: AD + 'yatak_odasi_1889_aic28560.jpg',
+  auvers1: AD + 'yesil_bugday_tarlalari_1890_auvers_nga163323.jpg', auvers2: AD + 'beyazli_kiz_1890_auvers_nga46505.jpg', auvers3: AD + 'adeline_ravoux_1890_auvers_cma1958.31.jpg',
+  remy1: AD + 'zeytin_agaclari_1889_saintremy_met437998.jpg', remy2: AD + 'zeytinlik_1889_saintremy_nga46627.jpg', remy3: AD + 'cinarlar_yol_iscileri_1889_saintremy_cma1947.209.jpg',
+  remy4: AD + 'alpiller_iki_kavak_1889_saintremy_cma1958.32.jpg', remy5: AD + 'vazoda_irisler_1890_saintremy_met436528.jpg', remy6: AD + 'guller_1890_saintremy_met436534.jpg',
 };
 export async function gorselYukle() {
   const o = {};
@@ -42,6 +49,12 @@ const kare = (BK, t) => BK[Math.max(0, Math.min(BK.length - 1, Math.round(ikiser
 
 export function setleriKur(M, IMG, FIG) { masaKur(M); odaKur(M, IMG); salonKur(M, IMG); tarlaKur(M); trenKur(M);
   // tablo sahneleri (gri dünya; renk örtüyle). Görsel gelmediyse yer tutucu: Selvili Buğday Tarlası
+  // E03 "yüz elli resim": duvar boyu yan yana Saint-Rémy tabloları (her biri kendi oranında, araları koyu)
+  const MZ = ['remy1', 'selviler', 'remy2', 'irisler', 'remy3', 'selvili_tarla', 'remy4', 'remy5', 'remy6'].filter(k => IMG[k]);
+  M.tanimla('tb_mozaik', { zemin: [.07, .06, .05], kamera: () => ({ x: W / 2, y: H / 2, z: 1 }),
+    katmanlar: MZ.map((k, i) => { const cx = 330 + (i % 3) * 630, cy = 200 + Math.floor(i / 3) * 340, im = IMG[k], ar = im.width / im.height, h = 300, w = Math.min(560, h * ar), hh = w / ar;
+      return { ad: k, d: .72, ciz: tabloCiz(im, cx - w / 2, cy - hh / 2, w, hh, { maxR: 5 }), R: [10, 5, 2.6, 1.5], T: 8, olcek: .75 }; }),
+    bitir: () => ({ light: [-.5, -.6, .7], norm: 2, expo: 1.04, contrast: 1.05, vig: .3, spec: .12, shin: 26, weave: .05 }) });
   for (const k of ['sari_ev', 'yatak', 'selviler', 'selvili_tarla', 'yildizli', 'badem', 'irisler', 'firtina']) tabloSahnesi(M, 'tb_' + k, IMG[k] || IMG.selvili_tarla, { dunya: true });
 }
 
@@ -56,18 +69,19 @@ function yigin(n, o = {}) {
 // düşen zarf: t0'da yukarıdan iner, yığına oturur (gölge daralır)
 function duser(it, t, t0, d = .6) { const u = clamp((t - t0) / d); if (u <= 0) return null; const k = 1 - io(u); return { ...it, y: it.y - 260 * k, rot: it.rot + .5 * k, kalk: k, w: it.w * (1 + .15 * k), h: it.h * (1 + .15 * k) }; }
 // badem dalı (kapak B'nin vaadi): koyu dal darbeleri ve beş yapraklı beyaz çiçekler; büyüme u 0..1
-function bademDali(S, x0, y0, aci, u, sd = 3, olc = 1) {
+function bademDali(S, x0, y0, aci, u, sd = 3, olc = 1, iz = null) {   // iz: [x, y, r] dizisi (renk örtüsü dalın kendisine sınırlanır)
   // ana dal + iki yan sürgün; uç incelir; çiçekler beş taç yapraklı, beyazdan pembeye, ortası koyu (tablodaki gibi), tomurcuklar
   if (u <= 0) return;
   const dal = (x, y, a, n, k0, w0, sdd) => { const uc = []; for (let i = 0; i < n * clamp(u * 1.15 - k0); i++) { const L = (40 - i * 1.6) * olc; a += (hsh(sdd, i) - .5) * .32;
       const nx = x + Math.cos(a) * L, ny = y + Math.sin(a) * L, w = Math.max(2.5, (w0 - i * w0 / (n + 2)) * olc);
+      if (iz) iz.push([(x + nx) / 2, (y + ny) / 2, L * .7]);
       S.push({ x: (x + nx) / 2, y: (y + ny) / 2, ang: a, len: L * 1.15, wid: w, c: [.2, .14, .11], c2: [.3, .22, .16], seed: sdd * 10 + i, type: BRUSH, alpha: 1, hgt: .7, taper: .15 });
       if (i % 2 === 1) uc.push([nx + Math.cos(a + (i % 4 ? 1.3 : -1.3)) * 16 * olc, ny + Math.sin(a + (i % 4 ? 1.3 : -1.3)) * 16 * olc, sdd * 50 + i, i / n]); x = nx; y = ny; }
     uc.push([x, y, sdd * 50 + 99, 1]); return { x, y, a, uc }; };
   const ana = dal(x0, y0, aci, 12, 0, 16, sd), c1 = [];
   const y1 = dal(x0 + Math.cos(aci) * 150 * olc, y0 + Math.sin(aci) * 150 * olc, aci + .7, 6, .3, 8, sd + 1), y2 = dal(x0 + Math.cos(aci) * 260 * olc, y0 + Math.sin(aci) * 260 * olc, aci - .8, 5, .45, 6, sd + 2);
   for (const [cx, cy, k, p] of [...ana.uc, ...y1.uc, ...y2.uc]) {
-    const ac = clamp((u - .35 - p * .3) / .35); if (ac <= 0) continue; const r = (hsh(k, 1) < .3 ? 9 : 17) * olc * ac, tom = r < 10 * olc;
+    const ac = clamp((u - .35 - p * .3) / .35); if (ac <= 0) continue; const r = (hsh(k, 1) < .3 ? 9 : 17) * olc * ac, tom = r < 10 * olc; if (iz) iz.push([cx, cy, r * 1.4]);
     if (tom) { S.push({ x: cx, y: cy, ang: hsh(k) * 6, len: r * 1.4, wid: r, c: [.93, .8, .78], c2: [.85, .62, .6], seed: k, type: DAB, alpha: 1, hgt: .5 }); continue; }
     for (let q = 0; q < 5; q++) { const t = q / 5 * Math.PI * 2 + hsh(k, 2) * 6; const pc = [.97, .95 - .04 * hsh(k, q), .92 - .06 * hsh(q, k)];
       S.push({ x: cx + Math.cos(t) * r * .62, y: cy + Math.sin(t) * r * .62, ang: t, len: r * 1.05, wid: r * .85, c: pc, c2: [.93, .86, .84], seed: k * 5 + q, type: BRUSH, alpha: 1, hgt: .55, taper: .4 }); }
@@ -171,4 +185,13 @@ export function planlariKur(M, IMG, FIG) {
     durum: st => { const te = A('B08@ertesi') - st.at; return { gun: t => sm(te, te + 1.2, t),
       tren: t => [[-200 + 520 * t, 1]] }; } });
   planlar2(M, IMG, FIG, { kamYol, yigin, duser, bademDali, figurBas, yazi, tabloMaske, kareD });
+}
+// kapak.html için: aynı setler ve yardımcılar
+export function kapakYardim(M, IMG, FIG) {
+  const tabloMaske = (kam, a = 1) => { const c = M.camK(kam, .3); mRect(c, TK[0] - 4, TK[1] - 4, TK[2] + 8, TK[3] + 8, a, 2); };
+  const Y = yigin(40, { renk: 'gri', tohum: 70 }), IZ = [];
+  return { tabloMaske,
+    theo: (t, S) => figurBas(S, FIG.theo_dur, t, [1640, 1240], 900, { gunes: ODA.LAMBA, adim: 2, hava: [.05, .05, .05], havaK: .3 }),
+    cekmeceDurum: () => ({ nesneler: () => Y, ust: (t, S) => { IZ.length = 0; bademDali(S, 700, 1040, -1.0, 1, 3, 1.7, IZ); } }),
+    cekmeceMaske: (kam, m) => { const c = M.camK(kam, 0); for (const [x, y, r] of IZ) mDaire(c, x, y, r, 1, 2); } };
 }

@@ -119,7 +119,9 @@ AK_PARLAK = [('F2 A3 C4 F4 A4', 2), ('A#1 A#3 D4 F4', 2), ('C2 G3 C4 E4', 2), ('
 def tren(t0, t1, bpm=132, v=.3, g=1.0, kok='D2'):
     t = t0; b = 60 / bpm; i = 0
     while t < t1:
-        nota(kok, t, b * .5, v * (1 if i % 4 == 0 else .7), -.2, g); nota(kok.replace('2', '3'), t + b / 2, b * .4, v * .55, -.2, g); t += b; i += 1
+        nota(kok, t, b * .5, v * (1 if i % 4 == 0 else .7), -.2, g); nota(kok.replace('2', '3'), t + b / 2, b * .4, v * .55, -.2, g)
+        if i % 2 == 0: nota(kok.replace('2', '4'), t, b * .4, v * .7, .2, g)   # telefon bandı: üst oktav
+        t += b; i += 1
 def ak(akor, t, d=3.0, v=.45, g=1.0): nota('+'.join(akor.split()), t, d, v, 0, g)
 
 # ════════ beste ════════
@@ -135,7 +137,7 @@ dizi(ZARF, W('B02', 'louvre'), bpm=72, v=.32, pan=.25)
 dizi(ZARF, S('B04') + .3, bpm=80, v=.28, pan=.2); dizi(ZARF, S('B04') + 3.6, bpm=80, v=.26, pan=.2); dizi(ZARF, S('B04') + 6.9, bpm=80, v=.24, pan=.2)
 arpej(AK_F, S('B05'), S('B07'), bpm=76, v=.24)
 arpej([('F3 A3 C4', 2), ('A#2 D3 F3', 2)], S('B07'), W('B07', 'hayır') - .3, bpm=66, v=.22)
-ak('D2 A2 D3 F3 A3', W('B07', 'hayır'), 4.5, .4)
+ak('D2 A2 D3 F3 A3', W('B07', 'hayır'), 4.5, .4); dron('A3 D4', W('B07', 'hayır') + 2, S('B08') + 1, .14)
 tren(S('B08') - .3, W('B08', 'ertesi'), bpm=128, v=.26)
 ak('F2 C3 F3 A3 C4', W('B08', 'ertesi'), 4, .36)
 # C · Arles: daha aydınlık; "sarı"da yüksek motif; "Sensiz" uzun akor; Gauguin hareket; iki zarf yankısı
@@ -150,7 +152,7 @@ dizi([('A4', .5), ('C5', .5), ('F5', 1)], S('C10') + .4, bpm=80, v=.3, pan=-.3);
 # D · nişan (sıcak), telgraf (müzik iner), gece treni (hızlı), biletler (sessize yakın), evlilik, ilk sarı zarflar
 arpej(AK_F, S('D01') - .2, S('D02'), bpm=66, v=.24)
 dizi(ZARF, W('D01', 'nişanlanır') - 1.6, bpm=66, v=.3, pan=.25)
-tremolo('D2', 'C#2', W('D02', 'ertesi'), S('D03'), hiz=9, v=.24)
+tremolo('D2', 'C#2', W('D02', 'ertesi'), S('D03'), hiz=9, v=.24); tremolo('D4', 'C#4', W('D02', 'ertesi'), S('D03'), hiz=9, v=.2)
 tren(S('D03') - .2, S('D04'), bpm=150, v=.3)
 ak('D3 F3 A3', S('D04') + .2, 3, .22)
 arpej(AK_F, S('D06') - .3, S('D07'), bpm=72, v=.24)
@@ -193,7 +195,7 @@ ak('D2 A2 F3', W('G10', 'ah') - .1, 4, .3)
 dizi(ZARF_MIN, S('G11') + .2, bpm=50, v=.22, pan=.2)
 SUS.append((W('G11', 'otuz') + 1.2, S('H01') - .4))
 # H · Jo: tren (gündüz, yumuşak), sergi, defter, motif (saklar), 1905 kabarma, üç cilt, tarla, çeviri, müze (motif tam)
-tren(S('H01') - .3, S('H02'), bpm=112, v=.18, kok='F2')
+tren(S('H01') - .3, S('H02'), bpm=112, v=.18, kok='F2'); dron('A3 C4 F4', S('H01'), S('H02'), .2)
 dizi(ZARF, S('H01') + 2, bpm=70, v=.24, pan=.25)
 arpej(AK_F, S('H02') - .2, S('H04'), bpm=78, v=.22)
 dizi(ZARF, S('H04') + .1, bpm=70, v=.32, pan=.25)
@@ -210,13 +212,13 @@ ak('F2 C3 A3 C4 F4', W('H10', 'müzede') - .2, 5, .4)
 dizi(ZARF, S('I01') + .2, bpm=70, v=.32, pan=.2)
 arpej(AK_F, S('I01'), S('I03'), bpm=70, v=.24)
 dizi(oktav(ZARF), S('I02') + .3, bpm=70, v=.3, pan=.3)
-ak('D3 A3 C4 E4', S('I03') + .2, 4.5, .32)
+ak('D3 A3 C4 E4 A4', S('I03') + .2, 4.5, .32); dron('A3 E4', S('I03'), S('I04'), .14)
 arpej(AK_PARLAK, S('I04') - .3, DUR - 4, bpm=66, v=.24)
 dizi(oktav(ZARF), S('I04') + 1, bpm=60, v=.32, pan=.25); dizi(ZARF, S('I04') + 9, bpm=56, v=.28, pan=.2)
 ak('F2 C3 A3 C4 F4', DUR - 9, 8, .38)
 
 # boşluk dolguları (düzey eğrisinde −60 dB altı kalan bilinçsiz aralıklar)
-dron('F2 C3', S('C05') - .3, S('C08') + .5, .2)
+dron('F2 C3', S('C05') - .3, S('C08') + .5, .2); dron('C4 F4', S('C08') + 3, S('C09'), .16)
 arpej([('D3 F3 A3', 2), ('A#2 D3 F3', 2)], S('D04') + 2, S('D06'), bpm=64, v=.2)
 dron('F2 C3', S('G01') - 1.5, S('G02') + 1, .2)
 dron('F2 C3', S('G07') - .3, S('G08') + .5, .2)

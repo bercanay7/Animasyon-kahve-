@@ -1,0 +1,581 @@
+{
+ "planlar": [
+  {
+   "id": "A01",
+   "sahne": "oda",
+   "olcek": "genis",
+   "s": 0,
+   "d": 5.48,
+   "not": "Kapak A odası: Theo, lamba, renkli tuval"
+  },
+  {
+   "id": "A01b",
+   "sahne": "masa",
+   "olcek": "yakin",
+   "s": 5.48,
+   "d": 7.8,
+   "not": "Çekmece, sarı zarflar; bir zarf daha; badem dalı ucu"
+  },
+  {
+   "id": "A02",
+   "sahne": "masa",
+   "olcek": "orta",
+   "s": 13.28,
+   "d": 11.8,
+   "not": "Sarı zarflar yağar; gri deste incelir"
+  },
+  {
+   "id": "A03",
+   "sahne": "masa",
+   "olcek": "ayrinti",
+   "s": 25.08,
+   "d": 4.9,
+   "not": "Lamba kısılır, çekmece karanlıkta kalır (ikinci cevap sona saklanır)"
+  },
+  {
+   "id": "B01",
+   "sahne": "salon",
+   "olcek": "orta",
+   "s": 29.98,
+   "d": 5.88,
+   "not": "Goupil: Theo sırttan, çerçeveler"
+  },
+  {
+   "id": "B01b",
+   "sahne": "masa",
+   "olcek": "ayrinti",
+   "s": 35.86,
+   "d": 3.59,
+   "not": "Pusula açılır"
+  },
+  {
+   "id": "B02",
+   "sahne": "salon",
+   "olcek": "genis",
+   "s": 39.45,
+   "d": 8.65,
+   "not": "Louvre: Theo yürür, uzakta Vincent"
+  },
+  {
+   "id": "B03",
+   "sahne": "salon",
+   "olcek": "yakin",
+   "s": 48.1,
+   "d": 10.45,
+   "not": "Başkalarının tabloları; satış etiketi"
+  },
+  {
+   "id": "B04",
+   "sahne": "masa",
+   "olcek": "ayrinti",
+   "s": 58.55,
+   "d": 11.15,
+   "not": "Her ay bir zarf: üç tekrar, üç ışık"
+  },
+  {
+   "id": "B05",
+   "sahne": "masa",
+   "olcek": "yakin",
+   "s": 69.7,
+   "d": 9.21,
+   "not": "32 gulden ve 50–75 gulden"
+  },
+  {
+   "id": "B06",
+   "sahne": "oda",
+   "olcek": "orta",
+   "s": 78.91,
+   "d": 9.97,
+   "not": "Odalardan biri atölye: şövalede renkli tablo"
+  },
+  {
+   "id": "B07",
+   "sahne": "tarla",
+   "olcek": "orta",
+   "s": 88.88,
+   "d": 11.8,
+   "not": "Evlenme teklifi; Jo hayır der, uzaklaşır"
+  },
+  {
+   "id": "B08",
+   "sahne": "tren",
+   "olcek": "genis",
+   "s": 100.68,
+   "d": 9.6,
+   "not": "Gece treni; ertesi gün öğleden sonra"
+  },
+  {
+   "id": "C01",
+   "sahne": "masa",
+   "olcek": "yakin",
+   "s": 110.28,
+   "d": 6.43,
+   "not": "Arles'dan mektup: adres yazılır"
+  },
+  {
+   "id": "C02",
+   "sahne": "masa",
+   "olcek": "ayrinti",
+   "s": 116.71,
+   "d": 7.29,
+   "not": "Eski adres: açılmış zarf geri döner"
+  },
+  {
+   "id": "C03",
+   "sahne": "salon",
+   "olcek": "genis",
+   "s": 124,
+   "d": 6.01,
+   "not": "Bağımsızlar: üç tablo (önleri gösterilmez)"
+  },
+  {
+   "id": "C04",
+   "sahne": "tb_sari_ev",
+   "olcek": "orta",
+   "s": 130.01,
+   "d": 8.17,
+   "not": "Sarı ev: \"sarı\"da renk"
+  },
+  {
+   "id": "C05",
+   "sahne": "tren",
+   "olcek": "genis",
+   "s": 138.18,
+   "d": 6.25,
+   "not": "Geceleri yıldızları boyamak için dışarı çıkıyorum"
+  },
+  {
+   "id": "C06",
+   "sahne": "oda",
+   "olcek": "orta",
+   "s": 144.43,
+   "d": 6.95,
+   "not": "Sanatçılara para verirken sen de sanatçı işi yapıyorsun"
+  },
+  {
+   "id": "C07",
+   "sahne": "tb_yatak",
+   "olcek": "yakin",
+   "s": 151.38,
+   "d": 4.84,
+   "not": "Yatak Odası tablosu"
+  },
+  {
+   "id": "C07b",
+   "sahne": "masa",
+   "olcek": "ayrinti",
+   "s": 156.22,
+   "d": 2.57,
+   "not": "Sensiz hiçbir şey yapamazdım"
+  },
+  {
+   "id": "C08",
+   "sahne": "oda",
+   "olcek": "orta",
+   "s": 158.79,
+   "d": 8.07,
+   "not": "Birlikte sanatsal bir şey: şövalede Yatak Odası"
+  },
+  {
+   "id": "C09",
+   "sahne": "tb_sari_ev",
+   "olcek": "genis",
+   "s": 166.86,
+   "d": 11.04,
+   "not": "Gauguin gelir"
+  },
+  {
+   "id": "C10",
+   "sahne": "masa",
+   "olcek": "ayrinti",
+   "s": 177.9,
+   "d": 5.49,
+   "not": "Zarflar güneyde iki ressamı geçindiriyor"
+  },
+  {
+   "id": "D01",
+   "sahne": "oda",
+   "olcek": "orta",
+   "s": 183.39,
+   "d": 11.49,
+   "not": "Nişan: Theo ve Jo yan yana"
+  },
+  {
+   "id": "D02",
+   "sahne": "masa",
+   "olcek": "ayrinti",
+   "s": 194.88,
+   "d": 7.17,
+   "not": "Telgraf"
+  },
+  {
+   "id": "D03",
+   "sahne": "tren",
+   "olcek": "genis",
+   "s": 202.05,
+   "d": 7.28,
+   "not": "Noel: gidiş ve aynı akşam dönüş"
+  },
+  {
+   "id": "D04",
+   "sahne": "masa",
+   "olcek": "yakin",
+   "s": 209.33,
+   "d": 3.01,
+   "not": "Yolculuğun tutarı hiçbir zarfa yazılmaz"
+  },
+  {
+   "id": "D05",
+   "sahne": "tb_sari_ev",
+   "olcek": "orta",
+   "s": 212.34,
+   "d": 5.45,
+   "not": "Hastaneden çıkar"
+  },
+  {
+   "id": "D06",
+   "sahne": "oda",
+   "olcek": "genis",
+   "s": 217.79,
+   "d": 7.75,
+   "not": "Evlilik ve yeni daire"
+  },
+  {
+   "id": "D07",
+   "sahne": "masa",
+   "olcek": "orta",
+   "s": 225.54,
+   "d": 8.2,
+   "not": "Jo çekmeceyi açar: mektuplarla dolu"
+  },
+  {
+   "id": "D07b",
+   "sahne": "masa",
+   "olcek": "yakin",
+   "s": 233.74,
+   "d": 7.72,
+   "not": "Sarı zarflar başlar (ilk kez)"
+  },
+  {
+   "id": "E01",
+   "sahne": "tb_selvili_tarla",
+   "olcek": "genis",
+   "s": 241.46,
+   "d": 11.67,
+   "not": "Saint-Rémy: gri dünya"
+  },
+  {
+   "id": "E02",
+   "sahne": "masa",
+   "olcek": "ayrinti",
+   "s": 253.13,
+   "d": 6.31,
+   "not": "Hastane parası; kız kardeşlerin katkısı"
+  },
+  {
+   "id": "E03",
+   "sahne": "tb_selviler",
+   "olcek": "orta",
+   "s": 259.44,
+   "d": 1.04,
+   "not": "Selviler"
+  },
+  {
+   "id": "E03b",
+   "sahne": "tb_selvili_tarla",
+   "olcek": "yakin",
+   "s": 260.48,
+   "d": 1.22,
+   "not": "Selvili Buğday Tarlası"
+  },
+  {
+   "id": "E03c",
+   "sahne": "tb_yildizli",
+   "olcek": "orta",
+   "s": 261.7,
+   "d": 3.18,
+   "not": "Yıldızlı Gece"
+  },
+  {
+   "id": "E03d",
+   "sahne": "tb_mozaik",
+   "olcek": "genis",
+   "s": 264.88,
+   "d": 2.27,
+   "not": "Yaklaşık yüz elli resim"
+  },
+  {
+   "id": "E04",
+   "sahne": "tb_irisler",
+   "olcek": "yakin",
+   "s": 267.15,
+   "d": 6.93,
+   "not": "Bağımsızlar 1889: İrisler"
+  },
+  {
+   "id": "F01",
+   "sahne": "tb_badem",
+   "olcek": "ayrinti",
+   "s": 274.08,
+   "d": 4.47,
+   "not": "Badem Çiçeği köşesi"
+  },
+  {
+   "id": "F02",
+   "sahne": "masa",
+   "olcek": "orta",
+   "s": 278.55,
+   "d": 11.73,
+   "not": "İlk büyük övgü: dergi"
+  },
+  {
+   "id": "F03",
+   "sahne": "oda",
+   "olcek": "yakin",
+   "s": 290.28,
+   "d": 7.83,
+   "not": "Oğul doğar: Vincent"
+  },
+  {
+   "id": "F04",
+   "sahne": "tb_badem",
+   "olcek": "genis",
+   "s": 298.11,
+   "d": 12.42,
+   "not": "RENK DORUĞU: Badem Çiçeği"
+  },
+  {
+   "id": "F05",
+   "sahne": "tb_badem",
+   "olcek": "ayrinti",
+   "s": 310.53,
+   "d": 9.52,
+   "not": "Tek çiçek; hastalandım"
+  },
+  {
+   "id": "F06",
+   "sahne": "salon",
+   "olcek": "orta",
+   "s": 320.05,
+   "d": 9.61,
+   "not": "Brüksel: 400 frank"
+  },
+  {
+   "id": "F07",
+   "sahne": "masa",
+   "olcek": "ayrinti",
+   "s": 329.66,
+   "d": 8.85,
+   "not": "Defterde satır"
+  },
+  {
+   "id": "F08",
+   "sahne": "salon",
+   "olcek": "genis",
+   "s": 338.51,
+   "d": 6.33,
+   "not": "Bağımsızlar 1890: on tablo"
+  },
+  {
+   "id": "G01",
+   "sahne": "oda",
+   "olcek": "orta",
+   "s": 344.84,
+   "d": 9.01,
+   "not": "Amca gelir: hasır şapka, beşik"
+  },
+  {
+   "id": "G02",
+   "sahne": "oda",
+   "olcek": "yakin",
+   "s": 353.85,
+   "d": 11.77,
+   "not": "İki kardeş beşiğin başında"
+  },
+  {
+   "id": "G03",
+   "sahne": "tarla",
+   "olcek": "orta",
+   "s": 365.62,
+   "d": 5.71,
+   "not": "Auvers: neredeyse her gün bir eser"
+  },
+  {
+   "id": "G04",
+   "sahne": "tarla",
+   "olcek": "genis",
+   "s": 371.33,
+   "d": 4.59,
+   "not": "8 Haziran: Theo, Jo ve bebek Auvers'te"
+  },
+  {
+   "id": "G05",
+   "sahne": "oda",
+   "olcek": "orta",
+   "s": 375.92,
+   "d": 12.45,
+   "not": "Temmuz: gergin gün"
+  },
+  {
+   "id": "G06",
+   "sahne": "tb_firtina",
+   "olcek": "genis",
+   "s": 388.37,
+   "d": 13.83,
+   "not": "Uçsuz bucaksız buğday tarlaları: renk"
+  },
+  {
+   "id": "G07",
+   "sahne": "masa",
+   "olcek": "ayrinti",
+   "s": 402.2,
+   "d": 12.15,
+   "not": "Gönderilmeyen taslak"
+  },
+  {
+   "id": "G08",
+   "sahne": "tb_selvili_tarla",
+   "olcek": "yakin",
+   "s": 414.35,
+   "d": 7.4,
+   "not": "Senin de payın var: tuval renklenir"
+  },
+  {
+   "id": "G09",
+   "sahne": "tarla",
+   "olcek": "genis",
+   "s": 421.75,
+   "d": 8.74,
+   "not": "Ölüm: olay gösterilmez"
+  },
+  {
+   "id": "G10",
+   "sahne": "oda",
+   "olcek": "orta",
+   "s": 430.49,
+   "d": 7.62,
+   "not": "Ah anneciğim"
+  },
+  {
+   "id": "G11",
+   "sahne": "oda",
+   "olcek": "ayrinti",
+   "s": 438.11,
+   "d": 11.48,
+   "not": "Theo da öldü: lamba söner"
+  },
+  {
+   "id": "H01",
+   "sahne": "tren",
+   "olcek": "genis",
+   "s": 449.59,
+   "d": 15.55,
+   "not": "Jo Hollanda'ya döner"
+  },
+  {
+   "id": "H02",
+   "sahne": "salon",
+   "olcek": "orta",
+   "s": 465.14,
+   "d": 2.93,
+   "not": "1892: ilk sergiler"
+  },
+  {
+   "id": "H03",
+   "sahne": "masa",
+   "olcek": "ayrinti",
+   "s": 468.07,
+   "d": 10.39,
+   "not": "34 yılda en az 192 resim: defter"
+  },
+  {
+   "id": "H04",
+   "sahne": "masa",
+   "olcek": "yakin",
+   "s": 478.46,
+   "d": 4.34,
+   "not": "Mektupları saklar"
+  },
+  {
+   "id": "H05",
+   "sahne": "salon",
+   "olcek": "genis",
+   "s": 482.8,
+   "d": 10.19,
+   "not": "1905: en büyük sergi"
+  },
+  {
+   "id": "H06",
+   "sahne": "masa",
+   "olcek": "yakin",
+   "s": 492.99,
+   "d": 13.35,
+   "not": "1914: üç cilt"
+  },
+  {
+   "id": "H07",
+   "sahne": "tarla",
+   "olcek": "genis",
+   "s": 506.34,
+   "d": 5.46,
+   "not": "Auvers: buğday tarlaları arasında"
+  },
+  {
+   "id": "H08",
+   "sahne": "tarla",
+   "olcek": "orta",
+   "s": 511.8,
+   "d": 8.46,
+   "not": "Birlikte yatıyorlar"
+  },
+  {
+   "id": "H09",
+   "sahne": "masa",
+   "olcek": "ayrinti",
+   "s": 520.26,
+   "d": 11.59,
+   "not": "Çeviri üçte ikide kalır"
+  },
+  {
+   "id": "H10",
+   "sahne": "salon",
+   "olcek": "genis",
+   "s": 531.85,
+   "d": 18.56,
+   "not": "SON HİKÂYE ANI: müzede mektuplar ve badem dalı"
+  },
+  {
+   "id": "I01",
+   "sahne": "masa",
+   "olcek": "yakin",
+   "s": 550.41,
+   "d": 10.79,
+   "not": "Önce Theo"
+  },
+  {
+   "id": "I02",
+   "sahne": "oda",
+   "olcek": "orta",
+   "s": 561.2,
+   "d": 7.36,
+   "not": "Sonra Jo: kurye"
+  },
+  {
+   "id": "I03",
+   "sahne": "masa",
+   "olcek": "yakin",
+   "s": 568.56,
+   "d": 6.58,
+   "not": "Sen kime inanıyorsun?"
+  },
+  {
+   "id": "I04",
+   "sahne": "masa",
+   "olcek": "genis",
+   "s": 575.14,
+   "d": 23.57,
+   "not": "BİTİŞ EKRANI: iki sarı zarf kartı üst yarıda"
+  }
+ ],
+ "dur": 598.71
+}

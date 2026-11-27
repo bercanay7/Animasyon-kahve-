@@ -134,6 +134,8 @@ export function planlar2(M, IMG, FIG, H) {
   tabloPlan('E03', 'E03', 'selviler', 'orta', 'Selviler', kamYol([960, 540, 1.04], [960, 520, 1.12], u => u));
   tabloPlan('E03b', 'E03@buğday', 'selvili_tarla', 'yakin', 'Selvili Buğday Tarlası', kamYol([1000, 560, 1.12], [960, 540, 1.04], u => u));
   tabloPlan('E03c', 'E03@yıldızlı', 'yildizli', 'orta', 'Yıldızlı Gece', kamYol([960, 520, 1.02], [980, 520, 1.1], u => u));
+  // E03d · genis · MOZAİK: "yüz elli resim": duvar boyu Saint-Rémy tabloları; kamera geri çekilir
+  plan({ id: 'E03d', at: 'E03@yüz', sahne: 'tb_mozaik', olcek: 'genis', not: 'Yaklaşık yüz elli resim', kamera: kamYol([960, 540, 1.5], [960, 540, 1.0]) });
   // E04 · yakin · SALON (seyrek): Theo omuz üstü, sergide İrisler
   plan({ id: 'E04', at: 'E04', sahne: 'tb_irisler', olcek: 'yakin', not: 'Bağımsızlar 1889: İrisler',
     kamera: kamYol([960, 540, 1.1], [990, 550, 1.2], u => u), maske: () => mTam(1),

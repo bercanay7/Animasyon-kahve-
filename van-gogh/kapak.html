@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="tr"><head><meta charset="utf-8"><title>Van Gogh kapak</title>
+<link rel="stylesheet" href="../cernobil/fonts.css">
+<style>html,body{margin:0;background:#000}canvas{display:block}</style></head><body>
+<canvas id="c" width="1920" height="1080"></canvas>
+<script src="timeline.js"></script>
+<script src="lib/oda_ciz.js"></script>
+<script src="../kurye/lib/tablo_ciz.js"></script>
+<script type="module">
+// Kapaklar (1920×1080 çizilir, 1280×720 JPG'ye küçültülür). A: TEK KİŞİ İNANDI (oda, lamba, Vincent'in yüzü tek renkli ve en parlak yer).
+// B: 651 MEKTUP (gri zarf yığınından çıkan renkli badem dalı). Kurallar: Bebas Neue, büyük harf ≥ %18 (font ≥ 290 px), figürlere ≥ 30 px boşluk,
+// sağ alt köşe süre rozetine ayrılır (x 1440–1874, y 829–1034). Kapakta da yalnız Vincent'in dünyası renkli.
+import { motor } from '../araclar/tablo/sahne.js';
+import { W, H, maskeBasla, mRect, mDaire } from './lib/film_t.js';
+import { gorselYukle, figurYukle, setleriKur, kapakYardim } from './lib/planlar.js';
+const cv = document.getElementById('c'), ctx = cv.getContext('2d');
+let M, Y;
+function yazi(satirlar, x, y, px, hiza = 'left', renk = '#f1e7cf') {
+  ctx.save(); ctx.font = `400 ${px}px 'Anton'`; ctx.textAlign = hiza; ctx.textBaseline = 'alphabetic'; ctx.fillStyle = renk;
+  ctx.shadowColor = 'rgba(0,0,0,.65)'; ctx.shadowBlur = px * .08; ctx.shadowOffsetY = px * .02;
+  satirlar.forEach((s, i) => ctx.fillText(s, x, y + i * px * .92)); ctx.restore();
+}
+window.kapak = (v, o = {}) => {
+  const m = maskeBasla();
+  if (v === 'A') {
+    const kam = { x: 1010, y: 470, z: 2.3 }; Y.tabloMaske(kam);
+    M.ciz(ctx, 'oda', 2.2, { kamera: kam, durum: { isik: 'gece', tablo: 'oda_otoportre', figur: (t, S) => Y.theo(t, S) }, bitir: { maske: m, expo: .92, vig: .62 } });
+    if (!o.yazisiz) yazi(o.satir || ['TEK KİŞİ', 'İNANDI'], 60, 360, 270);
+  } else {
+    const kam = { x: 1000, y: 820, z: 1.42 }, du = Y.cekmeceDurum();
+    M.ciz(ctx, 'masa', 3, { kamera: kam, durum: du, bitir: { expo: 1.0 } });   // önce dal izini topla
+    maskeBasla(); Y.cekmeceMaske(kam, m);
+    M.ciz(ctx, 'masa', 3, { kamera: kam, durum: du, bitir: { maske: m, expo: 1.0, vig: .5 } });
+    if (!o.yazisiz) yazi(o.satir || ['651', 'MEKTUP'], 70, 330, 310);
+  }
+  return cv;
+};
+window.READY = false;
+(async () => {
+  M = motor({ W, H, ss: 2, enCok: 2 });
+  await document.fonts.load("400 300px 'Anton'", 'İŞĞÜ');
+  const IMG = await gorselYukle(), FIG = await figurYukle();
+  setleriKur(M, IMG, FIG); Y = kapakYardim(M, IMG, FIG);
+  M.hazirla('oda'); M.hazirla('masa');
+  window.READY = true;
+})().catch(e => { window.HATA = String(e && e.stack || e); console.error(e); });
+</script>
+</body></html>
