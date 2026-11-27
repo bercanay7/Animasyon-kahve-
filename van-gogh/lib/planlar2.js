@@ -64,7 +64,7 @@ export function planlar2(M, IMG, FIG, H) {
   // C06 · orta · ODA gece: Theo masaya eğilmiş mektup okur
   plan({ id: 'C06', at: 'C06', sahne: 'oda', olcek: 'orta', not: 'Sanatçılara para verirken sen de sanatçı işi yapıyorsun',
     kamera: kamYol([1180, 600, 1.35], [1220, 610, 1.45], u => u),
-    durum: st => ({ isik: 'gece', figur: (t, S) => figurBas(S, FIG.theo_oku, t, OE(.75, 0, -2.7), 520, { gunes: ODA.LAMBA }) }) });
+    durum: st => ({ isik: 'gece', figur: (t, S) => figurBas(S, FIG.theo_oku, t, [1260, 1160], 640, { gunes: ODA.LAMBA }) }) });
   // C07 · yakin · YATAK ODASI tablosu kadrajı doldurur, kamera yaklaşır (renkli)
   tabloPlan('C07', 'C07', 'yatak', 'yakin', 'Yatak Odası tablosu', kamYol([960, 540, 1.0], [960, 560, 1.18], u => u));
   // C07b · ayrinti · MASA: "Sensiz": Paris'te açık mektup, lamba ışığı
@@ -150,10 +150,12 @@ export function planlar2(M, IMG, FIG, H) {
     durum: st => ({ cekmece: false, expo: 1.15, nesneler: t => { const u = io(clamp((t - .3) / .8)), ac = io(clamp((t - 2.2) / 1));
       return [...yigin(10, { x: 520, y: 420, dx: 200, dy: 120, tohum: 500 }), ac < .5 ? { tur: 'dergi', x: 1150, y: 420 - 300 * (1 - u), w: 380, h: 520, rot: .06, tohum: 510, golge: true, kalk: .4 * (1 - u) } : { tur: 'acikdefter', x: 1150, y: 420, w: 760, h: 520, rot: .04, tohum: 511, satirL: 14, satirR: 14 }]; } }),
     maske: (st, kam) => { const c = M.camK(kam, 0); for (const it of yigin(10, { x: 520, y: 420, dx: 200, dy: 120, tohum: 500 })) nesneMaske(c, it); } });
-  // F03 · yakin · ODA gece: lamba ışığında beşik, tığ işi örtü; beşik hafifçe sallanır
-  plan({ id: 'F03', at: 'F03', sahne: 'oda', olcek: 'yakin', not: 'Oğul doğar: Vincent',
-    kamera: kamYol([1250, 700, 1.7], [1230, 700, 1.8], u => u),
-    durum: st => ({ isik: 'gece', ust: (t, S) => besik(S, 1250, 1000, 380, Math.sin(t * 1.6)) }) });
+  // F03 · yakin · MASA (gece): Theo'nun Vincent'e mektubu (31 Ocak 1890, doğum haberi); "Vincent"te ad mürekkeple belirir (beşik çizilmez: tabut ve ızgara okunuyordu)
+  const F3k = kamYol([960, 430, 1.55], [960, 440, 1.62], u => u);
+  plan({ id: 'F03', at: 'F03', sahne: 'masa', olcek: 'yakin', not: 'Oğul doğar: mektupta "Vincent" adı', kamera: F3k,
+    durum: st => ({ cekmece: false, nesneler: () => [{ tur: 'kagit', x: 960, y: 440, w: 620, h: 420, rot: -.03, tohum: 220, satir: 8, olc: 1.1, yazi: .9, golge: true }] }),
+    ust: (ctx, st) => { const tv = cIdx(st, 'F03@vincent'), k = M.camK(F3k(st.u), 0), [x, y] = ekrana(k, 1010, 600);
+      ctx.save(); ctx.globalAlpha = .9 * sm(tv - .1, tv + .9, st.lt); ctx.font = `italic 600 ${Math.round(70 * k.zoom)}px 'Cormorant Garamond', serif`; ctx.fillStyle = '#2a1f18'; ctx.textAlign = 'center'; ctx.fillText('Vincent', x, Math.min(y, 860)); ctx.restore(); } });
   // F04 · genis · BADEM (renk doruğu): dal dal açılır: renk mektup kâğıdından (alt köşe) bütün tabloya yayılır; kamera geri çekilir
   tabloPlan('F04', 'F04', 'badem', 'genis', 'RENK DORUĞU: Badem Çiçeği', kamYol([960, 600, 1.35], [960, 540, 1.0]),
     { maske: (st, kam) => { const c = M.camK(kam, .72); mDaire(c, 600, 980, 2300 * io(clamp(st.lt / 3.2)), 1, 16); } });
@@ -178,11 +180,11 @@ export function planlar2(M, IMG, FIG, H) {
   // G01 · orta · ODA (sabah): hasır şapkalı siluet; beşik önde
   plan({ id: 'G01', at: 'G01', sahne: 'oda', olcek: 'orta', not: 'Amca gelir: hasır şapka, beşik',
     kamera: kamYol([900, 600, 1.35], [930, 600, 1.42], u => u),
-    durum: st => ({ isik: 'sabah', ust: (t, S) => besik(S, 1150, 1040, 360, Math.sin(t * 1.2) * .5), figur: (t, S) => figurBas(S, FIG.vincent_dur, t, [620, 1000], 560, { gunes: [300, 300] }) }) });
+    durum: st => ({ isik: 'sabah', figur: (t, S) => figurBas(S, FIG.vincent_dur, t, [620, 1000], 560, { gunes: [300, 300] }) }) });
   // G02 · yakin · ODA: beşiğin önünde iki erkek sırtı (yüz yok; "gözleri yaşlı" seste kalır)
   plan({ id: 'G02', at: 'G02', sahne: 'oda', olcek: 'yakin', not: 'İki kardeş beşiğin başında',
     kamera: kamYol([1000, 640, 1.7], [1000, 650, 1.76], u => u),
-    durum: st => ({ isik: 'sabah', ust: (t, S) => besik(S, 1000, 1120, 420, 0), figur: (t, S) => { figurBas(S, FIG.theo_dur, t, [780, 1300], 900, { gunes: [300, 200], adim: 2 }); figurBas(S, FIG.vincent_dur, t + 1.5, [1220, 1300], 900, { gunes: [300, 200], adim: 2 }); } }) });
+    durum: st => ({ isik: 'sabah', figur: (t, S) => { figurBas(S, FIG.theo_dur, t, [780, 1300], 900, { gunes: [300, 200], adim: 2 }); figurBas(S, FIG.vincent_dur, t + 1.5, [1220, 1300], 900, { gunes: [300, 200], adim: 2 }); } }) });
   // G03 · orta · TARLA: tarla kenarında şövale; tuval hızlı kesmelerle gün gün değişir (Auvers 1890 işleri, renkli)
   const AUV = Object.keys(IMG).filter(k => k.startsWith('auvers')).sort();
   plan({ id: 'G03', at: 'G03', sahne: 'tarla', olcek: 'orta', not: 'Auvers: neredeyse her gün bir eser',
@@ -197,7 +199,7 @@ export function planlar2(M, IMG, FIG, H) {
   // G05 · orta · ODA (öğle, lamba sönük): üç siluet ayakta, aralarında masa yok
   plan({ id: 'G05', at: 'G05', sahne: 'oda', olcek: 'orta', not: 'Temmuz: gergin gün',
     kamera: kamYol([1150, 640, 1.3], [880, 620, 1.36]),
-    durum: st => ({ isik: 'ogle', alev: () => .2, ust: (t, S) => besik(S, 1560, 1030, 300, 0),
+    durum: st => ({ isik: 'ogle', alev: () => .2,
       figur: (t, S) => { figurBas(S, FIG.vincent_dur, t, [520, 1000], 500); figurBas(S, FIG.theo_dur, t + 1, [880, 1000], 520); figurBas(S, FIG.jo_dur, t + 2.5, [1230, 990], 470); } }) });
   // G06 · genis · FIRTINALI GÖK ALTINDA BUĞDAY TARLASI: gri dünya; "tarlaları"nda renk tarladan yükselir
   tabloPlan('G06', 'G06', 'firtina', 'genis', 'Uçsuz bucaksız buğday tarlaları: renk', kamYol([960, 560, 1.06], [960, 540, 1.0], u => u),
@@ -218,7 +220,7 @@ export function planlar2(M, IMG, FIG, H) {
   // G10 · orta · ODA gece: Theo masada tek başına (okur)
   plan({ id: 'G10', at: 'G10', sahne: 'oda', olcek: 'orta', not: 'Ah anneciğim',
     kamera: kamYol([1200, 620, 1.4], [1180, 640, 1.5], u => u),
-    durum: st => ({ isik: 'gece', figur: (t, S) => figurBas(S, FIG.theo_oku, t, OE(.75, 0, -2.7), 520, { gunes: ODA.LAMBA }) }) });
+    durum: st => ({ isik: 'gece', figur: (t, S) => figurBas(S, FIG.theo_oku, t, [1260, 1160], 640, { gunes: ODA.LAMBA }) }) });
   // G11 · ayrinti · ODA (kış): boş masa, lamba fitili kısılır ve söner; pencereden kış ışığı kayar
   plan({ id: 'G11', at: 'G11', sahne: 'oda', olcek: 'ayrinti', not: 'Theo da öldü: lamba söner',
     kamera: kamYol([1200, 690, 2.2], [1180, 690, 2.3], u => u),

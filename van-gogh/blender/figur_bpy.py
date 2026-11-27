@@ -151,8 +151,8 @@ def kurye(k):
     if KOS.get('sac') == 'topuz':   # toplu saç: ensenin üstünde topuz (sırttan kadın okunur; örtü değil)
         L.append(deri('topuz', [ho + hy * .045 - hz * .088, ho + hy * .05 - hz * .1], [(0, 1)], [(.048, .046), (.044, .042)], M['sac'], sub=2))
     for sg in (-1, 1):   # kulaklar: arkadan bakan siluete insan biçimi verir (yumurta baş manken okunuyordu)
-        ku = ho + hy * .068 + hx * (sg * .086) + hz * .022
-        L.append(deri('kulak', [ku - hy * .025, ku + hy * .025], [(0, 1)], [(.011, .021), (.013, .019)], M['kulak'], sub=1))
+        ku = ho + hy * .068 + hx * (sg * .082) + hz * .035
+        L.append(deri('kulak', [ku - hy * .018, ku + hy * .018], [(0, 1)], [(.007, .015), (.008, .013)], M['sac'], sub=1))   # küçük, saç renginde: büyük planda topuz okunmasın
     if KOS['atki'] and k.get('atki'):
       # atkı: boyundan sarkan, rüzgârla kalkan uç (sıcak koyu kırmızı-toprak; sivil işaret)
       A = [B(p) for p in k['atki']]

@@ -32,7 +32,7 @@ export function odaKur(M, IMG) {
       { ad: 'pencere', d: .05, ciz: O.pencere, R: [20, 10, 5, 2.6, 1.5], T: 10, alfa: (t, du) => (du && du.isik && du.isik !== 'gece' ? 0 : 1) },
       { ad: 'pencereGun', d: .05, ciz: O.pencereGun, R: [20, 10, 5, 2.6, 1.5], T: 10, alfa: (t, du) => (du && du.isik && du.isik !== 'gece' ? 1 : 0) },
       { ad: 'esya', d: .3, ciz: O.esya, R: [20, 10, 5, 2.6, 1.5], T: 10 },
-      ...tablolar.map(k => ({ ad: k, d: .3, ciz: tabloCiz(IMG[k], ...TK, { maxR: 6 }), R: [10, 5, 2.6, 1.5], T: 8, olcek: .75, alfa: (t, du) => (du && du.tablo === k ? (du.tabloA ? du.tabloA(t) : 1) : 0) })),
+      ...tablolar.map(k => ({ ad: k, d: .3, ciz: tabloCiz(IMG[k], ...TK, { maxR: 6 }), R: [10, 5, 2.6, 1.5], T: 8, olcek: .75, alfa: (t, du) => ((du && du.tablo ? du.tablo : 'oda_otoportre') === k ? (du && du.tabloA ? du.tabloA(t) : 1) : 0) })),   // şövale hiç boş kalmaz (boş tuvalde halka gölge)
       { ad: 'alev', d: .3, canli: (t, S, c, x, du) => alev(ikiser(t), S, du && du.alev ? du.alev(t) : (du && du.isik && du.isik !== 'gece' ? .25 : 1)), kap: 16 },
       { ad: 'nesne', d: .3, canli: (t, S, c, x, du) => { if (du && du.nesneler) for (const it of du.nesneler(t)) nesne(S, it); }, kap: 4000, wet: .15, run: 0 },
       { ad: 'figur', d: .3, canli: (t, S, c, x, du) => { if (du && du.figur) du.figur(t, S); }, kap: 12000, wet: .2, run: 0 },
