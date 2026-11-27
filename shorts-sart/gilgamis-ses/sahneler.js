@@ -37,14 +37,16 @@ postHazirla = function () {   // kenar kararması dikey tuvale göre elips (bkz.
     // yedincisi közde: önde, son ekmeğin altında kor (şimdi planlarında tek renkli nesne; kapak ve yazı vurgusuyla aynı renk)
     if (o.kor && n >= 7) { const [kx, ky] = R.scr(130 + 6 * 136, FY + 185); R.L.pts.push({ x: kx, y: ky, z: 40 * R.z, r: 330 * R.z, i: o.kor * (.82 + .18 * Math.sin(FIG_T * 5.3) * Math.sin(FIG_T * 2.1 + 1)), col: [1.3, .5, .15] }); }
     const P = o.poz || {};
-    const ku = clamp(((P.egilme ?? .08) - .08) / .34);   // 0 uyanık … 1 uyuyor
+    const ku = clamp(((P.egilme ?? .08) - .08) / .16);   // 0 uyanık … 1 uyuyor
     FIG.fig(R, FX, FY, FS, { tip: 'gilgamis', giysi: 'etek', f: 1, otur: 1, egilme: P.egilme ?? .08, bas: P.bas ?? 0, kol: kolPoz(ku), basO: { kapali: !!P.kapali } });
     R.L.dir = o.isik || [-.55, -.55, .6];
   }
   // kollar: eller ayrı, dizlerin üstünde (uyanık) ya da gevşek sarkık (uyuyor). Bağımsız okuma (27 Kasım): eski pozda iki halka el
   // önde birleşiyor, yakın koldaki bilezik çizgisiyle kelepçe okunuyordu; tuğla duvar ve çentiklerle birlikte "hücre".
-  const kolPoz = u => [[lerp(.55, .2, u), lerp(.75, .3, u)], [lerp(.2, -.05, u), lerp(.5, .15, u)]];
-  const uyku = u => ({ egilme: lerp(.08, .42, u), bas: lerp(0, .7, u), kapali: u > .35 });
+  // İkinci okuma: derin öne eğilme + dizlerin arasında sarkan el, küçük boyda tuvalette oturuş okundu. Uyku pozu artık dik gövde,
+  // göğse düşen çene (eğilme .42 → .24); yakın ön kol uyluğun üstünde yatar, uzak el arkada sedire dayanır.
+  const kolPoz = u => [[lerp(.55, .3, u), lerp(.75, 1.15, u)], [lerp(.2, -.3, u), lerp(.5, .25, u)]];
+  const uyku = u => ({ egilme: lerp(.08, .24, u), bas: lerp(0, .78, u), kapali: u > .35 });
   function sis(R, p, a) {
     R.after(c => {
       c.globalCompositeOperation = 'screen';
@@ -65,14 +67,14 @@ postHazirla = function () {   // kenar kararması dikey tuvale göre elips (bkz.
   KAYIT(0, 'H1', 'orta', (R, st) => {
     kay(R, st, ILK, ILK2, E.lin);
     const p = clamp(st.lt / st.d), dal = ramp(st.t, A('C1@uyuyorsun'), Se('C1') + .3, E.io2) * .05;
-    oda(R, st, { poz: { egilme: .42 + nefes(st.t) + dal, bas: .7 + dal, kapali: true }, centik: 1, ekmek: 7, mesale: .45, kor: 1.2 });
+    oda(R, st, { poz: { egilme: .24 + nefes(st.t) + dal, bas: .78 + dal, kapali: true }, centik: 1, ekmek: 7, mesale: .45, kor: 1.2 });
     sis(R, lerp(SIS0, SIS1, p), 1); R.L.int = .62;
   });
   // H2 · yakın · C2 · ekmek sırası: kamera soldan sağa yedi ekmeğin üstünden geçer; 'yedi'de anılan ekmeğe ışık, sonunda közdeki yedinci.
   KAYIT(1, 'H2', 'yakin', (R, st) => {
     const q = ramp(st.t, KS(1), A('C2@var') + .3, E.io2), xs = lerp(250, 860, q);
     R.cam(xs, FY + 150, 2.4);
-    oda(R, st, { poz: { ...uyku(1), egilme: .42 + nefes(st.t) }, centik: 1, ekmek: 7, mesale: .45, kor: 1.4 });
+    oda(R, st, { poz: { ...uyku(1), egilme: .24 + nefes(st.t) }, centik: 1, ekmek: 7, mesale: .45, kor: 1.4 });
     const [sx, sy] = R.scr(xs, FY + 120); R.L.pts.push({ x: sx, y: sy - 80, z: 200 * R.z, r: 420 * R.z, i: .5, col: [1.15, .8, .5] });
     sis(R, SIS1, .5); R.L.int = .7;
   });
@@ -114,7 +116,7 @@ postHazirla = function () {   // kenar kararması dikey tuvale göre elips (bkz.
   KAYIT(3, 'H4', 'genis', (R, st) => {
     kay(R, st, [540, 1020, .9], [540, 1000, .97]);
     const p = ramp(st.t, A('C6@her') - .1, Se('C6') + .1, E.lin), a = lerp(-.9, .9, E.io2(p));
-    oda(R, st, { poz: { ...uyku(1), egilme: .42 + nefes(st.t) }, centik: p, ekmek: p * 7, mesale: .45, isik: [Math.sin(a) * .7, -.6, .55], kor: p > .98 ? 1 : 0 });
+    oda(R, st, { poz: { ...uyku(1), egilme: .24 + nefes(st.t) }, centik: p, ekmek: p * 7, mesale: .45, isik: [Math.sin(a) * .7, -.6, .55], kor: p > .98 ? 1 : 0 });
     sis(R, 1, .5); R.L.int = .8;
   });
   // H5 · orta · C7 · geri dönüş, şartın verildiği an: ekmek ve çentik yok, meşale tam. Dik oturur, gözler açık;
@@ -131,7 +133,7 @@ postHazirla = function () {   // kenar kararması dikey tuvale göre elips (bkz.
   KAYIT(5, 'H6', 'yakin', (R, st) => {
     kay(R, st, [615, 930, 1.66], [600, 900, 1.76]);
     const u = 1 - ramp(st.t, A('C8@ölümü') - .1, A('C8@ölümü') + .8, E.out3), egik = ramp(st.t, A('C9@yenemedin') - .1, Se('C9') + .4, E.io2);
-    oda(R, st, { poz: { egilme: lerp(.08, .42, u) + egik * .1, bas: lerp(0, .7, u) + egik * .22, kapali: u > .5 }, centik: 1, ekmek: 7, mesale: lerp(.45, .8, 1 - u), kor: 1 });
+    oda(R, st, { poz: { egilme: lerp(.08, .24, u) + egik * .1, bas: lerp(0, .78, u) + egik * .22, kapali: u > .5 }, centik: 1, ekmek: 7, mesale: lerp(.45, .8, 1 - u), kor: 1 });
     sis(R, lerp(SIS1, 1.1, 1 - u), lerp(1, .25, 1 - u)); R.L.int = lerp(.62, .85, 1 - u);
   }, { tr: COZ });
   // H7 · orta → yakın · C10 · geri dönüş: 'oturdun'da dik oturuyor (ekmek yok); 'gözünü'de baş düşer, gözler kapanır; sis iner,
@@ -142,7 +144,7 @@ postHazirla = function () {   // kenar kararması dikey tuvale göre elips (bkz.
     R.cam(lerp(525, ILK[0], z), lerp(940, ILK[1], z), lerp(1.08, ILK[2], z));
     // 'bir an' yedi gün olur: gözler kapanınca çentikler bir bir kazınır, H1'in duvarına varır (döngü dikişi)
     const cen = ramp(st.t, A('C10@kapadın') + .25, DUR - .25, E.lin);
-    oda(R, st, { poz: { ...uyku(u), egilme: lerp(.08, .42, u) + nefes(st.t) }, mesale: lerp(1, .45, u), centik: cen, ekmek: cen * 7, kor: cen >= 1 ? 1.2 : 0 });
+    oda(R, st, { poz: { ...uyku(u), egilme: lerp(.08, .24, u) + nefes(st.t) }, mesale: lerp(1, .45, u), centik: cen, ekmek: cen * 7, kor: cen >= 1 ? 1.2 : 0 });
     sis(R, lerp(-.1, SIS0, ramp(st.t, t0, DUR, E.lin)), 1); R.L.int = lerp(1, .62, u);
   }, { tr: COZ });
 })();

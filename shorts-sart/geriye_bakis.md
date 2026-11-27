@@ -121,6 +121,8 @@ Sonuç: iki Shorts. **Narkissos** "Kendini tanımazsa" (29,0 sn) ve **Gılgamı�
 - **Bağımsız okuma (yazısız 36 kare), doğrulanıp düzeltilen:**
   - **Güçlü: kelepçe ve hücre.** Uyuyan pozda iki halka el önde birleşiyordu. Yakın koldaki bilezik çizgisiyle (`figur.js`) kelepçe okundu; tuğla duvar ve çentiklerle sahne "gün sayan mahkûm" oldu. Eller ayrıldı: uyanıkken dizlerde, uyurken gevşek sarkık (`kolPoz`). Eski şart Shorts'unda "halka eller + çentik = mahkûm" bulgusu çentiklere yüklenmişti; asıl yük ellerdeydi.
   - **Orta: üçüncü kol.** Postun iki pençesi omuzdan sedire inip bir kol gibi okundu. Bu Shorts'ta etek giydirildi.
+  - **İkinci okuma, orta: tuvalet.** Eller ayrılınca derin öne eğilme ve dizlerin arasında sarkan el, blok üstünde "tuvalette oturan" okundu. Uyku pozu dik gövdeye ve göğse düşen çeneye çevrildi (eğilme .42 → .24); ön kol uyluğun üstünde, uzak el arkada sedirde.
+  - **Ders adayı:** bir simgeyi kaldıran poz düzeltmesi yenisini doğurabilir (kelepçe → tuvalet). Her poz değişikliğinden sonra yazısız kareler yeniden okunur.
   - **İlk kare:** okuyucuya göre "durgunluk, soru değil" ve tek renkli. İlk plan yakından ortaya alındı: uyuyan adam, çentikler, önde (büyütülmüş) yedi ekmek, yedincisi közde titreyen tek renkli nesne. Rengi yazı vurgusuyla aynı.
 - **Zayıf bulunup bırakılanlar:**
   - yerdeki ekmek sırası (mezar tümseği) ve tabletteki yarım daire ekmekler (mezar taşı): hikâyenin nesnesi;
