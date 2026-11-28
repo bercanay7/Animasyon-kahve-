@@ -47,6 +47,12 @@ class Figur:
         f.z = 0
         self.on0 = f.normalized()                      # içe alındığındaki ön yön (dünya)
         self.temel = None
+        # avuç normalinin işareti dinlenme pozunda elin kendi geometrisinden (A pozda avuç aşağı-içe bakar)
+        self.avuc_isaret = {}
+        for yan in ("Left", "Right"):
+            n, _ = self._avuc_ham(yan)
+            ic = -self._dis_ham(yan)
+            self.avuc_isaret[yan] = 1.0 if n.dot(Vector((0, 0, -1)) + ic * 0.5) > 0 else -1.0
 
     # ------------------------------------------------ temel
     def guncelle(self):
@@ -103,14 +109,20 @@ class Figur:
         v.z = 0
         return v.normalized()
 
-    def avuc(self, yan):
+    def _dis_ham(self, yan):
+        v = self.bas(P + yan + "Arm") - self.bas(P + "Spine2"); v.z = 0
+        return v.normalized()
+
+    def _avuc_ham(self, yan):
         h = self.bas(P + yan + "Hand")
         a = self.bas(P + yan + "HandIndex1"); b = self.bas(P + yan + "HandPinky1")
         d = ((a + b) / 2 - h).normalized()
-        n = d.cross(a - b).normalized()
-        if n.dot(-self.dis(yan)) < 0:
-            n = -n
-        return n, d
+        return d.cross(a - b).normalized(), d
+
+    def avuc(self, yan):
+        """Avuç normali (parmakların büküldüğü yön) ve parmak yönü; işaret dinlenmede sabitlenir (poz ne olursa olsun tutarlı)."""
+        n, d = self._avuc_ham(yan)
+        return n * self.avuc_isaret[yan], d
 
     def parmak(self, yan, acilar=(0.16, 0.28, 0.22), bas_p=(0.08, 0.12, 0.08)):
         n, _ = self.avuc(yan)

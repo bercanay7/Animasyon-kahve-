@@ -93,12 +93,12 @@ def iki_kemik(f, yan, hedef, kutup):
 
 def hasir_sapka():
     """Hasır şapka: tepe (silindir, üstü hafif kubbe) + geniş düz kenar; doğal saman rengi, örgü dokusu."""
-    prof = [(0.0, 0.110), (0.055, 0.112), (0.082, 0.104), (0.090, 0.07), (0.094, 0.02), (0.096, 0.0),
-            (0.12, -0.003), (0.165, -0.010), (0.175, -0.016), (0.168, -0.020), (0.11, -0.010), (0.095, -0.006), (0.090, 0.0)]
+    prof = [(0.0, 0.125), (0.06, 0.127), (0.098, 0.118), (0.108, 0.08), (0.112, 0.02), (0.114, 0.0),
+            (0.14, -0.003), (0.185, -0.010), (0.195, -0.016), (0.188, -0.020), (0.13, -0.010), (0.113, -0.006), (0.108, 0.0)]
     me = bpy.data.meshes.new("sapka"); bm = bmesh.new(); n = 48; halka = []
     for i in range(n):
         a = 2 * math.pi * i / n
-        halka.append([bm.verts.new((r * math.cos(a), r * math.sin(a) * 0.9, z)) for r, z in prof])
+        halka.append([bm.verts.new((r * math.cos(a) * 0.9, r * math.sin(a), z)) for r, z in prof])   # uzun eksen ön-arka (yerel y)
     for i in range(n):
         for j in range(len(prof) - 1):
             bm.faces.new((halka[i][j], halka[(i + 1) % n][j], halka[(i + 1) % n][j + 1], halka[i][j + 1]))
@@ -124,8 +124,14 @@ def hasir_sapka():
 
 
 def sapka_tak(f, sapka, egim=6):
+    # şapka altında saç kafa derisine bastırılır (saç kumaşın içinden taşmasın)
+    for o in bpy.data.objects:
+        if o.type == 'MESH' and o.parent == f.a and o.name.split(".")[-1].startswith("short"):
+            d = o.modifiers.new("sapka_alti", 'DISPLACE')
+            d.strength = -0.016
+            d.mid_level = 0.0
     bas = f.bas(P + "Head")
-    tepe = bas + UP * 0.115 + f.on * 0.01
+    tepe = bas + UP * 0.13 + f.on * 0.03
     M = Matrix.Translation(tepe) @ Quaternion(f.sag, math.radians(-egim)).to_matrix().to_4x4() @ \
         Quaternion(UP, math.atan2(f.on.y, f.on.x) - math.pi / 2).to_matrix().to_4x4()
     f.bagla(sapka, P + "Head", M)

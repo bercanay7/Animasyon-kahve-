@@ -1,0 +1,103 @@
+{
+ "klip": "theo_oda",
+ "kisi": "theo",
+ "fps": 15,
+ "kare_sayisi": 121,
+ "t_son": 8,
+ "eklem": "van-gogh/blender/eklem_oda.json",
+ "kamera": {
+  "konum": [
+   0,
+   1.5,
+   0
+  ],
+  "hedef": [
+   0,
+   1.5,
+   -10
+  ],
+  "fov": 40,
+  "isik": {
+   "konum": [
+    0.62,
+    1.12,
+    -3
+   ],
+   "guc": 45,
+   "renk": [
+    1,
+    0.8,
+    0.55
+   ],
+   "ortam": 0.025,
+   "gunes": 0,
+   "boy": 0.04
+  }
+ },
+ "kamera_dosyasi": "van-gogh/blender/kamera_oda.json",
+ "cozunurluk": [
+  960,
+  540
+ ],
+ "eksen": "bizim (x sağ, y yukarı, z kameraya) → Blender (x, −z, y)",
+ "ornek": 32,
+ "gurultu_giderme": "OptiX (yalnız RGBA)",
+ "renk_donusumu": "Standard (RGBA), Raw (normal, kimlik)",
+ "normal": "kamera uzayı: x sağ, y yukarı, z kameraya doğru; RGB = n·0.5+0.5",
+ "kimlik": {
+  "ten": [
+   255,
+   0,
+   0
+  ],
+  "sac": [
+   0,
+   255,
+   0
+  ],
+  "giysi": [
+   0,
+   0,
+   255
+  ],
+  "yaka": [
+   255,
+   255,
+   0
+  ],
+  "sapka": [
+   255,
+   0,
+   255
+  ],
+  "nesne": [
+   0,
+   255,
+   255
+  ]
+ },
+ "eklem_sapmasi_en_buyuk_m": 0.0,
+ "eklem_sapmasi_not": "diz, dirsek, el bileği, ayak bileği hedefte (uzuvlar eklem boyuna esnetildi); kalça ve omuz kökü MPFB'nin kendi noktası",
+ "kok_sapmasi_en_buyuk_m": 0.0299,
+ "kalca_sapmasi_m": 0.0142,
+ "omuz_sapmasi_m": 0.0299,
+ "omuz_orani": 0.66,
+ "ayak_bilegi_yukseltme_m": 0.0338,
+ "kare_suresi_sn": {
+  "rgba": 0.98,
+  "normal": 1.04,
+  "kimlik": 1.06
+ },
+ "olcek": 0.8989,
+ "kirpma": {
+  "x": 228,
+  "y": 225,
+  "w": 143,
+  "h": 315,
+  "tam": [
+   960,
+   540
+  ]
+ },
+ "varliklar": "MPFB2 (MakeHuman) gövde ve CC0 giysiler; ayrıntı RAPOR_3.md ve araclar/ASSETS.md"
+}
