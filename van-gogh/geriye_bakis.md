@@ -37,6 +37,20 @@
 - Renk kuralı netleşti: renklenen tablo griye dönmez (`uretim_plani.md` §7).
 - Badem dalı çizim yerine tablonun kendisinden kesildi (turkuaz gök anahtarlandı); kanca ile doruk aynı dalı paylaşır.
 
+## v4 denemesi: Blender (28 Kasım), kullanıcının kararıyla bu videoda kapandı
+- Önce saf Blender denendi (kullanıcının RTX 4070'i, Cycles, MakeHuman, Poly Haven). Işık ve malzeme iyiydi; ama görüntü "oyun gibi" okundu.
+  - Kot pantolon, kovboy şapkası, pençe eller, plastik bebek.
+  - Gerçekçi odada Vincent'in tablosu poster gibi duruyordu; kavram (gri dünya, renkli tablo) aynı boyayı gerektiriyor.
+- Kıyas (dört mercek) hibriti seçti: dünya bizim motorla, figür Blender'dan, motor darbeye çevirir.
+  - Kapı klipleri geldi. Yüz, şapka ve oranlar daha iyiydi; ama giysi beden yüzeyi şişirilerek üretildiği için omuzlar apolet gibi kabardı.
+  - Kullanıcı yan yana bakınca v3'ü daha çok beğendi ("bizimki daha sanatsal ve orijinal").
+- Ders:
+  - Kanalın imzası yağlıboya motoru.
+  - Gerçekçilik kaliteyle aynı şey değil.
+  - Yeni bir hat ancak kör kıyasta kullanıcının gözünü geçerse filme girer.
+- Figür kenarı denemesi: pürüzsüz normal + kenara paralel iç darbe boncuk dizisini kaldırdı. Ama iç kenarlarda kesik koyu-açık çizgiler doğurdu; ense yüz gibi okundu. Geri alındı.
+- Aynı turda kaynak düzeltmesi geldi: Met otoportresi ve Güller Theo'nun dairesinde değildi. Şövaleler tarih tarih belgeli tablolarla değişti (DOGRULAMA §8).
+
 ## Ses
 - Müzik özgün sentez (`audio/score.py`, zarf motifi). Düzey eğrisi: medyan −33 dBFS; telefon bandında saniyelerin %87'sinde duyuluyor. İlk ölçümde tren ostinatosu (re2) ve telgraf tremolosu telefon bandının altındaydı; üst oktav eklendi. Bilerek sessiz: G09 "öldü" ve G11 lamba söner.
 - Efektler ElevenLabs (8 × 4 çeşitleme, 544 kredi).

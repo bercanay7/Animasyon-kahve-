@@ -103,6 +103,7 @@ Bu dosya her oturuma kendiliğinden yüklenir. Bu yüzden içinde yalnız **bug�
    - Hazır varlık ve araç, kendi yazdığımız motordan önce gelir.
    - **Üslup kapısı** tek kare değil: manzara + orta plan figür + yakın plan + 15 sn hareket.
    - Fikir yine görüntünün kuralı olabilir (Dorian'da yalnız tablo renkliydi, Kafka'da böcek hiç görünmedi); ama kısıt kaliteden ödün olarak kullanılmaz.
+   - **Kör kıyas kapısı (28 Kasım, Van Gogh):** saf Blender ve Blender figürlü hibrit, kullanıcının gözünde kendi yağlıboya motorumuza yenildi ("oyun gibi"; "bizimki daha sanatsal"). Yeni hat, mevcut hatla yan yana kör kıyasta kullanıcıyı ikna etmeden filme girmez.
 8. **Animasyon:** Canvas 2D / WebGL2. Her çekim bir cümleye (`S('B04')`) ya da kelimeye (`Wd('B04','kelime')`) bağlanır; ses değişince görüntü kendiliğinden kayar (çekim sistemi `film.js`; en yenisi `lale-cilginligi/lib/film.js`). Görüntü kuralları aşağıda.
 9. **Ses:** müzik her videonun tonuna göre o video için yazılır; seri ya da kategori kuralı yok (20 Kasım). Efektler ayrıca üretilir.
    - Miks: konuşmanın altında kısma; -14 LUFS, -1 dBTP.
