@@ -185,20 +185,18 @@ def _sakal_kisalt(govde, sakal, alt_pay=0.035):
 
 
 def kisi_kur(kim):
+    """Beden MPFB2 (başlangıç noktası); yüz oranı kaynağa göre; giysiler giysi.py'de modellenir (şablon giysi yok)."""
+    import giysi as G
     if kim == "theo":
         isk, gov, p = K._insan("Theo", K._fen(1.0, 31, kilo=0.38, kas=0.45, boy=0.48), "young_caucasian_male", "short01", "eyebrow006",
-                               ["rehmanpolanski_beard_viking", "rehmanpolanski_moustache_viking"], ["male_elegantsuit01", "shoes02"])
-        sac = (0.30, 0.20, 0.11); takim = {"ceket": (0.035, 0.033, 0.036), "yelek": (0.04, 0.038, 0.04), "kravat": (0.03, 0.028, 0.03),
-                                            "yaka": (0.80, 0.79, 0.76), "pantolon": (0.03, 0.029, 0.032)}
-        esik = {"yelek": 0.905, "etek": 0.47, "acik": 0.45}
-        takim_ad = "elegantsuit"
+                               ["rehmanpolanski_beard_viking", "rehmanpolanski_moustache_viking"], [])
+        sac = (0.30, 0.20, 0.11)
     else:
-        isk, gov, p = K._insan("Vincent", K._fen(1.0, 37, kilo=0.42, kas=0.55, boy=0.47, oran=0.55), "toigo_light_skin_male_ginger", "short02", "eyebrow010",
-                               ["rehmanpolanski_beard_viking", "rehmanpolanski_moustache_viking"], ["toigo_male_suit_3", "shoes02"])
-        sac = (0.36, 0.11, 0.03); takim = {"ceket": (0.10, 0.17, 0.32), "yelek": (0.10, 0.17, 0.32), "kravat": (0.05, 0.05, 0.06),
-                                            "yaka": (0.68, 0.66, 0.60), "pantolon": (0.06, 0.055, 0.05)}
-        esik = {"yelek": 0.905, "etek": 0.47, "acik": 0.5}
-        takim_ad = "suit_3"
+        isk, gov, p = K._insan("Vincent", K._fen(1.0, 37, kilo=0.40, kas=0.55, boy=0.47, oran=0.55), "toigo_light_skin_male_ginger", "short02", "eyebrow010",
+                               ["rehmanpolanski_beard_viking", "rehmanpolanski_moustache_viking"], [])
+        sac = (0.36, 0.11, 0.03)
+    G.yuz_ayari(gov, kim)
+    bpy.context.view_layer.update()
     for o in p:
         n = o.name.lower()
         if n.endswith(".body"):
@@ -210,20 +208,17 @@ def kisi_kur(kim):
                     except Exception: pass
         elif any(k in n for k in ("short", "eyebrow", "eyelash", "beard", "moustache")):
             duz_renk(o, sac if "lash" not in n else (0.05, 0.04, 0.035), 0.7, 0.4, "sac")
-        elif takim_ad in n:
-            giysi_bolgeli(o, takim, esik)
-        elif "shoes" in n:
-            duz_renk(o, (0.03, 0.025, 0.022), 0.5, 0.0, "giysi")
         else:   # göz, diş, dil
             o["kimlik"] = "ten"
     sakal = [o for o in p if "beard" in o.name.lower()][0]
     _sakal_kisalt(gov, sakal)
-    return isk, gov, p
+    giysiler = G.theo_takim(gov, isk) if kim == "theo" else G.vincent_takim(gov, isk)
+    return isk, gov, p + giysiler
 
 
 def hasir_sapka():
     """Alçak tepeli, geniş ama düz kenarlı açık hasır şapka; tepe yumuşak, hafif çökük (kovboy değil: kenar kıvrık değil)."""
-    prof = [(0.0, 0.080), (0.045, 0.085), (0.080, 0.084), (0.098, 0.070), (0.104, 0.035), (0.106, 0.0),
+    prof = [(0.0, 0.074), (0.045, 0.082), (0.080, 0.084), (0.098, 0.070), (0.104, 0.035), (0.106, 0.0),
             (0.13, -0.002), (0.165, -0.006), (0.172, -0.010), (0.166, -0.013), (0.12, -0.007), (0.104, -0.004), (0.100, 0.0)]
     me = bpy.data.meshes.new("sapka"); bm = bmesh.new(); n = 48; h = []
     for i in range(n):
@@ -237,10 +232,19 @@ def hasir_sapka():
     for p_ in ob.data.polygons: p_.use_smooth = True
     m = bpy.data.materials.new("hasir"); b = bsdf_bul(m); nt, ln = nodes(m)
     b.inputs['Base Color'].default_value = (0.62, 0.52, 0.32, 1); b.inputs['Roughness'].default_value = 0.85
-    tc = nt.new('ShaderNodeTexCoord'); wv = nt.new('ShaderNodeTexWave'); wv.wave_type = 'RINGS'; wv.inputs['Scale'].default_value = 45
+    # hasır örgü: eş merkezli örgü bantları × ışınsal ilmekler (doku değer farkı az, kabartı belirgin)
+    tc = nt.new('ShaderNodeTexCoord')
+    wv = nt.new('ShaderNodeTexWave'); wv.wave_type = 'RINGS'; wv.inputs['Scale'].default_value = 110; wv.inputs['Distortion'].default_value = 0.6
     ln.new(tc.outputs['Object'], wv.inputs['Vector'])
-    bp = nt.new('ShaderNodeBump'); bp.inputs['Strength'].default_value = 0.25
-    ln.new(wv.outputs['Fac'], bp.inputs['Height']); ln.new(bp.outputs['Normal'], b.inputs['Normal'])
+    gr = nt.new('ShaderNodeTexGradient'); gr.gradient_type = 'RADIAL'; ln.new(tc.outputs['Object'], gr.inputs['Vector'])
+    ma = nt.new('ShaderNodeMath'); ma.operation = 'MULTIPLY'; ma.inputs[1].default_value = 220.0; ln.new(gr.outputs['Fac'], ma.inputs[0])
+    sn = nt.new('ShaderNodeMath'); sn.operation = 'SINE'; ln.new(ma.outputs['Value'], sn.inputs[0])
+    ca = nt.new('ShaderNodeMath'); ca.operation = 'MULTIPLY'; ln.new(wv.outputs['Fac'], ca.inputs[0]); ln.new(sn.outputs['Value'], ca.inputs[1])
+    bp = nt.new('ShaderNodeBump'); bp.inputs['Strength'].default_value = 0.5; bp.inputs['Distance'].default_value = 0.002
+    ln.new(ca.outputs['Value'], bp.inputs['Height']); ln.new(bp.outputs['Normal'], b.inputs['Normal'])
+    cr = nt.new('ShaderNodeValToRGB')
+    cr.color_ramp.elements[0].color = (0.50, 0.41, 0.24, 1); cr.color_ramp.elements[1].color = (0.66, 0.56, 0.35, 1)
+    ln.new(wv.outputs['Fac'], cr.inputs['Fac']); ln.new(cr.outputs['Color'], b.inputs['Base Color'])
     ob.data.materials.append(m)
     sl = ob.modifiers.new("k", 'SOLIDIFY'); sl.thickness = 0.004
     ob["kimlik"] = "sapka"
@@ -580,6 +584,15 @@ def main():
                 R = Matrix((yx, dd, n)).transposed().to_4x4()
                 f.bagla(zf, P + "RightHand", Matrix.Translation(el + dd * 0.05 + n * 0.012) @ R)
     print("POZ %s: %d kare, %.1f sn; en büyük eklem sapması %.3f m; kalça %.3f, omuz %.3f" % (AD, len(D), time.time() - t0, ot.sapma, ot.kalca_sapma, ot.omuz_sapma))
+    if arg("deneme"):   # yalnız deneme: önden, yandan ve arkadan üç kare (klip kamerası değil)
+        sc.frame_set(41); f.guncelle()
+        mer = f.bas(P + "Spine1"); on = f.on
+        for ad_, yon in (("on", on), ("yan", on.cross(UP)), ("arka", -on)):
+            cam.location = mer + yon * 2.6 + UP * 0.15
+            cam.rotation_euler = (mer + UP * 0.1 - cam.location).to_track_quat('-Z', 'Y').to_euler()
+            sc.render.resolution_x, sc.render.resolution_y = 540, 960
+            sc.render.filepath = os.path.join(arg("deneme"), "%s_%s.png" % (AD, ad_)); bpy.ops.render.render(write_still=True)
+        return
     nesneler = [o for o in bpy.data.objects if o.type == 'MESH' and o.name != "yer_sekme"]
     tablo = gecis_malzemeleri(nesneler)
     sureler = {}

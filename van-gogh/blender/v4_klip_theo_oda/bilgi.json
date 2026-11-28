@@ -84,15 +84,15 @@
  "omuz_orani": 0.66,
  "ayak_bilegi_yukseltme_m": 0.0338,
  "kare_suresi_sn": {
-  "rgba": 0.98,
-  "normal": 1.04,
-  "kimlik": 1.06
+  "rgba": 1.13,
+  "normal": 1.2,
+  "kimlik": 1.24
  },
  "olcek": 0.8989,
  "kirpma": {
-  "x": 228,
+  "x": 231,
   "y": 225,
-  "w": 143,
+  "w": 140,
   "h": 315,
   "tam": [
    960,
