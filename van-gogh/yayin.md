@@ -11,7 +11,7 @@ Yükleme YouTube Studio'da bilgisayardan yapılır. Zamanlamayı YouTube yaptı�
 |---|---|
 | `teslim/vangogh_youtube.mp4` | **YouTube'a yüklenecek dosya** (9:59). 1920×1080, 30 fps, H.264 + AAC, Türkçe ses (−14 LUFS, tepe −1 dBTP), BT.709 [boyut render sonunda yazılır] |
 | `teslim/vangogh_telefon.mp4` | Telefonda izlemek için küçük kopya (H.265). **Müziği telefon hoparlöründe bir kez dinle.** |
-| `kapak/A.jpg` | Kapak A, "SEKİZ YIL HER AY": karanlık Paris odası, şövalede Vincent'in Hasır Şapkalı Otoportresi (tek renkli ve en parlak yer). Film bu odayla açılır (0:00); vaadi ilk dakikada (B04, her ay bir zarf) ve sonda (I01) karşılanır. İlk taslaktaki "TEK KİŞİ İNANDI" filmin iki cevabıyla çeliştiği için değişti |
+| `kapak/A.jpg` | Kapak A, "SEKİZ YIL HER AY": karanlık Paris odası, şövalede Vincent'in Hasır Şapkalı Otoportresi (Van Gogh Museum; 1887'den beri Theo'nun dairesindeydi; tek renkli ve en parlak yer). Film bu odayla açılır (0:00); vaadi ilk dakikada (B04, her ay bir zarf) ve sonda (I01) karşılanır. İlk taslaktaki "TEK KİŞİ İNANDI" filmin iki cevabıyla çeliştiği için değişti |
 | `kapak/B.jpg` | Kapak B, "651 MEKTUP": gri zarf yığınından çıkan renkli badem dalı. Vaadi 0:11'de (yığından dal uzanır) ve 4:58'de (Badem Çiçeği bütün kareyi doldurur) karşılanıyor |
 | `van-gogh.tr.srt` | Türkçe altyazı (137 satır) |
 | `youtube.md` | Başlık, açıklama (bölümler, kaynaklar, görsel künyesi, yapım notu), etiketler, sabit yorum |

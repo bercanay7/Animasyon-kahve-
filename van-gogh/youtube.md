@@ -27,13 +27,13 @@ Kaynaklar
 
 Görseller (kamu malı)
 Vincent van Gogh'un tabloları, müzelerin kamu malı görüntüleri (CC0 ya da PD-Art):
-- Badem Çiçeği (1890), Sarı Ev (1888), Yatak Odası (1888), Fırtınalı Gök Altında Buğday Tarlası (1890): Van Gogh Museum, Amsterdam (Vincent van Gogh Foundation)
+- Badem Çiçeği (1890), Hasır Şapkalı Otoportre (1887), Theo'nun Dairesinden Görünüm (1887), Hasat (1888), Sarı Ev (1888), Yatak Odası (1888), Fırtınalı Gök Altında Buğday Tarlası (1890): Van Gogh Museum, Amsterdam (Vincent van Gogh Foundation)
 - Yıldızlı Gece (1889): The Museum of Modern Art, New York
 - Rhône Üzerinde Yıldızlı Gece (1888): Musée d'Orsay, Paris
 - Kırmızı Bağ (1888): Puşkin Devlet Güzel Sanatlar Müzesi, Moskova
 - Sergi duvarındaki eserler (1888 ve 1890 Bağımsızlar sergileri; vangoghletters.org notlarına göre): Montmartre, Moulin de la Galette'in Arkası (Van Gogh Museum), Montmartre'de Bostanlar (Stedelijk Museum), Paris Romanları (özel koleksiyon), Selviler (The Met), Yol İşçileri (Cleveland Museum of Art), Dağ Geçidi (Museum of Fine Arts, Boston), Arles'da Çiçek Açmış Kestaneler (özel koleksiyon), Dut Ağacı (Norton Simon Museum), Sarmaşıklı Ağaçlar (kayıp; siyah-beyaz fotoğraf), Gündoğumunda Buğday Tarlası (özel koleksiyon), Ayçiçekleri (National Gallery, Londra; sergideki sürüm bu ya da Münih'teki), Fırtınadan Sonra Buğday Tarlası (Ny Carlsberg Glyptotek)
 - Zeytinlik, Saint-Rémy (1889): Göteborgs konstmuseum, GKM 0590, CC BY 4.0, Wikimedia Commons
-- Hasır Şapkalı Otoportre (1887), Selviler (1889), Selvili Buğday Tarlası (1889), Zeytin Ağaçları (1889), Vazoda İrisler (1890), Güller (1890): The Metropolitan Museum of Art, New York
+- Selviler (1889), Selvili Buğday Tarlası (1889), Zeytin Ağaçları (1889), Vazoda İrisler (1890), Güller (1890): The Metropolitan Museum of Art, New York
 - İrisler (1889): J. Paul Getty Museum, Los Angeles
 - Şairin Bahçesi (1888): Art Institute of Chicago
 - Yeşil Buğday Tarlaları, Auvers (1890), Beyazlı Kız (1890), Zeytinlik (1889): National Gallery of Art, Washington
