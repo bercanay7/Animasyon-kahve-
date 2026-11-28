@@ -22,6 +22,7 @@ Son güncelleme: 28 Kasım 2026.
 | Topluluk gönderileri | `topluluk/` | main (26 Kasım birleşti) | hazır | 26 Kasım Dorian, 30 Kasım Gılgamış, 4 Aralık Frankenstein (28 Kasım yazıldı, `frankenstein.jpg`), 8 Aralık Lale (tarih düzeltildi); Çernobil ve Stanford gönderileri yok; `topluluk/gonderiler.md` |
 | Kanal kimliği (logo, avatar, kapak) | `kanal/logo/` | main | bitti (`KIMLIK.md`); 1440p yükleme deneyi yapılmayacak (kullanıcı kararı) | Studio'ya yükleme kullanıcıda |
 | Mektuplar: kanal tanıtımı (kurye, yağlıboya canlanan resim) + 3B manken aracı | `kurye/`, `araclar/manken/`, `araclar/tablo/` | `claude/3d-puppet-drawing-shader-4ca4y8` | **sürüyor** (v7, eleştiri turları) | bitince `main`'e birleşir; `CLAUDE.md`'de çakışma var, birleştirmede elle çözülür |
+| Mit serisi (8 bölüm, 26 Aralık – 23 Ocak) | yok (plan) | — | plan onaylandı (28 Kasım): Medusa · Pygmalion · Odysseus · Psykhe · Pandora · Truva atı · Midas · Oidipus; plan belgesi https://claude.ai/artifact/EL8Q7Jnobb537eFQbWxMLu, talep `analiz/2026-11-28-seri-talep.md` | seri onayı 13 Aralık şerit hükmüne bağlı; sonra Medusa için kullanıcının fikri ve paketleme taslağı |
 | Shorts S5: Shorts'a özel seslendirme + yeni ilk kare (Gılgamış) | `shorts-sart/` | yeni sohbette (27 Kasım, kullanıcı başlatacak) | sırada | ölçüt izlemeye devam eden ≥ %55, tutmazsa Shorts'a ara; kredi onayı üretimden önce; yayın Gılgamış'tan 2–3 gün sonra |
 
 ## Yayında (ölçüm bekleyen)
