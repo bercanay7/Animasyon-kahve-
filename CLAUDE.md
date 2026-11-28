@@ -97,10 +97,11 @@ Bu dosya her oturuma kendiliğinden yüklenir. Bu yüzden içinde yalnız **bug�
    - Whisper yoksa cümle düzeyinde hizalama: `narkissos/tools/hizala_cumle.py`.
    - Tek cümle düzeltmesi tüm seslendirmeyi yenilemeden: `mary-stuart/tools/yama_vo.py`.
    - Kesim gerçek duraklamada yapılır.
-7. **Üslup ve motor (kullanıcının kararı, 27 Kasım):** kalite önce gelir. Hazır yüksek kaliteli varlıklar (insan modelleri, giysi, dokular, HDRI) ve ekran kartlı Blender ya da three.js tercih edilir. Kullanıcı bilgisayarını (GPU) Remote Control ile verir. Yüz, gerçekçi insan ve fiziksel ışık serbest. Koyu siluet, yüzsüz figür ve "kendi motorumuzla çiz" kısıtları kalktı; eski motorlar yalnız işe yaradıkları yerde kullanılır.
+7. **Üslup ve motor (28 Kasım, Van Gogh deneyinden sonra):** kanalın imzası kendi motorlarımız (Van Gogh'ta yağlıboya motoru `araclar/tablo`). Kalite önce gelir; ama gerçekçilik kaliteyle aynı şey değil.
+   - Hazır yüksek kaliteli varlık, Blender ya da three.js ve kullanıcının GPU'su (Remote Control) serbest. Yine de yalnız aşağıdaki kör kıyas kapısını geçerse filme girer.
+   - Dener ve geçmezse kendi motorumuzla bitiririz.
    - Eski sıra (arşiv): önce kendi motorlarımız (gravür `milton/lib`, vazo `sisifos/lib`/`prometheus`, kâğıt kesme `orfeus`, ağaç baskı `kafka`, mürekkep `ran`, sessiz film `mary-stuart`, karma üslup `dorian-gray`). Uymazsa cinecode tarifleri (`.claude/skills/cinecode/styles/`, önce `BIZIM_NOT.md`), sonra `araclar/lemo/KATALOG.md`.
    - Lemo belgeleri CC BY-NC: okunur, depoya kopyalanmaz. Kodu MIT.
-   - Hazır varlık ve araç, kendi yazdığımız motordan önce gelir.
    - **Üslup kapısı** tek kare değil: manzara + orta plan figür + yakın plan + 15 sn hareket.
    - Fikir yine görüntünün kuralı olabilir (Dorian'da yalnız tablo renkliydi, Kafka'da böcek hiç görünmedi); ama kısıt kaliteden ödün olarak kullanılmaz.
    - **Kör kıyas kapısı (28 Kasım, Van Gogh):** saf Blender ve Blender figürlü hibrit, kullanıcının gözünde kendi yağlıboya motorumuza yenildi ("oyun gibi"; "bizimki daha sanatsal"). Yeni hat, mevcut hatla yan yana kör kıyasta kullanıcıyı ikna etmeden filme girmez.
@@ -155,8 +156,11 @@ Kanıt sayıları `analiz/2026-11-22-genel-karsilastirma.md` dosyasında. Yeni v
 - **Yazı levhası:** plan başına ≤ 8 sn ve toplamda filmin beşte birini geçmez. Boş kâğıt ≤ 2 sn.
 - **Geçiş:** aynı mekânda kesme. Yumuşak geçiş yalnız mekân ya da zaman sıçramasında, kısa ve sessizlikte. İki levha saydamlıkla karıştırılmaz (gri üretir).
 - **Palet ya da geçiş değişimi** sözcüğe bağlanır ve plan içinde olur.
-- **Figür (27 Kasım'dan beri):** yüzlü, giysili, iyi modellenmiş insan (hazır model + riglenmiş hareket). Eski "koyu siluet, yüzsüz" kuralı kalktı.
-  - Hâlâ geçerli: gövde kutu olmaz; yakın planda baş kadrajın içinde kalır; karikatür yüz (bembeyaz göz + çıkık ağız) yok.
+- **Figür:** varsayılan, motorun koyu siluet figürüdür. Yüzlü ve gerçekçi figür serbest, ama yalnız kör kıyası geçerse kullanılır (Van Gogh'ta geçemedi).
+  - İç çizgisiz açık figür "kâğıt kesme" okunur.
+  - Gövde kutu olmaz; kollar ayrı yolla çizilir.
+  - Yakın planda baş kadrajın içinde kalır.
+  - Karikatür yüz yok (koyu siluet + bembeyaz göz + yuvarlak baş + çıkık ağız); göz küçük ve sıcak tonda.
   - Yaşayan bir kişiye, oyuncuya ya da telifli karaktere benzeyen yüz yok (hukuk). Tarihî kişi portrelerden canlandırılabilir.
 - **Yürüyen, koşan ya da bir şey taşıyan figür** `araclar/hareket/` ile çizilir (ayak kaymaz; `serit.js` kanıt şeridi).
 - **Ekran yazısı ve künye alt banda (y > 880) konmaz;** orası altyazının yeri.
