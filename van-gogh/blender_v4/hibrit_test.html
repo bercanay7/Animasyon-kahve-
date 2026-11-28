@@ -1,0 +1,20 @@
+<!doctype html><html><head><meta charset="utf-8"></head><body style="margin:0;background:#000">
+<canvas id="c" width="1920" height="1080"></canvas>
+<script type="module">
+// Hibrit deneme: Blender karesi (geometri, ışık, figür) → bizim yağlıboya motoru (araclar/tablo: darbeler, kabartma, grisaille + renk örtüsü)
+import { motor } from '../../araclar/tablo/sahne.js';
+import { W, H, tabloSahnesi, maskeBasla, mRect } from '../lib/film_t.js';
+const cv = document.getElementById('c'), ctx = cv.getContext('2d');
+const yukle = async f => createImageBitmap(await (await fetch(f)).blob());
+(async () => {
+  const M = motor({ W, H, ss: 1.5, enCok: 3 });
+  const a01 = await yukle('onizleme/A01_50.jpg'), g02 = await yukle('onizleme/G02_50.jpg');
+  tabloSahnesi(M, 'a01_gri', a01, { dunya: true, pay: 0, maxR: 9 });
+  tabloSahnesi(M, 'a01_renk', a01, { pay: 0, maxR: 9 });
+  tabloSahnesi(M, 'g02_gri', g02, { dunya: true, pay: 0, maxR: 9 });
+  tabloSahnesi(M, 'g02_renk', g02, { pay: 0, maxR: 9 });
+  window.ciz = (ad, maskeRect) => { let maske; if (maskeRect) { maske = maskeBasla(); const c = M.camK({ x: W / 2, y: H / 2, z: 1 }, .72); mRect(c, ...maskeRect, 1, 2); }
+    M.ciz(ctx, ad, 1, { kamera: { x: W / 2, y: H / 2, z: 1 }, durum: { expo: () => 1.0 }, bitir: maske ? { maske } : {} }); M.bitir(); return cv.toDataURL('image/jpeg', .92).split(',')[1]; };
+  window.READY = true;
+})().catch(e => { window.HATA = String(e.stack || e); });
+</script></body></html>
