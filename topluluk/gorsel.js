@@ -6,7 +6,8 @@ const G = [
   { ad: 'narkissos', cx: 760, satir: [['O BENİM.', '#E0643A', 210]], alt: 'Narkissos ve Eko · şimdi kanalda', konum: 'alt' },
   { ad: 'dorian', cx: 1060, satir: [['SEN DEĞİL,', '#F2E8D8', 150], ['TABLO YAŞLANSAYDI?', '#D9A441', 150]], alt: "Dorian Gray · Cumartesi 28 Kasım, 18:00", konum: 'alt' },
   { ad: 'gilgamis', cx: 900, satir: [['HER ŞEYİNİ KAYBETTİ.', '#FBEBD0', 128], ['NEDEN ÖVÜNDÜ?', '#E8622E', 150]], alt: 'Gılgamış · Çarşamba 2 Aralık, 18:00', konum: 'alt' },
-  { ad: 'lale', cx: 960, satir: [['BİR SOĞANA', '#F2E8D8', 170], ['BEŞ EV.', '#C86AA8', 190]], alt: 'Lale Çılgınlığı · Pazar 6 Aralık, 18:00', konum: 'alt' },
+  { ad: 'lale', cx: 960, satir: [['BİR SOĞANA', '#F2E8D8', 170], ['BEŞ EV.', '#C86AA8', 190]], alt: 'Lale Çılgınlığı · Perşembe 10 Aralık, 18:00', konum: 'alt' },
+  { ad: 'frankenstein', cx: 900, satir: [['YÜZÜNÜ GÖREMEDİ.', '#F2E8D8', 150], ['SESİNE İNANDI.', '#E8B23A', 170]], alt: 'Frankenstein · Pazar 6 Aralık, 18:00', konum: 'ust' },
 ];
 (async () => {
   const srv = await serve(), port = srv.address().port, br = await chromium.launch();

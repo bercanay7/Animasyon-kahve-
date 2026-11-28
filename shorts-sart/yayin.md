@@ -1,4 +1,5 @@
-# Yayın takvimi (26 Kasım – 6 Aralık 2026)
+# Yayın takvimi (26 Kasım – 10 Aralık 2026)
+> **28 Kasım:** 6 Aralık'ta Lale değil Frankenstein çıkıyor (kullanıcı, 27 Kasım: şerit denemesi); Lale 10 Aralık'a kaydı. Tablo buna göre düzeltildi.
 Shorts her gün **20:00**, uzun videolar **18:00**. Shorts uzun videodan iki saat sonra çıkar (ayrı akış; uzun videonun ölçümünü bozmaz). Her Shorts'un **ertesi gün 16:00** civarı (20. saat) "izlemeye devam eden" oranı okunur.
 
 | Gün | Saat | Ne | Açılış yapısı (sınanan) | Ölçüm |
@@ -14,7 +15,8 @@ Shorts her gün **20:00**, uzun videolar **18:00**. Shorts uzun videodan iki saa
 | Çar 2 Ara | 18:00 | **Uzun video: Gılgamış** | | Cum 4, 18:00 (48. saat) |
 | Per 3 Ara | 20:00 | Shorts: **Sisifos II** "Ölümü zincire vuran adam" | **sonuçla açılış** (önce sonuç, sonra nasıl) | Cum 4, 16:00 |
 | Cum 4 Ara | 20:00 | Shorts: **Gılgamış** "Altı gün yedi gece uyuma" | şart ilk cümlede, dikey için çizilmiş (kırpma değil) | Cmt 5, 16:00 |
-| Paz 6 Ara | 18:00 | **Uzun video: Lale Çılgınlığı** | | |
+| Paz 6 Ara | 18:00 | **Uzun video: Frankenstein** | | Sal 8, 18:00 (48. saat) |
+| Per 10 Ara | 18:00 | **Uzun video: Lale Çılgınlığı** | | Cmt 12, 18:00 (48. saat) |
 
 **1 ve 3 Aralık (25 Kasım kararı):** açık bırakılmadı, iki ayrı formülle dolduruldu (şart ailesi tutmazsa hazır alternatif; tutarsa yan yana karşılaştırma). 4 Aralık'ta üç formülden yedi ölçüm olur; asıl Shorts üretim planı kazananın üstüne o zaman kurulur. Hazır adaylar (filmlerin kaydında ses var): Gılgamış "Ölüm sularına eli değen ölürdü"; Sisifos "Bunlar nasıl takılıyor? Bir gösterir misin?" (Ölüm'ü zincirleyen hile); Narkissos "Ancak ben ölünce bana sahip olursun" (sonuçla açılış).
 **Karar kuralı:** 20. saatte izlemeye devam eden ≥ %60 → yapı korunur ve çoğaltılır; %45–60 → yapı tutulur, ilk kare değiştirilir; < %45 (soru Shorts'unun %43,2'si) → o yapı bırakılır. Birkaç puanlık fark yok sayılır.
@@ -35,7 +37,7 @@ Altyazı videoya yakılı; SRT dosyaları yine de hazır (`*_sart.tr.srt`). **SR
 | **28 Kasım, 20:00** | **Prometheus/Pandora:** "Zeus'tan armağan alma." | Dorian 18:00'de; Shorts ondan iki saat sonra, ayrı akış |
 | **29 Kasım, 20:00** | **İkaros:** "Ortadan uç." | |
 | **30 Kasım, 20:00** | **Eko:** "Yalnız son sözleri tekrarlar." | Dorian 48. saati 18:00'de alınır |
-| **4 Aralık, 20:00** | **Gılgamış şart Shorts'u** | Gılgamış uzun videosu 2 Aralık; 48. saati 4 Aralık 18:00. Lale (6 Aralık) öncesi |
+| **4 Aralık, 20:00** | **Gılgamış şart Shorts'u** | Gılgamış uzun videosu 2 Aralık; 48. saati 4 Aralık 18:00. Frankenstein (6 Aralık) öncesi |
 
 Neden iki Narkissos Shorts'u: aynı mit, aynı çizim hattı, aynı sahneler; değişen yalnız ilk cümle ("Bugün kendine kaç kez baktın?" sorusu ↔ "Kendini tanımazsa" şartı). Serinin cevaplaması gereken soru ("kalıp mı tuttu, kanal mı?") en temiz böyle ölçülür. Tahminler `analiz/tahminler.md` (S2, S3).
 

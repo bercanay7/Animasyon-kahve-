@@ -1,4 +1,4 @@
-# Topluluk gönderileri (görselli), 25 Kasım – 6 Aralık 2026
+# Topluluk gönderileri (görselli), 25 Kasım – 10 Aralık 2026
 
 Görseller 1080×1080, filmlerin kendi karelerinden; kapaklardan farklı sahneler (kapak tekrar edilmez, merak başka yerden açılır). Üretim: `node topluluk/gorsel.js` (kaynak kareler `topluluk/kaynak/`).
 Studio → **Oluştur → Gönderi oluştur** (ya da mobilde **+ → Gönderi**) → metni yapıştır → **Görsel** ekle → **Yayınla** (ya da **Planla**).
@@ -9,7 +9,10 @@ Her gönderi bir soruyla biter: yorum topluluk etkileşimidir. Gönderide link y
 | **Hemen (25 Kasım)** | `narkissos.jpg` | Narkissos ve Eko (yayında) |
 | **Perşembe 26 Kasım, 19:00** | `dorian.jpg` | Dorian Gray, Cumartesi 28 Kasım 18:00 |
 | **Pazartesi 30 Kasım, 19:00** | `gilgamis.jpg` | Gılgamış, Çarşamba 2 Aralık 18:00 |
-| **Cuma 4 Aralık, 19:00** | `lale.jpg` | Lale Çılgınlığı, Pazar 6 Aralık 18:00 |
+| **Cuma 4 Aralık, 19:00** | `frankenstein.jpg` | Frankenstein, Pazar 6 Aralık 18:00 |
+| **Salı 8 Aralık, 19:00** | `lale.jpg` | Lale Çılgınlığı, Perşembe 10 Aralık 18:00 |
+
+> **28 Kasım:** 6 Aralık'ta Frankenstein çıkıyor, Lale 10 Aralık'a kaydı (kullanıcı, 27 Kasım). Eski Lale gönderisi ("Pazar 18:00") 4 Aralık'ta **paylaşılmaz**; yerine Frankenstein gönderisi, Lale'ninki 8 Aralık'a.
 
 Saat 19:00: uzun videoların yayın saati 18:00, Shorts 20:00; gönderi ikisinin arasına düşsün diye.
 
@@ -41,11 +44,24 @@ Dört bin yıllık bir destanda bir kral, ölüme karşı aradığını buldu, e
 Her şeyini kaybetmiş bir adam neden övünür? Tahminini yaz.
 ```
 
-## 4) Lale Çılgınlığı (Cuma 4 Aralık, 19:00)
+## 4) Frankenstein (Cuma 4 Aralık, 19:00)
+```
+Bir yaratık aylarca bir duvar yarığından yoksul bir aileyi izledi. Geceleri gizlice odunlarını kesip kapılarının önüne yığdı; aile ona "iyi ruh" dedi.
+Sonunda kapıyı çalmaya karar verdi. Ama ihtiyarın evde yalnız kaldığı günü bekledi, çünkü ihtiyar kördü: yüzünü görmeden önce sesini duysun istedi.
+
+Pazar 18:00'de: Mary Shelley'nin Frankenstein'ı. Canavar doğulur mu, olunur mu?
+
+Sen olsan o kapıyı çalar mıydın?
+```
+- Görsel: kör ihtiyar ile yaratık ateşin başında (film 6:08, E02 "Ben körüm, yüzünü göremem"). Kapaklardan farklı sahne (A: uzanan el, B: yazan Mary).
+- Kaynak (senaryo): D07–D09 (odun, "iyi ruh"), D13 (sesimi duysunlar), E01–E02 (yalnız kaldığı gün, kör ihtiyar). Kapı açıldığında ne olduğu (E05) gönderide saklı.
+- Soru kalıbı bir önceki gönderiden (Gılgamış: "Tahminini yaz") farklı.
+
+## 5) Lale Çılgınlığı (Salı 8 Aralık, 19:00)
 ```
 Şubat 1637, Hollanda. Bir meyhanede mezat: tek bir lale soğanına 5.200 gulden veriliyor. Haarlem'de beş küçük ev parası.
 
-Pazar 18:00'de: Lale Çılgınlığı. Ve doksan yıl sonra aynı çiçek İstanbul'da açacak.
+Perşembe 18:00'de: Lale Çılgınlığı. Ve doksan yıl sonra aynı çiçek İstanbul'da açacak.
 
 Herkes alıyorsa, sen de alır mısın?
 ```
