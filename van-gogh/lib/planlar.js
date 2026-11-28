@@ -42,7 +42,10 @@ export async function gorselYukle() {
 // ---------- figür klipleri (Blender, 15 kare/sn; blender/klip.js) ----------
 const KLIP = { theo_oda: ['blender/kare_oda', 121] };
 for (const k of ['theo_dur', 'jo_dur', 'vincent_dur', 'theo_dis_dur', 'theo_oku', 'theo_yuru', 'jo_yuru', 'gauguin_yuru', 'vincent_yuru', 'theo_louvre', 'vincent_louvre', 'vincent_oku', 'jo_bebek', 'jo_egil', 'theo_don', 'vincent_goster', 'theo_goster', 'jo_yan', 'theo_egil']) KLIP[k] = ['blender/klip_' + k + '/kare', 121];
-export async function figurYukle() { const o = {}; for (const [k, [d, n]] of Object.entries(KLIP)) o[k] = await blenderKareleri(d, n); return o; }
+// v4 (Y4): Blender'da modellenmiş figürler; ?fig=v4 ile denenir (kapı). Kırpılmış teslim tam kareye açılmış hâli.
+const V4 = { theo_oda: 'blender/kare_oda_v4', theo_dur: 'blender/klip_theo_dur_v4/kare', vincent_goster: 'blender/klip_vincent_goster_v4/kare' };
+export async function figurYukle() { const v4 = new URLSearchParams(location.search).get('fig') === 'v4', o = {};
+  for (const [k, [d, n]] of Object.entries(KLIP)) o[k] = await blenderKareleri(v4 && V4[k] ? V4[k] : d, n); return o; }
 // döngülü kare (duruş klipleri 8 sn'de döner); yürüyüş klipleri son karede durur
 const kareD = (BK, t, dongu = true) => { const n = BK.length, i = Math.round(ikiser(Math.max(0, t)) * 15); return BK[dongu ? i % (n - 1) : Math.min(n - 1, i)]; };
 // figür yerleştirme: klibin ilk karesindeki boy ölçü; ayak ekranda [x, y], boy piksel
