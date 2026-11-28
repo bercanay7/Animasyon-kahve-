@@ -6,6 +6,8 @@ import { nesne } from './nesne.js';
 import { W, H, hsh, ikiser, tabloCiz } from './film_t.js';
 const O = window.ODA;
 export const TK = O.tabloKose();   // [x, y, w, h] şövaledeki tuval (ekran = dünya, d = .3 katmanı)
+// v4: tablo kendi oranında, şövale rafına oturur (yatay tablo dikey tuvale kırpılmaz)
+export const TKf = img => { if (!img) return TK; const ar = img.width / img.height, [x, y, w, h] = TK; let hh = h, ww = hh * ar; if (ww > w * 1.35) { ww = w * 1.35; hh = ww / ar; } return [x + w / 2 - ww / 2, y + h - hh, ww, hh]; };
 const PI2 = i => i * .7;
 function alev(t, S, f0) {
   const [lx, ly] = O.LAMBA, f = (.85 + .15 * Math.sin(t * 9.1) * Math.sin(t * 3.7 + 1)) * f0; if (f0 <= .01) return;
@@ -32,7 +34,7 @@ export function odaKur(M, IMG) {
       { ad: 'pencere', d: .05, ciz: O.pencere, R: [20, 10, 5, 2.6, 1.5], T: 10, alfa: (t, du) => (du && du.isik && du.isik !== 'gece' ? 0 : 1) },
       { ad: 'pencereGun', d: .05, ciz: O.pencereGun, R: [20, 10, 5, 2.6, 1.5], T: 10, alfa: (t, du) => (du && du.isik && du.isik !== 'gece' ? 1 : 0) },
       { ad: 'esya', d: .3, ciz: O.esya, R: [20, 10, 5, 2.6, 1.5], T: 10 },
-      ...tablolar.map(k => ({ ad: k, d: .3, ciz: tabloCiz(IMG[k], ...TK, { maxR: 6 }), R: [10, 5, 2.6, 1.5], T: 8, olcek: .75, alfa: (t, du) => ((du && du.tablo ? du.tablo : 'oda_otoportre') === k ? (du && du.tabloA ? du.tabloA(t) : 1) : 0) })),   // şövale hiç boş kalmaz (boş tuvalde halka gölge)
+      ...tablolar.map(k => ({ ad: k, d: .3, ciz: tabloCiz(IMG[k], ...TKf(IMG[k]), { maxR: 6 }), R: [10, 5, 2.6, 1.5], T: 8, olcek: .75, alfa: (t, du) => ((du && du.tablo ? du.tablo : 'oda_otoportre') === k ? (du && du.tabloA ? du.tabloA(t) : 1) : 0) })),   // şövale hiç boş kalmaz (boş tuvalde halka gölge)
       { ad: 'alev', d: .3, canli: (t, S, c, x, du) => alev(ikiser(t), S, du && du.alev ? du.alev(t) : (du && du.isik && du.isik !== 'gece' ? .25 : 1)), kap: 16 },
       { ad: 'nesne', d: .3, canli: (t, S, c, x, du) => { if (du && du.nesneler) for (const it of du.nesneler(t)) nesne(S, it); }, kap: 4000, wet: .15, run: 0 },
       { ad: 'figur', d: .3, canli: (t, S, c, x, du) => { if (du && du.figur) du.figur(t, S); }, kap: 12000, wet: .2, run: 0 },

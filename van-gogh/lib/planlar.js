@@ -3,7 +3,7 @@ import { W, H, A, S, Se, Wd, plan, planlar, sm, clamp, lerp, io, hsh, ikiser, mR
 import { figurDarbe, blenderKaynak, blenderKareleri } from '../../araclar/tablo/figur.js';
 import { nesneMaske, RENK } from './nesne.js';
 import { masaKur, CEKMECE } from './set_masa.js';
-import { odaKur, ODA, TK } from './set_oda.js';
+import { odaKur, ODA, TK, TKf } from './set_oda.js';
 import { salonKur, SALON } from './set_salon.js';
 import { tarlaKur, trenKur } from './set_disari.js';
 import { planlar2 } from './planlar2.js';
@@ -13,7 +13,9 @@ import { BRUSH, DAB, KNIFE } from '../../araclar/tablo/impasto.js';
 // ---------- görseller (CC0 / kamu malı; araclar/ASSETS.md) ----------
 const AD = 'gorsel/aday/';
 const GORSEL = {
-  oda_otoportre: 'gorsel/otoportre_hasir_sapka_1887_met436532.jpg',
+  // v4: Theo'nun dairesinde belgelenen tablolar (DOGRULAMA §8). Met otoportresi 1887–88'de başkasına verilmişti; VGM'ninki Theo'da kaldı
+  oda_otoportre: 'gorsel/aday_v3/vgm_otoportre_hasir_sapka_1887_s0164V1962.jpg', oda_manzara: 'gorsel/aday_v3/vgm_theo_dairesinden_gorunum_1887_s0057V1962.jpg', oda_hasat: 'gorsel/aday_v3/vgm_hasat_1888_s0030V1962.jpg',
+  met_otoportre: 'gorsel/otoportre_hasir_sapka_1887_met436532.jpg',
   selvili_tarla: 'gorsel/selvili_bugday_tarlasi_1889_met436535.jpg',
   aycicek: AD + 'aycicekleri_1887_met436524.jpg', oda_aycicek: AD + 'aycicekleri_1887_met436524.jpg',
   selviler: AD + 'selviler_1889_met437980.jpg', irisler: AD + 'irisler_1889_getty90PA20.jpg',
@@ -23,7 +25,7 @@ const GORSEL = {
   yildizli: AD + 'yildizli_gece_1889_moma_gap.jpg',
   firtina: AD + 'firtinali_gok_bugday_1890_vgm_s0106V1962.jpg',
   sari_ev: AD + 'sari_ev_1888_vgm_f464_gap.jpg',
-  badem: AD + 'badem_cicegi_1890_vgm_s0176V1962.jpg',
+  badem: AD + 'badem_cicegi_1890_vgm_s0176V1962.jpg', oda_badem: AD + 'badem_cicegi_1890_vgm_s0176V1962.jpg',
   sairin_bahcesi: AD + 'sairin_bahcesi_1888_arles_aic14586.jpg',
   rhone: 'gorsel/aday_v3/rhone_yildizli_gece_1888_orsay.jpg',
   // v3: sergilenen eserler (C03 1888, F08 1890; vangoghletters 582 n. 9, 854 n. 7; künye ASSETS.md)
@@ -138,7 +140,7 @@ function bademKesMaske(c, B, x0, y0, aci, u, gen = 560) {
 export function planlariKur(M, IMG, FIG) {
   const BK = bademKes(IMG.badem);
   const TM = [TK[0] + TK[2] / 2, TK[1] + TK[3] / 2];
-  const tabloMaske = (kam, a = 1) => { const c = M.camK(kam, .3); mRect(c, TK[0] - 4, TK[1] - 4, TK[2] + 8, TK[3] + 8, a, 2); };
+  const tabloMaske = (kam, a = 1, k = 'oda_otoportre') => { const c = M.camK(kam, .3), R = TKf(IMG[k]); mRect(c, R[0] - 4, R[1] - 4, R[2] + 8, R[3] + 8, a, 2); };
   const theo = (t, S) => { const k = kare(FIG.theo_oda, t); if (k) figurDarbe(S, blenderKaynak(k), { W, gunes: ODA.LAMBA, hava: [.1, .09, .085], havaK: .25, cz: Math.floor(t * 15), altin: [1, .86, .62], kenarKirik: .45, kenarAlfa: .85 }); };
   // A01 · genis · ODA gece: kancanın odası (kapak A): lamba, sırtı dönük Theo, şövalede tek renkli tuval; yavaş yaklaşma
   plan({ id: 'A01', at: 'A01', sahne: 'oda', olcek: 'genis', not: 'Kapak A odası: Theo, lamba, renkli tuval',
@@ -237,8 +239,8 @@ export function planlariKur(M, IMG, FIG) {
   // B06 · orta · ODA (rue Lepic, aynı daire: atölye): Vincent şövalenin başında, sırttan; "atölye"de şövaledeki tablo renge döner
   plan({ id: 'B06', at: 'B06', sahne: 'oda', olcek: 'orta', not: 'Odalardan biri atölye: şövalede renkli tablo',
     kamera: kamYol([900, 520, 1.45], [940, 500, 1.55], u => u),
-    durum: st => ({ isik: 'ogle', tablo: 'oda_otoportre', figur: (t, S) => figurBas(S, FIG.vincent_dur, t, [520, 1020], 560, { gunes: [200, 200] }) }),
-    maske: (st, kam) => { const ta = A('B06@atölye') - st.at; tabloMaske(kam, sm(ta, ta + .8, st.lt)); } });
+    durum: st => ({ isik: 'ogle', tablo: 'oda_manzara', figur: (t, S) => figurBas(S, FIG.vincent_dur, t, [520, 1020], 560, { gunes: [200, 200] }) }),
+    maske: (st, kam) => { const ta = A('B06@atölye') - st.at; tabloMaske(kam, sm(ta, ta + .8, st.lt), 'oda_manzara'); } });
 
   // B07 · orta · TARLA (akşam, park yolu): Theo ile Jo aralarında bir adım; "hayır"da Jo döner ve uzaklaşır
   plan({ id: 'B07', at: 'B07', sahne: 'tarla', olcek: 'genis', not: 'Evlenme teklifi; Jo hayır der, uzaklaşır',
@@ -259,11 +261,11 @@ export function planlariKur(M, IMG, FIG) {
   for (const p of planlar()) if (MI[p.id]) p.isik = MI[p.id];
   // v3 renk kuralı: Vincent'in tablosu bir kez renklendiyse griye dönmez. Odadaki şövale tablosu (B06'daki ilk renklenmeden sonra) düşük doygunlukta renkli.
   //   Gri, çerçeveli portre siyah-beyaz anma fotoğrafı okunuyordu.
-  for (const p of planlar()) if (p.sahne === 'oda' && !p.maske && p.id !== 'A01') p.maske = (st, kam) => tabloMaske(kam, .7);
+  for (const p of planlar()) if (p.sahne === 'oda' && !p.maske && p.id !== 'A01') p.maske = (st, kam) => tabloMaske(kam, .7, (p.durum && p.durum(st).tablo) || 'oda_otoportre');
 }
 // kapak.html için: aynı setler ve yardımcılar
 export function kapakYardim(M, IMG, FIG) {
-  const tabloMaske = (kam, a = 1) => { const c = M.camK(kam, .3); mRect(c, TK[0] - 4, TK[1] - 4, TK[2] + 8, TK[3] + 8, a, 2); };
+  const tabloMaske = (kam, a = 1, k = 'oda_otoportre') => { const c = M.camK(kam, .3), R = TKf(IMG[k]); mRect(c, R[0] - 4, R[1] - 4, R[2] + 8, R[3] + 8, a, 2); };
   const Y = yigin(40, { renk: 'gri', tohum: 70 }), IZ = [];
   return { tabloMaske,
     theo: (t, S) => figurBas(S, FIG.theo_dur, t, [1640, 1240], 900, { gunes: ODA.LAMBA, adim: 2, hava: [.05, .05, .05], havaK: .3 }),
