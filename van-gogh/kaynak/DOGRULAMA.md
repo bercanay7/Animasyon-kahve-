@@ -122,3 +122,25 @@ Türkçe cümleler bizim çevirimiz (özgün metin kamu malı). Ekranda özgün 
 ## 7. Sergi duvarları (v3, 27 Kasım)
 - 1888 Bağımsızlar (22 Mart – 3 Mayıs): F316, F350, F359 (vangoghletters 582 n. 9; katalog no. 658–660).
 - 1890 Bağımsızlar (20 Mart – 27 Nisan): on eser (854 n. 7; katalog no. 832–841). F517 "büyük olasılıkla"; Ayçiçekleri F454 ya da F456 (not karar vermiyor; açıklamada belirtildi). F609 kayıp, yalnız siyah-beyaz fotoğrafı var.
+
+## 8. Theo'nun dairesindeki tablolar, tarih tarih (v4, 28 Kasım; araştırma ajanı, başkan özetledi)
+- **Düzeltme 1:** Met'in *Hasır Şapkalı Otoportre*'si (67.187.70a) "sanatçının hediyesi, yak. 1887–88" ile Asnières'de bir özel koleksiyona geçmiş. Theo'da durduğu belgelenmiyor. Yerine **VGM *Hasır Şapkalı Otoportre* (s0164V1962)**: "Ağustos–Eylül 1887'de kardeşi Theo'nun dairesinde bırakıldı".
+- **Düzeltme 2:** Met'in *Güller*'i (F 682) 13 Mayıs 1890'da Saint-Rémy'de bitti, kurumaya bırakıldı ve Haziran sonunda Auvers'e gönderildi (mektup 870, 872, 891 n. 4). Sonra annesine geçti. Theo'nun dairesinde gösterilmez.
+- **Badem Çiçeği:** 29 Nisan 1890'da gönderildi. 5 Haziran 1890'da "piyanonun üstüne astılar" (mektup 879 ve n. 11). Mayıs ziyaretinde dairedeydi.
+- **Jo'nun anısı** (Brieven 1914, s. LX–LXI): Mayıs 1890'da duvarlarda şunlar vardı:
+  - yatak odasında *Çiçek Açmış Meyve Bahçeleri*;
+  - yemek odasında *Patates Yiyenler*;
+  - oturma odasında "Arles'dan büyük manzara" (*Hasat*, F 412; mektup 771 ve 887) ve *Rhône Üzerinde Yıldızlı Gece*.
+- **Plan başına şövale tablosu:**
+
+  | Planlar | Tarih | Şövale tablosu | Kaynak |
+  |---|---|---|---|
+  | A01, B01–B03 bağlamı | 1887–88 | VGM Hasır Şapkalı Otoportre | — |
+  | B06 (rue Lepic atölyesi) | — | VGM *Theo'nun Dairesinden Görünüm* (1887) | — |
+  | C06, D01 | Eyl–Ara 1888 | *Hasat* (Ağustos 1888'den beri Theo'da) | — |
+  | D06 | Nis 1889 | *Hasat* | mektup 771 |
+  | F03 | 31 Oca 1890 | VGM *Yatak Odası* | 22 Aralık 1889'da Theo'ya döndü; mektup 830 |
+  | G01, G02 | 17–20 May 1890 | Badem Çiçeği | — |
+  | G05 | 6 Tem 1890 | Badem Çiçeği | — |
+  | G10 | Ağu 1890 | Badem Çiçeği | — |
+  | G11, H01 | 1891 | Badem Çiçeği | yalnız sahiplik: tablo ailede; dairede asılı olduğu iddia edilmez, ekranda yazılmaz |
