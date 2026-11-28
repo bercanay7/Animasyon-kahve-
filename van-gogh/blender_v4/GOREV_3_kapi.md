@@ -41,6 +41,22 @@ v3'teki klipler `van-gogh/blender/klip.js` + `figur_bpy.py` ile çizildi. Yeni k
   - A01: `isik` (lamba konumu, renk, güç).
 - **Saç, sakal, kumaş:** sade. Her tel değil, kütle. Darbeye çevrilince kütle okunur.
 
+## Hazır şablon değil, kendin modelle (kullanıcının kararı, 28 Kasım)
+Hazır giysi ve aksesuar şablonları "oyun gibi" ve dönem dışı çıktı: kot pantolon, ofis blazeri, kovboy şapkası, karton örtü. Bundan sonra:
+- **Beden (anatomi, rig):** MPFB2 ya da MakeHuman tabanı yalnız başlangıç noktası olarak kullanılabilir. Yüz ve oran kaynağa göre elle düzeltilir:
+  - Vincent: otoportreleri (sert elmacık, çökük yanak, kızıl sakal);
+  - Theo: 1887–1889 fotoğrafları;
+  - Jo: 1889 fotoğrafı.
+
+  Yüzler yaşayan birine benzememeli.
+- **Giysi, şapka, aksesuar:** Blender'da sen modellersin. Hazır şablon kullanılmaz; kullanılırsa tanınmayacak kadar değiştirilir.
+  - Dönem kalıbından yola çık: redingot ya da 1880'ler ceketi, yelek, dik yaka, işçi önlüğü ya da iş ceketi (*bourgeron*), bol pantolon.
+  - Yöntem: kalıp parçalarından dikiş (Blender *Cloth* + *Sewing*) ya da elle modelleme + *Solidify* + *Subdivision*, sonra kumaş simülasyonuyla doğal kıvrım.
+  - Hasır şapkayı örgü dokusu ve alçak tepesiyle modelle.
+  - Toplu görevde Jo'nun elbisesi ve bebeğin örgü battaniyesi de böyle.
+- Referans görseller (kamu malı otoportre ve fotoğraflar) `varlik/referans/` altında durur; depoya yalnız künyeleri girer.
+- Kullanıcı kararıyla bu iş daha uzun sürebilir; kalite önce gelir. Ama kapı yalnız üç klip: önce bunlar.
+
 ## Karakterler (dönem doğru, CLAUDE.md "Figür" kuralı)
 - **Theo:**
   - Koyu takım, yelek, beyaz dik yaka ve kravat. Yaka V biçiminde açık, kravat görünür.
