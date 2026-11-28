@@ -273,6 +273,7 @@ export function kapakYardim(M, IMG, FIG) {
   return { tabloMaske,
     theo: (t, S) => figurBas(S, FIG.theo_dur, t, [1640, 1240], 900, { gunes: ODA.LAMBA, adim: 2, hava: [.05, .05, .05], havaK: .3 }),
     // v3: kapak B'nin dalı da filmdeki gibi tablodan kesilir
-    cekmeceDurum: () => ({ nesneler: () => Y, ust: (t, S) => { const B = bademKes(IMG.badem); if (B) bademKesCiz(S, B, 760, 1060, -1.0, 1, 900); else { IZ.length = 0; bademDali(S, 700, 1040, -1.0, 1, 3, 1.7, IZ); } } }),
-    cekmeceMaske: (kam, m) => { const c = M.camK(kam, 0), B = bademKes(IMG.badem); if (B) bademKesMaske(c, B, 760, 1060, -1.0, 1, 900); else for (const [x, y, r] of IZ) mDaire(c, x, y, r, 1, 2); } };
+    // kapak boyunda tablodan kesilen dal benekli okunuyor: kapakta çizilmiş dal (v2'de onaylanan kapak)
+    cekmeceDurum: () => ({ nesneler: () => Y, ust: (t, S) => { IZ.length = 0; bademDali(S, 700, 1040, -1.0, 1, 3, 1.7, IZ); } }),
+    cekmeceMaske: (kam, m) => { const c = M.camK(kam, 0); for (const [x, y, r] of IZ) mDaire(c, x, y, r, 1, 2); } };
 }
