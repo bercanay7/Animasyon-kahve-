@@ -59,6 +59,7 @@ Bu dosya her oturuma kendiliğinden yüklenir. Bu yüzden içinde yalnız **bug�
    - (a) Türk izleyici bu adı tanıyor mu? `python3 araclar/talep/talep.py "sorgu" …` (otomatik tamamlama + ilk 10 izlenme). Kontrol satırı olarak kanalın eski konuları da aranır. Ne ölçtüğü: tanıdık ad başlıkta tıklamayı taşır; arama trafiği getirmez (trafiğin ~%80'i ana sayfa).
    - Türkçede boşluk, dünyada yankı: `araclar/talep/iki_dil.py "tr|en"`.
    - (b) Başlık ve kapak izleyiciye kendi hayatından bir soru soruyor mu?
+   - (c) **Arama niyeti (28 Kasım):** bu kelimeyi arayan kişi bizim anlatımımızı mı istiyor? "Narsisizm" arayan psikoloji testi, "I. Elizabeth" arayan tarih özeti istiyordu; iki video da aramadan 5–7 görüntüleme aldı. Niyete uyan uzun kuyruklu ifade seçilir ("Narkissos efsanesi", "Pandora'nın kutusu nedir", "panik kelimesinin kökeni").
    - Kontrol zayıfsa açı kullanıcıya önerilir; konuyu değiştirmek kullanıcının kararıdır.
    - Konu taramaları: `analiz/2026-11-1*-konu-adaylari*.md`, `2026-11-2*-turkce-*.md`, `2026-11-23-bosluk-2-ve-gilgamis.md`.
 2. **Kullanıcının fikri sorulur (kullanıcının kararı, 22 Kasım):** konu seçildikten sonra, iskeletten önce kısa ve seçenekli sorular sorulur.
@@ -122,6 +123,7 @@ Bu dosya her oturuma kendiliğinden yüklenir. Bu yüzden içinde yalnız **bug�
     - **Konu dışı Shorts yapılmaz:** Shorts sekmesi kanalın kimliğini taşır; ilgisiz bilgi Shorts'ları kanalı iki ayrı kanal gibi gösteriyordu (`analiz/2026-11-27-marka-altyapi.md`).
 13. **Yayın paketi ve teslim:**
     - `yayin.md`: başlık, bölüm zaman damgalı açıklama, künye ve kaynaklar, etiketler, SRT, bitiş ekranı, kapak testi.
+    - Arama: niyete uyan ana kelime açıklamanın ilk cümlesinde ve anlatımda geçer; bölüm damgalarının adları ikincil arama ifadeleriyle yazılır; yüklenen dosyanın adı ana kelimedir (etkisi küçük, maliyeti yok).
     - Bitiş ekranı tarifi son karenin kendisinden yazılır.
     - **Videolar birbirine bağlanır:** bitiş ekranında anlatımın adını verdiği video kalır, ikinci öğe aynı şeritteki komşu video ya da oynatma listesi olur; sabit yorum da ona bağlanır. Yeni video yayına girince bir önceki videonun bitiş ekranına eklenir. (27 Kasım öncesi bitiş ekranı payı %0,1.)
     - Üç kopya:
