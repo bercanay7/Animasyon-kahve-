@@ -89,7 +89,7 @@ export function nesne(S, it) {
     for (const [u0, v0, u1, v1] of [[-w / 2, -h / 2, w / 2, -h / 2], [w / 2, -h / 2, w / 2, h / 2], [w / 2, h / 2, -w / 2, h / 2], [-w / 2, h / 2, -w / 2, -h / 2]]) cizgi(S, it, u0, v0, u1, v1, cc, f, 1, it.tohum + u0);
   } else if (t === 'tuvalsirt') {
     // v3: tuvalin arkası: açık keten + yalnız çevre çıtası (ara çıta yok: çapraz çıta haç okunur)
-    govde(S, it, [.72, .66, .55], { wid: Math.max(6, it.h / 8), tonOyna: .1 }); const f = Math.max(5, it.w * .07), cc = [.42, .33, .23], w = it.w, h = it.h;
+    govde(S, it, [.5, .45, .37], { wid: Math.max(6, it.h / 8), tonOyna: .15 }); const f = Math.max(5, it.w * .09), cc = [.26, .2, .14], w = it.w, h = it.h;
     for (const [u0, v0, u1, v1] of [[-w / 2 + f / 2, -h / 2 + f / 2, w / 2 - f / 2, -h / 2 + f / 2], [w / 2 - f / 2, -h / 2 + f / 2, w / 2 - f / 2, h / 2 - f / 2], [w / 2 - f / 2, h / 2 - f / 2, -w / 2 + f / 2, h / 2 - f / 2], [-w / 2 + f / 2, h / 2 - f / 2, -w / 2 + f / 2, -h / 2 + f / 2]]) cizgi(S, it, u0, v0, u1, v1, cc, f, 1, it.tohum + v0);
   } else if (t === 'kitap') {
     // v3: tepeden kitap: sayfa bloğu (sağ ve alt kenarda krem şerit), cilt kapağı, solda koyu sırt ve iki altın bant (tek çizgili koyu levha kara tahta okunuyordu)

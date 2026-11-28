@@ -243,7 +243,7 @@ export function planlariKur(M, IMG, FIG) {
   plan({ id: 'B06', at: 'B06', sahne: 'oda', olcek: 'orta', not: 'Odalardan biri atölye: şövalede renkli tablo',
     kamera: kamYol([900, 520, 1.45], [940, 500, 1.55], u => u),
     durum: st => ({ isik: 'ogle', tablo: 'oda_manzara', figur: (t, S) => figurBas(S, FIG.vincent_dur, t, [520, 1020], 560, { gunes: [200, 200] }) }),
-    maske: (st, kam) => { const ta = A('B06@atölye') - st.at; tabloMaske(kam, sm(ta, ta + .8, st.lt), 'oda_manzara'); } });
+    maske: (st, kam) => { const ta = A('B06@odalardan') - st.at; tabloMaske(kam, sm(ta, ta + .8, st.lt), 'oda_manzara');   /* tarama: 'atölye'de açılınca tam renk 0,4 sn kalıyordu */ } });
 
   // B07 · orta · TARLA (akşam, park yolu): Theo ile Jo aralarında bir adım; "hayır"da Jo döner ve uzaklaşır
   plan({ id: 'B07', at: 'B07', sahne: 'tarla', olcek: 'genis', not: 'Evlenme teklifi; Jo hayır der, uzaklaşır',

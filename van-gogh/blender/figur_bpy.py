@@ -178,7 +178,7 @@ def kurye(k):
       # v3: bebek omuzda (sırttan bakınca başı omzun üstünden görünür): dik gri battaniye göğüste, baş omuz hizasının üstünde; beyaz değil (kefen okunmasın)
       c = go + gy * .2 + gx * .14 - gz * .02   # v3: omzun üstünde ve arkasında: sırttan bakınca açık battaniye omza dökülür
       L.append(deri('battaniye', [c - gy * .2 - gz * .03, c + gy * .07], [(0, 1)], [(.11, .09), (.09, .08)], M['battaniye'], sub=2))
-      bpy.ops.mesh.primitive_uv_sphere_add(radius=.05, location=c + gy * .15 + gx * .01, segments=24, ring_count=12); bb = bpy.context.object; bb.data.materials.append(M['bebek']); bpy.ops.object.shade_smooth(); L.append(bb)   # baş: küre (iki noktalı deri yassı disk veriyordu)
+      bpy.ops.mesh.primitive_uv_sphere_add(radius=.05, location=c + gy * .1 - gx * .025 + gz * .01, segments=24, ring_count=12); bb = bpy.context.object; bb.data.materials.append(M['bebek']); bpy.ops.object.shade_smooth(); L.append(bb)   # baş: küre (iki noktalı deri yassı disk veriyordu)
       P_ek = [c + gy * .25]
     if KOS['canta']:
       # çanta ve kayış

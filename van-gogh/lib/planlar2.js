@@ -78,7 +78,7 @@ export function planlar2(M, IMG, FIG, H) {
   // C06 · orta · ODA gece: Theo masaya eğilmiş mektup okur
   plan({ id: 'C06', at: 'C06', sahne: 'oda', olcek: 'orta', not: 'Sanatçılara para verirken sen de sanatçı işi yapıyorsun',
     kamera: kamYol([1180, 600, 1.35], [1220, 610, 1.45], u => u),
-    durum: st => ({ tablo: 'oda_hasat', isik: 'gece', figur: (t, S) => figurBas(S, FIG.theo_oku, t, [1260, 1160], 640, { gunes: ODA.LAMBA }) }) });
+    durum: st => ({ tablo: 'oda_hasat', isik: 'gece', figur: (t, S) => figurBas(S, FIG.theo_egil, t + 3, [1240, 1160], 640, { gunes: ODA.LAMBA, dongu: false }) }) });   /* tarama: masaya eğilen pozda uzak el belde kolsuz çıkıntıydı */
   // C07 · yakin · YATAK ODASI tablosu kadrajı doldurur, kamera yaklaşır (renkli)
   tabloPlan('C07', 'C07', 'yatak', 'yakin', 'Yatak Odası tablosu', kamYol([960, 540, 1.0], [960, 560, 1.18], u => u));
   // C08 · ayrinti · MASA gece (v3): mektup masada; "ikimizin"de bir sarı (Vincent'in) ve bir gri (Theo'nun) zarf iki yandan kayar, "birlikte"de yan yana durur.
@@ -182,8 +182,8 @@ export function planlar2(M, IMG, FIG, H) {
   // F03 · yakin · ODA (kış, v3): "oğlu doğar": Jo kucağında bebekle, Theo bebeğe eğilir (tek figür eğilir). Bebek burada ekilir (G02, G04, H01).
   plan({ id: 'F03', at: 'F03', sahne: 'oda', olcek: 'yakin', not: 'Oğul doğar: Jo kucağında bebek, Theo eğilir',
     kamera: kamYol([980, 640, 1.42], [1000, 650, 1.5], u => u),
-    durum: st => ({ tablo: 'oda_yatak', isik: 'kis', figur: (t, S) => { figurBas(S, FIG.theo_egil, t - (cIdx(st, 'F03@oğlu') - 1.2), [800, 1090], 640, { gunes: [350, 300], dongu: false, adim: 2 });
-      figurBas(S, FIG.jo_yan, t, [1170, 1090], 610, { gunes: [350, 300], adim: 2 }); } }) });   /* v3: bebek F03b'deki adla anlatılır (yakın planda omuzdaki küçük baş ikinci baş okunuyordu) */
+    durum: st => ({ tablo: 'oda_yatak', isik: 'kis', figur: (t, S) => { figurBas(S, FIG.theo_egil, t - (cIdx(st, 'F03@oğlu') - 1.2), [960, 1090], 640, { gunes: [350, 300], dongu: false, adim: 2 });
+      figurBas(S, FIG.jo_bebek, t, [1340, 1090], 610, { gunes: [350, 300], adim: 2 }); } }) });   /* tarama: bebek yoktu ve Jo Yatak Odası'nı örtüyordu */   /* v3: bebek F03b'deki adla anlatılır (yakın planda omuzdaki küçük baş ikinci baş okunuyordu) */
   // F03b · ayrinti · MASA (gece): Theo'nun Vincent'e mektubu (31 Ocak 1890); "amcasından"da ad satırların altında ayrı bir satıra mürekkeple yazılır: Vincent
   const F3k = kamYol([960, 430, 1.55], [960, 440, 1.62], u => u);
   plan({ id: 'F03b', at: 'F03@adını', sahne: 'masa', olcek: 'ayrinti', not: 'Mektupta "Vincent" adı yazılır', kamera: F3k,
@@ -243,7 +243,7 @@ export function planlar2(M, IMG, FIG, H) {
     durum: st => { const th = cIdx(st, 'G05@hastalanır'), ta = cIdx(st, 'G05@ayrılmayı'), tg = cIdx(st, 'G05@gergin'), tz = cIdx(st, 'G05@zam'); return { tablo: 'oda_badem', isik: 'ogle', alev: () => .2,
       nesneler: t => (t > tz ? [{ tur: 'zarf', renk: 'gri', yuz: 'on', x: 1290, y: 872, w: 80, h: 34, rot: .1, tohum: 1800, kalinlik: false, a: sm(tz, tz + .5, t) }] : []),
       figur: (t, S) => { if (t < tg - .3) figurBas(S, FIG.vincent_dur, t, [420, 1000], 500); else figurBas(S, FIG.vincent_yuru, (t - tg + .3) * .9, [420, 1000], 500, { dongu: false });
-        figurBas(S, FIG.theo_don, t - (ta - 2.2), [700, 1000], 520, { dongu: false }); figurBas(S, FIG.jo_egil, t - (th - 2.1), [1180, 995], 470, { dongu: false }); } }; } });   // Jo sola dönük, beşik önünde
+        figurBas(S, FIG.theo_don, t - (ta - 2.2), [700, 1000], 520, { dongu: false }); figurBas(S, FIG.jo_egil, t - (th - 2.1), [1380, 995], 470, { dongu: false }); } }; } });   /* tarama: Jo tablonun önünü kapatıyordu */   // Jo sola dönük, beşik önünde
   // G06 · genis · FIRTINALI GÖK ALTINDA BUĞDAY TARLASI: gri dünya; "tarlaları"nda renk tarladan yükselir
   tabloPlan('G06', 'G06', 'firtina', 'genis', 'Uçsuz bucaksız buğday tarlaları: renk', kamYol([960, 560, 1.06], [960, 540, 1.0], u => u),
     { maske: (st, kam) => { const tt = cIdx(st, 'G06@tarlaları'), c = M.camK(kam, .72); mDaire(c, 960, 1300, 1500 * io(clamp((st.lt - tt) / 2.4)), 1, 18); } });
@@ -272,7 +272,7 @@ export function planlar2(M, IMG, FIG, H) {
   const G10z = Array.from({ length: 9 }, (_, i) => ({ tur: 'zarf', renk: 'sari', yuz: hsh(i, 4) < .5 ? 'on' : 'arka', x: 1430 + (hsh(i, 1) - .5) * 70, y: 872 + (hsh(i, 2) - .5) * 14 - i * 2, w: 74, h: 30, rot: (hsh(i, 3) - .5) * .3, tohum: 1500 + i, kalinlik: false }));
   plan({ id: 'G10', at: 'G10', sahne: 'oda', olcek: 'orta', not: 'Ah anneciğim: Theo ve sarı zarflar',
     kamera: kamYol([1150, 720, 1.25], [1330, 800, 1.6], u => u),
-    durum: st => ({ tablo: 'oda_badem', isik: 'gece', nesneler: () => G10z, figur: (t, S) => figurBas(S, FIG.theo_oku, t + 1, [1000, 1180], 560, { gunes: ODA.LAMBA }) }),
+    durum: st => ({ tablo: 'oda_badem', isik: 'gece', nesneler: () => G10z, figur: (t, S) => figurBas(S, FIG.theo_egil, t + 3, [1000, 1180], 560, { gunes: ODA.LAMBA, dongu: false }) }),
     maske: (st, kam) => { const c = M.camK(kam, .3); for (const it of G10z) nesneMaske(c, it); tabloMaske(kam, .7, 'oda_badem'); } });   // şövaledeki Badem Çiçeği renkli (v4: Güller o tarihte Theo'da değildi)
   // G11 · ayrinti · ODA (kış): G10'un ilk kamera noktası; Theo yok, zarflar yok; lamba cümle bitince söner; kış ışığı masada kayar
   plan({ id: 'G11', at: 'G11', sahne: 'oda', olcek: 'ayrinti', not: 'Theo da öldü: boş masa, lamba söner',
