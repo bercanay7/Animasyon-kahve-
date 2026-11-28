@@ -13,3 +13,4 @@ blender_v4/varlik/
 blender_v4/*.blend
 blender_v4/*.blend1
 !gpu_test/oda_hareket*.mp4
+!blender_v4/onizleme/*.mp4
